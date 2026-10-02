@@ -35,6 +35,24 @@ log = logging.getLogger(__name__)
 
 Progress = Callable[[str], None]
 
+# HTML engines cast a wide net and return homonym noise (ROS → "reactive oxygen
+# species", "Pinocchio" → the fairy tale). Structured engines match server-side.
+# The gate below only discards low-overlap results from the former.
+WEB_ENGINES = frozenset({"bing", "sogou", "so360", "searxng"})
+
+
+def _content_tokens(text: str) -> set[str]:
+    return {t for t in re.split(r"[^0-9a-z一-鿿]+", (text or "").lower()) if len(t) >= 2}
+
+
+def _is_offtopic(res: SearchResult, query_tokens: set[str], keywords: set[str]) -> bool:
+    text = f"{res.title} {res.snippet}".lower()
+    if any(kw in text for kw in keywords):
+        return False
+    if len(_content_tokens(text) & query_tokens) >= 2:
+        return False
+    return res.engine in WEB_ENGINES
+
 DEPTH_PRESETS: dict[str, dict[str, int]] = {
     "quick": {"max_subquestions": 3, "max_rounds": 1, "results_per_subquestion": 4, "fetch_top_n": 2, "candidates": 12},
     "standard": {"max_subquestions": 5, "max_rounds": 2, "results_per_subquestion": 6, "fetch_top_n": 4, "candidates": 24},
@@ -182,6 +200,8 @@ class DeepResearchEngine:
         self.all_skills: dict[str, Skill] = load_skills(self.home)
         skill_names = list(getattr(cfg.research, "skills", []) or [])
         self.skills: list[Skill] = select_skills(self.all_skills, skill_names)
+        # Populated per-run from the topic; drives the relevance gate.
+        self._topic_keywords: set[str] = set()
 
     # ------------------------------------------------------------------ utils
     def _say(self, progress: Progress | None, message: str) -> None:
@@ -289,7 +309,21 @@ class DeepResearchEngine:
         }
 
     # --------------------------------------------------------------- retrieve
+    def _filter_relevant(self, results: list[SearchResult], sub: SubQuestion) -> list[SearchResult]:
+        query_tokens = _content_tokens(" ".join([sub.question, *sub.queries]))
+        keywords = self._topic_keywords
+        if not keywords and not query_tokens:
+            return results
+        kept = [r for r in results if not _is_offtopic(r, query_tokens, keywords)]
+        if kept:
+            return kept
+        # Never let the gate empty a sub-question: fall back to dropping only the
+        # noisiest (HTML) engines' results.
+        return [r for r in results if r.engine not in WEB_ENGINES] or results
+
     def _rank_results(self, results: list[SearchResult], sub: SubQuestion, max_keep: int, recency_days: int) -> list[SearchResult]:
+        results = self._filter_relevant(results, sub)
+
         def score(res: SearchResult) -> float:
             s = float(res.extra.get("rrf_score") or 0)
             if sub.prefer and res.engine in sub.prefer:
@@ -566,6 +600,9 @@ class DeepResearchEngine:
 
         started = now_utc()
         registry = SourceRegistry()
+        self._topic_keywords = {
+            str(k).strip().lower() for k in (topic.keywords or []) if str(k).strip()
+        } | {topic.name.lower()}
         self._say(progress, f"[plan] topic={topic.name} depth={depth} rounds={max_rounds}")
 
         plan = self.plan(topic, query, max_subquestions)

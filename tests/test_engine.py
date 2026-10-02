@@ -71,6 +71,48 @@ def test_rank_results_prefers_preferred_engine_and_kind():
     assert ranked[0].title == "paper"
 
 
+def test_relevance_gate_drops_offtopic_web_results():
+    engine = _engine()
+    engine._topic_keywords = {"ros 2", "dds", "zenoh"}
+    sub = SubQuestion(
+        id="q1",
+        question="ROS 2 real-time executor DDS tuning",
+        queries=["ROS 2 realtime executor DDS benchmark"],
+    )
+    noise = SearchResult(
+        title="Reactive oxygen species",
+        url="https://baike.example/ros",
+        snippet="活性氧（ROS）是生物体内的一类含氧分子。",
+        engine="bing",
+        kind="web",
+    )
+    paper = SearchResult(
+        title="Real-time executor analysis for ROS 2",
+        url="https://arxiv.org/abs/1234",
+        snippet="We analyse the ROS 2 executor and DDS tuning.",
+        engine="arxiv",
+        kind="paper",
+    )
+    titles = [r.title for r in engine._rank_results([noise, paper], sub, max_keep=5, recency_days=9999)]
+    assert "Reactive oxygen species" not in titles
+    assert "Real-time executor analysis for ROS 2" in titles
+
+
+def test_relevance_gate_keeps_academic_results_with_low_overlap():
+    engine = _engine()
+    engine._topic_keywords = {"vla", "vision-language-action"}
+    sub = SubQuestion(id="q1", question="VLA foundation models", queries=["vision language action model survey"])
+    paper = SearchResult(
+        title="Unexpected result",
+        url="https://arxiv.org/abs/9",
+        snippet="an abstract that shares no query terms",
+        engine="arxiv",
+        kind="paper",
+    )
+    ranked = engine._rank_results([paper], sub, max_keep=5, recency_days=9999)
+    assert [r.title for r in ranked] == ["Unexpected result"]
+
+
 def test_candidate_block_contains_citation_numbers():
     engine = _engine()
     reg = SourceRegistry()

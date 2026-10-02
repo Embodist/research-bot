@@ -40,6 +40,23 @@ ENGINE_REGISTRY: dict[str, Callable[[Any], Engine]] = {
     "searxng": SearxngEngine,
 }
 
+# RRF trust weights. Structured/academic engines match the query server-side and
+# return citable metadata, so they should outrank broad-recall HTML engines —
+# which are noisy (homonym collisions like ROS → "reactive oxygen species") even
+# when they match the same rank.
+ENGINE_WEIGHTS: dict[str, float] = {
+    "arxiv": 1.5,
+    "openalex": 1.4,
+    "semantic_scholar": 1.4,
+    "crossref": 1.2,
+    "github": 1.2,
+    "searxng": 0.9,
+    "bing": 0.6,
+    "sogou": 0.6,
+    "so360": 0.5,
+}
+DEFAULT_ENGINE_WEIGHT = 0.7
+
 
 class SearchRouter:
     def __init__(self, cfg: Any) -> None:
@@ -136,7 +153,8 @@ def rrf_fuse(pairs: list[tuple[str, SearchResult, int]], k: int = 60, cap: int =
         if not res.title and not res.url:
             continue
         key = _dedup_key(res)
-        scores[key] = scores.get(key, 0.0) + 1.0 / (k + rank + 1)
+        weight = ENGINE_WEIGHTS.get(_source, DEFAULT_ENGINE_WEIGHT)
+        scores[key] = scores.get(key, 0.0) + weight / (k + rank + 1)
         cur = best.get(key)
         if cur is None:
             best[key] = res

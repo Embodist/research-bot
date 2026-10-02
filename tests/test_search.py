@@ -40,6 +40,16 @@ def test_rrf_fuse_skips_empty():
     assert out == []
 
 
+def test_rrf_weights_academic_engines_above_html():
+    # Same rank on each engine; the arXiv hit must outrank the so360 hit.
+    pairs = [
+        ("so360", _res("Junk", "https://so.com/junk"), 0),
+        ("arxiv", _res("Paper", "https://arxiv.org/abs/1"), 0),
+    ]
+    out = rrf_fuse(pairs)
+    assert [r.title for r in out] == ["Paper", "Junk"]
+
+
 def test_parse_bing_html():
     html = """
     <li class="b_algo"><h2><a href="https://arxiv.org/abs/2406.09246">OpenVLA: An Open-Source VLA</a></h2>
