@@ -98,19 +98,45 @@ def test_relevance_gate_drops_offtopic_web_results():
     assert "Real-time executor analysis for ROS 2" in titles
 
 
-def test_relevance_gate_keeps_academic_results_with_low_overlap():
+def test_relevance_gate_drops_offtopic_academic_results():
+    # Crossref-style loose match: query term "pi0" collides with π⁰ meson physics.
     engine = _engine()
     engine._topic_keywords = {"vla", "vision-language-action"}
-    sub = SubQuestion(id="q1", question="VLA foundation models", queries=["vision language action model survey"])
-    paper = SearchResult(
-        title="Unexpected result",
-        url="https://arxiv.org/abs/9",
-        snippet="an abstract that shares no query terms",
-        engine="arxiv",
+    sub = SubQuestion(
+        id="q1",
+        question="VLA foundation models",
+        queries=["pi0 flow matching vision language action robot policy"],
+    )
+    junk = SearchResult(
+        title="A Study of the decay pi0 -> e+ e- e+ e-",
+        url="https://example.org/pi0-decay",
+        snippet="particle physics branching fraction measurement",
+        engine="crossref",
         kind="paper",
     )
-    ranked = engine._rank_results([paper], sub, max_keep=5, recency_days=9999)
-    assert [r.title for r in ranked] == ["Unexpected result"]
+    ranked = engine._rank_results([junk], sub, max_keep=5, recency_days=9999)
+    assert ranked == []
+
+
+def test_relevance_gate_drops_generic_word_matches():
+    # "best practices" / "project" are too generic to prove relevance.
+    engine = _engine()
+    engine._topic_keywords = {"c++ robotics", "cmake", "eigen"}
+    sub = SubQuestion(
+        id="q1",
+        question="CMake modern robotics project best practices",
+        queries=["CMake modern robotics project best practices 2025"],
+    )
+    junk = SearchResult(
+        title="Best Practices with Online Playtesting",
+        url="https://example.org/playtest",
+        snippet="project management for game studios",
+        engine="openalex",
+        kind="paper",
+    )
+    ranked = engine._rank_results([junk], sub, max_keep=5, recency_days=9999)
+    assert ranked == []
+
 
 
 def test_candidate_block_contains_citation_numbers():

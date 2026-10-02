@@ -36,22 +36,35 @@ log = logging.getLogger(__name__)
 Progress = Callable[[str], None]
 
 # HTML engines cast a wide net and return homonym noise (ROS → "reactive oxygen
-# species", "Pinocchio" → the fairy tale). Structured engines match server-side.
-# The gate below only discards low-overlap results from the former.
-WEB_ENGINES = frozenset({"bing", "sogou", "so360", "searxng"})
+# species", "Pinocchio" → the fairy tale); keyword-matching academic engines
+# (Crossref/OpenAlex) also return loose matches ("pi0" → π⁰ meson physics). The
+# gate below applies to every engine: a hit is kept only if it contains a topic
+# keyword or overlaps the query on at least two *distinctive* terms.
+#
+# Query words too generic to prove relevance on their own.
+_GENERIC_TOKENS = frozenset({
+    "best", "practices", "practice", "project", "projects", "modern", "study", "studies",
+    "analysis", "survey", "review", "learning", "model", "models", "data", "dataset",
+    "datasets", "using", "based", "evaluation", "evaluate", "performance", "research",
+    "paper", "papers", "method", "methods", "approach", "approaches", "overview", "guide",
+    "introduction", "tutorial", "application", "applications", "system", "systems", "new",
+    "recent", "towards", "toward", "state", "art", "case",
+})
 
 
 def _content_tokens(text: str) -> set[str]:
     return {t for t in re.split(r"[^0-9a-z一-鿿]+", (text or "").lower()) if len(t) >= 2}
 
 
-def _is_offtopic(res: SearchResult, query_tokens: set[str], keywords: set[str]) -> bool:
+def _distinctive_tokens(text: str) -> set[str]:
+    return {t for t in _content_tokens(text) if t not in _GENERIC_TOKENS}
+
+
+def _is_offtopic(res: SearchResult, distinct_query: set[str], keywords: set[str]) -> bool:
     text = f"{res.title} {res.snippet}".lower()
     if any(kw in text for kw in keywords):
         return False
-    if len(_content_tokens(text) & query_tokens) >= 2:
-        return False
-    return res.engine in WEB_ENGINES
+    return len(_distinctive_tokens(text) & distinct_query) < 2
 
 
 def _heat_text(res: SearchResult) -> str:
@@ -323,16 +336,13 @@ class DeepResearchEngine:
 
     # --------------------------------------------------------------- retrieve
     def _filter_relevant(self, results: list[SearchResult], sub: SubQuestion) -> list[SearchResult]:
-        query_tokens = _content_tokens(" ".join([sub.question, *sub.queries]))
+        distinct_query = _distinctive_tokens(" ".join([sub.question, *sub.queries]))
         keywords = self._topic_keywords
-        if not keywords and not query_tokens:
+        if not keywords and not distinct_query:
             return results
-        kept = [r for r in results if not _is_offtopic(r, query_tokens, keywords)]
-        if kept:
-            return kept
-        # Never let the gate empty a sub-question: fall back to dropping only the
-        # noisiest (HTML) engines' results.
-        return [r for r in results if r.engine not in WEB_ENGINES] or results
+        # If nothing clears the bar the sub-question is left empty on purpose: a
+        # gap marked for follow-up beats fabricating relevance from junk.
+        return [r for r in results if not _is_offtopic(r, distinct_query, keywords)]
 
     def _rank_results(self, results: list[SearchResult], sub: SubQuestion, max_keep: int, recency_days: int) -> list[SearchResult]:
         results = self._filter_relevant(results, sub)
