@@ -186,7 +186,9 @@ Skills configured in `research.skills` are injected into every planner/researche
 
 A topic = a standing research beat. Each `topics/<name>.yaml` combines seed queries, target venues, and a
 curated seed catalogue (classic papers / projects / datasets) so a useful report is possible even when the
-network is restricted. Ships with: `vla`, `embodied-ai`, `kinematics`, `cpp-robotics`, `ros2`.
+network is restricted. Ships with: `vla`, `embodied-ai`, `kinematics`, `cpp-robotics`, `ros2`,
+`cybersecurity`, `ai`, `music-audio`, and embodied sub-directions `embodied-humanoid`,
+`embodied-manipulation`, `embodied-world-models`.
 
 Add your own:
 
