@@ -162,13 +162,17 @@ git push origin main
 6. **降级行为**：LLM 不可用时仍会产出「源码接地」的降级报告；搜索引擎被墙则按熔断逐个剔除——CI 不会因网络
    受限而失败，但报告可能因此变薄。
 7. **`.claude/` 曾含明文 `ANTHROPIC_AUTH_TOKEN`**，已加入 `.gitignore`（不提交）。`report/push-log.jsonl`
-   含收件邮箱，同样不提交。
+   含收件邮箱，也已加入 `.gitignore`（此前会被 CI 的 `git add report/` 误提交，2026-10-02 修复）；它仍作为
+   CI artifact 上传以便审计，只是不入 git 历史。
 8. **GitHub Actions 容器任务的 `sh` 陷阱（2026-10-02）**：`container:` 任务的所有 `run:` 步骤默认用镜像里的
    `sh -e {0}` 执行（**不是 bash**），因此 bash 专有语法（`ARGS=(...)` 数组、`set -o pipefail`）会报
    `Syntax error: "(" unexpected`；且容器内 checkout 属主是 runner uid，第一条 git 命令会报
    `fatal: not in a git directory`。修复：脚本保持 POSIX 兼容（用位置参数 `set --` 代替数组），并在 commit
    前 `git config --global --add safe.directory "$GITHUB_WORKSPACE"`；工作流另把 `defaults.run.working-directory`
    钉到 workspace。详见 `docs/github-actions.md`。
+9. **CI 提交回写的竞态（2026-10-02）**：daily 任务运行数分钟，期间 `main` 可能已被手动推送推进，
+   `git push` 会因 non-fast-forward 被拒（`fetch first`）。修复：commit 后先 `git pull --rebase origin main`
+   再 push。若同一天同一 topic 已有报告，rebase 可能冲突并失败——属可接受的显式失败。
 
 ## 11. 待办 / 下一步
 

@@ -33,7 +33,10 @@ is checked out and mounted at run time, so editing code never requires rebuildin
 > fails with `Syntax error: "(" unexpected`. Keep job scripts POSIX-only. Also, the checkout inside the
 > container is owned by the runner uid, so the first git command fails with `fatal: not in a git
 > directory` until the workspace is trusted: `git config --global --add safe.directory "$GITHUB_WORKSPACE"`.
-> The daily workflow pins `defaults.run.working-directory` to the workspace and does both.
+> The daily workflow pins `defaults.run.working-directory` to the workspace and does both. Because the job
+> runs for minutes and `main` can move underneath it, the commit-back step rebases
+> (`git pull --rebase origin main`) before pushing, so a concurrent/manual push does not reject it with
+> `fetch first`.
 
 Run the same image locally without installing Python:
 
