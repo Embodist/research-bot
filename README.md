@@ -10,6 +10,12 @@ web search backends, fetches and reads the primary sources, extracts graded evid
 coverage, then writes a cited Markdown report — and emails it to you. Every run is recorded under
 [`report/`](report/) (`index.json` + `push-log.jsonl`).
 
+> **Status (verified).** The daily GitHub Actions workflow runs green end-to-end
+> ([→ run](https://github.com/Embodist/research-bot/actions)): install → `rb doctor` → research → commit
+> reports → upload artifacts. Nine search engines (including your SearXNG) pass the connectivity check;
+> 45 offline tests and lint pass. The only remaining setup for daily **email** delivery is your SMTP
+> credentials — see [docs/email.md](docs/email.md) and `scripts/set_github_secrets.py`.
+
 ---
 
 ## Table of contents
@@ -278,13 +284,22 @@ implementation runs standalone so it stays reliable in CI.
 ## Development
 
 ```bash
-uv venv .venv && uv pip install --python .venv/bin/python -e ".[dev]"
-.venv/bin/pytest
-.venv/bin/ruff check src tests
+make help                 # list all management targets
+make install              # uv venv + editable install
+make test                 # pytest (offline)
+make lint                 # ruff
+make doctor               # live connectivity check
+make run TOPIC=vla DEPTH=quick
+make run-all              # every topic + email
+make report               # report/push ledger
+make secrets REPO=Owner/repo   # push SMTP/LLM secrets to GitHub Actions
+make schedule             # print a crontab line for a local daily run
 ```
 
 Layout: `src/research_bot/` (package) · `skills/` · `topics/` · `config/` · `report/` · `scripts/` ·
-`.github/workflows/`. See [`AGENTS.md`](AGENTS.md) and [`docs/`](docs/) for depth.
+`.github/workflows/`. See [`AGENTS.md`](AGENTS.md), [`docs/architecture.md`](docs/architecture.md),
+[`docs/github-actions.md`](docs/github-actions.md), [`docs/email.md`](docs/email.md),
+[`docs/scheduling.md`](docs/scheduling.md) and [`docs/skills-and-sources.md`](docs/skills-and-sources.md).
 
 ## Troubleshooting
 
