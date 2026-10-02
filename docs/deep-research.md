@@ -285,6 +285,10 @@ report/
 
 ### 2.8 CLI（`rb`）
 
+`rb` 是**本项目自己注册的 console script**（`pyproject.toml`：`rb = "research_bot.cli:main"`），
+**不是第三方依赖**——运行时依赖只有 `httpx` + `PyYAML`。它与 `python -m research_bot` 完全等价
+（`research-bot` 是同一入口的长别名），不想要 `rb` 时用 `python -m research_bot <command>` 即可。
+
 | 命令 | 用途 |
 | --- | --- |
 | `rb run` | 跑流水线（`--topic/--query/--depth/--rounds/--no-fetch/--email/--dry-run-email/--json`） |

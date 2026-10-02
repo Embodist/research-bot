@@ -153,6 +153,11 @@ email:
 
 ## CLI reference
 
+> `rb` is **this project's own console script** (registered in `pyproject.toml` as
+> `rb = "research_bot.cli:main"`), not a third-party dependency — the only runtime deps are `httpx` and
+> `PyYAML`. It is exactly equivalent to `python -m research_bot`, so if you prefer, drop the alias and use
+> `python -m research_bot <command>` everywhere. (`research-bot` is a longer alias for the same entry point.)
+
 | Command | Purpose |
 | --- | --- |
 | `rb run [--topic X] [--query "..."] [--depth quick\|standard\|deep] [--rounds N] [--no-fetch] [--email] [--dry-run-email] [--json]` | run the deep-research pipeline |
