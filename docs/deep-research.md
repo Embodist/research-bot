@@ -12,8 +12,8 @@
 
 `research-bot` 是一个 **headless deep-research agent**：把"深度调研"拆成
 `规划 → 多源检索 → 排序 → 抓正文 → 抽取分级证据 → 评审补检 → 带引用综合` 的闭环，
-**只用 `httpx` + `PyYAML`** 两个运行时依赖实现，因此能在 GitHub Actions / cron / 容器里无 Docker、无数据库地跑，
-同时复用 [`bytedance/deer-flow`](../deer-flow) 的 skill 格式与 lead-agent/sub-agent 分工。
+**只用 `httpx` + `PyYAML`** 两个运行时依赖实现，因此能在 GitHub Actions / cron 里直接跑（不需 Docker、不需
+数据库），也能收进容器，同时复用 [`bytedance/deer-flow`](../deer-flow) 的 skill 格式与 lead-agent/sub-agent 分工。
 
 设计三条底线（贯穿全局）：
 1. **引用可核查**——每个来源有稳定编号 `[n]`，正文引用必须命中该编号，禁止编造 URL/论文。

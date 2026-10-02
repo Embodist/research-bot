@@ -12,7 +12,7 @@
 `research-bot` 是一个**无头（headless）深度调研 Agent**，用于持续跟踪 **具身智能 / VLA / 运动学 / C++ /
 ROS 2** 的前沿进展、经典论文、开源项目与数据集。它基于 [`bytedance/deer-flow`](https://github.com/bytedance/deer-flow)
 的约定（`SKILL.md` 技能包 + lead-agent/sub-agent 拆解），但运行时**刻意保持轻依赖**（仅 `httpx` + `PyYAML`），
-因此能在 GitHub Actions / cron / 容器里无 Docker、无数据库地跑。
+因此既能在 GitHub Actions / cron 里**直接跑**（不需 Docker、不需数据库），也能收进容器（见 §2 的 base 镜像）。
 
 一次运行的流程：`plan → retrieve（多引擎并行 + RRF 融合）→ extract（分级证据）→ critique（找缺口补检）
 → synthesize（带 `[n]` 引用的 Markdown 报告）`，产物落到 `report/` 并（可选）邮件推送。
@@ -81,9 +81,10 @@ config/               config.example.yaml（入库）；config.yaml（gitignore�
 report/               生成的报告 + 推送台账
 deer-flow/            upstream 子模块（**不要在其中编辑**）
 tests/                pytest（离线、确定性）
-.github/workflows/    daily-research.yml、ci.yml
+Dockerfile            base 镜像定义（`python:3.12-slim`，只烤环境不烤代码）；配合 `.dockerignore`
+.github/workflows/    daily-research.yml（每日，容器内跑）、image.yml（发布 base 镜像）、ci.yml（lint+test）
 scripts/              bootstrap.sh、run_daily.sh、import_skill.sh、set_github_secrets.py
-docs/                 architecture / email / github-actions / scheduling / skills-and-sources / HANDOVER
+docs/                 architecture / deep-research / email / github-actions / scheduling / skills-and-sources / HANDOVER
 ```
 
 ## 6. 配置与密钥（**不要提交任何密钥**）
@@ -113,6 +114,8 @@ docs/                 architecture / email / github-actions / scheduling / skill
 - **Makefile**：`make run TOPIC=vla DEPTH=quick` / `make run-all` / `make doctor` / `make test` / `make lint`
 - **GitHub Actions**：每日 `0 22 * * *` UTC 自动跑并回提交 + 发摘要邮件；也可 Actions → Daily Research →
   Run workflow 手动触发（可选 topic/depth/send_email）
+- **容器（可复现，无需本地装 Python）**：
+  `docker run --rm -v "$PWD":/app -w /app -e LLM_API_KEY=... ghcr.io/embodist/research-bot-base:py3.12 sh -c 'pip install -e . --no-deps --no-build-isolation && rb run --topic vla --depth quick'`
 - **本地 cron/systemd**：见 [`docs/scheduling.md`](scheduling.md)
 
 ## 8. 输出产物
@@ -120,7 +123,7 @@ docs/                 architecture / email / github-actions / scheduling / skill
 ```
 report/
   index.json          每次运行的台账（最新在前）：topic/标题/来源数/邮件状态/commit/run URL
-  push-log.jsonl      邮件投递追加审计
+  push-log.jsonl      邮件投递追加审计（**gitignore，不入库**；仅作为 CI artifact 上传）
   latest/<topic>.md   每个 topic 的最新报告
   2026/10/2026-10-02-<topic>.md / .json   带引用报告 + 完整结构化记录
 ```
@@ -176,8 +179,11 @@ git push origin main
 
 ## 11. 待办 / 下一步
 
-- [ ] 重新生成 **5 份旧归档报告**（`vla`/`ros2`/`kinematics`/`embodied-ai`/`cpp-robotics`）使其带上四轴证据表——
-      当前按用户要求「已归档的不管」，暂未重跑。
+**已闭环（决策记录）**
+- 旧归档报告（`vla`/`ros2`/`kinematics`/`embodied-ai`/`cpp-robotics`）**保留原样**：用户 2026-10-02 明确
+  「已归档的不管」——改代码后新跑的报告一律带四轴，旧归档作为历史快照不动。日后如要统一，逐 topic 重跑即可。
+
+**待办**
 - [ ] （可选）用 LLM 对候选结果做一次 rerank / 相关性打分，进一步压掉域漂移。
 - [ ] （可选）验证 WSL 代理主机 IP 变化时的推送脚本化（当前需手动取 nameserver）。
 
@@ -191,6 +197,8 @@ git push origin main
 | 新报告来源很少 / 空 | 扩大 `search.engines`、设 `GITHUB_TOKEN`、或提高 `research.max_subquestions` |
 | 邮件未发送 | `rb doctor` 看 `configured=True`，核对 SMTP Secrets / `config.yaml` |
 | CI 检出子模块失败 | 工作流用 `submodules: false`，引擎无需子模块即可运行 |
+| CI 回提交被拒（`fetch first`） | 工作流已内置 `git pull --rebase origin main` 后再 push（见 §10.9）；手动 / 并发推送时就会遇到 |
+| CI 容器内 `Syntax error: "("` / `not in a git directory` | 容器任务默认 `sh` 且 workspace 未受信任（见 §10.8）；脚本须 POSIX、并设 `safe.directory` |
 
 ---
 MIT licensed. DeerFlow 归其各自作者所有（MIT）。
