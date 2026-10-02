@@ -1,0 +1,111 @@
+name: Daily Research
+
+# Runs the headless deep-research pipeline, commits the new reports back to the
+# repo and (optionally) emails the digest. Configure the LLM + SMTP secrets in
+# Settings -> Secrets and variables -> Actions. See docs/github-actions.md.
+
+on:
+  schedule:
+    # 22:00 UTC = 06:00 Asia/Shanghai. Adjust to taste.
+    - cron: "0 22 * * *"
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Topic name (vla, embodied-ai, kinematics, cpp-robotics, ros2) or 'all'"
+        default: "all"
+        required: false
+      depth:
+        description: "Research depth"
+        type: choice
+        options: [quick, standard, deep]
+        default: standard
+      send_email:
+        description: "Send the report by email"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-research
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      TOPIC: ${{ github.event.inputs.topic || 'all' }}
+      DEPTH: ${{ github.event.inputs.depth || 'standard' }}
+      SEND_EMAIL: ${{ github.event.inputs.send_email || 'true' }}
+      # --- LLM ---
+      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      LLM_MODEL: ${{ vars.LLM_MODEL }}
+      LLM_BASE_URL: ${{ vars.LLM_BASE_URL }}
+      # --- Search ---
+      SEARXNG_URL: ${{ vars.SEARXNG_URL }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # --- Email ---
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      SMTP_FROM: ${{ secrets.SMTP_FROM }}
+      MAIL_TO: ${{ secrets.MAIL_TO }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # The engine works without the deer-flow submodule (skills fall back to
+          # the local set), and skipping it keeps the daily job fast and robust.
+          submodules: false
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install research-bot
+        run: python -m pip install --upgrade pip && pip install -e .
+
+      - name: Preflight (rb doctor)
+        continue-on-error: true
+        run: rb doctor
+
+      - name: Run deep research
+        run: |
+          set -euo pipefail
+          ARGS=(--topic "$TOPIC" --depth "$DEPTH")
+          if [ "${SEND_EMAIL}" = "true" ]; then
+            ARGS+=(--email)
+          fi
+          echo "rb run ${ARGS[*]}"
+          rb run "${ARGS[@]}"
+
+      - name: Commit reports
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add report/
+          if git diff --cached --quiet; then
+            echo "no report changes to commit"
+          else
+            git commit -m "chore(report): daily research $(date -u +%F)"
+            git push
+          fi
+
+      - name: Upload report artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-report-${{ github.run_number }}
+          path: |
+            report/**/*.md
+            report/**/*.json
+            report/push-log.jsonl
+          if-no-files-found: warn
+          retention-days: 30

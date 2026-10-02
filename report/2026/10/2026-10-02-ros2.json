@@ -1,0 +1,1063 @@
+{
+  "topic": "ros2",
+  "title": "ROS 2 生态与机器人中间件：发行版、DDS/RMW、实时执行器与工程栈深度调研（2024–2026）",
+  "query": "",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-02T03:22:10+00:00",
+  "finished_at": "2026-10-02T03:26:42+00:00",
+  "duration_s": 271.9,
+  "rounds": 1,
+  "plan": {
+    "title": "ROS 2 生态与机器人中间件：发行版、DDS/RMW、实时执行器与工程栈深度调研（2024–2026）",
+    "summary": "以可核查的一手证据梳理 ROS 2 发行版演进、DDS/RMW（Cyclone DDS / Fast DDS / Zenoh）选型与调优、实时执行器与 ros2_control/Nav2/MoveIt2 工程实践、基准与数据集，以及实时性、分布式部署和 VLA 集成等争议与开放问题。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024–2026 年 ROS 2 发行版（Jazzy/Kilted/Rolling）与中间件层（DDS、RMW、Zenoh、micro-ROS）有哪些真正落地的前沿进展？",
+        "rationale": "覆盖「前沿进展（最近 1-2 年）」维度：先锁定官方 release notes 与官方仓库确认事实基线，再用第三方性能评测交叉验证 DDS/RMW/Zenoh 的选型结论，区分「官方宣称」与「独立复现」。",
+        "queries": [
+          "ROS 2 Kilted Kaiju release notes 2025 new features rclcpp",
+          "ROS 2 Jazzy Jalisco release notes 2024 middleware changes",
+          "rmw_zenoh ROS 2 bridge performance evaluation 2025",
+          "Cyclone DDS vs Fast DDS vs Zenoh ROS 2 latency throughput benchmark 2024..2026"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "ROS 2 的奠基性设计（executor 模型、QoS、lifecycle node、rclcpp/rclpy 抽象）如何演进，并沉淀为 ros2_control、Nav2、MoveIt2 的工程最佳实践？",
+        "rationale": "覆盖「经典/奠基工作」与「开源项目与工程实践」两个维度：以早期设计文档/论文与官方仓库为骨架理解设计取舍，再检索 2024–2025 的文档、ROSCon 报告与代码仓库，获取可直接落地的实时控制、导航与运动规划实践。",
+        "queries": [
+          "rclcpp executor callback group real-time determinism ROS 2 design 2019 2020",
+          "ros2_control hardware interface lifecycle node best practices 2025",
+          "Nav2 behavior tree MPPI controller navigation2 2024 2025",
+          "MoveIt2 motion planning pipeline ROSCon 2025"
+        ],
+        "prefer": [
+          "github",
+          "semantic_scholar",
+          "arxiv"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "ROS 2 在真机实时性、分布式/多机器人部署与学习型策略（VLA）集成上的基准、失败案例与争议点是什么？",
+        "rationale": "覆盖「数据集与基准」与「开放问题与争议」维度：重点找可量化的基准（抖动、丢包、端到端延迟）、micro-ROS 与 PREEMPT_RT 的真实约束，以及 DDS 默认配置、单线程 executor、Zenoh 替代方案与 VLA 策略接入 ROS 2 的争议与负结果。",
+        "queries": [
+          "ROS 2 real-time performance benchmark PREEMPT_RT jitter 2025",
+          "micro-ROS microcontroller real-time robotics survey 2024",
+          "VLA policy ROS 2 integration real robot deployment 2025",
+          "ROS 2 实时性 执行器 DDS 调优 单线程 executor 争议"
+        ],
+        "prefer": [
+          "arxiv",
+          "bing",
+          "github",
+          "crossref"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024–2026 年 ROS 2 发行版（Jazzy/Kilted/Rolling）与中间件层（DDS、RMW、Zenoh、micro-ROS）有哪些真正落地的前沿进展？",
+      "queries": [
+        "ROS 2 Kilted Kaiju release notes 2025 new features rclcpp",
+        "ROS 2 Jazzy Jalisco release notes 2024 middleware changes",
+        "rmw_zenoh ROS 2 bridge performance evaluation 2025",
+        "Cyclone DDS vs Fast DDS vs Zenoh ROS 2 latency throughput benchmark 2024..2026"
+      ],
+      "rationale": "覆盖「前沿进展（最近 1-2 年）」维度：先锁定官方 release notes 与官方仓库确认事实基线，再用第三方性能评测交叉验证 DDS/RMW/Zenoh 的选型结论，区分「官方宣称」与「独立复现」。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.022477,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+          "url": "http://arxiv.org/abs/2509.11402v1",
+          "snippet": "The TRUST workshop is the result of a collaboration between two established workshops in the field of Human-Robot Interaction: SCRITA (Trust, Acceptance and Social Cues in Human-Robot Interaction) and RTSS (Robot Trust for Symbiotic Societies). This joint initiative brings together the complementary goals of these workshops to advance research on trust from both the human and robot perspectives.\n  Website: https://scrita.herts.ac.uk/2025/",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-14",
+          "authors": [
+            "Alessandra Rossi",
+            "Patrick Holthaus",
+            "Gabriella Lakatos",
+            "Sílvia Moros",
+            "Ali Fallahi",
+            "Murat Kirtay",
+            "Marie Postma",
+            "Erhan Oztop"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.11402v1",
+            "rrf_score": 0.020822,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+          "url": "http://arxiv.org/abs/2504.14582v3",
+          "snippet": "This paper presents the NTIRE 2025 image super-resolution ($\\times$4) challenge, one of the associated competitions of the 10th NTIRE Workshop at CVPR 2025. The challenge aims to recover high-resolution (HR) images from low-resolution (LR) counterparts generated through bicubic downsampling with a $\\times$4 scaling factor. The objective is to develop effective network designs or solutions that achieve state-of-the-art SR performance. To reflect the dual objectives of image SR research, the challenge includes two sub-tracks: (1) a restoration track, emphasizes pixel-wise accuracy and ranks sub…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-20",
+          "authors": [
+            "Zheng Chen",
+            "Kai Liu",
+            "Jue Gong",
+            "Jingkai Wang",
+            "Lei Sun",
+            "Zongwei Wu",
+            "Radu Timofte",
+            "Yulun Zhang",
+            "Xiangyu Kong",
+            "Xiaoxuan Yu",
+            "Hyunhee Park",
+            "Suejin Han",
+            "Hakjae Jeon",
+            "Dafeng Zhang",
+            "Hyung-Ju Chun",
+            "Donghun Ryou",
+            "Inju Ha",
+            "Bohyung Han",
+            "Lu Zhao",
+            "Yuyi Zhang",
+            "Pengyu Yan",
+            "Jiawei Hu",
+            "Pengwei Liu",
+            "Fengjun Guo",
+            "Hongyuan Yu",
+            "Pufan Xu",
+            "Zhijuan Huang",
+            "Shuyuan Cui",
+            "Peng Guo",
+            "Jiahui Liu",
+            "Dongkai Zhang",
+            "Heng Zhang",
+            "Huiyuan Fu",
+            "Huadong Ma",
+            "Yanhui Guo",
+            "Sisi Tian",
+            "Xin Liu",
+            "Jinwen Liang",
+            "Jie Liu",
+            "Jie Tang",
+            "Gangshan Wu",
+            "Zeyu Xiao",
+            "Zhuoyuan Li",
+            "Yinxiang Zhang",
+            "Wenxuan Cai",
+            "Vijayalaxmi Ashok Aralikatti",
+            "Nikhil Akalwadi",
+            "G Gyaneshwar Rao",
+            "Chaitra Desai",
+            "Ramesh Ashok Tabib",
+            "Uma Mudenagudi",
+            "Marcos V. Conde",
+            "Alejandro Merino",
+            "Bruno Longarela",
+            "Javier Abad",
+            "Weijun Yuan",
+            "Zhan Li",
+            "Zhanglu Chen",
+            "Boyang Yao",
+            "Aagam Jain",
+            "Milan Kumar Singh",
+            "Ankit Kumar",
+            "Shubh Kawa",
+            "Divyavardhan Singh",
+            "Anjali Sarvaiya",
+            "Kishor Upla",
+            "Raghavendra Ramachandra",
+            "Chia-Ming Lee",
+            "Yu-Fan Lin",
+            "Chih-Chung Hsu",
+            "Risheek V Hiremath",
+            "Yashaswini Palani",
+            "Yuxuan Jiang",
+            "Qiang Zhu",
+            "Siyue Teng",
+            "Fan Zhang",
+            "Shuyuan Zhu",
+            "Bing Zeng",
+            "David Bull",
+            "Jingwei Liao",
+            "Yuqing Yang",
+            "Wenda Shao",
+            "Junyi Zhao",
+            "Qisheng Xu",
+            "Kele Xu",
+            "Sunder Ali Khowaja",
+            "Ik Hyun Lee",
+            "Snehal Singh Tomar",
+            "Rajarshi Ray",
+            "Klaus Mueller",
+            "Sachin Chaudhary",
+            "Surya Vashisth",
+            "Akshay Dudhane",
+            "Praful Hambarde",
+            "Satya Naryan Tazi",
+            "Prashant Patil",
+            "Santosh Kumar Vipparthi",
+            "Subrahmanyam Murala",
+            "Bilel Benjdira",
+            "Anas M. Ali",
+            "Wadii Boulila",
+            "Zahra Moammeri",
+            "Ahmad Mahmoudi-Aznaveh",
+            "Ali Karbasi",
+            "Hossein Motamednia",
+            "Liangyan Li",
+            "Guanhua Zhao",
+            "Kevin Le",
+            "Yimo Ning",
+            "Haoxuan Huang",
+            "Jun Chen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.14582v3",
+            "rrf_score": 0.02023,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+          "url": "http://arxiv.org/abs/2509.19861v1",
+          "snippet": "This paper describes the participation of the SINAI-UJA team in the eRisk@CLEF 2025 lab. Specifically, we addressed two of the proposed tasks: (i) Task 2: Contextualized Early Detection of Depression, and (ii) Pilot Task: Conversational Depression Detection via LLMs. Our approach for Task 2 combines an extensive preprocessing pipeline with the use of several transformer-based models, such as RoBERTa Base or MentalRoBERTA Large, to capture the contextual and sequential nature of multi-user conversations. For the Pilot Task, we designed a set of conversational strategies to interact with LLM-po…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-24",
+          "authors": [
+            "Alba Maria Marmol-Romero",
+            "Manuel Garcia-Vega",
+            "Miguel Angel Garcia-Cumbreras",
+            "Arturo Montejo-Raez"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.19861v1",
+            "rrf_score": 0.01875,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "本轮候选证据与子问题（ROS 2 发行版 Jazzy/Kilted/Rolling 与 DDS/RMW/Zenoh/micro-ROS 中间件进展）完全无关，无法据此抽取任何领域结论。",
+            "evidence": "候选 4 篇文献的主题分别为：短视频参与度预测挑战赛（VQualA 2025, cs.CV）、人机交互信任主题研讨会（TRUST 2025: SCRITA & RTSS @ RO-MAN 2025, cs.RO）、图像超分辨率挑战赛（NTIRE 2025, cs.CV）、抑郁症早期检测（SINAI at eRisk@CLEF 2025, cs.CL）。其中唯一属于 cs.RO 的 [10] 聚焦 HRI 信任研究，不涉及 ROS 2 发行版、DDS、RMW、Zenoh 或 micro-ROS。",
+            "sources": [
+              5,
+              10,
+              13,
+              14
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "缺少针对 ROS 2 发行版路线图（Jazzy Jalisco / Kilted Kaiju / Rolling）的官方发布说明与 REP 文档作为一手证据。",
+          "缺少 DDS 实现（Fast DDS、Cyclone DDS、Connext）与 RMW 抽象层性能/兼容性对比的一手材料。",
+          "缺少 Zenoh 作为 ROS 2 RMW（rmw_zenoh）落地状态与官方支持级别的可核查来源。",
+          "缺少 micro-ROS 最新版本、支持 MCU 平台与 RTOS 生态的官方发布记录。",
+          "本轮全部候选证据经核实均为无关主题，需重新执行面向 ROS 2 / 中间件的中英文定向检索（含 site:docs.ros.org、site:github.com/ros2、site:arxiv.org cs.RO）后才能给出结论。"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "ROS 2 的奠基性设计（executor 模型、QoS、lifecycle node、rclcpp/rclpy 抽象）如何演进，并沉淀为 ros2_control、Nav2、MoveIt2 的工程最佳实践？",
+      "queries": [
+        "rclcpp executor callback group real-time determinism ROS 2 design 2019 2020",
+        "ros2_control hardware interface lifecycle node best practices 2025",
+        "Nav2 behavior tree MPPI controller navigation2 2024 2025",
+        "MoveIt2 motion planning pipeline ROSCon 2025"
+      ],
+      "rationale": "覆盖「经典/奠基工作」与「开源项目与工程实践」两个维度：以早期设计文档/论文与官方仓库为骨架理解设计取舍，再检索 2024–2025 的文档、ROSCon 报告与代码仓库，获取可直接落地的实时控制、导航与运动规划实践。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.016733,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.015987,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems",
+          "url": "http://arxiv.org/abs/2505.06546v1",
+          "snippet": "Real-time scheduling in commoditized component-oriented real-time systems, such as ROS 2 systems on Linux, has been studied under nested scheduling: OS thread scheduling and middleware layer scheduling (e.g., ROS 2 Executor). However, by establishing a persistent one-to-one correspondence between callbacks and OS threads, we can ignore the middleware layer and directly apply OS scheduling parameters (e.g., scheduling policy, priority, and affinity) to individual callbacks. We propose a middleware model that enables this idea and implements CallbackIsolatedExecutor as a novel ROS 2 Executor. W…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-10",
+          "authors": [
+            "Takahiro Ishikawa-Aso",
+            "Atsushi Yano",
+            "Takuya Azumi",
+            "Shinpei Kato"
+          ],
+          "venue": "cs.OS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.06546v1",
+            "rrf_score": 0.015385
+          }
+        },
+        {
+          "title": "GitHub - ros2/ rclcpp :  rclcpp  (ROS Client Library for C++)",
+          "url": "https://github.com/ros2/rclcpp",
+          "snippet": "This repository contains the source code for the ROS Client Library for C++ package, included with a standard install of any ROS 2 …",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.016393
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "ROS 2 在 Linux 上的实时调度可被理解为嵌套调度：既有操作系统线程调度，也有中间件层调度（例如 ROS 2 Executor）。",
+            "evidence": "候选论文指出，商品化组件化实时系统（如 Linux 上的 ROS 2 系统）的实时调度已在嵌套调度框架下被研究：OS 线程调度与中间件层调度（例如 ROS 2 Executor）并存。",
+            "sources": [
+              21
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025"
+          },
+          {
+            "point": "有研究提出通过建立回调与 OS 线程之间持久的一对一对应关系，来绕过中间件层调度，从而直接应用 OS 调度参数。",
+            "evidence": "论文摘要称：通过建立回调与 OS 线程之间持久的一对一对应关系，可以忽略中间件层，直接应用 OS 调度参数。该工作标注为 Work in Progress。",
+            "sources": [
+              21
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025"
+          },
+          {
+            "point": "rclcpp 是 ROS 2 的 C++ 客户端库，且包含在任意 ROS 2 的标准安装中。",
+            "evidence": "官方 GitHub 仓库描述：rclcpp（ROS Client Library for C++）的源代码包含在标准安装的任意 ROS 2 中。",
+            "sources": [
+              16
+            ],
+            "type": "project",
+            "confidence": "high",
+            "year": ""
+          },
+          {
+            "point": "候选证据未覆盖 ROS 2 的 QoS、lifecycle node、rclpy 抽象，以及 ros2_control、Nav2、MoveIt2 如何沉淀这些设计为工程最佳实践。",
+            "evidence": "在提供的候选证据中，除 ROS 2 Executor 调度与 rclcpp 仓库入口外，没有关于 QoS、lifecycle node、rclpy、ros2_control、Nav2、MoveIt2 的设计演进或最佳实践的直接材料。",
+            "sources": [],
+            "type": "trend",
+            "confidence": "low",
+            "year": ""
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems",
+            "url": "http://arxiv.org/abs/2505.06546v1",
+            "why": "直接讨论 ROS 2 系统在 Linux 上的嵌套调度，并提出回调与 OS 线程一对一映射以绕过中间件层调度的思路，与 ROS 2 Executor 设计相关。",
+            "year": "2025"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "rclcpp",
+            "url": "https://github.com/ros2/rclcpp",
+            "why": "ROS 2 官方 C++ 客户端库仓库，是理解 rclcpp 抽象与标准安装组成的直接入口。"
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据未提供 ROS 2 QoS、lifecycle node、rclpy 设计演进及最佳实践的直接证据，需补充官方设计文档或一手论文。",
+          "候选证据未提供 ros2_control、Nav2、MoveIt2 如何具体沉淀 ROS 2 executor、QoS、lifecycle node 最佳实践的直接证据。",
+          "回调与 OS 线程一对一映射方案对 ROS 2 Executor 的通用性、实时性能与适用边界，待核实；[21] 为 Work in Progress。",
+          "rclcpp 在 ROS 2 标准安装中的具体版本、QoS 与 lifecycle 支持细节，待核实；[16] 仅提供仓库入口与概述。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "ROS 2 在真机实时性、分布式/多机器人部署与学习型策略（VLA）集成上的基准、失败案例与争议点是什么？",
+      "queries": [
+        "ROS 2 real-time performance benchmark PREEMPT_RT jitter 2025",
+        "micro-ROS microcontroller real-time robotics survey 2024",
+        "VLA policy ROS 2 integration real robot deployment 2025",
+        "ROS 2 实时性 执行器 DDS 调优 单线程 executor 争议"
+      ],
+      "rationale": "覆盖「数据集与基准」与「开放问题与争议」维度：重点找可量化的基准（抖动、丢包、端到端延迟）、micro-ROS 与 PREEMPT_RT 的真实约束，以及 DDS 默认配置、单线程 executor、Zenoh 替代方案与 VLA 策略接入 ROS 2 的争议与负结果。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.023718,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.020136,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+          "url": "http://arxiv.org/abs/2509.11402v1",
+          "snippet": "The TRUST workshop is the result of a collaboration between two established workshops in the field of Human-Robot Interaction: SCRITA (Trust, Acceptance and Social Cues in Human-Robot Interaction) and RTSS (Robot Trust for Symbiotic Societies). This joint initiative brings together the complementary goals of these workshops to advance research on trust from both the human and robot perspectives.\n  Website: https://scrita.herts.ac.uk/2025/",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-14",
+          "authors": [
+            "Alessandra Rossi",
+            "Patrick Holthaus",
+            "Gabriella Lakatos",
+            "Sílvia Moros",
+            "Ali Fallahi",
+            "Murat Kirtay",
+            "Marie Postma",
+            "Erhan Oztop"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.11402v1",
+            "rrf_score": 0.017122,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "ROS : Home",
+          "url": "https://www.ros.org/",
+          "snippet": "Sep 14, 2026 · ROS - Robot Operating System The Robot Operating System (ROS) is a set of software libraries and tools that help …",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.022723,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "候选证据集中没有任何一手来源直接回答本子问题：既无 ROS 2 真机实时性（抖动/延迟/实时内核/executor 调度）的基准数据，也无多机器人/分布式部署的评测，也无 VLA（学习型策略）与 ROS 2 集成的实验或失败案例。",
+            "evidence": "4 条候选中，[1] 属车载边缘计算（VEC）任务卸载，非 ROS 2；[5] 为短视频参与度预测挑战赛，与机器人无关；[10] 为人机交互信任主题 workshop；[3] 仅为 ROS 官网首页，摘要未含实时性/分布式/VLA 内容。因此该子问题在本批证据下无法给出可核查结论。",
+            "sources": [
+              1,
+              3,
+              5,
+              10
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025"
+          },
+          {
+            "point": "相关方向的可迁移线索：时敏任务向邻近算力卸载（offloading）与自适应卸载控制是分布式实时系统里的活跃研究点，可作为『把 VLA 大模型推理从机器人本体卸载到边缘/辅助算力』这一做法的类比参照。",
+            "evidence": "候选 [1] 指出 VEC 通过车辆将计算密集任务无线卸载到路侧单元以提升效率，但时敏应用下的任务卸载与资源分配仍具挑战（摘要原文：'efficient task offloading and resource allocation for time-critical applications in VEC remain challenging'）。注意：该文未涉及 ROS 2、机器人本体或 VLA，属跨领域类比，不能直接作为 ROS 2 实时性证据。",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025"
+          },
+          {
+            "point": "『信任』被列为学习型/共生机器人系统需要专门研讨的开放议题，但候选证据中未提供任何 ROS 2 实现层面或实时性层面的失败案例。",
+            "evidence": "[10] 为 SCRITA（人机交互中的信任、接受度与社会线索）与 RTSS（共生社会中的机器人信任）两个 workshop 合并举办的 TRUST 2025（@ RO-MAN 2025），目标是推进人与机器人双视角的信任研究；摘要未提 ROS 2、实时性、分布式部署或 VLA。可作为『学习型策略部署后信任与安全评估仍需讨论』的间接线索。",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025"
+          },
+          {
+            "point": "ROS 官方站点仅提供软件库与工具集的入口性描述，本批证据中不含 ROS 2 实时性、分布式或多机器人部署的任何指标、版本号或基准。",
+            "evidence": "[3]（https://www.ros.org/）摘要仅为：'ROS - Robot Operating System The Robot Operating System (ROS) is a set of software libraries and tools that help ...'，无实时性/分布式/VLA 相关内容，也无可引用数字。",
+            "sources": [
+              3
+            ],
+            "type": "project",
+            "confidence": "low",
+            "year": ""
+          },
+          {
+            "point": "本批召回存在明显噪声，需在后续轮次更换检索策略（应使用 ROS 2 real-time / DDS / micro-ROS / multi-robot / VLA policy 等精确术语，并限定 cs.RO 与 2024..2026）。",
+            "evidence": "[5] 为 ICCV 2025 短视频参与度预测挑战赛（基于 UGC 短视频互动指标数据集），与具身智能、ROS 2、实时系统均无交集，属检索噪声样本。",
+            "sources": [
+              5
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "2025"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+            "url": "http://arxiv.org/abs/2512.14002v1",
+            "why": "本批证据中唯一涉及『时敏任务的分布式卸载与资源分配』的论文，可作为 VLA 推理卸载/边缘协同的跨领域类比，但与 ROS 2 无直接关系。",
+            "year": "2025"
+          },
+          {
+            "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+            "url": "http://arxiv.org/abs/2509.11402v1",
+            "why": "反映『机器人信任』是 HRI 领域被持续研讨的开放议题，可作为学习型策略部署后安全/信任争议的背景引用，但未覆盖 ROS 2 实时性或分布式部署。",
+            "year": "2025"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "ROS (Robot Operating System) 官方网站",
+            "url": "https://www.ros.org/",
+            "why": "官方入口，仅在证据中提供 ROS 的工具/库定位描述，未给出 ROS 2 实时性或多机器人部署的可核查指标。",
+            "year": ""
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "待核实：ROS 2 真机实时性基准缺失于本批证据——需检索 executor/回调延迟、DDS QoS 配置、PREEMPT_RT 内核下的抖动（jitter）与最坏执行时间（WCET）实测数据。",
+          "待核实：分布式/多机器人部署的失败模式（时钟同步、DDS 发现与带宽、跨机 QoS 不匹配、命名空间/TF 冲突）在本批证据中完全无覆盖。",
+          "待核实：学习型策略（VLA）与 ROS 2 集成的工程实践与失败案例（推理延迟与控制频率不匹配、非确定性、安全边界、ros2_control 接口适配）无任何证据支撑。",
+          "待核实：时敏任务卸载（[1]）能否迁移到『机器人端—边缘端』VLA 推理卸载，尚无实验证据，且卸载引入的网络抖动对闭环控制的影响未知。",
+          "方法论缺口：本批候选证据召回噪声高（[5] 完全离题），下一轮需用精确术语（ROS 2 real-time、DDS、micro-ROS、multi-robot、VLA policy、ros2_control）与 site:arxiv.org / site:github.com 限定重检，并补充 ROS 2 官方文档与 Discourse/GitHub Issues 作为 C 级证据。"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 17922,
+    "completion_tokens": 14854,
+    "generated_at": "2026-10-02T03:26:42.001309+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# ROS 2 生态与机器人中间件：发行版、DDS/RMW 选型、实时执行器与工程实践调研报告\n\n**报告日期**：待核实（未获得系统时间戳；本轮证据中最新 arXiv 编号为 `2512.*`，提示检索窗口末端不早于 2025 年 12 月）\n**领域**：具身智能 / 机器人中间件（ROS 2、DDS、RMW、实时执行器、ros2_control、Nav2、MoveIt2）\n**检索源数量**：25 条候选来源（含 4 条明显离题噪声 [4][5][13][14]，2 条仅跨领域弱相关 [2][18]，1 条跨界类比 [1]）\n\n---\n\n## 摘要（Executive Summary）\n\n本报告的目标是梳理 ROS 2 发行版演进、DDS/RMW（Cyclone DDS / Fast DDS / Zenoh）选型与调优、实时执行器与 ros2_control/Nav2/MoveIt2 工程实践、基准与数据集，以及实时性、分布式部署与 VLA 集成等争议与开放问题。**必须首先声明一个关键限制：本轮提供的 25 条候选证据中，没有任何一条是关于 ROS 2 发行版路线图、DDS/RMW 或 Zenoh 的一手材料。** 四篇被召回的核心 arXiv 论文中，[5]（短视频参与度预测挑战赛）、[13]（图像超分辨率挑战赛）、[14]（抑郁检测）与机器人中间件毫无交集；[4] 是中文百科条目「活性氧」，属于 \"ROS\" 缩写歧义（*reactive oxygen species*）造成的检索污染。\n\n因此，本报告采取**证据分级 + 缺口显式标注**的写法：\n\n1. **可核查的实证结论集中在「实时执行器与调度」这一狭窄切口**：ROS 2 在 Linux 上的实时调度可被建模为「OS 线程调度 + 中间件层调度（Executor）」的嵌套调度 [21]；学术界已有针对多线程 Executor 上处理链（processing chains）的实时调度与分析工作（RTSS 2022）[24]，以及更早的实时 Executor 探索（ICESS 2020）[19]；并出现了「让回调与 OS 线程建立持久一对一映射、从而绕过中间件层调度」的在研方案（Work in Progress，2025）[21]。C++ 客户端库 rclcpp 为 ROS 2 标准安装的组成部分，有官方仓库可核 [16]。\n2. **发行版节奏（Jazzy / Kilted / Rolling）、DDS 实现对比（Cyclone DDS / Fast DDS / Connext）、Zenoh RMW（rmw_zenoh）官方支持级别、micro-ROS 平台矩阵**：**本轮证据为零**，全部标注 `> 待核实`，仅保留人工维护的官方入口作为后续检索种子（`design.ros2.org`、`docs.ros.org`、`github.com/ros2/ros2`）。\n3. **ros2_control / Nav2 / MoveIt2 的工程最佳实践**：本轮证据未覆盖其如何具体沉淀 executor、QoS、lifecycle node 的设计，仅能列出官方文档与仓库作为种子资源，标注 `> 待核实`。\n4. **真机实时性抖动（jitter）、多机器人分布式部署失败模式、VLA 与 ROS 2 集成**：三者在本轮证据中**完全无一手数据**。仅有两条跨领域线索可作类比：一是时敏任务向邻近算力卸载及其资源分配在车载边缘计算（VEC）中仍是挑战 [1]，可作为「VLA 推理卸载到边缘算力」的类比参照；二是「信任」被 HRI 领域持续列为学习型/共生机器人系统的开放议题（TRUST 2025 @ RO-MAN 2025）[10]，可作为策略部署后安全与信任评估的背景引用。二者均**不可**直接作为 ROS 2 实时性证据。\n\n**证据分级约定**：A = 同行评审论文 / 官方技术报告；B = arXiv 预印本 / 官方代码仓库；C = 第三方复现或权威媒体报道；D = 个人博客与社区帖；E = 不可用。本报告正文对 A/B 级直接陈述，C 级加限定词，D 级仅作线索并另找高等级来源，找不到即标注 `> 待核实`。\n\n---\n\n## 一、关键前沿进展与发行版节奏\n\n### 1.1 本轮证据的可核查事实\n\n| 论断 | 证据 | 等级 | 引用 |\n|---|---|---|---|\n| ROS（Robot Operating System）被官方描述为一套软件库与工具集 | 官网首页摘要：「ROS - Robot Operating System … a set of software libraries and tools…」 | B（官方站点入口描述） | [3] |\n| rclcpp（ROS Client Library for C++）源代码包含在任意 ROS 2 的标准安装中 | 官方 GitHub 仓库描述 | B（官方仓库） | [16] |\n| 中文社区存在成体系的 ROS/ROS 2 入门材料（概念、安装、常见问题） | Autolabor 课程、知乎专栏、CSDN 系列帖 | D（个人/机构博客，仅作生态线索） | [6][7][9][11][15][17] |\n\n### 1.2 发行版节奏：**证据缺口**\n\n关于 **Jazzy Jalisco / Kilted Kaiju / Rolling** 的发布说明、支持周期（EOL）、以及各发行版对应的 DDS 默认实现与 RMW 变更，本轮证据中**没有任何可核查来源**——[3] 仅为官网入口描述，[6][7][9][15] 为入门级二手材料且未涉及具体发行版节奏。\n\n> 待核实：ROS 2 各发行版（Jazzy / Kilted / Rolling）的官方发布说明、LTS 支持窗口、默认 RMW 变更记录、REP 相关提案状态。建议一手来源：`docs.ros.org`（发行版文档）、`design.ros2.org`（设计文档）、`github.com/ros2/ros2`（主仓库 release 页）、ROS Discourse 的 release 公告。以上均为**人工维护种子资源，本轮未实时检索**。\n\n> 待核实：micro-ROS 的最新版本、支持的 MCU/RTOS 平台矩阵。种子入口：`https://github.com/micro-ROS/micro_ros_agent`。\n\n### 1.3 检索方法论缺口（必须随报告一并交付）\n\n本轮召回呈现出**严重的术语歧义污染**：英文缩写 \"ROS\" 同时命中 *reactive oxygen species*（活性氧）[4]，中文检索则大量返回入门博客 [6][8][9][11][15]。此外，[17] 与 [23] 的来源链接在证据集中被截断（形如 `hedJjaC291OfPyaFZYFLI4KQWvqt63NB7dOeveA8wKAaSqX4aplYzQ..`），**链接不可达，等级判定为 E/待核实**，其内容主张本报告不予采信。\n\n下一轮定向检索建议：`ROS 2 Jazzy release notes`、`rmw_zenoh support level`、`ROS 2 real-time executor jitter`、`DDS QoS ROS 2 benchmark`、`micro-ROS RTOS`，并限定 `site:docs.ros.org`、`site:github.com/ros2`、`site:arxiv.org`（cs.RO）+ 时间窗 `2024..2026`。\n\n---\n\n## 二、中间件与实时性（DDS / RMW / Executor）\n\n这是本轮证据**唯一具备实质内容**的章节。\n\n### 2.1 嵌套调度视角：OS 层 + 中间件层\n\n商品化的组件化实时系统（如 Linux 上的 ROS 2 系统）的实时调度，已在「嵌套调度（nested scheduling）」框架下被研究：既存在操作系统线程调度，也存在中间件层调度（例如 ROS 2 Executor）[21]。这一视角的价值在于——**调参必须同时在两层进行**，只调 OS 优先级或只调 Executor 结构都可能失效。\n\n### 2.2 绕过中间件调度的在研方案\n\n一篇标注为 Work in Progress 的工作提出：**通过建立回调（callback）与 OS 线程之间持久的一对一对应关系，来绕过中间件层调度，从而直接套用 OS 调度参数** [21]。\n\n> 待核实：该方案对 ROS 2 Executor 的通用性、最坏情况实时性能、以及对现有多线程 Executor 语义的兼容边界。[21] 自述为 Work in Progress，尚无同行评审结论。\n\n### 2.3 Executor 实时性的学术脉络\n\n| 名称 | 年份 | 机构/出处 | 链接 | 说明 |\n|---|---|---|---|---|\n| Exploring Real-Time Executor on ROS 2 | 2020 | IEEE ICESS | https://doi.org/10.1109/icess49830.2020.9301530 | 较早面向 ROS 2 实时 Executor 的探索性工作 [19]（A 级，论断限于标题所述范围） |\n| Real-Time Scheduling and Analysis of Processing Chains on Multi-threaded Executor in ROS 2 | 2022 | IEEE RTSS | https://doi.org/10.1109/rtss55097.2022.00013 | 针对 ROS 2 多线程 Executor 上处理链的实时调度与分析 [24]（A 级，顶级实时系统会议） |\n| Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems | 2025 | arXiv (WIP) | http://arxiv.org/abs/2505.06546v1 | 嵌套调度框架 + 回调/OS 线程一对一映射思路 [21]（B 级，预印本） |\n\n**演进脉络（谨慎表述）**：从 2020 年的「探索实时 Executor 是否可行」[19]，到 2022 年的「对多线程 Executor 上的处理链做可分析的实时调度理论」[24]，再到 2025 年的「干脆绕开中间件层调度、把回调绑定到 OS 线程」[21]。这条线索显示出社区的一个持续张力：**Executor 作为中间件抽象带来的灵活性，与硬实时可分析性之间存在取舍**。\n\n### 2.4 Executor / callback group 的工程细节\n\n中文社区材料对 ROS 2 回调处理机制、executor 与 callback group 的关系、以及 rclcpp 的 parameter callback 有教程级说明 [20][22][23][25]。\n\n> 待核实：[20][22][23][25] 均为 CSDN/知乎博客（D 级）。其中 [23] 的链接在证据集中被截断、不可达。上述内容**不得作为设计依据**，工程决策应回到 `design.ros2.org` 的 Executor 与 callback group 设计文档（种子资源，本轮未检索）。\n\n### 2.5 DDS / RMW 选型：**全章证据为零**\n\n关于 **Cyclone DDS、Fast DDS、Connext 的吞吐/延迟/发现机制对比**，以及 **RMW 抽象层（`rmw_*`）的兼容性与调优参数**，本轮 25 条来源中无一涉及。\n\n> 待核实：DDS 实现对比（延迟、吞吐、发现开销、QoS 支持矩阵）；RMW 抽象层的版本兼容策略；QoS 不匹配的诊断路径。**结论缺位，不做任何推测性排序。** 建议一手来源：各 DDS 厂商官方文档与基准页、`github.com/ros2/rmw`、ROS 2 QoS 官方文档。\n\n### 2.6 实时 Linux 内核背景\n\n作为接地气的底层前提，已有工作量化评估了用 **Linux RT-Preempt 替换双内核实时方案（RTAI）** 的迁移效果，场景为分布式实时网络 [12]（2016 年 IEEE IECON，A 级；论断限于标题所述范围）。\n\n> 待核实：在 PREEMPT_RT 内核 + ROS 2 的组合下，真机端到端抖动（jitter）与最坏执行时间（WCET）的实测数据。本轮证据中**没有任何此类数字**。\n\n---\n\n## 三、控制与导航（ros2_control / Nav2 / MoveIt2）\n\n### 3.1 结论：本轮证据不足以支撑任何工程结论\n\n子问题 q2 明确指出：候选证据中「除 ROS 2 Executor 调度与 rclcpp 仓库入口外，没有关于 QoS、lifecycle node、rclpy、ros2_control、Nav2、MoveIt2 的设计演进或最佳实践的直接材料」。\n\n因此本节**不做实质性论断**，仅定位缺口：\n\n> 待核实：ros2_control 的 hardware_interface 生命周期与实时控制循环（update rate、`controller_manager` 调度）如何与 ROS 2 Executor 协同；如何避免控制器更新链路上的锁竞争与非确定性。\n> 待核实：Nav2 的行为树（Behavior Tree）导航架构如何沉淀 QoS profile 与 lifecycle node 模式；跨进程/跨机的 costmap 与 TF 分发约定。\n> 待核实：MoveIt2 的运动规划管线与 ros2_control 的接口边界；规划频率与执行频率不匹配时的工程处理。\n> 待核实：rclpy 与 rclcpp 在 lifecycle、QoS 上的抽象差异及其对上层框架的影响。\n\n### 3.2 官方种子资源（人工维护，本轮未实时检索）\n\n| 名称 | 年份 | 机构/作者 | 链接 | 说明 |\n|---|---|---|---|---|\n| ROS 2 Design Docs（executors / lifecycle / QoS） | ongoing | Open Robotics / ROS 2 | https://design.ros2.org/ | 官方设计文档，理解抽象层的第一入口（种子资源） |\n| ros2_control documentation | ongoing | ros-controls | https://control.ros.org/ | 硬件接口与控制器管理（种子资源） |\n| Nav2 documentation | ongoing | Open Navigation LLC | https://docs.nav2.org/ | 导航栈与行为树（种子资源） |\n\n> 说明：上述三条为本次调研任务给定的**人工维护种子资源**，未纳入本轮 [1]–[25] 编号证据体系，亦未经实时检索验证其当前内容与版本。\n\n---\n\n## 四、仿真与数据（gz-sim / rosbag2 / Foxglove）\n\n### 4.1 结论\n\n本轮 25 条来源中**没有任何一条**涉及 Gazebo/gz-sim、rosbag2、MCAP 或 Foxglove 的技术细节、性能或版本状态。\n\n> 待核实：gz-sim 与 ROS 2 的桥接（`ros_gz`）现状、物理引擎选择对 Sim2Real 的影响；rosbag2 的 MCAP 后端与默认 SQLite3 后端的读写性能、分片与压缩策略；Foxglove 在 ROS 2 数据可视化与远程调试中的实际采用度。\n> 待核实：可用于 ROS 2 中间件评测的**公开基准与数据集**。本轮证据中未出现任何基准榜单、任务集或评测协议。\n\n### 4.2 种子资源\n\n| 名称 | 年份 | 机构/作者 | 链接 | 说明 |\n|---|---|---|---|---|\n| rosbag2 / MCAP | ongoing | MCAP 社区 | https://mcap.dev/ | 机器人数据记录格式（种子资源，未实时检索） |\n| gz-sim | ongoing | GazeboSim | https://github.com/gazebosim/gz-sim | 新一代 Gazebo 仿真（种子资源，未实时检索） |\n\n**注意**：本轮证据中**不存在**关于 SimplerEnv、LIBERO、Open X-Embodiment、DROID 等具身智能基准的可核查来源，因此本报告不将其列入「数据集与基准」表，避免引入未检索内容。\n\n---\n\n## 五、分布式与安全（Zenoh / DDS Security）\n\n### 5.1 跨领域类比：时敏任务卸载\n\n在本轮唯一涉及「分布式 + 时敏约束」的文献中，作者指出：车载边缘计算（VEC）通过将计算密集任务无线卸载到路侧单元来提升效率，但**时敏应用下的任务卸载与资源分配仍具挑战**（摘要原文：*efficient task offloading and resource allocation for time-critical applications in VEC remain challenging*）[1]。\n\n**该文的边界必须说清楚**：它不涉及 ROS 2、机器人本体或 VLA，属于跨领域类比，**不能作为 ROS 2 分布式部署的证据** [1]（2025 年 arXiv 预印本，B 级，跨领域）。\n\n> 待核实：把 VLA 大模型推理从机器人本体卸载到边缘/辅助算力，是否会因网络抖动破坏闭环控制的稳定性；这种「ROS 2 + 卸载」架构有无实验证据。本轮证据中**没有**。\n\n### 5.2 Zenoh 与 DDS Security：**证据为零**\n\n关于 **Zenoh 作为 ROS 2 RMW（`rmw_zenoh`）的落地状态与官方支持级别**、**`zenoh-plugin-ros2dds` 的桥接能力**、以及 **DDS Security（认证/加密/访问控制）在 ROS 2 中的启用方式与性能代价**，本轮 25 条来源中无一涉及。\n\n> 待核实：`rmw_zenoh` 的支持等级（experimental / supported）、与 DDS 的安全模型差异、跨广域网场景下的发现与路由行为。\n> 待核实：DDS Security 开启后对延迟与 CPU 占用的影响；多机器人跨组织域时的证书与权限分发实践。\n\n| 名称 | 年份 | 机构/作者 | 链接 | 说明 |\n|---|---|---|---|---|\n| eclipse-zenoh/zenoh-plugin-ros2dds | ongoing | Eclipse Zenoh | https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds | Zenoh 桥接 DDS（种子资源，未实时检索） |\n\n---\n\n## 六、AI 策略与 ROS 2 集成\n\n### 6.1 可用的间接线索\n\n| 论断 | 证据 | 等级 | 引用 |\n|---|---|---|---|\n| 「信任」是学习型/共生机器人系统需专门研讨的开放议题 | TRUST 2025（SCRITA + RTSS @ RO-MAN 2025）合并举办，目标为推进人与机器人双视角的信任研究；摘要未提及 ROS 2、实时性或 VLA | B（arXiv 预印本） | [10] |\n| 时敏任务卸载仍需解决资源分配问题 | VEC 场景下任务卸载与资源分配对时敏应用仍是挑战 | B（arXiv 预印本，跨领域） | [1] |\n| 基础模型透明度是被持续度量的议题 | 2025 Foundation Model Transparency Index 存在 | B（arXiv 预印本，跨领域） | [18] |\n\n对 [18] 的使用需格外克制：该证据仅表明「基础模型透明度」这一议题在 2025 年被持续度量，**本轮证据未显示其覆盖机器人策略模型或 VLA**。\n\n> 待核实：Foundation Model Transparency Index (2025) 是否包含 VLA / 机器人基础模型这一类别，以及其评估维度是否涉及策略部署的安全披露。\n\n### 6.2 VLA 与 ROS 2 集成的工程缺口\n\n> 待核实：学习型策略（VLA）与 ROS 2 集成的工程实践与失败案例，包括但不限于：推理延迟与控制频率不匹配、策略输出的非确定性、安全边界与急停机制、经 `ros2_control` 硬件接口适配时的时序约束。\n> 待核实：VLA 推理的算力卸载（本体 GPU ↔ 边缘算力）在 ROS 2 通信框架下的可行性与代价 [1] 仅提供跨领域类比。\n\n**本报告不给出任何 VLA 模型选型建议**，因为本轮证据中不存在相关模型、数据集或评测的可核查来源。\n\n---\n\n## 七、经典参考资料与工程规范\n\n### 7.1 经典与奠基性工作（表格）\n\n| 名称 | 年份 | 机构/作者 | 链接 | 说明 |\n|---|---|---|---|---|\n| ROS（Robot Operating System）官方网站 | ongoing | Open Robotics / ROS 2 社区 | https://www.ros.org/ | 官方入口，证据 [3] 仅提供工具/库定位描述，无技术指标 |\n| ROS Wiki（中文页面） | 2007– | ROS 社区 | https://wiki.ros.org/cn | ROS 1 时代官方 Wiki 的中文入口 [8]（内容覆盖范围本轮未核实） |\n| rclcpp（ROS Client Library for C++） | ongoing | ros2 组织 | https://github.com/ros2/rclcpp | ROS 2 官方 C++ 客户端库仓库；源代码包含在任意标准安装中 [16] |\n| Exploring Real-Time Executor on ROS 2 | 2020 | IEEE ICESS | https://doi.org/10.1109/icess49830.2020.9301530 | ROS 2 实时 Executor 的早期探索 [19]（A 级） |\n| Real-Time Scheduling and Analysis of Processing Chains on Multi-threaded Executor in ROS 2 | 2022 | IEEE RTSS | https://doi.org/10.1109/rtss55097.2022.00013 | 多线程 Executor 上处理链的实时调度与分析 [24]（\n\n## 参考来源\n\n[1] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1\n[2] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1\n[3] ROS : Home — https://www.ros.org/\n[4] 活性氧_百度百科 — https://baike.baidu.com/item/%E6%B4%BB%E6%80%A7%E6%B0%A7/6657751\n[5] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[6] 终于有人把 ROS (机器人操作系统)讲明白了-CSDN博客 — https://blog.csdn.net/usstmiracle/article/details/134582549\n[7] ROS  (机器人操作系统) - 云飞机器人中文维基 — https://yfrobotics.github.io/robowiki-cn/ros/\n[8] cn -  ROS  Wiki — https://wiki.ros.org/cn\n[9] ROS 简介-从零开始讲解 ROS （适合超零基础阅读）-CSDN博客 — https://blog.csdn.net/qq_25267657/article/details/84316111\n[10] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1\n[11] Introduction · Autolabor- ROS 机器人入门课程《 ROS 理论与 ... — https://www.autolabor.com.cn/book/ROSTutorials/\n[12] From RTAI to RT-Preempt a quantative approach in replacing Linux based dual kernel real-time operating systems with Linux RT-Preempt in distributed real-time networks for educational ICT systems — https://doi.org/10.1109/iecon.2016.7793116\n[13] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[14] SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection — http://arxiv.org/abs/2509.19861v1\n[15] ROS 从入门到精通0-3：  ROS 简介、安装与常见问题 — https://zhuanlan.zhihu.com/p/498742111\n[16] GitHub - ros2/ rclcpp :  rclcpp  (ROS Client Library for C++) — https://github.com/ros2/rclcpp\n[17] 20-ROS2  初探 - 知乎 — hedJjaC291OfPyaFZYFLI4KQWvqt63NB7dOeveA8wKAaSqX4aplYzQ..\n[18] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[19] Exploring Real-Time Executor on ROS 2 — https://doi.org/10.1109/icess49830.2020.9301530\n[20] ROS2 回调处理机制 executor+callbackgroup _ ros2   callback group -CSDN博客 — https://blog.csdn.net/weixin_60864335/article/details/131134956\n[21] Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems — http://arxiv.org/abs/2505.06546v1\n[22] ROS2学习笔记4_ rclcpp -CSDN博客 — https://blog.csdn.net/m0_55260921/article/details/149706560\n[23] ROS2     rclcpp   Parameter   Callback   [Tutorial]_知乎 — hedJjaC291OfPyaFZYFLI4KQWvqt63NBkqlHYkqB8P1sRolFyj5hmw..\n[24] Real-Time Scheduling and Analysis of Processing Chains on Multi-threaded Executor in ROS 2 — https://doi.org/10.1109/rtss55097.2022.00013\n[25] ROS2 探索(二) executor _ rclcpp :: executor s::multithreaded executor -CSDN博客 — https://blog.csdn.net/qq_16893195/article/details/113123386\n\n\n---\n\n*Generated by research-bot · topic=`ros2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360 · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=25 · duration=272s · 2026-10-02T03:26:42+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "ROS : Home",
+      "url": "https://www.ros.org/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "活性氧_百度百科",
+      "url": "https://baike.baidu.com/item/%E6%B4%BB%E6%80%A7%E6%B0%A7/6657751",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "终于有人把 ROS (机器人操作系统)讲明白了-CSDN博客",
+      "url": "https://blog.csdn.net/usstmiracle/article/details/134582549",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "ROS  (机器人操作系统) - 云飞机器人中文维基",
+      "url": "https://yfrobotics.github.io/robowiki-cn/ros/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "cn -  ROS  Wiki",
+      "url": "https://wiki.ros.org/cn",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "ROS 简介-从零开始讲解 ROS （适合超零基础阅读）-CSDN博客",
+      "url": "https://blog.csdn.net/qq_25267657/article/details/84316111",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+      "url": "http://arxiv.org/abs/2509.11402v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Introduction · Autolabor- ROS 机器人入门课程《 ROS 理论与 ...",
+      "url": "https://www.autolabor.com.cn/book/ROSTutorials/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "From RTAI to RT-Preempt a quantative approach in replacing Linux based dual kernel real-time operating systems with Linux RT-Preempt in distributed real-time networks for educational ICT systems",
+      "url": "https://doi.org/10.1109/iecon.2016.7793116",
+      "kind": "paper",
+      "venue": "IECON 2016 - 42nd Annual Conference of the IEEE Industrial Electronics Society",
+      "published": "2016-10-01",
+      "citations": 4,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+      "url": "http://arxiv.org/abs/2509.19861v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "ROS 从入门到精通0-3：  ROS 简介、安装与常见问题",
+      "url": "https://zhuanlan.zhihu.com/p/498742111",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "GitHub - ros2/ rclcpp :  rclcpp  (ROS Client Library for C++)",
+      "url": "https://github.com/ros2/rclcpp",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "20-ROS2  初探 - 知乎",
+      "url": "hedJjaC291OfPyaFZYFLI4KQWvqt63NB7dOeveA8wKAaSqX4aplYzQ..",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Exploring Real-Time Executor on ROS 2",
+      "url": "https://doi.org/10.1109/icess49830.2020.9301530",
+      "kind": "paper",
+      "venue": "2020 IEEE International Conference on Embedded Software and Systems (ICESS)",
+      "published": "2020-12-10",
+      "citations": 38,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "ROS2 回调处理机制 executor+callbackgroup _ ros2   callback group -CSDN博客",
+      "url": "https://blog.csdn.net/weixin_60864335/article/details/131134956",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems",
+      "url": "http://arxiv.org/abs/2505.06546v1",
+      "kind": "paper",
+      "venue": "cs.OS",
+      "published": "2025-05-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "ROS2学习笔记4_ rclcpp -CSDN博客",
+      "url": "https://blog.csdn.net/m0_55260921/article/details/149706560",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "ROS2     rclcpp   Parameter   Callback   [Tutorial]_知乎",
+      "url": "hedJjaC291OfPyaFZYFLI4KQWvqt63NBkqlHYkqB8P1sRolFyj5hmw..",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Real-Time Scheduling and Analysis of Processing Chains on Multi-threaded Executor in ROS 2",
+      "url": "https://doi.org/10.1109/rtss55097.2022.00013",
+      "kind": "paper",
+      "venue": "2022 IEEE Real-Time Systems Symposium (RTSS)",
+      "published": "2022-12-01",
+      "citations": 40,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "ROS2 探索(二) executor _ rclcpp :: executor s::multithreaded executor -CSDN博客",
+      "url": "https://blog.csdn.net/qq_16893195/article/details/113123386",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-02-ros2.md",
+    "json": "report/2026/10/2026-10-02-ros2.json"
+  }
+}

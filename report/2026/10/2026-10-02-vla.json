@@ -1,0 +1,953 @@
+{
+  "topic": "vla",
+  "title": "Vision-Language-Action (VLA) 基础模型深度调研报告",
+  "query": "",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-02T03:46:31+00:00",
+  "finished_at": "2026-10-02T03:56:38+00:00",
+  "duration_s": 607.0,
+  "rounds": 1,
+  "plan": {
+    "title": "Vision-Language-Action (VLA) 基础模型深度调研报告",
+    "summary": "系统梳理 VLA 模型的经典奠基与近两年前沿进展，覆盖技术演进、跨本体泛化、真机部署、开源工程栈、数据集与基准及开放争议，形成带证据分级的可核查结论清单。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "VLA 的经典奠基工作与技术演进脉络是什么：从模块化模仿学习（RT-1、ACT/ALOHA、Diffusion Policy）到端到端视觉-语言-动作模型（RT-2、Octo、OpenVLA）的承上启下关系如何？",
+        "rationale": "判断“真前沿”必须先确立基线。只有理清模块化→端到端→基础模型的范式迁移节点（监督信号、动作表征、数据规模各自改变了什么），才能识别后续工作相对前作的真实增量，避免把已有思想误读为新突破。",
+        "queries": [
+          "RT-1 robotics transformer 2022 arXiv Google Robotics",
+          "RT-2 vision-language-action model 2023 CoRL paper",
+          "Diffusion Policy visuomotor policy learning CoRL 2023",
+          "ALOHA ACT learning fine-grained bimanual manipulation RSS 2023"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "最近 1-2 年（2024-2026）VLA 前沿进展的实质变化在哪：新模型在架构、动作表征（action tokenization vs diffusion vs flow matching）、跨本体泛化与真机部署上有哪些可验证提升？",
+        "rationale": "该方向迭代极快且 demo 与论文混杂。需要按“多任务/多本体验证 + 是否开源 + 提升归因（数据/架构/算力）+ 是否有第三方评测”四问筛选，区分刚发布与已被验证的工作，并记录仿真 SOTA 与真机 SOTA 的口径差异。",
+        "queries": [
+          "pi0 vision-language-action flow matching 2024 arXiv Physical Intelligence",
+          "pi0.5 open-world generalization 2025 arXiv",
+          "GR00T N1 humanoid foundation model NVIDIA 2025 arXiv",
+          "cross-embodiment generalization robot foundation model 2025 ICRA CoRL"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "bing"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "VLA 的开源工程实践、数据集与评测基准现状如何，以及存在哪些复现困难、争议与开放问题？",
+        "rationale": "工程落地依赖可复现的代码、权重与可比基准。需要交叉核对 GitHub 活跃度/HuggingFace 权重、数据集主页（Open X-Embodiment、DROID、BridgeData V2）与榜单（LIBERO、SimplerEnv、CALVIN、RoboTwin），并明确记录 negative results、真机复现门槛与评测口径争议。",
+        "queries": [
+          "open source VLA model fine-tuning benchmark 2025 github",
+          "OpenVLA Octo RDT-1B code weights HuggingFace",
+          "LIBERO benchmark lifelong robot learning evaluation 2023",
+          "SimplerEnv Simulated-to-Real evaluation robot policies 2024"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "VLA 的经典奠基工作与技术演进脉络是什么：从模块化模仿学习（RT-1、ACT/ALOHA、Diffusion Policy）到端到端视觉-语言-动作模型（RT-2、Octo、OpenVLA）的承上启下关系如何？",
+      "queries": [
+        "RT-1 robotics transformer 2022 arXiv Google Robotics",
+        "RT-2 vision-language-action model 2023 CoRL paper",
+        "Diffusion Policy visuomotor policy learning CoRL 2023",
+        "ALOHA ACT learning fine-grained bimanual manipulation RSS 2023"
+      ],
+      "rationale": "判断“真前沿”必须先确立基线。只有理清模块化→端到端→基础模型的范式迁移节点（监督信号、动作表征、数据规模各自改变了什么），才能识别后续工作相对前作的真实增量，避免把已有思想误读为新突破。",
+      "round": 1,
+      "results": [
+        {
+          "title": "RT  News —  RT",
+          "url": "https://www.rt.com/on-air/",
+          "snippet": "RT’s flagship, award-winning English-language channel airs 24/7 from the network’s Moscow offices and is available to more than …",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.026294,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "RT  中国",
+          "url": "https://rtchina.cn/",
+          "snippet": "1 day ago · RT 中国为您带来全球最新资讯与深度报道，24小时滚动更新。 走进莫斯科州训练场，RT 带来国民近卫军 “蝰蛇” 快反支 …",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.024585,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "rt （网络流行语）_百度百科",
+          "url": "https://baike.baidu.com/item/rt/1474",
+          "snippet": "RT，网络流行语，是互联网环境中应用广泛的缩写术语，主要承载两种网络语义。在中文网络论坛场景中，RT作为“如题”的拼音首字 …",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.023094,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "News  —  RT",
+          "url": "https://www.rt.com/bulletin-board/news/",
+          "snippet": "RT news, interviews and shows available as podcasts you can download for free. Our coverage focuses on international headlines, …",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.021779,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "本轮候选证据与子问题（VLA 经典奠基工作与技术演进脉络）完全无关，无法支撑任何关于 RT-1/ACT/ALOHA/Diffusion Policy/RT-2/Octo/OpenVLA 的结论。",
+            "evidence": "候选 4 条来源全部指向俄罗斯官方媒体 Russia Today（RT）的频道页、中文站点与新闻公告板，以及中文网络流行语「RT=如题」的百科条目，内容为国际时政新闻与网络用语释义，未出现任何机器人学、模仿学习或视觉-语言-动作模型的术语。",
+            "sources": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "type": "news",
+            "confidence": "high",
+            "year": "2026"
+          },
+          {
+            "point": "证据 [1][4] 为 RT 英文频道的播出/新闻索引页，属于媒体机构主页，不含技术内容。",
+            "evidence": "[1] 描述 RT 英语频道 24/7 从莫斯科播出；[4] 为 RT 的 news 公告板/播客下载页。二者均为媒体导航页，无学术或工程信息。",
+            "sources": [
+              1,
+              4
+            ],
+            "type": "news",
+            "confidence": "high",
+            "year": ""
+          },
+          {
+            "point": "证据 [2] 为 RT 中文站点首页，抓取内容为 2026 年 9-10 月的国际时政与军事报道，与机器人学无关。",
+            "evidence": "页面条目包括「日本前防卫大臣访乌谈无人机合作」（2026.10.01）、「马克龙称欧洲需要中国」（2026.10.01）、「RT 独家探秘｜俄国民近卫军蝰蛇支队访谈」（2026.09.09）等。注意其中的「无人机」指军用无人机，与 VLA 研究无关联。",
+            "sources": [
+              2
+            ],
+            "type": "news",
+            "confidence": "high",
+            "year": "2026"
+          },
+          {
+            "point": "证据 [3] 显示检索词「RT」在中文语境下被搜索引擎高概率歧义解析为网络流行语（如题）或媒体名，这是本轮召回全部偏航的直接原因；查询词需加限定词（如「RT-1 robot」「Robotics Transformer」）才能命中目标文献。",
+            "evidence": "百度百科条目将 RT 定义为「如题」的拼音首字母缩写等网络语义；4 条候选来源中 3 条为 RT 媒体、1 条为网络用语，命中率 0/4。",
+            "sources": [
+              3
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": ""
+          },
+          {
+            "point": "结论：本子问题当前处于「证据缺口（Evidence Gap）」状态，无法给出从模块化模仿学习到端到端 VLA 的承上启下关系判断，任何相关陈述均需重新检索后补证。",
+            "evidence": "候选证据中不存在任何可核查的论文、项目、数据集或基准信息，key_papers / key_projects / key_datasets 只能返回空数组；按调研纪律不得以模型记忆填充。",
+            "sources": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": ""
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "证据缺口：本轮 4 条候选来源全部为无关的媒体/词条页面，无法覆盖 RT-1、ACT/ALOHA、Diffusion Policy、RT-2、Octo、OpenVLA 中任何一项的出处、年份、机构或开源情况。",
+          "检索词歧义：需将「RT」替换为无歧义表述（如「RT-1 Robotics Transformer」「RT-2 vision-language-action」）并限定 site:arxiv.org / site:github.com 与年份区间（2022..2025）后重新检索。",
+          "待核实（全部）：模块化模仿学习与端到端 VLA 之间的技术继承关系（动作离散化/token 化、大规模跨本体数据、预训练-微调范式）在现有证据中完全没有支撑，需以一手论文与官方仓库为准重建证据链。"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "最近 1-2 年（2024-2026）VLA 前沿进展的实质变化在哪：新模型在架构、动作表征（action tokenization vs diffusion vs flow matching）、跨本体泛化与真机部署上有哪些可验证提升？",
+      "queries": [
+        "pi0 vision-language-action flow matching 2024 arXiv Physical Intelligence",
+        "pi0.5 open-world generalization 2025 arXiv",
+        "GR00T N1 humanoid foundation model NVIDIA 2025 arXiv",
+        "cross-embodiment generalization robot foundation model 2025 ICRA CoRL"
+      ],
+      "rationale": "该方向迭代极快且 demo 与论文混杂。需要按“多任务/多本体验证 + 是否开源 + 提升归因（数据/架构/算力）+ 是否有第三方评测”四问筛选，区分刚发布与已被验证的工作，并记录仿真 SOTA 与真机 SOTA 的口径差异。",
+      "round": 1,
+      "results": [
+        {
+          "title": "[2410.24164] $π_0$: A Vision-Language-Action Flow Model for …",
+          "url": "https://arxiv.org/abs/2410.24164",
+          "snippet": "We propose a novel flow matching architecture built on top of a pre-trained vision-language model (VLM) to inherit Internet-scale semantic knowledge. We then discuss how this model can be trained on a large and diverse dataset from multiple dexterous robot platforms, including single-arm robots, dual-arm robots, and m…",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "also_seen_on": [
+              "searxng"
+            ],
+            "rrf_score": 0.027505
+          }
+        },
+        {
+          "title": "π0——用于通用机器人控制的VLA模型：一套框架控制7种 ...",
+          "url": "https://blog.csdn.net/v_JULY_v/article/details/143472442",
+          "snippet": "Nov 4, 2024 · 文章浏览阅读5.6w次，点赞265次，收藏544次。在此文之前，我花了一天半，详细解读了清华这个机器人扩散大模 …",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.026023,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "GitHub - Physical-Intelligence/openpi",
+          "url": "https://github.com/Physical-Intelligence/openpi",
+          "snippet": "openpi holds open-source models and packages for robotics, published by the Physical Intelligence team. Currently, this repo contains three types of models: the π₀ model, a flow-based vision-language-action model (VLA). the π₀-FAST model, an autoregressive VLA, based on the FAST action tokenizer. the π₀.₅ model, an up…",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "also_seen_on": [
+              "searxng"
+            ],
+            "rrf_score": 0.025933
+          }
+        },
+        {
+          "title": "2025 | π0、π0-FAST、π0.5通用具身智能技术解读 - 知乎",
+          "url": "https://zhuanlan.zhihu.com/p/1918794606549636945",
+          "snippet": "Jun 18, 2025 · 个人思考：pi0-FAST借一些压缩方法去优化tokenization，不仅提升训练速度，而且还能让 自回归模型 适配灵巧高频任 …",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.024697,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "π0 把流匹配（flow matching）动作生成架构叠加在预训练 VLM 之上，用 VLM 继承互联网规模语义知识，是 2024 年后 VLA 在“动作表征”上的关键转向：从离散动作 token 自回归走向连续流匹配。",
+            "evidence": "arXiv 摘要明确写 “novel flow matching architecture built on top of a pre-trained vision-language model (VLM) to inherit Internet-scale semantic knowledge”；CSDN 解读指出其基础为 PaliGemma + 流匹配，规模 3B。",
+            "sources": [
+              13,
+              14
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2024"
+          },
+          {
+            "point": "同一条技术谱系内出现两种并行动作表征路线：π0 走流匹配（连续动作生成），π0-FAST 走自回归 + FAST 动作 tokenizer，两者并非替代关系而是并存的架构分支。",
+            "evidence": "openpi 仓库说明其同时包含三类模型：“the π₀ model, a flow-based vision-language-action model (VLA)”“the π₀-FAST model, an autoregressive VLA, based on the FAST action tokenizer”“the π₀.₅ model”。",
+            "sources": [
+              15
+            ],
+            "type": "project",
+            "confidence": "high",
+            "year": "2025"
+          },
+          {
+            "point": "π0-FAST 通过对动作 tokenization 做压缩优化，报告训练速度比扩散版 π0 快约 5 倍且效果相当，并让自回归模型能适配灵巧、高频任务。",
+            "evidence": "知乎解读（2025-06-18）称 “pi0-FAST借一些压缩方法去优化tokenization，不仅提升训练速度，而且还能让自回归模型适配灵巧高频任…（务）”；CSDN 文内标语为 “比扩散π0的训练速度快5倍但效果相当(含π0-FAST源码剖析)”。以上均为二手解读，未给出一手实验表格。",
+            "sources": [
+              14,
+              16
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "2025"
+          },
+          {
+            "point": "跨本体（cross-embodiment）泛化是这一代 VLA 的核心卖点：π0 的训练数据来自多种灵巧机器人平台，并被描述为“一套框架控制 7 种不同品牌机械臂”。",
+            "evidence": "arXiv 摘要：“trained on a large and diverse dataset from multiple dexterous robot platforms, including single-arm robots, dual-arm robots, and m…（multi-arm/dexterous）”；CSDN 标题与正文：“一套框架控制7种机械臂”“3B的机器人大模型打通7种不同品牌的机械臂”。后者为二手来源，未给出任务数与成功率口径。",
+            "sources": [
+              13,
+              14
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024"
+          },
+          {
+            "point": "模型已进入快速迭代系列化阶段：从 π0 到 π0.5，并在社区材料中出现 π0.6、π0.7 的提法，形成“π0 系列”连续版本谱系。",
+            "evidence": "openpi 仓库列出 π0、π0-FAST、π0.5；CSDN 文集标题为 “VLA风向标之π0系列(含π0.6 π0.7)的复现与微调”，正文亦提及 “后续新版π0.5”。π0.6/π0.7 仅见于栏目命名，缺少参数、指标与官方链接。",
+            "sources": [
+              14,
+              15
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "2025"
+          },
+          {
+            "point": "开源生态是推动该路线扩散的关键：Physical Intelligence 通过 openpi 仓库开放 π0 / π0-FAST / π0.5 模型与配套包，但第三方封装（如 LeRobot 对 π0 的封装）在效果上被指逊于官方 openpi 实现。",
+            "evidence": "GitHub openpi 描述 “holds open-source models and packages for robotics, published by the Physical Intelligence team... contains three types of models”；CSDN 正文提及 “LeRobot pi0——LeRobot对VLA策略π0的封装：含其源码剖析与真机部署(效果上逊于官方openpi)”。复现差异为二手陈述，无量化对比。",
+            "sources": [
+              14,
+              15
+            ],
+            "type": "project",
+            "confidence": "medium",
+            "year": "2025"
+          },
+          {
+            "point": "论文持续维护更新：π0 预印本自 2024-10-31 首次提交后至 2026-01-08 已更新到 v4，说明该工作在被持续修订，引用时需注意版本。",
+            "evidence": "arXiv 页面标注 “[Submitted on 31 Oct 2024 (v1), last revised 8 Jan 2026 (this version, v4)]”。",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "π0: A Vision-Language-Action Flow Model for General Robot Control",
+            "url": "https://arxiv.org/abs/2410.24164",
+            "why": "该子问题的核心一手证据：提出在预训练 VLM 之上构建流匹配 VLA 架构，并在多平台（单臂、双臂、灵巧）数据上训练，代表 2024 年后动作表征从离散 token 自回归向连续流匹配转向的代表性工作；v4 修订至 2026-01。",
+            "year": "2024 (v4 2026)"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "openpi (Physical Intelligence)",
+            "url": "https://github.com/Physical-Intelligence/openpi",
+            "why": "官方开源仓库，同时托管 flow-based 的 π0、基于 FAST 动作 tokenizer 的自回归 π0-FAST 以及 π0.5，是核验“流匹配 vs 动作 tokenization 两条路线并存”与开源可复现性的直接项目证据。",
+            "year": "2025"
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据中没有任何一手实验表格或量化指标（任务数、成功率、真机/仿真口径、本体数量），π0 与 π0-FAST 的“提升”只能确认方向而无法确认幅度，需回溯 arXiv 原文与附录核实。",
+          "π0-FAST“比扩散 / 流匹配版 π0 训练快 5 倍且效果相当”目前仅见于中文二手解读 [14][16]，缺少官方或第三方基准复现，属待核实数字。",
+          "跨本体泛化能力（“一套框架控制 7 种机械臂”）由二手来源给出，缺乏独立第三方评测与统一 benchmark 对比，无法区分仿真 SOTA 与真机 SOTA。",
+          "模型系列边界不清：π0.5 已在官方仓库确认，但 π0.6 / π0.7 仅出现于社区栏目命名，无官方模型页、论文或权重链接，需另行核实。",
+          "复现一致性存疑：第三方封装（LeRobot 对 π0 的封装）被指效果逊于官方 openpi，但缺量化对比，工程复现难度与性能损失缺乏公开证据。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "VLA 的开源工程实践、数据集与评测基准现状如何，以及存在哪些复现困难、争议与开放问题？",
+      "queries": [
+        "open source VLA model fine-tuning benchmark 2025 github",
+        "OpenVLA Octo RDT-1B code weights HuggingFace",
+        "LIBERO benchmark lifelong robot learning evaluation 2023",
+        "SimplerEnv Simulated-to-Real evaluation robot policies 2024"
+      ],
+      "rationale": "工程落地依赖可复现的代码、权重与可比基准。需要交叉核对 GitHub 活跃度/HuggingFace 权重、数据集主页（Open X-Embodiment、DROID、BridgeData V2）与榜单（LIBERO、SimplerEnv、CALVIN、RoboTwin），并明确记录 negative results、真机复现门槛与评测口径争议。",
+      "round": 1,
+      "results": [
+        {
+          "title": "OpenVLA: An open-source vision-language-action model - GitHub",
+          "url": "https://github.com/openvla/openvla",
+          "snippet": "[2024-10-15] Added a VLA Performance Troubleshooting section to the README with best practices for debugging poor VLA performance after fine-tuning. [2024-09-04] Added LIBERO simulation benchmark fine-tuning experiments to paper (see v2 on arXiv); added instructions for reproducing OpenVLA results in LIBERO Simulation…",
+          "engine": "searxng",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.026743,
+            "also_seen_on": [
+              "bing"
+            ]
+          }
+        },
+        {
+          "title": "OpenFrp  开放映射 — 免费内网穿透_免费端口映射_高速_不 ...",
+          "url": "https://www.openfrp.net/",
+          "snippet": "Aug 31, 2026 · OpenFrp 是一个免费公益开放的内网穿透工具为你提供内网穿透,内网穿透服务,内网穿透软件,frp内网穿透,内网映 …",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.016393
+          }
+        },
+        {
+          "title": "Open  VPN官网中文站",
+          "url": "https://www.openvpncn.com/",
+          "snippet": "Dec 9, 2025 · Open VPN OpenVPN是开源商业VPN解决方案的领导者，为企业与个人提供高度安全、可扩展的远程访问与站点到站 …",
+          "engine": "bing",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.015385
+          }
+        },
+        {
+          "title": "[2406.09246] OpenVLA: An  Open-Source  Vision-Language-Action  Model",
+          "url": "https://arxiv.org/abs/2406.09246",
+          "snippet": "Jun 13, 2024 · Addressing these challenges, we introduce OpenVLA, a 7B-parameter open-source VLA trained on a diverse …",
+          "engine": "so360",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.02393,
+            "also_seen_on": [
+              "bing"
+            ]
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "OpenVLA 是一个 7B 参数的开源 VLA 模型，在多样化数据上训练，是 VLA 开源工程实践的代表性一手工作。",
+            "evidence": "arXiv 摘要明确表述：'we introduce OpenVLA, a 7B-parameter open-source VLA trained on a diverse …'（2406.09246）。",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024"
+          },
+          {
+            "point": "OpenVLA 提供官方开源代码仓库（openvla/openvla），构成可复现的开源工程入口。",
+            "evidence": "GitHub 仓库 https://github.com/openvla/openvla 存在，且 README 持续更新（2024-10-15 等条目）。",
+            "sources": [
+              25
+            ],
+            "type": "project",
+            "confidence": "medium",
+            "year": "2024"
+          },
+          {
+            "point": "OpenVLA 官方文档专门增设『VLA Performance Troubleshooting』章节，说明微调后性能不佳是普遍存在的实践问题——这是 VLA 复现困难的一手工程证据。",
+            "evidence": "仓库更新记录：'[2024-10-15] Added a VLA Performance Troubleshooting section to the README with best practices for debugging poor VLA performance after fine-tuning.'",
+            "sources": [
+              25
+            ],
+            "type": "project",
+            "confidence": "medium",
+            "year": "2024"
+          },
+          {
+            "point": "OpenVLA 将 LIBERO 仿真基准的微调实验纳入论文，并提供在 LIBERO 中复现 OpenVLA 结果的说明，表明 LIBERO 是其评测/复现链路的一环。",
+            "evidence": "'[2024-09-04] Added LIBERO simulation benchmark fine-tuning experiments to paper (see v2 on arXiv); added instructions for reproducing OpenVLA results in LIBERO Simulation…'",
+            "sources": [
+              25
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2024"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "OpenVLA: An Open-Source Vision-Language-Action Model",
+            "url": "https://arxiv.org/abs/2406.09246",
+            "why": "VLA 开源模型的一手论文，提出 7B 参数开源 VLA，并包含 LIBERO 仿真基准微调实验（v2），是开源工程与复现讨论的基准引用点。",
+            "year": "2024"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "openvla/openvla",
+            "url": "https://github.com/openvla/openvla",
+            "why": "OpenVLA 官方开源仓库，含微调后性能调试最佳实践与 LIBERO 复现说明，是当前候选证据中唯一直接体现 VLA 开源工程实践与复现难度的一手来源。",
+            "year": "2024"
+          }
+        ],
+        "key_datasets": [
+          {
+            "name": "LIBERO (simulation benchmark)",
+            "url": "",
+            "why": "在 OpenVLA 仓库更新记录中被明确提及为微调实验与结果复现所用仿真基准；候选证据未给出其官方主页 URL，具体协议与榜单数据待核实。",
+            "year": ""
+          }
+        ],
+        "open_problems": [
+          "复现困难：微调后 VLA 性能不佳被官方单独列为 Troubleshooting 主题，说明该问题普遍且需要专门调试经验 [25]，但候选证据未给出失败率或量化对比。",
+          "评测基准覆盖不足：候选证据仅直接涉及 LIBERO 一个仿真基准，缺少其他基准/真机评测的可核查证据，跨基准可比性待核实 [25]。",
+          "证据缺口：本次候选证据中仅 2 条与 VLA 相关（[25][26]），其余（[28] OpenFrp 内网穿透、[31] OpenVPN）与本子问题无关，属检索噪声；关于数据集生态（如 Open X-Embodiment、DROID）、榜单 SOTA、社区争议与第三方复现均无直接证据，全部标注『待核实』。"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 22301,
+    "completion_tokens": 16121,
+    "generated_at": "2026-10-02T03:56:38.639440+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# Vision-Language-Action (VLA) 基础模型调研报告\n\n**元信息**｜调研日期：2026-10-02（UTC）｜领域：具身智能 / 机器人学习 / Vision-Language-Action｜检索源数量：36 条候选来源，其中与 VLA 直接相关约 21 条，无关噪声约 15 条｜证据分级：A 同行评审 / B 一手预印本与官方仓库 / C 第三方复现与榜单 / D 二手解读\n\n> **检索质量与证据缺口声明（重要）**\n> 本轮针对子问题 q1（VLA 经典奠基与技术演进脉络）的 4 条候选来源**全部偏航**：检索词「RT」在中文语境下被高概率歧义解析为俄罗斯官方媒体 Russia Today [1][2][4] 与网络流行语「如题」[3]，命中率 0/4。因此本文「经典与奠基性工作」章节的部分条目**依赖领域种子资源而非本轮实时检索结果**，凡未经本轮一手来源核实的条目，均在表中单独标注 `种子资源·未实时核实`，正文对应论断标注 `> 待核实`。请勿将种子资源中的链接与年份当作本轮已核验结论使用。\n\n---\n\n## 摘要（Executive Summary）\n\n1. **动作表征是近两年 VLA 最实质的架构变化。** Physical Intelligence 的 π0（2024-10 首发，v4 修订至 2026-01-08）在预训练 VLM 之上叠加 **flow matching** 动作生成架构，明确以「继承互联网规模语义知识」为目标 [13]，标志着头部 VLA 从**离散动作 token 自回归**向**连续生成式动作建模**的关键转向。证据等级：B（一手 arXiv 摘要）[13]。\n2. **两条动作表征路线并非替代而是并存。** 官方 openpi 仓库同时托管三类模型：基于 flow 的 π0、基于 **FAST action tokenizer** 的自回归 π0-FAST、以及 π0.5 [15]。这直接证明「流匹配」与「动作 tokenization」在工程上是并行分支，而非单线演进。证据等级：B（官方仓库）[15]。\n3. **开源工程实践的两极：OpenVLA 与 openpi。** OpenVLA 是 7B 参数开源 VLA，官方仓库持续维护，并**专门增设「VLA Performance Troubleshooting」章节**以应对微调后性能不佳这一普遍问题 [25][26]——这是 VLA 复现困难的**一手工程证据**，价值高于任何二手抱怨。证据等级：B [25][26]。\n4. **跨本体泛化是这一代 VLA 的核心卖点，但缺乏独立第三方评测。** π0 的训练数据来自多种灵巧机器人平台 [13]；中文二手来源进一步声称「一套框架控制 7 种不同品牌机械臂」[14]，但**未给出任务数、成功率口径、真机/仿真区分**。证据等级：C/D，数字 `> 待核实`。\n5. **评测基准正在扩张。** 除经典仿真基准（LIBERO 等种子资源）外，本轮检索到 **VLA-Arena**（PKU-Alignment 的开源系统化评测基准）[33]，以及 2026 年 IEEE RA-L 关于**免微调推理时策略引导**的部署方向工作 [34]。\n6. **最大缺口**：本轮**未获得任何一手实验表格**，π0-FAST「训练快 5 倍且效果相当」等数字仅见于中文二手解读 [14][16]，属高优先级待核实项。\n\n---\n\n## 一、关键前沿进展（近 12–24 个月，即 2024-10 → 2026-10）\n\n### 1.1 π0 系列：从流匹配到版本谱系\n\n| 时间 | 事项 | 来源 | 证据等级 |\n|------|------|------|----------|\n| 2024-10-31 | π0 预印本 v1 提交，提出在预训练 VLM 上构建 flow matching VLA | [13] | B（一手） |\n| 2026-01-08 | π0 更新至 v4，说明工作被持续修订，**引用须注意版本号** | [13] | B（一手） |\n| 2025 | openpi 官方仓库同时开源 π0（flow）、π0-FAST（自回归 + FAST tokenizer）、π0.5 | [15] | B（官方仓库） |\n| 2025 | π0.5 论文（*A Vision-Language-Action Model with Open-World Generalization*）出现中文详解 | [17] | C（二手解读） |\n\n- π0 的核心技术主张可用其摘要原句概括：构建于预训练 VLM 之上的 flow matching 架构，以「inherit Internet-scale semantic knowledge」[13]。这是 2024 年后 VLA 动作表征转向的**一手锚点**。\n- π0.5 已在官方 openpi 仓库中列明 [15]，**属于已确认存在的官方模型**；而社区材料中出现的 π0.6、π0.7 提法 [14] 仅有栏目命名，缺参数、指标与官方链接。\n  > 待核实：π0.6 / π0.7 是否真实存在、是否有正式技术报告或权重发布。当前证据等级 D。\n- 二手来源称 π0-FAST「比扩散/流匹配版 π0 训练速度快约 5 倍但效果相当」[14][16]。\n  > 待核实：该数字为二手解读，本轮**无官方实验表格或第三方复现支撑**，不可作为结论引用。\n\n### 1.2 部署侧：免微调的推理时策略引导\n\n本轮检索到 2026 年 IEEE Robotics and Automation Letters 的补充材料条目 *Towards Deploying VLA Without Fine-Tuning: Plug-and-Play Inference-Time VLA Policy Steering Via Embodied Evolutionary Diffusion* [34]。该工作指向一个明确痛点：**真机部署中为每个新任务微调 VLA 成本过高**，转而尝试推理时（inference-time）策略引导。证据等级：A（期刊条目）/ 但本轮仅见补充视频材料页，正文内容 `> 待核实`。\n\n### 1.3 评测侧：VLA-Arena\n\n**VLA-Arena**（PKU-Alignment 维护）定位为「open-source benchmark for systematic evaluation」[33]，指向当前 VLA 评测碎片化问题。证据等级：B（官方仓库），但榜单规模、任务集与 SOTA 数值 `> 待核实`。\n\n### 1.4 中文社区脉络梳理\n\n一篇标题为「具身智能模型发展脉络：从 RT-1 到 π*0.6」的博客文章 [5] 提供了中英文术语对照与演进叙事，本轮将其作为**线索性**来源（D 级二手）。注：该条目的 URL 在检索结果中呈编码/截断状态，**链接可访问性存疑**，不宜作为唯一依据。\n\n---\n\n## 二、方法范式对比（离散动作 / 扩散 / Flow Matching / 双系统）\n\n| 范式 | 动作表征 | 代表工作 | 关键特征 | 本轮证据状态 |\n|------|----------|----------|----------|--------------|\n| **离散动作 token 自回归** | 动作离散化为 token，与语言 token 共用序列空间 | RT-2（种子资源）、OpenVLA [26] | 复用 VLM 权重与语言接口，天然支持多模态提示 | OpenVLA 为一手 [26][25]；RT-2 仅种子资源 `种子资源·未实时核实` |\n| **扩散式动作生成（Diffusion）** | 连续动作轨迹作为去噪目标 | Diffusion Policy（种子资源） | 可建模多模态动作分布，推理需多步去噪 | 仅种子资源，本轮无一手来源 `种子资源·未实时核实` |\n| **Flow Matching** | 连续时间流场，直接回归速度场 | π0 [13] | 构建于预训练 VLM 之上；训练目标比扩散更直接 | B（一手 arXiv 摘要）[13][14] |\n| **自回归 + FAST 动作 tokenizer** | 压缩后的动作 token | π0-FAST [15] | 与 flow 版并存；据二手来源称训练更快、适配高频灵巧任务 | 官方仓库确认存在 [15]；性能数字 `> 待核实` [14][16] |\n| **双系统 / 分层（System 1 + System 2）** | 慢速语义规划 + 快速动作执行解耦 | π0 的「预训练 VLM + 动作专家」结构可作类比 | 兼顾语义泛化与实时控制频率 | **归纳性判断**，本轮无直接来源 `> 待核实` |\n\n**要点说明**\n\n1. **「离散 vs 连续」是主分界线，而非「谁取代谁」。** openpi 同时托管 flow 版 π0 与自回归版 π0-FAST [15]，是最直接的并存证据。二者的取舍更像是**训练效率 / 高频任务适配**与**生成质量**之间的工程权衡。\n2. **Flow Matching 的推广逻辑在于「复用 VLM 权重」** [13]。相较从零训练的扩散策略（种子资源），π0 路线把互联网规模语义知识当作免费先验。\n3. **「双系统」在本文中属谨慎归纳。** 严格意义上的 System 1/System 2 双系统 VLA（如慢思考 VLM + 快反射动作头）需要独立一手来源支撑；本轮未检索到，因此不列为已证实范式。\n   > 待核实：双系统 VLA 的代表性工作、机构与指标。\n\n---\n\n## 三、经典与奠基性工作\n\n> 本章为**证据薄弱区**：q1 检索全部偏航 [1][2][3][4]，多数条目来自领域种子资源，未在本轮实时核验。表中「证据」列明确区分。\n\n| 名称 | 年份 | 机构/作者 | 链接 | 说明 | 证据 |\n|------|------|-----------|------|------|------|\n| **RT-1**（Robotics Transformer for Real-World Control at Scale） | 2022 | Google Research | https://arxiv.org/abs/2212.06817 | 大规模真机 Transformer 模仿学习奠基工作 | 本轮命中一手 arXiv [12] 与二手解读 [10][11]；未精读全文 |\n| **RT-2**（Vision-Language-Action Models Transfer Web Knowledge to Robotic Control） | 2023 | Google DeepMind | https://arxiv.org/abs/2307.15818 | VLM 直接输出动作 token，展现涌现泛化 | `种子资源·未实时核实` |\n| **Diffusion Policy**（Visuomotor Policy Learning via Action Diffusion） | 2023 | Columbia / Toyota | https://arxiv.org/abs/2303.04137 | 扩散式动作生成范式 | `种子资源·未实时核实` |\n| **ACT / ALOHA**（Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware） | 2023 | Stanford | https://arxiv.org/abs/2304.13705 | 低成本双臂遥操作 + ACT 算法 | `种子资源·未实时核实` |\n| **Open X-Embodiment / RT-X** | 2023 | Open X-Embodiment Collaboration | https://arxiv.org/abs/2310.08864 | 跨本体大规模数据集与 RT-X 模型 | `种子资源·未实时核实` |\n| **Octo**（An Open-Source Generalist Robot Policy） | 2024 | UC Berkeley | https://arxiv.org/abs/2405.12213 | 开源通用策略，灵活观测/动作头 | `种子资源·未实时核实` |\n| **OpenVLA** | 2024 | Stanford et al. | https://arxiv.org/abs/2406.09246 | 7B 开源 VLA，广泛用作基线 | 一手 arXiv [26] + 官方仓库 [25] + 项目页 [27]（本轮验证存在） |\n| **π0**（A Vision-Language-Action Flow Model for General Robot Control） | 2024（v4 2026） | Physical Intelligence | https://arxiv.org/abs/2410.24164 | flow matching 动作专家，跨本体 | 一手 arXiv [13] + 官方仓库 [15]（本轮验证存在） |\n\n**承上启下关系（谨慎表述）**\n\n按种子资源与命中来源可勾勒的粗线索是：**模块化模仿学习（RT-1 / ACT / Diffusion Policy）→ 端到端 VLA（RT-2 / Octo / OpenVLA）→ 生成式动作建模（π0 flow matching）**。但必须强调：\n\n> 待核实：上述演进链条中「动作离散化 / token 化 → 流匹配」的技术继承细节，以及每一步相对前作的具体增量（数据规模、架构、训练目标），在**本轮证据中完全没有一手支撑**，系依据种子资源与标题层面的推断。任何用于正式汇报的版本都必须回到 arXiv 原文与官方仓库重建证据链。\n\n唯一可确认的相邻事实是：RT-1 有可访问的一手 arXiv 记录 [12]，且中文二手来源提及其在约 700 条指令上的真机评测 [11]。\n> 待核实：RT-1 的指令数与成功率具体数值，需回原文核实 [11][12]。\n\n---\n\n## 四、开源项目与工程实践\n\n| 名称 | 年份 | 机构/作者 | 链接 | 说明 |\n|------|------|-----------|------|------|\n| **openvla/openvla** | 2024 | Stanford et al. | https://github.com/openvla/openvla | OpenVLA 官方实现；含微调排错指南与 LIBERO 复现说明 [25] |\n| **Physical-Intelligence/openpi** | 2025 | Physical Intelligence | https://github.com/Physical-Intelligence/openpi | 官方托管 π0（flow）、π0-FAST（FAST tokenizer）、π0.5 [15] |\n| **octo-models/octo** | 2024 | UC Berkeley | https://github.com/octo-models/octo | Octo 通用策略官方实现 `种子资源·未实时核实` |\n| **tonyzhaozh/aloha** | 2023 | Stanford | https://github.com/tonyzhaozh/aloha | ALOHA / ACT 硬件与代码 `种子资源·未实时核实` |\n| **real-stanford/diffusion_policy** | 2023 | Columbia / Toyota | https://github.com/real-stanford/diffusion_policy | Diffusion Policy 官方实现 `种子资源·未实时核实` |\n| **PKU-Alignment/VLA-Arena** | — | PKU-Alignment | https://github.com/PKU-Alignment/VLA-Arena | 开源 VLA 系统化评测基准 [33] |\n| **LeRobot π0 集成页** | — | Hugging Face | https://hugging-face.cn/docs/lerobot/pi0 | 第三方框架对 π0 的封装文档 [19] |\n\n### 4.1 复现困难的**一手**证据\n\n本轮最有价值的工程发现来自 OpenVLA 官方仓库的更新记录：官方于 2024-10-15 **专门增设「VLA Performance Troubleshooting」章节**，提供微调后性能不佳的调试最佳实践 [25]。这意味着：\n\n- 「微调后效果不如预期」不是个别用户的误用，而是**官方认可的普遍现象**；\n- 复现难度不仅在于算力，更在于**超参、数据配比、观测/动作归一化等隐性工程细节**。\n\n同时，OpenVLA 官方将 **LIBERO 仿真基准的微调实验纳入论文 v2，并提供在 LIBERO 中复现结果的说明** [25]，说明该基准已进入其复现链路。\n\n### 4.2 第三方封装的效果争议\n\n中文二手来源称「LeRobot 对 π0 的封装在效果上逊于官方 openpi」[14]，而 Hugging Face LeRobot 确实提供了 π0 集成页面 [19]。\n\n> 待核实：该性能差异**无任何量化对比**，仅为主观陈述，证据等级 D。工程选型时应以官方 openpi [15] 为基准实现，第三方封装的性能损失需自行复现测量。\n\n### 4.3 工程栈成熟度评估\n\n- **可复现性好**：openpi [15]、openvla/openvla [25] 均为官方维护、README 持续更新。\n- **可复现性存疑**：Octo / ALOHA / Diffusion Policy 仓库本轮**未被实时访问**，仅有种子链接。\n- **部署门槛**：π0 部署涉及 PyTorch / CUDA 版本与驱动兼容问题，中文二手来源有专门整理 [22][24]。\n  > 待核实：这些兼容性表格的准确性未经官方文档交叉验证。\n\n---\n\n## 五、数据集与评测基准\n\n| 名称 | 年份 | 机构/作者 | 链接 | 说明 | 证据 |\n|------|------|-----------|------|------|\n\n## 参考来源\n\n[1] RT  News —  RT — https://www.rt.com/on-air/\n[2] RT  中国 — https://rtchina.cn/\n[3] rt （网络流行语）_百度百科 — https://baike.baidu.com/item/rt/1474\n[4] News  —  RT — https://www.rt.com/bulletin-board/news/\n[5] 具身智能模型发展脉络:从  RT-1   到π*  0  .6 - sasasatori - 博客园 — hedJjaC291P3yGwc7N55kLSc2ls_Ks2xOzRb1UlDTtolAAi3AZwQct0IqRBhsoin\n[6] 今日俄罗斯_百度百科 — https://baike.baidu.com/item/%E4%BB%8A%E6%97%A5%E4%BF%84%E7%BD%97%E6%96%AF/9238633\n[7] 运费如何计算以及海运报价50usd/ RT 中的 RT 是啥意思？ — https://zhuanlan.zhihu.com/p/476123091\n[8] 货代海运报价的 RT 是指什么？（海运 RT 如何计算）-百运网 — https://www.by56.com/news/37140.html\n[9] RT -Thread — https://www.rt-thread.org/\n[10] 学习笔记— RT-1 :  ROBOTICS TRANSFORMER  FOR REAL-WORLD CONTROL AT SCALE_, google   rt-1 ( robotics transformer  1)架构-CSDN博客 — https://blog.csdn.net/wdwjw/article/details/156381744\n[11] 谷歌    RT-1  模型让一个  机器人  干几份活,700条指令成功..._知乎 — hedJjaC291OfPyaFZYFLI4KQWvqt63NBCQYmS-LeT41zs3L1v0fEFQ..\n[12] RT-1: Robotics Transformer for Real-World Control at Scale - arXiv — https://arxiv.org/abs/2212.06817\n[13] [2410.24164] $π_0$: A Vision-Language-Action Flow Model for … — https://arxiv.org/abs/2410.24164\n[14] π0——用于通用机器人控制的VLA模型：一套框架控制7种 ... — https://blog.csdn.net/v_JULY_v/article/details/143472442\n[15] GitHub - Physical-Intelligence/openpi — https://github.com/Physical-Intelligence/openpi\n[16] 2025 | π0、π0-FAST、π0.5通用具身智能技术解读 - 知乎 — https://zhuanlan.zhihu.com/p/1918794606549636945\n[17] 结合代码 介绍一下 π0.5: a  Vision-Language-Action  Model with Open-World Generalization 这篇论文_ pi0 .5代码详解-CSDN博客 — https://blog.csdn.net/luoganttcc/article/details/153639287\n[18] 地表最强机器人大模型? π0 模型详细解读 - 知乎 — https://zhuanlan.zhihu.com/p/11883552553\n[19] π₀ ( Pi0 ) · Hugging Face - 抱抱脸文档 — https://hugging-face.cn/docs/lerobot/pi0\n[20] Physical Intelligence (π) — https://www.pi.website/\n[21] Model 复现系列（三）π0 -- Physical Intelligence Pi-zero（ Pi0 ） — https://blog.csdn.net/nenchoumi3119/article/details/148688800\n[22] Pi0 视觉语言动作流模型部署:PyTorch 2.7 CUDA版本匹配与驱动兼容表-CSDN博客 — https://blog.csdn.net/weixin_31800911/article/details/158756110\n[23] Comment on the Paper Titled ’The Origin of Quantum Mechanical Statistics: Insights from Research on Human Language’ (arXiv preprint arXiv:2407.14924, 2024) — https://doi.org/10.20944/preprints202411.2377.v1\n[24] Pi0 视觉-语言-动作流模型企业应用:低成本GPU算力适配方案详解-CSDN博客 — https://blog.csdn.net/weixin_29781865/article/details/157661185\n[25] OpenVLA: An open-source vision-language-action model - GitHub — https://github.com/openvla/openvla\n[26] [2406.09246] OpenVLA: An  Open-Source  Vision-Language-Action  Model — https://arxiv.org/abs/2406.09246\n[27] OpenVLA: An Open-Source Vision-Language-Action Model — https://openvla.github.io/\n[28] OpenFrp  开放映射 — 免费内网穿透_免费端口映射_高速_不 ... — https://www.openfrp.net/\n[29] Opensource VLA.com for sale | Spaceship.com — http://opensourcevla.com/\n[30] Fine-tuning Llama For Better Performance With the MMLU Benchmark — https://doi.org/10.31219/osf.io/e3v5x\n[31] Open  VPN官网中文站 — https://www.openvpncn.com/\n[32] Demo Bytes:  Fine-Tuning   Open-Source  Models made easy with KAITO | Microsoft Reactor — https://developer.microsoft.com/zh-cn/reactor/events/23697/\n[33] VLA-Arena is an open-source benchmark for systematic evaluation ... — https://github.com/PKU-Alignment/VLA-Arena\n[34] Towards Deploying VLA Without Fine-Tuning: Plug-and-Play Inference-Time VLA Policy Steering Via Embodied Evolutionary Diffusion_supp1-3678455.mp4 — https://doi.org/10.1109/lra.2026.3678455/mm1\n[35] open （英文单词）_百度百科 — https://baike.baidu.com/item/open/497859\n[36] OpenVLA: An  Open-Source  Vision-Language-Action  Model — https://arxiv.org/html/2406.09246v1\n\n\n---\n\n*Generated by research-bot · topic=`vla` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=36 · duration=607s · 2026-10-02T03:56:38+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "RT  News —  RT",
+      "url": "https://www.rt.com/on-air/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "RT  中国",
+      "url": "https://rtchina.cn/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "rt （网络流行语）_百度百科",
+      "url": "https://baike.baidu.com/item/rt/1474",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "News  —  RT",
+      "url": "https://www.rt.com/bulletin-board/news/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "具身智能模型发展脉络:从  RT-1   到π*  0  .6 - sasasatori - 博客园",
+      "url": "hedJjaC291P3yGwc7N55kLSc2ls_Ks2xOzRb1UlDTtolAAi3AZwQct0IqRBhsoin",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "今日俄罗斯_百度百科",
+      "url": "https://baike.baidu.com/item/%E4%BB%8A%E6%97%A5%E4%BF%84%E7%BD%97%E6%96%AF/9238633",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "运费如何计算以及海运报价50usd/ RT 中的 RT 是啥意思？",
+      "url": "https://zhuanlan.zhihu.com/p/476123091",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "货代海运报价的 RT 是指什么？（海运 RT 如何计算）-百运网",
+      "url": "https://www.by56.com/news/37140.html",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "RT -Thread",
+      "url": "https://www.rt-thread.org/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "学习笔记— RT-1 :  ROBOTICS TRANSFORMER  FOR REAL-WORLD CONTROL AT SCALE_, google   rt-1 ( robotics transformer  1)架构-CSDN博客",
+      "url": "https://blog.csdn.net/wdwjw/article/details/156381744",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "谷歌    RT-1  模型让一个  机器人  干几份活,700条指令成功..._知乎",
+      "url": "hedJjaC291OfPyaFZYFLI4KQWvqt63NBCQYmS-LeT41zs3L1v0fEFQ..",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "RT-1: Robotics Transformer for Real-World Control at Scale - arXiv",
+      "url": "https://arxiv.org/abs/2212.06817",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "[2410.24164] $π_0$: A Vision-Language-Action Flow Model for …",
+      "url": "https://arxiv.org/abs/2410.24164",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "π0——用于通用机器人控制的VLA模型：一套框架控制7种 ...",
+      "url": "https://blog.csdn.net/v_JULY_v/article/details/143472442",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "GitHub - Physical-Intelligence/openpi",
+      "url": "https://github.com/Physical-Intelligence/openpi",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "2025 | π0、π0-FAST、π0.5通用具身智能技术解读 - 知乎",
+      "url": "https://zhuanlan.zhihu.com/p/1918794606549636945",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "结合代码 介绍一下 π0.5: a  Vision-Language-Action  Model with Open-World Generalization 这篇论文_ pi0 .5代码详解-CSDN博客",
+      "url": "https://blog.csdn.net/luoganttcc/article/details/153639287",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "地表最强机器人大模型? π0 模型详细解读 - 知乎",
+      "url": "https://zhuanlan.zhihu.com/p/11883552553",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "π₀ ( Pi0 ) · Hugging Face - 抱抱脸文档",
+      "url": "https://hugging-face.cn/docs/lerobot/pi0",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Physical Intelligence (π)",
+      "url": "https://www.pi.website/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Model 复现系列（三）π0 -- Physical Intelligence Pi-zero（ Pi0 ）",
+      "url": "https://blog.csdn.net/nenchoumi3119/article/details/148688800",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Pi0 视觉语言动作流模型部署:PyTorch 2.7 CUDA版本匹配与驱动兼容表-CSDN博客",
+      "url": "https://blog.csdn.net/weixin_31800911/article/details/158756110",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Comment on the Paper Titled ’The Origin of Quantum Mechanical Statistics: Insights from Research on Human Language’ (arXiv preprint arXiv:2407.14924, 2024)",
+      "url": "https://doi.org/10.20944/preprints202411.2377.v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2024-12-02",
+      "citations": 29,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Pi0 视觉-语言-动作流模型企业应用:低成本GPU算力适配方案详解-CSDN博客",
+      "url": "https://blog.csdn.net/weixin_29781865/article/details/157661185",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "OpenVLA: An open-source vision-language-action model - GitHub",
+      "url": "https://github.com/openvla/openvla",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "[2406.09246] OpenVLA: An  Open-Source  Vision-Language-Action  Model",
+      "url": "https://arxiv.org/abs/2406.09246",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "OpenVLA: An Open-Source Vision-Language-Action Model",
+      "url": "https://openvla.github.io/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "OpenFrp  开放映射 — 免费内网穿透_免费端口映射_高速_不 ...",
+      "url": "https://www.openfrp.net/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Opensource VLA.com for sale | Spaceship.com",
+      "url": "http://opensourcevla.com/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Fine-tuning Llama For Better Performance With the MMLU Benchmark",
+      "url": "https://doi.org/10.31219/osf.io/e3v5x",
+      "kind": "paper",
+      "venue": null,
+      "published": "2024-05-06",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Open  VPN官网中文站",
+      "url": "https://www.openvpncn.com/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Demo Bytes:  Fine-Tuning   Open-Source  Models made easy with KAITO | Microsoft Reactor",
+      "url": "https://developer.microsoft.com/zh-cn/reactor/events/23697/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "VLA-Arena is an open-source benchmark for systematic evaluation ...",
+      "url": "https://github.com/PKU-Alignment/VLA-Arena",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "Towards Deploying VLA Without Fine-Tuning: Plug-and-Play Inference-Time VLA Policy Steering Via Embodied Evolutionary Diffusion_supp1-3678455.mp4",
+      "url": "https://doi.org/10.1109/lra.2026.3678455/mm1",
+      "kind": "paper",
+      "venue": null,
+      "published": null,
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "open （英文单词）_百度百科",
+      "url": "https://baike.baidu.com/item/open/497859",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "OpenVLA: An  Open-Source  Vision-Language-Action  Model",
+      "url": "https://arxiv.org/html/2406.09246v1",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-02-vla.md",
+    "json": "report/2026/10/2026-10-02-vla.json"
+  }
+}

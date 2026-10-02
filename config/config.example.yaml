@@ -1,0 +1,98 @@
+# ============================================================================
+# research-bot configuration
+# Copy to config/config.yaml and fill in real values (config.yaml is gitignored).
+# Any value may reference environment variables: ${VAR} or ${VAR:-default}.
+# ============================================================================
+
+# ---------------------------------------------------------------------------
+# LLM (OpenAI-compatible chat completions)
+# The endpoint below is the one requested for this deployment. `deepseek-v1-flash`
+# is not served by the gateway, so the working alias `deepseek-v4-flash` is used
+# by default; override `model` if your gateway exposes a different id.
+# ---------------------------------------------------------------------------
+llm:
+  base_url: https://api.whnetsea.com/v1
+  api_key: ${LLM_API_KEY:-}
+  model: ${LLM_MODEL:-deepseek-v4-flash}
+  # If the primary model id is not served by the gateway, these are tried next.
+  fallback_models:
+    - ${LLM_MODEL_FALLBACK:-deepseek-flash}
+  temperature: 0.3
+  max_tokens: 8192
+  timeout: 240
+  max_retries: 3
+  # Named tiers used by the pipeline (fast for extraction, strong for synthesis)
+  tiers:
+    fast: ${LLM_MODEL_FAST:-deepseek-v4-flash}
+    strong: ${LLM_MODEL_STRONG:-deepseek-v4-flash}
+
+# ---------------------------------------------------------------------------
+# Search backends. Everything is local/free; no paid API keys required.
+# Structured/academic APIs are preferred for evidence; HTML engines widen recall.
+# ---------------------------------------------------------------------------
+search:
+  # Order does not matter — all enabled engines run in parallel and are fused.
+  engines:
+    - arxiv
+    - openalex
+    - crossref
+    - semantic_scholar
+    - github
+    - bing
+    - sogou
+    - so360
+    - searxng
+  searxng_url: ${SEARXNG_URL:-http://43.155.145.78:58881}
+  github_token: ${GITHUB_TOKEN:-}
+  max_results_per_engine: 8
+  timeout: 20
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+  # Fetch full page text for the best candidates (slower, much richer evidence).
+  fetch_pages: true
+  fetch_top_n: 4
+  fetch_timeout: 20
+  max_page_chars: 6000
+
+# ---------------------------------------------------------------------------
+# Research pipeline
+# ---------------------------------------------------------------------------
+research:
+  depth: standard            # quick | standard | deep
+  max_subquestions: 6        # planner cap
+  max_rounds: 2              # 1 = single pass, 2 = one gap-filling round
+  results_per_subquestion: 6
+  candidates_for_ranking: 24
+  language: bilingual        # zh | en | bilingual (report language)
+  recency_days: 540          # prefer material newer than this many days (soft)
+  # Skills injected into the system prompt (names must exist in skills/ or deer-flow/skills).
+  skills:
+    - deep-research
+    - frontier-tracking
+    - paper-survey
+    - evidence-grading
+
+# ---------------------------------------------------------------------------
+# Report output
+# ---------------------------------------------------------------------------
+report:
+  dir: report
+  formats: [md, json]
+  keep_latest: true          # also write report/latest/<topic>.md
+  include_raw_sources: true  # machine-readable source appendix in the JSON
+
+# ---------------------------------------------------------------------------
+# Email delivery (SMTP). Disabled by default; enable in CI or locally.
+# ---------------------------------------------------------------------------
+email:
+  enabled: false
+  smtp_host: ${SMTP_HOST:-}
+  smtp_port: ${SMTP_PORT:-465}
+  smtp_ssl: true             # true = implicit TLS (465); false = STARTTLS (587)
+  username: ${SMTP_USER:-}
+  password: ${SMTP_PASS:-}
+  from: ${SMTP_FROM:-}
+  to: []
+  subject_prefix: "[Research Bot]"
+  attach_report: true
+  # Send at most one digest per run; if true, all topics in one run are merged.
+  digest: false
