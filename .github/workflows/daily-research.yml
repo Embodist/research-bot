@@ -43,6 +43,11 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    # Container jobs default to `sh` (no bash arrays) and start outside the
+    # checkout, so pin the working directory and keep every script POSIX-only.
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}
     env:
       TOPIC: ${{ github.event.inputs.topic || 'all' }}
       DEPTH: ${{ github.event.inputs.depth || 'standard' }}
@@ -84,18 +89,22 @@ jobs:
 
       - name: Run deep research
         run: |
-          set -euo pipefail
-          ARGS=(--topic "$TOPIC" --depth "$DEPTH")
+          set -eu
           if [ "${SEND_EMAIL}" = "true" ]; then
-            ARGS+=(--email)
+            set -- --topic "$TOPIC" --depth "$DEPTH" --email
+          else
+            set -- --topic "$TOPIC" --depth "$DEPTH"
           fi
-          echo "rb run ${ARGS[*]}"
-          rb run "${ARGS[@]}"
+          echo "rb run $*"
+          rb run "$@"
 
       - name: Commit reports
         if: always()
         run: |
-          set -euo pipefail
+          set -eu
+          # Inside the container the checkout is owned by the runner uid, so git
+          # refuses to operate on it ("not in a git directory") until trusted.
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add report/
