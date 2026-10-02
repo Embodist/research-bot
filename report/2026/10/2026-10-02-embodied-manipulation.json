@@ -1,0 +1,882 @@
+{
+  "topic": "embodied-manipulation",
+  "title": "具身智能·灵巧操作（Dexterous Manipulation & Grasping）深度调研报告",
+  "query": "",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-02T10:54:06+00:00",
+  "finished_at": "2026-10-02T10:57:10+00:00",
+  "duration_s": 184.1,
+  "rounds": 1,
+  "plan": {
+    "title": "具身智能·灵巧操作（Dexterous Manipulation & Grasping）深度调研报告",
+    "summary": "围绕灵巧手与多指操作、抓取、接触丰富任务、模仿学习与扩散策略、触觉/力感知与双臂协同，系统梳理最近1-2年前沿进展、经典奠基工作、开源工程栈、数据集与基准以及开放争议，产出可核查、带引用的技术调研报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近1-2年（2024-2026），灵巧操作与抓取在方法层面有哪些真正重要的前沿进展？扩散策略/流匹配策略、动作分块、触觉基础模型、VLA+灵巧手、强化学习in-hand操作各自的最新代表工作与SOTA是什么，在什么benchmark和什么本体上验证（仿真还是真机）？",
+        "rationale": "用户核心诉求是前沿追踪。需按年份-季度梳理模型/方法节点，并严格区分「论文宣称」与「第三方复现」，避免把demo视频当实验证据，同时识别提升究竟来自数据、架构还是算力。",
+        "queries": [
+          "dexterous in-hand manipulation diffusion policy 2025 CoRL RSS arxiv",
+          "vision-language-action model dexterous hand manipulation 2025 2026 arxiv cs.RO",
+          "tactile sensing contact-rich manipulation 2025 survey foundation model",
+          "flow matching policy action chunking manipulation 2025 arXiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "灵巧操作与抓取的经典/奠基工作有哪些？从模块化抓取合成（力封闭/抓取质量度量）、Learning Dexterous In-Hand Manipulation（OpenAI 2018-2019）、QT-Opt/MT-Opt、Dexterity from Scratch，到模仿学习里程碑 ACT/ALOHA、Diffusion Policy、RT-1/RT-2，技术演进脉络（模块化→端到端→基础模型→统一动作空间）如何划分，各自相对前作改了什么？",
+        "rationale": "前沿判断需要基准坐标系。先建立论文图谱与方法分类骨架，才能说清2024-2026的新工作「新在哪」，也便于定位仍被广泛引用的奠基方法。",
+        "queries": [
+          "Learning Dexterous In-Hand Manipulation OpenAI 2018 arxiv",
+          "ACT Action Chunking with Transformers ALOHA 2023 CoRL",
+          "Diffusion Policy visuomotor policy learning 2023 RSS arxiv",
+          "grasp synthesis force closure deep learning survey T-RO"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "该方向有哪些可复现的开源项目与工程实践？包括开源灵巧手硬件（如LEAP Hand、Allegro Hand、Shadow Hand）与仿真（Isaac Lab / MuJoCo / Genesis）、ALOHA与Mobile ALOHA开源软硬件栈、抓取基础模型与策略库、以及ROS2生态中的灵巧手/触觉/力控相关包；各自的许可证、维护活跃度（star、最近提交）、可复现难度如何？",
+        "rationale": "用户关注工程落地与选型，需要区分「仅论文/演示」与「真正可跑起来的开源实现」，并用GitHub活跃度作为热度证据。",
+        "queries": [
+          "LEAP Hand github open source dexterous hand hardware",
+          "Mobile ALOHA ACT open source hardware github repository",
+          "ROS2 dexterous hand tactile force control package github",
+          "Isaac Lab MuJoCo dexterous manipulation benchmark github"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近1-2年（2024-2026），灵巧操作与抓取在方法层面有哪些真正重要的前沿进展？扩散策略/流匹配策略、动作分块、触觉基础模型、VLA+灵巧手、强化学习in-hand操作各自的最新代表工作与SOTA是什么，在什么benchmark和什么本体上验证（仿真还是真机）？",
+      "queries": [
+        "dexterous in-hand manipulation diffusion policy 2025 CoRL RSS arxiv",
+        "vision-language-action model dexterous hand manipulation 2025 2026 arxiv cs.RO",
+        "tactile sensing contact-rich manipulation 2025 survey foundation model",
+        "flow matching policy action chunking manipulation 2025 arXiv"
+      ],
+      "rationale": "用户核心诉求是前沿追踪。需按年份-季度梳理模型/方法节点，并严格区分「论文宣称」与「第三方复现」，避免把demo视频当实验证据，同时识别提升究竟来自数据、架构还是算力。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+          "url": "http://arxiv.org/abs/2512.06951v2",
+          "snippet": "We present a vision-action policy that won 1st place in the 2025 BEHAVIOR Challenge - a large-scale benchmark featuring 50 diverse long-horizon household tasks in photo-realistic simulation, requiring bimanual manipulation, navigation, and context-aware decision making. Building on the Pi0.5 architecture, we introduce several innovations. Our primary contribution is correlated noise for flow matching, which improves training efficiency and enables correlation-aware inpainting for smooth action sequences. We also apply learnable mixed-layer attention and System 2 stage tracking for ambiguity r…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-07",
+          "authors": [
+            "Ilia Larchenko",
+            "Gleb Zarin",
+            "Akash Karnatak"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.06951v2",
+            "rrf_score": 0.027415,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "FBI: Learning Dexterous In-hand Manipulation with Dynamic Visuotactile Shortcut Policy",
+          "url": "http://arxiv.org/abs/2508.14441v1",
+          "snippet": "Dexterous in-hand manipulation is a long-standing challenge in robotics due to complex contact dynamics and partial observability. While humans synergize vision and touch for such tasks, robotic approaches often prioritize one modality, therefore limiting adaptability. This paper introduces Flow Before Imitation (FBI), a visuotactile imitation learning framework that dynamically fuses tactile interactions with visual observations through motion dynamics. Unlike prior static fusion methods, FBI establishes a causal link between tactile signals and object motion via a dynamics-aware latent mode…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-20",
+          "authors": [
+            "Yijin Chen",
+            "Wenqiang Xu",
+            "Zhenjun Yu",
+            "Tutian Tang",
+            "Yutong Li",
+            "Siqiong Yao",
+            "Cewu Lu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.14441v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation",
+          "url": "http://arxiv.org/abs/2609.11775v1",
+          "snippet": "Dexterous in-hand manipulation of a grasped object with an anthropomorphic hand is an unsolved frontier for robot dexterity. The contact-richness and highly dynamic nature of object-hand interactions tend to require extensive modeling or data-collection efforts for learning-based approaches. Modern simulators used for reinforcement learning (RL) cannot fully replicate the required contact complexity, while collecting dexterous demonstrations for imitation learning (IL) remains an open problem. In this research, we present an embodied control approach based on real-time task Jacobian estimatio…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-10",
+          "authors": [
+            "Kai Stewart",
+            "Yasunori Toshimitsu",
+            "Robert K. Katzschmann"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.11775v1",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "Planning robotic in-hand manipulation to reproduce skilled dexterous manipulation tasks",
+          "url": "https://doi.org/10.70675/bf4f1352z2fddz454cz8f3ezebb41418497e",
+          "snippet": "Planification de la manipulation robotique à la main pour reproduire des tâches de manipulation fines \n                 Les humains manipulent des objets et des tâches quotidiennes, apprennent de nouvelles compétences et s'adaptent à de nouveaux environnements. Il s'agit d'une connaissance essentielle pour survivre. Notre capacité à manipuler des objets dans nos mains résulte d'un apprentissage par l'observation d'autres mouvements humains, et d'essais et d'erreurs dans la manipulation d'objets. Les robots peuvent remplacer les humains dans des tâches qui pourraient leur nuire. Les robots ont…",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": null,
+          "authors": [
+            "Ali Hammoud"
+          ],
+          "venue": null,
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "doi": "10.70675/bf4f1352z2fddz454cz8f3ezebb41418497e",
+            "type": "dissertation",
+            "rrf_score": 0.030295,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+            "evidence": "We present a vision-action policy that won 1st place in the 2025 BEHAVIOR Challenge - a large-scale benchmark featuring 50 diverse long-horizon household tasks in photo-realistic simulation, requiring bimanual manipulation, navigation, and context-aware decision making. Building on the Pi0.5 archit…",
+            "sources": [
+              9
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "FBI: Learning Dexterous In-hand Manipulation with Dynamic Visuotactile Shortcut Policy",
+            "evidence": "Dexterous in-hand manipulation is a long-standing challenge in robotics due to complex contact dynamics and partial observability. While humans synergize vision and touch for such tasks, robotic approaches often prioritize one modality, therefore limiting adaptability. This paper introduces Flow Be…",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation",
+            "evidence": "Dexterous in-hand manipulation of a grasped object with an anthropomorphic hand is an unsolved frontier for robot dexterity. The contact-richness and highly dynamic nature of object-hand interactions tend to require extensive modeling or data-collection efforts for learning-based approaches. Modern…",
+            "sources": [
+              12
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Planning robotic in-hand manipulation to reproduce skilled dexterous manipulation tasks",
+            "evidence": "Planification de la manipulation robotique à la main pour reproduire des tâches de manipulation fines \n                 Les humains manipulent des objets et des tâches quotidiennes, apprennent de nouvelles compétences et s'adaptent à de nouveaux environnements. Il s'agit d'une connaissance essentie…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "",
+            "heat": "citations=0",
+            "authority": "",
+            "attention": "低（citations=0）",
+            "recommendation": "★★★☆☆"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "灵巧操作与抓取的经典/奠基工作有哪些？从模块化抓取合成（力封闭/抓取质量度量）、Learning Dexterous In-Hand Manipulation（OpenAI 2018-2019）、QT-Opt/MT-Opt、Dexterity from Scratch，到模仿学习里程碑 ACT/ALOHA、Diffusion Policy、RT-1/RT-2，技术演进脉络（模块化→端到端→基础模型→统一动作空间）如何划分，各自相对前作改了什么？",
+      "queries": [
+        "Learning Dexterous In-Hand Manipulation OpenAI 2018 arxiv",
+        "ACT Action Chunking with Transformers ALOHA 2023 CoRL",
+        "Diffusion Policy visuomotor policy learning 2023 RSS arxiv",
+        "grasp synthesis force closure deep learning survey T-RO"
+      ],
+      "rationale": "前沿判断需要基准坐标系。先建立论文图谱与方法分类骨架，才能说清2024-2026的新工作「新在哪」，也便于定位仍被广泛引用的奠基方法。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation",
+          "url": "http://arxiv.org/abs/2609.11775v1",
+          "snippet": "Dexterous in-hand manipulation of a grasped object with an anthropomorphic hand is an unsolved frontier for robot dexterity. The contact-richness and highly dynamic nature of object-hand interactions tend to require extensive modeling or data-collection efforts for learning-based approaches. Modern simulators used for reinforcement learning (RL) cannot fully replicate the required contact complexity, while collecting dexterous demonstrations for imitation learning (IL) remains an open problem. In this research, we present an embodied control approach based on real-time task Jacobian estimatio…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-10",
+          "authors": [
+            "Kai Stewart",
+            "Yasunori Toshimitsu",
+            "Robert K. Katzschmann"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.11775v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "Learning dexterous manipulation from 3D hand and object interaction",
+          "url": "https://doi.org/10.70675/a5b55fc1z8706z4710z9ed5zf2b7365c5cf3",
+          "snippet": "Apprentissage de la manipulation agile à partir de l'interaction 3D entre la main et l'objet \n                 Dans cette thèse, nous approfondissons la compréhension des mouvements des mains en 3D et des interactions mainobjet dans les vidéos monoculaires. Nous montrons comment ces connaissances peuvent doter les robots de capacités de manipulation dextres semblables à celles des humains. Notre approche permet des reconstructions 3D denses des mains et des objets, capturant leurs interactions détaillées tout en maintenant une vitesse d’inférence rapide. Nous étudions comment exploiter ces ré…",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": null,
+          "authors": [
+            "Zerui Chen"
+          ],
+          "venue": null,
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "doi": "10.70675/a5b55fc1z8706z4710z9ed5zf2b7365c5cf3",
+            "type": "dissertation",
+            "rrf_score": 0.017391
+          }
+        },
+        {
+          "title": "Learning Dexterous In-Hand Manipulation",
+          "url": "http://arxiv.org/abs/1808.00177v5",
+          "snippet": "We use reinforcement learning (RL) to learn dexterous in-hand manipulation policies which can perform vision-based object reorientation on a physical Shadow Dexterous Hand. The training is performed in a simulated environment in which we randomize many of the physical properties of the system like friction coefficients and an object's appearance. Our policies transfer to the physical robot despite being trained entirely in simulation. Our method does not rely on any human demonstrations, but many behaviors found in human manipulation emerge naturally, including finger gaiting, multi-finger co…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-08-01",
+          "authors": [
+            " OpenAI",
+            "Marcin Andrychowicz",
+            "Bowen Baker",
+            "Maciek Chociej",
+            "Rafal Jozefowicz",
+            "Bob McGrew",
+            "Jakub Pachocki",
+            "Arthur Petron",
+            "Matthias Plappert",
+            "Glenn Powell",
+            "Alex Ray",
+            "Jonas Schneider",
+            "Szymon Sidor",
+            "Josh Tobin",
+            "Peter Welinder",
+            "Lilian Weng",
+            "Wojciech Zaremba"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1808.00177v5",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Dexterous Cable Manipulation: Taxonomy, Multi-Fingered Hand Design, and Long-Horizon Manipulation",
+          "url": "http://arxiv.org/abs/2502.00396v2",
+          "snippet": "Existing research that addressed cable manipulation relied on two-fingered grippers, which make it difficult to perform similar cable manipulation tasks that humans perform. However, unlike dexterous manipulation of rigid objects, the development of dexterous cable manipulation skills in robotics remains underexplored due to the unique challenges posed by a cable's deformability and inherent uncertainty. In addition, using a dexterous hand introduces specific difficulties in tasks, such as cable grasping, pulling, and in-hand bending, for which no dedicated task definitions, benchmarks, or ev…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-02-01",
+          "authors": [
+            "Sun Zhaole",
+            "Xiao Gao",
+            "Xiaofeng Mao",
+            "Jihong Zhu",
+            "Aude Billard",
+            "Robert B. Fisher"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2502.00396v2",
+            "rrf_score": 0.024194
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation",
+            "evidence": "Dexterous in-hand manipulation of a grasped object with an anthropomorphic hand is an unsolved frontier for robot dexterity. The contact-richness and highly dynamic nature of object-hand interactions tend to require extensive modeling or data-collection efforts for learning-based approaches. Modern…",
+            "sources": [
+              12
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Learning dexterous manipulation from 3D hand and object interaction",
+            "evidence": "Apprentissage de la manipulation agile à partir de l'interaction 3D entre la main et l'objet \n                 Dans cette thèse, nous approfondissons la compréhension des mouvements des mains en 3D et des interactions mainobjet dans les vidéos monoculaires. Nous montrons comment ces connaissances p…",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "",
+            "heat": "citations=0",
+            "authority": "",
+            "attention": "低（citations=0）",
+            "recommendation": "★★★☆☆"
+          },
+          {
+            "point": "Learning Dexterous In-Hand Manipulation",
+            "evidence": "We use reinforcement learning (RL) to learn dexterous in-hand manipulation policies which can perform vision-based object reorientation on a physical Shadow Dexterous Hand. The training is performed in a simulated environment in which we randomize many of the physical properties of the system like…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2018",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "Dexterous Cable Manipulation: Taxonomy, Multi-Fingered Hand Design, and Long-Horizon Manipulation",
+            "evidence": "Existing research that addressed cable manipulation relied on two-fingered grippers, which make it difficult to perform similar cable manipulation tasks that humans perform. However, unlike dexterous manipulation of rigid objects, the development of dexterous cable manipulation skills in robotics r…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "该方向有哪些可复现的开源项目与工程实践？包括开源灵巧手硬件（如LEAP Hand、Allegro Hand、Shadow Hand）与仿真（Isaac Lab / MuJoCo / Genesis）、ALOHA与Mobile ALOHA开源软硬件栈、抓取基础模型与策略库、以及ROS2生态中的灵巧手/触觉/力控相关包；各自的许可证、维护活跃度（star、最近提交）、可复现难度如何？",
+      "queries": [
+        "LEAP Hand github open source dexterous hand hardware",
+        "Mobile ALOHA ACT open source hardware github repository",
+        "ROS2 dexterous hand tactile force control package github",
+        "Isaac Lab MuJoCo dexterous manipulation benchmark github"
+      ],
+      "rationale": "用户关注工程落地与选型，需要区分「仅论文/演示」与「真正可跑起来的开源实现」，并用GitHub活跃度作为热度证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Real-Time Force Regulation for Whole-Hand Dexterous Grasping",
+          "url": "http://arxiv.org/abs/2609.30082v1",
+          "snippet": "Robust dexterous grasping requires maintaining physical stability despite contacts interactively evolving across the entire hand. A precomputed force distribution can easily fail under object motion, modeling errors, or external disturbances. In this paper, we present a framework for real-time force regulation over dynamically changing whole-hand contacts. Our method geometrically estimates contacts across all hand links using a tracked object model and proprioception, without requiring tactile sensing at those contacts. It repeatedly recomputes the desired contact-force distribution subject…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-24",
+          "authors": [
+            "Sang Min Kim",
+            "Alexander Alexiev",
+            "Tzu-Yuan Lin",
+            "Sangbae Kim",
+            "Young Min Kim",
+            "Yonghyeon Lee"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.30082v1",
+            "rrf_score": 0.035332,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Aero Hand Open: A Simulation-Ready Tendon-Driven Hand for Dexterous Manipulation Learning",
+          "url": "http://arxiv.org/abs/2608.28578v2",
+          "snippet": "Tendon-driven hands are anthropomorphic, and moving the actuators off the joints is what makes a hand of this capability affordable to build. Two effects produce that saving. Routing force through a cable removes the requirement that a motor fit inside the joint it drives, so smaller and cheaper motors suffice, and one motor can drive several joints through a single cable, so fewer motors are needed. They are also harder to learn on than a direct-drive hand. The underactuated transmission that produces the saving is itself difficult to represent in a simulator, and the joints one cable drives…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-28",
+          "authors": [
+            "Nan Wang",
+            "Mohit Yadav",
+            "Jonathan Wulff",
+            "Aidan Rosenbaum",
+            "Kezhou Chen",
+            "Yuvan Sharma",
+            "Xu Dong",
+            "Yiwei Tao"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.28578v2",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Leap Hand V2 Advanced: Dexterous, Low-Cost Hybrid Rigid-Soft Hand for Robot Learning",
+          "url": "https://doi.org/10.1109/humanoids65713.2025.11203038",
+          "snippet": "",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2025-09-30",
+          "authors": [
+            "Kenneth Shaw",
+            "Deepak Pathak"
+          ],
+          "venue": "2025 IEEE-RAS 24th International Conference on Humanoid Robots (Humanoids)",
+          "citations": 5,
+          "stars": null,
+          "extra": {
+            "doi": "10.1109/humanoids65713.2025.11203038",
+            "type": "proceedings-article",
+            "rrf_score": 0.017143
+          }
+        },
+        {
+          "title": "Development of a Flexible Cable-Driven Dexterous Hand and Arm–Hand Integrated System_supp1-3574817.mp4",
+          "url": "https://doi.org/10.1109/tmech.2025.3574817/mm1",
+          "snippet": "",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": null,
+          "authors": [
+            "Weiwei Shang"
+          ],
+          "venue": null,
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "doi": "10.1109/tmech.2025.3574817/mm1",
+            "type": "component",
+            "rrf_score": 0.016667
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "Real-Time Force Regulation for Whole-Hand Dexterous Grasping",
+            "evidence": "Robust dexterous grasping requires maintaining physical stability despite contacts interactively evolving across the entire hand. A precomputed force distribution can easily fail under object motion, modeling errors, or external disturbances. In this paper, we present a framework for real-time forc…",
+            "sources": [
+              21
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Aero Hand Open: A Simulation-Ready Tendon-Driven Hand for Dexterous Manipulation Learning",
+            "evidence": "Tendon-driven hands are anthropomorphic, and moving the actuators off the joints is what makes a hand of this capability affordable to build. Two effects produce that saving. Routing force through a cable removes the requirement that a motor fit inside the joint it drives, so smaller and cheaper mo…",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Leap Hand V2 Advanced: Dexterous, Low-Cost Hybrid Rigid-Soft Hand for Robot Learning",
+            "evidence": "",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "citations=5",
+            "authority": "2025 IEEE-RAS 24th International Conference on Humanoid Robots (Humanoids)",
+            "attention": "中（citations=5）",
+            "recommendation": "★★★★☆（venue=2025 IEEE-RAS 24th International Conference on Humanoid Robots (Humanoids)）"
+          },
+          {
+            "point": "Development of a Flexible Cable-Driven Dexterous Hand and Arm–Hand Integrated System_supp1-3574817.mp4",
+            "evidence": "",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "",
+            "heat": "citations=0",
+            "authority": "",
+            "attention": "低（citations=0）",
+            "recommendation": "★★★☆☆"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 7,
+    "prompt_tokens": 32198,
+    "completion_tokens": 25405,
+    "generated_at": "2026-10-02T10:57:10.257688+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 具身智能·灵巧操作（Dexterous Manipulation & Grasping）技术调研报告\n\n**日期**：2026-10-02（UTC）\n**领域**：具身智能 · 灵巧操作与抓取（Dexterous Manipulation & Grasping）\n**检索源数量**：本次可引用的结构化证据来源 27 条（编号 [1]–[27]），另有 10 条领域人工维护种子资源（以原始链接直接给出）\n**方法说明**：本报告严格基于 [1]–[27] 与种子资源清单中可核查的条目撰写。凡本次检索未取得一手来源支撑的判断，一律以 `> 待核实` 标注，**不进行任何数字、榜单或引用的推测**。提示中给出的检索结果包含若干与主题无关的条目（[13][14][15][17][18][19][20][22][26]），本报告不予使用。\n\n---\n\n## 摘要（Executive Summary）\n\n近 1–2 年（2024–2026）灵巧操作与抓取领域呈现出五条值得注意的主线：\n\n1. **手内操作（in-hand manipulation）从\"单一模态\"走向\"视触觉融合 + 高效学习\"**。FBI 提出动态视触觉 shortcut policy，主张视觉与触觉不应二选一 [10]；在真实拟人手（anthropomorphic hand）上的手内书写任务，开始用实时雅可比估计（Jacobian estimation）降低建模与数据采集成本 [12]。这些工作均以 arXiv cs.RO 预印本形式出现，尚无第三方复现报告 [10][12]，关注度与影响力 `> 待核实`。\n\n2. **扩散策略（diffusion policy）成为灵巧手策略学习的主流生成式主干**。多指手的视觉运动扩散策略（visuomotor diffusion）被用于灵巧手内操作 [11]；该路线的最早奠基是 Diffusion Policy（种子资源），而其\"动作分块（action chunking）\"思想则源自 ACT/ALOHA（种子资源）。\n\n3. **VLA（Vision-Language-Action）模型正式进入长时程双臂灵巧操作**。2025 BEHAVIOR Challenge 的冠军方案基于 Pi0.5 架构改造，在 50 个长时程家庭任务、需双臂操作 + 导航 + 上下文决策的仿真基准上夺冠 [9]。这是目前本次检索中**唯一的、明确带有竞赛排名性质的 SOTA 信号**。\n\n4. **接触丰富任务（contact-rich）的核心矛盾是\"力/接触的实时调控\"**。全手抓取的实时力调节框架被提出用于对抗物体运动、建模误差与外部扰动 [21]；线缆（cable）这类可变形物体也从两指夹爪走向多指手的长时程操作分类学 [2]。\n\n5. **低成本、可仿真的开源灵巧手硬件快速迭代**。LEAP Hand 系列（含 2025 年 V2 刚柔混合版本，citations=5）[23][25]、面向仿真就绪的腱驱动 Aero Hand Open [24]，以及刚柔/线驱动一体化臂手系统 [27] 共同在压低硬件门槛。\n\n**主要结论**：本方向当前处于\"生成式策略主干（扩散/分块）+ 多模态感知（视+触+力）+ 低成本开源硬件\"三线并进的阶段；但**统一评测基准、触觉基础模型、动作分块与流匹配在灵巧手上的系统对比**三大缺口依然存在，详见第七章。\n\n---\n\n## 一、关键前沿进展（近 1–2 年）\n\n### 1.1 VLA + 长时程双臂操作：2025 BEHAVIOR Challenge 冠军方案 [9]\n\n- **point**：基于 VLA 的任务自适应方案在 2025 BEHAVIOR Challenge 获得第 1 名，该基准包含 50 个真实感仿真下的长时程家庭任务，要求双臂操作（bimanual manipulation）、导航与上下文感知决策 [9]。\n- **证据**：摘要原文明确说明\"won 1st place in the 2025 BEHAVIOR Challenge\"，并说明其建立在 Pi0.5 架构之上 [9]。\n- **热度证据**：> 待核实（本次检索未取到 citations / stars 数值）。\n- **权威证据**：arXiv 预印本，arXiv 分类 cs.RO；编号形态 2512.06951（对应 2025 年 12 月提交）[9]。\n- **关注度**：中（依据：挑战赛第 1 名的竞赛排名信号具有可比性，但尚无引用数或第三方复现数据支撑；`> 待核实`）[9]。\n- **推荐度**：★★★★☆ — 若要研究\"VLA 如何适配长时程双臂灵巧任务\"，这是目前证据链最清晰、带竞赛排名的少数条目之一 [9]。\n\n### 1.2 视触觉融合的手内操作：FBI [10]\n\n- **point**：提出 Flow-Ba……（摘要片段截断）的动态视触觉 shortcut policy，针对手内操作中复杂的接触动力学与部分可观测性（partial observability）；核心论点是人类协同使用视觉与触觉，而机器人方法常偏重单一模态，从而限制了适应性 [10]。\n- **热度证据**：> 待核实。\n- **权威证据**：arXiv 预印本，cs.RO 分类（编号 2508.14441，2025 年 8 月）[10]。\n- **关注度**：中（依据：话题处于\"视触觉融合\"热点，但无引用/榜单数据 `> 待核实`）[10]。\n- **推荐度**：★★★★☆ — 是\"接触丰富任务为什么需要触觉\"的较新直接论据 [10]。\n\n### 1.3 实时雅可比估计实现快速手内书写 [12]\n\n- **point**：面向拟人手的手内笔书写（in-hand pen writing），指出接触丰富性与高动态性通常要求大量建模或数据采集，并提出用实时雅可比估计实现\"快速学习\" [12]。\n- **热度证据**：> 待核实。\n- **权威证据**：arXiv 预印本，cs.RO（编号 2609.11775，2026 年 9 月）[12]。\n- **关注度**：中（依据：发布时间极新，属\"刚发布\"而非\"已被验证\"；`> 待核实`）[12]。\n- **推荐度**：★★★★☆ — 代表\"用解析结构（雅可比）替代海量数据\"这一在灵巧操作中颇具吸引力的技术路线 [12]。\n\n### 1.4 多指手视觉运动扩散策略 [11]\n\n- **point**：Learning Dexterous In-Hand Manipulation with Multifingered Hands via Visuomotor Diffusion —— 将扩散策略用于多指手的手内操作 [11]。\n- **热度证据**：> 待核实。\n- **权威证据**：arXiv 预印本，cs.RO（编号 2503.02587，2025 年 3 月）[11]。\n- **关注度**：中（依据：扩散策略 + 多指手是当前高关注组合，但无引用数据 `> 待核实`）[11]。\n- **推荐度**：★★★★☆ — 是\"扩散策略 × 多指手\"这一交叉点的直接锚点 [11]。\n\n### 1.5 可变形物体的多指灵巧操作：线缆分类学与长时程 [2]\n\n- **point**：指出既有线缆操作研究依赖两指夹爪，难以完成人类式的线缆操作；与刚性物体灵巧操作不同，多指手的线缆技能发展仍不成熟，论文给出分类学（taxonomy）、多指手设计与长时程操作方案 [2]。\n- **热度证据**：> 待核实。\n- **权威证据**：arXiv 预印本，cs.RO（编号 2502.00396，2025 年 2 月）[2]。\n- **关注度**：中（依据：可变形物体是接触丰富的极端形态，但无引用数据 `> 待核实`）[2]。\n- **推荐度**：★★★★☆ — 若研究对象不限于刚体，这是当前少见的系统性梳理 [2]。\n\n### 1.6 全手抓取的实时力调节 [21]\n\n- **point**：论证仅靠预计算力分布会在物体运动、建模误差或外部扰动下失效，提出面向整只手的实时力调节框架 [21]。\n- **热度证据**：> 待核实。\n- **权威证据**：arXiv 预印本，cs.RO（编号 2609.30082，2026 年 9 月）[21]。\n- **关注度**：中（依据：极新发布，尚未被验证；`> 待核实`）[21]。\n- **推荐度**：★★★★☆ — 直接回应\"抓取稳定性的闭环控制\"这一工程刚需 [21]。\n\n### 1.7 开源灵巧手硬件前沿：[23][24][25][27]\n\n| 工作 | 年份 | 关键点 | 热度 | 权威 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|\n| LEAP Hand [23] | 2023 | 低成本、高效、拟人手，面向机器人学习 | > 待核实 | arXiv cs.RO 预印本 [23] | 高（该系列被后续 V2 延续，说明持续影响力；具体 star `> 待核实`）[23][25] | ★★★★★ |\n| Leap Hand V2 Advanced [25] | 2025 | 刚柔混合（hybrid rigid-soft）灵巧手，面向机器人学习 | citations=5 [25] | **2025 IEEE-RAS Humanoids（同行评审会议）**[25] | 中（citations=5；会议背书）[25] | ★★★★★ |\n| Aero Hand Open [24] | 2026 | 仿真就绪（simulation-ready）腱驱动手；腱驱动使执行器可移出关节从而降低成本 | > 待核实 | arXiv cs.RO 预印本 [24] | 中（新发布，`> 待核实`）[24] | ★★★★☆ |\n| Flexible Cable-Driven Dexterous Hand & Arm–Hand System [27] | 2025 | 柔性线驱动灵巧手与臂–手一体化系统 | citations=0 [27] | IEEE T-Mech 配套多媒体（DOI 后缀 `/mm1`）[27] | 低（citations=0）[27] | ★★★☆☆ |\n\n> 注：[27] 的条目类型为补充多媒体文件（supplementary mp4），其 citation 计数为 0，说明该工作尚未获得社区引用验证 [27]。\n\n---\n\n## 二、模仿学习与扩散 / 动作分块策略\n\n### 2.1 扩散策略作为生成式主干\n\n- **核心论断**：扩散策略（Diffusion Policy）通过动作扩散建模多模态动作分布，已成为视觉运动策略学习的重要奠基路线（种子资源：*Diffusion Policy: Visuomotor Policy Learning via Action Diffusion*，RSS 2023，https://arxiv.org/abs/2303.04137 ）；其官方实现在 `real-stanford/diffusion_policy`（https://github.com/real-stanford/diffusion_policy ）。\n  - **热度证据**：> 待核实（本次检索未取到该仓库的 star 数）。\n  - **权威证据**：RSS（Robotics: Science and Systems）为同行评审顶会；官方仓库由原作者团队维护（种子资源）。\n  - **关注度**：高（依据：被公认为该方向奠基工作，并被灵巧手工作直接沿用，如 [11] 的 visuomotor diffusion 路线）。\n  - **推荐度**：★★★★★ — 若要理解\"为什么 2024–2026 的灵巧策略大量用扩散模型\"，这是必读起点。\n\n- **近期延伸**：多指手的视觉运动扩散策略 [11] 将上述主干落到多指灵巧手上。\n  - 热度：> 待核实；权威：arXiv cs.RO 预印本 [11]；关注度：中（`> 待核实`）；推荐度：★★★★☆ [11]。\n\n### 2.2 动作分块（action chunking）与低成本双臂模仿学习\n\n- **核心论断**：ACT/ALOHA 提出用低成本硬件完成细粒度双臂操作，其\"动作分块\"思路成为后续模仿学习栈的基础组件（种子资源：*Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware (ACT/ALOHA)*，RSS 2023，https://arxiv.org/abs/2304.13705 ；代码：https://github.com/tonyzhaozh/aloha ）。\n  - **热度证据**：> 待核实。\n  - **权威证据**：RSS 2023 同行评审；官方代码仓库（种子资源）。\n  - **关注度**：高（依据：ALOHA 硬件栈被后续 ALOHA 2 直接继承 [16]，形成可追踪的版本谱系）。\n  - **推荐度**：★★★★★ — 低成本双臂精细操作的事实标准起点。\n\n- **硬件迭代**：ALOHA 2 作为增强型低成本双臂遥操作硬件被正式提出（arXiv 2405.02292，2024）[16]。\n  - 热度：> 待核实；权威：arXiv 预印本 [16]；关注度：中高（依据：作为 ACT/ALOHA 生态的官方延续版本，`> 待核实`）；推荐度：★★★★★ [16]。\n\n### 2.3 真机微调范式\n\n- **核心论断**：DEFT（Dexterous Fine-Tuning for Real-World Hand Policies）提出面向真实世界手部策略的灵巧微调 [3]。\n  - 热度：> 待核实；权威：arXiv 预印本（2310.19797，2023）[3]；关注度：中（`> 待核实`）；推荐度：★★★★☆ — 是\"仿真预训练 → 真机微调\"这条 sim2real 路线的显式代表 [3]。\n\n### 2.4 覆盖缺口（Coverage Gaps）\n\n以下概念在本次检索中**未获得一手可引用来源**，不做结论性陈述：\n\n> **待核实**：flow matching（流匹配）策略在灵巧操作上的系统性对比；动作分块（action chunking）与扩散策略在同一灵巧手基准上的正面对比；RT-1 / RT-2 / MT-Opt / Dexterity from Scratch / R3M 等常被提及的里程碑工作，本次检索未捕获可引用来源，故不在本报告中给出具体结论。\n\n---\n\n## 三、灵巧手与手内操作\n\n### 3.1 手内操作的奠基与经典\n\n- **Learning Dexterous In-Hand Manipulation（OpenAI, 2018）** [1]：在物理 Shadow Dexterous Hand 上学习到可执行**基于视觉的物体重定向（vision-based object reorientation）**的 RL 策略；训练在仿真中完成，并对系统的大量物理属性做随机化（domain randomization）[1]。\n  - **热度证据**：> 待核实（未取到确切引用数）。\n  - **权威证据**：arXiv 预印本，cs.LG 分类（1808.00177v5）[1]；正式发表 venue `> 待核实`。\n  - **关注度**：高（依据：作为\"仿真训练 + 域随机化 → 真机灵巧手\"这一范式的开创性工作，被后续文献持续引用；确切引用数 `> 待核实`）[1]。\n  - **推荐度**：★★★★★ — 理解 sim2real 灵巧手操作必读 [1]。\n\n- **Learning Complex Dexterous Manipulation with Deep RL and Demonstrations（2017）** [4]：将深度强化学习与演示（demonstrations）结合，用于复杂灵巧操作 [4]。\n  - 热度：> 待核实；权威：arXiv 预印本，cs.LG（1709.10087）[4]；关注度：高（依据：确立了\"演示 + RL\"的混合监督范式，被后续工作广泛沿用；确切数据 `> 待核实`）；推荐度：★★★★★ [4]。\n\n### 3.2 手内操作的最新方法\n\n- **实时雅可比估计的快速手内书写** [12]：见 §1.3。将\"快速学习\"归因于实时雅可比估计而非大规模数据 [12]。\n- **基于 3D 手–物交互的学习（博士学位论文）** [6]：研究单目视频中 3D 手部运动与手–物交互，并展示如何将这些知识用于学习 [6]。\n  - 热度：citations=0 [6]；权威：DOI 学位论文，无 venue 信息；关注度：低（citations=0）[6]；推荐度：★★★☆☆ [6]。\n- **手内操作规划以复现熟练灵巧任务（博士论文，法语）** [5]：以规划（planning）路线复现人类熟练灵巧操作 [5]。\n  - 热度：citations=0 [5]；权威：DOI 学位论文；关注度：低（citations=0）[5]；推荐度：★★★☆☆ — 提供\"规划 vs 学习\"的另一条技术路线的视角，但尚未被引用验证 [5]。\n- **未知物体的手内灵巧操作** [7]：book chapter（DOI 10.1016/b978-0-32-390445-2.00023-4），聚焦对未知物体的手内操作 [7]。\n  - 热度：> 待核实；权威：Elsevier 书籍章节（同行评审程度 `> 待核实`）；关注度：中（`> 待核实`）；推荐度：★★★★☆ [7]。\n\n### 3.3 硬件与手部设计\n\n见 §1.7 表格（[23][24][25][27]）。补充一条：\n\n- **刚柔混合与腱驱动的成本逻辑**：Aero Hand Open 明确指出腱驱动的价值在于\"把执行器移出关节\"，从而使手在同等能力下更廉价、可使用更小的电机 [24]。这是一条清晰的**成本归因论证**，而非单纯性能宣称 [24]。\n\n---\n\n## 四、接触丰富任务与触觉 / 力感知\n\n### 4.1 视触觉融合\n\n- **FBI（Dynamic Visuotactile Shortcut Policy）** [10]：核心论点是手内操作面临复杂接触动力学与部分可观测性；人类协同使用视觉与触觉，而机器人方法常偏重单一模态，从而限制适应性 [10]。\n  - 热度：> 待核实；权威：arXiv cs.RO 预印本 [10]；关注度：中（`> 待核实`）；推荐度：★★★★☆ — 为\"触觉是否必要\"提供较新的直接论述 [10]。\n\n### 4.2 力/接触的实时闭环\n\n- **全手抓\n\n## 参考来源\n\n[1] Learning Dexterous In-Hand Manipulation — http://arxiv.org/abs/1808.00177v5\n[2] Dexterous Cable Manipulation: Taxonomy, Multi-Fingered Hand Design, and Long-Horizon Manipulation — http://arxiv.org/abs/2502.00396v2\n[3] DEFT: Dexterous Fine-Tuning for Real-World Hand Policies — http://arxiv.org/abs/2310.19797v2\n[4] Learning Complex Dexterous Manipulation with Deep Reinforcement Learning and Demonstrations — http://arxiv.org/abs/1709.10087v2\n[5] Planning robotic in-hand manipulation to reproduce skilled dexterous manipulation tasks — https://doi.org/10.70675/bf4f1352z2fddz454cz8f3ezebb41418497e\n[6] Learning dexterous manipulation from 3D hand and object interaction — https://doi.org/10.70675/a5b55fc1z8706z4710z9ed5zf2b7365c5cf3\n[7] Towards dexterous in-hand manipulation of unknown objects — https://doi.org/10.1016/b978-0-32-390445-2.00023-4\n[8]  — https://doi.org/10.55776/i3969\n[9] Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge — http://arxiv.org/abs/2512.06951v2\n[10] FBI: Learning Dexterous In-hand Manipulation with Dynamic Visuotactile Shortcut Policy — http://arxiv.org/abs/2508.14441v1\n[11] Learning Dexterous In-Hand Manipulation with Multifingered Hands via Visuomotor Diffusion — http://arxiv.org/abs/2503.02587v1\n[12] Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation — http://arxiv.org/abs/2609.11775v1\n[13] Machine Learning for Health (ML4H) Workshop at NeurIPS 2018 — http://arxiv.org/abs/1811.07216v2\n[14] The 2018 PIRM Challenge on Perceptual Image Super-resolution — http://arxiv.org/abs/1809.07517v3\n[15] The Barbados 2018 List of Open Issues in Continual Learning — http://arxiv.org/abs/1811.07004v1\n[16] ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1\n[17] Strategies to Harness the Transformers' Potential: UNSL at eRisk 2023 — http://arxiv.org/abs/2310.19970v1\n[18] Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains — http://arxiv.org/abs/2309.11285v1\n[19] OpenPodcar: an Open Source Vehicle for Self-Driving Car Research — http://arxiv.org/abs/2205.04454v2\n[20] SnapperGPS: Open Hardware for Energy-Efficient, Low-Cost Wildlife Location Tracking with Snapshot GNSS — http://arxiv.org/abs/2207.06310v3\n[21] Real-Time Force Regulation for Whole-Hand Dexterous Grasping — http://arxiv.org/abs/2609.30082v1\n[22] Open Source, Open Hardware Hand-Held Mobile Mapping System for Large Scale Surveys — https://doi.org/10.2139/ssrn.4618683\n[23] LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot Learning — http://arxiv.org/abs/2309.06440v1\n[24] Aero Hand Open: A Simulation-Ready Tendon-Driven Hand for Dexterous Manipulation Learning — http://arxiv.org/abs/2608.28578v2\n[25] Leap Hand V2 Advanced: Dexterous, Low-Cost Hybrid Rigid-Soft Hand for Robot Learning — https://doi.org/10.1109/humanoids65713.2025.11203038\n[26] Open source, open hardware hand-held mobile mapping system for large scale surveys — https://doi.org/10.1016/j.softx.2023.101618\n[27] Development of a Flexible Cable-Driven Dexterous Hand and Arm–Hand Integrated System_supp1-3574817.mp4 — https://doi.org/10.1109/tmech.2025.3574817/mm1\n\n\n---\n\n*Generated by research-bot · topic=`embodied-manipulation` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=27 · duration=184s · 2026-10-02T10:57:10+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Learning Dexterous In-Hand Manipulation",
+      "url": "http://arxiv.org/abs/1808.00177v5",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-08-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Dexterous Cable Manipulation: Taxonomy, Multi-Fingered Hand Design, and Long-Horizon Manipulation",
+      "url": "http://arxiv.org/abs/2502.00396v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-02-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "DEFT: Dexterous Fine-Tuning for Real-World Hand Policies",
+      "url": "http://arxiv.org/abs/2310.19797v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Learning Complex Dexterous Manipulation with Deep Reinforcement Learning and Demonstrations",
+      "url": "http://arxiv.org/abs/1709.10087v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2017-09-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Planning robotic in-hand manipulation to reproduce skilled dexterous manipulation tasks",
+      "url": "https://doi.org/10.70675/bf4f1352z2fddz454cz8f3ezebb41418497e",
+      "kind": "paper",
+      "venue": null,
+      "published": null,
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Learning dexterous manipulation from 3D hand and object interaction",
+      "url": "https://doi.org/10.70675/a5b55fc1z8706z4710z9ed5zf2b7365c5cf3",
+      "kind": "paper",
+      "venue": null,
+      "published": null,
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Towards dexterous in-hand manipulation of unknown objects",
+      "url": "https://doi.org/10.1016/b978-0-32-390445-2.00023-4",
+      "kind": "paper",
+      "venue": "Tactile Sensing, Skill Learning, and Robotic Dexterous Manipulation",
+      "published": "2022-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "",
+      "url": "https://doi.org/10.55776/i3969",
+      "kind": "paper",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+      "url": "http://arxiv.org/abs/2512.06951v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "FBI: Learning Dexterous In-hand Manipulation with Dynamic Visuotactile Shortcut Policy",
+      "url": "http://arxiv.org/abs/2508.14441v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Learning Dexterous In-Hand Manipulation with Multifingered Hands via Visuomotor Diffusion",
+      "url": "http://arxiv.org/abs/2503.02587v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-03-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation",
+      "url": "http://arxiv.org/abs/2609.11775v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Machine Learning for Health (ML4H) Workshop at NeurIPS 2018",
+      "url": "http://arxiv.org/abs/1811.07216v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-11-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "The 2018 PIRM Challenge on Perceptual Image Super-resolution",
+      "url": "http://arxiv.org/abs/1809.07517v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2018-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "The Barbados 2018 List of Open Issues in Continual Learning",
+      "url": "http://arxiv.org/abs/1811.07004v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2018-11-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation",
+      "url": "http://arxiv.org/abs/2405.02292v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Strategies to Harness the Transformers' Potential: UNSL at eRisk 2023",
+      "url": "http://arxiv.org/abs/2310.19970v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "OpenPodcar: an Open Source Vehicle for Self-Driving Car Research",
+      "url": "http://arxiv.org/abs/2205.04454v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-05-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "SnapperGPS: Open Hardware for Energy-Efficient, Low-Cost Wildlife Location Tracking with Snapshot GNSS",
+      "url": "http://arxiv.org/abs/2207.06310v3",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2022-07-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Real-Time Force Regulation for Whole-Hand Dexterous Grasping",
+      "url": "http://arxiv.org/abs/2609.30082v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Open Source, Open Hardware Hand-Held Mobile Mapping System for Large Scale Surveys",
+      "url": "https://doi.org/10.2139/ssrn.4618683",
+      "kind": "paper",
+      "venue": null,
+      "published": "2023-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot Learning",
+      "url": "http://arxiv.org/abs/2309.06440v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-09-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Aero Hand Open: A Simulation-Ready Tendon-Driven Hand for Dexterous Manipulation Learning",
+      "url": "http://arxiv.org/abs/2608.28578v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-08-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Leap Hand V2 Advanced: Dexterous, Low-Cost Hybrid Rigid-Soft Hand for Robot Learning",
+      "url": "https://doi.org/10.1109/humanoids65713.2025.11203038",
+      "kind": "paper",
+      "venue": "2025 IEEE-RAS 24th International Conference on Humanoid Robots (Humanoids)",
+      "published": "2025-09-30",
+      "citations": 5,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Open source, open hardware hand-held mobile mapping system for large scale surveys",
+      "url": "https://doi.org/10.1016/j.softx.2023.101618",
+      "kind": "paper",
+      "venue": "SoftwareX",
+      "published": "2024-02-01",
+      "citations": 15,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Development of a Flexible Cable-Driven Dexterous Hand and Arm–Hand Integrated System_supp1-3574817.mp4",
+      "url": "https://doi.org/10.1109/tmech.2025.3574817/mm1",
+      "kind": "paper",
+      "venue": null,
+      "published": null,
+      "citations": 0,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-02-embodied-manipulation.md",
+    "json": "report/2026/10/2026-10-02-embodied-manipulation.json"
+  }
+}
