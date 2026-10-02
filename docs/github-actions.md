@@ -28,6 +28,13 @@ is checked out and mounted at run time, so editing code never requires rebuildin
 > **First-run ordering.** Publish the image once (the `Base image` workflow runs automatically on the
 > push that adds the Dockerfile, or trigger it manually) **before** the daily workflow can pull it.
 
+> **Container-mode gotchas.** A job with `container:` runs its `run:` steps with the image's **default
+> shell `sh -e {0}`**, not bash — so bash-only syntax (arrays such as `ARGS=(...)`, `set -o pipefail`)
+> fails with `Syntax error: "(" unexpected`. Keep job scripts POSIX-only. Also, the checkout inside the
+> container is owned by the runner uid, so the first git command fails with `fatal: not in a git
+> directory` until the workspace is trusted: `git config --global --add safe.directory "$GITHUB_WORKSPACE"`.
+> The daily workflow pins `defaults.run.working-directory` to the workspace and does both.
+
 Run the same image locally without installing Python:
 
 ```bash

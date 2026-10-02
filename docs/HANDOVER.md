@@ -163,6 +163,12 @@ git push origin main
    受限而失败，但报告可能因此变薄。
 7. **`.claude/` 曾含明文 `ANTHROPIC_AUTH_TOKEN`**，已加入 `.gitignore`（不提交）。`report/push-log.jsonl`
    含收件邮箱，同样不提交。
+8. **GitHub Actions 容器任务的 `sh` 陷阱（2026-10-02）**：`container:` 任务的所有 `run:` 步骤默认用镜像里的
+   `sh -e {0}` 执行（**不是 bash**），因此 bash 专有语法（`ARGS=(...)` 数组、`set -o pipefail`）会报
+   `Syntax error: "(" unexpected`；且容器内 checkout 属主是 runner uid，第一条 git 命令会报
+   `fatal: not in a git directory`。修复：脚本保持 POSIX 兼容（用位置参数 `set --` 代替数组），并在 commit
+   前 `git config --global --add safe.directory "$GITHUB_WORKSPACE"`；工作流另把 `defaults.run.working-directory`
+   钉到 workspace。详见 `docs/github-actions.md`。
 
 ## 11. 待办 / 下一步
 
