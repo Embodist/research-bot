@@ -1,64 +1,66 @@
 {
   "topic": "ai",
-  "title": "人工智能基础模型前沿深度调研计划：推理与测试时计算、后训练（RLHF/RLVR）、Agent 工具使用、多模态、MoE 与长上下文效率",
+  "title": "人工智能基础模型前沿深度调研：推理、后训练、Agent 与效率（2024–2026）",
   "query": "",
   "depth": "quick",
   "language": "bilingual",
-  "started_at": "2026-10-02T10:45:11+00:00",
-  "finished_at": "2026-10-02T10:48:01+00:00",
-  "duration_s": 170.2,
+  "started_at": "2026-10-02T11:07:39+00:00",
+  "finished_at": "2026-10-02T11:10:30+00:00",
+  "duration_s": 171.4,
   "rounds": 1,
   "plan": {
-    "title": "人工智能基础模型前沿深度调研计划：推理与测试时计算、后训练（RLHF/RLVR）、Agent 工具使用、多模态、MoE 与长上下文效率",
-    "summary": "系统梳理 2024-2026 年大模型与基础模型在推理/测试时计算、后训练（RLHF/RLVR）、Agent 与工具使用、多模态、MoE 与扩展律、长上下文与推理效率六个方向的前沿进展、奠基工作、开源工程栈、评测基准与开放争议，产出可核查、带证据分级的调研报告。",
+    "title": "人工智能基础模型前沿深度调研：推理、后训练、Agent 与效率（2024–2026）",
+    "summary": "系统梳理近两年大模型/基础模型在测试时计算与推理、RLVR 后训练、Agent 与工具使用、多模态、MoE 与扩展律、长上下文与推理效率方面的前沿进展、奠基工作、开源工程栈、基准体系与开放争议，形成可核查引用的证据化综述。",
     "subquestions": [
       {
         "id": "q1",
-        "question": "最近 1-2 年（2024-2026）在推理与测试时计算、后训练（RLHF/RLVR）、MoE 与扩展律这三条主线上，出现了哪些真正重要的新方法与新结论？各自的证据强度（官方论文/技术报告/仅有演示视频）如何？",
-        "rationale": "对应 deep-research 的广域探索与 frontier-tracking 的时间线组织法。这几条主线是用户 keywords 的核心，也是 2024 年以来变化最快的部分：o1/R1 系列带出 test-time compute scaling，RLVR 成为后训练新范式，DeepSeek-V3/R1 让 MoE 与训练/推理成本结构重新成为焦点，Chinchilla 之后的扩展律被推理侧扩展律与数据受限扩展律补充。必须先按年份-季度梳理节点并标注证据强度，才能区分「刚发布」与「已被验证」。",
+        "question": "2024–2026 年间，基础模型在「推理与测试时计算（test-time compute / inference-time scaling）」「后训练范式（RLHF → RLVR/GRPO 等可验证奖励强化学习）」「Mixture-of-Experts 与扩展律」「LLM Agent 与工具使用」「多模态与长上下文效率」五个方向上，有哪些真正被验证的前沿进展（含模型名、机构、发布时间、benchmark 与硬件口径）？",
+        "rationale": "这是主题定义的核心诉求：回答「最近 12–24 个月发生了什么真正重要的变化」。必须以 arXiv 一手论文与官方技术报告为主，区分『刚发布（仅预印本/演示）』与『已被第三方验证（榜单、复现）』，并按年份-季度组织时间线，避免把模型训练知识误当最新进展（当前 UTC 2026-10-02）。",
         "queries": [
-          "test-time compute scaling reasoning language models survey 2025 arxiv",
-          "reinforcement learning from verifiable rewards RLVR post-training 2025 arxiv",
-          "DeepSeek-R1 reinforcement learning reasoning nature 2025 paper",
-          "mixture of experts scaling law training inference cost 2025 arxiv"
+          "test-time compute scaling law reasoning language model 2025 arxiv survey",
+          "RLVR reinforcement learning from verifiable rewards GRPO DeepSeek-R1 2025 arxiv",
+          "mixture of experts scaling law sparse MoE training 2025 arxiv",
+          "LLM agent tool use benchmark 2025 NeurIPS ICLR arxiv"
         ],
         "prefer": [
           "arxiv",
           "semantic_scholar",
-          "openalex"
+          "openalex",
+          "bing"
         ]
       },
       {
         "id": "q2",
-        "question": "这一方向的经典/奠基工作有哪些（Transformer、CoT、RLHF/InstructGPT、Chinchilla 扩展律、MoE 稀疏化等），它们与当前前沿的承上启下关系是什么？同时，当前主流开源项目与工程实践栈（训练框架与推理引擎）实际可用性如何？",
-        "rationale": "对应 paper-survey 的「脉络梳理法」与 frontier-tracking 的代码与权重层级。只看最新论文会把成果误当首创，必须回溯奠基文献建立方法演进脉络（模块化→端到端→基础模型→统一动作/推理范式）；而工程实践决定可复现性，需要核查 GitHub 仓库的 stars、最近提交、License 与是否放出权重（如推理引擎、RL 后训练框架、开源模型家族），这正是 deep-research 阶段四「是否覆盖开源实现」的缺口检查项。",
+        "question": "支撑上述前沿的经典/奠基工作与当前主流数据集、基准体系分别是什么：Transformer、Chinchilla 扩展律、InstructGPT/RLHF、Chain-of-Thought、ReAct 与 Toolformer、Switch/MoE 等奠基论文的原始结论是什么；而 MMLU、GPQA、AIME、SWE-bench、ARC-AGI、τ-bench、AgentBench、LIBERO/SimplerEnv 等基准各测什么、口径与已知污染/饱和问题如何？",
+        "rationale": "前沿判断需要纵向锚点：只有先确定奠基工作的原始主张与实验口径，才能判断后续工作是『真突破』还是『换基准』。同时，SOTA 结论必须绑定具体 benchmark、任务数、本体与仿真/真机口径，否则无法交叉验证。此子问题覆盖主题要求中的『经典/奠基工作』与『数据集与基准』两个维度。",
         "queries": [
-          "Attention Is All You Need Transformer 2017 NeurIPS citation",
-          "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models 2022 NeurIPS",
-          "Training language models to follow instructions with human feedback InstructGPT 2022",
-          "Training Compute-Optimal Large Language Models Chinchilla scaling laws 2022"
+          "Attention is all you need Transformer 2017 NeurIPS original paper",
+          "Training compute-optimal large language models Chinchilla scaling laws 2022 arxiv",
+          "Chain-of-thought prompting elicits reasoning in large language models NeurIPS 2022",
+          "ReAct synergizing reasoning and acting in language models ICLR 2023 arxiv"
         ],
         "prefer": [
-          "semantic_scholar",
           "arxiv",
-          "github"
+          "semantic_scholar",
+          "crossref",
+          "openalex"
         ]
       },
       {
         "id": "q3",
-        "question": "该领域的数据集与评测基准现状如何（推理、Agent/工具使用、多模态、长上下文四类），以及存在哪些开放问题与争议（RLVR 是否真提升推理能力还是仅改变采样分布、奖励黑客与 benchmark 污染、MoE 效率与质量权衡、长上下文实际有效性、可复现性危机）？",
-        "rationale": "对应 frontier-tracking 的数据集/榜单层级与 evidence-grading 的冲突处理，以及 deep-research 阶段三交叉验证与阶段四缺口检查。SOTA 结论必须绑定 benchmark、硬件、任务数与仿真/真机口径，否则不可比；同时 negative results 与争议是 paper-survey 明确要求覆盖的常见陷阱项（把 demo 当证据、混淆仿真与真机 SOTA、忽略复现困难）。争议类结论需要在正文注明来源分歧并给出置信度。",
+        "question": "围绕这些方向的代表性开源项目与工程实践栈现状如何（推理引擎 vLLM/SGLang/TensorRT-LLM、训练与后训练框架 verl/OpenRLHF/TRL/LLaMA-Factory、Agent 框架与工具协议 MCP 等），其 star/提交活跃度、许可与可复现性怎样；同时该领域最突出的开放问题与争议有哪些（RLVR 是否真正提升推理能力还只是蒸馏/采样放大、测试时计算扩展律是否可外推、Agent 评测可信度、MoE 路由与训练稳定性、长上下文『有效长度』争议）？",
+        "rationale": "工程可用性与争议面是选型与立项的关键证据，也常被论文宣称掩盖。需要通过 GitHub 仓库（活跃度、许可、复现难度）与第三方复现/批评性论文交叉验证，显式记录 negative results 与失败案例，并对无法核实的内容标注『待核实』。此子问题覆盖『开源项目与工程实践』与『开放问题与争议』两个维度。",
         "queries": [
-          "SWE-bench GAIA WebArena agent tool use benchmark leaderboard 2025",
-          "GPQA AIME LiveCodeBench MMLU-Pro reasoning benchmark contamination 2025",
-          "RULER LongBench v2 HELMET long context benchmark evaluation 2025",
-          "does RLVR improve reasoning or sampling distribution debate 2025 arxiv"
+          "vLLM PagedAttention SGLang inference engine github 2025 benchmark",
+          "verl OpenRLHF TRL RLHF RLVR training framework github 2025",
+          "does reinforcement learning really incentivize reasoning beyond distillation 2025 arxiv",
+          "LLM agent benchmark reliability tau-bench AgentBench criticism 2025 arxiv"
         ],
         "prefer": [
-          "arxiv",
-          "openalex",
           "github",
-          "bing"
+          "arxiv",
+          "bing",
+          "semantic_scholar"
         ]
       }
     ]
@@ -66,14 +68,14 @@
   "subquestions": [
     {
       "id": "q1",
-      "question": "最近 1-2 年（2024-2026）在推理与测试时计算、后训练（RLHF/RLVR）、MoE 与扩展律这三条主线上，出现了哪些真正重要的新方法与新结论？各自的证据强度（官方论文/技术报告/仅有演示视频）如何？",
+      "question": "2024–2026 年间，基础模型在「推理与测试时计算（test-time compute / inference-time scaling）」「后训练范式（RLHF → RLVR/GRPO 等可验证奖励强化学习）」「Mixture-of-Experts 与扩展律」「LLM Agent 与工具使用」「多模态与长上下文效率」五个方向上，有哪些真正被验证的前沿进展（含模型名、机构、发布时间、benchmark 与硬件口径）？",
       "queries": [
-        "test-time compute scaling reasoning language models survey 2025 arxiv",
-        "reinforcement learning from verifiable rewards RLVR post-training 2025 arxiv",
-        "DeepSeek-R1 reinforcement learning reasoning nature 2025 paper",
-        "mixture of experts scaling law training inference cost 2025 arxiv"
+        "test-time compute scaling law reasoning language model 2025 arxiv survey",
+        "RLVR reinforcement learning from verifiable rewards GRPO DeepSeek-R1 2025 arxiv",
+        "mixture of experts scaling law sparse MoE training 2025 arxiv",
+        "LLM agent tool use benchmark 2025 NeurIPS ICLR arxiv"
       ],
-      "rationale": "对应 deep-research 的广域探索与 frontier-tracking 的时间线组织法。这几条主线是用户 keywords 的核心，也是 2024 年以来变化最快的部分：o1/R1 系列带出 test-time compute scaling，RLVR 成为后训练新范式，DeepSeek-V3/R1 让 MoE 与训练/推理成本结构重新成为焦点，Chinchilla 之后的扩展律被推理侧扩展律与数据受限扩展律补充。必须先按年份-季度梳理节点并标注证据强度，才能区分「刚发布」与「已被验证」。",
+      "rationale": "这是主题定义的核心诉求：回答「最近 12–24 个月发生了什么真正重要的变化」。必须以 arXiv 一手论文与官方技术报告为主，区分『刚发布（仅预印本/演示）』与『已被第三方验证（榜单、复现）』，并按年份-季度组织时间线，避免把模型训练知识误当最新进展（当前 UTC 2026-10-02）。",
       "round": 1,
       "results": [
         {
@@ -92,8 +94,26 @@
           "stars": null,
           "extra": {
             "arxiv_id": "2504.16021v1",
-            "rrf_score": 0.038104,
-            "also_seen_on": []
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "ACM COMPUTE 2025 Best Practices Track Proceedings",
+          "url": "http://arxiv.org/abs/2512.02349v2",
+          "snippet": "COMPUTE is an annual Indian conference supported by ACM India and iSIGCSE. The focus of COMPUTE is to improve the quality of computing education in the country by providing a platform for academicians and researchers to interact and share best practices in teaching, learning, and education in general.\n  The Best Practices Track of COMPUTE 2025 invited Computer Science Educators across the country to submit an experience report for the best practices under multiple categories: 1) Novel classroom activities, 2) Imaginative assignments that promote creativity and problem-solving, 3) Diverse peda…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-02",
+          "authors": [
+            "Ritwik Murali",
+            "Mrityunjay Kumar"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.02349v2",
+            "rrf_score": 0.024194
           }
         },
         {
@@ -112,54 +132,28 @@
           "stars": null,
           "extra": {
             "arxiv_id": "2510.22631v1",
-            "rrf_score": 0.03683,
-            "also_seen_on": []
+            "rrf_score": 0.02381
           }
         },
         {
-          "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
-          "url": "http://arxiv.org/abs/2602.12375v1",
-          "snippet": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propagating local uncertainties around rewards. However, this approach only increases the value bonus for an action retroactively, after seeing a higher reward bonus from that state and action. Such an approach does not encourage the agent to visit a state and action for the first time. In this work, we in…",
+          "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+          "url": "http://arxiv.org/abs/2506.14634v3",
+          "snippet": "The recent development and wider accessibility of LLMs have spurred discussions about how they can be used in survey research, including classifying open-ended survey responses. Due to their linguistic capacities, it is possible that LLMs are an efficient alternative to time-consuming manual coding and the pre-training of supervised machine learning models. As most existing research on this topic has focused on English-language responses relating to non-complex topics or on single LLMs, it is unclear whether its findings generalize and how the quality of these classifications compares to esta…",
           "engine": "arxiv",
           "kind": "paper",
-          "published": "2026-02-12",
+          "published": "2025-06-17",
           "authors": [
-            "Abdul Wahab",
-            "Raksha Kumaraswamy",
-            "Martha White"
+            "Leah von der Heyde",
+            "Anna-Carolina Haensch",
+            "Bernd Weiß",
+            "Jessica Daikeler"
           ],
-          "venue": "cs.LG",
+          "venue": "cs.CL",
           "citations": null,
           "stars": null,
           "extra": {
-            "arxiv_id": "2602.12375v1",
-            "rrf_score": 0.031203,
-            "also_seen_on": []
-          }
-        },
-        {
-          "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
-          "url": "http://arxiv.org/abs/2607.18488v1",
-          "snippet": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We propose a physical platform that is designed to simplify the transition. In this paper, we present the Open Ant: a physical variant of the commonly used Gymnasium Ant environment, along with a simulation. We demonstrate that competent walking policies can be learned from scratch in approximately one…",
-          "engine": "arxiv",
-          "kind": "paper",
-          "published": "2026-07-20",
-          "authors": [
-            "Elena Sorina Lupu",
-            "Patrick Spieler",
-            "Khurram Javed",
-            "Kris De Asis",
-            "John D. Martin",
-            "Martha Steenstrup",
-            "Joseph Modayil"
-          ],
-          "venue": "cs.RO",
-          "citations": null,
-          "stars": null,
-          "extra": {
-            "arxiv_id": "2607.18488v1",
-            "rrf_score": 0.030682,
-            "also_seen_on": []
+            "arxiv_id": "2506.14634v3",
+            "rrf_score": 0.023438
           }
         }
       ],
@@ -167,80 +161,163 @@
         "subquestion_id": "q1",
         "findings": [
           {
-            "point": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
-            "evidence": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making.…",
+            "point": "候选证据池与子问题存在整体性错配：没有任何一条候选证据覆盖「测试时计算扩展 / RLVR-GRPO 后训练 / MoE 与扩展律 / LLM Agent 与工具使用 / 多模态与长上下文效率」五个方向中的任何一个。",
+            "evidence": "4 条候选的 arXiv 主分类分别为 cs.HC [25]、cs.CY [26]、cs.CL [27]、cs.CL [28]，研究主题为认知流干预、计算机教育会议论文集、多语言物理常识推理基准、LLM 问卷编码，均未涉及基础模型的推理期扩展、可验证奖励强化学习、稀疏专家混合、扩展律、工具调用智能体或长上下文/多模态效率；因此本子问题在当前证据下无法给出任何可核查的前沿进展结论。",
             "sources": [
-              13
+              25,
+              26,
+              27,
+              28
             ],
-            "type": "paper",
-            "confidence": "low",
+            "type": "trend",
+            "confidence": "high",
             "year": "2025",
             "heat": "",
-            "authority": "cs.HC",
-            "attention": "",
-            "recommendation": "★★★★☆（venue=cs.HC）"
+            "authority": "候选块均为 arXiv 预印本/会议论文集条目，未见 venue 同行评审标注",
+            "attention": "低 + 4 条证据均无 citations/stars 等热度字段，且主题与本子问题五个方向零重叠",
+            "recommendation": "★1 + 作为「证据缺口」记录可用，不能作为本子问题的技术结论依据，需重新检索"
           },
           {
-            "point": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
-            "evidence": "This paper presents our submission to the MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets. The objective of the shared task is to create manually-annotated evaluation data in the physical commonsense reasoning domain, for languages other than English, following a format similar to…",
+            "point": "[25] 属于 AI 增强推理的人机交互研究，讨论认知流（cognitive flow）与干预的上下文适配，不构成测试时计算（test-time compute / inference-time scaling）方向的技术进展。",
+            "evidence": "该文提出 context-aware cognitive augmentation framework，依据 type、timing、scale 三类上下文因素，利用 gaze behavior、typing hesitation、interaction speed 等多模态行为线索动态调整认知支持；全文未提出推理期算力分配、采样策略、搜索或验证器扩展等方法，也无模型名、benchmark 或硬件口径。",
             "sources": [
-              14
+              25
             ],
             "type": "paper",
-            "confidence": "low",
+            "confidence": "high",
             "year": "2025",
             "heat": "",
-            "authority": "cs.CL",
-            "attention": "",
-            "recommendation": "★★★★☆（venue=cs.CL）"
+            "authority": "arXiv:2504.16021v1（cs.HC），预印本，未见同行评审标注",
+            "attention": "低 + 候选块未提供引用数/下载量等热度信号，主题为 HCI 认知支持而非基础模型推理扩展",
+            "recommendation": "★1 + 与子问题相关性极低，仅在讨论「推理支持」时作为背景线索"
           },
           {
-            "point": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
-            "evidence": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propaga…",
+            "point": "[26] 是计算机教育领域会议（ACM COMPUTE 2025）的最佳实践论文集，与基础模型的后训练范式、MoE 或扩展律无关。",
+            "evidence": "该条目为 COMPUTE 2025 Best Practices Track Proceedings，收录类别包括课堂活动、作业设计、教学法、AI 抗性/AI 整合式测评题目、跨学科 CS 教学；v1 于 2025-12-02 提交，v2 于 2026-02-08 修订，属教育与社区（cs.CY）范畴，未包含任何模型训练/推理方法或 benchmark 指标。",
             "sources": [
-              15
+              26
             ],
             "type": "paper",
-            "confidence": "low",
-            "year": "2026",
+            "confidence": "high",
+            "year": "2025",
             "heat": "",
-            "authority": "cs.LG",
-            "attention": "",
-            "recommendation": "★★★★☆（venue=cs.LG）"
+            "authority": "arXiv:2512.02349v2（cs.CY），会议论文集条目，非本领域同行评审研究论文",
+            "attention": "低 + 无热度字段，且主题域（CS 教育）与子问题五项方向不相交",
+            "recommendation": "★1 + 与子问题无关，仅可作检索噪声记录"
           },
           {
-            "point": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
-            "evidence": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We…",
+            "point": "[27] 提供的是多语言物理常识推理评测数据（FormaMentis），属于推理评测数据而非基础模型推理/后训练/扩展方法的前沿进展。",
+            "evidence": "该文为 MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets 的参赛提交，构建意大利语与英语的人工标注物理常识推理数据，格式类似 PIQA；该 benchmark 关注物理常识推理与多语言，而非测试时计算、RLVR/GRPO、MoE 扩展律、Agent 工具使用或多模态长上下文效率，亦未给出被测基础模型的硬件或算力口径。",
             "sources": [
-              16
+              27
+            ],
+            "type": "dataset",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2510.22631v1（cs.CL）；shared task 提交，候选块未标注正式 venue",
+            "attention": "低 + 无 citations/stars 数据；虽属 shared task 有社区参与，但与子问题五项方向无关",
+            "recommendation": "★1 + 仅在需要「非英语推理评测数据」时作为线索，不支撑本子问题"
+          },
+          {
+            "point": "[28] 是 LLM 应用于社会科学问卷编码的方法学研究，不能作为 LLM Agent/工具使用或后训练范式方向的证据。",
+            "evidence": "该文评估用 LLM 对德语开放式问卷回答（survey motivation）进行编码，比较其相对人工编码与监督式机器学习预训练的效率；研究对象是 LLM 作为标注/编码工具的下游应用，不涉及 agent 架构、工具调用协议、RLVR/GRPO 训练目标或 MoE 路由与扩展律实验。",
+            "sources": [
+              28
             ],
             "type": "paper",
-            "confidence": "low",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2506.14634v3（cs.CL），预印本 v3，未见同行评审标注",
+            "attention": "低 + 无热度字段；主题为调查方法学，社区关注点与基础模型前沿不同",
+            "recommendation": "★1 + 与子问题五项方向均不相关"
+          },
+          {
+            "point": "候选证据的时间覆盖为 2025-04 至 2025-12（v2 修订延至 2026-02），形式上是 2024–2026 窗口内的条目，但主题域错配使其无法用于判定该窗口内五个方向的最新进展。",
+            "evidence": "最早条目 [25] 提交于 2025-04-22，[28] 为 v3、[27] 提交于 2025-10-26、[26] 提交于 2025-12-02（v2 于 2026-02-08）；四条均落在目标时间窗内，但没有一条给出模型名 + 机构 + benchmark + 硬件口径的组合信息。",
+            "sources": [
+              25,
+              26,
+              27,
+              28
+            ],
+            "type": "trend",
+            "confidence": "high",
             "year": "2026",
             "heat": "",
-            "authority": "cs.RO",
-            "attention": "",
-            "recommendation": "★★★★☆（venue=cs.RO）"
+            "authority": "以 arXiv 提交/修订时间戳为准，属一手元数据",
+            "attention": "低 + 时间窗匹配但主题不匹配，说明本次检索召回的信号与本子问题需求脱节",
+            "recommendation": "★2 + 用于说明检索策略需要重定向（增加 test-time compute、GRPO、MoE scaling law、agent tool use、long-context 等精确查询）"
           }
         ],
         "key_papers": [],
         "key_projects": [],
         "key_datasets": [],
-        "open_problems": []
+        "open_problems": [
+          "子问题 q1 在当前候选证据下完全未被回答：五方向（测试时计算/推理期扩展、RLHF→RLVR/GRPO 后训练、MoE 与扩展律、LLM Agent 与工具使用、多模态与长上下文效率）均无任何证据支撑，需重新检索。",
+          "检索缺口 1：缺少测试时计算/推理期扩展方向的一手论文与官方技术报告（需模型名、采样/搜索策略、benchmark 名称与推理算力口径）。",
+          "检索缺口 2：缺少 RLVR/GRPO 等可验证奖励强化学习的论文与实际训练配置（算法变体、训练数据规模、对照 baseline）。",
+          "检索缺口 3：缺少 MoE 架构与扩展律研究，包含专家数/激活参数量/路由设计与算力-性能曲线。",
+          "检索缺口 4：缺少 LLM Agent 与工具使用（function calling、多步工具链、agent benchmark）的可复现评测结果。",
+          "检索缺口 5：缺少多模态与长上下文效率（上下文长度、注意力/缓存优化、吞吐与显存口径）的对比证据。",
+          "方法学要求：后续检索须对每条结论同时给出「论文宣称」与「第三方复现/榜单」两类来源，并按真机或仿真、任务数、硬件型号与算力预算标注数字口径。"
+        ]
       }
     },
     {
       "id": "q2",
-      "question": "这一方向的经典/奠基工作有哪些（Transformer、CoT、RLHF/InstructGPT、Chinchilla 扩展律、MoE 稀疏化等），它们与当前前沿的承上启下关系是什么？同时，当前主流开源项目与工程实践栈（训练框架与推理引擎）实际可用性如何？",
+      "question": "支撑上述前沿的经典/奠基工作与当前主流数据集、基准体系分别是什么：Transformer、Chinchilla 扩展律、InstructGPT/RLHF、Chain-of-Thought、ReAct 与 Toolformer、Switch/MoE 等奠基论文的原始结论是什么；而 MMLU、GPQA、AIME、SWE-bench、ARC-AGI、τ-bench、AgentBench、LIBERO/SimplerEnv 等基准各测什么、口径与已知污染/饱和问题如何？",
       "queries": [
-        "Attention Is All You Need Transformer 2017 NeurIPS citation",
-        "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models 2022 NeurIPS",
-        "Training language models to follow instructions with human feedback InstructGPT 2022",
-        "Training Compute-Optimal Large Language Models Chinchilla scaling laws 2022"
+        "Attention is all you need Transformer 2017 NeurIPS original paper",
+        "Training compute-optimal large language models Chinchilla scaling laws 2022 arxiv",
+        "Chain-of-thought prompting elicits reasoning in large language models NeurIPS 2022",
+        "ReAct synergizing reasoning and acting in language models ICLR 2023 arxiv"
       ],
-      "rationale": "对应 paper-survey 的「脉络梳理法」与 frontier-tracking 的代码与权重层级。只看最新论文会把成果误当首创，必须回溯奠基文献建立方法演进脉络（模块化→端到端→基础模型→统一动作/推理范式）；而工程实践决定可复现性，需要核查 GitHub 仓库的 stars、最近提交、License 与是否放出权重（如推理引擎、RL 后训练框架、开源模型家族），这正是 deep-research 阶段四「是否覆盖开源实现」的缺口检查项。",
+      "rationale": "前沿判断需要纵向锚点：只有先确定奠基工作的原始主张与实验口径，才能判断后续工作是『真突破』还是『换基准』。同时，SOTA 结论必须绑定具体 benchmark、任务数、本体与仿真/真机口径，否则无法交叉验证。此子问题覆盖主题要求中的『经典/奠基工作』与『数据集与基准』两个维度。",
       "round": 1,
       "results": [
+        {
+          "title": "CROP: Token-Efficient Reasoning in Large Language Models via Regularized Prompt Optimization",
+          "url": "http://arxiv.org/abs/2604.14214v1",
+          "snippet": "Large Language Models utilizing reasoning techniques improve task performance but incur significant latency and token costs due to verbose generation. Existing automatic prompt optimization(APO) frameworks target task accuracy exclusively at the expense of generating long reasoning traces. We propose Cost-Regularized Optimization of Prompts (CROP), an APO method that introduces regularization on response length by generating textual feedback in addition to standard accuracy feedback. This forces the optimization process to produce prompts that elicit concise responses containing only critical…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-04-08",
+          "authors": [
+            "Deep Shah",
+            "Sanket Badhe",
+            "Nehal Kathrotia",
+            "Priyanka Tiwari"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2604.14214v1",
+            "rrf_score": 0.025175,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models",
+          "url": "http://arxiv.org/abs/2510.00071v2",
+          "snippet": "Large Reasoning Language Models (LRLMs or LRMs) demonstrate remarkable capabilities in complex reasoning tasks, but suffer from significant computational inefficiencies due to overthinking phenomena. Existing efficient reasoning methods face the challenge of balancing reasoning quality with inference cost reduction. We propose \\textbf{Adaptive Reasoning Suppression (ARS)}, a novel training-free approach that dynamically suppresses redundant reasoning steps while preserving accuracy through adaptive certainty monitoring. ARS introduces a multi-checkpoint certainty estimation mechanism with pro…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-29",
+          "authors": [
+            "Dongqi Zheng"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.00071v2",
+            "rrf_score": 0.024948,
+            "also_seen_on": []
+          }
+        },
         {
           "title": "\"All You Need\" is Not All You Need for a Paper Title: On the Origins of a Scientific Meme",
           "url": "http://arxiv.org/abs/2512.19700v1",
@@ -256,65 +333,33 @@
           "stars": null,
           "extra": {
             "arxiv_id": "2512.19700v1",
-            "rrf_score": 0.022388
+            "rrf_score": 0.02459
           }
         },
         {
-          "title": "Attention is All You Need... Unless You Are a CISO: The Inherent Incompatibility Between Transformer Architectures and Zero-Trust Environments",
-          "url": "https://doi.org/10.2139/ssrn.5967774",
-          "snippet": "",
-          "engine": "crossref",
+          "title": "Making Large Language Models Better Reasoners with Alignment",
+          "url": "http://arxiv.org/abs/2309.02144v1",
+          "snippet": "Reasoning is a cognitive process of using evidence to reach a sound conclusion. The reasoning capability is essential for large language models (LLMs) to serve as the brain of the artificial general intelligence agent. Recent studies reveal that fine-tuning LLMs on data with the chain of thought (COT) reasoning process can significantly enhance their reasoning capabilities. However, we find that the fine-tuned LLMs suffer from an \\textit{Assessment Misalignment} problem, i.e., they frequently assign higher scores to subpar COTs, leading to potential limitations in their reasoning abilities. T…",
+          "engine": "arxiv",
           "kind": "paper",
-          "published": "2026-01-01",
+          "published": "2023-09-05",
           "authors": [
-            "Giuseppe Canale"
+            "Peiyi Wang",
+            "Lei Li",
+            "Liang Chen",
+            "Feifan Song",
+            "Binghuai Lin",
+            "Yunbo Cao",
+            "Tianyu Liu",
+            "Zhifang Sui"
           ],
-          "venue": null,
-          "citations": 0,
+          "venue": "cs.CL",
+          "citations": null,
           "stars": null,
           "extra": {
-            "doi": "10.2139/ssrn.5967774",
-            "type": "posted-content",
-            "rrf_score": 0.017391
-          }
-        },
-        {
-          "title": "Attention via Synaptic Plasticity is All You Need A Biologically Inspired Spiking Neuromorphic Transformer",
-          "url": "https://doi.org/10.2139/ssrn.6096874",
-          "snippet": "",
-          "engine": "crossref",
-          "kind": "paper",
-          "published": "2026-01-01",
-          "authors": [
-            "Ankush Kumar",
-            "Kallol Mondal"
-          ],
-          "venue": null,
-          "citations": 0,
-          "stars": null,
-          "extra": {
-            "doi": "10.2139/ssrn.6096874",
-            "type": "posted-content",
-            "rrf_score": 0.017143
-          }
-        },
-        {
-          "title": "Failure Is All You Need — Attention as Reverse Diffusion: A Unified Geometric Control Law for Transformer Dynamics",
-          "url": "https://doi.org/10.2139/ssrn.7499639",
-          "snippet": "<div>\n We present a geometric interpretation of transformer attention as a time-discretized reverse-diffusion process governed by a unified three-term control law. Building on tools from information geometry, Wasserstein optimal transport, and score-based diffusion, we show that the continuous control field\n</div>\n<div>\n <br>\n</div>\n<div>\n &nbsp; &nbsp; u(t) = −α F⁻¹ ∇KL(p_t ‖ p*) − β T_t − γ Σ s_t(x)\n</div>\n<div>\n <br>\n</div>\n<div>\n admits a natural discrete realization in the query–key–value (QKV) attention mechanism. Each term corresponds respectively to (i) information-geometric alignment…",
-          "engine": "crossref",
-          "kind": "paper",
-          "published": "2026-01-01",
-          "authors": [
-            "Toshiaki Ogata"
-          ],
-          "venue": null,
-          "citations": 0,
-          "stars": null,
-          "extra": {
-            "doi": "10.2139/ssrn.7499639",
-            "type": "posted-content",
-            "rrf_score": 0.016901
+            "arxiv_id": "2309.02144v1",
+            "rrf_score": 0.025325,
+            "also_seen_on": []
           }
         }
       ],
@@ -322,356 +367,276 @@
         "subquestion_id": "q2",
         "findings": [
           {
-            "point": "Transformer 架构的原始论文是 2017 年的《Attention Is All You Need》，本批证据仅通过一篇命名学研究间接确认该出处，未提供原始论文本身。",
-            "evidence": "[7] 原文表述：\"The 2017 paper ''Attention Is All You Need'' introduced the Transformer architecture-and inadvertently spawned one of machine learning's most persistent naming conventions.\" 即 2017 年论文提出 Transformer 架构。该原始论文的作者、venue、引用数与链接在本批证据中均未给出。",
+            "point": "CROP: Token-Efficient Reasoning in Large Language Models via Regularized Prompt Optimization",
+            "evidence": "Large Language Models utilizing reasoning techniques improve task performance but incur significant latency and token costs due to verbose generation. Existing automatic prompt optimization(APO) frameworks target task accuracy exclusively at the expense of generating long reasoning traces. We propo…",
             "sources": [
-              7
+              14
             ],
             "type": "paper",
-            "confidence": "medium",
-            "year": "2025",
+            "confidence": "low",
+            "year": "2026",
             "heat": "",
-            "authority": "arXiv 预印本（cs.CY, Computers and Society），非同行评审；本条为该研究的转述，非 Transformer 原始论文",
-            "attention": "低 + 候选块未给出该来源的引用数/下载量/榜单信号，仅可确认 2025-12-03 提交至 arXiv",
-            "recommendation": "★★☆☆☆ 仅可作为「Transformer 是现代 ML 命名与传播中心」的二手佐证；引用架构原始事实仍需回到 2017 年原论文（本批证据未覆盖，待核实）"
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
           },
           {
-            "point": "「X [Is] All You Need」命名范式在原论文之后呈指数级增长，2025 年单年达 200 篇，说明 Transformer 已成为深度学习领域最强的学术传播模因源。",
-            "evidence": "[7]：\"We analyze 717 arXiv preprints containing ''All You Need'' in their titles (2009-2025), finding exponential growth (R^2 > 0.994) following the original paper, with 200 titles in 2025 alone.\"；在遵循规范 \"X [Is] All You Need\" 结构的论文中，\"Attention\" 是最常被声称为必要性者，出现 28 次。",
+            "point": "ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models",
+            "evidence": "Large Reasoning Language Models (LRLMs or LRMs) demonstrate remarkable capabilities in complex reasoning tasks, but suffer from significant computational inefficiencies due to overthinking phenomena. Existing efficient reasoning methods face the challenge of balancing reasoning quality with inferen…",
             "sources": [
-              7
-            ],
-            "type": "trend",
-            "confidence": "high",
-            "year": "2025",
-            "heat": "",
-            "authority": "arXiv 预印本（cs.CY）；基于 717 篇 arXiv 预印本的量化统计，方法可核查但未经同行评审",
-            "attention": "低 + 仅有 arXiv 提交记录，候选块未提供引用数、下载量或社区讨论热度信号",
-            "recommendation": "★★☆☆☆ 数字具体（717 篇、R²>0.994、2025 年 200 篇）可用于量化 Transformer 的学术扩散，但属科学计量/传播学视角，对技术脉络为间接价值"
-          },
-          {
-            "point": "该研究将这一命名模因的成功归因于科研传播中的竞争压力——可记忆性优先于精确性，而非技术必要性本身。",
-            "evidence": "[7]：\"the pattern's success reflects competitive pressures in scientific communication that increasingly favor memorability over precision.\"；作者对这是「无害的学术俏皮」还是「症状性耸动」持悬置态度。",
-            "sources": [
-              7
+              15
             ],
             "type": "paper",
-            "confidence": "medium",
+            "confidence": "low",
             "year": "2025",
             "heat": "",
-            "authority": "arXiv 预印本（cs.CY），非同行评审；属观点性论断",
-            "attention": "低 + 无引用/star/榜单信号，候选块中无讨论热度数据",
-            "recommendation": "★★☆☆☆ 作为「如何解读 Transformer 叙事霸权」的元层面讨论可一读，但不能作为技术结论依据"
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
           },
           {
-            "point": "本批证据出现多篇借用 Transformer/Attention 叙事的 2026 年 SSRN 预印本，但均无任何引用或实质内容，属弱证据。",
-            "evidence": "[9]《Attention is All You Need... Unless You Are a CISO: The Inherent Incompatibility Between Transformer Architectures and Zero-Trust Environments》（2026-01-01, citations=0，内容仅有 \"Just a moment...\" 无法访问）；[10]《Attention via Synaptic Plasticity is All You Need A Biologically Inspired Spiking Neuromorphic Transformer》（2026-01-01, citations=0）；[11]《Failure Is All You Need — Attention as Reverse Diffusion: A Unified Geometric Control Law for Transformer Dynamics》（2026-01-01, citations=0）。",
+            "point": "\"All You Need\" is Not All You Need for a Paper Title: On the Origins of a Scientific Meme",
+            "evidence": "The 2017 paper ''Attention Is All You Need'' introduced the Transformer architecture-and inadvertently spawned one of machine learning's most persistent naming conventions. We analyze 717 arXiv preprints containing ''All You Need'' in their titles (2009-2025), finding exponential growth ($R^2$ > 0.…",
             "sources": [
-              9,
-              10,
-              11
+              16
             ],
-            "type": "trend",
+            "type": "paper",
             "confidence": "low",
-            "year": "2026",
-            "heat": "citations=0（三条均为 0）",
-            "authority": "SSRN 预印本平台，DOI 可解析但非同行评审；[9] 正文抓取失败（E 级可用性）",
-            "attention": "低 + 三条证据引用数均为 0，其中一条正文不可访问，无任何榜单或社区热度信号",
-            "recommendation": "★☆☆☆☆ 仅可作为「Transformer 命名外溢到安全、神经形态、扩散几何等外围领域」的现象级线索；[9] 内容不可访问，按证据分级应丢弃，[10][11] 需另找高等级来源再引用"
-          },
-          {
-            "point": "关于 CoT、RLHF/InstructGPT、Chinchilla 扩展律、MoE 稀疏化等经典/奠基工作，本批候选证据完全未覆盖；关于训练框架与推理引擎等开源工程栈亦无任何证据。",
-            "evidence": "候选证据仅包含 [7][9][10][11]，主题全部围绕 Transformer/Attention 的命名与几何/生物学解释，均未提及 Chain-of-Thought、RLHF、InstructGPT、Chinchilla scaling law、Mixture-of-Experts、训练框架或推理引擎（如具体项目名、stars、版本）。",
-            "sources": [],
-            "type": "trend",
-            "confidence": "low",
-            "year": "",
-            "heat": "",
-            "authority": "",
-            "attention": "低 + 无相关候选证据，无法从本批材料判断",
-            "recommendation": "★☆☆☆☆ 该子问题的核心部分在本批证据下无法回答，须补充检索 CoT/RLHF/Chinchilla/MoE 原始论文与主流训练/推理框架官方仓库（待核实）"
-          }
-        ],
-        "key_papers": [
-          {
-            "title": "\"All You Need\" is Not All You Need for a Paper Title: On the Origins of a Scientific Meme",
-            "url": "http://arxiv.org/abs/2512.19700v1",
-            "why": "唯一内容完整的候选证据：量化统计了 2009-2025 年 717 篇含 \"All You Need\" 的 arXiv 预印本，给出指数增长（R²>0.994）与 2025 年 200 篇的数字，是「Transformer 作为学术模因源头」的可核查证据；同时是追溯 Transformer 原始论文年份（2017）的间接来源。",
             "year": "2025",
-            "heat": "候选块未提供引用数/下载量",
-            "authority": "arXiv 预印本（cs.CY），单作者 Anton Alyakin，非同行评审",
-            "attention": "低 + 无引用/star/榜单信号，仅有 arXiv 提交记录",
-            "recommendation": "★★☆☆☆ 对「经典工作如何塑造后续叙事」的承上启下论证有辅助价值，但技术权重低，不作为架构事实的引用源"
+            "heat": "",
+            "authority": "cs.CY",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CY）"
           },
           {
-            "title": "Attention is All You Need... Unless You Are a CISO: The Inherent Incompatibility Between Transformer Architectures and Zero-Trust Environments",
-            "url": "https://doi.org/10.2139/ssrn.5967774",
-            "why": "名义上讨论 Transformer 架构与零信任环境的不兼容，是命名外溢到安全领域的例子；但正文抓取失败、无摘要内容可读。",
-            "year": "2026",
-            "heat": "citations=0",
-            "authority": "SSRN 预印本，非同行评审；内容不可访问（E 级）",
-            "attention": "低 + 引用数 0，内容为空且无讨论热度",
-            "recommendation": "★☆☆☆☆ 按证据分级应丢弃（内容不可访问），仅作为命名模因扩散的现象线索保留"
-          },
-          {
-            "title": "Attention via Synaptic Plasticity is All You Need: A Biologically Inspired Spiking Neuromorphic Transformer",
-            "url": "https://doi.org/10.2139/ssrn.6096874",
-            "why": "尝试以突触可塑性实现脉冲神经形态 Transformer，代表 Transformer 架构向神经形态硬件的迁移尝试；候选块无摘要，无法评估方法。",
-            "year": "2026",
-            "heat": "citations=0",
-            "authority": "SSRN 预印本，非同行评审",
-            "attention": "低 + 引用数 0，无榜单或社区热度信号",
-            "recommendation": "★☆☆☆☆ 线索价值为主，方法细节缺失，需另找同行评审版本后再评估（待核实）"
-          },
-          {
-            "title": "Failure Is All You Need — Attention as Reverse Diffusion: A Unified Geometric Control Law for Transformer Dynamics",
-            "url": "https://doi.org/10.2139/ssrn.7499639",
-            "why": "给出注意力作为时间离散化反向扩散过程的几何解释，并声称得到三项统一控制律（含 −αF⁻¹∇KL、−βT_t、−γΣ 项），是 Attention 理论解释流派的一个样本；但结论未经评审与复现。",
-            "year": "2026",
-            "heat": "citations=0",
-            "authority": "SSRN 预印本，非同行评审",
-            "attention": "低 + 引用数 0，无第三方复现或榜单信号",
-            "recommendation": "★★☆☆☆ 若关注「Attention 的理论统一解释」可作线索阅读，但其数学主张属未验证宣称（待核实）"
+            "point": "Making Large Language Models Better Reasoners with Alignment",
+            "evidence": "Reasoning is a cognitive process of using evidence to reach a sound conclusion. The reasoning capability is essential for large language models (LLMs) to serve as the brain of the artificial general intelligence agent. Recent studies reveal that fine-tuning LLMs on data with the chain of thought (C…",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2023",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
           }
         ],
+        "key_papers": [],
         "key_projects": [],
         "key_datasets": [],
-        "open_problems": [
-          "CoT（思维链）、RLHF/InstructGPT、Chinchilla 扩展律、MoE 稀疏化等经典/奠基工作在本批证据中零覆盖，其「承上启下」关系无法由现有材料回答（待核实）。",
-          "当前主流开源训练框架与推理引擎的实际可用性（stars、最近提交、生态采用度）在本批证据中零覆盖，无法给出工程栈评估（待核实）。",
-          "Transformer 原始论文（2017, Attention Is All You Need）本身未被本批证据直接收录，其 citation 数、venue 与后续影响链缺少一手数据。",
-          "[9] 条目正文抓取失败（仅返回 \"Just a moment...\"），存在访问受限问题；[10][11] 仅有标题，缺少摘要与实验信息，无法验证其方法主张。",
-          "候选证据以 SSRN/arXiv 预印本为主且引用数多为 0，缺乏同行评审与第三方复现信号，难以区分「已被验证」与「刚发布/未验证」的前沿结论。"
-        ]
+        "open_problems": []
       }
     },
     {
       "id": "q3",
-      "question": "该领域的数据集与评测基准现状如何（推理、Agent/工具使用、多模态、长上下文四类），以及存在哪些开放问题与争议（RLVR 是否真提升推理能力还是仅改变采样分布、奖励黑客与 benchmark 污染、MoE 效率与质量权衡、长上下文实际有效性、可复现性危机）？",
+      "question": "围绕这些方向的代表性开源项目与工程实践栈现状如何（推理引擎 vLLM/SGLang/TensorRT-LLM、训练与后训练框架 verl/OpenRLHF/TRL/LLaMA-Factory、Agent 框架与工具协议 MCP 等），其 star/提交活跃度、许可与可复现性怎样；同时该领域最突出的开放问题与争议有哪些（RLVR 是否真正提升推理能力还只是蒸馏/采样放大、测试时计算扩展律是否可外推、Agent 评测可信度、MoE 路由与训练稳定性、长上下文『有效长度』争议）？",
       "queries": [
-        "SWE-bench GAIA WebArena agent tool use benchmark leaderboard 2025",
-        "GPQA AIME LiveCodeBench MMLU-Pro reasoning benchmark contamination 2025",
-        "RULER LongBench v2 HELMET long context benchmark evaluation 2025",
-        "does RLVR improve reasoning or sampling distribution debate 2025 arxiv"
+        "vLLM PagedAttention SGLang inference engine github 2025 benchmark",
+        "verl OpenRLHF TRL RLHF RLVR training framework github 2025",
+        "does reinforcement learning really incentivize reasoning beyond distillation 2025 arxiv",
+        "LLM agent benchmark reliability tau-bench AgentBench criticism 2025 arxiv"
       ],
-      "rationale": "对应 frontier-tracking 的数据集/榜单层级与 evidence-grading 的冲突处理，以及 deep-research 阶段三交叉验证与阶段四缺口检查。SOTA 结论必须绑定 benchmark、硬件、任务数与仿真/真机口径，否则不可比；同时 negative results 与争议是 paper-survey 明确要求覆盖的常见陷阱项（把 demo 当证据、混淆仿真与真机 SOTA、忽略复现困难）。争议类结论需要在正文注明来源分歧并给出置信度。",
+      "rationale": "工程可用性与争议面是选型与立项的关键证据，也常被论文宣称掩盖。需要通过 GitHub 仓库（活跃度、许可、复现难度）与第三方复现/批评性论文交叉验证，显式记录 negative results 与失败案例，并对无法核实的内容标注『待核实』。此子问题覆盖『开源项目与工程实践』与『开放问题与争议』两个维度。",
       "round": 1,
       "results": [
         {
-          "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
-          "url": "http://arxiv.org/abs/2504.16021v1",
-          "snippet": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making. This paper proposes a context-aware cognitive augmentation framework that adapts interventions based on three key contextual factors: type, timing, and scale. By leveraging multimodal behavioral cues (e.g., gaze behavior, typing hesitation, interaction speed), AI can dynamically adjust cognitive su…",
+          "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+          "url": "http://arxiv.org/abs/2504.14582v3",
+          "snippet": "This paper presents the NTIRE 2025 image super-resolution ($\\times$4) challenge, one of the associated competitions of the 10th NTIRE Workshop at CVPR 2025. The challenge aims to recover high-resolution (HR) images from low-resolution (LR) counterparts generated through bicubic downsampling with a $\\times$4 scaling factor. The objective is to develop effective network designs or solutions that achieve state-of-the-art SR performance. To reflect the dual objectives of image SR research, the challenge includes two sub-tracks: (1) a restoration track, emphasizes pixel-wise accuracy and ranks sub…",
           "engine": "arxiv",
           "kind": "paper",
-          "published": "2025-04-22",
+          "published": "2025-04-20",
           "authors": [
-            "Dinithi Dissanayake",
-            "Suranga Nanayakkara"
-          ],
-          "venue": "cs.HC",
-          "citations": null,
-          "stars": null,
-          "extra": {
-            "arxiv_id": "2504.16021v1",
-            "rrf_score": 0.02788,
-            "also_seen_on": []
-          }
-        },
-        {
-          "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
-          "url": "http://arxiv.org/abs/2510.22631v1",
-          "snippet": "This paper presents our submission to the MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets. The objective of the shared task is to create manually-annotated evaluation data in the physical commonsense reasoning domain, for languages other than English, following a format similar to PIQA. Our contribution, FormaMentis, is a novel benchmark for physical commonsense reasoning that is grounded in Italian language and culture. The data samples in FormaMentis are created by expert annotators who are native Italian speakers and are familiar with local customs and norms. The samples a…",
-          "engine": "arxiv",
-          "kind": "paper",
-          "published": "2025-10-26",
-          "authors": [
-            "Marco De Santis",
-            "Lisa Alazraki"
-          ],
-          "venue": "cs.CL",
-          "citations": null,
-          "stars": null,
-          "extra": {
-            "arxiv_id": "2510.22631v1",
-            "rrf_score": 0.027609,
-            "also_seen_on": []
-          }
-        },
-        {
-          "title": "MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook",
-          "url": "http://arxiv.org/abs/2509.14142v1",
-          "snippet": "This paper reviews the MARS2 2025 Challenge on Multimodal Reasoning. We aim to bring together different approaches in multimodal machine learning and LLMs via a large benchmark. We hope it better allows researchers to follow the state-of-the-art in this very dynamic area. Meanwhile, a growing number of testbeds have boosted the evolution of general-purpose large language models. Thus, this year's MARS2 focuses on real-world and specialized scenarios to broaden the multimodal reasoning applications of MLLMs. Our organizing team released two tailored datasets Lens and AdsQA as test sets, which…",
-          "engine": "arxiv",
-          "kind": "paper",
-          "published": "2025-09-17",
-          "authors": [
-            "Peng Xu",
-            "Shengwu Xiong",
-            "Jiajun Zhang",
-            "Yaxiong Chen",
-            "Bowen Zhou",
-            "Chen Change Loy",
-            "David A. Clifton",
-            "Kyoung Mu Lee",
-            "Luc Van Gool",
-            "Ruiming He",
-            "Ruilin Yao",
-            "Xinwei Long",
-            "Jirui Huang",
-            "Kai Tian",
-            "Sa Yang",
-            "Yihua Shao",
-            "Jin Feng",
-            "Yue Zhong",
-            "Jiakai Zhou",
-            "Cheng Tang",
-            "Tianyu Zou",
-            "Yifang Zhang",
-            "Junming Liang",
-            "Guoyou Li",
-            "Zhaoxiang Wang",
-            "Qiang Zhou",
-            "Yichen Zhao",
-            "Shili Xiong",
-            "Hyeongjin Nam",
-            "Jaerin Lee",
-            "Jaeyoung Chung",
-            "JoonKyu Park",
-            "Junghun Oh",
-            "Kanggeon Lee",
-            "Wooseok Lee",
-            "Juneyoung Ro",
-            "Turghun Osman",
-            "Can Hu",
-            "Chaoyang Liao",
-            "Cheng Chen",
-            "Chengcheng Han",
-            "Chenhao Qiu",
-            "Chong Peng",
-            "Cong Xu",
-            "Dailin Li",
-            "Feiyu Wang",
-            "Feng Gao",
-            "Guibo Zhu",
-            "Guopeng Tang",
-            "Haibo Lu",
-            "Han Fang",
-            "Han Qi",
-            "Hanxiao Wu",
-            "Haobo Cheng",
-            "Hongbo Sun",
-            "Hongyao Chen",
-            "Huayong Hu",
-            "Hui Li",
-            "Jiaheng Ma",
-            "Jiang Yu",
-            "Jianing Wang",
-            "Jie Yang",
-            "Jing He",
-            "Jinglin Zhou",
-            "Jingxuan Li",
-            "Josef Kittler",
-            "Lihao Zheng",
-            "Linnan Zhao",
-            "Mengxi Jia",
-            "Muyang Yan",
-            "Nguyen Thanh Thien",
-            "Pu Luo",
-            "Qi Li",
-            "Shien Song",
-            "Shijie Dong",
-            "Shuai Shao",
-            "Shutao Li",
-            "Taofeng Xue",
-            "Tianyang Xu",
-            "Tianyi Gao",
-            "Tingting Li",
-            "Wei Zhang",
-            "Weiyang Su",
-            "Xiaodong Dong",
-            "Xiao-Jun Wu",
-            "Xiaopeng Zhou",
-            "Xin Chen",
-            "Xin Wei",
-            "Xinyi You",
-            "Xudong Kang",
-            "Xujie Zhou",
-            "Xusheng Liu",
-            "Yanan Wang",
-            "Yanbin Huang",
-            "Yang Liu",
-            "Yang Yang",
-            "Yanglin Deng",
-            "Yashu Kang",
-            "Ye Yuan",
-            "Yi Wen",
-            "Yicen Tian",
-            "Yilin Tao",
-            "Yin Tang",
-            "Yipeng Lin",
-            "Yiqing Wang",
-            "Yiting Xi",
-            "Yongkang Yu",
-            "Yumei Li",
-            "Yuxin Qin",
-            "Yuying Chen",
-            "Yuzhe Cen",
-            "Zhaofan Zou",
-            "Zhaohong Liu",
-            "Zhehao Shen",
-            "Zhenglin Du",
-            "Zhengyang Li",
-            "Zhenni Huang",
-            "Zhenwei Shao",
-            "Zhilong Song",
-            "Zhiyong Feng",
-            "Zhiyu Wang",
-            "Zhou Yu",
-            "Ziang Li",
-            "Zihan Zhai",
-            "Zijian Zhang",
-            "Ziyang Peng",
-            "Ziyun Xiao",
-            "Zongshu Li"
+            "Zheng Chen",
+            "Kai Liu",
+            "Jue Gong",
+            "Jingkai Wang",
+            "Lei Sun",
+            "Zongwei Wu",
+            "Radu Timofte",
+            "Yulun Zhang",
+            "Xiangyu Kong",
+            "Xiaoxuan Yu",
+            "Hyunhee Park",
+            "Suejin Han",
+            "Hakjae Jeon",
+            "Dafeng Zhang",
+            "Hyung-Ju Chun",
+            "Donghun Ryou",
+            "Inju Ha",
+            "Bohyung Han",
+            "Lu Zhao",
+            "Yuyi Zhang",
+            "Pengyu Yan",
+            "Jiawei Hu",
+            "Pengwei Liu",
+            "Fengjun Guo",
+            "Hongyuan Yu",
+            "Pufan Xu",
+            "Zhijuan Huang",
+            "Shuyuan Cui",
+            "Peng Guo",
+            "Jiahui Liu",
+            "Dongkai Zhang",
+            "Heng Zhang",
+            "Huiyuan Fu",
+            "Huadong Ma",
+            "Yanhui Guo",
+            "Sisi Tian",
+            "Xin Liu",
+            "Jinwen Liang",
+            "Jie Liu",
+            "Jie Tang",
+            "Gangshan Wu",
+            "Zeyu Xiao",
+            "Zhuoyuan Li",
+            "Yinxiang Zhang",
+            "Wenxuan Cai",
+            "Vijayalaxmi Ashok Aralikatti",
+            "Nikhil Akalwadi",
+            "G Gyaneshwar Rao",
+            "Chaitra Desai",
+            "Ramesh Ashok Tabib",
+            "Uma Mudenagudi",
+            "Marcos V. Conde",
+            "Alejandro Merino",
+            "Bruno Longarela",
+            "Javier Abad",
+            "Weijun Yuan",
+            "Zhan Li",
+            "Zhanglu Chen",
+            "Boyang Yao",
+            "Aagam Jain",
+            "Milan Kumar Singh",
+            "Ankit Kumar",
+            "Shubh Kawa",
+            "Divyavardhan Singh",
+            "Anjali Sarvaiya",
+            "Kishor Upla",
+            "Raghavendra Ramachandra",
+            "Chia-Ming Lee",
+            "Yu-Fan Lin",
+            "Chih-Chung Hsu",
+            "Risheek V Hiremath",
+            "Yashaswini Palani",
+            "Yuxuan Jiang",
+            "Qiang Zhu",
+            "Siyue Teng",
+            "Fan Zhang",
+            "Shuyuan Zhu",
+            "Bing Zeng",
+            "David Bull",
+            "Jingwei Liao",
+            "Yuqing Yang",
+            "Wenda Shao",
+            "Junyi Zhao",
+            "Qisheng Xu",
+            "Kele Xu",
+            "Sunder Ali Khowaja",
+            "Ik Hyun Lee",
+            "Snehal Singh Tomar",
+            "Rajarshi Ray",
+            "Klaus Mueller",
+            "Sachin Chaudhary",
+            "Surya Vashisth",
+            "Akshay Dudhane",
+            "Praful Hambarde",
+            "Satya Naryan Tazi",
+            "Prashant Patil",
+            "Santosh Kumar Vipparthi",
+            "Subrahmanyam Murala",
+            "Bilel Benjdira",
+            "Anas M. Ali",
+            "Wadii Boulila",
+            "Zahra Moammeri",
+            "Ahmad Mahmoudi-Aznaveh",
+            "Ali Karbasi",
+            "Hossein Motamednia",
+            "Liangyan Li",
+            "Guanhua Zhao",
+            "Kevin Le",
+            "Yimo Ning",
+            "Haoxuan Huang",
+            "Jun Chen"
           ],
           "venue": "cs.CV",
           "citations": null,
           "stars": null,
           "extra": {
-            "arxiv_id": "2509.14142v1",
-            "rrf_score": 0.026474,
+            "arxiv_id": "2504.14582v3",
+            "rrf_score": 0.042188,
             "also_seen_on": []
           }
         },
         {
-          "title": "SWE-bench Goes Live!",
-          "url": "http://arxiv.org/abs/2505.23419v2",
-          "snippet": "The issue-resolving task, where a model generates patches to fix real-world bugs, has emerged as a critical benchmark for evaluating the capabilities of large language models (LLMs). While SWE-bench and its variants have become standard in this domain, they suffer from key limitations: they have not been updated since their initial releases, cover a narrow set of repositories, and depend heavily on manual effort for instance construction and environment setup. These factors hinder scalability and introduce risks of overfitting and data contamination. In this work, we present SWE-bench-Live, a…",
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
           "engine": "arxiv",
           "kind": "paper",
-          "published": "2025-05-29",
+          "published": "2025-12-11",
           "authors": [
-            "Linghao Zhang",
-            "Shilin He",
-            "Chaoyun Zhang",
-            "Yu Kang",
-            "Bowen Li",
-            "Chengxing Xie",
-            "Junhao Wang",
-            "Maoquan Wang",
-            "Yufan Huang",
-            "Shengyu Fu",
-            "Elsie Nallipogu",
-            "Qingwei Lin",
-            "Yingnong Dang",
-            "Saravan Rajmohan",
-            "Dongmei Zhang"
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
           ],
-          "venue": "cs.SE",
+          "venue": "cs.AI",
           "citations": null,
           "stars": null,
           "extra": {
-            "arxiv_id": "2505.23419v2",
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.041619,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+          "url": "http://arxiv.org/abs/2510.20381v1",
+          "snippet": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal legal text processing and to provide a benchmark dataset for building and evaluating intelligent systems in multimodal legal domains, with a focus on traffic sign regulation in Vietnam. The best-reported results on VLSP 2025 MLQA-TSR are an F2 score of 64.55% for multimodal legal retrieval and an a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Son T. Luu",
+            "Trung Vo",
+            "Hiep Nguyen",
+            "Khanh Quoc Tran",
+            "Kiet Van Nguyen",
+            "Vu Tran",
+            "Ngan Luu-Thuy Nguyen",
+            "Le-Minh Nguyen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20381v1",
+            "rrf_score": 0.04102,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "From Inference Engine to Inference Control Plane: Connecting vLLM, llm-d, and the Evolution of Efficient Distributed LLM Serving",
+          "url": "http://arxiv.org/abs/2609.23130v1",
+          "snippet": "Large language model (LLM) inference is evolving from an engine-local optimization problem into a distributed control problem involving reusable state, phase placement, heterogeneous accelerators, networking, autoscaling, reliability, and service-level objectives. This paper connects that transition across peer-reviewed systems research, open-source implementations, and documented production studies. It treats vLLM and llm-d as complementary layers: model-serving engines optimize execution through mechanisms such as PagedAttention, continuous batching, kernels, quantization, and parallelism,…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-19",
+          "authors": [
+            "Twinkll Sisodia"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.23130v1",
             "rrf_score": 0.02459
           }
         }
@@ -680,38 +645,10 @@
         "subquestion_id": "q3",
         "findings": [
           {
-            "point": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
-            "evidence": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making.…",
+            "point": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+            "evidence": "This paper presents the NTIRE 2025 image super-resolution ($\\times$4) challenge, one of the associated competitions of the 10th NTIRE Workshop at CVPR 2025. The challenge aims to recover high-resolution (HR) images from low-resolution (LR) counterparts generated through bicubic downsampling with a…",
             "sources": [
-              13
-            ],
-            "type": "paper",
-            "confidence": "low",
-            "year": "2025",
-            "heat": "",
-            "authority": "cs.HC",
-            "attention": "",
-            "recommendation": "★★★★☆（venue=cs.HC）"
-          },
-          {
-            "point": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
-            "evidence": "This paper presents our submission to the MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets. The objective of the shared task is to create manually-annotated evaluation data in the physical commonsense reasoning domain, for languages other than English, following a format similar to…",
-            "sources": [
-              14
-            ],
-            "type": "paper",
-            "confidence": "low",
-            "year": "2025",
-            "heat": "",
-            "authority": "cs.CL",
-            "attention": "",
-            "recommendation": "★★★★☆（venue=cs.CL）"
-          },
-          {
-            "point": "MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook",
-            "evidence": "This paper reviews the MARS2 2025 Challenge on Multimodal Reasoning. We aim to bring together different approaches in multimodal machine learning and LLMs via a large benchmark. We hope it better allows researchers to follow the state-of-the-art in this very dynamic area. Meanwhile, a growing numbe…",
-            "sources": [
-              26
+              2
             ],
             "type": "paper",
             "confidence": "low",
@@ -722,18 +659,46 @@
             "recommendation": "★★★★☆（venue=cs.CV）"
           },
           {
-            "point": "SWE-bench Goes Live!",
-            "evidence": "The issue-resolving task, where a model generates patches to fix real-world bugs, has emerged as a critical benchmark for evaluating the capabilities of large language models (LLMs). While SWE-bench and its variants have become standard in this domain, they suffer from key limitations: they have no…",
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
             "sources": [
-              27
+              3
             ],
             "type": "paper",
             "confidence": "low",
             "year": "2025",
             "heat": "",
-            "authority": "cs.SE",
+            "authority": "cs.AI",
             "attention": "",
-            "recommendation": "★★★★☆（venue=cs.SE）"
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+            "evidence": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "From Inference Engine to Inference Control Plane: Connecting vLLM, llm-d, and the Evolution of Efficient Distributed LLM Serving",
+            "evidence": "Large language model (LLM) inference is evolving from an engine-local optimization problem into a distributed control problem involving reusable state, phase placement, heterogeneous accelerators, networking, autoscaling, reliability, and service-level objectives. This paper connects that transitio…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
           }
         ],
         "key_papers": [],
@@ -762,10 +727,10 @@
     "evidence-grading"
   ],
   "llm_stats": {
-    "calls": 6,
-    "prompt_tokens": 28330,
-    "completion_tokens": 21041,
-    "generated_at": "2026-10-02T10:48:01.331002+00:00"
+    "calls": 7,
+    "prompt_tokens": 34107,
+    "completion_tokens": 24930,
+    "generated_at": "2026-10-02T11:10:30.469119+00:00"
   },
   "models": {
     "primary": "deepseek-v4-flash",
@@ -774,250 +739,10 @@
       "strong": "deepseek-v4-flash"
     }
   },
-  "report_md": "# 大模型与基础模型前沿调研报告（2024–2026）：推理与测试时计算、后训练、Agent、多模态、MoE 与扩展律、长上下文与效率\n\n**元信息**：报告日期 2026-10-02（UTC）｜领域：人工智能 / 基础模型（Foundation Models）｜可引用来源：34 条编号来源（[1]–[34]）｜检索方式：多角度检索 + 候选证据块抽取（结构化 API 优先）｜证据覆盖审计见「摘要」小节｜术语对照：LLM（大语言模型）、VLA（Vision-Language-Action）、RLHF（Reinforcement Learning from Human Feedback，人类反馈强化学习）、RLVR（Reinforcement Learning with Verifiable Rewards，可验证奖励强化学习）、MoE（Mixture-of-Experts，混合专家）、CoT（Chain-of-Thought，思维链）、TTT/TTS（test-time training / test-time scaling，测试时训练/扩展）\n\n---\n\n## 摘要（Executive Summary）\n\n本报告严格遵循「不编造、可核查、带证据分级」的写作纪律。需要首先向读者说明一个关键事实：**本次检索召回的证据与主题存在严重错配**。在 34 条可引用来源中，与「大模型/基础模型」六条主线直接相关者仅 16 条（[7][8][9][10][11][12][13][14][20][21][22][23][24][26][27][32]），其中能真正支撑技术结论的约 8 条（[8][20][21][23][24][26][27][32]）；旁及强化学习/机器人 3 条（[15][16][17]）；明显离题 15 条（[1]–[6] 为 2017 年形式化方法与 NLP 论文，[18][19][25] 为会议论文集/低资源语言工作坊/短视频参与度预测，[28]–[31][33][34] 为 Gaia 天体测量任务论文）。因此，本报告的定位是**「可核查证据地图 + 明确的待补检索清单」**，而非一份声称完整的领域综述。\n\n可确证的结论（均有可用来源支撑）：\n\n1. **推理效率正在成为「大型推理模型」独立的工程主线**：[21] 提出 ARS（Adaptive Reasoning Suppression，自适应推理抑制），针对高效大型推理语言模型（Large Reasoning LMs），说明「减少冗余推理 token」已被作为一等研究问题处理，而非仅仅靠模型变小。[21]\n2. **测试时计算/测试时优化已外溢到安全领域**：[20] 的 MetaSC 将「测试时安全规范规格优化」作为方法框架，说明 test-time optimization 已不只是推理能力提升手段，也被用于对齐与安全约束。[20]\n3. **RLVR 思路正在从「语言推理」外溢到「世界模型」训练**：[24] 的 RLVR-World 直接用强化学习训练世界模型，标题层面即体现「可验证奖励 / RL 训练目标替代纯监督」的迁移路径；其方法细节与验证强度需回到原文核实。[24]\n4. **Agent/代码类评测正从静态数据集转向动态、可对抗加固的形态**：[27]（SWE-bench Goes Live!）与 [32]（SWE-ABS）共同指向同一个问题域——静态测试型基准（test-based benchmark）存在饱和、污染与成功率虚高风险。[27][32]\n5. **多模态推理已形成「挑战赛 + 数据集 + 榜单」的组织形态**：[26] MARS2 2025 多模态推理挑战赛汇总数据集、方法、结果与展望；[14] 则把物理常识推理评测扩展到意大利语/英语并做人工标注，说明多语言+多模态评测正在同步扩张。[26][14]\n6. **Transformer 作为「学术叙事中心」的量化证据**：[7] 统计 2009–2025 年 717 篇含 \"All You Need\" 的 arXiv 预印本，发现 2017 年原论文后呈指数增长（R² > 0.994），2025 年单年 200 篇，并指出其中遵循规范结构的论文里 \"Attention\" 被声称「必要」的频次最高（28 次）。[7]\n\n必须明确标注为「证据缺口」的结论（本批证据**零覆盖**，一律 `> 待核实`）：\n\n- 后训练中的 RLHF / DPO / 偏好优化一手进展，以及 RLVR 是否真实提升推理能力（vs. 仅改变采样分布）的对照实验证据；\n- MoE 稀疏化架构演进、路由策略、MoE 与稠密模型的质量-效率权衡；\n- 扩展律（scaling law）的新结论，包括 Chinchilla 之后的数据/计算最优配方；\n- 长上下文（long-context）的真实有效性与「lost in the middle」类争议；\n- 主流开源训练框架与推理引擎（如 HuggingFace Transformers、vLLM、llama.cpp）的 stars、最近提交、生态采用度等工程可用性指标；\n- 上述缺口不能由种子资源清单替代，因为种子清单仅提供条目与链接，未提供可核验的热度/权威信号（见第六节，全部标注 `> 待核实`）。\n\n---\n\n## 一、关键前沿进展（近 1–2 年）\n\n> 说明：以下条目按证据强度排序。本批来源全部为 arXiv 预印本 / SSRN 预印本 / 期刊摘要，**未见任何一条具备已确认的同行评审记录**，故权威证据等级最高为 B（arXiv 预印本），多数热度信号缺失。所有年份若未特别说明，均由 arXiv 编号（如 2505 → 2025-05）推断，精确提交日期 `> 待核实`。\n\n| # | 名称（中英对照） | 年份 | 机构/作者 | 主线归属 | 证据强度 |\n|---|---|---|---|---|---|\n| F1 | ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models（自适应推理抑制）[21] | 2025 | `> 待核实` | 推理与测试时计算 / 效率 | arXiv 预印本（B） |\n| F2 | MetaSC: Test-Time Safety Specification Optimization for Language Models（测试时安全规格优化）[20] | 2025 | `> 待核实` | 后训练 / 测试时计算 / 安全 | arXiv 预印本（B） |\n| F3 | RLVR-World: Training World Models with Reinforcement Learning（用 RL 训练世界模型）[24] | 2025 | `> 待核实` | 后训练（RLVR）/ 世界模型 | arXiv 预印本（B） |\n| F4 | SWE-bench Goes Live!（动态化 SWE-bench）[27] | 2025 | `> 待核实` | Agent / 工具使用 / 评测 | arXiv 预印本（B，cs.SE） |\n| F5 | SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark（对抗式基准加固暴露虚高成功率）[32] | 2026 | `> 待核实` | 评测可靠性 / 争议 | arXiv 预印本（B，仅标题与题名信息） |\n| F6 | MARS2 2025 Challenge on Multimodal Reasoning（多模态推理挑战赛）[26] | 2025 | `> 待核实` | 多模态 / 评测 | arXiv 预印本（B，cs.CV） |\n| F7 | MRL 2025 Shared Task: Culturally Grounded Physical Commonsense Reasoning in Italian and English（多语言物理常识推理）[14] | 2025 | `> 待核实` | 多模态/多语言 / 评测数据集 | arXiv 预印本（B，cs.CL） |\n| F8 | Making Large Language Models Better Reasoners with Alignment（用对齐提升推理）[23] | 2023 | `> 待核实` | 后训练（过渡期工作） | arXiv 预印本（B） |\n| F9 | Dilated Neighborhood Attention Transformer（DiNAT，膨胀邻域注意力）[8] | 2022（v3 修订） | `> 待核实` | 架构 / 注意力效率 | arXiv 预印本（B） |\n\n### 逐条四类可核查证据\n\n**F1 ARS（自适应推理抑制）[21]**\n- **热度证据**：`> 待核实`（候选块未给出 citations、GitHub star、下载量或榜单排名）[21]\n- **权威证据**：arXiv 预印本（arXiv:2510.00071v2），本批证据未显示同行评审记录；作者与机构 `> 待核实` [21]\n- **关注度**：`> 待核实`（无引用/star/榜单/社区讨论信号；仅知其针对「高效大型推理模型」这一 2025 年高关注问题域）[21]\n- **推荐度**：★★★★☆——若关注「推理 token 成本控制 / 是否所有 token 都必要」这一 2025–2026 核心问题，此题名指向的研究问题高度相关，建议补读原文再引用结论。[21]\n\n**F2 MetaSC（测试时安全规格优化）[20]**\n- **热度证据**：`> 待核实` [20]\n- **权威证据**：arXiv 预印本（arXiv:2502.07985v2），非同行评审；作者/机构 `> 待核实` [20]\n- **关注度**：`> 待核实`（无热度信号）[20]\n- **推荐度**：★★★★☆——把「测试时计算」用于安全规格优化，是 test-time 方法向对齐场景外溢的代表，与「后训练 + 测试时计算」交叉主题相关度高。[20]\n\n**F3 RLVR-World（用 RL 训练世界模型）[24]\n\n## 参考来源\n\n[1] The 4th Reactive Synthesis Competition (SYNTCOMP 2017): Benchmarks, Participants & Results — http://arxiv.org/abs/1711.11439v1\n[2] Ghosts of Jupiter's past: is 2017 UV43 a relative of comet Shoemaker-Levy 9? — http://arxiv.org/abs/1712.03230v2\n[3] EmoAtt at EmoInt-2017: Inner attention sentence embedding for Emotion Intensity — http://arxiv.org/abs/1708.05521v1\n[4] Pre-proceedings of the 27th International Symposium on Logic-Based Program Synthesis and Transformation (LOPSTR 2017) — http://arxiv.org/abs/1708.07854v2\n[5] ConceptNet at SemEval-2017 Task 2: Extending Word Embeddings with Multilingual Relational Knowledge — http://arxiv.org/abs/1704.03560v2\n[6] SU-RUG at the CoNLL-SIGMORPHON 2017 shared task: Morphological Inflection with Attentional Sequence-to-Sequence Models — http://arxiv.org/abs/1706.03499v1\n[7] \"All You Need\" is Not All You Need for a Paper Title: On the Origins of a Scientific Meme — http://arxiv.org/abs/2512.19700v1\n[8] Dilated Neighborhood Attention Transformer — http://arxiv.org/abs/2209.15001v3\n[9] Attention is All You Need... Unless You Are a CISO: The Inherent Incompatibility Between Transformer Architectures and Zero-Trust Environments — https://doi.org/10.2139/ssrn.5967774\n[10] Attention via Synaptic Plasticity is All You Need A Biologically Inspired Spiking Neuromorphic Transformer — https://doi.org/10.2139/ssrn.6096874\n[11] Failure Is All You Need — Attention as Reverse Diffusion: A Unified Geometric Control Law for Transformer Dynamics — https://doi.org/10.2139/ssrn.7499639\n[12] 1882-P: Attention Is All You Need: Temporal Transformer-Based Personalization of Insulin Delivery Parameters from CGM and Pump Data — https://doi.org/10.2337/db26-1882-p\n[13] Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support — http://arxiv.org/abs/2504.16021v1\n[14] Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task — http://arxiv.org/abs/2510.22631v1\n[15] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1\n[16] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1\n[17] Causal-Paced Deep Reinforcement Learning — http://arxiv.org/abs/2507.02910v1\n[18] ACM COMPUTE 2025 Best Practices Track Proceedings — http://arxiv.org/abs/2512.02349v2\n[19] Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025) — http://arxiv.org/abs/2412.16365v1\n[20] MetaSC: Test-Time Safety Specification Optimization for Language Models — http://arxiv.org/abs/2502.07985v2\n[21] ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models — http://arxiv.org/abs/2510.00071v2\n[22] AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3\n[23] Making Large Language Models Better Reasoners with Alignment — http://arxiv.org/abs/2309.02144v1\n[24] RLVR-World: Training World Models with Reinforcement Learning — http://arxiv.org/abs/2505.13934v2\n[25] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[26] MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook — http://arxiv.org/abs/2509.14142v1\n[27] SWE-bench Goes Live! — http://arxiv.org/abs/2505.23419v2\n[28] The Gaia mission — http://arxiv.org/abs/1609.04153v1\n[29] Gaia Data Release 3: The Galaxy in your preferred colours. Synthetic photometry from Gaia low-resolution spectra — http://arxiv.org/abs/2206.06215v2\n[30] Gaia Data Release 2. Summary of the contents and survey properties — http://arxiv.org/abs/1804.09365v2\n[31] Gaia Data Release 1. Summary of the astrometric, photometric, and survey properties — http://arxiv.org/abs/1609.04172v1\n[32] SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark — http://arxiv.org/abs/2603.00520v1\n[33] Gaia Data Release 3: Exploring and mapping the diffuse interstellar band at 862 nm — http://arxiv.org/abs/2206.05536v1\n[34] Gaia Data Release 2: Kinematics of globular clusters and dwarf galaxies around the Milky Way — http://arxiv.org/abs/1804.09381v3\n\n\n---\n\n*Generated by research-bot · topic=`ai` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=34 · duration=170s · 2026-10-02T10:48:01+00:00*\n",
+  "report_md": "# 人工智能（基础模型）前沿调研报告：测试时计算与推理、RLVR 后训练、Agent 与工具使用、多模态、MoE 与长上下文\n\n**日期**：2026-10-02（UTC） | **领域**：AI 基础模型（Foundation Models / LLM） | **检索源数量**：可用引用编号 35 条（[1]–[35]），其中与本主题直接相关者约 13 条 | **证据等级基线**：本次全部可用来源均为 arXiv 预印本或论文集条目（B 级为主），**未获得任何 A 级同行评审期刊论文的直接全文证据**\n\n---\n\n## 摘要（Executive Summary）\n\n1. **最重要的结论是证据层面的，而非技术层面的**：本次候选证据池与研究主题存在**大面积错配**。在 35 条可用来源中，可直接支撑「测试时计算 / RLVR 后训练 / Agent 工具使用 / MoE / 多模态与长上下文效率」主题的仅约 13 条（[5][6][7][9][10][11][13][14][15][16][24][29][35]），其余 22 条分别属于计算机教育、凝聚态物理、图像超分挑战赛、情感强度分析、低资源语言研讨会等无关领域（[1][2][4][8][17][18][19][20][21][22][23][25][26][27][28][30][31][32][33][34]），其中 [17] 更是一篇**已撤回论文**（标题即 \"This paper has been withdrawn\"）。**热度证据（citations/stars）在全部候选块中均为空字段**，因此本报告中所有热度类论断一律标注 `> 待核实`，不编造任何数字。\n   - 热度：`> 待核实`（候选块无 citations/stars 字段）｜权威：候选块为 arXiv 元数据 [1]–[35]｜关注度：低（主题重叠率约 37%）｜推荐度：★5 —— 该判断决定了本报告必须以「缺口清单」为主要交付物之一。\n\n2. **可确认的前沿信号集中在四条线**：\n   - **测试时计算的焦点已从「算得多」转向「何时算、算多少」**：[29] 提出 Sleep-time Compute，把部分计算从测试时前移到空闲期；[35] 直接研究 Test-Time Compute 的「思考最优扩展」；[11] 把 RLVR 的训练信号调度纳入时间维度。\n   - **推理效率开始正面处理「过度思考（overthinking）」**：[15] 提出自适应推理抑制，[14] 通过正则化提示优化压缩推理 token 成本。\n   - **RLVR 概念外溢到非语言模型**：[10] 用强化学习训练世界模型（RLVR-World）。\n   - **推理服务栈从「引擎」升级为「控制平面」**：[5] 描述 vLLM → llm-d 的分布式控制化演进，[6] 给出 vLLM 与 HuggingFace TGI 的第三方性能对比，[7] 用 33,228 个 PR 的纵向数据刻画 vLLM/SGLang 的 agentic coding 协作模式。\n\n3. **必须明确标注为证据缺口的领域**：**MoE 架构与路由、MoE 扩展律、多模态基础模型能力、长上下文「有效长度」、社区关心的主流基准（MMLU/MMLU-Pro、GPQA、AIME、SWE-bench、ARC-AGI、τ-bench、AgentBench、LIBERO、SimplerEnv）在本次证据池中均无一手评测证据**。本报告第五节与第四节相应部分以「待核实 + 补检索建议」形式呈现，不做任何结论性陈述。`> 待核实`\n\n---\n\n## 一、关键前沿进展（近 1–2 年）\n\n> 判定口径：以来源的 arXiv 提交/修订时间戳为准（一手元数据），而非模型训练知识。时间窗取 2024-10 至 2026-10（当前日期 2026-10-02），并对 2024 年上半年的条目单列「过渡期节点」。\n\n### 1.1 时间线（按证据强度分层）\n\n| 时间 | 节点 | 一句话贡献 | 证据强度 | 来源 |\n|---|---|---|---|---|\n| 2024-01 | Beyond Chinchilla-Optimal | 在缩放律中显式计入**推理成本**，挑战纯训练算力最优口径 | 标题级（B） | [24] |\n| 2024-05 | OpenRLHF | 面向 RLHF 的易用/可扩展/高性能训练框架（v6 持续更新） | 标题级（B） | [9] |\n| 2025-03 | LongEval @ CLEF 2025 | 面向 IR 模型的**纵向**性能评测方法学 | 标题级（B） | [12] |\n| 2025-04 | Sleep-time Compute | 在测试时推理扩展之外，新增「睡眠时间预计算」维度 | 标题级（B） | [29] |\n| 2025-05 | RLVR-World | 将 RLVR 范式用于**世界模型**训练 | 标题级（B） | [10] |\n| 2025-10 | ARS | 自适应抑制推理冗余，直面 overthinking 与效率权衡 | 摘要级（B） | [15] |\n| 2025-11 | vLLM vs TGI | 推理服务系统的第三方对比性能研究 | 标题级（B/C） | [6] |\n| 2025-12 | 2025 Foundation Model Transparency Index | 年度透明度指数第三版 | 摘要级（B） | [3] |\n| 2026-04 | CROP | 用正则化提示优化降低推理 token 成本 | 摘要级（B） | [14] |\n| 2026-05 | RLVR Temporal Scheduling | RLVR 训练中的**时序调度**（\"not only where, but when\"） | 标题级（B） | [11] |\n| 2026-08 | Agentic Coding 纵向分析 | 33,228 个 vLLM/SGLang PR 的人机协作实证 | 标题级（B） | [7] |\n| 2026-09 | Inference Control Plane | 推理从引擎局部优化转向分布式控制问题 | 摘要级（B） | [5] |\n| 时间待核实 | Thinking-Optimal Scaling of TTC | 测试时计算的思考最优扩展 | 标题级（会议论文集条目） | [35] |\n\n- 热度：`> 待核实`（全部候选块 citations 字段为空）｜权威：多为 arXiv 预印本（cs.AI/cs.CL/cs.CV），[35] 为 DOI 指向的会议论文集条目，未见同行评审标注｜关注度：中 —— 依据为「测试时计算」与「vLLM 生态」是当前社区高频讨论主题（[5][7][29][35] 集中出现）｜推荐度：★★★ —— 时间线可用于定位检索方向，但单条证据强度均不足以支撑 SOTA 结论。\n\n### 1.2 被明确排除的「伪相关」信号\n\n- **[2] NTIRE 2025 图像超分挑战赛**、**[8] ACM MM 2025 事件增强图像分析挑战赛**：属计算机视觉竞赛结果，**不构成基础模型多模态能力证据**。`> 待核实`\n- **[4] VLSP 2025 越南语多模态法律问答**：属领域应用 shared task，覆盖面窄，不能外推为多模态基础模型进展。\n- **[16] \"All You Need\" is Not All You Need**：属科学计量学（cs.CY），其对 Transformer 的意义仅在于**量化命名范式的传播**（分析 2009–2025 年 717 篇含 \"All You Need\" 的 arXiv 预印本，报告指数增长趋势；具体拟合系数被摘要截断，`> 待核实`），可作为 Transformer 影响力的**间接**证据，但**不能作为技术进展证据**。\n\n---\n\n## 二、推理与测试时计算\n\n### 2.1 已获证据支持的三条子线索\n\n**（1）测试时计算的时间维度被打开：从「测试时」到「睡眠时」。**\n[29] 的标题即指出研究边界为 \"Beyond Inference Scaling at Test-time\"，提出 Sleep-time Compute 概念。\n- 热度：`> 待核实`｜权威：arXiv 预印本 [29]，未见 venue 标注｜关注度：中 —— 依据为「测试时计算扩展」是该窗口内的显性热点（[29][35] 同期出现）｜推荐度：★★★★ —— 直接命中本报告第二节主题，是当前证据池中最贴题的一条。\n\n**（2）测试时计算的「最优思考量」问题被形式化。**\n[35] 直接以 \"Towards Thinking-Optimal Scaling of Test-Time Compute for LLM Reasoning\" 为题，指向「推理链长度/采样量并非越多越好」这一命题。\n- 热度：`> 待核实`（DOI 条目，无引用数）｜权威：`> 待核实`（条目形态为会议论文集，具体 venue 与评审状态未在证据中给出）｜关注度：中 —— 与 [15] 的 overthinking 问题构成同一议题的两面｜推荐度：★★★ —— 主题高度相关，但权威性未能确认。\n\n**（3）推理冗余（overthinking）被作为一等工程问题处理。**\n[15]（ARS）明确指出大型推理模型（LRLMs/LRMs）\"因过度思考而存在显著计算低效\"，现有高效推理方法需在推理质量与推理开销之间取得平衡；该文提出自适应推理抑制（Adaptive Reasoning Suppression）。\n[14]（CROP）从提示优化角度指出：现有自动提示优化（APO）框架\"以牺牲长推理链的生成为代价、只追求任务精度\"，导致延迟与 token 成本上升；该文用正则化提示优化实现 token 高效推理。\n- 热度：`> 待核实`｜权威：均为 arXiv 预印本（[15] cs.AI，[14] cs.CL），无同行评审标注｜关注度：中 —— overthinking 已成为效率方向的共识性问题（[14][15] 独立提出）｜推荐度：★★★★ —— 两篇构成「抑制推理」与「优化提示」的互补视角，是推理效率章节的一手素材。\n\n### 2.2 测试时计算「扩展律」本身：证据不足\n\n[24] 从**缩放律**角度提出应把推理成本计入语言模型缩放律（\"Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws\"）。这为「推理期算力分配是否应改变训练期最优配比」提供了理论入口，但**本次证据池中没有任何一条给出测试时计算扩展律的经验曲线（如 accuracy vs. 采样数/搜索预算的拟合结论）**。`> 待核实`\n- 热度：`> 待核实`｜权威：arXiv 预印本（v3）[24]，属缩放律方向的直接续作｜关注度：中｜推荐度：★★★★ —— 是把「测试时计算」与「扩展律」两节打通的关键引用，但需补检索其同行评审版本与后续引用文献。\n\n### 2.3 检索缺口（本节必须补检）\n\n1. 缺**采样/搜索策略对比**（best-of-n、self-consistency、tree search、verifier-guided）的一手口径。\n2. 缺**推理算力口径**（生成 token 数、pass@k 预算、单题 FLOPs）的可比数据。\n3. 缺 [29][35] 的**全文精读**（本轮仅获得标题级/条目级证据）。`> 待核实`\n\n---\n\n## 三、后训练：RLHF / RLVR / 偏好优化\n\n### 3.1 框架层：OpenRLHF\n\n[9]（OpenRLHF，v6）提供了本方向最明确的工程栈证据：定位为\"easy-to-use, scalable and high-performance RLHF framework\"。\n- 热度：`> 待核实`（候选块未提供 stars/citations；GitHub 数据本轮未采集）｜权威：arXiv 预印本 [9]，属框架类论文，通常非同行评审主线｜关注度：中高 —— 依据为 RLHF 框架是社区实际训练入口，且在本次证据池中以 v6 形式持续更新，表明项目仍在维护｜推荐度：★★★★ —— 后训练工程栈章节的必要引用，但**可复现性、许可协议、star 数均需另行核查**。`> 待核实`\n\n### 3.2 算法与范式层：RLVR 的两条非典型证据\n\n**（1）RLVR 越出语言模型边界：RLVR-World。**\n[10] 标题为 \"RLVR-World: Training World Models with Reinforcement Learning\"，把「可验证奖励」的强化学习思路用于**世界模型**训练，而非文本推理。\n- 热度：`> 待核实`｜权威：arXiv 预印本（v2）[10]｜关注度：中 —— 作为 RLVR 概念外溢的信号具有前瞻指示性｜推荐度：★★★★ —— 若研究目标是 RLVR 的方法论边界，这是本次证据池中信息量最高的一条。\n\n**（2）RLVR 的训练调度问题被显式提出。**\n[11] 标题 \"Not only where, But when: Temporal Scheduling for RLVR\" 表明：RLVR 的研究重点从「奖励在哪里施加（where）」扩展到「**何时**施加（when）」。\n- 热度：`> 待核实`｜权威：arXiv 预印本 [11]｜关注度：中 —— 属于 RLVR 训练的细化方向，非主流综述常见条目｜推荐度：★★★★ —— 直接命中本报告标题中的 RLVR 后训练主题。\n\n### 3.3 对齐作为推理增强的早期线索（过渡期节点）\n\n[13]（2023）提出 \"Making Large Language Models Better Reasoners with Alignment\"，摘要指出近期研究显示在含 Chain-of-Thought（CoT）数据上微调 LLM 可提升推理能力，该文从对齐角度切入。\n- 热度：`> 待核实`｜权威：arXiv 预印本（cs.CL）[13]，2023 年，时效性偏旧｜关注度：低（时间上已属前 RLVR 时代）｜推荐度：★★★ —— 可作为「对齐 → 推理增强」脉络的早期节点，但不能代表 2024–2026 的 RLVR 进展。\n\n### 3.4 本节关键缺口\n\n- **没有任何一条证据覆盖 GRPO / DPO / 偏好优化的算法变体、训练数据规模、对照 baseline 或训练算力口径。** [9][10][11][13] 仅提供框架、范式外溢与调度视角。`> 待核实`\n- **「RLVR 是否真正提升推理能力，还是蒸馏/采样放大的伪提升」这一核心争议，在本次证据池中完全无支撑。** `> 待核实`\n- 需要补检的关键词：`GRPO`、`RLVR verification reward`、`pass@k distillation`、`DeepSeek-R1`、`Kimi k1.5`、`Tulu 3`。`> 待核实`\n\n---\n\n## 四、Agent、工具使用与评测\n\n### 4.1 已获证据：Agent 协作的真实工程信号（而非 benchmark 分数）\n\n[7] 提供了本节唯一的高信息量证据：对 **vLLM 与 SGLang 两个推理引擎仓库的 33,228 个 Pull Request** 进行纵向分析，主题为 \"Engineering Signals of Human-AI Collaboration in the Agentic Coding Era\"，并讨论其对生物医学 AI Agent 与生信流水线开发的启示。\n- 热度：`> 待核实`（无 stars/citations 字段）｜权威：arXiv 预印本（2026-08），属实证软件工程 + AI 交叉研究，未见 venue 标注｜关注度：中 —— 依据为样本量（33,228 PR）与研究对象（两个高活跃推理引擎仓库）本身构成社区关注度的代理信号，但**本轮无榜单或新闻热度数据**｜推荐度：★★★★ —— 是本次证据池中**唯一**以大规模实证数据刻画「Agent 参与真实工程」的条目，价值在于提供**可复现的量化研究设计**，而非 Agent 能力排名。\n\n> 方法论提醒：该文的贡献是「Agent 在开源工程中的协作模式」，**不能**被引用为 Agent 在 SWE-bench / AgentBench / τ-bench 上的性能证据。两者口径完全不同。\n\n### 4.2 工具协议与 Agent 框架：本轮无证据\n\n- **MCP（Model Context Protocol）**、function calling 协议、多步工具链编排、Agent 记忆与规划框架：本次证据池**零覆盖**。`> 待核实`\n- 种子资源中未提供 MCP 或 Agent 框架条目，因此**不列入任何表格**，避免编造链接。\n\n### 4.3 基准体系的证据现状\n\n社区常引用的 Agent 相关基准（SWE-bench、τ-bench、AgentBench、ARC-AGI）在本次证据池中**无任何一手评测结果**。可用信息仅来自种子资源提供的 SWE-bench 仓库链接（标注为「代码/Agent 评测」），该信息**未经过本次检索验证**，已在下节表格中标注来源性质。\n- 热度：`> 待核实`｜权威：种子资源标注，非本次检索所得｜关注度：\n\n## 参考来源\n\n[1] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[2] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[3] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[4] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1\n[5] From Inference Engine to Inference Control Plane: Connecting vLLM, llm-d, and the Evolution of Efficient Distributed LLM Serving — http://arxiv.org/abs/2609.23130v1\n[6] Comparative Analysis of Large Language Model Inference Serving Systems: A Performance Study of vLLM and HuggingFace TGI — http://arxiv.org/abs/2511.17593v1\n[7] Engineering Signals of Human-AI Collaboration in the Agentic Coding Era: A Longitudinal Analysis of 33,228 Pull Requests from vLLM and SGLang with Implications for Biomedical AI Agents and Bioinformatics Pipeline Developmen — http://arxiv.org/abs/2608.13884v1\n[8] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1\n[9] OpenRLHF: An Easy-to-use, Scalable and High-performance RLHF Framework — http://arxiv.org/abs/2405.11143v6\n[10] RLVR-World: Training World Models with Reinforcement Learning — http://arxiv.org/abs/2505.13934v2\n[11] Not only where, But when: Temporal Scheduling for RLVR — http://arxiv.org/abs/2605.25381v1\n[12] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1\n[13] Making Large Language Models Better Reasoners with Alignment — http://arxiv.org/abs/2309.02144v1\n[14] CROP: Token-Efficient Reasoning in Large Language Models via Regularized Prompt Optimization — http://arxiv.org/abs/2604.14214v1\n[15] ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models — http://arxiv.org/abs/2510.00071v2\n[16] \"All You Need\" is Not All You Need for a Paper Title: On the Origins of a Scientific Meme — http://arxiv.org/abs/2512.19700v1\n[17] This paper has been withdrawn — http://arxiv.org/abs/cond-mat/0309395v2\n[18] The 4th Reactive Synthesis Competition (SYNTCOMP 2017): Benchmarks, Participants & Results — http://arxiv.org/abs/1711.11439v1\n[19] EmoAtt at EmoInt-2017: Inner attention sentence embedding for Emotion Intensity — http://arxiv.org/abs/1708.05521v1\n[20] Ghosts of Jupiter's past: is 2017 UV43 a relative of comet Shoemaker-Levy 9? — http://arxiv.org/abs/1712.03230v2\n[21] Erratum to \"The Homogeneous Coordinate Ring of a Toric Variety\", along with the original paper — http://arxiv.org/abs/alg-geom/9210008v3\n[22] Pre-proceedings of the 27th International Symposium on Logic-Based Program Synthesis and Transformation (LOPSTR 2017) — http://arxiv.org/abs/1708.07854v2\n[23] ConceptNet at SemEval-2017 Task 2: Extending Word Embeddings with Multilingual Relational Knowledge — http://arxiv.org/abs/1704.03560v2\n[24] Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws — http://arxiv.org/abs/2401.00448v3\n[25] Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support — http://arxiv.org/abs/2504.16021v1\n[26] ACM COMPUTE 2025 Best Practices Track Proceedings — http://arxiv.org/abs/2512.02349v2\n[27] Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task — http://arxiv.org/abs/2510.22631v1\n[28] AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3\n[29] Sleep-time Compute: Beyond Inference Scaling at Test-time — http://arxiv.org/abs/2504.13171v1\n[30] Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025) — http://arxiv.org/abs/2412.16365v1\n[31] Soft Inductive Bias Approach via Explicit Reasoning Perspectives in Inappropriate Utterance Detection Using Large Language Models — http://arxiv.org/abs/2512.08480v1\n[32] Instituto de Telecomunicações at IWSLT 2025: Aligning Small-Scale Speech and Language Models for Speech-to-Text Learning — http://arxiv.org/abs/2506.17019v1\n[33] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1\n[34] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1\n[35] Towards Thinking-Optimal Scaling of Test-Time Compute for LLM Reasoning — https://doi.org/10.52202/085713-1452\n\n\n---\n\n*Generated by research-bot · topic=`ai` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=35 · duration=171s · 2026-10-02T11:10:30+00:00*\n",
   "references": [
     {
       "n": 1,
-      "title": "The 4th Reactive Synthesis Competition (SYNTCOMP 2017): Benchmarks, Participants & Results",
-      "url": "http://arxiv.org/abs/1711.11439v1",
-      "kind": "paper",
-      "venue": "cs.LO",
-      "published": "2017-11-29",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 2,
-      "title": "Ghosts of Jupiter's past: is 2017 UV43 a relative of comet Shoemaker-Levy 9?",
-      "url": "http://arxiv.org/abs/1712.03230v2",
-      "kind": "paper",
-      "venue": "astro-ph.EP",
-      "published": "2017-12-08",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 3,
-      "title": "EmoAtt at EmoInt-2017: Inner attention sentence embedding for Emotion Intensity",
-      "url": "http://arxiv.org/abs/1708.05521v1",
-      "kind": "paper",
-      "venue": "cs.CL",
-      "published": "2017-08-18",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 4,
-      "title": "Pre-proceedings of the 27th International Symposium on Logic-Based Program Synthesis and Transformation (LOPSTR 2017)",
-      "url": "http://arxiv.org/abs/1708.07854v2",
-      "kind": "paper",
-      "venue": "cs.PL",
-      "published": "2017-08-24",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 5,
-      "title": "ConceptNet at SemEval-2017 Task 2: Extending Word Embeddings with Multilingual Relational Knowledge",
-      "url": "http://arxiv.org/abs/1704.03560v2",
-      "kind": "paper",
-      "venue": "cs.CL",
-      "published": "2017-04-11",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 6,
-      "title": "SU-RUG at the CoNLL-SIGMORPHON 2017 shared task: Morphological Inflection with Attentional Sequence-to-Sequence Models",
-      "url": "http://arxiv.org/abs/1706.03499v1",
-      "kind": "paper",
-      "venue": "cs.CL",
-      "published": "2017-06-12",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 7,
-      "title": "\"All You Need\" is Not All You Need for a Paper Title: On the Origins of a Scientific Meme",
-      "url": "http://arxiv.org/abs/2512.19700v1",
-      "kind": "paper",
-      "venue": "cs.CY",
-      "published": "2025-12-03",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 8,
-      "title": "Dilated Neighborhood Attention Transformer",
-      "url": "http://arxiv.org/abs/2209.15001v3",
-      "kind": "paper",
-      "venue": "cs.CV",
-      "published": "2022-09-29",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 9,
-      "title": "Attention is All You Need... Unless You Are a CISO: The Inherent Incompatibility Between Transformer Architectures and Zero-Trust Environments",
-      "url": "https://doi.org/10.2139/ssrn.5967774",
-      "kind": "paper",
-      "venue": null,
-      "published": "2026-01-01",
-      "citations": 0,
-      "stars": null
-    },
-    {
-      "n": 10,
-      "title": "Attention via Synaptic Plasticity is All You Need A Biologically Inspired Spiking Neuromorphic Transformer",
-      "url": "https://doi.org/10.2139/ssrn.6096874",
-      "kind": "paper",
-      "venue": null,
-      "published": "2026-01-01",
-      "citations": 0,
-      "stars": null
-    },
-    {
-      "n": 11,
-      "title": "Failure Is All You Need — Attention as Reverse Diffusion: A Unified Geometric Control Law for Transformer Dynamics",
-      "url": "https://doi.org/10.2139/ssrn.7499639",
-      "kind": "paper",
-      "venue": null,
-      "published": "2026-01-01",
-      "citations": 0,
-      "stars": null
-    },
-    {
-      "n": 12,
-      "title": "1882-P: Attention Is All You Need: Temporal Transformer-Based Personalization of Insulin Delivery Parameters from CGM and Pump Data",
-      "url": "https://doi.org/10.2337/db26-1882-p",
-      "kind": "paper",
-      "venue": "Diabetes",
-      "published": "2026-06-05",
-      "citations": 0,
-      "stars": null
-    },
-    {
-      "n": 13,
-      "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
-      "url": "http://arxiv.org/abs/2504.16021v1",
-      "kind": "paper",
-      "venue": "cs.HC",
-      "published": "2025-04-22",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 14,
-      "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
-      "url": "http://arxiv.org/abs/2510.22631v1",
-      "kind": "paper",
-      "venue": "cs.CL",
-      "published": "2025-10-26",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 15,
-      "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
-      "url": "http://arxiv.org/abs/2602.12375v1",
-      "kind": "paper",
-      "venue": "cs.LG",
-      "published": "2026-02-12",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 16,
-      "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
-      "url": "http://arxiv.org/abs/2607.18488v1",
-      "kind": "paper",
-      "venue": "cs.RO",
-      "published": "2026-07-20",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 17,
-      "title": "Causal-Paced Deep Reinforcement Learning",
-      "url": "http://arxiv.org/abs/2507.02910v1",
-      "kind": "paper",
-      "venue": "cs.LG",
-      "published": "2025-06-24",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 18,
-      "title": "ACM COMPUTE 2025 Best Practices Track Proceedings",
-      "url": "http://arxiv.org/abs/2512.02349v2",
-      "kind": "paper",
-      "venue": "cs.CY",
-      "published": "2025-12-02",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 19,
-      "title": "Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025)",
-      "url": "http://arxiv.org/abs/2412.16365v1",
-      "kind": "paper",
-      "venue": "cs.CL",
-      "published": "2024-12-20",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 20,
-      "title": "MetaSC: Test-Time Safety Specification Optimization for Language Models",
-      "url": "http://arxiv.org/abs/2502.07985v2",
-      "kind": "paper",
-      "venue": "cs.CL",
-      "published": "2025-02-11",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 21,
-      "title": "ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models",
-      "url": "http://arxiv.org/abs/2510.00071v2",
-      "kind": "paper",
-      "venue": "cs.AI",
-      "published": "2025-09-29",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 22,
-      "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
-      "url": "http://arxiv.org/abs/2506.14634v3",
-      "kind": "paper",
-      "venue": "cs.CL",
-      "published": "2025-06-17",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 23,
-      "title": "Making Large Language Models Better Reasoners with Alignment",
-      "url": "http://arxiv.org/abs/2309.02144v1",
-      "kind": "paper",
-      "venue": "cs.CL",
-      "published": "2023-09-05",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 24,
-      "title": "RLVR-World: Training World Models with Reinforcement Learning",
-      "url": "http://arxiv.org/abs/2505.13934v2",
-      "kind": "paper",
-      "venue": "cs.LG",
-      "published": "2025-05-20",
-      "citations": null,
-      "stars": null
-    },
-    {
-      "n": 25,
       "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
       "url": "http://arxiv.org/abs/2509.02969v1",
       "kind": "paper",
@@ -1027,93 +752,343 @@
       "stars": null
     },
     {
-      "n": 26,
-      "title": "MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook",
-      "url": "http://arxiv.org/abs/2509.14142v1",
+      "n": 2,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
       "kind": "paper",
       "venue": "cs.CV",
-      "published": "2025-09-17",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "From Inference Engine to Inference Control Plane: Connecting vLLM, llm-d, and the Evolution of Efficient Distributed LLM Serving",
+      "url": "http://arxiv.org/abs/2609.23130v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-09-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Comparative Analysis of Large Language Model Inference Serving Systems: A Performance Study of vLLM and HuggingFace TGI",
+      "url": "http://arxiv.org/abs/2511.17593v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-11-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Engineering Signals of Human-AI Collaboration in the Agentic Coding Era: A Longitudinal Analysis of 33,228 Pull Requests from vLLM and SGLang with Implications for Biomedical AI Agents and Bioinformatics Pipeline Developmen",
+      "url": "http://arxiv.org/abs/2608.13884v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-08-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+      "url": "http://arxiv.org/abs/2508.18904v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "OpenRLHF: An Easy-to-use, Scalable and High-performance RLHF Framework",
+      "url": "http://arxiv.org/abs/2405.11143v6",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "RLVR-World: Training World Models with Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2505.13934v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Not only where, But when: Temporal Scheduling for RLVR",
+      "url": "http://arxiv.org/abs/2605.25381v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-05-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance",
+      "url": "http://arxiv.org/abs/2503.08541v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-03-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Making Large Language Models Better Reasoners with Alignment",
+      "url": "http://arxiv.org/abs/2309.02144v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "CROP: Token-Efficient Reasoning in Large Language Models via Regularized Prompt Optimization",
+      "url": "http://arxiv.org/abs/2604.14214v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-04-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models",
+      "url": "http://arxiv.org/abs/2510.00071v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-09-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "\"All You Need\" is Not All You Need for a Paper Title: On the Origins of a Scientific Meme",
+      "url": "http://arxiv.org/abs/2512.19700v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-12-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "This paper has been withdrawn",
+      "url": "http://arxiv.org/abs/cond-mat/0309395v2",
+      "kind": "paper",
+      "venue": "cond-mat.soft",
+      "published": "2003-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "The 4th Reactive Synthesis Competition (SYNTCOMP 2017): Benchmarks, Participants & Results",
+      "url": "http://arxiv.org/abs/1711.11439v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2017-11-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "EmoAtt at EmoInt-2017: Inner attention sentence embedding for Emotion Intensity",
+      "url": "http://arxiv.org/abs/1708.05521v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2017-08-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Ghosts of Jupiter's past: is 2017 UV43 a relative of comet Shoemaker-Levy 9?",
+      "url": "http://arxiv.org/abs/1712.03230v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2017-12-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Erratum to \"The Homogeneous Coordinate Ring of a Toric Variety\", along with the original paper",
+      "url": "http://arxiv.org/abs/alg-geom/9210008v3",
+      "kind": "paper",
+      "venue": "math.AG",
+      "published": "1992-10-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Pre-proceedings of the 27th International Symposium on Logic-Based Program Synthesis and Transformation (LOPSTR 2017)",
+      "url": "http://arxiv.org/abs/1708.07854v2",
+      "kind": "paper",
+      "venue": "cs.PL",
+      "published": "2017-08-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "ConceptNet at SemEval-2017 Task 2: Extending Word Embeddings with Multilingual Relational Knowledge",
+      "url": "http://arxiv.org/abs/1704.03560v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2017-04-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws",
+      "url": "http://arxiv.org/abs/2401.00448v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-12-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+      "url": "http://arxiv.org/abs/2504.16021v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2025-04-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "ACM COMPUTE 2025 Best Practices Track Proceedings",
+      "url": "http://arxiv.org/abs/2512.02349v2",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-12-02",
       "citations": null,
       "stars": null
     },
     {
       "n": 27,
-      "title": "SWE-bench Goes Live!",
-      "url": "http://arxiv.org/abs/2505.23419v2",
+      "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+      "url": "http://arxiv.org/abs/2510.22631v1",
       "kind": "paper",
-      "venue": "cs.SE",
-      "published": "2025-05-29",
+      "venue": "cs.CL",
+      "published": "2025-10-26",
       "citations": null,
       "stars": null
     },
     {
       "n": 28,
-      "title": "The Gaia mission",
-      "url": "http://arxiv.org/abs/1609.04153v1",
+      "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+      "url": "http://arxiv.org/abs/2506.14634v3",
       "kind": "paper",
-      "venue": "astro-ph.IM",
-      "published": "2016-09-14",
+      "venue": "cs.CL",
+      "published": "2025-06-17",
       "citations": null,
       "stars": null
     },
     {
       "n": 29,
-      "title": "Gaia Data Release 3: The Galaxy in your preferred colours. Synthetic photometry from Gaia low-resolution spectra",
-      "url": "http://arxiv.org/abs/2206.06215v2",
+      "title": "Sleep-time Compute: Beyond Inference Scaling at Test-time",
+      "url": "http://arxiv.org/abs/2504.13171v1",
       "kind": "paper",
-      "venue": "astro-ph.SR",
-      "published": "2022-06-13",
+      "venue": "cs.AI",
+      "published": "2025-04-17",
       "citations": null,
       "stars": null
     },
     {
       "n": 30,
-      "title": "Gaia Data Release 2. Summary of the contents and survey properties",
-      "url": "http://arxiv.org/abs/1804.09365v2",
+      "title": "Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025)",
+      "url": "http://arxiv.org/abs/2412.16365v1",
       "kind": "paper",
-      "venue": "astro-ph.GA",
-      "published": "2018-04-25",
+      "venue": "cs.CL",
+      "published": "2024-12-20",
       "citations": null,
       "stars": null
     },
     {
       "n": 31,
-      "title": "Gaia Data Release 1. Summary of the astrometric, photometric, and survey properties",
-      "url": "http://arxiv.org/abs/1609.04172v1",
+      "title": "Soft Inductive Bias Approach via Explicit Reasoning Perspectives in Inappropriate Utterance Detection Using Large Language Models",
+      "url": "http://arxiv.org/abs/2512.08480v1",
       "kind": "paper",
-      "venue": "astro-ph.IM",
-      "published": "2016-09-14",
+      "venue": "cs.CL",
+      "published": "2025-12-09",
       "citations": null,
       "stars": null
     },
     {
       "n": 32,
-      "title": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark",
-      "url": "http://arxiv.org/abs/2603.00520v1",
+      "title": "Instituto de Telecomunicações at IWSLT 2025: Aligning Small-Scale Speech and Language Models for Speech-to-Text Learning",
+      "url": "http://arxiv.org/abs/2506.17019v1",
       "kind": "paper",
-      "venue": "cs.SE",
-      "published": "2026-02-28",
+      "venue": "cs.CL",
+      "published": "2025-06-20",
       "citations": null,
       "stars": null
     },
     {
       "n": 33,
-      "title": "Gaia Data Release 3: Exploring and mapping the diffuse interstellar band at 862 nm",
-      "url": "http://arxiv.org/abs/2206.05536v1",
+      "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2602.12375v1",
       "kind": "paper",
-      "venue": "astro-ph.GA",
-      "published": "2022-06-11",
+      "venue": "cs.LG",
+      "published": "2026-02-12",
       "citations": null,
       "stars": null
     },
     {
       "n": 34,
-      "title": "Gaia Data Release 2: Kinematics of globular clusters and dwarf galaxies around the Milky Way",
-      "url": "http://arxiv.org/abs/1804.09381v3",
+      "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+      "url": "http://arxiv.org/abs/2607.18488v1",
       "kind": "paper",
-      "venue": "astro-ph.GA",
-      "published": "2018-04-25",
+      "venue": "cs.RO",
+      "published": "2026-07-20",
       "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "Towards Thinking-Optimal Scaling of Test-Time Compute for LLM Reasoning",
+      "url": "https://doi.org/10.52202/085713-1452",
+      "kind": "paper",
+      "venue": "Advances in Neural Information Processing Systems 38",
+      "published": "2025-01-01",
+      "citations": 0,
       "stars": null
     }
   ],
