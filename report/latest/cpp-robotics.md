@@ -1,260 +1,174 @@
-# C++ 机器人工程与实时系统：证据图谱与选型调研报告
+# C++ 机器人工程与实时系统：数学/优化库生态、实时实践与互操作工具链调研报告
 
-**日期**：2026-10-02（UTC）  
-**研究领域**：机器人 C++ 生态（数值/优化/动力学库）、实时与确定性工程、构建与包管理、C++/Python 协作、性能工程  
-**检索源数量**：本期可引用候选来源共 36 条 [1]–[36]；其中与主题**直接相关**者 7 条（[12][13][18][21][22][23][24]），**主题无关或正文不可读**者 29 条  
-**证据方法**：deep-research 四阶段 + evidence-grading 分级（A 同行评审 / B 预印本与官方仓库 / C 第三方 / D 社区 / E 不可用）
+**日期**：2026-10-02（UTC）
+**领域**：机器人 C++ 工程 / 实时系统 / 运动学与优化库 / 构建与互操作工具链
+**检索源数量**：可引用候选来源 88 条（[1]–[88]）+ 领域种子资源 12 条（4 篇种子论文、8 个开源项目、0 个数据集）；本报告实际引用 38 条，其余因主题不匹配未引用。
+
+> **证据可用性总声明（必读）**
+> 1. 本轮全部候选块的 `heat` 字段为空，未提供任何引用数（citations）、GitHub star、下载量或榜单排名。因此本报告中所有"热度证据"栏一律为 `> 待核实`，**不做任何数字推断**。
+> 2. 检索召回的**主题匹配率偏低**：子问题 q1 的 6 条 finding（[4][5][9][49][80][82]）与"C++ 机器人工程与实时系统"无实质交集；子问题 q4 的 5 条 finding 全部自述为"证据缺口"。这说明本主题的关键词召回（"real-time""C++""robot"）极易命中共用词而非共领域文献。
+> 3. 因此，本报告对**库生态、构建系统、包管理**等无法从候选集中得到一手证据的部分，一律标注 `> 待核实`，仅提供真实可达的官方仓库/文档链接作为线索，不替代正式检索。
 
 ---
 
 ## 摘要（Executive Summary）
 
-1. **本期检索存在严重召回缺口，报告结论必须大幅降级。** 三个子问题中，q1（近 1-2 年实时性、性能工程、C++20/23 语言标准进展）与 q3（CMake/Conan/vcpkg、pybind11、clang-tidy 工程实践）的候选证据**命中率为 0**：q1 的候选集中于比较法/法律 AI [1]、养老金审计 [2]、作物保护 [3]、游戏 playtesting [5]；q3 的候选集中于产业区路径依赖 [36]、项目管理与人力估算 [25][26][27]。上述来源的标题、摘要中均未出现 C++、modules、coroutines、real-time、ROS 2、CMake、Conan、vcpkg、pybind11、clang-tidy 等任一关键词 [1][2][3][5][25][26][27][36]。
+1. **本轮检索未获得 Eigen / Sophus / Ceres Solver / GTSAM / Pinocchio 的任何一手新版本文档、发布说明或性能数据**。这五个库仅能通过种子资源链接确认其官方入口存在，其"奠基性地位"在本报告中按领域共识陈述，但**具体版本号、API 变更、性能数字全部 `> 待核实`**。
 
-2. **q2 得到一条可辨识但残缺的局部脉络**：模板化 C++ 线性代数库 Armadillo（2016, JOSS）[18] → 机器人符号计算/代码生成与非线性优化 SymForce（RSS 2022）[21] → 基于 SymForce 的 GPU 符号求解器 Caspar（2026 投稿）[22]，另有刚体动力学解析导数（空间向量代数，RA-L 2021）作为动力学侧的独立线索 [23]。然而子问题点名的 **Eigen、Sophus、Ceres Solver、GTSAM、Pinocchio 五个库，在本批候选证据中没有一条以它们为主题的一手材料**（Eigen 仅以跨语言封装 RcppEigen 的形式间接出现 [13]）。
+2. **与"C++ 实时机器人"直接相关的近两年证据集中在三个方向**：
+   - **ROS 2 图级实时调度与中间件性能**：[10]（单处理器上 ROS2 图的固定优先级与 EDF 调度）、[74]（ROS2 自动驾驶系统性能评估）、[78]（ROS2-DDS 中间件实现对比）；
+   - **无锁/免协调并发与多核资源协议**：[3]（免协调并发无锁队列）、[8]（多核实时系统无锁容错资源共享协议 LEFT-RS）；
+   - **ROS 2 真正零拷贝 IPC**：[72]（Agnocast，支持不定长消息类型）。
 
-3. **可确认的最新进展只有一条**：Caspar（arXiv:2605.30583，投稿日期 2026-05-28，citations=1）声明 "Building on the SymForce library"，从 Python 符号表达式（含 Lie 群运算）自动生成 CUDA kernel 与接口，用于 GPU 非线性优化 [22]。作者自称 state-of-the-art GPU 非线性求解器，但**无第三方基准、无独立复现、引用数仅 1**，属"刚发布未验证"级别，性能主张 `> 待核实`。
+3. **C++/Python 互操作的一手证据仅一条**：为大型运动规划库 OMPL 生成 **nanobind** 绑定的"LLM 生成 + 专家在环"工作流，并系统记录 shared pointer / overload / trampoline 三类失败模式（[68]）。
 
-4. **实时 C++、确定性工程、构建系统、包管理、性能剖析、Python 绑定六个方向，本期均无一手证据**，本报告对应章节只能给出**证据缺口说明 + 建议检索式**，不给出任何基于记忆的结论。
+4. **硬缺口**：**构建系统与包管理（CMake / Conan / vcpkg / Bazel / colcon）、静态分析（clang-tidy / cppcheck）、Sanitizer（ASan / UBSan / TSan）在本轮证据集中覆盖率为 0**。任何关于"最佳实践"的结论都必须先补检索官方文档与真实机器人仓库工件，否则即为无据推断。
 
-5. **检索质量本身构成一项可报告发现**：候选集中存在明显的关键词假阳性——例如 "Conan" 命中一篇以柯南·道尔《白衣军团》为语料的 LLM 文本分析论文 [33]；另有 3 条来源正文被反爬/WAF 拦截，仅返回 "Just a moment..." 或人机验证页，属 E 级不可用证据 [1][25][36]。
+5. **同名混淆是重大污染源**：[26][27] 的 "CERES" 是 CERN 的粒子物理实验（Dilepton measurements with CERES、CERES/NA45 径迹漂移室），[33] 的 "PINOCCHIO" 是天体物理暗物质晕分层构建模型，[23][24] 属核物理与 Belle 实验。若不做消歧，会直接污染 Ceres Solver 与 Pinocchio 库的引用链。
 
-6. **可复用的结构化资产**：主题配置中的人工维护种子资源（Sophus/Ceres/GTSAM/Pinocchio 官方文档、Eigen 镜像、pybind11、nanobind、vcpkg、conan 仓库）本期**未实时核查**，仅作为后续检索的起点在第二节、四节、六节、七节表格中保留链接。
+6. **检索噪声严重且性质异常**：[82]（LHC 物理 ML 年度综述）摘要自述"首句由人类撰写、其余由 agentic AI 系统生成"，这类条目不应作为任何机器人工程结论的依据；[9][29][32][37] 为短视频/图像质量/视觉觅食/越南语法律问答挑战赛，与本主题无交集。
 
 ---
 
 ## 一、关键前沿进展
 
-### 1.1 证据覆盖率总览
+### 1.1 关于检索覆盖的诚实说明
 
-| 子问题 | 主题相关候选数 | 覆盖率 | 可否支撑结论 |
-|---|---|---|---|
-| q1 实时性 / 性能工程 / C++20-23 标准 | 0 / 5 [1][2][3][5] | 0% | 否 |
-| q2 数值与优化库技术演进 | 4 / 8（含 [18][21][22][23]） | 部分 | 仅限符号计算与动力学导数两条线索 |
-| q3 构建/包管理/AI 工具链 | 0 / 4 [25][26][27][36] | 0% | 否 |
+子问题 q1 的候选 finding（[9] VQualA 短视频参与度预测、[4] Xiaomi-Robotics-1 VLA 模型、[5] Action Flow Matching 持续学习、[49] TRUST 2025 HRI 工作坊、[80] MOASEI 多智能体竞赛、[82] LHC ML 综述）**全部与"C++ 库、C++20/23 落地、实时与部署范式"不匹配**。
 
-> 说明：表格中"候选数"依据本批结构化发现的 source 列表统计；[4]、[6]–[17]、[19][20][24][28]–[35] 未进入任一子问题发现，其中 [13][24] 经人工复核与本主题相关，已在此补入。
+- 热度：`> 待核实`（候选块无引用数/star/榜单）[9][4][5][49][80][82]
+- 权威：[4][5][49] 为 arXiv 预印本（cs.RO），[80] 为 cs.MA 预印本，[82] 为 hep-ph 预印本且非人类主导撰写，均未经同行评审 [4][5][49][80][82]
+- 关注度：低 — 无任何引用/star/榜单/社区讨论信号，且主题与"C++ 工程"不相关 [9][4][5][49][80][82]
+- 推荐度：★☆☆☆☆ — 均不建议作为本主题证据使用，仅作为"召回偏离"的记录 [9][4][5][49][80][82]
 
-### 1.2 近 1-2 年（2024–2026）可确认的进展
+> 由此，本节改以候选来源集中**真实相关**的条目重建前沿图景，并逐条标注证据强度。
 
-**（1）GPU 符号编程与非线性优化：Caspar（2026）**
+### 1.2 实时 ROS 2 调度与中间件（最贴近主题的一线）
 
-Caspar 面向"Python 符号编程 → C++/GPU 运行时"的桥接问题：从符号表达式（包括 Lie 群运算）自动生成优化的 CUDA kernel 与接口，再用符号微分生成非线性优化所需 kernel，构建在 SymForce 之上 [22]。这是本批证据中唯一 2026 年的一手来源，代表**非线性求解器从 CPU 走向 GPU** 的方向 [22]。风险点：citations=1、无第三方对比、无公开仓库链接，其"state-of-the-art"为作者自述 `> 待核实` [22]。
+**（1）ROS 2 图在单处理器上的固定优先级与 EDF 调度分析** — [10]（arXiv:2512.16926v1，编号指示提交时间为 2025-12）
 
-**（2）符号计算 + 代码生成范式：SymForce（RSS 2022）**
+- 论断：存在针对 ROS 2 计算图（graph）在单处理器上进行 **Fixed-Priority（固定优先级）** 与 **EDF（最早截止期优先）** 调度分析的专门工作 [10]。
+- 热度：`> 待核实`（候选块未提供引用数/star）[10]
+- 权威：arXiv 预印本，未经同行评审；`> 待核实`（venue 与作者机构未在候选块中给出）[10]
+- 关注度：低 — 无引用/star/榜单信号可依据 [10]
+- 推荐度：★★★★☆ — 若要做 ROS 2 节点的可调度性分析（而非经验调参），这是本轮**最直接相关的单条来源**，建议精读全文 [10]
 
-摘要原文指出其目标是把符号数学的开发效率与自动生成的、高度优化的 C++（或任意目标运行时语言）代码性能结合起来，面向计算机视觉、运动规划与控制，并提供几何与相机类型等机器人专用抽象 [21]。它是证据中唯一被后续工作显式继承的库（Caspar 明示构建于其上）[21][22]。
+**（2）ROS 2 + DDS 中间件实现的性能评估** — [78]（arXiv:2412.07485v1，编号指示 2024-12）
 
-**（3）机器人解析导数与自动微分**
+- 论断：存在面向自动驾驶协同驾驶场景、对**多种 ROS2-DDS 中间件实现**做性能评估的研究 [78]。
+- 热度：`> 待核实` [78]
+- 权威：arXiv 预印本，未经同行评审（仅标题级证据，摘要未在候选块中给出）[78]
+- 关注度：低 — 无引用/star/榜单信号 [78]
+- 推荐度：★★★★☆ — DDS 实现选型（Fast DDS / Cyclone DDS 等）是 ROS 2 实时性的关键变量；但本报告**仅基于标题级证据**，具体对比维度与数字必须回原文核实 [78]
 
-- 空间向量代数路线：论文标题与摘要显示，基于空间向量代数的方法在保持链式法则解析精度的同时改进既有动力学算法求导方案，并明确指出现有解析方法"并不总是最优"，其相对有限差分的优势主要在精度 [23]；**具体精度/速度数字在召回片段中被截断** `> 待核实` [23]。
-- 可微流形上的自动微分：来源 [24] 标题为 *Automatic Differentiation on Differentiable Manifolds as a Tool for Robotics*，主题对应流形上的自动微分在机器人中的应用；年份、作者、会议与具体贡献 `> 待核实` [24]。
+**（3）基于 ROS 2 的自动驾驶系统性能评估** — [74]（arXiv:2411.11607v3，编号指示 2024-11，已修订至 v3）
 
-**（4）近 1-2 年**未能**证实的方向**
+- 论断：存在对完整 ROS 2 自动驾驶系统做端到端性能评估的工作，且已迭代到 v3 [74]。
+- 热度：`> 待核实` [74]
+- 权威：arXiv 预印本，未经同行评审；v1→v3 修订说明作者持续维护，但不等于同行评审 [74]
+- 关注度：低 — 无引用/star/榜单信号 [74]
+- 推荐度：★★★☆☆ — 作为"ROS 2 性能工程在真实系统上的落地样本"有参考价值，但仅标题级证据，结论待核实 [74]
 
-以下方向在本期检索中**无任何一手证据**，不能作为"进展"陈述：
+### 1.3 无锁并发与多核实时资源管理
 
-- C++20/23 modules 与 coroutines 在实时控制回路中的实际落地、编译时间与运行时开销 `> 待核实`；
-- 实时安全内存管理（预分配、无锁环形缓冲、实时分配器）在 ROS 2 / 中间件生态中的进展 `> 待核实`；
-- 2024–2026 年针对 C++ 演进带来性能收益的权威量化基准（抖动、控制周期达标率）`> 待核实`；
-- ROS 2 对 C++20/23 的采纳版本与时间线 `> 待核实`。
+**（4）免协调（coordination-free）并发无锁队列** — [3]（arXiv:2511.09410v1，编号指示 2025-11）
 
-### 1.3 经典/早期工作（对照）
-
-| 名称 | 年份 | 机构/作者 | 链接 | 说明 |
-|---|---|---|---|---|
-| Embedded ROS [ROS Topics] | 2013 | IEEE Robotics & Automation Magazine | https://doi.org/10.1109/mra.2013.2255491 [12] | 早期讨论 ROS 在嵌入式平台上的部署问题；本期仅取得题录，正文内容 `> 待核实` |
-| Automatic Differentiation on Differentiable Manifolds as a Tool for Robotics | `> 待核实` | Springer（丛书章节） | https://doi.org/10.1007/978-3-319-28872-7_29 [24] | 流形上自动微分用于机器人；除标题外的方法细节与实验 `> 待核实` |
-
-### 1.4 建议的补检索式（用于下一轮）
-
-- `real-time C++ robotics 2025`、`deterministic memory management robot control loop`
-- `ROS 2 C++20 modules`、`C++23 coroutines real-time control`
-- `site:arxiv.org cs.RO real-time jitter benchmark 2025..2026`
-- ISO C++ WG21 提案（如 `P2300 std::execution`）官方页面 —— 本期**未检索到**任何 WG21 来源 `> 待核实`
-
----
-
-## 二、数值与优化库生态对比
-
-### 2.1 证据现状（关键限制）
-
-子问题点名的 **Eigen、Sophus、Ceres Solver、GTSAM、Pinocchio**，在本批候选中**没有一条以其为主题的一手材料** [18][21][22][23]。唯一可用的间接证据是：
-
-- **Eigen**：存在 CRAN 包 *RcppEigen*，标题明确为 "'Rcpp' Integration for the 'Eigen' Templated Linear Algebra Library" [13]，说明 Eigen 作为模板化线性代数层被外部语言生态封装复用；但该来源为包页面而非存储库本体，**Eigen 自身的设计与表达式模板机制无一手证据** `> 待核实` [13]。
-- **Pinocchio**：仅能间接关联到刚体动力学解析导数方向 [23]；主题配置提供了其 2019 年技术报告链接（见 2.3），本期**未实时核查**。
-
-因此，下表严格区分"有证据支撑"与"种子资源/待核实"两类条目，**不做库间性能优劣的定量比较**。
-
-### 2.2 有证据支撑的库/方法
-
-| 名称 | 年份 | 机构/作者 | 链接 | 说明 |
-|---|---|---|---|---|
-| Armadillo | 2016 | Conrad Sanderson, Ryan Curtin | https://doi.org/10.21105/joss.00026 [18] | 模板化（template-based）C++ 线性代数库，JOSS 论文，citations=513；与 Eigen 同属"模板化线性代数"路线，但证据未给出二者对比 `> 待核实` [18] |
-| SymForce | 2022 | RSS（Robotics: Science and Systems） | https://arxiv.org/abs/2204.07889 [21] | 符号计算 + 代码生成 + 非线性优化；提供几何与相机类型；citations=24；代码仓库链接 `> 待核实` [21] |
-| Caspar | 2026 | ICRA 2026 投稿 | https://arxiv.org/abs/2605.30583 [22] | 基于 SymForce，从符号表达式自动生成 CUDA kernel，用于 GPU 非线性优化；citations=1，仓库与复现 `> 待核实` [22] |
-| 空间向量代数解析刚体动力学导数 | 2021 | RA-L（IEEE Robotics and Automation Letters） | https://arxiv.org/abs/2105.05102 [23] | 解析导数相对有限差分的优势在精度；具体量化收益 `> 待核实` [23] |
-
-### 2.3 种子资源（主题配置提供，本期未实时核查）
-
-| 名称 | 年份 | 机构/作者 | 链接 | 说明 |
-|---|---|---|---|---|
-| Eigen（镜像仓库） | ongoing | eigenteam | https://gitlab.com/libeigen/eigen | 线性代数基础库 `> 待核实`（未实时检索） |
-| Sophus | ongoing | strasdat | https://github.com/strasdat/Sophus | SO(3)/SE(3) 李群运算 `> 待核实` |
-| Ceres Solver | ongoing | Google | http://ceres-solver.org/ · https://github.com/ceres-solver/ceres-solver | 非线性最小二乘，标定/BA/IK 常用 `> 待核实` |
-| GTSAM | ongoing | Georgia Tech / borglab | https://gtsam.org/ · https://github.com/borglab/gtsam | 因子图优化，SLAM/状态估计 `> 待核实` |
-| Pinocchio | 2019 | LAAS-CNRS | https://arxiv.org/abs/1906.09139 · https://github.com/stack-of-tasks/pinocchio | 刚体动力学/运动学与解析导数；技术报告为种子来源，本期未核查 |
-
-### 2.4 本节开放问题
-
-1. 五个点名库的奠基工作、架构与算法贡献、相对前作的改进——**证据全缺**，需补检索各自官方文档、原始论文与源码 [18][21][22][23]。
-2. Caspar 的 SOTA 主张缺少第三方基准与独立复现 [22]。
-3. SymForce / Caspar 的开源程度（代码、许可证、权重产物）无链接可核查 [21][22]。
-4. 空间向量代数解析导数的量化收益被片段截断 [23]。
-5. 本批证据中**没有任何 benchmark 或数据集**用于库间统一比较（BAL、动力学基准等） [18][21][22][23]。
-
----
-
-## 三、实时 C++ 与确定性工程
-
-**本节无可用一手证据。** 本批候选来源中，[11] 虽题名含 "Real-Time"（实时原位原子力/化学力显微术），但属化学材料领域，与实时软件工程无关 [11]；[4] 的 "Near-real-time" 亦为野火检测遥测口径 [4]。两者均不能支撑任何实时系统论断 [4][11]。
-
-唯一与机器人实时相关的是 2013 年的 *Embedded ROS* 题录 [12]，属早期工作且正文未获取，**不能用于陈述 2024–2026 年现状** `> 待核实` [12]。
-
-**需要下一轮解决的明确问题（全部 `> 待核实`）：**
-
-- C++20/23 modules、coroutines 在机器人实时控制回路中的落地情况与编译/运行时开销；
-- 实时内存管理方案（预分配、无锁环形缓冲、实时安全分配器）在 ROS 2/中间件生态中的进展；
-- 实时抖动（jitter）、控制周期达标率的权威基准；
-- 确定性执行（determinism）在机器人中间件与调度器层面的实践。
-
-**建议检索式**：`ROS 2 real-time executor determinism`、`real-time Linux PREEMPT_RT robotics 2025`、`deterministic memory allocation robot control`、`site:docs.ros.org real-time`。
-
----
-
-## 四、构建系统与包管理
-
-**本节无可用一手证据。** q3 的四条候选 [25][26][27][36] 全部与主题无关：项目管理与基准 [25]、人力估算前言与索引 [26][27]、产业区路径依赖 [36]；其中 [25] 与 [36] 的正文分别被反爬页（"Just a moment..."）与 WAF 人机验证拦截，属 E 级不可用证据 [25][36]。候选集中**未出现 CMake、Conan、vcpkg、pybind11、clang-tidy 任一关键词** [25][26][27][36]。
-
-值得记录的检索假阳性：来源 [33] 因标题含 "Conan Doyle"（柯南·道尔）而被 "Conan" 关键词召回，实为 LLM 文本分析论文 [33]——提示包管理器类查询需加限定词（如 `conan-io`、`conan package manager robotics`）以抑制人名/作品名歧义。
-
-**种子资源（未实时核查，仅作检索起点）：**
-
-| 名称 | 年份 | 机构/作者 | 链接 | 说明 |
-|---|---|---|---|---|
-| vcpkg | ongoing | Microsoft | https://github.com/microsoft/vcpkg | C++ 包管理 `> 待核实` |
-| Conan | ongoing | conan-io | https://github.com/conan-io/conan | C++ 包管理 `> 待核实` |
-
-**建议检索式**：`CMake target-based modern usage export find_package`、`ROS 2 ament_cmake colcon build best practices`、`Conan vs vcpkg robotics C++ cross-compile aarch64`、`clang-tidy CI robotics repository`。
-
----
-
-## 五、性能剖析与基准
-
-**本节无系统性证据。** 本批候选中唯一带有"对比"性质的证据是刚体动力学解析导数相对有限差分的精度讨论，但**具体数字在召回片段中被截断** `> 待核实` [23]。其余候选未涉及剖析工具（perf、VTune、Tracy、ros2 tracing）、基准方法学或量化榜单 [18][21][22][23]。
-
-**明确缺口（全部 `> 待核实`）：**
-
-- 库级微基准（矩阵乘法、BA、IK、动力学反向传播）的可复现配置与硬件口径；
-- 实时控制回路的端到端剖析方法（采样 vs 插桩、观测者效应）；
-- 编译期指标（编译时间、代码体积）与 C++ 标准/`-O` 选项的关系。
-
-**建议检索式**：`robotics benchmark Eigen vs Armadillo microbenchmark`、`factor graph benchmark GTSAM Ceres`、`real-time profiling robot control jitter measurement`。
-
----
-
-## 六、C++ 与 Python 协作（绑定/部署）
-
-本节是全报告中**证据相对最实**的一节，可确认的证据集中在"符号 Python → 生成高性能 C++/GPU 代码"这一范式：
-
-- SymForce：符号数学的开发效率与自动生成的优化 C++ 代码性能结合，目标运行时语言为 C++ 或任意目标语言 [21]；
-- Caspar：显式声明其作用是"桥接 Python 的符号编程与 C++ 的高性能 GPU 运行时"，通过从符号表达式自动生成 CUDA kernel 与接口实现 [22]。
-
-两者共同刻画了 2022→2026 的一条演进：**Python 负责表达与求导，C++/CUDA 负责执行** [21][22]。但需注意，这与传统 pybind11 式"宿主 C++ + Python 绑定"路径不同，二者在真实项目中的取舍**无一手证据** `> 待核实`。
-
-跨语言封装的另一条旁证：RcppEigen 表明模板化 C++ 线性代数库（Eigen）可被外部语言生态封装调用 [13]，佐证"核心数值层用 C++、上层用脚本语言"的分层惯例，但该来源为 R 生态而非 Python，**不可外推为 pybind11 的实践证据** `> 待核实` [13]。
-
-**种子资源（未实时核查）：**
-
-| 名称 | 年份 | 机构/作者 | 链接 | 说明 |
-|---|---|---|---|---|
-| pybind11 | ongoing | pybind | https://github.com/pybind/pybind11 | C++/Python 绑定 `> 待核实` |
-| nanobind | ongoing | wjakob | https://github.com/wjakob/nanobind | 更轻量的绑定方案 `> 待核实` |
-
-**明确缺口（全部 `> 待核实`）**：GIL 与实时线程的交互、ABI/打包分发（wheel、manylinux）、绑定层性能开销量化、pybind11 与 nanobind 的迁移成本。
-
----
-
-## 七、经典参考资料与工程规范
-
-### 7.1 经典与奠基性工作
-
-| 名称 | 年份 | 机构/作者 | 链接 | 说明 |
-|---|---|---|---|---|
-| Armadillo: a template-based C++ library for linear algebra | 2016 | Sanderson & Curtin（JOSS） | https://doi.org/10.21105/joss.00026 [18] | 模板化线性代数库，citations=513；代表"编译期模板 + 表达式优化"路线 [18] |
-| SymForce: Symbolic Computation and Code Generation for Robotics | 2022 | RSS 2022 | https://arxiv.org/abs/2204.07889 [21] | 机器人符号计算/代码生成/非线性优化，提供几何与相机类型 [21] |
-| Efficient Analytical Derivatives of Rigid-Body Dynamics Using Spatial Vector Algebra | 2021 | RA-L | https://arxiv.org/abs/2105.05102 [23] | 空间向量代数解析导数，精度优于有限差分，具体数值 `> 待核实` [23] |
-| Automatic Differentiation on Differentiable Manifolds as a Tool for Robotics | `> 待核实` | Springer 丛书章节 | https://doi.org/10.1007/978-3-319-28872-7_29 [24] | 流形上的自动微分；细节 `> 待核实` [24] |
-| Embedded ROS [ROS Topics] | 2013 | IEEE RAM | https://doi.org/10.1109/mra.2013.2255491 [12] | 早期嵌入式 ROS 讨论；正文 `> 待核实` [12] |
-| Sophus（SO(3)/SE(3) 李群库文档） | ongoing | strasdat | https://github.com/strasdat/Sophus | 种子资源，本期未实时核查 `> 待核实` |
-| Ceres Solver（非线性最小二乘文档） | ongoing | Google | http://ceres-solver.org/ | 种子资源，本期未实时核查 `> 待核实` |
-| GTSAM（因子图优化文档） | ongoing | Georgia Tech | https://gtsam.org/ | 种子资源，本期未实时核查 `> 待核实` |
-| Pinocchio: analytical derivatives of rigid body dynamics | 2019 | LAAS-CNRS | https://arxiv.org/abs/1906.09139 | 种子资源，本期未实时核查 `> 待核实` |
-
-### 7.2 开源项目
-
-| 名称 | 年份 | 机构/作者 | 链接 | 说明 |
-|---|---|---|---|---|
-| eigenteam/eigen-git-mirror | ongoing | eigenteam | https://gitlab.com/libeigen/eigen | 线性代数基础库；种子资源，未实时核查 `> 待核实` |
-| stack-of-tasks/pinocchio | ongoing | LAAS-CNRS | https://github.com/stack-of-tasks/pinocchio | 刚体动力学/运动学；种子资源 `> 待核实` |
-| ceres-solver/ceres-solver | ongoing | Google | https://github.com/ceres-solver/ceres-solver | 非线性优化；种子资源 `> 待核实` |
-| borglab/gtsam | ongoing | Georgia Tech | https://github.com/borglab/gtsam | 因子图优化；种子资源 `> 待核实` |
-| pybind/pybind11 | ongoing | pybind | https://github.com/pybind/pybind11 | C++/Python 绑定；种子资源 `> 待核实` |
-| nanobind/nanobind | ongoing | wjakob | https://github.com/wjakob/nanobind | 轻量绑定方案；种子资源 `> 待核实` |
-| microsoft/vcpkg | ongoing | Microsoft | https://github.com/microsoft/vcpkg | C++ 包管理；种子资源 `> 待核实` |
-| conan-io/conan | ongoing | conan-io | https://github.com/conan-io/conan | C++ 包管理；种子资源 `> 待核实` |
-| SymForce（代码仓库） | 2022 | RSS 2022 作者
+- 论断：论文指出队列是最简单的数据结构之一，但在并发正确性要求下，现有无锁实现因需引入防危险（hazard）协调机制而显著复杂化；该工作探索免协调的无锁队列实现 [3]。
+- 热度：`> 待核实` [3]
+- 权威：arXiv 预印本（cs.DC），未经同行评审
 
 ## 参考来源
 
-[1] Artificial Intelligence and Civil Justice: U.S. Practice, Policy, and Principles — https://doi.org/10.1093/ajcl/avag028
-[2] Internal Audit of Pension Funds: The Case of Georgias Funded Pension Scheme — https://doi.org/10.52340/ekonomisti.2026.03.03
-[3] Growing a Better Future through Responsible Crop Protection — https://doi.org/10.1093/ae/tmag004
-[4] Near-real-time detection of wildfires — https://doi.org/10.1201/9781003514220-7
-[5] Best Practices with Online Playtesting — https://doi.org/10.1201/9781003500827-15
-[6] Meditation — https://doi.org/10.4135/9781544376899.n33
-[7] Groupwork — https://doi.org/10.4135/9781544376899.n20
-[8] Technology — https://doi.org/10.4135/9781544376899.n23
-[9] Manage Time in Your Lessons — https://doi.org/10.4135/9781544376899.n22
-[10] Cut Down Your Grading Time — https://doi.org/10.4135/9781544376899.n12
-[11] Best Practices for Real-Time in Situ Atomic Force and Chemical Force Microscopy of Crystals — https://doi.org/10.1021/acs.chemmater.6b03082.s002
-[12] Embedded ROS [ROS Topics] — https://doi.org/10.1109/mra.2013.2255491
-[13] RcppEigen: 'Rcpp' Integration for the 'Eigen' Templated Linear Algebra Library — https://doi.org/10.32614/cran.package.rcppeigen
-[14] Eigen Values and Eigen Vectors — https://doi.org/10.1201/9781003042259-6
-[15] Eigen Things — https://doi.org/10.1201/b10687-7
-[16] 5 Linear transformations and matrices — https://doi.org/10.1515/9783111135915-005
-[17] 1 Systems of linear equations — https://doi.org/10.1515/9783111135915-001
-[18] Armadillo: a template-based C++ library for linear algebra — https://doi.org/10.21105/joss.00026
-[19] Frontmatter — https://doi.org/10.1515/9783111135915-fm
-[20] Bibliography — https://doi.org/10.1515/9783111135915-012
-[21] SymForce: Symbolic Computation and Code Generation for Robotics — https://arxiv.org/abs/2204.07889
-[22] Caspar: CUDA Accelerator for Symbolic Programming with Adaptive Reordering — https://arxiv.org/abs/2605.30583
-[23] Efficient Analytical Derivatives of Rigid-Body Dynamics Using Spatial Vector Algebra — https://arxiv.org/abs/2105.05102
-[24] Automatic Differentiation on Differentiable Manifolds as a Tool for Robotics — https://doi.org/10.1007/978-3-319-28872-7_29
-[25] Project Best Practices and Benchmarking — https://doi.org/10.1201/9781003593645-11
-[26] Front Matter — https://doi.org/10.1002/9781394319404.fmatter
-[27] Index — https://doi.org/10.1002/9781394319404.index
-[28] Project Workforce Estimating — https://doi.org/10.1002/9781394319404
-[29] Growth of Innovation Project Teams — https://doi.org/10.1002/9781394319404.ch5
-[30] Monitoring Workforce Expenditures — https://doi.org/10.1002/9781394319404.ch4
-[31] Techniques for Estimating Project Workforce Needs — https://doi.org/10.1002/9781394319404.ch3
-[32] The Complexities of Project Workforce Estimating — https://doi.org/10.1002/9781394319404.ch2
-[33] Perplexity vs YesChat vs ChatGPT vs Human Literary and Linguistic Text Analysis on the Example of Conan Doyle's ‘White Company’ — https://doi.org/10.1109/icnlp65360.2025.11108688
-[34] Ordinary French Houses — https://doi.org/10.1017/9781009037051.009
-[35] ACQUISITIONS: RESOURCE DEPENDENCY VS. HUMAN RESOURCE PERSPECTIVES. — https://doi.org/10.5465/ambpp.1990.4978501
-[36] Path-dependency vs. industrial dynamics: an analysis of two heterogeneous districts — https://doi.org/10.3233/hsm-1999-18209
+[1] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1
+[2] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1
+[3] No Cords Attached: Coordination-Free Concurrent Lock-Free Queues — http://arxiv.org/abs/2511.09410v1
+[4] Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories — http://arxiv.org/abs/2607.15330v2
+[5] Action Flow Matching for Continual Robot Learning — http://arxiv.org/abs/2504.18471v2
+[6] Using Physiological Measures, Gaze, and Facial Expressions to Model Human Trust in a Robot Partner — http://arxiv.org/abs/2504.05291v1
+[7] Scalable Aerial GNSS Localization for Marine Robots — http://arxiv.org/abs/2505.04095v2
+[8] LEFT-RS: A Lock-Free Fault-Tolerant Resource Sharing Protocol for Multicore Real-Time Systems — http://arxiv.org/abs/2512.21701v1
+[9] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
+[10] Fixed-Priority and EDF Schedules for ROS2 Graphs on Uniprocessor — http://arxiv.org/abs/2512.16926v1
+[11] Real-Time-Data Analytics in Raw Materials Handling — http://arxiv.org/abs/1802.00625v1
+[12] Flow Network Models for Online Scheduling Real-time Tasks on Multiprocessors — http://arxiv.org/abs/1810.08342v1
+[13] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
+[14] Energy-Efficient Real-Time Scheduling for Two-Type Heterogeneous Multiprocessors — http://arxiv.org/abs/1607.07763v1
+[15] Deterministic Control of Stochastic Reaction-Diffusion Equations — http://arxiv.org/abs/1905.09074v5
+[16] A Unified Robust Motion Controller Synthesis for Compliant Robots Driven by Series Elastic Actuators — http://arxiv.org/abs/2202.00168v1
+[17] Can Decentralized Control Outperform Centralized? The Role of Communication Latency — http://arxiv.org/abs/2109.00359v5
+[18] On Frequency Response Function Identification for Advanced Motion Control — http://arxiv.org/abs/2006.10373v1
+[19] Design Constraints of Disturbance Observer-based Motion Control Systems are Stricter in the Discrete-Time Domain — http://arxiv.org/abs/2202.00165v1
+[20] A Control-Oriented Notion of Finite State Approximation — http://arxiv.org/abs/1105.3788v3
+[21] Predicting radial-velocity jitter induced by stellar oscillations based on Kepler data — http://arxiv.org/abs/1807.00096v1
+[22] Control of a Rigid Wing Pumping Airborne Wind Energy System in all Operational Phases — http://arxiv.org/abs/2006.11141v1
+[23] The $^{12}$C(n, 2n)$^{11}$C cross section from threshold to 26.5 MeV — http://arxiv.org/abs/1707.09375v2
+[24] Observation of $Ξ_{c}(2930)^0$ and updated measurement of $B^{-} \to K^{-} Λ_{c}^{+} \barΛ_{c}^{-}$ at Belle — http://arxiv.org/abs/1712.03612v3
+[25] Model-Based Capacitive Touch Sensing in Soft Robotics: Achieving Robust Tactile Interactions for Artistic Applications — http://arxiv.org/abs/2503.02280v1
+[26] Dilepton measurements with CERES — http://arxiv.org/abs/0802.2679v1
+[27] The CERES/NA45 Radial Drift Time Projection Chamber — http://arxiv.org/abs/0802.1443v2
+[28] AMB3R-SLAM: Kilometer-scale SLAM with Hierarchical Backend — http://arxiv.org/abs/2609.19518v1
+[29] VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models: Methods and Results — http://arxiv.org/abs/2509.09190v1
+[30] Characterizing SLAM Benchmarks and Methods for the Robust Perception Age — http://arxiv.org/abs/1905.07808v1
+[31] HS-SLAM: Hybrid Representation with Structural Supervision for Improved Dense SLAM — http://arxiv.org/abs/2503.21778v1
+[32] Navigating Simply, Aligning Deeply: Winning Solutions for Mouse vs. AI 2025 — http://arxiv.org/abs/2602.00982v1
+[33] PINOCCHIO and the hierarchical build-up of dark matter haloes — http://arxiv.org/abs/astro-ph/0109324v1
+[34] Objective vs. Search: Decomposing What Makes a Good Tokeniser — http://arxiv.org/abs/2609.19145v1
+[35] VS-Net: Voting with Segmentation for Visual Localization — http://arxiv.org/abs/2105.10886v1
+[36] Area Coverage of Expanding E.T. Signals in the Galaxy: SETI and Drake's N — http://arxiv.org/abs/1802.09399v2
+[37] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1
+[38] Linear Mappings of Free Algebra — http://arxiv.org/abs/1003.1544v2
+[39] Non-linear positive maps between $C^*$-algebras — http://arxiv.org/abs/1811.03128v1
+[40] Grüss type inequalities for positive linear maps on $C^*$-algebras — http://arxiv.org/abs/1610.03868v1
+[41] DQ Robotics: a Library for Robot Modeling and Control — http://arxiv.org/abs/1910.11612v3
+[42] Technical Report for ICRA 2025 GOOSE 3D Semantic Segmentation Challenge: Adaptive Point Cloud Understanding for Heterogeneous Robotic Systems — http://arxiv.org/abs/2506.06995v1
+[43] Influence of Operator Expertise on Robot Supervision and Intervention — http://arxiv.org/abs/2601.15069v2
+[44] ACM COMPUTE 2025 Best Practices Track Proceedings — http://arxiv.org/abs/2512.02349v2
+[45] Nine Best Practices for Research Software Registries and Repositories: A Concise Guide — http://arxiv.org/abs/2012.13117v1
+[46] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
+[47] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1
+[48] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4
+[49] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1
+[50] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1
+[51] Robotic Template Library — http://arxiv.org/abs/2107.00324v1
+[52] ROBUSfT: Robust Real-Time Shape-from-Template, a C++ Library — http://arxiv.org/abs/2301.04037v3
+[53] Robotic Template Library — https://doi.org/10.5334/jors.353
+[54] Bandicoot: A Templated C++ Library for GPU Linear Algebra — http://arxiv.org/abs/2508.11385v3
+[55] EduRob: An Educational Robot for Teaching Kinematics of Wheeled Mobile Robots — https://doi.org/10.1007/978-3-031-67059-6_25
+[56] The Geometry and Kinematics of the Matrix Lie Group $SE_K(3)$ — http://arxiv.org/abs/2012.00950v4
+[57] Tevatron-for-LHC Report of the QCD Working Group — http://arxiv.org/abs/hep-ph/0610012v1
+[58] On the Manifold: Representing Geometry in C++ for State Estimation — https://openalex.org/W2908988736
+[59] Approximation properties of simple Lie groups made discrete — http://arxiv.org/abs/1408.5238v2
+[60] On properties of principal elements of Frobenius Lie algebras — http://arxiv.org/abs/1212.5380v2
+[61] The Strong Trotter Property for Locally $μ$-convex Lie Groups — http://arxiv.org/abs/1802.08923v2
+[62] Diophantine properties of nilpotent Lie groups — http://arxiv.org/abs/1307.1489v2
+[63] Secure and secret cooperation in robotic swarms — http://arxiv.org/abs/1904.09266v3
+[64] Student's T Robust Bundle Adjustment Algorithm — http://arxiv.org/abs/1111.1400v1
+[65] A Hessian for Gaussian Mixture Likelihoods in Nonlinear Least Squares — http://arxiv.org/abs/2404.05452v2
+[66] A Molecular Implementation of the Least Mean Squares Estimator — http://arxiv.org/abs/1701.00602v1
+[67] Fast Convergence for Weighted Least Squares Estimates — http://arxiv.org/abs/2605.00198v3
+[68] Python Bindings for a Large C++ Robotics Library: The Case of OMPL — http://arxiv.org/abs/2603.04668v1
+[69] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1
+[70] SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection — http://arxiv.org/abs/2509.19861v1
+[71] Performance of Genetic Algorithms in the Context of Software Model Refactoring — http://arxiv.org/abs/2308.13875v1
+[72] ROS 2 Agnocast: Supporting Unsized Message Types for True Zero-Copy Publish/Subscribe IPC — http://arxiv.org/abs/2506.16882v1
+[73] A Performance Study of GA and LSH in Multiprocessor Job Scheduling — http://arxiv.org/abs/1002.1149v1
+[74] Performance evaluation of a ROS2 based Automated Driving System — http://arxiv.org/abs/2411.11607v3
+[75] Performance Analysis of Software to Hardware Task Migration in Codesign — http://arxiv.org/abs/1002.1154v1
+[76] A Metric for Performance Portability — http://arxiv.org/abs/1611.07409v1
+[77] Enhanced Cluster Computing Performance Through Proportional Fairness — http://arxiv.org/abs/1404.2266v1
+[78] Performance Evaluation of ROS2-DDS middleware implementations facilitating Cooperative Driving in Autonomous Vehicle — http://arxiv.org/abs/2412.07485v1
+[79] UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering — http://arxiv.org/abs/2608.27467v1
+[80] Second MOASEI Competition at AAMAS'2026: A Technical Report — http://arxiv.org/abs/2607.03399v1
+[81] AutoRestTest at the SBFT 2026 Tool Competition — http://arxiv.org/abs/2607.01063v1
+[82] Machine learning for the LHC physics program: a 2025-2026 stocktake — http://arxiv.org/abs/2609.32874v1
+[83] LLM-based ambiguity detection in natural language instructions for collaborative surgical robots — http://arxiv.org/abs/2507.11525v1
+[84] Correction: Distributed multi-robot active gathering for non-uniform agriculture and forestry information — https://doi.org/10.3389/fpls.2025.1730134
+[85] First D-FUMT₈ Silicon with SELF⟲ Logic Primitive: Native 8-Valued Hardware Realization with Lean 4 Refinement Proof, Four-Substrate Cross-Verification (Two FPGA Silicon Families + Aer Simulator + IBM Heron r2 Real Hardware) — https://doi.org/10.5281/zenodo.20192813
+[86] First D-FUMT₈ Silicon with SELF⟲ Logic Primitive: Native 8-Valued Hardware Realization with Lean 4 Refinement Proof, Four-Substrate Cross-Verification (Two FPGA Silicon Families + Aer Simulator + IBM Heron r2 Real Hardware) — https://doi.org/10.5281/zenodo.20101174
+[87] Autonomous Planning In-space Assembly Reinforcement-learning free-flYer (APIARY) International Space Station Astrobee Testing — http://arxiv.org/abs/2512.03729v1
+[88] Artificial Intelligence and Civil Justice: U.S. Practice, Policy, and Principles — https://doi.org/10.1093/ajcl/avag028
 
 
 ---
 
-*Generated by research-bot · topic=`cpp-robotics` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=36 · duration=374s · 2026-10-02T10:10:49+00:00*
+*Generated by research-bot · topic=`cpp-robotics` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=88 · duration=287s · 2026-10-02T22:12:30+00:00*

@@ -1,219 +1,202 @@
-# 机器人运动学、动力学与控制：经典奠基、近两年前沿与开源工具链调研报告
+# 机器人运动学、动力学与控制：2024–2026 前沿进展与工程实践调研报告
 
-**日期**：2026-10-02（UTC）　**领域**：Robotics Kinematics / Dynamics / Control（FK/IK、旋量理论、雅可比与奇异性、轨迹优化、全身控制 WBC）　**检索源数量**：36 条候选来源记录（去噪后与主题直接相关者约 15 条，其余为域偏移或同名词条噪声）
+**日期**：2026-10-02（UTC） ｜ **领域**：Robotics Kinematics, Dynamics & Control（FK/IK、旋量/PoE、雅可比与可操作度、轨迹优化、全身/操作空间控制、数值库） ｜ **检索源**：101 条候选证据条目 [1]–[101] + 10 条领域种子资源（4 篇经典论文、5 个开源项目、1 个数据集） ｜ **证据分级**：A（同行评审）/ B（预印本、官方仓库）/ C（第三方复现、榜单）/ D（二手解读）/ E（不可用）
 
 ---
 
 ## 摘要（Executive Summary）
 
-1. **本次调研的证据基础存在系统性缺口，报告结论的可信度必须按来源分级解读。** 36 条候选来源中，仅少数与"机器人运动学/动力学/控制"直接相关；其余包括高能物理实验论文 [4][8][12]、英文词典与百科词条 [1][5][9][13]、天体物理与童话条目 [29][30][34]、以及内容被哈希截断的检索片段 [16][22]。这意味着对**前沿方向**的判断在本轮中多数只能标注 `> 待核实`，而不能给出实质结论。
+**本次检索的证据覆盖严重不均衡，必须先把缺口说清楚，再谈结论。**
 
-2. **唯一可直接使用的近期（近 1–2 年）一手前沿证据是关于整臂操作的运动学感知扩散策略**：*Kinematics-Aware Diffusion Policy with Consistent 3D Observation and Action Space for Whole-Arm Robotic Manipulation*（arXiv:2512.17568v1，2025-12-19 提交，cs.RO）[21]。其问题设定是：涉及本体避障或本体-物体交互的操作任务中，仅以末端执行器位姿建模不足，需要全臂运动学感知；而在关节空间学习动作又会带来"观测空间与动作空间不对齐"（unalignment）。该工作属"运动学先验 + 生成式策略 + 全身操作"的交叉点。**但其量化指标、任务数、本体/硬件平台、是否中稿、是否开源，在本轮候选证据中均缺失** `> 待核实`。
+1. **候选集中约三分之二为领域外噪声。** 101 条候选中，与机器人运动学/动力学/控制**完全无关**的条目包括：粒子物理与中微子实验 [73][74][75][76][77][79][80]、天体物理与宇宙学 [23][40][45][56][57][59]、纯数学（Lie 群逼近性、Leibniz 代数、子因子）[83][84][85][87][88][96]、图像/视频/音频挑战赛 [17][18][20][21][27][28][29][37][72][89]。这类条目在 q2（旋量理论原始出处）中占比最高，导致该子问题**事实上未被回答**。
 
-3. **多个被点名调研的前沿子方向在本轮**完全没有**获得证据**，包括：接触隐式轨迹优化（contact-implicit trajectory optimization）、SE(3) 等变策略（SE(3)-equivariant policy）、可微运动学/可微仿真（differentiable kinematics / simulation）、全身控制框架级对比与基准榜单、解析解 vs 学习式 IK 的路线争议、奇异性处理策略。这些方向一律标注 `> 待核实`，不可据本报告下结论。
+2. **三处系统性证据缺口**：(a) **q1（FK/IK、可微分运动学、学习式 IK 的最新进展）**——6 条候选 [17][19][23][24][25][70] 中命中 IK/FK 关键词的条数为 **0/6**，检索级别的失败而非结论级别的失败；(b) **q2（旋量/PoE 奠基性工作的原始出处与标准表述）**——候选被高能物理与纯数学文献占据；(c) **q5（Pinocchio/Drake/RBDL/KDL/cuRobo/OCS2/CasADi/JAX/MuJoCo MJX 的能力边界、许可证、活跃度）**——候选块中**不含任何一份官方文档、README 或排行榜数据**，因此本报告对该子问题**只能给出定性框架，不能给出许可证/性能/活跃度结论**。
 
-4. **在经典与工程侧，本轮的可用锚点是清楚的**：旋量/指数积（PoE）的教材与教学资源链条完整 [2][3][6][7][10][11]；逆向运动学（IK）数值求解有同行评审的一手来源 TRAC-IK（Humanoids 2015，被引 286 次）[26]；开源栈有 Pinocchio [25][35]、Orocos KDL [27][32] 及社区库清单 [28]；IK 求解的启发式/元启发式分支有 BODE-CS [20]、IK-FA [36]、模糊自适应双足 IK [14] 等可核查条目。
+3. **可确认的实质进展集中在三处**（详见第一章）：
+   - **人形全身控制/全身操作**成为 2024–2026 最密集的方向，候选集内即有 [1][2][3][4][5][6][8][33][39][70] 共 10 条，覆盖 RL 课程、遥操作、扩散策略、分层世界模型等路线；但**全部为 arXiv 预印本（B 级）**，无一条具备同行评审 venue 信息。
+   - **接触隐式轨迹优化的"隐式微分"路线**出现明确的方法谱系划分（有限差分 / 展开式 AD / 隐式微分）与"摊销 + 残差 MPC"新组合 [99]，但该条为 **v1 预印本且仅有摘要**，无代码、无实验数字。
+   - **可操作度的鲁棒性重估**：从经典可操作度椭球转向**伪椭球（pseudo-ellipsoid）**以提升评估鲁棒性 [95]，并伴随"可操作度学习/迁移"这一条 2018–2024 的连续线索 [92][93]。
 
-5. **检索链路的域偏移是需要向委托方明确提示的方法论问题**：查询词 "product"（对应 Product of Exponentials）召回了词典与商品词条 [1][5][9]；"Pinocchio"（动力学库）召回了童话条目 [29][30] 与天体物理论文 [29]；"Drake"（机器人工具箱）召回了 Drake 方程 SETI 论文 [34]。后续补检必须采用带限定符的精确查询（如 `screw theory product of exponentials robotics`、`site:github.com stack-of-tasks/pinocchio`、`Drake robotics toolbox manipulation`），并优先走 arXiv API / GitHub API / OpenAlex 等结构化通道。
+4. **最关键的负面结论（本报告最重要的产出）**：**本次候选证据不支持"学习式/可微分 IK 相比 Newton、DLS、TRAC-IK 在精度、实时性或多解处理上取得了可归因改进"这一论断，也不支持任何关于开源库性能/许可证的可核查比较。** 相关判断一律标注 `> 待核实`，并列入第八节开放问题。
 
-**证据分级说明**：本报告采用 A（同行评审/官方文档）、B（arXiv 预印本/官方仓库）、C（第三方复现/榜单/学位论文）、D（博客/社区帖）、E（不可用）五级。正文中每条论断均标注来源编号与等级；D/E 级来源仅作线索，不作结论支撑。
+5. **使用建议**：本报告可用于（a）确定研究缺口与补检方向；（b）获取一份经过证据分级的经典与种子资源清单（第六、七章表格）；（c）避免把"人形全身控制的热度"误读为"运动学求解器已有共识性突破"。**不可**用于支撑求解器选型、许可证合规或 SOTA 性能声明。
 
 ---
 
 ## 一、关键前沿进展
 
-### 1.1 近 1–2 年（2024–2026）具备一手证据的进展
+> **时间口径**：本节"最新进展"= 2024-10 至 2026-10 期间首次公开的条目；更早的条目归入"经典/脉络"。
 
-| 进展 | 时间 | 类型 | 证据等级 | 要点 |
-|---|---|---|---|---|
-| Kinematics-Aware Diffusion Policy（全臂操作） | 2025-12 | arXiv 预印本（cs.RO） | B | 提出在关节空间动作与 3D 观测/动作空间之间建立一致性，并将全臂运动学感知注入扩散策略，面向本体避障与本体-物体交互 [21] |
+### 1.1 热点一：人形全身控制与全身操作（2024–2026）
 
-**说明与限定**：
-- [21] 的核心论点（"只考虑末端位姿对策略学习不充分"；"关节空间学习动作存在观测-动作空间不对齐"）来自其摘要，属**论文自述**，尚无可核查的第三方复现或基准对比 `> 待核实`。
-- 该工作的实验设置（任务数量、真机 or 仿真、机械臂型号、成功率口径）在本轮候选片段中**完全缺失**，因此**不能**将其写为"刷新了某项 SOTA" `> 待核实`。
-- 是否已被 RSS/CoRL/ICRA/NeurIPS 等会议接收、是否有开源代码与权重，本轮无证据 `> 待核实`。
+候选集中最密集的簇，全部为 arXiv 预印本（证据等级 B），且**候选块均未提供引用数、GitHub star 或榜单排名**，因此热度证据一律 `> 待核实`。
 
-### 1.2 与运动学相关但非控制主线的近期线索
+| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 |
+|---|---|---|---|---|---|---|---|
+| Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum [1] | 2025（v4） | 未在候选块给出，`> 待核实` | `> 待核实`（无引用数） | arXiv 预印本（cs.RO），未见同行评审 | 中 + 依据：以"动态高速物体交互"为人形全身控制的少数尝试，属 RL 课程学习路线 | ★★★☆☆ 人形全身 RL 的代表性入口，但无同行评审与开源信号 | http://arxiv.org/abs/2511.11218v4 |
+| CHILD: Controller for Humanoid Imitation and Live Demonstration [3] | 2025（v2） | `> 待核实` | `> 待核实` | arXiv 预印本（cs.RO） | 中 + 依据：明确指出"现有工作很少支持人形**关节级全身遥操作**"这一空白 | ★★★☆☆ 若研究关节级全身遥操作映射，该条为直接相关的现状陈述 | http://arxiv.org/abs/2508.00162v2 |
+| Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations [4] | 2026（v2） | `> 待核实` | `> 待核实` | arXiv 预印本（cs.RO） | 中 + 依据：指向"无机器人本体演示（robot-free demonstration）"这一降低硬件门槛的路线 | ★★★★☆ 若关注演示数据采集成本，该路线值得优先精读 | http://arxiv.org/abs/2602.06643v2 |
+| Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum [5] | 2026（v2） | `> 待核实` | `> 待核实` | arXiv 预印本（cs.RO） | 中 + 依据：明确点出**空间理解**与**动作泛化**两大挑战，是全文中最清晰的"问题定义"式摘要之一 | ★★★☆☆ 双系统（brain/cerebellum）思路可对照 VLA 架构讨论 | http://arxiv.org/abs/2605.21133v2 |
+| Hierarchical World Models as Visual Whole-Body Humanoid Controllers [8] | 2024（v3） | `> 待核实` | `> 待核实` | arXiv 预印本（cs.RO） | 中 + 依据：以"分层世界模型"作为视觉全身控制器，与 RL 端到端路线形成方法对照 | ★★★☆☆ 世界模型 × 全身控制的交叉点，适合做方法论对比 | http://arxiv.org/abs/2405.18418v3 |
+| Learning Humanoid Standing-up Control across Diverse Postures [6] | 2025（v2） | `> 待核实` | `> 待核实` | arXiv 预印本（cs.RO） | 低 + 依据：单任务（起身）泛化，范围窄于全身操作 | ★★☆☆☆ 仅在需要起身/恢复行为时参考 | http://arxiv.org/abs/2502.08378v2 |
+| The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control [2] | 2024（v1） | `> 待核实` | `> 待核实` | arXiv 预印本（cs.RO） | 中 + 依据：把 domain randomization 作为**自变量**研究而非技巧性堆叠，归因意识较强 | ★★★☆☆ 对"提升来自数据还是架构"这一四问之一有直接帮助 | http://arxiv.org/abs/2411.01349v1 |
+| Kinematics-Aware Diffusion Policy with Consistent 3D Observation and Action Space [33] | 2025（v1） | `> 待核实` | `> 待核实` | arXiv 预印本（cs.RO） | 中 + 依据：明确指出"只考虑末端位姿不足够"，需**全臂运动学感知**——与本章主题相关性高 | ★★★★☆ 是候选集中少数把"运动学结构"显式注入策略学习的条目 | http://arxiv.org/abs/2512.17568v1 |
+| Whole-Body Geometric Retargeting for Humanoid Robots [39] | 2019（v1） | `> 待核实` | `> 待核实` | arXiv 预印本（cs.RO） | 低–中 + 依据：时间较早，属"全身几何重定向"这一子线的早期工作 | ★★★☆☆ 若做全身遥操作映射，此条是应当引用的前作 | http://arxiv.org/abs/1909.10080v1 |
+| Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids [70] | 2025（v2） | `> 待核实` | `> 待核实` | arXiv 预印本（cs.RO） | 中 + 依据：摘要明确指出现有真机 RL 受限于**安全性、奖励设计、学习效率**，问题陈述具体 | ★★★☆☆ 作为"仿真→真机"落地瓶颈的一手问题陈述有效 | http://arxiv.org/abs/2508.12252v2 |
 
-- **医疗手术并联机器人运动学分析**（arXiv:2406.02047v1，2024-06）：提供了专用并联机构运动学分析的近期一手预印本线索 [15]。其与通用 FK/IK、WBC 的关系需要阅读全文后才能定位 `> 待核实`。
-- **微机器人逆运动学标定采用迭代学习方法**：仅见于文档分享站条目，无作者、年份、发表处，属 D/E 级线索，**不可作为结论依据** [17]。
+**这一簇的归因评估（按 frontier-tracking 四问）**：
+- **多任务/多本体验证**：候选块仅提供摘要，无法判断任务数与本体数 → `> 待核实`。
+- **开源情况**：候选块**无任何代码/权重链接** → `> 待核实`（这是本报告最强的缺口之一）。
+- **提升归因（数据/架构/算力）**：仅 [2] 显式把 domain randomization 当作研究对象；其余无法归因。
+- **独立第三方评测**：候选集内**无任何榜单或复现报告** → `> 待核实`。
 
-### 1.3 本轮未获得任何证据的前沿方向（明确缺口）
+> **谨慎声明**：以上 10 条**全部**为 arXiv 预印本，候选块未标注任何会议/期刊 acceptance 信息。任何"该方向已达 SOTA"的表述在本证据集下均不成立。
 
-以下均为本次调研**点名但对证据缺失**的方向，一律标注 `> 待核实`：
+### 1.2 热点二：接触隐式轨迹优化的隐式微分路线（2026）
 
-- **接触隐式轨迹优化（contact-implicit trajectory optimization）**：无候选条目涉及 contact-implicit、complementarity、接触力规划或可微接触模型 [21][13][16][17]。
-- **SE(3) 等变策略（SE(3)-equivariant policy）**：无候选条目涉及 equivariance / symmetry / group-equivariant / SE(3) 相关方法 [13][16][17]。
-- **可微运动学（differentiable kinematics）**：仅有词典释义 [13] 与中文科普 [19]，无任何机器人学意义的研究来源，**不能作为依据**。
-- **全身控制（WBC）框架级新进展与基准**：本轮无框架对比、无基准榜单、无多库集成方案证据。
+候选集中**唯一**直接讨论 contact-implicit trajectory optimization 方法谱系的条目是 [99]：
 
-> **小结**：本轮"最新进展"章节的可交付内容实质只有一条 B 级证据 [21] 及两条弱线索 [15][17]。若要形成可信的前沿综述，必须先补齐 1.3 节列出的四类检索。
+- **方法谱系（由 [99] 摘要转述）**：现有路线分为三类——(a) 有限差分（expensive and step-size sensitive）；(b) 对迭代接触求解器做自动微分展开（unrolling AD，需存储不断增长的计算图）；(c) 隐式微分（implicit differentiation，但需繁琐的、与求解器强绑定的推导）[99]。
+- **新组合**：将 trajectory optimisation 的 **amortisation（摊销）** 与 **residual MPC（残差 MPC）** 结合，用隐式接触微分提供梯度 [99]。
+- **交叉验证状态**：仅 **1 条候选**命中该主题，且为 **v1 预印本（arXiv:2607.24959v1，2026-07-27）**，无引用数、无代码链接、无第三方复现 [99]。按证据分级方法论，方法谱系划分这一"分类性结论"**不应仅凭单篇摘要采信**，标注为 **待核实**。
+- **求解释义**：`> 待核实`——[99] 摘要未给出成功率、求解时间或数值鲁棒性的任何数字。
 
----
+### 1.3 热点三：GPU 加速运动规划（2025）
 
-## 二、建模表示：DH vs 旋量/POE
+- **Industrial Robot Motion Planning with GPUs: Integration of cuRobo for Extended DOF Systems [54]**（2025-08，v2）：将 NVIDIA cuRobo 集成到 Vention 的模块化自动化平台，面向**多轴/扩展自由度**工业系统 [54]。这是候选集中唯一涉及 cuRobo 的条目，也是第七章"工程实践"中仅有的一手工程证据。
+  - 热度：`> 待核实` ｜ 权威：arXiv 预印本（cs.RO），未见同行评审 [54] ｜ 关注度：中 + 依据：GPU 加速规划在工业落地方向的少数具名集成案例 ｜ 推荐度：**★★★★☆** + 理由：是候选集中最接近"库在真实工业系统中的能力边界"的一手材料。
 
-### 2.1 旋量理论与指数积（PoE）——本轮最完整的证据链条
+### 1.4 热点四：可操作度评估的鲁棒性重估（2024–2025）
 
-PoE 的两种标准表述在本轮均有教学资源佐证：
+- **Enhancing Robustness in Manipulability Assessment: The Pseudo-Ellipsoid Approach [95]**（2024-12，v2）：针对经典可操作度椭球评估的脆弱性提出伪椭球方法。热度 `> 待核实`；权威：arXiv 预印本（cs.RO）；关注度：低–中（该子线社区规模小）；推荐度 **★★★☆☆**（若做可操作度指标选型，值得读）。
+- 前序脉络：**Geometry-aware Manipulability Learning, Tracking and Transfer [92]**（2018-11，v5）与 **Analysis and Transfer of Human Movement Manipulability in Industry-like Activities [93]**（2020-08，v2），把可操作度从"瞬时椭球"扩展到"学习 + 迁移"；**Direct ellipsoidal fitting of discrete multi-dimensional data [94]**（2019-01）提供拟合工具。三者共同构成"可操作度椭球 → 学习/迁移 → 鲁棒评估"的演进链 [92][93][94][95]。
+- **经典可操作度椭球理论（Yoshikawa 等）的原始出处未出现在候选集中**，`> 待核实`；本报告不引用其具体文献编号。
 
-- **空间坐标系下的 PoE 公式**（Product of Exponentials Formula in the Space Frame）[10]；
-- **末端执行器坐标系下的 PoE 公式**（Product of Exponentials Formula in the End-Effector Frame）[2][6]，其中 [6] 明确标注来自教材 *Modern Robotics: Mechanics, Planning, and Control* 的对应章节。
+### 1.5 脉络小结（最新 vs 经典的分野）
 
-其经典理论出处为 Murray、Li、Sastry 的 *A Mathematical Introduction to Robotic Manipulation*（1994），本轮获得三个可访问链接：Lehigh 课程 PDF 全文 [3]、Taylor & Francis 开放获取专著页 [7]、FreeComputerBooks 书目页 [11]。该书是把刚体运动统一到 Lie 群 SE(3)/so(3) 与旋量坐标框架下的奠基性教材。
-
-### 2.2 DH 参数法
-
-> **证据缺口**：本轮候选中**没有**任何一条直接讨论 Denavit–Hartenberg（DH）参数法定义、建系规则或与 PoE 对比的一手来源。仅有的正运动学相关条目是 MATLAB delta 机器人正运动学的中文博客 [23]，属 D 级，且不涉及 DH vs PoE 的表述选择问题。
-
-因此，关于"DH 与 PoE 各自的优劣（如 DH 需逐关节建系、相邻轴平行时的参数奇异性、PoE 与李代数/优化框架的天然契合）"的通行说法，**在本轮检索中未获得可核查出处** `> 待核实`。相关判断需以 [3][7][11] 教材正文与 [2][6][10] 教学章节为一级来源重新核对后再行陈述。
-
----
-
-## 三、逆运动学：解析 / 数值 / 学习
-
-### 3.1 数值 IK（本轮证据最扎实的分支）
-
-- **TRAC-IK**：*TRAC-IK: An open-source library for improved solving of generic inverse kinematics*，发表于 2015 IEEE-RAS 15th International Conference on Humanoid Robots (Humanoids)，DOI `10.1109/humanoids.2015.7363472`，被引 286 次 [26]。其定位是"改进通用逆运动学求解"的开源库，工程上常被用于替代 Orocos KDL 的默认 IK 求解器 [26][32]。这是本轮**唯一**具备同行评审出处且直接对应"开源数值/运动学库 + 数值 IK"议题的一手证据（A/B 级）。
-
-### 3.2 启发式与元启发式 IK
-
-当解析解不可得、且梯度类数值 IK 易陷入局部极小或对初值敏感时，一类工作转向随机/群体智能搜索：
-
-| 方法 | 年份 | 出处 | 链接/编号 | 说明 |
-|---|---|---|---|---|
-| BODE-CS Algorithm | 2023 | *Machines*（MDPI） | [20] | 基于 BODE-CS 算法的机械臂逆运动学求解 |
-| IK-FA（Firefly Algorithm） | 2015 | Springer 章节 | [36] | 使用萤火虫算法的启发式 IK 求解器 |
-| 模糊自适应算法（双足机器人 IK） | 2010 | 《机器人》期刊（DOI 前缀 10.3724/sp.j.1218） | [14] | 模糊自适应策略用于双足机器人逆运动学 |
-
-> 上述三者的**性能口径（收敛率、求解时间、是否真机验证、对比基线）在本轮候选证据中均未提供**，不能用于横向性能比较 `> 待核实`。它们仅能证明"IK 求解存在非梯度、启发式分支"这一事实性判断。
-
-### 3.3 解析 IK 与专用机构
-
-- 医疗微创手术并联机器人的运动学分析（arXiv:2406.02047v1，2024-06）[15] 属专用机构解析/半解析运动学建模的近期预印本线索，具体方法（几何法/代数法/数值校验）与验证口径 `> 待核实`。
-- 逆运动学工作流的流程示意可由 [31] 提供，但该来源为论文配图页，仅具示意价值（D 级）。
-
-### 3.4 学习式 IK 与"解析 vs 学习"的路线争议
-
-> **证据缺口**：本轮候选中**不存在**任何以神经网络/学习方式直接求解 IK 并能与数值或解析基线对比的一手来源（[21] 属策略学习，不是 IK 求解器，且解决的是动作空间表征问题）。因此，"解析解 vs 学习式 IK 哪条路线更优"这一争议**在本轮无法给出任何有证据的判断** `> 待核实`，需要针对 `learning inverse kinematics`、`neural IK solver benchmark` 等查询补检。
+| 类别 | 本报告处理方式 | 代表条目 |
+|---|---|---|
+| 最新进展（2024-10 之后） | 单列于 1.1–1.4 | [1][2][3][4][5][6][33][54][70][95][99] |
+| 次新/脉络（2019–2024） | 作为演进链条引用 | [8][26][36][39][65][67][68][86][92][93][94] |
+| 经典/奠基（≤2018 及种子资源） | 第六章表格，标注"经典" | 种子资源：Murray-Li-Sastry (1994)、Lynch-Park (2017)、Khatib (1987)、Crocoddyl (2020) |
 
 ---
 
-## 四、轨迹规划与最优控制
+## 二、建模表示：DH 参数化 vs 旋量理论 / 指数积（PoE）
 
-### 4.1 多接触最优控制（种子资源，未实时核验）
+> **先说结论：本子问题的证据链在本轮检索中未建立起来。** q2 的 6 条候选 [81][82][83][84][73][74] 中，[73][74] 为 BESIII 高能物理实验测量、[83][84] 为纯数学（Lie 群逼近性、Leibniz 代数），只有 [81][82][86] 与"机器人旋量/Lie 群"名义相关。因此**无法从候选集确认旋量理论与 PoE 的原始出处与标准表述**。
 
-领域种子资源中，**Crocoddyl**（LAAS-CNRS，2020）被列为"高效通用的多接触最优控制框架"，其论文为 *Crocoddyl: An Efficient and Versatile Framework for Multi-Contact Optimal Control*（arXiv:1909.04947），官方实现位于 `loco-3d/crocoddyl`。
+### 2.1 候选集中确实相关的条目
 
-> 该条目来自委托方提供的领域种子清单，**本轮检索未获得其一手页面内容的实时核验**，因此其版本状态、维护活跃度与基准结果 `> 待核实`。其与接触隐式优化的关系（是否采用接触序列给定 vs 接触序列优化）同样 `> 待核实`。
-
-### 4.2 接触隐式轨迹优化（contact-implicit TO）
-
-> **证据缺口（本次最大缺口之一）**：本轮候选来源中无一条涉及接触隐式优化、互补性约束（complementarity）、接触力平滑、可微接触仿真。该方向在 2024–2026 年的新进展**完全无法评估** `> 待核实`。建议补检查询：`contact-implicit trajectory optimization 2024..2026`、`complementarity robotics control site:arxiv.org`、`differentiable contact simulation robot`。
-
-### 4.3 仿真到现实（sim-to-real）差距
-
-- 埃塞克斯大学博士论文 *Bridging the Simulation to Reality Gap in Robotics* [33] 可作为 sim-to-real 问题的 C 级二手综述性材料，用于界定"轨迹优化在仿真中可行、真机部署受阻"的问题背景。其具体实验结论需阅读原文后引用 `> 待核实`。
-
----
-
-## 五、全身控制与任务空间控制
-
-### 5.1 操作空间控制（Operational Space Formulation，经典）
-
-领域种子资源指出，Khatib 的操作空间/任务空间控制表述为 1987 年奠基工作（DOI `10.1109/JRA.1987.1087109`），是"把任务描述直接定义在操作空间、并在该空间设计控制律"的源头。
-
-> 本轮**未获得该文献正文或引用统计的实时核验**，其公式体系（操作空间惯性矩阵 Λ、零空间投影算子、任务优先级）在被引用处的具体形式 `> 待核实`。
-
-### 5.2 冗余分解与全身控制（WBC）
-
-> **证据缺口**：本轮无任何来源覆盖冗余分解（零空间投影、任务优先级、分层 QP）或 WBC 整体框架（例如基于 QP 的层次化全身控制、WBC 与 MPC 的耦合）。该方向的框架级对比、开源实现对照与基准结果一律 `> 待核实`。
-
-### 5.3 唯一的交叉线索：策略学习侧的"全身"表述
-
-[21] 从**策略学习**（而非优化控制）角度处理"整臂（whole-arm）"操作：其出发点是全身/全臂运动学感知与动作空间一致性 [21]，与本节的 WBC 优化控制路线属不同技术路线，**不可混为一谈**。
-
----
-
-## 六、经典教材与奠基工作
-
-| 名称 | 年份 | 机构/作者 | 链接 | 说明 |
-|---|---|---|---|---|
-| A Mathematical Introduction to Robotic Manipulation | 1994 | Murray, Li, Sastry | [3]（PDF）/ [7]（出版社 OA 页）/ [11]（书目页） | 旋量理论与指数积（PoE）的经典教材；将刚体运动统一到 SE(3)/so(3) 与旋量坐标框架 [3][7][11] |
-| Modern Robotics: Mechanics, Planning, and Control | 2017 | Lynch & Park | 种子链接 `hades.mech.northwestern.edu`（本轮未实时核验） | 现代运动学与控制教材；其 PoE 章节（空间坐标系/末端坐标系两种表述）有教学视频资源 [2][6][10] |
-| Task Space Control / Operational Space Formulation | 1987 | Oussama Khatib | 种子链接 `doi.org/10.1109/JRA.1987.1087109`（本轮未实时核验） | 操作空间控制的奠基性表述 `> 待核实` |
-| TRAC-IK: An open-source library for improved solving of generic inverse kinematics | 2015 | Humanoids 2015（IEEE-RAS） | [26] | 通用 IK 数值求解的同行评审一手来源，被引 286 次 [26] |
-| Crocoddyl: An Efficient and Versatile Framework for Multi-Contact Optimal Control | 2020 | LAAS-CNRS | 种子链接 `arxiv.org/abs/1909.04947`（本轮未实时核验） | 多接触最优控制框架 `> 待核实` |
-| Fuzzy Adaptive Algorithm for Biped Robot Inverse Kinematics | 2010 | 《机器人》期刊 | [14] | 模糊自适应 IK 分支的代表性条目 |
-| IK-FA, a New Heuristic Inverse Kinematics Solver Using Firefly Algorithm | 2015 | Springer | [36] | 元启发式 IK 求解 |
-| Inverse Kinematics of Robot Manipulator Based on BODE-CS Algorithm | 2023 | *Machines* (MDPI) | [20] | 元启发式 IK 求解 |
-
----
-
-## 七、开源库与工具链对比
-
-### 7.1 开源项目
-
-| 名称 | 年份/状态 | 机构/作者 | 链接 | 说明 |
-|---|---|---|---|---|
-| Pinocchio | 活跃开源项目 | stack-of-tasks | [25] / [35]（中文入门教程） | 刚体动力学算法及其**解析导数**的高效实现，官方自述见 [25]；国内工程侧有入门教程传播（CSDN，2023-12-25，阅读 2.2 万）[35] |
-| Orocos KDL | 经典开源库 | orocos | 种子链接 `github.com/orocos/orocos_kinematics_dynamics`；中文实践见 [27][32] | 提供 FK/IK/Jacobian；其默认 IK 常被 TRAC-IK 替代 [26][32] |
-| TRAC-IK | 2015 | TRACLabs 等 | [26] | 改进通用 IK 求解的开源库，同行评审出处 |
-| Drake | 活跃开源项目 | RobotLocomotion | 种子链接 `github.com/RobotLocomotion/drake` | 优化与控制的 C++ 工具箱；**本轮检索被 Drake 方程（SETI）文献污染 [34]，未获得其技术内容证据** `> 待核实` |
-| Crocoddyl | 2020 | LAAS-CNRS | 种子链接 `github.com/loco-3d/crocoddyl` | 多接触最优控制 `> 待核实` |
-| MoveIt 2 | 活跃开源项目 | moveit | 种子链接 `github.com/moveit/moveit2` | ROS2 运动规划框架 `> 待核实` |
-| awesome-robotics-libraries | 社区维护 | jslee02 | [28] | 机器人软件库汇总清单，可作为工具链盘点的检索入口 [28] |
-
-### 7.2 定位辨析（有证据支撑的一条）
-
-Pinocchio 与 TRAC-IK **面向运动学/动力学栈的不同环节**：前者提供刚体动力学算法及其解析导数，供优化与控制层使用 [25]；后者专攻通用逆运动学的数值求解 [26]。二者公开描述中不存在功能重叠声明，属互补关系而非同类替代 [25][26]。
-
-### 7.3 缺口
-
-> 本轮**未获得任何可复核的性能基准**：既无 IK 求解的成功率/耗时对比，也无动力学库（Pinocchio / Drake / KDL / MuJoCo MJX）的吞吐或精度基准。这直接导致：
-> - 无法对库做定量选型建议 `> 待核实`；
-> - MuJoCo / MJX **在本轮
+| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 |
+|---|---|---|---|---|---|---|---|
+| Screw and Lie Group Theory in Multibody Kinematics — Motion Representation and Recursive Kinematics of Tree-Topology Systems [86] | 2023（v1） | `> 待核实` | `> 待核实` | arXiv 预印本
 
 ## 参考来源
 
-[1] product _百度百科 — https://baike.baidu.com/item/product/10552047
-[2] Chapter 4.1.2- Product   of   Exponentials Formula  in the End-Effector Frame-教育-高清完整正版视频在线观看-优酷 — https://v.youku.com/v_show/id_XMzAzMjE2NTIyMA==.html
-[3] A Mathematical Introduction to Robotic Manipulation — https://www.cse.lehigh.edu/~trink/Courses/RoboticsII/reading/murray-li-sastry-94-complete.pdf
-[4] Measurement of inelastic scattering $Λ(\overlineΛ)+p\toΣ^{0}(\overlineΣ^{0})+p$ via $e^+e^-\to J/ψ\toΛ\overlineΛ$ — http://arxiv.org/abs/2609.02584v1
-[5] product 是什么意思_ product 的翻译_音标_读音_用法_例句_爱 ... — https://www.iciba.com/word?w=product
-[6] Product   of   Exponentials Formula  in the End-Effector Frame-Modern Robotics: Mechanics, Planning, and Control-EEWORLD大学堂 — https://m.eeworld.com.cn/training/video/20505
-[7] A Mathematical Introduction to Robotic Manipulation — https://www.taylorfrancis.com/books/oa-mono/10.1201/9781315136370/mathematical-introduction-robotic-manipulation-richard-murray-zexiang-li-shankar-sastry
-[8] Evidence of $ψ(3770) \to π^{0}J/ψ$ — http://arxiv.org/abs/2606.14105v1
-[9] PRODUCT 中文 (简体)翻译：剑桥词典 - Cambridge Dictionary — https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/product
-[10] Chapter 4.1.1- Product   of   Exponentials Formula  in the Space Frame-创意视频-高清完整正版视频在线观看-优酷 — https://v.youku.com/v_show/id_XMzAzMjE1MTI2NA==.html
-[11] A Mathematical Introduction to Robotic Manipulation — https://freecomputerbooks.com/A-Mathematical-Introduction-to-Robotic-Manipulation.html
-[12] Measurement of the CKM angle $γ$ in $B^{\pm} \rightarrow D(\rightarrow K^{0}_{\rm S} h^{\prime+}h^{\prime-})h^{\pm}$ decays with a novel approach — http://arxiv.org/abs/2604.05701v1
-[13] differentiable _百度百科 — https://baike.baidu.com/item/differentiable/52804600
-[14] Fuzzy Adaptive Algorithm for Biped Robot Inverse Kinematics — https://doi.org/10.3724/sp.j.1218.2010.00534
-[15] Kinematic analysis of a parallel robot for minimally invasive surgery — http://arxiv.org/abs/2406.02047v1
-[16] 2024  年7月18日  Arxiv  人工智能相关论文_missing modality prediction for ... — hedJjaC291OB0PrGj_c3jKeWGo0CNeeAAoqVgpLQv06uSdKpCMIsLgMyACwDQkWHJZh-w3FxLBat5pUc3zy0dg..
-[17] Calibration of Micro- robot   Inverse Kinematics  Using Iterative  Learning  Approach - 道客巴巴 — https://www.doc88.com/p-1661760421493.html
-[18] Video-Based Markerless Motion Capture for Clinical and ... - arXiv — https://arxiv.org/pdf/2609.18667
-[19] 连续，可微，可导和处处可导有什么区别和联系？ - 知乎 — https://zhuanlan.zhihu.com/p/653506292
-[20] Inverse Kinematics of Robot Manipulator Based on BODE-CS Algorithm — https://doi.org/10.3390/machines11060648
-[21] Kinematics-Aware Diffusion Policy with Consistent 3D Observation and Action Space for Whole-Arm Robotic Manipulation — http://arxiv.org/abs/2512.17568v1
-[22] 深度  学习   |   arxiv2024   | Vision_xLSTM即插即用模块,适用于医学图像分... — hedJjaC291ObqPUCEo1zMuraEuczo-4WCU_PNz9JM0tEJsKMgtD2QwWx5lbW4vEA
-[23] [ robot ] review forward  kinematics _matlab deltarobotforward-CSDN博客 — https://blog.csdn.net/myjiayan/article/details/72553018
-[24] Self-Supervised Distillation of Biomechanical Pose from a 3D Body ... — https://arxiv.org/pdf/2608.29928
-[25] GitHub - stack-of-tasks/ pinocchio : A fast and flexible … — https://github.com/stack-of-tasks/pinocchio
-[26] TRAC-IK: An open-source library for improved solving of generic inverse kinematics — https://doi.org/10.1109/humanoids.2015.7363472
-[27] orocos _ kdl 学习(一):坐标系变换-CSDN博客 — https://blog.csdn.net/weixin_33888907/article/details/94562409
-[28] awesome-robotics-libraries/README.md at main - GitHub — https://github.com/jslee02/awesome-robotics-libraries/blob/main/README.md
-[29] PINOCCHIO and the hierarchical build-up of dark matter haloes — http://arxiv.org/abs/astro-ph/0109324v1
-[30] 木偶奇遇记（卡洛·科洛迪著童话）_百度百科 — https://baike.baidu.com/item/%E6%9C%A8%E5%81%B6%E5%A5%87%E9%81%87%E8%AE%B0/81187
-[31] Figure 1: A diagram illustrating the working principle of the inverse kinematics (IK) workflow. — https://doi.org/10.7717/peerj.15097/fig-1
-[32] 开源机器人库 orocos   KDL  学习笔记(五): Inverse  Kinematric_ orocos   kdl  逆解-CSDN博客 — https://blog.csdn.net/u014170067/article/details/83352636
-[33] Bridging the Simulation to Reality Gap in Robotics — https://repository.essex.ac.uk/40339/1/KVasios-PhD.pdf
-[34] Area Coverage of Expanding E.T. Signals in the Galaxy: SETI and Drake's N — http://arxiv.org/abs/1802.09399v2
-[35] 从零上手机器人动力学库 pinocchio （一） pinocchio 简介 ... — https://blog.csdn.net/carrot1128/article/details/132796851
-[36] IK-FA, a New Heuristic Inverse Kinematics Solver Using Firefly Algorithm — https://doi.org/10.1007/978-3-319-11017-2_15
+[1] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4
+[2] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1
+[3] CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System — http://arxiv.org/abs/2508.00162v2
+[4] Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations — http://arxiv.org/abs/2602.06643v2
+[5] Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum — http://arxiv.org/abs/2605.21133v2
+[6] Learning Humanoid Standing-up Control across Diverse Postures — http://arxiv.org/abs/2502.08378v2
+[7] A ROS-based Software Framework for the NimbRo-OP Humanoid Open Platform — http://arxiv.org/abs/1809.11051v1
+[8] Hierarchical World Models as Visual Whole-Body Humanoid Controllers — http://arxiv.org/abs/2405.18418v3
+[9] Task-Priority Control of Redundant Robotic Systems using Control Lyapunov and Control Barrier Function based Quadratic Programs — http://arxiv.org/abs/2001.07547v2
+[10] Control of a Rigid Wing Pumping Airborne Wind Energy System in all Operational Phases — http://arxiv.org/abs/2006.11141v1
+[11] State-dependent Priority Scheduling for Networked Control Systems — http://arxiv.org/abs/1703.08311v1
+[12] On Controller Design for Systems on Manifolds in Euclidean Space — http://arxiv.org/abs/1807.03475v1
+[13] Analysis and design of model predictive control frameworks for dynamic operation -- An overview — http://arxiv.org/abs/2307.03004v2
+[14] The importance of ensemble techniques for operational space weather forecasting — http://arxiv.org/abs/1806.09861v1
+[15] Cold-Tip Temperature Control of Space-borne SatelliteStirlingCryocooler: Mathematical Modeling and Control Investigation — http://arxiv.org/abs/1905.11247v1
+[16] Verification of Space Weather Forecasts issued by the Met Office Space Weather Operations Centre — http://arxiv.org/abs/1804.02985v1
+[17] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
+[18] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
+[19] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
+[20] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1
+[21] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1
+[22] PDHCG-II: An Enhanced Version of PDHCG for Large-Scale Convex QP — http://arxiv.org/abs/2602.23967v1
+[23] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4
+[24] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1
+[25] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1
+[26] IK-Geo: Unified Robot Inverse Kinematics Using Subproblem Decomposition — http://arxiv.org/abs/2211.05737v3
+[27] AIM 2025 Low-light RAW Video Denoising Challenge: Dataset, Methods and Results — http://arxiv.org/abs/2508.16830v1
+[28] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators — http://arxiv.org/abs/2507.12143v1
+[29] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1
+[30] LLM-based ambiguity detection in natural language instructions for collaborative surgical robots — http://arxiv.org/abs/2507.11525v1
+[31] Kinematic analysis of a parallel robot for minimally invasive surgery — http://arxiv.org/abs/2406.02047v1
+[32] Triplets of Galaxies in the Local Supercluster. I. Kinematic and Virial Parameters — http://arxiv.org/abs/astro-ph/0609622v1
+[33] Kinematics-Aware Diffusion Policy with Consistent 3D Observation and Action Space for Whole-Arm Robotic Manipulation — http://arxiv.org/abs/2512.17568v1
+[34] Compensation of compliance errors in parallel manipulators composed of non-perfect kinematic chains — http://arxiv.org/abs/1204.1757v1
+[35] Kinematic analysis of the 3-RPR parallel manipulator — http://arxiv.org/abs/0708.3920v1
+[36] Analytically Informed Inverse Kinematics Solution at Singularities — http://arxiv.org/abs/2412.20409v1
+[37] Beyond the Ground Truth: Enhanced Supervision for Image Restoration — http://arxiv.org/abs/2512.03932v3
+[38] The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset — http://arxiv.org/abs/2405.19595v1
+[39] Whole-Body Geometric Retargeting for Humanoid Robots — http://arxiv.org/abs/1909.10080v1
+[40] PINOCCHIO and the hierarchical build-up of dark matter haloes — http://arxiv.org/abs/astro-ph/0109324v1
+[41] Developing a 21st Century Global Library for Mathematics Research — http://arxiv.org/abs/1404.1905v1
+[42] Inversion of the star transform — http://arxiv.org/abs/1401.7655v2
+[43] Inversion formulas for the broken-ray Radon transform — http://arxiv.org/abs/1007.4183v1
+[44] Inverse spectral problems for Sturm-Liouville operators with singular potentials — http://arxiv.org/abs/math/0211247v1
+[45] PINOCCHIO: pinpointing orbit-crossing collapsed hierarchical objects in a linear density field — http://arxiv.org/abs/astro-ph/0109323v2
+[46] Inverse Problems in Magnetohydrodynamics: Theoretical and Experimental Aspects — http://arxiv.org/abs/physics/0312093v1
+[47] The Relativistic Elasticity of Rigid Bodies — http://arxiv.org/abs/physics/0307019v3
+[48] Phase topology of one integrable case of the rigid body motion — http://arxiv.org/abs/1408.6028v1
+[49] On the invariant motions of rigid body rotation over the fixed point, via Euler angles — http://arxiv.org/abs/1601.04526v1
+[50] A Parametric and Feasibility Study for Data Sampling of the Dynamic Mode Decomposition--Range, Resolution, and Universal Convergence States — http://arxiv.org/abs/2110.06573v2
+[51] Some multidimensional integrable cases of nonholonomic rigid body dynamics — http://arxiv.org/abs/math-ph/0304012v1
+[52] A note on convergence of solutions of total variation regularized linear inverse problems — http://arxiv.org/abs/1711.06495v3
+[53] Inverse Laplace Transform for Bi-Complex Variables — http://arxiv.org/abs/1403.3313v1
+[54] Industrial Robot Motion Planning with GPUs: Integration of cuRobo for Extended DOF Systems — http://arxiv.org/abs/2508.04146v2
+[55] The enclosure method for inverse obstacle scattering problems with dynamical data over a finite time interval: III. Sound-soft obstacle and bistatic data — http://arxiv.org/abs/1302.2389v1
+[56] Area Coverage of Expanding E.T. Signals in the Galaxy: SETI and Drake's N — http://arxiv.org/abs/1802.09399v2
+[57] A joint analysis of the Drake equation and the Fermi paradox — http://arxiv.org/abs/1301.6411v2
+[58] A Variant of Concurrent Constraint Programming on GPU — http://arxiv.org/abs/2207.12116v1
+[59] Transmitting signals over interstellar distances: Three approaches compared in the context of the Drake equation — http://arxiv.org/abs/1303.1100v1
+[60] DQ Robotics: a Library for Robot Modeling and Control — http://arxiv.org/abs/1910.11612v3
+[61] High-level robot programming based on CAD: dealing with unpredictable environments — http://arxiv.org/abs/1309.2086v1
+[62] Exploring Large Language Models to Facilitate Variable Autonomy for Human-Robot Teaming — http://arxiv.org/abs/2312.07214v3
+[63] A Simulation and Modeling of Access Points with Definition Language — http://arxiv.org/abs/1304.1836v2
+[64] Superconductivity as a consequence of an ordering of the electron gas zero-point oscillations — http://arxiv.org/abs/1005.0280v6
+[65] Redundancy parameterization and inverse kinematics of 7-DOF revolute manipulators — http://arxiv.org/abs/2307.13122v2
+[66] Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge — http://arxiv.org/abs/2101.02842v1
+[67] Real-time Whole-body Obstacle Avoidance for 7-DOF Redundant Manipulators — http://arxiv.org/abs/2012.14578v1
+[68] Machine Learning-based Framework for Optimally Solving the Analytical Inverse Kinematics for Redundant Manipulators — http://arxiv.org/abs/2211.04275v3
+[69] Backdoors in Learning-Based Industrial Robotic Arm Manipulation: An Empirical Security Study — http://arxiv.org/abs/2609.26868v1
+[70] Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids — http://arxiv.org/abs/2508.12252v2
+[71] JENGA: Exploiting Counter-Based RowHammer Countermeasures to Break Real-Time Predictability — http://arxiv.org/abs/2609.01077v1
+[72] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1
+[73] Measurement of inelastic scattering $Λ(\overlineΛ)+p\toΣ^{0}(\overlineΣ^{0})+p$ via $e^+e^-\to J/ψ\toΛ\overlineΛ$ — http://arxiv.org/abs/2609.02584v1
+[74] Evidence of $ψ(3770) \to π^{0}J/ψ$ — http://arxiv.org/abs/2606.14105v1
+[75] Measurement of the CKM angle $γ$ in $B^{\pm} \rightarrow D(\rightarrow K^{0}_{\rm S} h^{\prime+}h^{\prime-})h^{\pm}$ decays with a novel approach — http://arxiv.org/abs/2604.05701v1
+[76] Model Independent Approach of the JUNO $^8$B Solar Neutrino Program — http://arxiv.org/abs/2210.08437v2
+[77] Precise measurement of the CKM angle $γ$ with a novel approach — http://arxiv.org/abs/2604.05712v1
+[78] Gemini 2.5: Pushing the Frontier with Advanced Reasoning, Multimodality, Long Context, and Next Generation Agentic Capabilities — http://arxiv.org/abs/2507.06261v6
+[79] First measurement of reactor neutrino oscillations at JUNO — http://arxiv.org/abs/2511.14593v1
+[80] Initial performance results of the JUNO detector — http://arxiv.org/abs/2511.14590v1
+[81] The Geometry and Kinematics of the Matrix Lie Group $SE_K(3)$ — http://arxiv.org/abs/2012.00950v4
+[82] Cohomological Equation for Robotic Screw Motion on the Lie Group SE(3) — http://arxiv.org/abs/2601.10734v1
+[83] Approximation properties of simple Lie groups made discrete — http://arxiv.org/abs/1408.5238v2
+[84] Leibniz algebras, Lie racks, and digroups — http://arxiv.org/abs/math/0403509v5
+[85] Local spectral radius formulas on compact Lie groups — http://arxiv.org/abs/0805.3900v2
+[86] Screw and Lie Group Theory in Multibody Kinematics -- Motion Representation and Recursive Kinematics of Tree-Topology Systems — http://arxiv.org/abs/2306.17415v1
+[87] Curvature of matrix and reductive Lie groups — http://arxiv.org/abs/2108.00651v1
+[88] Hom 3-Lie-Rinehart Algebras — http://arxiv.org/abs/2001.07570v2
+[89] StyleHumanCLIP: Text-guided Garment Manipulation for StyleGAN-Human — http://arxiv.org/abs/2305.16759v4
+[90] Generation of highly pure Schrödinger's cat states and real-time quadrature measurements via optical filtering — http://arxiv.org/abs/1708.04042v2
+[91] Non-existence of an invariant measure for a homogeneous ellipsoid rolling on the plane — http://arxiv.org/abs/1306.4237v2
+[92] Geometry-aware Manipulability Learning, Tracking and Transfer — http://arxiv.org/abs/1811.11050v5
+[93] Analysis and Transfer of Human Movement Manipulability in Industry-like Activities — http://arxiv.org/abs/2008.01402v2
+[94] Direct ellipsoidal fitting of discrete multi-dimensional data — http://arxiv.org/abs/1901.05511v3
+[95] Enhancing Robustness in Manipulability Assessment: The Pseudo-Ellipsoid Approach — http://arxiv.org/abs/2412.18869v2
+[96] Strong Singularity for Subfactors — http://arxiv.org/abs/math/0703673v3
+[97] Physics Briefing Book — http://arxiv.org/abs/1910.11775v2
+[98] Physics and Technology of the Next Linear Collider: A Report Submitted to Snowmass '96 — http://arxiv.org/abs/hep-ex/9605011v1
+[99] Amortising Trajectory Optimisation for Residual MPC via Implicit Contact Differentiation — http://arxiv.org/abs/2607.24959v1
+[100] Optimal design of frame structures with mixed categorical and continuous design variables using the Gumbel-Softmax method — http://arxiv.org/abs/2501.00258v1
+[101] On the solution existence and stability of polynomial optimization problems — http://arxiv.org/abs/1808.06100v6
 
 
 ---
 
-*Generated by research-bot · topic=`kinematics` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=36 · duration=296s · 2026-10-02T04:36:11+00:00*
+*Generated by research-bot · topic=`kinematics` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=101 · duration=590s · 2026-10-02T23:08:45+00:00*

@@ -1,174 +1,177 @@
-# 人工智能（基础模型）前沿调研报告：测试时计算与推理、RLVR 后训练、Agent 与工具使用、多模态、MoE 与长上下文
+# 大模型与基础模型前沿调研报告（2024–2026）
 
-**日期**：2026-10-02（UTC） | **领域**：AI 基础模型（Foundation Models / LLM） | **检索源数量**：可用引用编号 35 条（[1]–[35]），其中与本主题直接相关者约 13 条 | **证据等级基线**：本次全部可用来源均为 arXiv 预印本或论文集条目（B 级为主），**未获得任何 A 级同行评审期刊论文的直接全文证据**
+**日期**：2026-10-02（UTC） | **领域**：人工智能 / 基础模型（Foundation Models） | **子问题数**：6 | **可引用来源**：本次检索提供编号来源 [1]–[123]（共 123 条），其中与六个子问题直接相关者约 45 条，其余为无关或弱相关条目
+
+> **证据基础声明**：本报告严格只引用编号来源 [1]–[123] 中真实存在的条目。绝大多数条目为 arXiv 预印本或 Zenodo / SSRN / figshare / TechRxiv 预印本，**A 级（同行评审会议/期刊）证据在本批来源中占比极低**。本批抽取中仅少数条目提供了摘要原文（[1][2][3][4][5][6][9][26][29][72][74][101][103][104][105][106]），其余仅有标题与元数据，因此凡依据标题级信息得出的判断，正文均标注「标题级证据」并给出 `> 待核实`。**本报告最重要的结论之一是：结构化发现对「推理模型归因」「RLHF/DPO 能力边界」等核心问题的证据覆盖严重不足，不能据此下技术结论。**
 
 ---
 
 ## 摘要（Executive Summary）
 
-1. **最重要的结论是证据层面的，而非技术层面的**：本次候选证据池与研究主题存在**大面积错配**。在 35 条可用来源中，可直接支撑「测试时计算 / RLVR 后训练 / Agent 工具使用 / MoE / 多模态与长上下文效率」主题的仅约 13 条（[5][6][7][9][10][11][13][14][15][16][24][29][35]），其余 22 条分别属于计算机教育、凝聚态物理、图像超分挑战赛、情感强度分析、低资源语言研讨会等无关领域（[1][2][4][8][17][18][19][20][21][22][23][25][26][27][28][30][31][32][33][34]），其中 [17] 更是一篇**已撤回论文**（标题即 "This paper has been withdrawn"）。**热度证据（citations/stars）在全部候选块中均为空字段**，因此本报告中所有热度类论断一律标注 `> 待核实`，不编造任何数字。
-   - 热度：`> 待核实`（候选块无 citations/stars 字段）｜权威：候选块为 arXiv 元数据 [1]–[35]｜关注度：低（主题重叠率约 37%）｜推荐度：★5 —— 该判断决定了本报告必须以「缺口清单」为主要交付物之一。
+1. **证据覆盖度是本次调研的第一结论**。子问题 q1（推理与测试时计算）的候选 6 条中，仅 [101] 直接相关，其余为短视频参与度预测挑战赛 [7]、图像超分挑战赛 [10]、教育会议论文集 [85]、认知流干预 [23]、透明度指数 [9]；q2（后训练）的候选集中在经典 RL 探索 [1]、课程 RL [3]、真机 RL 平台 [2]，**没有任何一条直接讨论 RLHF 或 DPO 的方法、能力边界与失败模式**。因此下文对 RLHF/DPO 部分只做「证据缺口」陈述，不做技术结论。
 
-2. **可确认的前沿信号集中在四条线**：
-   - **测试时计算的焦点已从「算得多」转向「何时算、算多少」**：[29] 提出 Sleep-time Compute，把部分计算从测试时前移到空闲期；[35] 直接研究 Test-Time Compute 的「思考最优扩展」；[11] 把 RLVR 的训练信号调度纳入时间维度。
-   - **推理效率开始正面处理「过度思考（overthinking）」**：[15] 提出自适应推理抑制，[14] 通过正则化提示优化压缩推理 token 成本。
-   - **RLVR 概念外溢到非语言模型**：[10] 用强化学习训练世界模型（RLVR-World）。
-   - **推理服务栈从「引擎」升级为「控制平面」**：[5] 描述 vLLM → llm-d 的分布式控制化演进，[6] 给出 vLLM 与 HuggingFace TGI 的第三方性能对比，[7] 用 33,228 个 PR 的纵向数据刻画 vLLM/SGLang 的 agentic coding 协作模式。
+2. **测试时计算（test-time compute）方向在本次来源中信号最密集**：从推理期验证与重排（[97]）、反馈与编辑模型驱动的推理期扩展（[98][100]）、慢思考综述（[99]）、流模型推理期扩展（[94]）、sleep-time compute（[86]）、世界模型测试时扩展（[84]）到对「检测-验证」式推理期缩放的在线蒸馏分析（[87]），形成一条可继续深挖的引用链。同时存在明确的**反向争议证据**：标题为《When Deliberation Hurts: Inverse Test-Time Scaling, Unfaithful Traces…》的系列工作 [88][89][90] 与《Does More Inference-Time Compute Really Help Robustness?》[102]（均为标题级证据，`> 待核实`）。
 
-3. **必须明确标注为证据缺口的领域**：**MoE 架构与路由、MoE 扩展律、多模态基础模型能力、长上下文「有效长度」、社区关心的主流基准（MMLU/MMLU-Pro、GPQA、AIME、SWE-bench、ARC-AGI、τ-bench、AgentBench、LIBERO、SimplerEnv）在本次证据池中均无一手评测证据**。本报告第五节与第四节相应部分以「待核实 + 补检索建议」形式呈现，不做任何结论性陈述。`> 待核实`
+3. **推理模型训练的工程瓶颈已被显式提出**：Nemotron-Cascade [101] 指出 RL 构建通用推理模型面临显著的跨域异质性，表现为推理期响应长度与验证时延的大幅波动，进而拖慢训练、使响应长度课程与超参选择困难（摘要原文，citations=44）。
+
+4. **RLVR 的能力边界存在双向证据**：正方是 RLVR-World [4]，把可验证奖励用于直接优化世界模型的转移预测指标，跨文本游戏、网页导航与机器人操作验证；反方是标题为《Why the Gain of Reinforcement Learning with Verifiable Rewards Does Not Decompose: A Pre-Registered Intervention Study》的预注册干预研究 [24]（仅标题级，`> 待核实`）。
+
+5. **Agent 与工具使用**已从「能不能用工具」转向「用哪个权限的工具」「评测是否可信」：过度权限工具选择 [26]、工具检索基准 [25]、小模型工具学习弱 [27]、Agent 基准论文披露审计 [29]、计划级安全分解攻击 [33][35]、MCP 安全代理基准 [36][37]、仓库级代码 Agent 评测框架 [40][41]、SWE-bench 在线化 [42]。
+
+6. **MoE 与扩展律**的现实关切从「稀疏激活带来什么收益」转向「部署负担与收益归因」：视觉 MoE 的专家坍缩与骨干算力杠杆 [72]、MoE 部署的专家剪枝 [74]、专家缓存与 token 调度 [66]、专家剪枝与跳过 [67]、MoE upcycling 扩展律 [82]、Chinchilla compute-optimal 的稳健性评估 [83]。
+
+7. **长上下文与推理效率**在本次来源中集中在注意力稀疏化与 KV 压缩：Gated Sparse Attention [110]、百万 token 下注意力汇（attention sinks）是否真被修复 [113]、Memory-Keyed Attention [115]、长上下文扩散 LLM 加速 [117]、多 Agent 共享 KV 池压缩 [122]、分层量化 KV 的自投机解码 [123]。
+
+8. **争议主线**：透明度下降（2025 Foundation Model Transparency Index 平均分 58→40）[9]、评测污染检测 [62]、Agent 基准自身披露不足导致同模型同基准结果矛盾 [29]、「推理期算力是否真的提升鲁棒性」[102] 与「深思反而有害」[88]。
 
 ---
 
 ## 一、关键前沿进展（近 1–2 年）
 
-> 判定口径：以来源的 arXiv 提交/修订时间戳为准（一手元数据），而非模型训练知识。时间窗取 2024-10 至 2026-10（当前日期 2026-10-02），并对 2024 年上半年的条目单列「过渡期节点」。
+> 本节按主题聚类，每条给出**名称 | 时间 | 贡献一句话 | 证据强度**。凡仅有标题级证据者标注 `> 待核实`。
 
-### 1.1 时间线（按证据强度分层）
+### 1.1 推理与测试时计算
 
-| 时间 | 节点 | 一句话贡献 | 证据强度 | 来源 |
-|---|---|---|---|---|
-| 2024-01 | Beyond Chinchilla-Optimal | 在缩放律中显式计入**推理成本**，挑战纯训练算力最优口径 | 标题级（B） | [24] |
-| 2024-05 | OpenRLHF | 面向 RLHF 的易用/可扩展/高性能训练框架（v6 持续更新） | 标题级（B） | [9] |
-| 2025-03 | LongEval @ CLEF 2025 | 面向 IR 模型的**纵向**性能评测方法学 | 标题级（B） | [12] |
-| 2025-04 | Sleep-time Compute | 在测试时推理扩展之外，新增「睡眠时间预计算」维度 | 标题级（B） | [29] |
-| 2025-05 | RLVR-World | 将 RLVR 范式用于**世界模型**训练 | 标题级（B） | [10] |
-| 2025-10 | ARS | 自适应抑制推理冗余，直面 overthinking 与效率权衡 | 摘要级（B） | [15] |
-| 2025-11 | vLLM vs TGI | 推理服务系统的第三方对比性能研究 | 标题级（B/C） | [6] |
-| 2025-12 | 2025 Foundation Model Transparency Index | 年度透明度指数第三版 | 摘要级（B） | [3] |
-| 2026-04 | CROP | 用正则化提示优化降低推理 token 成本 | 摘要级（B） | [14] |
-| 2026-05 | RLVR Temporal Scheduling | RLVR 训练中的**时序调度**（"not only where, but when"） | 标题级（B） | [11] |
-| 2026-08 | Agentic Coding 纵向分析 | 33,228 个 vLLM/SGLang PR 的人机协作实证 | 标题级（B） | [7] |
-| 2026-09 | Inference Control Plane | 推理从引擎局部优化转向分布式控制问题 | 摘要级（B） | [5] |
-| 时间待核实 | Thinking-Optimal Scaling of TTC | 测试时计算的思考最优扩展 | 标题级（会议论文集条目） | [35] |
+| 名称 | 时间 | 一句话贡献 | 证据强度 |
+|---|---|---|---|
+| Nemotron-Cascade [101] | 2025-12（arXiv:2512.13607） | 用级联强化学习构建通用推理模型，显式指出推理期响应长度与验证时延的跨域异质性会拖慢训练 | 摘要级（B 级预印本），citations=44 |
+| Slow Thinking-based Reasoning LLMs 综述 [99] | 2025（arXiv:2505.02665） | 以 RL + 推理期扩展律组织「慢思考」推理 LLM 的综述 | 标题级，`> 待核实` |
+| Solve-Detect-Verify [97] | 2025（arXiv:2505.11966） | 用灵活的生成式验证器做推理期扩展（求解-检测-验证） | 标题级，`> 待核实` |
+| HelpSteer3 [98] / Dedicated Feedback and Edit Models [100] | 2025（arXiv:2503.04378，同工作的 DOI 版本） | 人类标注反馈与编辑数据，用于开放式通用任务的推理期扩展 | 标题级，`> 待核实` |
+| Sleep-time Compute [86] | 2025（arXiv:2504.13171） | 把部分算力从推理期前移到「休眠期」预计算，超出单纯 test-time 扩展 | 标题级，`> 待核实` |
+| Can Test-Time Scaling Improve World Foundation Model? [84] | 2025（arXiv:2503.24320） | 把测试时扩展问题搬到世界基础模型上 | 标题级，`> 待核实` |
+| Inference-Time Scaling for Flow Models [94] | 2025（arXiv:2503.19385） | 用随机生成与 rollover 预算强制为流模型做推理期扩展 | 标题级，`> 待核实` |
+| On-Policy Distillation through the Lens of Test-Time Scaling [87] | 2026（arXiv:2608.11829，按 ID 前缀推断，`> 待核实`） | 从测试时扩展视角理解在线策略蒸馏 | 标题级，`> 待核实` |
 
-- 热度：`> 待核实`（全部候选块 citations 字段为空）｜权威：多为 arXiv 预印本（cs.AI/cs.CL/cs.CV），[35] 为 DOI 指向的会议论文集条目，未见同行评审标注｜关注度：中 —— 依据为「测试时计算」与「vLLM 生态」是当前社区高频讨论主题（[5][7][29][35] 集中出现）｜推荐度：★★★ —— 时间线可用于定位检索方向，但单条证据强度均不足以支撑 SOTA 结论。
-
-### 1.2 被明确排除的「伪相关」信号
-
-- **[2] NTIRE 2025 图像超分挑战赛**、**[8] ACM MM 2025 事件增强图像分析挑战赛**：属计算机视觉竞赛结果，**不构成基础模型多模态能力证据**。`> 待核实`
-- **[4] VLSP 2025 越南语多模态法律问答**：属领域应用 shared task，覆盖面窄，不能外推为多模态基础模型进展。
-- **[16] "All You Need" is Not All You Need**：属科学计量学（cs.CY），其对 Transformer 的意义仅在于**量化命名范式的传播**（分析 2009–2025 年 717 篇含 "All You Need" 的 arXiv 预印本，报告指数增长趋势；具体拟合系数被摘要截断，`> 待核实`），可作为 Transformer 影响力的**间接**证据，但**不能作为技术进展证据**。
-
----
-
-## 二、推理与测试时计算
-
-### 2.1 已获证据支持的三条子线索
-
-**（1）测试时计算的时间维度被打开：从「测试时」到「睡眠时」。**
-[29] 的标题即指出研究边界为 "Beyond Inference Scaling at Test-time"，提出 Sleep-time Compute 概念。
-- 热度：`> 待核实`｜权威：arXiv 预印本 [29]，未见 venue 标注｜关注度：中 —— 依据为「测试时计算扩展」是该窗口内的显性热点（[29][35] 同期出现）｜推荐度：★★★★ —— 直接命中本报告第二节主题，是当前证据池中最贴题的一条。
-
-**（2）测试时计算的「最优思考量」问题被形式化。**
-[35] 直接以 "Towards Thinking-Optimal Scaling of Test-Time Compute for LLM Reasoning" 为题，指向「推理链长度/采样量并非越多越好」这一命题。
-- 热度：`> 待核实`（DOI 条目，无引用数）｜权威：`> 待核实`（条目形态为会议论文集，具体 venue 与评审状态未在证据中给出）｜关注度：中 —— 与 [15] 的 overthinking 问题构成同一议题的两面｜推荐度：★★★ —— 主题高度相关，但权威性未能确认。
-
-**（3）推理冗余（overthinking）被作为一等工程问题处理。**
-[15]（ARS）明确指出大型推理模型（LRLMs/LRMs）"因过度思考而存在显著计算低效"，现有高效推理方法需在推理质量与推理开销之间取得平衡；该文提出自适应推理抑制（Adaptive Reasoning Suppression）。
-[14]（CROP）从提示优化角度指出：现有自动提示优化（APO）框架"以牺牲长推理链的生成为代价、只追求任务精度"，导致延迟与 token 成本上升；该文用正则化提示优化实现 token 高效推理。
-- 热度：`> 待核实`｜权威：均为 arXiv 预印本（[15] cs.AI，[14] cs.CL），无同行评审标注｜关注度：中 —— overthinking 已成为效率方向的共识性问题（[14][15] 独立提出）｜推荐度：★★★★ —— 两篇构成「抑制推理」与「优化提示」的互补视角，是推理效率章节的一手素材。
-
-### 2.2 测试时计算「扩展律」本身：证据不足
-
-[24] 从**缩放律**角度提出应把推理成本计入语言模型缩放律（"Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws"）。这为「推理期算力分配是否应改变训练期最优配比」提供了理论入口，但**本次证据池中没有任何一条给出测试时计算扩展律的经验曲线（如 accuracy vs. 采样数/搜索预算的拟合结论）**。`> 待核实`
-- 热度：`> 待核实`｜权威：arXiv 预印本（v3）[24]，属缩放律方向的直接续作｜关注度：中｜推荐度：★★★★ —— 是把「测试时计算」与「扩展律」两节打通的关键引用，但需补检索其同行评审版本与后续引用文献。
-
-### 2.3 检索缺口（本节必须补检）
-
-1. 缺**采样/搜索策略对比**（best-of-n、self-consistency、tree search、verifier-guided）的一手口径。
-2. 缺**推理算力口径**（生成 token 数、pass@k 预算、单题 FLOPs）的可比数据。
-3. 缺 [29][35] 的**全文精读**（本轮仅获得标题级/条目级证据）。`> 待核实`
-
----
-
-## 三、后训练：RLHF / RLVR / 偏好优化
-
-### 3.1 框架层：OpenRLHF
-
-[9]（OpenRLHF，v6）提供了本方向最明确的工程栈证据：定位为"easy-to-use, scalable and high-performance RLHF framework"。
-- 热度：`> 待核实`（候选块未提供 stars/citations；GitHub 数据本轮未采集）｜权威：arXiv 预印本 [9]，属框架类论文，通常非同行评审主线｜关注度：中高 —— 依据为 RLHF 框架是社区实际训练入口，且在本次证据池中以 v6 形式持续更新，表明项目仍在维护｜推荐度：★★★★ —— 后训练工程栈章节的必要引用，但**可复现性、许可协议、star 数均需另行核查**。`> 待核实`
-
-### 3.2 算法与范式层：RLVR 的两条非典型证据
-
-**（1）RLVR 越出语言模型边界：RLVR-World。**
-[10] 标题为 "RLVR-World: Training World Models with Reinforcement Learning"，把「可验证奖励」的强化学习思路用于**世界模型**训练，而非文本推理。
-- 热度：`> 待核实`｜权威：arXiv 预印本（v2）[10]｜关注度：中 —— 作为 RLVR 概念外溢的信号具有前瞻指示性｜推荐度：★★★★ —— 若研究目标是 RLVR 的方法论边界，这是本次证据池中信息量最高的一条。
-
-**（2）RLVR 的训练调度问题被显式提出。**
-[11] 标题 "Not only where, But when: Temporal Scheduling for RLVR" 表明：RLVR 的研究重点从「奖励在哪里施加（where）」扩展到「**何时**施加（when）」。
-- 热度：`> 待核实`｜权威：arXiv 预印本 [11]｜关注度：中 —— 属于 RLVR 训练的细化方向，非主流综述常见条目｜推荐度：★★★★ —— 直接命中本报告标题中的 RLVR 后训练主题。
-
-### 3.3 对齐作为推理增强的早期线索（过渡期节点）
-
-[13]（2023）提出 "Making Large Language Models Better Reasoners with Alignment"，摘要指出近期研究显示在含 Chain-of-Thought（CoT）数据上微调 LLM 可提升推理能力，该文从对齐角度切入。
-- 热度：`> 待核实`｜权威：arXiv 预印本（cs.CL）[13]，2023 年，时效性偏旧｜关注度：低（时间上已属前 RLVR 时代）｜推荐度：★★★ —— 可作为「对齐 → 推理增强」脉络的早期节点，但不能代表 2024–2026 的 RLVR 进展。
-
-### 3.4 本节关键缺口
-
-- **没有任何一条证据覆盖 GRPO / DPO / 偏好优化的算法变体、训练数据规模、对照 baseline 或训练算力口径。** [9][10][11][13] 仅提供框架、范式外溢与调度视角。`> 待核实`
-- **「RLVR 是否真正提升推理能力，还是蒸馏/采样放大的伪提升」这一核心争议，在本次证据池中完全无支撑。** `> 待核实`
-- 需要补检的关键词：`GRPO`、`RLVR verification reward`、`pass@k distillation`、`DeepSeek-R1`、`Kimi k1.5`、`Tulu 3`。`> 待核实`
-
----
-
-## 四、Agent、工具使用与评测
-
-### 4.1 已获证据：Agent 协作的真实工程信号（而非 benchmark 分数）
-
-[7] 提供了本节唯一的高信息量证据：对 **vLLM 与 SGLang 两个推理引擎仓库的 33,228 个 Pull Request** 进行纵向分析，主题为 "Engineering Signals of Human-AI Collaboration in the Agentic Coding Era"，并讨论其对生物医学 AI Agent 与生信流水线开发的启示。
-- 热度：`> 待核实`（无 stars/citations 字段）｜权威：arXiv 预印本（2026-08），属实证软件工程 + AI 交叉研究，未见 venue 标注｜关注度：中 —— 依据为样本量（33,228 PR）与研究对象（两个高活跃推理引擎仓库）本身构成社区关注度的代理信号，但**本轮无榜单或新闻热度数据**｜推荐度：★★★★ —— 是本次证据池中**唯一**以大规模实证数据刻画「Agent 参与真实工程」的条目，价值在于提供**可复现的量化研究设计**，而非 Agent 能力排名。
-
-> 方法论提醒：该文的贡献是「Agent 在开源工程中的协作模式」，**不能**被引用为 Agent 在 SWE-bench / AgentBench / τ-bench 上的性能证据。两者口径完全不同。
-
-### 4.2 工具协议与 Agent 框架：本轮无证据
-
-- **MCP（Model Context Protocol）**、function calling 协议、多步工具链编排、Agent 记忆与规划框架：本次证据池**零覆盖**。`> 待核实`
-- 种子资源中未提供 MCP 或 Agent 框架条目，因此**不列入任何表格**，避免编造链接。
-
-### 4.3 基准体系的证据现状
-
-社区常引用的 Agent 相关基准（SWE-bench、τ-bench、AgentBench、ARC-AGI）在本次证据池中**无任何一手评测结果**。可用信息仅来自种子资源提供的 SWE-bench 仓库链接（标注为「代码/Agent 评测」），该信息**未经过本次检索验证**，已在下节表格中标注来源性质。
-- 热度：`> 待核实`｜权威：种子资源标注，非本次检索所得｜关注度：
+### 1.2 后训练与
 
 ## 参考来源
 
-[1] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
-[2] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
-[3] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
-[4] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1
-[5] From Inference Engine to Inference Control Plane: Connecting vLLM, llm-d, and the Evolution of Efficient Distributed LLM Serving — http://arxiv.org/abs/2609.23130v1
-[6] Comparative Analysis of Large Language Model Inference Serving Systems: A Performance Study of vLLM and HuggingFace TGI — http://arxiv.org/abs/2511.17593v1
-[7] Engineering Signals of Human-AI Collaboration in the Agentic Coding Era: A Longitudinal Analysis of 33,228 Pull Requests from vLLM and SGLang with Implications for Biomedical AI Agents and Bioinformatics Pipeline Developmen — http://arxiv.org/abs/2608.13884v1
-[8] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1
-[9] OpenRLHF: An Easy-to-use, Scalable and High-performance RLHF Framework — http://arxiv.org/abs/2405.11143v6
-[10] RLVR-World: Training World Models with Reinforcement Learning — http://arxiv.org/abs/2505.13934v2
-[11] Not only where, But when: Temporal Scheduling for RLVR — http://arxiv.org/abs/2605.25381v1
-[12] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1
-[13] Making Large Language Models Better Reasoners with Alignment — http://arxiv.org/abs/2309.02144v1
-[14] CROP: Token-Efficient Reasoning in Large Language Models via Regularized Prompt Optimization — http://arxiv.org/abs/2604.14214v1
-[15] ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models — http://arxiv.org/abs/2510.00071v2
-[16] "All You Need" is Not All You Need for a Paper Title: On the Origins of a Scientific Meme — http://arxiv.org/abs/2512.19700v1
-[17] This paper has been withdrawn — http://arxiv.org/abs/cond-mat/0309395v2
-[18] The 4th Reactive Synthesis Competition (SYNTCOMP 2017): Benchmarks, Participants & Results — http://arxiv.org/abs/1711.11439v1
-[19] EmoAtt at EmoInt-2017: Inner attention sentence embedding for Emotion Intensity — http://arxiv.org/abs/1708.05521v1
-[20] Ghosts of Jupiter's past: is 2017 UV43 a relative of comet Shoemaker-Levy 9? — http://arxiv.org/abs/1712.03230v2
-[21] Erratum to "The Homogeneous Coordinate Ring of a Toric Variety", along with the original paper — http://arxiv.org/abs/alg-geom/9210008v3
-[22] Pre-proceedings of the 27th International Symposium on Logic-Based Program Synthesis and Transformation (LOPSTR 2017) — http://arxiv.org/abs/1708.07854v2
-[23] ConceptNet at SemEval-2017 Task 2: Extending Word Embeddings with Multilingual Relational Knowledge — http://arxiv.org/abs/1704.03560v2
-[24] Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws — http://arxiv.org/abs/2401.00448v3
-[25] Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support — http://arxiv.org/abs/2504.16021v1
-[26] ACM COMPUTE 2025 Best Practices Track Proceedings — http://arxiv.org/abs/2512.02349v2
-[27] Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task — http://arxiv.org/abs/2510.22631v1
-[28] AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3
-[29] Sleep-time Compute: Beyond Inference Scaling at Test-time — http://arxiv.org/abs/2504.13171v1
-[30] Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025) — http://arxiv.org/abs/2412.16365v1
-[31] Soft Inductive Bias Approach via Explicit Reasoning Perspectives in Inappropriate Utterance Detection Using Large Language Models — http://arxiv.org/abs/2512.08480v1
-[32] Instituto de Telecomunicações at IWSLT 2025: Aligning Small-Scale Speech and Language Models for Speech-to-Text Learning — http://arxiv.org/abs/2506.17019v1
-[33] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1
-[34] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1
-[35] Towards Thinking-Optimal Scaling of Test-Time Compute for LLM Reasoning — https://doi.org/10.52202/085713-1452
+[1] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1
+[2] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1
+[3] Causal-Paced Deep Reinforcement Learning — http://arxiv.org/abs/2507.02910v1
+[4] RLVR-World: Training World Models with Reinforcement Learning — http://arxiv.org/abs/2505.13934v2
+[5] Reinforcement Learning Meets Large Language Models: A Survey of Advancements and Applications Across the LLM Lifecycle — http://arxiv.org/abs/2509.16679v1
+[6] Reward Models in Deep Reinforcement Learning: A Survey — http://arxiv.org/abs/2506.15421v1
+[7] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
+[8] A Tutorial on Meta-Reinforcement Learning — http://arxiv.org/abs/2301.08028v4
+[9] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
+[10] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
+[11] AI Alignment and Safety of Large Language Models: A Survey of RLHF, Constitutional AI, Red-Teaming, and Value Learning — https://doi.org/10.5281/zenodo.21366084
+[12] Semi-supervised reward learning for offline reinforcement learning — http://arxiv.org/abs/2012.06899v1
+[13] AI Alignment and Safety of Large Language Models: A Survey of RLHF, Constitutional AI, Red-Teaming, and Value Learning — https://doi.org/10.5281/zenodo.21366085
+[14] Post-Training of Large Language Models: A Comprehensive Survey — https://doi.org/10.2139/ssrn.5979157
+[15] Does a Model Forget Differently When the Data Is Its Own? RL's Retention Advantage and Model Collapse Are Claims About the Same Loop, and No Study Has Measured Both — https://doi.org/10.5281/zenodo.22945776
+[16] Does a Model Forget Differently When the Data Is Its Own? RL's Retention Advantage and Model Collapse Are Claims About the Same Loop, and No Study Has Measured Both — https://doi.org/10.5281/zenodo.22945775
+[17] Molecular Pinball: A Deterministic Chemistry Environment for Benchmarking Reinforcement Learning with Verifiable Rewards — https://doi.org/10.26434/chemrxiv.15001669/v1
+[18] MC-R1: Mitigating Hallucinations via Reinforcement Learning with String-Match-Based Verifiable Rewards under Modality Conflicts_supp1-3726309.pdf — https://doi.org/10.1109/tmm.2026.3726309/mm1
+[19] Specializing Large Language Models for Process Modeling via Reinforcement Learning with Verifiable and Universal Rewards — https://doi.org/10.36227/techrxiv.175977593.34948838/v1
+[20] Group Distributionally Robust Optimization-Driven Reinforcement Learning for LLM Reasoning — http://arxiv.org/abs/2601.19280v1
+[21] Strategic Bargaining in Multi-Buyer Markets: Reinforcement Learning from Verifiable Rewards for LLM Negotiations — https://doi.org/10.2139/ssrn.7069958
+[22] Specializing Large Language Models for Process Modeling via Reinforcement Learning with Verifiable and Universal Rewards — https://doi.org/10.21203/rs.3.rs-7646566/v1
+[23] Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support — http://arxiv.org/abs/2504.16021v1
+[24] Why the Gain of Reinforcement Learning with Verifiable Rewards Does Not Decompose: A Pre-Registered Intervention Study — https://doi.org/10.2139/ssrn.7346356
+[25] Retrieval Models Aren't Tool-Savvy: Benchmarking Tool Retrieval for Large Language Models — http://arxiv.org/abs/2503.01763v2
+[26] When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents — http://arxiv.org/abs/2606.20023v2
+[27] Small LLMs Are Weak Tool Learners: A Multi-LLM Agent — http://arxiv.org/abs/2401.07324v3
+[28] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4
+[29] What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema — http://arxiv.org/abs/2605.21404v1
+[30] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1
+[31] AIRCC-Clim: a user-friendly tool for generating regional probabilistic climate change scenarios and risk measures — http://arxiv.org/abs/2111.01762v1
+[32] SBFT Tool Competition 2025 -- Java Test Case Generation Track — http://arxiv.org/abs/2504.09168v1
+[33] Checked at Every Step Is Not Checked as a Whole: Two Senses of Plan-Level Safety for LLM Agents, and Why Decomposition Attacks Exploit the Gap Between Them — https://doi.org/10.5281/zenodo.22961078
+[34] Efficient Benchmarking in Production: A Study of an Evolving LLM Agent — http://arxiv.org/abs/2609.21267v1
+[35] Checked at Every Step Is Not Checked as a Whole: Two Senses of Plan-Level Safety for LLM Agents, and Why Decomposition Attacks Exploit the Gap Between Them — https://doi.org/10.5281/zenodo.22961077
+[36] Measuring the Defenders: A Layer-Aware, Framework-Mapped Benchmark for Model Context Protocol Security Proxies — https://doi.org/10.6084/m9.figshare.32978657
+[37] Measuring the Defenders: A Layer-Aware, Framework-Mapped Benchmark for Model Context Protocol Security Proxies — https://doi.org/10.6084/m9.figshare.32978657.v4
+[38] MENTOR: Fixing Introductory Programming Assignments With Formula-Based Fault Localization and LLM-Driven Program Repair — https://doi.org/10.5281/zenodo.15678691
+[39] MENTOR: Fixing Introductory Programming Assignments With Formula-Based Fault Localization and LLM-Driven Program Repair — https://doi.org/10.5281/zenodo.15678692
+[40] Dissecting Repository-Scale Code-Agent Harnesses: Retrieval, Context, and Action Interfaces Under Model-in-the-Loop Evaluation — https://doi.org/10.5281/zenodo.21781710
+[41] Dissecting Repository-Scale Code-Agent Harnesses: Retrieval, Context, and Action Interfaces Under Model-in-the-Loop Evaluation — https://doi.org/10.5281/zenodo.21781711
+[42] SWE-bench Goes Live! — http://arxiv.org/abs/2505.23419v2
+[43] The Gaia mission — http://arxiv.org/abs/1609.04153v1
+[44] Gaia Data Release 3: The Galaxy in your preferred colours. Synthetic photometry from Gaia low-resolution spectra — http://arxiv.org/abs/2206.06215v2
+[45] Gaia Data Release 1. Summary of the astrometric, photometric, and survey properties — http://arxiv.org/abs/1609.04172v1
+[46] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1
+[47] A Simulation and Modeling of Access Points with Definition Language — http://arxiv.org/abs/1304.1836v2
+[48] Superconductivity as a consequence of an ordering of the electron gas zero-point oscillations — http://arxiv.org/abs/1005.0280v6
+[49] Image Segmentation in Foundation Model Era: A Survey — http://arxiv.org/abs/2408.12957v3
+[50] Vision Mamba: A Comprehensive Survey and Taxonomy — http://arxiv.org/abs/2405.04404v1
+[51] AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3
+[52] AI ethics in creative domains: a systematic review of detection, recognition, interpretation, generation, and moral implications in the arts (2000–2025) — https://doi.org/10.1007/s43681-026-01044-z
+[53] Replication materials for the paper "Engineering LLM-Based Multi-Agent Systems: A Taxonomy of Emerging Frameworks" — https://doi.org/10.5281/zenodo.19919086
+[54] Replication materials for the paper "Engineering LLM-Based Multi-Agent Systems: A Taxonomy of Emerging Frameworks" — https://doi.org/10.5281/zenodo.19919085
+[55] Securing IoT Infrastructures Using Honeypot-Based Intrusion Detection (IDS) and AES-256 Encryption: A Comprehensive Survey — https://doi.org/10.5281/zenodo.18470435
+[56] Securing IoT Infrastructures Using Honeypot-Based Intrusion Detection (IDS) and AES-256 Encryption: A Comprehensive Survey — https://doi.org/10.5281/zenodo.18470436
+[57] PREreview of "Perceptions, Preparedness, and Challenges of Artificial Intelligence Integration in Government Healthcare Institutions in Al Buraimi Governorate, Oman: A Cross‑Sectional Study" — https://doi.org/10.5281/zenodo.22986284
+[58] PREreview of "Perceptions, Preparedness, and Challenges of Artificial Intelligence Integration in Government Healthcare Institutions in Al Buraimi Governorate, Oman: A Cross‑Sectional Study" — https://doi.org/10.5281/zenodo.22986283
+[59] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators — http://arxiv.org/abs/2507.12143v1
+[60] Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs — http://arxiv.org/abs/2504.19675v2
+[61] CEA-LIST at CheckThat! 2025: Evaluating LLMs as Detectors of Bias and Opinion in Text — http://arxiv.org/abs/2507.07539v1
+[62] RADAR: Mechanistic Pathways for Detecting Data Contamination in LLM Evaluation — http://arxiv.org/abs/2510.08931v1
+[63] Model sensitivity analysis on arxiv — https://doi.org/10.5194/gmd-2018-33-ac4
+[64] Analysis of Architecture Options for Foundation-model-based Agents: A Taxonomy and Decision Model — https://doi.org/10.2139/ssrn.5845432
+[65] Monocular Depth Estimation in the Foundation Model Era: A Survey — https://doi.org/10.36227/techrxiv.176287942.28438576/v1
+[66] ExpertFlow: Efficient Mixture-of-Experts Inference via Predictive Expert Caching and Token Scheduling — http://arxiv.org/abs/2410.17954v2
+[67] Not All Experts are Equal: Efficient Expert Pruning and Skipping for Mixture-of-Experts Large Language Models — http://arxiv.org/abs/2402.14800v2
+[68] GraphMETRO: Mitigating Complex Graph Distribution Shifts via Mixture of Aligned Experts — http://arxiv.org/abs/2312.04693v3
+[69] Mixtures of Experts Models — http://arxiv.org/abs/1806.08200v1
+[70] Convergence Rates for Softmax Gating Mixture of Experts — http://arxiv.org/abs/2503.03213v1
+[71] A scaling law chaotic system — http://arxiv.org/abs/2111.09816v1
+[72] When Does Sparse MoE Help in Vision? The Role of Backbone Compute Leverage in Sparse Routing — http://arxiv.org/abs/2605.15484v1
+[73] AIM 2025 Rip Current Segmentation (RipSeg) Challenge Report — http://arxiv.org/abs/2508.13401v3
+[74] FlexMoE: One-for-All Nested Intra-Expert Pruning for MoE Language Models — http://arxiv.org/abs/2606.27866v1
+[75] Inaugural MOASEI Competition at AAMAS'2025: A Technical Report — http://arxiv.org/abs/2507.05469v1
+[76] Quantitative Analysis of Performance Drop in DeepSeek Model Quantization — http://arxiv.org/abs/2505.02390v2
+[77] Qwen3-ASR Technical Report — http://arxiv.org/abs/2601.21337v2
+[78] Qwen3-TTS Technical Report — http://arxiv.org/abs/2601.15621v1
+[79] Qwen3-Omni Technical Report — http://arxiv.org/abs/2509.17765v1
+[80] DeepSeq: High-Throughput Single-Cell RNA Sequencing Data Labeling via Web Search-Augmented Agentic Generative AI Foundation Models — http://arxiv.org/abs/2506.13817v1
+[81] Robust Tabular Foundation Models — http://arxiv.org/abs/2512.03307v1
+[82] Scaling Laws for Upcycling Mixture-of-Experts Language Models — http://arxiv.org/abs/2502.03009v2
+[83] Evaluating the Robustness of Chinchilla Compute-Optimal Scaling — https://arxiv.org/abs/2509.23963
+[84] Can Test-Time Scaling Improve World Foundation Model? — https://arxiv.org/abs/2503.24320
+[85] ACM COMPUTE 2025 Best Practices Track Proceedings — http://arxiv.org/abs/2512.02349v2
+[86] Sleep-time Compute: Beyond Inference Scaling at Test-time — http://arxiv.org/abs/2504.13171v1
+[87] Towards Understanding On-Policy Distillation through the Lens of Test-Time Scaling — http://arxiv.org/abs/2608.11829v3
+[88] When Deliberation Hurts: Inverse Test-Time Scaling, Unfaithful Traces, and the Case Against a Unified System-2 in LLM Reasoning — https://doi.org/10.5281/zenodo.22904980
+[89] When Deliberation Hurts: Inverse Test-Time Scaling, Unfaithful Traces, and the Case Against a Unified System-2 in LLM Reasoning — https://doi.org/10.5281/zenodo.23022324
+[90] When Deliberation Hurts: Inverse Test-Time Scaling, Unfaithful Traces, and the Case Against a Unified System-2 in LLM Reasoning — https://doi.org/10.5281/zenodo.22904981
+[91] Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task — http://arxiv.org/abs/2510.22631v1
+[92] RMIT-ADM+S at the MMU-RAG NeurIPS 2025 Competition — http://arxiv.org/abs/2602.20735v1
+[93] NightFeats @ MMU-RAGent NeurIPS 2025: A Context-Optimized Multi-Agent RAG System for the Text-to-Text Track — http://arxiv.org/abs/2606.11199v1
+[94] Inference-Time Scaling for Flow Models via Stochastic Generation and Rollover Budget Forcing — http://arxiv.org/abs/2503.19385v5
+[95] NeurIPS should lead scientific consensus on AI policy — http://arxiv.org/abs/2510.00075v1
+[96] MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook — http://arxiv.org/abs/2509.14142v1
+[97] Solve-Detect-Verify: Inference-Time Scaling with Flexible Generative Verifier — https://arxiv.org/abs/2505.11966
+[98] HelpSteer3: Human-Annotated Feedback and Edit Data to Empower Inference-Time Scaling in Open-Ended General-Domain Tasks — https://arxiv.org/abs/2503.04378
+[99] A Survey of Slow Thinking-based Reasoning LLMs using Reinforced Learning and Inference-time Scaling Law — https://arxiv.org/abs/2505.02665
+[100] Dedicated Feedback and Edit Models Empower Inference-Time Scaling for Open-Ended General-Domain Tasks — https://doi.org/10.48550/arXiv.2503.04378
+[101] Nemotron-Cascade: Scaling Cascaded Reinforcement Learning for General-Purpose Reasoning Models — https://arxiv.org/abs/2512.13607
+[102] Does More Inference-Time Compute Really Help Robustness? — https://arxiv.org/abs/2507.15974
+[103] Evaluating Open-Source Vision-Language Models for Multimodal Sarcasm Detection — http://arxiv.org/abs/2510.11852v1
+[104] Hierarchical Pre-Training of Vision Encoders with Large Language Model — http://arxiv.org/abs/2604.00086v2
+[105] 1$^{st}$ Place Solution of WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge — http://arxiv.org/abs/2505.03543v1
+[106] Multilingual and Multimodal LLMs in the Wild: Building for Low-Resource Languages — http://arxiv.org/abs/2605.17152v1
+[107] Vision-Language Model for Object Detection and Segmentation: A Review and Evaluation — http://arxiv.org/abs/2504.09480v1
+[108] Application of transformer models in medical image segmentation: a narrative review — https://doi.org/10.21037/qims-2025-aw-2381
+[109] TinyGiantVLM: A Lightweight Vision-Language Architecture for Spatial Reasoning under Resource Constraints — http://arxiv.org/abs/2508.17595v1
+[110] Gated Sparse Attention: Combining Computational Efficiency with Training Stability for Long-Context Language Models — http://arxiv.org/abs/2601.15305v1
+[111] Oral MLLM Scoping Review Protocol: Multimodal Large Language Models in Stomatology — https://doi.org/10.17605/osf.io/rx8sm
+[112] Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025 — http://arxiv.org/abs/2506.02550v2
+[113] Do New Attention Mechanisms Actually Fix Attention Sinks at Million-Token Context? — http://arxiv.org/abs/2609.08574v2
+[114] Self-Evolving Autonomous Software Architectures Using Large-Scale Graph Neural Networks and Real-Time Big Data Feedback Loops for Economic Optimization and Cost-Efficient Resource Allocation — https://doi.org/10.63544/jbii.v5i5.188
+[115] MKA: Memory-Keyed Attention for Efficient Long-Context Reasoning — http://arxiv.org/abs/2603.20586v2
+[116] Bridging LLMs and Symbolic Reasoning in Educational QA Systems: Insights from the XAI Challenge at IJCNN 2025 — http://arxiv.org/abs/2508.01263v1
+[117] Focus-dLLM: Accelerating Long-Context Diffusion LLM Inference via Confidence-Guided Context Focusing — http://arxiv.org/abs/2602.02159v1
+[118] SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection — http://arxiv.org/abs/2509.19861v1
+[119] Predicting How Transformers Attend Analytic Power-Law Theory, Phase Transitions, and Practical Compression Tools — https://doi.org/10.5281/zenodo.20314038
+[120] A systematic review of transformer-enhanced UNet architectures for 3D medical image segmentation: Trends, challenges, and the ATD-TᵣEEv framework — https://doi.org/10.1016/j.compbiolchem.2026.109084
+[121] Predicting How Transformers Attend Analytic Power-Law Theory, Phase Transitions, and Practical Compression Tools — https://doi.org/10.5281/zenodo.19826342
+[122] PolyKV: A Shared Asymmetrically-Compressed KV Cache Pool for Multi-Agent LLM Inference — http://arxiv.org/abs/2604.24971v1
+[123] QuantSpec: Self-Speculative Decoding with Hierarchical Quantized KV Cache — http://arxiv.org/abs/2502.10424v1
 
 
 ---
 
-*Generated by research-bot · topic=`ai` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=35 · duration=171s · 2026-10-02T11:10:30+00:00*
+*Generated by research-bot · topic=`ai` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=123 · duration=342s · 2026-10-02T22:07:42+00:00*

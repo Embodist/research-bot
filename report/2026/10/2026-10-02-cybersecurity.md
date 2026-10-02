@@ -1,121 +1,191 @@
-# 网络安全前沿调研报告（2024–2026）：大模型/Agent 安全、漏洞挖掘与程序分析、软件供应链与后量子密码迁移
+# 网络安全攻防前沿调研报告：从软件供应链到 LLM/Agent 安全
 
-> **元信息**
-> - 完成日期（UTC）：2026-10-02
-> - 领域：Cybersecurity（系统安全 / 软件与供应链安全 / AI 安全 / 密码学迁移）
-> - 目标会议：USENIX Security、IEEE S&P、ACM CCS、NDSS
-> - 可引用证据来源：35 条编号来源（[1]–[35]）+ 11 项人工维护种子资源（**未实时检索**）
-> - 检索源数量说明：编号来源 35 条；结构化为 3 个子问题（q1 大模型/Agent 安全、q2 漏洞挖掘与程序分析、q3 供应链/PQC）
-> - 证据分级：A = 同行评审论文 / 官方标准；B = arXiv 预印本 / 官方仓库；C = 第三方评测 / 出处不明的 DOI 期刊；D = 社区内容；E = 不可访问
-> - **纪律声明**：本报告只使用 [1]–[35] 编号来源作为论断依据；凡编号来源未覆盖之处一律标 `> 待核实`，**不编造 citation、GitHub star、榜单排名或未在来源中出现的 URL**。
+> **日期**：2026-10-02（UTC）
+> **领域**：Cybersecurity（漏洞与利用 · 模糊测试与程序分析 · 密码学工程 · 大模型/Agent 安全 · 软件供应链与 SBOM · 内存安全）
+> **检索源**：57 条可核查引用来源（以 arXiv 预印本与少量期刊/会议 DOI 为主）+ 3 类人工维护种子资源（OWASP / MITRE / 开源工具链）
+> **证据分级**：A 同行评审 | B 预印本 / 官方仓库 | C 第三方复现 / 榜单 | D 社区 / 聚合 | E 不可用
+> **本报告证据强度总评**：**偏低**。除少数经典工作（如 [2][3]）具备明确的顶会历史与影响力外，本次候选集中绝大多数条目为 2025–2026 年 arXiv 预印本或机构知识库材料，`citations` 多为 0，**无第三方复现、无榜单排名、无官方发布确认**。
 
 ---
 
 ## 摘要（Executive Summary）
 
-1. **证据强度整体偏低，需先降低预期。** 在 35 条可引用来源中，可确认为正式会议论文或官方标准的仅 4–5 条：DSN-S 2025 的 Polymorphic Prompt [11]、APSEC 2025 的 Web3 供应链安全 [17]、NIST SP 1800-44（供应链与 DevOps 安全实践）[23]、SANER-C 2026 的语法感知模糊测试 [35]；另有 Computer Science Bulletin 的航空 SBOM 论文 [22] 出处权威性 `> 待核实`。**其余绝大多数为 arXiv 预印本 [1]–[9]、[12]–[21]、[24]–[34]**，其"作者自我宣称"与"社区验证结论"必须严格区分。
+1. **LLM/Agent 安全已从"内容越狱"扩散到"交互面攻击"**。OWASP 2025 将 prompt injection 列为 LLM 应用第一风险（[34] 转述），新证据显示攻击面正沿 Web Agent 的多模态屏幕输入 [27]、工具调用与 RAG 检索链路 [36]、对话式系统的交互状态 [37] 继续扩张。**但这些 2026 年新条目引用数均为 0，尚无同行评审背书，结论应视为方向性线索而非定论。**
 
-2. **大模型/Agent 安全（LLM/Agent Security）是 2024–2026 最密集的攻击面。** 攻防已从"直接提示注入（direct prompt injection）"演进到"间接注入 + 环境操纵 + 后门耦合"：WebInject 通过操纵网页环境诱导多模态 Web Agent 执行攻击者动作 [2]；Backdoor-Powered Prompt Injection 声称后门驱动的注入可使现有防御失效 [9]；MELON 则声称对 AI Agent 的间接提示注入提供**可证明（provable）防御** [8]。**但本轮证据中没有任何独立第三方复现或榜单评测**，因此"防御是否真的被绕过""可证明防御是否成立"均 `> 待核实`。
+2. **软件供应链安全的主战场从"出 SBOM"转向"用 SBOM"**。SBOM 工具生态的系统性综述 [48] 与"基于 SBOM 图预测多漏洞攻击链"的工作 [46] 共同揭示：SBOM 的实用价值取决于其准确性与可分析性，而非覆盖率。Web3 [42] 与 NPM/PyPI/Docker Hub [45] 的实证分析把攻击面延伸到区块链与公共包仓库。
 
-3. **软件供应链安全的分析重心正从"单点漏洞告警"转向"攻击链与可验证属性"。** SoK 论文把供应链攻击归纳为四个阶段，并提出 transparency / validity / separation 三项安全属性作为评估骨架 [13]；最新的 SBOM 图学习工作直接批评现有 SBOM 管线把扫描结果当作互相独立的 per-CVE 记录，提出用异构图建模多漏洞级联攻击链 [20]。工程侧已出现 SBOM 驱动容器镜像筛查的规模化案例（128 微服务、三云环境）[22]。
+3. **模糊测试领域出现"传统 coverage-guided"与"LLM 辅助生成"两条并行路线**。FOX 把调度器与变异器统一为在线随机控制 [5]；与此同时，LLM 合成输入生成器开始覆盖 images/videos/PDF 等非文本输入 [8]。**但本子问题在候选集中完全未命中任何 2025 年 USENIX Security 论文，属明确的召回缺口。**
 
-4. **模糊测试与程序分析的"新进展"目前主要是 LLM 辅助输入生成、覆盖率开销优化与符号执行工程化，而非范式级突破。** 有综述系统盘点符号执行在漏洞、恶意软件、固件与协议分析中的应用 [34]；LLM 合成非文本输入生成器被用来降低复杂格式 fuzzing 的建模成本 [29]；语法感知 fuzzing 已工程化到 Grammarinator + AFL++ 的集成 [35]。经典奠基工作（覆盖率引导追踪 [31]、fork 感知 [25]）仍是该方向的评价基线。
+4. **内存安全成为 2024–2026 的独立热点**。deepSURF 用 LLM 增强 harness 检测 Rust `unsafe` 代码中的内存漏洞 [51]；同时出现"反自动化乐观论"的证据——用户研究表明人工 C→Rust 翻译困难 [52]，且"C-to-Rust 自动重构 ≠ 内存安全" [57]、RustCompCert 尝试给出经形式化验证的 Rust 子集编译器 [55]。
 
-5. **后量子密码（PQC）迁移是本次调研的最大空白。** 本轮 35 条编号来源中**没有任何一条**涉及 PQC 迁移标准、迁移评估或密码敏捷性；恶意软件分析方向的专用数据集/基准同样缺失（仅有一条 2018 年的 AiDroid [24] 与综述 [34] 间接涉及）。这两部分在下文被明确写成**缺口声明**而非结论 [13][17][20][22]。
+5. **密码学与后量子迁移在本候选集中证据极稀薄**。仅能引用到密钥管理方向 [6] 与资源受限 IoT 的 PSA 证明令牌评估 [50]，**无 PQC（后量子密码）迁移的一手证据**，该章应整体标注 `> 待核实`。
 
-6. **检索管道存在可识别的噪声与术语歧义，已在报告中剔除。** 子问题 q1/q2 的候选块中混入了与安全完全无关的短视频参与度预测挑战赛 [5]，以及"物理供应链"（material consolidation trade-offs）而非"软件供应链"的论文 [16]。**[5] 与本研究主题无关，不予采信；[16] 仅在术语辨析处引用。**
+6. **方法论警示**：本候选集混入大量与主题无关的检索噪声（如德语开放式问卷编码 [32]、短视频参与度挑战 [13]、SemEval 主题标引 [15]、Ego4D 定位 [56]、小行星碎裂 [24]）。**这些条目不应作为网络安全结论使用，仅作为检索式需收窄的证据。**
 
 ---
 
-## 一、关键前沿进展（近 1–2 年）
+## 一、关键前沿进展（近 1–2 年，2024-10 → 2026-10）
 
-下表按时间排序列出可归因于 2024–2026 年的关键节点。时间按 arXiv 编号 YYMM 或来源给定年份推断，**精确发表日期以官方页面为准**。
+以下按"是否真前沿四问"（多任务/多本体验证、开源可复现、提升可归因、独立评测）筛选。**本候选集几乎没有任何条目通过全部四问**，故均标注限制条件。
 
-| 时间 | 节点 | 类型 | 证据强度 |
-|---|---|---|---|
-| 2024-02 | StruQ：用结构化查询（structured queries）防御提示注入 [3] | 防御 | B（arXiv 预印本） |
-| 2024-03 | 自动且通用的提示注入攻击 [7] | 攻击 | B |
-| 2024-06 | SoK：以安全设计属性分析软件供应链安全 [13] | SoK | B |
-| 2024-06 | FOX：把覆盖率引导模糊测试建模为在线随机控制 [28] | fuzzing | B |
-| 2024-07 | GoSurf：识别 Go 生态供应链攻击向量 [15] | 供应链 | B |
-| 2024-07 | Maven-Hijack：利用打包顺序的供应链攻击 [18] | 供应链 | B |
-| 2024-10 | SecAlign：用偏好优化防御提示注入 [1] | 防御 | B |
-| 2025-01 | LLM 合成输入生成器驱动的低成本非文本 fuzzing [29] | fuzzing | B |
-| 2025-02 | MELON：面向 AI Agent 间接提示注入的可证明防御 [8] | 防御 | B |
-| 2025-02 | UniGuardian：统一检测提示注入/后门/对抗攻击 [4] | 防御 | B |
-| 2025-04 | cozy：二进制的比较式符号执行 [33] | 程序分析 | B |
-| 2025-05 | WebInject：面向 Web Agent 的提示注入攻击 [2] | 攻击 | B |
-| 2025-08 | 符号执行实践综述（漏洞/恶意软件/固件/协议）[34] | 综述 | B |
-| 2025-09 | 多智能体 LLM 防御流水线对抗提示注入 [6] | 防御 | B |
-| 2025-10 | 后门驱动的提示注入攻击使防御失效 [9] | 攻击 | B |
-| 2025 | Web3 软件供应链安全 [17] | 供应链 | **A（APSEC 2025）** |
-| 2026 | 基于 SBOM 图预测多漏洞攻击链 [20] | 供应链 | B |
-| 2026 | 航空系统多云 SBOM 风险筛查（128 微服务/3 云）[22] | 工程 | C（出处待核实） |
-| 2026 | 简历筛选场景真实世界提示注入测量 [12] | 测量 | B |
-| 2026 | 语法感知覆盖率引导 fuzzing（Grammarinator + AFL++）[35] | fuzzing | **A（SANER-C 2026）** |
+### 1.1 Agentic AI 攻击面的系统化（SoK）
 
-**三条可归因的趋势判断：**
+- **名称**：SoK: The Attack Surface of Agentic AI - Tools and Autonomy
+- **时间**：2026
+- **一句话贡献**：把 LLM + 工具 + RAG + 多 Agent 决策环统一刻画为攻击面，指出能力扩张同时扩大攻击面 [36]。
+- **证据轴**：热度证据 `> 待核实`（citations=0）；权威证据 = arXiv 预印本，未见同行评审与官方发布 [36]；关注度 = **低**（引用数 0，无社区量化信号）；推荐度 = **★★★☆☆**（主题高度相关、可作为攻击面清单起点，但需等待同行评审）。
+- **局限**：candidate block 中为空摘要，无法确认是否给出可复现实验或威胁模型量化。
 
-- **趋势一：攻击面从"文本通道"扩展到"环境通道"。** WebInject 的贡献点在于不再把注入限制在用户输入文本，而是操纵网页环境本身来影响多模态 Agent 的截图—动作循环 [2]。这使"输入过滤"类防御在原理上不充分——`> 待核实`：本报告未取得该论文的完整实验章节以确认其攻击成功率与模型覆盖范围。
-- **趋势二：防御主张从"经验有效"走向"可证明"。** MELON 以 provable defense 为标题主张对间接注入的可证明鲁棒性 [8]，UniGuardian 则试图用统一框架同时覆盖提示注入、后门与对抗攻击三类威胁 [4]。同期仍有工作声称后门耦合注入可使防御整体失效 [9]。**这三条证据互相冲突，且全部为 preprint、无第三方复现，因此当前无法判定哪一方成立。**
-- **趋势三：供应链安全从"清单合规"走向"图结构与攻击链建模"。** [13] 提供属性化分类骨架，[20] 提供具体方法（异构图学习预测多漏洞攻击链），[21] 提供基于机器学习的 SBOM 漏洞优先级排序，[22] 提供规模化工程落地数字。四者构成"分类 → 方法 → 排序 → 部署"的连续链条，但彼此**没有共同的评测基准**，跨论文比较 `> 待核实`。
+### 1.2 Web Agent 的多模态提示注入
 
-**热度 / 权威 / 关注度 / 推荐度（趋势层）**
-- 热度证据：全部 `> 待核实`——候选块未提供引用数、star 或下载量，仅 [35] 明确 `citations=0`、[22] 明确 `citations=0`。
-- 权威证据：B 级为主，A 级仅 [13] 之外的 [17][35] 与官方标准 [23]（[13] 本身仍为预印本）。
-- 关注度：**中**——依据是 2024–2026 年新预印本在上述三个方向持续产出（[2][4][8][9][20]），但缺少引用/榜单佐证。
-- 推荐度：★★★★☆——方向相关性与时效性高，但引用时必须标注 preprint 状态。
+- **名称**：WebInject: Prompt Injection Attack to Web Agents
+- **时间**：2025
+- **一句话贡献**：通过操纵网页环境（而非直接投喂文本）诱导基于 MLLM 的 Web Agent 执行攻击者动作 [27]。
+- **证据轴**：热度证据 `> 待核实`（候选块未提供引用数）；权威证据 = arXiv cs.LG 预印本，未见会议 [27]；关注度 = **中**（Web Agent 是 2025 年热点，但本条无量化热度）；推荐度 = **★★★★☆**（Web Agent 安全的关键一手工作，建议精读并核实正式发表）。
+- **局限**：需核实是否在真实浏览器/多站点环境中评测，而非单一沙箱。
+
+### 1.3 SBOM 从"清单"到"图分析"
+
+- **名称**：Towards Predicting Multi-Vulnerability Attack Chains in Software Supply Chains from Software Bill of Materials Graphs
+- **时间**：2026
+- **一句话贡献**：批评现有 SBOM 流水线把扫描结果按独立 CVE 处理，提出用 SBOM 图预测多漏洞级联攻击链 [46]。
+- **证据轴**：热度证据 `> 待核实`（citations 未给出）；权威证据 = arXiv cs.SE 预印本 [46]；关注度 = **低**（尚无引用/榜单）；推荐度 = **★★★★☆**（抓住了 SBOM 实用化的核心痛点，方向性高价值）。
+- **补充证据**：SBOM 工具生态的系统性文献综述指出 SBOM 价值"完全取决于其准确性与完整性" [48]；SoK: Analysis of Software Supply Chain Security by Establishing Secure Design Properties [38] 提供设计属性框架。
+
+### 1.4 Rust 内存安全的攻防双面
+
+- **进攻侧**：deepSURF 用 LLM 增强 harness 来 fuzz Rust `unsafe` 代码，弥补现有工具对 Rust 特有类型处理不足的问题 [51]（2025，cs.CR）。
+- **防御/冷静侧**：C-to-Rust 自动重构 != 内存安全 [57]；用户研究表明人工翻译真实 C 代码到 Rust 存在实际困难 [52]；RustCompCert 尝试为 Rust 顺序子集提供端到端经验证的编译器 [55]。
+- **证据轴**：热度 `> 待核实`（候选块均未给出引用数/star）；权威 = 均为 arXiv 预印本（cs.CR / cs.PL / cs.SE），无同行评审确认 [51][52][55][57]；关注度 = **中**（Rust 内存安全是 2024–2026 明确的社区热点，但本条证据无量化）；推荐度 = **★★★★☆**（[57] 的"反自动化乐观论"对工程决策最有用；[51] 可作攻防对照）。
+- **补充**：SACTOR 提出 LLM 驱动的 C→Rust 正确且地道翻译 + 静态分析 + FFI 验证 [53]（未在本子问题候选摘要中出现，仅列入引用清单，`> 待核实`）。
+
+### 1.5 符号执行回归"实践应用"叙事
+
+- **名称**：Symbolic Execution in Practice: A Survey of Applications in Vulnerability, Malware, Firmware, and Protocol Analysis
+- **时间**：2025
+- **一句话贡献**：以路径爆炸为核心挑战，梳理符号执行在漏洞、恶意软件、固件、协议四大场景的落地方式 [21]。
+- **证据轴**：热度 `> 待核实`（未给出引用数）；权威 = arXiv cs.CR 预印本 [21]；关注度 = **中**（综述形态、覆盖面广）；推荐度 = **★★★★☆**（适合作为该子问题的分类骨架）。
+- **配套工具工作**：cozy 用比较符号执行分析同一二进制两版本差异，主用例是验证 micropatch [20]。
 
 ---
 
 ## 二、Web / 系统 / 供应链攻防
 
-### 2.1 经典与奠基性工作
+### 2.1 软件供应链攻击实证
 
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
 |---|---|---|---|---|---|---|---|---|
-| Branch Shadowing（SGX 侧信道） | 2017 | USENIX Security | `> 待核实`（种子资源，未实时检索引用数） | A（USENIX Security，种子清单标注）[种子] | 高（侧信道方向长期被引用的经典，但本轮未取得可核查数字） | ★★★★☆ 作为 A 级来源示例与侧信道方法论范本 | https://www.usenix.org/conference/usenixsecurity17 | 种子资源提供，非本轮检索所得 |
-| CWE（Common Weakness Enumeration） | ongoing | MITRE | `> 待核实`（未实时检索） | 官方标准 [种子] | 高（弱点分类事实标准；
+| Supply Chain Attacks Through Open Source Software: NPM, PyPI, Docker Hub | 2025 | ODU Digital Commons | citations=1（[45]） | 机构知识库，同侪评审状态未确认 [45] | 低（citations=1） | ★★★☆☆ | https://doi.org/10.25776/h5ez-vq70 | 三大生态实证分析，样本"23 doc..."摘要截断 [45] |
+| Software Supply Chain Security of Web3 | 2025 | arXiv cs.CR | `> 待核实` | arXiv 预印本 [42] | 低 | ★★★☆☆ | http://arxiv.org/abs/2511.12274v1 | dApps/智能合约的供应链漏洞 [42] |
+| S3C2 Summit 2025-07: Government Secure Supply Chain Summit | 2026 | arXiv | citations=0 [47] | arXiv 预印本，社区峰会纪要 [47] | 低（citations=0） | ★★☆☆☆ | https://doi.org/10.48550/arxiv.2605.29140 | 政府视角，非研究性论文，适合政策线索 |
+| SBOM Tooling Ecosystem: A Systematic Literature Review | 2026 | Applied Research（Wiley 系列，`> 待核实`） | citations=0 [48] | 综述期刊（同行评审状态待核实）[48] | 低 | ★★★★☆ | https://doi.org/10.1002/appl.70209 | SBOM 准确性/完整性决定其价值 [48] |
+| SN Coherence Patch for Wallet Supply Chains | 2026 | Zenodo (CERN) | citations=0 [49] | Zenodo 预印本，形式化框架自述 [49] | 低 | ★★☆☆☆ | https://doi.org/10.5281/zenodo.18837490 | 比特币钱包 NPM/Electron 供应链，理论新颖但实证 `> 待核实` |
+
+### 2.2 供应链经典与框架性工作（引用清单内）
+
+| 名称 | 年份 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 |
+|---|---|---|---|---|---|---|
+| SoK: Analysis of Software Supply Chain Security by Establishing Secure Design Properties | 2024 | `> 待核实` | arXiv 预印本 [38] | 中 | ★★★★☆ | http://arxiv.org/abs/2406.10109v1 |
+| Trust in Software Supply Chains: Blockchain-Enabled SBOM and the AIBOM Future | 2023（v4） | `> 待核实` | arXiv 预印本 [39] | 中 | ★★★★☆ | http://arxiv.org/abs/2307.02088v4 |
+| GoSurf: Identifying Software Supply Chain Attack Vectors in Go | 2024 | `> 待核实` | arXiv 预印本 [40] | 中 | ★★★★☆ | http://arxiv.org/abs/2407.04442v2 |
+| Maven-Hijack: Supply Chain Attack Exploiting Packaging Order | 2024（v4） | `> 待核实` | arXiv 预印本 [43] | 中 | ★★★★☆ | http://arxiv.org/abs/2407.18760v4 |
+| Software supply chain: review of attacks, risk assessment strategies and security controls | 2023 | `> 待核实` | arXiv 预印本 [44] | 中 | ★★★★☆ | http://arxiv.org/abs/2305.14157v1 |
+
+> **待核实**：上述条目均未在本次检索中取得引用数、GitHub star 或官方榜单数据。判断其为"经典"仅依据摘要自述的主题覆盖度，**不足以定性为领域奠基工作**。
+
+### 2.3 系统侧与 Web 侧
+
+- 本候选集中，**系统级内存破坏/内核利用**主题除了 fuzzing 相关条目（见第三节）外，几乎无新证据。SyzScope 讨论 Linux 内核 fuzzer 暴露 bug 的高风险影响 [2]，属"发现→定级"闭环，而非新攻击面。
+- **IoT/固件**：S3C2 峰会 [47] 与 PSA 证明令牌 [50] 涉及，但前者为纪要、后者为评估研究，均非攻击方法论。
+- **信息操作（Information Operations）**：候选集含协调性跨平台信息操作研究 [22]，但摘要缺失，**与本报告"应用/系统/供应链"主线相关性弱**，`> 待核实`。
+
+---
+
+## 三、模糊测试与程序分析
+
+### 3.1 明确的召回缺口（必须先声明）
+
+> **q2 子问题（"coverage-guided fuzzing 2025 USENIX Security"）在候选集中零命中。** 候选 6 条中仅 2 条落在 2025 年（[7] 汽车软件更新形式化验证、[8] LLM 合成输入生成器），均未标注 USENIX Security 或任何会议录用；其余 coverage-guided 相关条目 [1][2][3][5] 时间跨度为 2021-11 至 2024-06，且候选块中全部登记为 arXiv cs.CR 预印本，无 venue 字段。
+> **结论**：该子问题**无法由现有候选集回答**，必须改用 USENIX Security 2025 proceedings、dblp、OpenReview 定向补检。本节的"最新进展"因此仅覆盖 **方法演进线**，不覆盖 **2025 顶会 SOTA**。
+
+### 3.2 技术脉络（2021 → 2025）
+
+| 阶段 | 代表工作 | 年份 | 核心贡献 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 |
+|---|---|---|---|---|---|---|---|---|
+| 覆盖率粒度与追踪开销 | Same Coverage, Less Bloat (CGT) | 2022 | binary-only 场景下覆盖追踪加速，解决 basic block 粒度与 edge coverage/hit counts 需求的矛盾 [3] | `> 待核实` | arXiv 预印本 [3] | 中 | ★★★★☆ | http://arxiv.org/abs/2209.03441v1 |
+| 真实系统适应性 | Evaluating the Fork-Awareness of Coverage-Guided Fuzzers | 2023 | 评估 fuzzer 在含 fork/密码原语/校验和目标上的适应性，指出全自动化仍是难题 [1] | `> 待核实` | arXiv 预印本 [1] | 低 | ★★★☆☆ | http://arxiv.org/abs/2301.05060v1 |
+| 调度与变异统一 | FOX: Coverage-guided Fuzzing as Online Stochastic Control | 2024 | 把 scheduler + mutator 联合建模为在线随机控制，缓解深层漏洞难触达 [5] | `> 待核实` | arXiv 预印本 [5] | 中 | ★★★★☆ | http://arxiv.org/abs/2406.04517v1 |
+| LLM 辅助生成 | Low-Cost Non-textual Input Fuzzing with LLM-Synthesized Input Generators | 2025 | 用 LLM 合成输入生成器覆盖 images/videos/PDF 等非文本输入，绕开 LLM 直接生成非文本的高成本 [8] | `> 待核实` | arXiv cs.SE 预印本 [8] | 中 | ★★★★☆ | http://arxiv.org/abs/2501.19282v1 |
+| 发现后的影响定级 | SyzScope | 2021 | 连续 fuzzing 平台忽视 bug 安全影响评估，从 syzbot 上千低风险 bug 中识别新高风险影响 [2] | `> 待核实` | arXiv 预印本 [2] | 中 | ★★★☆☆ | http://arxiv.org/abs/2111.06002v1 |
+
+### 3.3 程序分析（符号执行与二进制）
+
+| 名称 | 年份 | 一句话贡献 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 |
+|---|---|---|---|---|---|---|---|
+| Symbolic Execution in Practice（综述） | 2025 | 梳理路径爆炸挑战下符号执行在漏洞/恶意软件/固件/协议的应用 [21] | `> 待核实` | arXiv cs.CR [21] | 中 | ★★★★☆ | http://arxiv.org/abs/2508.06643v1 |
+| cozy: Comparative Symbolic Execution for Binary Programs | 2025 | 比较符号执行，验证二进制 micropatch 的差异可视化 [20] | `> 待核实` | arXiv cs
 
 ## 参考来源
 
-[1] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3
-[2] WebInject: Prompt Injection Attack to Web Agents — http://arxiv.org/abs/2505.11717v4
-[3] StruQ: Defending Against Prompt Injection with Structured Queries — http://arxiv.org/abs/2402.06363v2
-[4] UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models — http://arxiv.org/abs/2502.13141v2
-[5] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
-[6] A Multi-Agent LLM Defense Pipeline Against Prompt Injection Attacks — http://arxiv.org/abs/2509.14285v4
-[7] Automatic and Universal Prompt Injection Attacks against Large Language Models — http://arxiv.org/abs/2403.04957v1
-[8] MELON: Provable Defense Against Indirect Prompt Injection Attacks in AI Agents — http://arxiv.org/abs/2502.05174v4
-[9] Backdoor-Powered Prompt Injection Attacks Nullify Defense Methods — http://arxiv.org/abs/2510.03705v1
-[10] GraphShield: A Graph-Structured Defense Framework for Prompt Injection in RAG and Multi-Agent LLM Systems — https://doi.org/10.2139/ssrn.7082874
-[11] To Protect the LLM Agent Against the Prompt Injection Attack with Polymorphic Prompt — https://doi.org/10.1109/dsn-s65789.2025.00037
-[12] Measuring Real-World Prompt Injection Attacks in LLM-based Resume Screening — http://arxiv.org/abs/2605.28999v1
-[13] SoK: Analysis of Software Supply Chain Security by Establishing Secure Design Properties — http://arxiv.org/abs/2406.10109v1
-[14] Trust in Software Supply Chains: Blockchain-Enabled SBOM and the AIBOM Future — http://arxiv.org/abs/2307.02088v4
-[15] GoSurf: Identifying Software Supply Chain Attack Vectors in Go — http://arxiv.org/abs/2407.04442v2
-[16] Exploitation of material consolidation trade-offs in multi-tier complex supply networks — http://arxiv.org/abs/2210.11479v3
-[17] Software Supply Chain Security of Web3 — http://arxiv.org/abs/2511.12274v1
-[18] Maven-Hijack: Software Supply Chain Attack Exploiting Packaging Order — http://arxiv.org/abs/2407.18760v4
-[19] Software supply chain: review of attacks, risk assessment strategies and security controls — http://arxiv.org/abs/2305.14157v1
-[20] Towards Predicting Multi-Vulnerability Attack Chains in Software Supply Chains from Software Bill of Materials Graphs — http://arxiv.org/abs/2604.04977v2
-[21] SBOM-BASED VULNERABILITY PRIORITIZATION IN SOFTWARE SUPPLY CHAIN USING MACHINE LEARNING — https://doi.org/10.17721/ait.2025.2.04
-[22] RISK-AWARE SOFTWARE SUPPLY CHAIN SECURITY FOR AVIATION SYSTEMS USING SBOM — https://doi.org/10.71465/csb213
-[23] Software Supply Chain and DevOps Security Practices — https://doi.org/10.6028/nist.sp.1800-44
-[24] AiDroid: When Heterogeneous Information Network Marries Deep Neural Network for Real-time Android Malware Detection — http://arxiv.org/abs/1811.01027v2
-[25] Evaluating the Fork-Awareness of Coverage-Guided Fuzzers — http://arxiv.org/abs/2301.05060v1
-[26] SyzScope: Revealing High-Risk Security Impacts of Fuzzer-Exposed Bugs in Linux kernel — http://arxiv.org/abs/2111.06002v1
-[27] Same Coverage, Less Bloat: Accelerating Binary-only Fuzzing with Coverage-preserving Coverage-guided Tracing — http://arxiv.org/abs/2209.03441v1
-[28] FOX: Coverage-guided Fuzzing as Online Stochastic Control — http://arxiv.org/abs/2406.04517v1
-[29] Low-Cost and Comprehensive Non-textual Input Fuzzing with LLM-Synthesized Input Generators — http://arxiv.org/abs/2501.19282v1
-[30] Internet Service Providers' and Individuals' Attitudes, Barriers, and Incentives to Secure IoT — http://arxiv.org/abs/2210.02137v1
-[31] Full-speed Fuzzing: Reducing Fuzzing Overhead through Coverage-guided Tracing — http://arxiv.org/abs/1812.11875v2
-[32] Multi-Factor Key Derivation Function (MFKDF) for Fast, Flexible, Secure, & Practical Key Management — http://arxiv.org/abs/2208.05586v3
-[33] cozy: Comparative Symbolic Execution for Binary Programs — http://arxiv.org/abs/2504.00151v1
-[34] Symbolic Execution in Practice: A Survey of Applications in Vulnerability, Malware, Firmware, and Protocol Analysis — http://arxiv.org/abs/2508.06643v1
-[35] Grammar-Aware Coverage-Guided Fuzzing with Grammarinator and AFL++ — https://doi.org/10.1109/saner-c67878.2026.00055
+[1] Evaluating the Fork-Awareness of Coverage-Guided Fuzzers — http://arxiv.org/abs/2301.05060v1
+[2] SyzScope: Revealing High-Risk Security Impacts of Fuzzer-Exposed Bugs in Linux kernel — http://arxiv.org/abs/2111.06002v1
+[3] Same Coverage, Less Bloat: Accelerating Binary-only Fuzzing with Coverage-preserving Coverage-guided Tracing — http://arxiv.org/abs/2209.03441v1
+[4] Internet Service Providers' and Individuals' Attitudes, Barriers, and Incentives to Secure IoT — http://arxiv.org/abs/2210.02137v1
+[5] FOX: Coverage-guided Fuzzing as Online Stochastic Control — http://arxiv.org/abs/2406.04517v1
+[6] Multi-Factor Key Derivation Function (MFKDF) for Fast, Flexible, Secure, & Practical Key Management — http://arxiv.org/abs/2208.05586v3
+[7] Towards a Formal Verification of Secure Vehicle Software Updates — http://arxiv.org/abs/2511.15479v1
+[8] Low-Cost and Comprehensive Non-textual Input Fuzzing with LLM-Synthesized Input Generators — http://arxiv.org/abs/2501.19282v1
+[9] LLMs Can Defend Themselves Against Jailbreaking in a Practical Manner: A Vision Paper — http://arxiv.org/abs/2402.15727v2
+[10] Enhancing Jailbreak Attacks on LLMs via Persona Prompts — http://arxiv.org/abs/2507.22171v3
+[11] Proactive defense against LLM Jailbreak — http://arxiv.org/abs/2510.05052v2
+[12] Bypassing LLM Guardrails: An Empirical Analysis of Evasion Attacks against Prompt Injection and Jailbreak Detection Systems — http://arxiv.org/abs/2504.11168v3
+[13] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
+[14] CAVGAN: Unifying Jailbreak and Defense of LLMs via Generative Adversarial Attacks on their Internal Representations — http://arxiv.org/abs/2507.06043v2
+[15] Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs — http://arxiv.org/abs/2504.19675v2
+[16] Securing LLM Powered AI Browsers Against Prompt Injection: A Comprehensive Survey, Threat Taxonomy, and Defense Framework — https://doi.org/10.2139/ssrn.6340078
+[17] DARWIN: Evolving Jailbreak Adversary and Guardrail for LLM Safety Evaluation and Protection — http://arxiv.org/abs/2607.19829v2
+[18] WEAPONIZING LARGE LANGUAGE MODELS: AUTOMATED PHISHING, SOCIAL ENGINEERING, AND MALWARE GENERATION — https://doi.org/10.5281/zenodo.18144131
+[19] WEAPONIZING LARGE LANGUAGE MODELS: AUTOMATED PHISHING, SOCIAL ENGINEERING, AND MALWARE GENERATION — https://doi.org/10.5281/zenodo.18144132
+[20] cozy: Comparative Symbolic Execution for Binary Programs — http://arxiv.org/abs/2504.00151v1
+[21] Symbolic Execution in Practice: A Survey of Applications in Vulnerability, Malware, Firmware, and Protocol Analysis — http://arxiv.org/abs/2508.06643v1
+[22] Uncovering Coordinated Cross-Platform Information Operations Threatening the Integrity of the 2024 U.S. Presidential Election Online Discussion — http://arxiv.org/abs/2409.15402v2
+[23] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1
+[24] Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum — http://arxiv.org/abs/2403.00634v2
+[25] Jacobi Stability Analysis for Systems of ODEs Using Symbolic Computation — http://arxiv.org/abs/2405.10578v3
+[26] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1
+[27] WebInject: Prompt Injection Attack to Web Agents — http://arxiv.org/abs/2505.11717v4
+[28] Automatic and Universal Prompt Injection Attacks against Large Language Models — http://arxiv.org/abs/2403.04957v1
+[29] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3
+[30] Learning From Failure: Integrating Negative Examples when Fine-tuning Large Language Models as Agents — http://arxiv.org/abs/2402.11651v2
+[31] UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models — http://arxiv.org/abs/2502.13141v2
+[32] AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3
+[33] StruQ: Defending Against Prompt Injection with Structured Queries — http://arxiv.org/abs/2402.06363v2
+[34] Hijacking the Prompt: A Survey of Prompt Injection Attacks, Detection, and Defense in Large Language Models — https://doi.org/10.25776/mvhf-w867
+[35] Scaling Behavior of Machine Translation with Large Language Models under Prompt Injection Attacks — http://arxiv.org/abs/2403.09832v1
+[36] SoK: The Attack Surface of Agentic AI - Tools and Autonomy — https://doi.org/10.48550/arxiv.2603.22928
+[37] Interaction-Centric Cybersecurity Risks in LLM-Powered Dialogue Systems — https://doi.org/10.1109/ccwc67433.2026.11393850
+[38] SoK: Analysis of Software Supply Chain Security by Establishing Secure Design Properties — http://arxiv.org/abs/2406.10109v1
+[39] Trust in Software Supply Chains: Blockchain-Enabled SBOM and the AIBOM Future — http://arxiv.org/abs/2307.02088v4
+[40] GoSurf: Identifying Software Supply Chain Attack Vectors in Go — http://arxiv.org/abs/2407.04442v2
+[41] Exploitation of material consolidation trade-offs in multi-tier complex supply networks — http://arxiv.org/abs/2210.11479v3
+[42] Software Supply Chain Security of Web3 — http://arxiv.org/abs/2511.12274v1
+[43] Maven-Hijack: Software Supply Chain Attack Exploiting Packaging Order — http://arxiv.org/abs/2407.18760v4
+[44] Software supply chain: review of attacks, risk assessment strategies and security controls — http://arxiv.org/abs/2305.14157v1
+[45] Supply Chain Attacks Through Open Source Software: A Comprehensive Analysis of NPM, PyPI, and Docker Hub Vulnerabilities — https://doi.org/10.25776/h5ez-vq70
+[46] Towards Predicting Multi-Vulnerability Attack Chains in Software Supply Chains from Software Bill of Materials Graphs — http://arxiv.org/abs/2604.04977v2
+[47] S3C2 Summit 2025-07: Government Secure Supply Chain Summit — https://doi.org/10.48550/arxiv.2605.29140
+[48] SBOM Tooling Ecosystem: A Systematic Literature Review — https://doi.org/10.1002/appl.70209
+[49] SN Coherence Patch for Wallet Supply Chains — https://doi.org/10.5281/zenodo.18837490
+[50] Performance Analysis and Security Evaluation of RFC 9783 PSA Attestation Tokens in Resource-Constrained IoT Environments — https://doi.org/10.1109/acdsa67686.2026.11467770
+[51] deepSURF: Detecting Memory Safety Vulnerabilities in Rust Through Fuzzing LLM-Augmented Harnesses — http://arxiv.org/abs/2506.15648v2
+[52] Translating C To Rust: Lessons from a User Study — http://arxiv.org/abs/2411.14174v2
+[53] SACTOR: LLM-Driven Correct and Idiomatic C to Rust Translation with Static Analysis and FFI-Based Verification — http://arxiv.org/abs/2503.12511v3
+[54] Rust for Secure Backend Development: A Critical Review and Extended Vulnerability Comparison with Node.js and Django — http://arxiv.org/abs/2608.22624v1
+[55] RustCompCert: A Verified and Verifying Compiler for a Sequential Subset of Rust — http://arxiv.org/abs/2602.07455v1
+[56] OSGNet @ Ego4D Episodic Memory Challenge 2025 — http://arxiv.org/abs/2506.03710v1
+[57] C-to-Rust Fallacy: Automatic Refactoring != Memory Security — http://arxiv.org/abs/2609.25682v1
 
 
 ---
 
-*Generated by research-bot · topic=`cybersecurity` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=35 · duration=173s · 2026-10-02T10:45:02+00:00*
+*Generated by research-bot · topic=`cybersecurity` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=57 · duration=205s · 2026-10-02T22:15:55+00:00*

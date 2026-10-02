@@ -1,216 +1,165 @@
-# 人形与腿足运动（Humanoid & Legged Locomotion）学习式控制调研报告
+# 具身智能·人形与腿足运动（Humanoid & Legged Locomotion）学习式控制前沿调研报告
 
-**日期**：2026-10-02（UTC） ｜ **领域**：具身智能 · 人形与腿足运动（learning-based locomotion / whole-body control / sim2real） ｜ **检索源**：32 条候选来源（编号 [1]–[32]），其中与本主题直接相关约 20 条，其余为题录漂移或术语类来源 ｜ **证据基线**：以 arXiv 预印本（cs.RO / cs.LG）为主，含 1 篇机构库学位论文、1 篇综述、2 条词典/百科术语源；**本批次未取得任何公认数据集/榜单的一手来源**
+> **日期**：2026-10-02（UTC）　**领域**：具身智能 / 人形与腿足运动控制（RL sim2real、WBC、地形适应、敏捷运动）　**检索源数量**：候选来源 101 条，本报告实际引用 68 条（编号见文末）
+> **证据口径声明**：本次可用证据集中，除 [72] 标注为 IEEE Transactions on Robotics 外，其余条目均以 arXiv 预印本（cs.RO / cs.LG）形式提供，缺乏引用数、GitHub star、榜单排名等第三方热度指标。因此本报告凡未获得真实热度指标的条目，一律标注 `热度 > 待核实`；凡"关注度"给分者，均在括号内写明其依据口径（多为"本次多子问题检索中重复召回"这类**检索层面信号**，而非社区热度信号），请勿将其误读为引用量或社区共识。所有关键论断均带 [n] 引用，未核实内容均显式标注 `> 待核实`。
 
 ---
 
 ## 摘要（Executive Summary）
 
-本报告基于 32 条候选来源，梳理人形与腿足机器人**学习式运动控制**（RL locomotion）、**全身控制**（Whole-Body Control, WBC）与 **sim2real** 的前沿进展、奠基工作、开源工程栈与开放争议。需要首先声明一个贯穿全文的限制：**本批次证据以「论文摘要级」信息为主，普遍缺少本体型号、自由度、任务数量、成功率、训练成本等可横向对比的量化口径；热度类信号（引用数、GitHub star、榜单排名）在候选块中全部缺失**。因此本报告的结论强度普遍为「方法方向可辨、性能对比不可做」。
+本报告围绕六个子问题（q1 敏捷突破、q2 全身控制与遥操作、q3 经典脉络、q4 开源工程栈、q5 数据集与基准、q6 地形适应与 sim2real 边界）对人形与腿足运动的学习式范式做了系统梳理，主要结论如下：
 
-**已取得的可核查要点：**
-
-1. **动态全身交互是 2025–2026 年的活跃方向**：[6] 提出以退火式强化学习课程（annealed RL curriculum）训练**统一全身控制器**，协调步法（footwork）与击球（striking）完成人形羽毛球任务，且明确**不依赖运动先验（motion priors）或专家数据**；该预印本已迭代至 v4，说明仍在持续修订 [6]。
-2. **遥操作 + RL 的身体分工范式向小型人形下移**：上身 VR 遥操作、下身 RL 平衡与运动的控制栈此前主要见于昂贵的全尺寸平台，[1] 报告了一套面向**小型人形**的顺应式全身临场感（compliant full-body telepresence）控制栈 [1]。
-3. **sim2real 的核心痛点被明确表述**：[27] 摘要直接指出「大规模并行仿真已把 RL 训练时间从数天压缩到分钟级，但快速可靠的人形 sim-to-real 仍因高维度与域随机化（domain randomization）而困难」，并以标题主张「15 分钟完成 sim-to-real 人形运动学习」[27]。这是本批次中对 sim2real 归因问题**最直接**的一条表述。
-4. **真机验证的稀疏性得到实例化**：本批次中**唯一**明确写出真机平台型号的条目是 [25]（`Unitree G1`，同时报告仿真与硬件实验），方法为高层 ALIP 步态动力学非线性 MPC + 低层扩展 SRB-MPC 线性 MPC [25]；与之对照，[24] 的验证表述为「Extensive simulation results」，属**仿真结论**而非真机 SOTA [24]。
-5. **模型式与学习式的对照已有初步尝试**：[13] 以「Benchmarking MPC and RL for Legged Robot Locomotion」为题，是本批次中唯一以**基准对比**为定位的条目，但载体为机构库学位论文（DOI 指向 MTU 学位论文库），权威等级低于同行评审期刊 [13]。
-6. **奠基脉络可辨但需外部补充**：腿足 RL 综述 [22]（2020, IEEE）、RMA 快速运动适应 [23]（2021）、真机在线微调 [19]（2021）、野外敏捷自然步态 [15]（2023）、机器人跑酷 [20]（2023）构成「端到端 RL → 在线适应 → 敏捷化」的演进骨架；但本批次仅提供标题/题录级信息，细节均 `> 待核实`。
-
-**主要缺口（必须在后续检索中补齐）：**
-
-- 本批次**没有任何**人形/腿足方向的公认数据集、仿真基准或真机榜单（Open X-Embodiment、DROID、LIBERO、SimplerEnv、RoboArena 等均未出现在候选来源中）→ 第七节相关结论 **`> 待核实`**。
-- **热度轴全线缺失**：所有 32 条来源均未附带引用数、star 数或下载量 → 每条的「热度」均标 `> 待核实`，不得以记忆填补。
-- **候选来源存在明显题录漂移**：如 [28] 医学腹部创伤 CT 数据集、[29] 短视频 UGC 超分数据集 KwaiSR、[32] 金融领域 LLM 数值推理基准、[21] 对话机器人竞赛、[10][11][12] 词典/百科条目，与本主题无实质关联，本报告仅作为检索质量问题的披露保留，**不作为论据使用**。
+1. **仿真吞吐量已经成为方法论的"前置变量"**。GPU 并行仿真把 RL 训练从"天"压到"分钟"，从 Isaac Gym 的"几分钟学会走路"[19][56] 到 2025 年的"15 分钟 sim2real 人形行走"[63]，训练时长本身被当作可优化目标，而不仅是工程细节。
+2. **人形运动的重心正在从"稳定行走"转向"敏捷 + 全身 loco-manipulation"**。parkour[66]、稀疏落脚点[67]、推力恢复[68]、全身羽毛球[7]、手/膝/肘多接触移动[12]、无机器人演示的全身操作[11] 共同构成 2024–2026 的新前沿。
+3. **sim2real 的主线仍是"特权学习 + 教师-学生蒸馏 + 域随机化"**，从 RMA[25] 到双足适配[27][29][31] 到真机人形 RL[75]，这条技术路线在 2026 年仍是主流基线；新增变量是**真机在环学习**[3][57] 与**扩散策略下的域随机化标定**[6]。
+4. **地形适应正从"盲走本体感知"走向"感知 + 步态自适应 + 地形编码"**，代表工作包括人形挑战地形行走[42]、实时足下地形重建的步态自适应[43]、全局-局部注意力地形编码[44]、上下文感知地形适配[33] 与间隙地形穿越[72]。
+5. **MPC/凸优化 WBC 并未被 RL 取代，而是与之分层混合**：快速全身 MPC 精度裁剪[8]、降阶模型分层控制[64]、降阶模型推力恢复[68] 表明"模型法做骨架、学习法做细节"是当前工程上更稳的组合。
+6. **评测与数据仍是最大缺口**。仿真侧有 HumanoidBench[80]、MuJoCo Playground[82]、地形鲁棒性基准[84]，但 **真机 SOTA 与仿真 SOTA 不可直接比较**（任务数、本体、硬件、是否真机均不一致，多数条目未报告统一口径），人形 loco-manipulation 也缺乏公认真机榜单 `> 待核实`。
+7. **开源栈门槛已明显下降但仍不低**：Isaac Lab[54]/Isaac Gym[56]/legged_gym（种子）/unitree_rl_gym（种子）/ProtoMotions（种子）/MuJoCo Playground[82] 构成可复用训练栈，但普遍需要 NVIDIA GPU 与并行仿真经验，真机复现还需硬件与安全回退设计。
 
 ---
 
-## 一、关键前沿进展（近 1–2 年）
+## 一、关键前沿进展（近 1–2 年，2024–2026）
 
-本节只收录时间戳落在 2024-10 之后、且与本主题直接相关的条目。**「最新」的判定依据是来源链接中的 arXiv 提交/版本时间与候选块给出的日期，而非模型内部知识。**
+> 本节"热度"列统一说明：本次证据集未提供任何条目的引用数/star/下载量，故除 [72]（citations=14）外，热度一律 `> 待核实`。关注度列的依据已写入括号，多为**检索层面重复召回信号**，不构成社区热度证据。四类证据轴均以行内 [n] 为该行唯一来源。
 
-### 1.1 统一全身控制器：动态任务与课程的结合
+| 条目 | 时间 | 类别 | 一句话贡献 | 权威 | 热度 | 关注度 | 推荐度 |
+|---|---|---|---|---|---|---|---|
+| [Humanoid Parkour Learning](http://arxiv.org/abs/2406.10759v2) [66] | 2024 | 敏捷运动 | 用单一学习式策略完成人形跑酷式越障，把 parkour 引入人形 | arXiv 预印本 cs.RO，非同行评审（B 级） | > 待核实 | 中（本次 q1/q2 检索重复召回） | ★★★★☆（人形敏捷运动代表性工作，直接相关） |
+| [BeamDojo](http://arxiv.org/abs/2502.10363v3) [67] | 2025 | 稀疏落脚点 | 面向稀疏落脚点地形的敏捷人形 locomotion | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q1 命中） | ★★★★☆（稀疏立足点是人形感知式运动的硬场景） |
+| [Bracing for Impact](http://arxiv.org/abs/2505.11495v2) [68] | 2025 | 推力恢复 | 统一行走控制与推力恢复，动态行走时用双臂辅助恢复 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q1/q3 命中） | ★★★★☆（把手臂纳入平衡回路，思路有工程价值） |
+| [Learning Sim-to-Real Humanoid Locomotion in 15 Minutes](http://arxiv.org/abs/2512.01996v1) [63] | 2025 | 快速 sim2real | 主张把高维人形 sim2real 训练压缩到分钟级 | arXiv 预印本 cs.RO；摘要自述训练时长（B 级） | > 待核实 | 中（q1/q5 重复召回） | ★★★★☆（若可复现将显著降低迭代成本，需第三方验证） |
+| [Gait-Adaptive Perceptive Humanoid Locomotion](http://arxiv.org/abs/2512.07464v1) [43] | 2025 | 感知式地形 | 实时足下地形重建 + 步态时序自适应，面向长楼梯等复杂地形 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q6 命中） | ★★★★☆（明确指出步态时序不适配是失败主因，问题定位清晰） |
+| [MARG](https://arxiv.org/abs/2509.20036) [72] | 2025 | 间隙地形 | 结合高程图的腿足危险间隙地形穿越 | IEEE Transactions on Robotics（A 级，疑似已录用） | citations=14 | 中（citations=14） | ★★★★☆（本次证据集中唯一有引用数且为期刊者，证据等级最高） |
+| [Global-Local Attention Decomposition for Terrain Encoding](http://arxiv.org/abs/2606.00637v3) [44] | 2026 | 地形编码 | 把"广域地形感知"与"精确落脚选择"两种感知角色解耦 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q6 命中） | ★★★★☆（对感知式运动的结构性归因，可迁移到四足） |
+| [TWIST](http://arxiv.org/abs/2505.02833v1) [90] | 2025 | 全身遥操作 | 全身模仿式遥操作，覆盖全部自由度 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q2 命中） | ★★★★★（人形全身遥操作关键工作，与动作先验强相关） |
+| [CLOT](http://arxiv.org/abs/2602.15060v2) [95] | 2026 | 全局运动跟踪 | 闭环全局运动跟踪，缓解全尺寸人形长时序全局位姿漂移 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q2 命中） | ★★★★☆（指出"局部坐标系"是长时序失败的根因） |
+| [Humanoid Manipulation Interface](http://arxiv.org/abs/2602.06643v2) [11] | 2026 | 无机器人演示 | 从"无机器人"的人类演示学习人形全身操作，绕开遥操作硬件 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q2/q3/q5 重复召回） | ★★★★☆（降低数据采集的硬件门槛，方向性强） |
+| [Locomotion Beyond Feet](http://arxiv.org/abs/2601.03607v1) [12] | 2026 | 多接触全身运动 | 引入手、膝、肘等额外接触点的全身移动系统 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q3/q4/q6 重复召回） | ★★★★☆（拓展"移动"定义，接触丰富控制的代表） |
+| [Humanoid Whole-Body Badminton](http://arxiv.org/abs/2511.11218v4) [7] | 2025 | 动态物体交互 | 退火式 RL 课程训练统一全身控制器打羽毛球 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q2/q3 重复召回） | ★★★★☆（高速动态交互，验证全身控制上限） |
+| [Hierarchical Reduced-Order MPC](http://arxiv.org/abs/2509.04722v1) [64] | 2025 | 模型式控制 | 基于降阶模型的分层高效 MPC 人形行走框架 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q1 命中） | ★★★★☆（学习式之外的强基线，选型必看） |
+| [CART](http://arxiv.org/abs/2604.14344v2) [33] | 2026 | 地形适配 | 用时序序列选择做上下文感知地形适配 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q6 命中） | ★★★☆☆（思路清晰，但需真机证据） |
+| [Towards Miniature Humanoid Tele-Loco-Manipulation](http://arxiv.org/abs/2607.20399v1) [65] | 2026 | 遥操作 + RL | VR 上半身遥操作 + RL 下半身平衡的微型人形系统 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q1/q5 重复召回） | ★★★☆☆（小型化平台，成本友好但性能上限待验证） |
+| [S-Cheetah](http://arxiv.org/abs/2605.27909v1) [18] | 2026 | 硬件 + 学习 | 3 自由度主动脊柱四足平台与敏捷运动学习 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q3 命中） | ★★★☆☆（说明"形态-学习协同设计"分支仍活跃） |
 
-**[6] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum**（arXiv:2511.11218v4，2025-11-14，cs.RO）
-
-- **核心贡献**：以 RL 训练管线产出用于**人形羽毛球**的统一全身控制器，协调步法与击球；摘要强调不依赖 motion priors 或专家数据 [6]。
-- **验证口径**：候选块**未提供**本体型号、仿真/真机划分、任务数量与成功率 → `> 待核实` [6]。
-- **热度**：`> 待核实`（候选块未提供引用数/star）[6]。
-- **权威**：arXiv 预印本（cs.RO），候选块未标注会议或期刊，**同行评审状态未确认** [6]。
-- **关注度**：**中** —— 依据为该预印本已更新至 **v4**（URL 版本号可核），说明作者持续修订；但无引用/榜单信号 [6]。
-- **推荐度**：**★★★★☆** —— 与本主题「WBC + 动态任务」交叉点相关性最高，建议优先精读并补齐量化口径 [6]。
-
-### 1.2 小型人形平台的遥操作—移动—操作控制栈
-
-**[1] Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning**（arXiv:2607.20399v1，2026-07-22，cs.RO）
-
-- **核心贡献**：面向**小型人形**提出顺应式全身临场感控制栈；摘要指出「VR 遥操作上身 + RL 控制下身平衡与运动」是厂商常用做法，但此前多局限于昂贵的全尺寸机器人，小型人形因传感器与自由度较少、仿生程度较低而缺少类似进展 [1]。
-- **验证口径**：本体具体型号、自由度、验证规模 → `> 待核实` [1]。
-- **热度**：`> 待核实` [1]。
-- **权威**：arXiv 预印本（cs.RO），**同行评审状态未确认** [1]。
-- **关注度**：**低** —— 无引用数/star/社区讨论信号，仅可判定为 2026 年新近预印本 [1]。
-- **推荐度**：**★★★☆☆** —— 对「小型人形 + RL 下身控制」这一细分本体有补充价值，但证据仅限摘要 [1]。
-
-### 1.3 RL 研究的物理平台与 sim2real 迁移
-
-**[4] The Open Ant: A Robot Platform for Reinforcement Learning Research**（arXiv:2607.18488v1，2026-07-20，cs.RO）
-
-- **核心贡献**：摘要指出 RL 研究虽在物理与仿真领域均有成功案例，但主流方法仍植根于仿真，使算法与研究者向物理现实迁移充满不确定性，并据此提出一个旨在简化该迁移的物理平台 [4]。
-- **验证口径**：**摘要被截断于 "introducing the…"**，本体的形态细节（是否为腿足/人形）与任务数 → `> 待核实` [4]。
-- **热度**：`> 待核实` [4]。
-- **权威**：arXiv 预印本（cs.RO），未见官方仓库说明 [4]。
-- **关注度**：**低** —— 无热度信号，且摘要信息不完整 [4]。
-- **推荐度**：**★★☆☆☆** —— 与 sim2real 维度相关，但需先核实全文与本体形态 [4]。
-
-### 1.4 通用 RL 探索算法（非机器人本体工作）
-
-**[3] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning (VBE)**（arXiv:2602.12375v1，2026-02-12，cs.LG）
-
-- **核心贡献**：指出既有 value bonus 方法只能在见到更高奖励后回溯提升，无法鼓励**首次访问某状态动作**；VBE 维护一组随机动作价值函数（RQFs），以估计误差构造价值奖励，提供首次访问乐观性与深度探索 [3]。
-- **验证口径**：本工作属**通用 RL 算法**，候选块未涉及任何机器人本体、仿真/真机或运动控制任务 [3]。
-- **热度**：`> 待核实` [3]。
-- **权威**：arXiv 预印本（cs.LG），**同行评审状态未确认** [3]。
-- **关注度**：**低** —— 无引用信号，且方向属机器学习基础算法 [3]。
-- **推荐度**：**★★☆☆☆** —— 与腿足/人形运动控制**无直接本体或任务关联**，仅作为底层探索方法线索保留 [3]。
-
-### 1.5 其他近 1–2 年内相关条目（题录级）
-
-| 条目 | 时间 | 方向 | 可用信息等级 |
-|---|---|---|---|
-| [7] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control | 2024-11 | 域随机化 × 扩散策略 × 人形全身控制 | 标题级，`> 待核实` |
-| [9] Humanoid Manipulation Interface (HuMI) | 2026-02 | 无机器人演示（robot-free demonstrations）的人形全身操作 | 标题级，`> 待核实` |
-| [14] ATRos: Learning Energy-Efficient Agile Locomotion for Wheeled-legged Robots | 2025-10 | 轮足混合本体的能效敏捷运动，全身控制被明确称为难点 | 摘要级 [14] |
-| [18] Causal-Paced Deep Reinforcement Learning | 2025-07 | 课程 RL 的任务序列设计（因果节奏） | 摘要级 [18] |
-| [26] Learning Humanoid Locomotion over Challenging Terrain | 2024-10 | 人形复杂地形运动 | 标题级，`> 待核实` |
-| [30] Bridging the Sim2Real Gap: Vision Encoder Pre-Training for Visuomotor Policy Transfer | 2025-01 | 视觉编码器预训练的 sim2real 迁移 | 标题级，`> 待核实` |
-
-**四轴证据（本节合并）**：热度：全部 `> 待核实`（候选块无引用数/star/下载量）[7][9][14][18][26][30]；权威：均为 arXiv 预印本，候选块未标注同行评审 venue [7][9][14][18][26][30]；关注度：**低**（无任何热度或榜单信号可依据）[7][9][14][18][26][30]；推荐度：**★★☆☆☆**（仅 [14][18] 有摘要级内容，其余为标题级线索，需补检全文）[7][9][14][18][26][30]。
+**时间线判读**：2024 年以"人形挑战地形 + parkour"为主（[42][66]）；2025 年集中在稀疏落脚点、感知式步态自适应、快速 sim2real 与全身遥操作（[67][43][63][90]）；2026 年则明显向 **全身多接触、全局运动跟踪、无机器人演示学习** 迁移（[12][95][11][44]）。以上年份均取自各条目的 arXiv 标识与证据集标注，未做第三方录用状态核实 `> 待核实`。
 
 ---
 
 ## 二、学习式 locomotion 与全身控制
 
-### 2.1 方法流派：从模块化管线到统一控制器
+### 2.1 全身控制器（Whole-Body Controller, WBC）的学习化路线
 
-本批次证据可辨识出三条并行路线，但**均缺少可直接对比的量化口径**：
-
-1. **模型式（MPC/降阶模型）路线**：[25] 采用分层设计 —— 高层为 ALIP 步态动力学的非线性 MPC（同时优化步周期、步长、踝力矩），低层为扩展 SRB-MPC 线性 MPC（额外纳入简化的手臂与躯干动力学）；作者为 Adrian B. Ghansah、Sergio A. Esteban、Aaron D. Ames [25]。
-   - 热度：`> 待核实` [25]；权威：arXiv 预印本（cs.RO, 2509.04722v1, 2025-09-05），**未标注同行评审 venue**，作者团队在双足控制领域知名（属弱推断，非热度信号）[25]；关注度：**低**（无引用/star 信号）[25]；推荐度：**★★★☆☆**（真机口径讨论的核心示例）[25]。
-2. **降阶模型 + 环境接触利用路线**：[24] 以 SRB-MPC 结合 HLIP 动力学，**利用墙壁等环境**辅助推挤恢复；验证表述为「Extensive simulation results on a humanoid robot demonstrate improved perturbation rejection and tr…」（截断），**未出现真机实验语句** [24]。
-   - 热度：`> 待核实` [24]；权威：arXiv 预印本（cs.RO, 2505.11495v2，提交 2025-05-16，v2 修订 2026-06-22），作者含 Aaron D. Ames，**未标注同行评审 venue** [24]；关注度：**低**（无热度信号；v2 修订说明作者仍在迭代）[24]；推荐度：**★★★☆☆**（仿真/真机证据口径区分的示例）[24]。
-3. **端到端 RL 统一控制器路线**：[6]（羽毛球全身控制）、[27]（15 分钟 sim2real 人形运动）、[2]（多样姿态起立控制，标题级）。其中 [6] 明确不依赖 motion priors [6]，[2] 从标题看聚焦「跨多样姿态的起立控制」[2]，但**本体、任务数与成功率均 `> 待核实`** [2][6][27]。
-
-### 2.2 全身控制与遥操作/操作任务的交叉
-
-- [1] 的全身临场感栈把「上身遥操作 + 下身 RL」这一分工明确化，并指出小型人形因传感器/自由度受限而仿生度较低 [1]。
-- [8] CHILD（Controller for Humanoid Imitation and Live Demonstration）自我定位为「全身人形遥操作系统」（arXiv:2508.00162v2，2025-08）[8]。
-- [9] HuMI 提出「从无机器人演示（robot-free demonstrations）出发的人形全身操作」（arXiv:2602.06643v2，2026-02）[9]。
-- [7] 研究域随机化在**扩散策略（diffusion policies）** 训练中的作用，面向全身人形控制（2024-11）[7]。
-
-**四轴证据**：热度：`> 待核实`（[7][8][9] 均无引用/star 数据）[7][8][9]；权威：三条均为 arXiv 预印本，候选块未标注会议/期刊，**同行评审状态未确认** [7][8][9]；关注度：**低**（无可核查热度信号；仅能从标题判断方向归属）[7][8][9]；推荐度：**★★★☆☆**（与遥操作/动作先验章节直接相关，建议在补检时优先获取全文与实验表）[7][8][9]。
-
-### 2.3 本节小结与争议线索
-
-> `> 待核实`：本批次**无法**回答「统一全身控制器相较分层 MPC 在多少任务、何种本体上更优」这一问题。原因：所有条目均缺失统一任务集与成功率口径，且 [25] 的单平台（`Unitree G1`）验证是唯一明确的真机实例 [25]，[24] 的结论为仿真结论 [24]。**「仿真 SOTA vs 真机 SOTA」的区分在本批次内只能定性说明，不能定量比较。**
-
----
-
-## 三、sim2real 与地形适应
-
-### 3.1 sim2real 困难的可核查表述与主张
-
-**[27] Learning Sim-to-Real Humanoid Locomotion in 15 Minutes**（arXiv:2512.01996v1，2025-12-01，cs.RO）是本批次中**唯一直接陈述 sim2real 归因**的条目：
-
-> 「Massively parallel simulation has reduced reinforcement learning (RL) training time for robots from days to minutes. However, achieving fast and reliable sim-to-real RL for humanoid control remains difficult due to the challenges introduced by factors such as high dimensionality and domain randomization.」[27]
-
-该文据此提出一套基于 **off-policy RL** 的「简易配方」，标题主张 15 分钟完成 sim-to-real 人形运动学习 [27]。
-
-- **热度**：`> 待核实` [27]。
-- **权威**：arXiv 预印本（cs.RO），候选块**未标注同行评审 venue** [27]。
-- **关注度**：**低** —— 无引用数或社区讨论热度信号，主张强度仅来自摘要自述 [27]。
-- **推荐度**：**★★★★☆** —— 与「sim2real 归因不清」「训练成本瓶颈」两个议题直接相关，可作为候选一手来源；但**真机实验设置与可复现条件必须先核实**（含基线、本体、任务定义）[27]。
-
-### 3.2 域随机化与策略表征
-
-- [7] 以标题指向「域随机化在扩散策略训练中的作用」，对象为人形全身控制（2024-11）[7]。这与 [27] 把 domain randomization 列为 sim-to-real 难点因素形成**潜在张力**：一方把域随机化视为困难来源 [27]，另一方以标题暗示其可被系统研究并利用 [7]。**该张力属编者观察，两文的具体结论均 `> 待核实`** [7][27]。
-- [30] 从**视觉编码器预训练**角度切入 sim2real 迁移（2025-01，标题级）[30]。
-- [31] 讨论精密农业操作中 sim2real 的重要性与**局限**（2020，标题级；本体域为操作而非腿足，跨域外推需谨慎）[31]。
-
-**四轴证据**：热度：`> 待核实` [7][30][31]；权威：均为 arXiv 预印本，未标注同行评审 [7][30][31]；关注度：**低**（无热度信号）[7][30][31]；推荐度：**★★☆☆☆**（[7] 与本节主题最贴近，建议优先于 [30][31] 精读）[7][30][31]。
-
-### 3.3 地形适应
-
-- [26] Learning Humanoid Locomotion over Challenging Terrain（2024-10，人形）[26] 与 [15] Learning Robust, Agile, Natural Legged Locomotion Skills in the Wild（2023，腿足）[15] 构成本批次中「复杂地形 / 野外地形」的两条题录线索，但候选块**未提供任务集、本体与成功率** → `> 待核实` [15][26]。
-- 热度：`> 待核实` [15][26]；权威：arXiv 预印本 [15][26]；关注度：**低**（无热度信号）[15][26]；推荐度：**★★★☆☆**（[15] 与 [26] 是本节少数的直接对口工作，补检时需确认是否使用统一地形评测协议）[15][26]。
-
----
-
-## 四、敏捷动作、跑跳与恢复
-
-### 4.1 恢复与扰动拒斥
-
-- **[2] Learning Humanoid Standing-up Control across Diverse Postures**（arXiv:2502.08378v2，2025）[2]：标题表明研究**跨多样姿态的人形起立控制**，属跌倒后恢复能力链的关键环节。
-  - 热度：`> 待核实` [2]；权威：arXiv 预印本，候选块未标注 venue [2]；关注度：**低**（无热度信号）[2]；推荐度：**★★★☆☆**（起立/恢复在本批次中仅此一条直接对口，值得补检）[2]。
-  - `> 待核实`：是否为零样本（zero-shot）起立、是否为真机、跨姿态数量的具体规模 —— 候选块均未提供。
-- **[24] Bracing for Impact**：以「利用环境（如墙壁）」辅助推挤恢复为关键创新，组合 SRB-MPC 与 HLIP 动力学 [24]。**验证以仿真为主**（摘要仅称 Extensive simulation results）→ 不能作为真机恢复能力的证据 [24]。
-- **[25] Hierarchical Reduced-Order MPC**：以分层降阶 MPC 达成「鲁棒运动」，并给出 `Unitree G1` 仿真+硬件实验 [25]（详见 2.1）。
-
-### 4.2 敏捷与跑酷
-
-- **[20] Robot Parkour Learning**（arXiv:2309.05665v2，2023）[20]：本批次中敏捷动作方向的核心题录，时间早于近 1–2 年窗口，归入「经典/奠基」更合适。
-- **[14] ATRos**（2025-10）：面向**轮足（wheeled-legged）** 本体的能效敏捷运动；摘要指出「随着性能扩展，轮足机器人的**全身控制仍然困难**」[14]。
-  - 热度：`> 待核实` [14]；权威：arXiv 预印本（cs.RO），未标注 venue [14]；关注度：**低**（无热度信号）[14]；推荐度：**★★★☆☆**（把「敏捷 + 能效 + 全身控制」三者耦合，与本主题最相关的非人形本体工作）[14]。
-
-### 4.3 本节小结
-
-> `> 待核实`：本批次**无法**给出「跑跳 / 跌倒恢复」的横向对比。可核查的硬事实仅有三点：(a) [6] 的动态全身控制**不使用 motion priors** [6]；(b) [24] 的恢复结论为**仿真结论** [24]；(c) [25] 是唯一写出真机本体型号（`Unitree G1`）的条目 [25]。
-
----
-
-## 五、遥操作与动作先验
-
-### 5.1 遥操作系统
-
-| 工作 | 时间 | 关键点 | 引用 |
-|---|---|---|---|
-| [1] Miniature Humanoid Tele-Loco
+| 条目 | 时间 | 核心贡献 | 权威 | 热度 | 关注度 | 推荐度 |
+|---|---|---|---|---|---|---|
+| [HOVER](http://arxiv.org/abs/2410.21229v2) [92] | 2024 | 面向人形的通用神经全身控制器，统一多种运动模式 | arXiv 预印本 cs.RO（B 级） | > 待核实 | 中（q2 命中） | ★★★★★（神经 WBC 的枢纽型工作） |
+| [OmniH2O](http://arxiv.org/abs/2406.08858v1) [93] | 2024 | 通用灵巧人-人
 
 ## 参考来源
 
-[1] Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning — http://arxiv.org/abs/2607.20399v1
-[2] Learning Humanoid Standing-up Control across Diverse Postures — http://arxiv.org/abs/2502.08378v2
-[3] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1
-[4] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1
-[5] A ROS-based Software Framework for the NimbRo-OP Humanoid Open Platform — http://arxiv.org/abs/1809.11051v1
-[6] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4
-[7] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1
-[8] CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System — http://arxiv.org/abs/2508.00162v2
-[9] Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations — http://arxiv.org/abs/2602.06643v2
-[10] HUMANOID 中文 (简体)翻译：剑桥词典 - Cambridge Dictionary — https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/humanoid
-[11] Humanoid （英语单词）_百度百科 — https://baike.baidu.com/item/Humanoid/62902926
-[12] humanoid 是什么意思_ humanoid 的翻译_音标_读音_用法_例句 ... — https://www.iciba.com/word?w=humanoid
-[13] BENCHMARKING MODEL PREDICTIVE CONTROL AND REINFORCEMENT LEARNING FOR LEGGED ROBOT LOCOMOTION — https://doi.org/10.37099/mtu.dc.etdr/1677
-[14] ATRos: Learning Energy-Efficient Agile Locomotion for Wheeled-legged Robots — http://arxiv.org/abs/2510.09980v1
-[15] Learning Robust, Agile, Natural Legged Locomotion Skills in the Wild — http://arxiv.org/abs/2304.10888v3
-[16] Stabilizing Extreme Q-learning by Maclaurin Expansion — http://arxiv.org/abs/2406.04896v2
-[17] A Tutorial on Meta-Reinforcement Learning — http://arxiv.org/abs/2301.08028v4
-[18] Causal-Paced Deep Reinforcement Learning — http://arxiv.org/abs/2507.02910v1
-[19] Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World — http://arxiv.org/abs/2110.05457v1
-[20] Robot Parkour Learning — http://arxiv.org/abs/2309.05665v2
-[21] Proceedings of the Dialogue Robot Competition 2023 — http://arxiv.org/abs/2312.14430v5
-[22] Learning Locomotion For Legged Robots Based on Reinforcement Learning: A Survey — https://doi.org/10.1109/ceect50755.2020.9298680
-[23] RMA: Rapid Motor Adaptation for Legged Robots — http://arxiv.org/abs/2107.04034v1
-[24] Bracing for Impact: Robust Humanoid Push Recovery and Locomotion with Reduced Order Models — http://arxiv.org/abs/2505.11495v2
-[25] Hierarchical Reduced-Order Model Predictive Control for Robust Locomotion on Humanoid Robots — http://arxiv.org/abs/2509.04722v1
-[26] Learning Humanoid Locomotion over Challenging Terrain — http://arxiv.org/abs/2410.03654v1
-[27] Learning Sim-to-Real Humanoid Locomotion in 15 Minutes — http://arxiv.org/abs/2512.01996v1
-[28] The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset — http://arxiv.org/abs/2405.19595v1
-[29] NTIRE 2025 Challenge on Short-form UGC Video Quality Assessment and Enhancement: KwaiSR Dataset and Study — http://arxiv.org/abs/2504.15003v1
-[30] Bridging the Sim2Real Gap: Vision Encoder Pre-Training for Visuomotor Policy Transfer — http://arxiv.org/abs/2501.16389v2
-[31] The Importance and the Limitations of Sim2Real for Robotic Manipulation in Precision Agriculture — http://arxiv.org/abs/2008.03983v1
-[32] Fin-Grained: A Fine-Grained Benchmark Dataset and Evaluation Protocol for Llms’ Numerical Reasoning Capabilities in Financial Domain — https://doi.org/10.2139/ssrn.5292853
+[1] Learning Robust, Agile, Natural Legged Locomotion Skills in the Wild — http://arxiv.org/abs/2304.10888v3
+[2] ATRos: Learning Energy-Efficient Agile Locomotion for Wheeled-legged Robots — http://arxiv.org/abs/2510.09980v1
+[3] Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World — http://arxiv.org/abs/2110.05457v1
+[4] HyperCLOVA X Technical Report — http://arxiv.org/abs/2404.01954v2
+[5] Whole-Body Geometric Retargeting for Humanoid Robots — http://arxiv.org/abs/1909.10080v1
+[6] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1
+[7] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4
+[8] Tailoring Solution Accuracy for Fast Whole-body Model Predictive Control of Legged Robots — http://arxiv.org/abs/2407.10789v2
+[9] The MIT Humanoid Robot: Design, Motion Planning, and Control For Acrobatic Behaviors — http://arxiv.org/abs/2104.09025v1
+[10] Optimization of Humanoid Robot Designs for Human-Robot Ergonomic Payload Lifting — http://arxiv.org/abs/2211.13503v1
+[11] Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations — http://arxiv.org/abs/2602.06643v2
+[12] Locomotion Beyond Feet — http://arxiv.org/abs/2601.03607v1
+[13] A Robust Version of Convex Integral Functionals — http://arxiv.org/abs/1305.6023v3
+[14] Adaptive Blind Sparse-Channel Equalization — http://arxiv.org/abs/1708.01824v1
+[15] Convex Integration and Legendrian Approximation of Curves — http://arxiv.org/abs/1507.07661v2
+[16] Real-time Optimal Landing Control of the MIT Mini Cheetah — http://arxiv.org/abs/2110.02799v1
+[17] Adaptive Locomotion on Mud through Proprioceptive Sensing of Substrate Properties — http://arxiv.org/abs/2504.19607v2
+[18] S-Cheetah: A Novel Quadrupedal Robot with a 3-DOF Active Spine Learning Agile Locomotion — http://arxiv.org/abs/2605.27909v1
+[19] Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning — http://arxiv.org/abs/2109.11978v3
+[20] CHC-COMP 2022: Competition Report — http://arxiv.org/abs/2211.12231v1
+[21] Motif Mining and Unsupervised Representation Learning for BirdCLEF 2022 — http://arxiv.org/abs/2206.04805v1
+[22] Advanced Skills by Learning Locomotion and Local Navigation End-to-End — http://arxiv.org/abs/2209.12827v1
+[23] A Walk in the Park: Learning to Walk in 20 Minutes With Model-Free Reinforcement Learning — http://arxiv.org/abs/2208.07860v1
+[24] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1
+[25] RMA: Rapid Motor Adaptation for Legged Robots — http://arxiv.org/abs/2107.04034v1
+[26] This paper has been withdrawn — http://arxiv.org/abs/cond-mat/0309395v2
+[27] Adapting Rapid Motor Adaptation for Bipedal Robots — http://arxiv.org/abs/2205.15299v2
+[28] Leveraging MPI RMA to optimise halo-swapping communications in MONC on Cray machines — http://arxiv.org/abs/2010.13437v1
+[29] Adapting Rapid Motor Adaptation for Bipedal Robots — https://doi.org/10.1109/iros47612.2022.9981091
+[30] On Terrain-Aware Locomotion for Legged Robots — http://arxiv.org/abs/2212.00683v1
+[31] Adapting Rapid Motor Adaptation for Bipedal Robots — https://doi.org/10.48550/arxiv.2205.15299
+[32] Deploying COTS Legged Robot Platforms into a Heterogeneous Robot Team — http://arxiv.org/abs/2106.07182v1
+[33] CART: Context-Aware Terrain Adaptation using Temporal Sequence Selection for Legged Robots — http://arxiv.org/abs/2604.14344v2
+[34] TOP-Nav: Legged Navigation Integrating Terrain, Obstacle and Proprioception Estimation — http://arxiv.org/abs/2404.15256v4
+[35] Terrain Classification for the Spot Quadrupedal Mobile Robot Using Only Proprioceptive Sensing — http://arxiv.org/abs/2508.16504v1
+[36] Proprioceptive State Estimation of Legged Robots with Kinematic Chain Modeling — http://arxiv.org/abs/2209.05644v3
+[37] Bridging the Sim2Real Gap: Vision Encoder Pre-Training for Visuomotor Policy Transfer — http://arxiv.org/abs/2501.16389v2
+[38] The Importance and the Limitations of Sim2Real for Robotic Manipulation in Precision Agriculture — http://arxiv.org/abs/2008.03983v1
+[39] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
+[40] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
+[41] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1
+[42] Learning Humanoid Locomotion over Challenging Terrain — http://arxiv.org/abs/2410.03654v1
+[43] Gait-Adaptive Perceptive Humanoid Locomotion with Real-Time Under-Base Terrain Reconstruction — http://arxiv.org/abs/2512.07464v1
+[44] Global-Local Attention Decomposition for Terrain Encoding in Humanoid Perceptive Locomotion — http://arxiv.org/abs/2606.00637v3
+[45] The Electronics of the H1 Lead/Scintillating-Fibre Calorimeters — http://arxiv.org/abs/physics/9812042v1
+[46] Measurement of the Charm and Beauty Structure Functions using the H1 Vertex Detector at HERA — http://arxiv.org/abs/0907.2643v2
+[47] Measurement of F_2^ccbar and F_2^bbbar at High Q^2 using the H1 Vertex Detector at HERA — http://arxiv.org/abs/hep-ex/0411046v1
+[48] Measurement of Beauty Photoproduction near Threshold using Di-electron Events with the H1 Detector at HERA — http://arxiv.org/abs/1206.4346v1
+[49] A Purity Monitoring System for the H1 Liquid Argon Calorimeter — http://arxiv.org/abs/hep-ex/0111066v1
+[50] Measurement of Charm and Beauty Dijet Cross Sections in Photoproduction at HERA using the H1 Vertex Detector — http://arxiv.org/abs/hep-ex/0605016v1
+[51] Measurement of F_2^{c\bar{c}} and F_2^{b\bar{b}} at Low Q^2 and x using the H1 Vertex Detector at HERA — http://arxiv.org/abs/hep-ex/0507081v1
+[52] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2
+[53] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1
+[54] Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning — http://arxiv.org/abs/2511.04831v1
+[55] Causal-Paced Deep Reinforcement Learning — http://arxiv.org/abs/2507.02910v1
+[56] Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning — http://arxiv.org/abs/2108.10470v2
+[57] Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids — http://arxiv.org/abs/2508.12252v2
+[58] Wheeled Lab: Modern Sim2Real for Low-cost, Open-source Wheeled Robotics — http://arxiv.org/abs/2502.07380v2
+[59] CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System — http://arxiv.org/abs/2508.00162v2
+[60] A ROS-based Software Framework for the NimbRo-OP Humanoid Open Platform — http://arxiv.org/abs/1809.11051v1
+[61] Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum — http://arxiv.org/abs/2605.21133v2
+[62] NimbRo-OP2: Grown-up 3D Printed Open Humanoid Platform for Research — http://arxiv.org/abs/1809.11144v1
+[63] Learning Sim-to-Real Humanoid Locomotion in 15 Minutes — http://arxiv.org/abs/2512.01996v1
+[64] Hierarchical Reduced-Order Model Predictive Control for Robust Locomotion on Humanoid Robots — http://arxiv.org/abs/2509.04722v1
+[65] Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning — http://arxiv.org/abs/2607.20399v1
+[66] Humanoid Parkour Learning — http://arxiv.org/abs/2406.10759v2
+[67] BeamDojo: Learning Agile Humanoid Locomotion on Sparse Footholds — http://arxiv.org/abs/2502.10363v3
+[68] Bracing for Impact: Robust Humanoid Push Recovery and Locomotion with Reduced Order Models — http://arxiv.org/abs/2505.11495v2
+[69] Mastering Agile Jumping Skills from Simple Practices with Iterative Learning Control — http://arxiv.org/abs/2408.02619v1
+[70] Sim-to-Real Transfer in Deep Reinforcement Learning for Bipedal Locomotion — http://arxiv.org/abs/2511.06465v1
+[71] Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge — http://arxiv.org/abs/2101.02842v1
+[72] MARG: MAstering Risky Gap Terrains for Legged Robots With Elevation Mapping — https://arxiv.org/abs/2509.20036
+[73] Unsupervised Skill Discovery as Exploration for Learning Agile Locomotion — https://arxiv.org/abs/2508.08982
+[74] Impedance Matching: Enabling an RL-Based Running Jump in a Quadruped Robot — https://arxiv.org/abs/2404.15096
+[75] Real-World Humanoid Locomotion with Reinforcement Learning — http://arxiv.org/abs/2303.03381v2
+[76] State Estimation Transformers for Agile Legged Locomotion — https://arxiv.org/abs/2410.13496
+[77] Squat and tuck jump maneuver for single-legged robot with an active toe joint using model-free deep reinforcement learning — https://doi.org/10.1007/s40430-024-05028-0
+[78] Continuous Jumping for Legged Robots on Stepping Stones via Trajectory Optimization and Model Predictive Control — https://arxiv.org/abs/2204.01147
+[79] Cat-Like Jumping and Landing of Legged Robots in Low Gravity Using Deep Reinforcement Learning — https://arxiv.org/abs/2106.09357
+[80] HumanoidBench: Simulated Humanoid Benchmark for Whole-Body Locomotion and Manipulation — http://arxiv.org/abs/2403.10506v2
+[81] Humanoid Agent via Embodied Chain-of-Action Reasoning with Multimodal Foundation Models for Zero-Shot Loco-Manipulation — http://arxiv.org/abs/2504.09532v3
+[82] MuJoCo Playground — http://arxiv.org/abs/2502.08844v1
+[83] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
+[84] Generating a Terrain-Robustness Benchmark for Legged Locomotion: A Prototype via Terrain Authoring and Active Learning — http://arxiv.org/abs/2208.07681v3
+[85] Sim2Real Transfer for Audio-Visual Navigation with Frequency-Adaptive Acoustic Field Prediction — http://arxiv.org/abs/2405.02821v2
+[86] A Human-Grounded Evaluation Benchmark for Local Explanations of Machine Learning — http://arxiv.org/abs/1801.05075v2
+[87] Dense Temporal Motion Retargeting for Legged Robots — http://arxiv.org/abs/2609.38617v1
+[88] Spatio-Temporal Motion Retargeting for Quadruped Robots — http://arxiv.org/abs/2404.11557v3
+[89] Retargeting Matters: General Motion Retargeting for Humanoid Motion Tracking — http://arxiv.org/abs/2510.02252v1
+[90] TWIST: Teleoperated Whole-Body Imitation System — http://arxiv.org/abs/2505.02833v1
+[91] Learning Human-to-Humanoid Real-Time Whole-Body Teleoperation — http://arxiv.org/abs/2403.04436v1
+[92] HOVER: Versatile Neural Whole-Body Controller for Humanoid Robots — http://arxiv.org/abs/2410.21229v2
+[93] OmniH2O: Universal and Dexterous Human-to-Humanoid Whole-Body Teleoperation and Learning — http://arxiv.org/abs/2406.08858v1
+[94] Dynamic Locomotion Teleoperation of a Wheeled Humanoid Robot Reduced Model with a Whole-Body Human-Machine Interface — http://arxiv.org/abs/2109.03906v1
+[95] CLOT: Closed-Loop Global Motion Tracking for Whole-Body Humanoid Teleoperation — http://arxiv.org/abs/2602.15060v2
+[96] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1
+[97] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4
+[98] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1
+[99] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1
+[100] weijian/2026-USCAP-AI-Pathology-Report: 2026-USCAP-AI-Pathology-Report把脉:学术发现→产业映射——2026年USCAP年会新兴技术与AI整合报告(完整版) — https://doi.org/10.5281/zenodo.20241691
+[101] weijian/2026-USCAP-AI-Pathology-Report: 2026-USCAP-AI-Pathology-Report把脉:学术发现→产业映射——2026年USCAP年会新兴技术与AI整合报告(完整版) — https://doi.org/10.5281/zenodo.20241601
 
 
 ---
 
-*Generated by research-bot · topic=`embodied-humanoid` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=32 · duration=184s · 2026-10-02T10:54:00+00:00*
+*Generated by research-bot · topic=`embodied-humanoid` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=101 · duration=421s · 2026-10-02T22:29:22+00:00*
