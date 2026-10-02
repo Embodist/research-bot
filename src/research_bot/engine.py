@@ -53,6 +53,19 @@ def _is_offtopic(res: SearchResult, query_tokens: set[str], keywords: set[str]) 
         return False
     return res.engine in WEB_ENGINES
 
+
+def _heat_text(res: SearchResult) -> str:
+    bits = []
+    if res.citations is not None:
+        bits.append(f"citations={res.citations}")
+    if res.stars is not None:
+        bits.append(f"stars={res.stars}")
+    return ", ".join(bits)
+
+
+def _authority_text(res: SearchResult) -> str:
+    return res.venue or ""
+
 DEPTH_PRESETS: dict[str, dict[str, int]] = {
     "quick": {"max_subquestions": 3, "max_rounds": 1, "results_per_subquestion": 4, "fetch_top_n": 2, "candidates": 12},
     "standard": {"max_subquestions": 5, "max_rounds": 2, "results_per_subquestion": 6, "fetch_top_n": 4, "candidates": 24},
@@ -429,14 +442,20 @@ class DeepResearchEngine:
                     '  "subquestion_id": "' + sub.id + '",\n'
                     '  "findings": [{"point":"结论/事实","evidence":"支撑细节（可含数字/指标）",'
                     '"sources":[引用编号int,...],"type":"paper|project|dataset|trend|news|benchmark",'
-                    '"confidence":"high|medium|low","year":"YYYY或空字符串"}],\n'
-                    '  "key_papers": [{"title":"...","url":"...","why":"为什么重要","year":"..."}],\n'
-                    '  "key_projects": [{"name":"...","url":"...","why":"..."}],\n'
-                    '  "key_datasets": [{"name":"...","url":"...","why":"..."}],\n'
+                    '"confidence":"high|medium|low","year":"YYYY或空字符串",'
+                    '"heat":"热度证据：引用数/star/下载量/讨论热度，取自候选块的 citations/stars，无则空字符串",'
+                    '"authority":"权威证据：发表venue/是否同行评审/官方文档/标准，无则空字符串"}],\n'
+                    '  "key_papers": [{"title":"...","url":"...","why":"为什么重要","year":"...",'
+                    '"heat":"引用数等","authority":"venue/出版社"}],\n'
+                    '  "key_projects": [{"name":"...","url":"...","why":"...",'
+                    '"heat":"stars/采用度","authority":"维护方/是否官方"}],\n'
+                    '  "key_datasets": [{"name":"...","url":"...","why":"...",'
+                    '"heat":"引用/使用度","authority":"发布方/是否基准"}],\n'
                     '  "open_problems": ["..."]\n'
                     "}\n"
                     "要求：findings 3-8 条，去重，按重要性排序；不确定的写 confidence=low；"
-                    "没有证据的类别返回空数组。只输出 JSON。"
+                    "每条 finding 都要给出 heat 与 authority——候选块里出现 citations/stars/venue 时必须填入，"
+                    "确实没有才留空字符串；没有证据的类别返回空数组。只输出 JSON。"
                 ),
             },
         ]
@@ -462,6 +481,8 @@ class DeepResearchEngine:
                     "type": res.kind,
                     "confidence": "low",
                     "year": (res.published or "")[:4],
+                    "heat": _heat_text(res),
+                    "authority": _authority_text(res),
                 }
             )
         return {"subquestion_id": sub.id, "findings": findings, "key_papers": [], "key_projects": [], "key_datasets": [], "open_problems": []}
@@ -542,10 +563,13 @@ class DeepResearchEngine:
                     "1. 报告以 `# 标题` 开头，随后是元信息行（日期、领域、检索源数量）。\n"
                     "2. 每个关键论断必须带 [n] 引用；不得引用不存在的编号；不得编造 URL。\n"
                     "3. “经典与奠基性工作”“开源项目”“数据集与基准”用 Markdown 表格呈现"
-                    "（列：名称 | 年份 | 机构/作者 | 链接 | 说明）。\n"
+                    "（列：名称 | 年份 | 机构/作者 | 热度 | 权威 | 链接 | 说明）。\n"
                     "4. 明确区分“最新进展（近1-2年）”与“经典工作”。\n"
                     "5. 用 `> 待核实` 标注证据不足的判断。\n"
-                    "6. 结尾附“参考来源”编号列表（可直接复用上面的来源列表）。\n"
+                    "6. 每个关键条目/结论都要给出**热度证据**（引用数 citations、GitHub star、下载量、讨论热度）"
+                    "与**权威证据**（发表 venue、是否同行评审、官方文档/标准、维护机构/作者）；"
+                    "两类证据都必须带 [n] 引用，证据缺失时写 `> 待核实`，不得编造数字。\n"
+                    "7. 结尾附“参考来源”编号列表（可直接复用上面的来源列表）。\n"
                     "只输出 Markdown 报告正文。"
                 ),
             },

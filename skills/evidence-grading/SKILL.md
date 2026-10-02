@@ -25,6 +25,15 @@ description: 证据分级与可信度评估。用于对检索到的每条证据�
 - D 级证据 → 仅作线索，必须另找高等级来源，否则标注 `> 待核实`
 - E 级证据 → 丢弃
 
+## 两条正交证据轴（每条结论都要有）
+除等级外，每条关键条目/结论必须同时给出两类可核查证据：
+- **热度证据（heat）**：引用数 citations、GitHub star、下载量、榜单排名、讨论热度。来自候选块的
+  `citations=`/`stars=` 等字段；取不到就写 `> 待核实`，**不得编造数字**。
+- **权威证据（authority）**：发表 venue、是否同行评审、官方文档/标准、维护机构与作者。用于判断该结论
+  是"学术共识"还是"厂商宣传"。
+
+热度与权威要一起看：高 star 的仓库不等于已同行评审；顶会论文也可能尚无引用。二者都要带 [n] 引用。
+
 ## 每条发现应携带的元数据
-`point`、`evidence`、`sources`(引用编号)、`type`、`confidence`、`year`
+`point`、`evidence`、`sources`(引用编号)、`type`、`confidence`、`year`、`heat`、`authority`
 confidence 与证据等级对应，不得夸大。

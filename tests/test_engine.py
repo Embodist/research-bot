@@ -122,3 +122,17 @@ def test_candidate_block_contains_citation_numbers():
     block = engine._candidate_block(sub, reg)
     assert "[1]" in block
     assert "https://a.com" in block
+
+
+def test_fallback_extraction_carries_heat_and_authority():
+    engine = _engine()
+    reg = SourceRegistry()
+    res = SearchResult(
+        title="P", url="https://arxiv.org/abs/1", snippet="s", engine="arxiv",
+        kind="paper", citations=42, venue="RSS",
+    )
+    reg.add(res)
+    sub = SubQuestion(id="q1", question="q", results=[res])
+    finding = engine._fallback_extraction(sub, reg)["findings"][0]
+    assert "citations=42" in finding["heat"]
+    assert finding["authority"] == "RSS"
