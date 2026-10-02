@@ -112,6 +112,9 @@ jobs:
             echo "no report changes to commit"
           else
             git commit -m "chore(report): daily research $(date -u +%F)"
+            # The job runs for minutes; main may have moved (a manual push, or a
+            # concurrent run). Rebase our report commit onto the latest before pushing.
+            git pull --rebase origin "${GITHUB_REF_NAME:-main}"
             git push
           fi
 
