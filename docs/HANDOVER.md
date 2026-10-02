@@ -20,14 +20,24 @@ ROS 2** 的前沿进展、经典论文、开源项目与数据集。它基于 [`
 
 | 项 | 状态 |
 | --- | --- |
-| CLI / 引擎 / 5 个 topic / 10 个 skill | ✅ 完成 |
-| 离线测试 | ✅ 48 项通过（`pytest`） |
+| CLI / 引擎 / **11 个 topic** / 11 个 skill | ✅ 完成 |
+| 离线测试 | ✅ 51 项通过（`pytest`） |
 | lint（`src tests`） | ✅ 通过（`deer-flow/` 子模块不在范围内） |
 | GitHub Actions 每日工作流 | ✅ 已配置（`0 22 * * *` UTC = 06:00 Asia/Shanghai） |
 | 邮件（本地） | ✅ 已配置并**实测发送成功**（163 → outlook） |
-| 邮件（CI） | ⏳ 待把 Secrets/Variables 写入仓库（见 §6、§11） |
-| 报告质量 | ⚠️ 检索域漂移问题，已缓解未根治（见 §10） |
-| `embodied-ai` / `cpp-robotics` 报告 | ⏳ 尚未生成（见 §11） |
+| 邮件（CI） | ✅ 7 个 Secrets + 3 个 Variables 已写入仓库，链路实测成功 |
+| 报告质量 | ✅ 检索域漂移已修复（统一相关性门控，见 §10） |
+| 证据要求 | ✅ 每条结论四轴证据：热度 / 权威 / 关注度 / 推荐度（见 §10） |
+| Docker base 镜像 | ✅ `Dockerfile` + `image.yml` 发布到 `ghcr.io/embodist/research-bot-base:py3.12`，daily 工作流改在该容器内跑 |
+
+> **Docker base 镜像**：只烤环境（Python 3.12 + `git` + `httpx/PyYAML/pytest/ruff/hatchling/editables`），
+> **不烤代码**——代码由 `actions/checkout` 挂载，故改代码无需重建镜像，仅改 `Dockerfile`/`pyproject.toml` 才重建。
+> daily 任务因此省去 `setup-python` 与依赖安装，只做一次离线可编辑安装
+> `pip install -e . --no-deps --no-build-isolation`。**首次需先跑一次 `Base image` 工作流发布镜像**，
+> daily 才能拉到。详见 `docs/github-actions.md`。
+
+新增 topic：`cybersecurity`、`ai`、`music-audio`（MIR/CSI/音乐生成·理解/SVC/音频分离），以及具身细分方向
+`embodied-humanoid`、`embodied-manipulation`、`embodied-world-models`。
 
 ## 3. 接手人 30 分钟跑起来
 
@@ -126,25 +136,38 @@ export https_proxy=http://$HOST:54321 http_proxy=http://$HOST:54321
 git push origin main
 ```
 
+> **已配置仓库级自动推送**（2026-10-02）：`.git/config` 里设了 `credential.helper = store --file=.git/.credentials`
+> （token 存于 `.git/.credentials`，权限 600，已写入 `.git/info/exclude`）以及 `http(s).proxy`。因此在本仓库内
+> 直接 `git push origin main` 即可，无需再手动设 token；仅当代理主机 IP 变化时才需改 `http.proxy`。
+
 第三方镜像（ghfast.top / ghproxy.net）虽可达，但会把 GitHub 凭据经手第三方，**不建议**用于推送。
 
 ## 10. 已知问题与限制
 
-1. **检索域漂移（主要质量问题）**：HTML 引擎对同名词会召回严重离题结果（ROS → *reactive oxygen species*、
-   *Pinocchio* → 童话、*Drake* → Drake 方程）。**已缓解**：`router.rrf_fuse` 给结构化/学术引擎更高权重；
-   `engine._filter_relevant` 用 topic 关键词 + 查询词对 HTML 结果做相关性门控（学术结果信任、且不会清空
-   子问题）。**未根治**：仍可能漏网，彻底的方案是 LLM rerank 或限定符检索。
-2. **模型 id**：网关只服务 `deepseek-v4-flash`；请求 `deepseek-v1-flash` 会 `model_not_found`。
-3. **`deer-flow/` 子模块**：直接 `ruff check .` 会报 100+ 错，**全在子模块内**，不在 `src tests` 范围内，忽略即可。
-4. **`set_github_secrets.py` 只写 Secrets**，不写 Variables（见 §6）。
-5. **降级行为**：LLM 不可用时仍会产出「源码接地」的降级报告；搜索引擎被墙则按熔断逐个剔除——CI 不会因网络
+1. **检索域漂移（已修复，2026-10-02）**：同名词会让检索离题——不只是 HTML 引擎，**关键词匹配的学术引擎
+   （Crossref/OpenAlex）同样会召回**（ROS → *reactive oxygen species*、`pi0` → π⁰ 介子、`project` → 游戏工作室）。
+   修复分两层：
+   - `router.rrf_fuse` 给结构化/学术引擎更高权重（`ENGINE_WEIGHTS`）；
+   - `engine._filter_relevant` 用**统一门控**：候选必须含 topic 关键词，或与查询重叠 **≥2 个有区分度词**
+     （`_GENERIC_TOKENS` 停用词表剔除 best/practices/project/survey 等泛词）。门控对**所有引擎**生效；
+     若子问题被全部滤掉，**故意留空**以暴露检索缺口，而不是用垃圾凑数。
+2. **证据四轴（2026-10-02）**：每条关键结论/条目必须给出**热度**（引用/star/下载）、**权威**（venue/同行评审/
+   官方文档）、**关注度**（高/中/低 + 依据）、**推荐度**（★1-5 + 理由）。抽取与综合 prompt 强制要求，报告证据表
+   列为 `名称|年份|机构/作者|热度|权威|关注度|推荐度|链接|说明`；取不到的写 `> 待核实`，**不得编造数字**。
+   降级抽取（LLM 不可用）用 `_attention_text` / `_recommendation_text` 从 citations/stars/venue 确定性推导。
+3. **模型 id**：网关只服务 `deepseek-v4-flash`；请求 `deepseek-v1-flash` 会 `model_not_found`。
+4. **`deer-flow/` 子模块**：直接 `ruff check .` 会报 100+ 错，**全在子模块内**，不在 `src tests` 范围内，忽略即可。
+5. **`set_github_secrets.py` 只写 Secrets**，不写 Variables（见 §6）。
+6. **降级行为**：LLM 不可用时仍会产出「源码接地」的降级报告；搜索引擎被墙则按熔断逐个剔除——CI 不会因网络
    受限而失败，但报告可能因此变薄。
+7. **`.claude/` 曾含明文 `ANTHROPIC_AUTH_TOKEN`**，已加入 `.gitignore`（不提交）。`report/push-log.jsonl`
+   含收件邮箱，同样不提交。
 
 ## 11. 待办 / 下一步
 
-- [ ] 把 LLM/SMTP 写入 GitHub **Secrets**，并把 `LLM_MODEL`/`LLM_BASE_URL`/`SEARXNG_URL` 写入 **Variables**，
-      然后手动触发一次 Daily Research 验证 CI 邮件链路。
-- [ ] 生成尚缺的 `embodied-ai`、`cpp-robotics` 两份报告。
+- [ ] 重新生成 **5 份旧归档报告**（`vla`/`ros2`/`kinematics`/`embodied-ai`/`cpp-robotics`）使其带上四轴证据表——
+      当前按用户要求「已归档的不管」，暂未重跑。
+- [ ] 手动触发一次 Daily Research，验证 CI 全链路（含四轴证据 + 邮件）。
 - [ ] （可选）用 LLM 对候选结果做一次 rerank / 相关性打分，进一步压掉域漂移。
 - [ ] （可选）验证 WSL 代理主机 IP 变化时的推送脚本化（当前需手动取 nameserver）。
 

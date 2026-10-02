@@ -13,8 +13,10 @@ coverage, then writes a cited Markdown report — and emails it to you. Every ru
 > **Status (verified).** The daily GitHub Actions workflow runs green end-to-end
 > ([→ run](https://github.com/Embodist/research-bot/actions)): install → `rb doctor` → research → commit
 > reports → upload artifacts. Nine search engines (including your SearXNG) pass the connectivity check;
-> 45 offline tests and lint pass. The only remaining setup for daily **email** delivery is your SMTP
-> credentials — see [docs/email.md](docs/email.md) and `scripts/set_github_secrets.py`.
+> 51 offline tests and lint pass. Email delivery (163 → outlook) is configured locally **and** in CI
+> (7 Action secrets + 3 variables) and verified working. Every report now carries four evidence axes per
+> item — **热度 heat · 权威 authority · 关注度 attention · 推荐度 recommendation** — and retrieval uses a
+> distinctive-token relevance gate that drops homonym drift.
 
 ---
 
@@ -30,6 +32,7 @@ coverage, then writes a cited Markdown report — and emails it to you. Every ru
 - [Search layer](#search-layer)
 - [Reports & push ledger](#reports--push-ledger)
 - [Daily automation (GitHub Actions)](#daily-automation-github-actions)
+- [Docker base image](#docker-base-image)
 - [Email setup](#email-setup)
 - [DeerFlow integration](#deerflow-integration)
 - [Development](#development)
@@ -235,8 +238,26 @@ report/
 Workflows:
 
 - **`.github/workflows/daily-research.yml`** — schedules the daily run, commits new reports back to the repo,
-  emails the digest, uploads artifacts, and supports manual `workflow_dispatch`.
+  emails the digest, uploads artifacts, and supports manual `workflow_dispatch`. It runs **inside the
+  prebuilt base image** below, so no Python/dependency setup happens per run.
+- **`.github/workflows/image.yml`** — builds and publishes the base image to GHCR (rebuilds only when
+  `Dockerfile`/`pyproject.toml` change).
 - **`.github/workflows/ci.yml`** — lint + tests on push/PR.
+
+## Docker base image
+
+`Dockerfile` bakes in **only the environment** (Python 3.12, `git`, `httpx`/`PyYAML`/`pytest`/`ruff`/
+`hatchling`/`editables`) — **not the code**. Code is checked out and mounted at run time, so image rebuilds
+are needed only when dependencies change.
+
+```bash
+# published by the `Base image` workflow
+docker run --rm -v "$PWD":/app -w /app -e LLM_API_KEY=... \
+  ghcr.io/embodist/research-bot-base:py3.12 \
+  sh -c 'pip install -e . --no-deps --no-build-isolation && rb run --topic vla --depth quick'
+```
+
+See [docs/github-actions.md](docs/github-actions.md#docker-base-image).
 
 Required repository secrets (**Settings → Secrets and variables → Actions**):
 

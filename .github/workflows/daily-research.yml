@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       topic:
-        description: "Topic name (vla, embodied-ai, kinematics, cpp-robotics, ros2) or 'all'"
+        description: "Topic name (e.g. vla, cybersecurity, music-audio, embodied-manipulation) or 'all'"
         default: "all"
         required: false
       depth:
@@ -26,6 +26,7 @@ on:
 
 permissions:
   contents: write
+  packages: read
 
 concurrency:
   group: daily-research
@@ -35,6 +36,13 @@ jobs:
   research:
     runs-on: ubuntu-latest
     timeout-minutes: 240
+    # Run inside the prebuilt base image (Python + deps baked in), so the job
+    # skips setup-python and the dependency install. Rebuilt by image.yml.
+    container:
+      image: ghcr.io/embodist/research-bot-base:py3.12
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     env:
       TOPIC: ${{ github.event.inputs.topic || 'all' }}
       DEPTH: ${{ github.event.inputs.depth || 'standard' }}
@@ -64,14 +72,11 @@ jobs:
           submodules: false
           fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-
+      # Python + deps are already in the base image; only the editable install of
+      # the checked-out code is needed, and --no-build-isolation keeps it offline
+      # (hatchling is baked in).
       - name: Install research-bot
-        run: python -m pip install --upgrade pip && pip install -e .
+        run: pip install -e . --no-deps --no-build-isolation
 
       - name: Preflight (rb doctor)
         continue-on-error: true
