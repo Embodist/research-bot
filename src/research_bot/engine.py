@@ -79,6 +79,32 @@ def _heat_text(res: SearchResult) -> str:
 def _authority_text(res: SearchResult) -> str:
     return res.venue or ""
 
+
+def _attention_text(res: SearchResult) -> str:
+    if res.stars is not None:
+        level = "高" if res.stars >= 1000 else "中" if res.stars >= 100 else "低"
+        return f"{level}（stars={res.stars}）"
+    if res.citations is not None:
+        level = "高" if res.citations >= 50 else "中" if res.citations >= 5 else "低"
+        return f"{level}（citations={res.citations}）"
+    return ""
+
+
+def _recommendation_text(res: SearchResult) -> str:
+    score = 3  # already passed the relevance gate, so baseline is "worth a look"
+    reasons: list[str] = []
+    if res.venue:
+        score += 1
+        reasons.append(f"venue={res.venue}")
+    if (res.citations or 0) >= 50 or (res.stars or 0) >= 1000:
+        score += 1
+        reasons.append("高热度")
+    if not res.venue and res.citations is None and res.stars is None:
+        score -= 1  # no authority and no heat signal -> downgrade
+    score = max(1, min(5, score))
+    return "★" * score + "☆" * (5 - score) + (f"（{', '.join(reasons)}）" if reasons else "")
+
+
 DEPTH_PRESETS: dict[str, dict[str, int]] = {
     "quick": {"max_subquestions": 3, "max_rounds": 1, "results_per_subquestion": 4, "fetch_top_n": 2, "candidates": 12},
     "standard": {"max_subquestions": 5, "max_rounds": 2, "results_per_subquestion": 6, "fetch_top_n": 4, "candidates": 24},
@@ -454,18 +480,22 @@ class DeepResearchEngine:
                     '"sources":[引用编号int,...],"type":"paper|project|dataset|trend|news|benchmark",'
                     '"confidence":"high|medium|low","year":"YYYY或空字符串",'
                     '"heat":"热度证据：引用数/star/下载量/讨论热度，取自候选块的 citations/stars，无则空字符串",'
-                    '"authority":"权威证据：发表venue/是否同行评审/官方文档/标准，无则空字符串"}],\n'
+                    '"authority":"权威证据：发表venue/是否同行评审/官方文档/标准，无则空字符串",'
+                    '"attention":"关注度：高|中|低 + 一句依据（引用/star/下载/榜单排名/新闻或社区讨论热度）",'
+                    '"recommendation":"推荐度：★1-5 + 一句推荐理由（综合权威+热度+与本主题的相关性；没把握给 ★★★☆☆）"}],\n'
                     '  "key_papers": [{"title":"...","url":"...","why":"为什么重要","year":"...",'
-                    '"heat":"引用数等","authority":"venue/出版社"}],\n'
+                    '"heat":"引用数等","authority":"venue/出版社","attention":"高|中|低+依据","recommendation":"★1-5+理由"}],\n'
                     '  "key_projects": [{"name":"...","url":"...","why":"...",'
-                    '"heat":"stars/采用度","authority":"维护方/是否官方"}],\n'
+                    '"heat":"stars/采用度","authority":"维护方/是否官方","attention":"高|中|低+依据","recommendation":"★1-5+理由"}],\n'
                     '  "key_datasets": [{"name":"...","url":"...","why":"...",'
-                    '"heat":"引用/使用度","authority":"发布方/是否基准"}],\n'
+                    '"heat":"引用/使用度","authority":"发布方/是否基准","attention":"高|中|低+依据","recommendation":"★1-5+理由"}],\n'
                     '  "open_problems": ["..."]\n'
                     "}\n"
                     "要求：findings 3-8 条，去重，按重要性排序；不确定的写 confidence=low；"
-                    "每条 finding 都要给出 heat 与 authority——候选块里出现 citations/stars/venue 时必须填入，"
-                    "确实没有才留空字符串；没有证据的类别返回空数组。只输出 JSON。"
+                    "每条 finding 都要给出 heat、authority、attention、recommendation——"
+                    "候选块里出现 citations/stars/venue 时必须据此填入，确实没有才留空/给中性值；"
+                    "attention 与 recommendation 必须基于候选块里的真实信号，不得编造数字或榜单；"
+                    "没有证据的类别返回空数组。只输出 JSON。"
                 ),
             },
         ]
@@ -493,6 +523,8 @@ class DeepResearchEngine:
                     "year": (res.published or "")[:4],
                     "heat": _heat_text(res),
                     "authority": _authority_text(res),
+                    "attention": _attention_text(res),
+                    "recommendation": _recommendation_text(res),
                 }
             )
         return {"subquestion_id": sub.id, "findings": findings, "key_papers": [], "key_projects": [], "key_datasets": [], "open_problems": []}
@@ -573,12 +605,14 @@ class DeepResearchEngine:
                     "1. 报告以 `# 标题` 开头，随后是元信息行（日期、领域、检索源数量）。\n"
                     "2. 每个关键论断必须带 [n] 引用；不得引用不存在的编号；不得编造 URL。\n"
                     "3. “经典与奠基性工作”“开源项目”“数据集与基准”用 Markdown 表格呈现"
-                    "（列：名称 | 年份 | 机构/作者 | 热度 | 权威 | 链接 | 说明）。\n"
+                    "（列：名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明）。\n"
                     "4. 明确区分“最新进展（近1-2年）”与“经典工作”。\n"
                     "5. 用 `> 待核实` 标注证据不足的判断。\n"
-                    "6. 每个关键条目/结论都要给出**热度证据**（引用数 citations、GitHub star、下载量、讨论热度）"
-                    "与**权威证据**（发表 venue、是否同行评审、官方文档/标准、维护机构/作者）；"
-                    "两类证据都必须带 [n] 引用，证据缺失时写 `> 待核实`，不得编造数字。\n"
+                    "6. 每个关键条目/结论都要给出四类可核查证据：**热度证据**（引用数 citations、GitHub star、"
+                    "下载量、讨论热度）、**权威证据**（发表 venue、是否同行评审、官方文档/标准、维护机构/作者）、"
+                    "**关注度**（高/中/低，说明依据：引用/star/下载/榜单排名/新闻或社区讨论）、"
+                    "**推荐度**（★1-5，附一句话推荐理由，综合权威+热度+与本主题的相关性）；"
+                    "四类证据都必须带 [n] 引用，证据缺失时写 `> 待核实`，不得编造数字或榜单。\n"
                     "7. 结尾附“参考来源”编号列表（可直接复用上面的来源列表）。\n"
                     "只输出 Markdown 报告正文。"
                 ),

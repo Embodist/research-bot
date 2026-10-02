@@ -150,7 +150,7 @@ def test_candidate_block_contains_citation_numbers():
     assert "https://a.com" in block
 
 
-def test_fallback_extraction_carries_heat_and_authority():
+def test_fallback_extraction_carries_all_four_evidence_axes():
     engine = _engine()
     reg = SourceRegistry()
     res = SearchResult(
@@ -162,3 +162,17 @@ def test_fallback_extraction_carries_heat_and_authority():
     finding = engine._fallback_extraction(sub, reg)["findings"][0]
     assert "citations=42" in finding["heat"]
     assert finding["authority"] == "RSS"
+    assert finding["attention"] == "中（citations=42）"
+    assert finding["recommendation"].startswith("★★★★☆")
+
+
+def test_fallback_recommendation_downgrades_without_signals():
+    engine = _engine()
+    reg = SourceRegistry()
+    res = SearchResult(title="P", url="https://x.com/1", snippet="s", engine="bing", kind="web")
+    reg.add(res)
+    sub = SubQuestion(id="q1", question="q", results=[res])
+    finding = engine._fallback_extraction(sub, reg)["findings"][0]
+    assert finding["attention"] == ""
+    assert finding["recommendation"].startswith("★★☆☆☆")
+
