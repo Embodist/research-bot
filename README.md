@@ -321,7 +321,8 @@ make schedule             # print a crontab line for a local daily run
 
 Layout: `src/research_bot/` (package) · `skills/` · `topics/` · `config/` · `report/` · `scripts/` ·
 `.github/workflows/`. See [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md),
-[`docs/HANDOVER.md`](docs/HANDOVER.md), [`docs/architecture.md`](docs/architecture.md),
+[`docs/HANDOVER.md`](docs/HANDOVER.md), [`docs/deep-research.md`](docs/deep-research.md) (tech core +
+architecture), [`docs/architecture.md`](docs/architecture.md),
 [`docs/github-actions.md`](docs/github-actions.md), [`docs/email.md`](docs/email.md),
 [`docs/scheduling.md`](docs/scheduling.md) and [`docs/skills-and-sources.md`](docs/skills-and-sources.md).
 

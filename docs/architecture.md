@@ -1,5 +1,10 @@
 # Architecture
 
+> **Deeper dive.** This page is the concise overview. For the full **tech core** (weighted RRF, the
+> distinctive-token relevance gate, four-axis evidence, the bounded critique loop, LLM client hardening,
+> config resolution) and a detailed **architecture** walk-through, see
+> [`deep-research.md`](deep-research.md).
+
 `research-bot` is the **headless lead agent** for a robotics research beat. It is deliberately small
 (`httpx` + `PyYAML`) so it can run in GitHub Actions, cron or a container without Docker/DB/sandbox
 dependencies, while reusing the conventions of [`bytedance/deer-flow`](../deer-flow) (vendored as a

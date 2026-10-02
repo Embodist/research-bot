@@ -2,7 +2,8 @@
 
 > 面向**接手人**的运行与维护手册：怎么跑、怎么配、坑在哪、下一步做什么。
 > 项目全貌见 [`README.md`](../README.md)，工程约定见 [`AGENTS.md`](../AGENTS.md)，AI 助手规则见
-> [`CLAUDE.md`](../CLAUDE.md)。**最后更新：2026-10-02。**
+> [`CLAUDE.md`](../CLAUDE.md)，**deep-research 技术核心与架构**见 [`docs/deep-research.md`](deep-research.md)。
+> **最后更新：2026-10-02。**
 
 ---
 
