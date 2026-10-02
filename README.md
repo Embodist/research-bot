@@ -10,7 +10,8 @@ web search backends, fetches and reads the primary sources, extracts graded evid
 coverage, then writes a cited Markdown report — and emails it to you. Every run is recorded under
 [`report/`](report/) (`index.json` + `push-log.jsonl`).
 
-> **Status (verified).** The daily GitHub Actions workflow runs green end-to-end
+> **Status (verified).** The daily GitHub Actions workflow runs green end-to-end **inside the prebuilt
+> base image** (`ghcr.io/embodist/research-bot-base:py3.12`)
 > ([→ run](https://github.com/Embodist/research-bot/actions)): install → `rb doctor` → research → commit
 > reports → upload artifacts. Nine search engines (including your SearXNG) pass the connectivity check;
 > 51 offline tests and lint pass. Email delivery (163 → outlook) is configured locally **and** in CI

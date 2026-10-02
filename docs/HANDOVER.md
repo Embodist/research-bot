@@ -29,7 +29,7 @@ ROS 2** 的前沿进展、经典论文、开源项目与数据集。它基于 [`
 | 邮件（CI） | ✅ 7 个 Secrets + 3 个 Variables 已写入仓库，链路实测成功 |
 | 报告质量 | ✅ 检索域漂移已修复（统一相关性门控，见 §10） |
 | 证据要求 | ✅ 每条结论四轴证据：热度 / 权威 / 关注度 / 推荐度（见 §10） |
-| Docker base 镜像 | ✅ `Dockerfile` + `image.yml` 发布到 `ghcr.io/embodist/research-bot-base:py3.12`，daily 工作流改在该容器内跑 |
+| Docker base 镜像 | ✅ `Dockerfile` + `image.yml` 发布到 `ghcr.io/embodist/research-bot-base:py3.12`；daily 工作流在该容器内跑，**容器内全链路已实测转绿**（run `36999238952`，2026-10-02：install → doctor → research → 回提交 → artifact 全 success） |
 
 > **Docker base 镜像**：只烤环境（Python 3.12 + `git` + `httpx/PyYAML/pytest/ruff/hatchling/editables`），
 > **不烤代码**——代码由 `actions/checkout` 挂载，故改代码无需重建镜像，仅改 `Dockerfile`/`pyproject.toml` 才重建。
@@ -178,7 +178,6 @@ git push origin main
 
 - [ ] 重新生成 **5 份旧归档报告**（`vla`/`ros2`/`kinematics`/`embodied-ai`/`cpp-robotics`）使其带上四轴证据表——
       当前按用户要求「已归档的不管」，暂未重跑。
-- [ ] 手动触发一次 Daily Research，验证 CI 全链路（含四轴证据 + 邮件）。
 - [ ] （可选）用 LLM 对候选结果做一次 rerank / 相关性打分，进一步压掉域漂移。
 - [ ] （可选）验证 WSL 代理主机 IP 变化时的推送脚本化（当前需手动取 nameserver）。
 
