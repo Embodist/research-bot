@@ -34,7 +34,7 @@ concurrency:
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 240
     env:
       TOPIC: ${{ github.event.inputs.topic || 'all' }}
       DEPTH: ${{ github.event.inputs.depth || 'standard' }}
@@ -53,6 +53,8 @@ jobs:
       SMTP_PASS: ${{ secrets.SMTP_PASS }}
       SMTP_FROM: ${{ secrets.SMTP_FROM }}
       MAIL_TO: ${{ secrets.MAIL_TO }}
+      # Merge all topics of a scheduled run into a single email.
+      EMAIL_DIGEST: "true"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -86,6 +88,7 @@ jobs:
           rb run "${ARGS[@]}"
 
       - name: Commit reports
+        if: always()
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"

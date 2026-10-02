@@ -196,5 +196,7 @@ def load_config(path: str | os.PathLike[str] | None = None, home: Path | None = 
         merged.setdefault("email", {})["to"] = [x.strip() for x in mail_to.split(",") if x.strip()]
     if os.environ.get("EMAIL_ENABLED", "").lower() in ("1", "true", "yes"):
         merged.setdefault("email", {})["enabled"] = True
+    if os.environ.get("EMAIL_DIGEST", "").lower() in ("1", "true", "yes"):
+        merged.setdefault("email", {})["digest"] = True
 
     return _wrap(expand_env(merged)), home

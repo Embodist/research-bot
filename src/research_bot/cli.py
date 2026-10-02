@@ -68,10 +68,17 @@ def cmd_run(args: argparse.Namespace) -> int:
 
     run_meta = {"git": git_metadata(home), "run_url": git_metadata(home).get("run_url", "")}
     saved: list[tuple] = []
+    failed: list[str] = []
     for topic in topics:
         print(f"\n=== {topic.name}: {topic.title} ===", file=sys.stderr)
-        result = engine.run(topic, query=args.query or "", depth=args.depth, rounds=args.rounds, progress=_progress)
-        record, md_path = save_report(home, cfg, result, run_meta=run_meta)
+        try:
+            result = engine.run(topic, query=args.query or "", depth=args.depth, rounds=args.rounds, progress=_progress)
+            record, md_path = save_report(home, cfg, result, run_meta=run_meta)
+        except Exception as exc:  # noqa: BLE001 - one topic must not abort the run
+            log.exception("topic %s failed", topic.name)
+            print(f"  ! topic {topic.name} failed: {exc}", file=sys.stderr)
+            failed.append(topic.name)
+            continue
         saved.append((topic, result, record, md_path))
         print(
             f"  → {md_path.relative_to(home)}  ({record['sources']} sources, {record['findings']} findings, "
@@ -96,7 +103,9 @@ def cmd_run(args: argparse.Namespace) -> int:
 
     if args.json:
         print(json.dumps([r[2] for r in saved], ensure_ascii=False, indent=2))
-    return 0
+    if failed:
+        print(f"failed topics: {', '.join(failed)}", file=sys.stderr)
+    return 0 if saved or not topics else 1
 
 
 # ---------------------------------------------------------------------------
