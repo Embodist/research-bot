@@ -108,6 +108,10 @@ DEFAULTS: dict[str, Any] = {
         "keep_latest": True,
         "include_raw_sources": True,
     },
+    "kb": {
+        "enabled": False,
+        "path": "${KB_PATH:-report/knowledge.db}",
+    },
     "email": {
         "enabled": False,
         "smtp_host": "${SMTP_HOST:-}",

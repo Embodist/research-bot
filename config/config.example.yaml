@@ -83,6 +83,14 @@ report:
   include_raw_sources: true  # machine-readable source appendix in the JSON
 
 # ---------------------------------------------------------------------------
+# SQLite topic knowledge base (record runs; diff increments; dedup pushes).
+# gitignored binary; in CI it is persisted via actions/cache, not committed.
+# ---------------------------------------------------------------------------
+kb:
+  enabled: false             # `rb run --kb` records even when disabled
+  path: ${KB_PATH:-report/knowledge.db}
+
+# ---------------------------------------------------------------------------
 # Email delivery (SMTP). Disabled by default; enable in CI or locally.
 # ---------------------------------------------------------------------------
 email:

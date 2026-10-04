@@ -8,6 +8,7 @@ Commands
     rb skills [list|show]     inspect DeerFlow-format skills (local + submodule)
     rb topics [list|show]     inspect research topics
     rb report [list|show]     inspect the report archive / push ledger
+    rb kb [stats|topics|...]  inspect the SQLite topic knowledge base
     rb engines [list|test]    inspect the multi-source search layer
     rb config [show|init]     inspect or bootstrap configuration
 """
@@ -28,6 +29,7 @@ from .llm import LLM, LLMError
 from .report import git_metadata, load_index, record_email, save_report
 from .search import ENGINE_REGISTRY, SearchRouter
 from .skills import load_skills
+from .store import items_from_result, open_store
 from .topics import load_topics, resolve_topics
 from .util import truncate
 
@@ -111,6 +113,32 @@ def cmd_run(args: argparse.Namespace) -> int:
                 print(f"  gap: {gap}", file=sys.stderr)
             if not report.gaps:
                 print("  no gaps — all facets covered, discipline satisfied", file=sys.stderr)
+
+    # ---- knowledge base (increment tracking + push dedup) ------------------
+    increments: list[tuple[str, object]] = []
+    if getattr(cfg.kb, "enabled", False) or args.kb:
+        cov_by_topic = {rec["topic"]: cov for (_, _, rec, _), cov in zip(saved, coverage, strict=False)}
+        with open_store(home, cfg) as store:
+            for _, result, record, _ in saved:
+                tid = store.upsert_topic(result.topic, title=result.title, mode=frame or "research")
+                rid = store.record_report(
+                    tid,
+                    report_key=record["id"],
+                    mode=frame or "research",
+                    depth=str(record.get("depth", "")),
+                    md_path=record.get("report_path", ""),
+                    json_path=record.get("json_path", ""),
+                    coverage=(cov_by_topic.get(record["topic"]) or {}).get("score"),
+                    source_count=record.get("sources"),
+                    finding_count=record.get("findings"),
+                    run_url=record.get("run_url", ""),
+                )
+                inc = store.record_items(tid, rid, items_from_result(result))
+                increments.append((result.topic, inc))
+                print(
+                    f"  kb[{result.topic}]: +{len(inc.new)} new, ~{len(inc.updated)} updated, {inc.known} known",
+                    file=sys.stderr,
+                )
 
     # ---- email delivery -----------------------------------------------------
     push_requested = args.email or (cfg.email.enabled and not args.no_email)
@@ -331,6 +359,42 @@ def cmd_config(args: argparse.Namespace) -> int:
 
 
 # ---------------------------------------------------------------------------
+# kb
+# ---------------------------------------------------------------------------
+def cmd_kb(args: argparse.Namespace) -> int:
+    cfg, home = load_config(args.config, find_home())
+    with open_store(home, cfg) as store:
+        if args.action == "init":
+            print(f"initialised knowledge base at {store.path}")
+            print(json.dumps(store.stats(), ensure_ascii=False, indent=2))
+            return 0
+        if args.action == "topics":
+            for t in store.topics():
+                indent = "  " if t["parent_id"] else ""
+                print(f"{indent}{t['name']:24s} mode={t['mode']:10s} reports={t['reports']:<3d} items={t['items']}")
+            return 0
+        if args.action == "recent":
+            for r in store.recent_reports(limit=args.limit):
+                cov = f"{r['coverage']:.1f}" if r.get("coverage") is not None else "-"
+                print(f"{r['created_at']}  {r['topic']:20s} {r['mode']:10s} cov={cov:>5s}  {r['report_key']}")
+            return 0
+        if args.action == "new":
+            if not args.topic:
+                print("--topic NAME required for `kb new`", file=sys.stderr)
+                return 2
+            tid = store.topic_id(args.topic)
+            if tid is None:
+                print(f"unknown topic: {args.topic}", file=sys.stderr)
+                return 2
+            for it in store.new_items(tid, limit=args.limit):
+                print(f"- [{it['kind']}] {it['title']}")
+            return 0
+        # default: stats
+        print(json.dumps(store.stats(), ensure_ascii=False, indent=2))
+        return 0
+
+
+# ---------------------------------------------------------------------------
 # parser
 # ---------------------------------------------------------------------------
 def build_parser() -> argparse.ArgumentParser:
@@ -353,6 +417,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--json", action="store_true", help="print the run records as JSON")
     p_run.add_argument("--knowledge", action="store_true", help="build a 7-facet knowledge map (learn a domain) instead of a topic run")
     p_run.add_argument("--watch", action="store_true", help="build a 7-facet increment report (changes/blue-ocean/industry/society) instead of a topic run")
+    p_run.add_argument("--kb", action="store_true", help="record this run into the SQLite knowledge base (increment + dedup)")
     p_run.set_defaults(func=cmd_run)
 
     p_doc = sub.add_parser("doctor", help="self-check connectivity and config")
@@ -388,6 +453,12 @@ def build_parser() -> argparse.ArgumentParser:
     p_cfg.add_argument("action", nargs="?", choices=["show", "init", "path"], default="show")
     p_cfg.add_argument("--force", action="store_true", help="overwrite existing config on `init`")
     p_cfg.set_defaults(func=cmd_config)
+
+    p_kb = sub.add_parser("kb", help="inspect the SQLite topic knowledge base")
+    p_kb.add_argument("action", nargs="?", default="stats", choices=["init", "stats", "topics", "recent", "new"])
+    p_kb.add_argument("--topic", help="topic name (for `kb new`)")
+    p_kb.add_argument("--limit", type=int, default=20, help="max rows to print")
+    p_kb.set_defaults(func=cmd_kb)
 
     return parser
 
