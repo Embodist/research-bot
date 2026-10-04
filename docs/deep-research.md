@@ -229,7 +229,7 @@ topic.yaml
 | `skills.py` | DeerFlow 兼容 `SKILL.md` 加载（本地 + 子模块，本地优先） |
 | `topics.py` | topic 定义（种子查询/资源/章节）、`Topic` 数据类；`topic_from_query` 自由文本→topic |
 | `serve.py` | HTTP 服务（stdlib `http.server`：异步任务 API + 有界 worker 池 + 可选 bearer token） |
-| `knowledge.py` | 跨领域知识体系（七维 facet 骨架 + 确定性覆盖率评估） |
+| `knowledge.py` | 跨领域固定骨架（`knowledge` 学习 / `watch` 增量两套七维 frame）+ 确定性覆盖率评估 |
 | `report.py` | 落盘 md/json、`index.json` 台账、`push-log.jsonl` 审计、git/run 元数据 |
 | `emailer.py` | 纯 stdlib SMTP：隐式 TLS(465)/STARTTLS(587)、Markdown→HTML 正文、附件 |
 | `cli.py` | `rb` 管理工具：`run/doctor/skills/topics/engines/report/config` |
@@ -293,7 +293,7 @@ report/
 
 | 命令 | 用途 |
 | --- | --- |
-| `rb run` | 跑流水线（`--topic/--query/--knowledge/--depth/--rounds/--no-fetch/--email/--dry-run-email/--json`） |
+| `rb run` | 跑流水线（`--topic/--query/--knowledge/--watch/--depth/--rounds/--no-fetch/--email/--dry-run-email/--json`） |
 | `rb serve` | 起 HTTP 服务（`--host/--port/--workers`），异步任务 API（见 [`service.md`](service.md)） |
 | `rb doctor` | 自检：LLM + 各搜索引擎 + skills/topics + 邮件配置 |
 | `rb skills` | 查看 skill（本地 + 子模块） |
@@ -331,6 +331,8 @@ report/
   `keywords` 会喂给相关性门控。
 - **加 skill**：在 `skills/<name>/SKILL.md` 写 YAML front-matter（`name`/`description`）+ Markdown 方法论；
   在 `config.research.skills` 里列名即注入所有 LLM system prompt。
-- **加知识领域**：无需写 YAML——`rb run --knowledge --query "..."`（或 `POST /research` 带 `mode=knowledge`）会用
-  七维 facet 骨架 + 每维 probe 驱动 planner，并附确定性覆盖率评估。facet 定义在 `knowledge.py` 的 `FACETS`。
+- **加知识领域**：无需写 YAML——`rb run --knowledge --query "..."`（或 `POST /research` 带 `mode=knowledge`）
+  会用七维 facet 骨架 + 每维 probe 驱动 planner，并附确定性覆盖率评估；`rb run --watch`（`mode=watch`）改用
+  增量追踪骨架（进展/工业界/蓝海/瓶颈/社会/资本/预测）。两套 frame 都定义在 `knowledge.py` 的
+  `FRAMES`（`get_frame()` 取用）。
 - **换模型/网关**：改 `llm.base_url` / `llm.model` / `llm.tiers` / `llm.fallback_models`（走 `${VAR}` 环境变量）。

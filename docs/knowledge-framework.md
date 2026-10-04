@@ -1,31 +1,56 @@
 # 跨领域知识体系（Knowledge Framework）
 
-> 一个**与领域无关**的七维 facet 骨架 + 一套**确定性**的覆盖度评估，把"任意一个领域 / 概念 / 定理 / 范式"
+> 一套**与领域无关**的**固定骨架（frame）** + **确定性**的覆盖度评估，把"任意一个领域 / 概念 / 定理 / 范式"
 > 变成可推敲、闭环、严谨、可评估、可解释、可演进的知识地图。
-> 目标不是罗列要点，而是让人（尤其跨领域的人）据此**建立能继续推理的模型**：背景是什么、要解决什么问题、
-> 方案如何演进、核心机制与边界、如何评估、怎么落地、如何演进。
+> 目标不是罗列要点，而是让人（尤其跨领域的人）据此**建立能继续推理的模型**。
+>
+> 目前提供两种骨架，对应"攻击一个领域"的两种方式：
+> - **`knowledge`（方向1：学习/掌握）**——背景、问题域、演进、机制、评估、实践、元层；让初学者快速建立可推敲的模型。
+> - **`watch`（方向2：增量追踪）**——进展热点、工业界、蓝海缺口、瓶颈拐点、社会·政策·国际、资本生态、信号预测；
+>   持续补充"这个领域最近发生了什么、将走向哪里"。
 
-相关：[`service.md`](service.md)（`mode=knowledge` 的 HTTP 用法）、[`deep-research.md`](deep-research.md)
-（底层引擎）、skill 源文件 [`skills/knowledge-framework/SKILL.md`](../skills/knowledge-framework/SKILL.md)。
+相关：[`service.md`](service.md)（`mode=knowledge|watch` 的 HTTP 用法）、[`deep-research.md`](deep-research.md)
+（底层引擎）、skill 源文件 [`skills/knowledge-framework/SKILL.md`](../skills/knowledge-framework/SKILL.md) 与
+[`skills/frontier-watch/SKILL.md`](../skills/frontier-watch/SKILL.md)。
 
-代码：`src/research_bot/knowledge.py`（`FACETS` / `build_knowledge_topic` / `evaluate_coverage`）。
+代码：`src/research_bot/knowledge.py`（`FRAMES` / `get_frame` / `build_knowledge_topic` / `evaluate_coverage`）。
 
 ---
 
 ## 1. 为什么是"固定骨架"
 
-零散要点无法横向比较，也无法增量演进。固定七个 facet 后：**任意两个领域的知识地图结构同构**，可逐维对照；
-新知识只需补进既有槽位，不需重构。这是"可演进而非重写"的前提。
+零散要点无法横向比较，也无法增量演进。固定一组 facet 后：**任意两个领域（乃至两个 frame）的报告结构同构**，
+可逐维对照；新知识只需补进既有槽位，不需重构。这是"可演进而非重写"的前提。一个 *frame* 由
+**facet 骨架 + 必须命中的纪律标记（markers）+ 必须出现的要素（elements）+ 注入的 skill** 四部分构成。
+
+### 1.1 `knowledge` frame——学习一个领域（方向1）
 
 | # | facet | 必须回答 |
 | --- | --- | --- |
 | 1 | 定位与背景 Positioning | 定义（what it **is** / **is NOT**）、它为何存在、依赖哪些**前置知识体系** |
 | 2 | 问题域 Problem Space | 核心问题、问题的形式化表述、关键约束与不变量 |
 | 3 | 历史与演进 Evolution | 时间线/代际；**每一代解决了什么、又新引入了什么**（代价闭环） |
-| 4 | 核心机制 Mechanism | 概念/原理/定理/范式、关键**权衡**、**作用域**（何时适用/何时不适用、反例） |
+| 4 | 核心机制 Mechanism | 概念/原理/定理/范式、关键**权衡**、**作用域**（何时适用/何时不适用、反例）、失败案例 |
 | 5 | 证据与评估 Evaluation | 指标/基准/可复现性、可解释性、**反例与失败模式**、争议 |
-| 6 | 实践与生态 Practice | 经典工作与人物、工具与库、落地案例、**学习路径**（前置顺序） |
-| 7 | 关联与元层 Meta | 相邻领域关系与边界、该领域知识**如何被验证/推翻**、开放问题与演进方向 |
+| 6 | 实践与生态 Practice | 经典工作与人物、工具与库、落地案例、**学习路径**（前置顺序）与**能力地图** |
+| 7 | 关联与元层 Meta | 相邻领域关系与边界、该领域知识**如何被验证/推翻**、开放问题、**问题树**与演进方向 |
+
+*elements*（必须出现）：`学习路径`、`前置`、`能力`、`失败`——即"让外行能按序学下去"的最低要求。
+
+### 1.2 `watch` frame——追踪一个领域的变化（方向2）
+
+| # | facet | 必须回答 |
+| --- | --- | --- |
+| 1 | 进展与热点 Progress & Hotspots | 论文/课题**最新进展**、SOTA 变动、独立验证 vs 仅演示；相对基线的增量 |
+| 2 | 工业界与产品 Industry & Product | 厂商产品/发布、开源与权重、真机部署、商业化与量产 |
+| 3 | 蓝海与缺口 Blue Ocean & Gaps | 未解问题、无人区、竞争空白、高杠杆机会 |
+| 4 | 瓶颈与拐点 Bottleneck & Inflection | 数据/算力/算法/评测/成本/人力瓶颈；是否临近拐点、信号是什么 |
+| 5 | 社会·政策·国际 Society/Policy/Geopolitics | 监管、标准、地缘政治、供应链、伦理与劳动影响 |
+| 6 | 资本与生态 Capital & Ecosystem | 投资、并购、人才流动、社区、公司格局变化 |
+| 7 | 信号与预测 Signals & Forecast | 早期信号、未来 6–18 月预判、**可验证假设**与不确定性 |
+
+*elements*（必须出现）：`增量`、`不确定`、`风险`、`预测`——即"这是一份**带日期的增量快照**、且如实标注不确定性"。
+*markers*：`增量/较上/新进展/首次/时间线/不确定性/风险/传闻/未证实/预测/拐点/存在争议/假设/代价` 等。
 
 ## 2. 严谨性不变量（skill 与评估器共同强制）
 
@@ -40,20 +65,24 @@
 
 ## 3. 覆盖度评估（确定性，无需 LLM）
 
-`evaluate_coverage(result) -> CoverageReport`：按报告标题切段 → 映射到七个 facet → 统计每段的
-`claim_count`/`sourced`/`has_boundary`，再汇总：
+`evaluate_coverage(result, *, frame) -> CoverageReport`：按报告标题切段 → 映射到该 frame 的七个 facet →
+统计每段的 `claim_count`/`sourced`/`has_boundary`，并核对 elements，再汇总：
 
 ```
-score = 100 · ( 0.55·已覆盖facet比例 + 0.30·引用率 + 0.15·声明边界/代价的比例 )
+score = 100 · ( 0.45·已覆盖facet比例 + 0.25·引用率 + 0.15·声明边界/代价的比例 + 0.15·elements命中率 )
 ```
 
 - `populated`：该 facet 有实质内容（有 claim 行，或正文 ≥40 字符）。
-- `has_boundary`：命中"边界/不适用/反例/局限/代价/权衡/新问题/仅当…"等标记。
-- `gaps`：未覆盖的 facet、有内容但无引用的 facet、整体引用率偏低——**报缺口而不是静默接受**。
+- `has_boundary`：命中该 frame 的 markers——`knowledge` 看"边界/不适用/反例/局限/代价/权衡/新问题/仅当…"；
+  `watch` 看"增量/较上/不确定性/风险/传闻/未证实/预测/拐点/存在争议…"。
+- `elements_hit` / `elements_missing`：该 frame 必须出现的要素（`knowledge`：学习路径/前置/能力/失败；
+  `watch`：增量/不确定/风险/预测）。
+- `gaps`：未覆盖的 facet、有内容但无引用的 facet、整体引用率偏低、缺失的 elements——**报缺口而不是静默接受**。
 
-所以 `mode=knowledge` 的返回里带 `coverage`；CLI 用 `rb run --knowledge` 会打印 score 与 gaps。
+所以两种模式的返回里都带 `coverage`（含 `frame` 字段）；CLI 用 `rb run --knowledge` / `rb run --watch`
+会打印 score 与 gaps。
 
-## 4. 三个 worked examples
+## 4. worked examples
 
 下面把同一骨架套到三个**完全不同**的领域，演示通用性。内容仅示范结构（真实报告由引擎检索生成并带 `[n]`）。
 
@@ -95,17 +124,39 @@ score = 100 · ( 0.55·已覆盖facet比例 + 0.30·引用率 + 0.15·声明边�
 
 > 三个例子共享同一张表——这正是"跨领域"的含义：**换领域不换骨架**。
 
+### 4.4 具身智能**世界模型**的增量快照（`watch` frame 示例）
+
+同一领域换成 `watch` frame，问的不再是"是什么"，而是"最近变成了什么样"（内容示范结构，真实报告带 `[n]`）：
+
+| facet | 内容（增量口吻） |
+| --- | --- |
+| 进展与热点 | 2026-09 发布 X，相对上一基线的增量：…… `[1]`；SOTA 变动；哪些**仅演示**、哪些**被独立复现** |
+| 工业界与产品 | 厂商 Y 开源权重并真机部署 `[2]`；从 lab 到量产的落地节奏 |
+| 蓝海与缺口 | 尚无工作的空白方向 Z `[1]`；竞争空白与高杠杆机会 |
+| 瓶颈与拐点 | 数据瓶颈尚未突破，拐点**存在不确定性** `[2]`；拐点信号是什么 |
+| 社会·政策·国际 | 监管草案带来的**风险** `[1]`；供应链与地缘影响 |
+| 资本与生态 | 融资/并购、人才流动 `[2]` |
+| 信号与预测 | 预测未来 12 个月方向（标 `[P]`）；给出**可证伪假设**与不确定性 |
+
+> `knowledge` 与 `watch` 同源不同框：一个求"掌握"，一个求"增量"。二者可对同一领域交替运行，构成
+> "先学懂、再持续追踪其变化"的闭环。
+
 ## 5. 怎么用
 
 ```bash
-# CLI：直接跑知识地图（打印 score + gaps）
+# CLI（方向1）：直接跑知识地图（打印 score + gaps）
 rb run --knowledge --query "C++ RAII 的核心思想与边界" --depth quick
 rb run --knowledge --query "数学分析中值定理族" --depth quick
 
-# HTTP：mode=knowledge，轮询结果里带 coverage
+# CLI（方向2）：跑增量快照
+rb run --watch --query "具身智能世界模型" --depth quick
+
+# HTTP：mode=knowledge | watch，轮询结果里带 coverage(frame)
 curl -s -XPOST localhost:8080/research -H 'content-type: application/json' \
   -d '{"query":"real2sim / sim2real 世界模型建模思路","mode":"knowledge","depth":"quick"}'
+curl -s -XPOST localhost:8080/research -H 'content-type: application/json' \
+  -d '{"query":"具身智能世界模型","mode":"watch","depth":"quick"}'
 ```
 
-新增领域无需写 YAML：`mode=knowledge` 会用 `<query> + 每维 probe` 作为种子检索式驱动 planner，
-`sections` 即七个 facet，`knowledge-framework` skill 强制结构与纪律。
+新增领域无需写 YAML：`mode=knowledge|watch` 会用 `<query> + 每维 probe` 作为种子检索式驱动 planner，
+`sections` 即该 frame 的七个 facet，对应 skill（`knowledge-framework` / `frontier-watch`）强制结构与纪律。

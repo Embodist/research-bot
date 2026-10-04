@@ -18,8 +18,8 @@ coverage, then writes a cited Markdown report — and emails it to you. Every ru
 > (7 Action secrets + 3 variables) and verified working. Every report now carries four evidence axes per
 > item — **热度 heat · 权威 authority · 关注度 attention · 推荐度 recommendation** — and retrieval uses a
 > distinctive-token relevance gate that drops homonym drift. Beyond batch runs, the pipeline can also be
-> driven as an **HTTP service** (`rb serve`, async job API) and in a **cross-domain knowledge-map mode**
-> (`mode=knowledge`, a rigorous 7-facet framework) — see below.
+> driven as an **HTTP service** (`rb serve`, async job API) and through two **cross-domain fixed-skeleton
+> modes** — `knowledge` (rigorous 7-facet knowledge map) and `watch` (7-facet increment snapshot) — see below.
 
 ---
 
@@ -165,7 +165,7 @@ email:
 
 | Command | Purpose |
 | --- | --- |
-| `rb run [--topic X] [--query "..."] [--knowledge] [--depth quick\|standard\|deep] [--rounds N] [--no-fetch] [--email] [--dry-run-email] [--json]` | run the deep-research pipeline (`--knowledge` = 7-facet knowledge map) |
+| `rb run [--topic X] [--query "..."] [--knowledge\|--watch] [--depth quick\|standard\|deep] [--rounds N] [--no-fetch] [--email] [--dry-run-email] [--json]` | run the deep-research pipeline (`--knowledge` = 7-facet knowledge map; `--watch` = 7-facet increment snapshot) |
 | `rb serve [--host H] [--port P] [--workers N]` | run the HTTP research service (async job API) |
 | `rb doctor` | check LLM, every search engine, skills/topics, email config |
 | `rb skills [list\|show <name>]` | inspect skills (local + DeerFlow submodule) |
@@ -196,12 +196,18 @@ Endpoints: `GET /healthz`, `GET /topics`, `POST /research`, `GET /research/{id}`
 
 ## Cross-domain knowledge framework
 
-`mode=knowledge` (or `rb run --knowledge`) turns **any** domain / concept / theorem / paradigm into a
-rigorous, closed-loop, evaluable knowledge map, using a fixed **7-facet** skeleton — 定位与背景 · 问题域 ·
-历史与演进 · 核心机制 · 证据与评估 · 实践与生态 · 关联与元层 — enforced by the `knowledge-framework` skill and
-checked by a deterministic coverage evaluator (`score`, `gaps`). Works across a C++ idiom (RAII), a
-math-analysis theorem (中值定理), and embodied-AI world models (real2sim / sim2real). See
-[`docs/knowledge-framework.md`](docs/knowledge-framework.md) for the ontology and three worked examples.
+Two fixed **7-facet** skeletons turn any domain / concept / theorem / paradigm into a rigorous, closed-loop,
+evaluable report, each enforced by its own skill and checked by a deterministic coverage evaluator
+(`frame`, `score`, `gaps`, `elements_missing`):
+
+- **`mode=knowledge`** (or `rb run --knowledge`) — *learn a domain*: 定位与背景 · 问题域 · 历史与演进 ·
+  核心机制 · 证据与评估 · 实践与生态 · 关联与元层. Skill: `knowledge-framework`.
+- **`mode=watch`** (or `rb run --watch`) — *track a domain's change*: 进展与热点 · 工业界与产品 · 蓝海与缺口 ·
+  瓶颈与拐点 · 社会·政策·国际 · 资本与生态 · 信号与预测. Skill: `frontier-watch`.
+
+Demonstrated across a C++ idiom (RAII), a math-analysis theorem (中值定理), and embodied-AI world models
+(real2sim / sim2real). See [`docs/knowledge-framework.md`](docs/knowledge-framework.md) for the ontology,
+the coverage formula, and worked examples.
 
 ## Skills
 
@@ -213,6 +219,7 @@ conflict).
 | --- | --- |
 | `deep-research` | 4-phase methodology (broad → deep → validate → gap) |
 | `frontier-tracking` | timeline building, "真前沿四问", watchlists |
+| `frontier-watch` | increment-tracking discipline: dated deltas, [R]/[P] uncertainty tags, blue-ocean/inflection facets |
 | `paper-survey` | paper graph, taxonomy, citation discipline |
 | `evidence-grading` | A–E evidence levels and wording rules |
 | `embodied-ai` | simulators, benchmarks, method lineage |
@@ -222,7 +229,7 @@ conflict).
 | `ros2` | distributions, DDS/RMW, executors, ros2_control/Nav2/MoveIt2 |
 | `dataset-hunting` | dataset/benchmark audit checklist |
 | `report-writing` | report structure and citation format |
-| `knowledge-framework` | cross-domain 7-facet knowledge map (background → evolution → mechanism → boundaries → evolution) |
+| `knowledge-framework` | cross-domain 7-facet knowledge map (learn a domain: background → evolution → mechanism → boundaries → learning path) |
 
 Skills configured in `research.skills` are injected into every planner/researcher/critic/synthesiser prompt.
 

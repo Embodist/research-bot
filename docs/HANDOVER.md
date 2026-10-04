@@ -21,8 +21,8 @@ ROS 2** 的前沿进展、经典论文、开源项目与数据集。它基于 [`
 
 | 项 | 状态 |
 | --- | --- |
-| CLI / 引擎 / **11 个 topic** / 12 个 skill | ✅ 完成 |
-| 离线测试 | ✅ 73 项通过（`pytest`） |
+| CLI / 引擎 / **11 个 topic** / 13 个 skill | ✅ 完成 |
+| 离线测试 | ✅ 78 项通过（`pytest`） |
 | lint（`src tests`） | ✅ 通过（`deer-flow/` 子模块不在范围内） |
 | GitHub Actions 每日工作流 | ✅ 已配置（`0 22 * * *` UTC = 06:00 Asia/Shanghai） |
 | 邮件（本地） | ✅ 已配置并**实测发送成功**（163 → outlook） |
@@ -30,7 +30,7 @@ ROS 2** 的前沿进展、经典论文、开源项目与数据集。它基于 [`
 | 报告质量 | ✅ 检索域漂移已修复（统一相关性门控，见 §10） |
 | 证据要求 | ✅ 每条结论四轴证据：热度 / 权威 / 关注度 / 推荐度（见 §10） |
 | **HTTP 服务** | ✅ `rb serve`（stdlib `http.server`，异步任务 API）；离线测试覆盖，见 `docs/service.md` |
-| **跨领域知识体系** | ✅ 七维 facet + 确定性覆盖度评估（`mode=knowledge`），见 `docs/knowledge-framework.md` |
+| **跨领域知识体系** | ✅ 两套固定骨架（`knowledge` 学习 / `watch` 增量）+ 确定性覆盖度评估（`mode=knowledge\|watch`、`rb run --knowledge\|--watch`），见 `docs/knowledge-framework.md` |
 | Docker base 镜像 | ✅ `Dockerfile` + `image.yml` 发布到 `ghcr.io/embodist/research-bot-base:py3.12`；daily 工作流在该容器内跑，**容器内全链路已实测转绿**（run `36999238952`，2026-10-02：install → doctor → research → 回提交 → artifact 全 success） |
 
 > **Docker base 镜像**：只烤环境（Python 3.12 + `git` + `httpx/PyYAML/pytest/ruff/hatchling/editables`），
@@ -76,10 +76,10 @@ rb CLI → DeepResearchEngine（lead agent）
 src/research_bot/     Python 包（产品本体）
   engine.py           编排器（plan/retrieve/extract/critique/synthesize）
   serve.py            HTTP 服务（stdlib：异步任务 API + 可选 bearer token）
-  knowledge.py        跨领域知识体系（七维 facet + 覆盖率评估）
+  knowledge.py        跨领域固定骨架（knowledge 学习 / watch 增量）+ 覆盖率评估
   search/             engines.py（各引擎）+ router.py（RRF 融合 + 引擎权重）+ base.py
   config.py llm.py fetch.py skills.py topics.py report.py emailer.py cli.py util.py
-skills/               本地技能（SKILL.md，含 knowledge-framework）
+skills/               本地技能（SKILL.md，含 knowledge-framework、frontier-watch）
 topics/               研究主题（seed 查询 + 种子资源目录）
 config/               config.example.yaml（入库）；config.yaml（gitignore，含密钥）
 report/               生成的报告 + 推送台账
@@ -116,9 +116,10 @@ docs/                 architecture / deep-research / service / knowledge-framewo
 
 - **单次**：`.venv/bin/rb run --topic vla --depth standard [--email]`
 - **全部 + 邮件**：`.venv/bin/rb run --topic all --email`
-- **知识地图**：`.venv/bin/rb run --knowledge --query "C++ RAII 的核心思想" --depth quick`（打印 coverage + gaps）
+- **知识地图（方向1：学习）**：`.venv/bin/rb run --knowledge --query "C++ RAII 的核心思想" --depth quick`（打印 coverage + gaps）
+- **增量追踪（方向2：变化/蓝海/产业/社会）**：`.venv/bin/rb run --watch --query "具身智能世界模型" --depth quick`
 - **HTTP 服务**：`.venv/bin/rb serve --host 0.0.0.0 --port 8080 --workers 2`（`make serve` / `docker compose up`）；
-  `POST /research` 传 `query`/`topic`（+ `mode=knowledge`），轮询 `GET /research/{id}`；可选 `RESEARCH_BOT_API_TOKEN` 鉴权。
+  `POST /research` 传 `query`/`topic`（+ `mode=knowledge|watch`），轮询 `GET /research/{id}`；可选 `RESEARCH_BOT_API_TOKEN` 鉴权。
   详见 [`docs/service.md`](service.md)。
 - **Makefile**：`make run TOPIC=vla DEPTH=quick` / `make run-all` / `make serve` / `make doctor` / `make test` / `make lint`
 - **GitHub Actions**：每日 `0 22 * * *` UTC 自动跑并回提交 + 发摘要邮件；也可 Actions → Daily Research →
@@ -215,7 +216,8 @@ git push origin main
 | CI 容器内 `Syntax error: "("` / `not in a git directory` | 容器任务默认 `sh` 且 workspace 未受信任（见 §10.8）；脚本须 POSIX、并设 `safe.directory` |
 | `rb serve` 返回 401 | 已设 `RESEARCH_BOT_API_TOKEN`；请求需带 `Authorization: Bearer <token>`（`/healthz` 除外） |
 | `rb serve` 返回 400 `unknown config section` | `config` 覆盖只能是 `DEFAULTS` 顶层段（`llm/search/research/report/email`） |
-| 知识模式 `coverage` 有 gap | 属预期——报告确实缺该维/缺引用（见 `docs/knowledge-framework.md`） |
+| `rb serve` 返回 422 `mode must be one of` | `mode` 只能是 `research` / `knowledge` / `watch` |
+| 知识/增量模式 `coverage` 有 gap | 属预期——报告确实缺该维/缺引用/缺 elements（见 `docs/knowledge-framework.md`） |
 
 ---
 MIT licensed. DeerFlow 归其各自作者所有（MIT）。

@@ -62,7 +62,7 @@ curl -s localhost:8080/topics -H "Authorization: Bearer $RESEARCH_BOT_API_TOKEN"
 | --- | --- | --- |
 | `query` | string | **自由文本**研究需求。与 `topic` 至少给一个。 |
 | `topic` | string | 已有 topic 名（`GET /topics` 里的 `name`）。命中则直接用；否则当作自由文本解析。 |
-| `mode` | `"research"` \| `"knowledge"` | 默认 `research`。`knowledge` = 七维知识地图，返回 `coverage` 评估。 |
+| `mode` | `"research"` \| `"knowledge"` \| `"watch"` | 默认 `research`。`knowledge` = 七维知识地图（学习一个领域）；`watch` = 七维增量快照（追踪一个领域的变化）。二者都返回 `coverage` 评估。 |
 | `depth` | `quick` \| `standard` \| `deep` | 覆盖 `research.depth`。 |
 | `rounds` | int | 覆盖最大补检轮数。 |
 | `language` | `zh` \| `en` \| `bilingual` | 覆盖 `research.language`。 |
@@ -94,12 +94,12 @@ curl -s localhost:8080/topics -H "Authorization: Bearer $RESEARCH_BOT_API_TOKEN"
   "progress": ["plan ok", "retrieve ok", "..."],
   "result": { "report_md": "# ...", "references": [...], "depth": "quick", ... },
   "report_url": "/research/8f...e1/report",
-  "coverage": { "score": 88.7, "sourced_ratio": 0.909, "facets": [...], "gaps": [] }
+  "coverage": { "frame": "knowledge", "score": 88.7, "sourced_ratio": 0.909, "facets": [...], "gaps": [] }
 }
 ```
 
 `status ∈ queued | running | done | failed | cancelled`；失败时带 `error`；未完成时无 `result`。
-`coverage` 仅 `knowledge` 模式出现。
+`coverage` 仅 `knowledge` / `watch` 模式出现，其 `frame` 字段标明实际使用的骨架。
 
 ### `GET /research/{id}/report` — Markdown 正文
 
@@ -116,27 +116,32 @@ curl -s localhost:8080/topics -H "Authorization: Bearer $RESEARCH_BOT_API_TOKEN"
 1. **config**：`overrides`（嵌套或点号键）→ 校验顶层段 → `deep_merge(base_cfg, …)` → `expand_env` → `DotDict`。
    逐请求开关 `depth` / `language` / `fetch` 再覆盖。
 2. **topic**：
-   - `mode=knowledge` → `build_knowledge_topic(query|topic)`（七维 facet 结构，见下）。
+   - `mode=knowledge|watch` → `build_knowledge_topic(query|topic, frame=mode)`（七维 facet 结构，见下）。
    - 否则若 `topic` 命中 `topics/*.yaml` → 直接用。
    - 否则 `topic_from_query(seed)`：有 LLM 时用 LLM 解析成结构化 topic；无 LLM / 失败则确定性兜底
      （`name=slug`、`keywords=有区分度的词`、`seed_queries=[原文]`）——**请求永远能得到可跑的 topic**。
-3. `knowledge` 模式自动把 `knowledge-framework` skill 注入 `research.skills`。
+3. `knowledge` / `watch` 模式自动把对应 skill（`knowledge-framework` / `frontier-watch`）注入 `research.skills`。
 
-## 5. `knowledge` 模式：跨领域知识地图
+## 5. `knowledge` / `watch` 模式：两种固定骨架
 
-`mode=knowledge` 不追踪某条前沿，而是**从零理解一个领域/概念/定理/范式**，按固定七维 facet 产出：
-`定位与背景 · 问题域 · 历史与演进 · 核心机制 · 证据与评估 · 实践与生态 · 关联与元层`。
-任务完成后附带**确定性覆盖度评估** `coverage`（不需要 LLM）：
+两个模式共用**同一套固定骨架机制**，区别在骨架本身与注入的 skill：
+
+- **`mode=knowledge`（方向1：学习）**——从零理解一个领域/概念/定理/范式，七维：
+  `定位与背景 · 问题域 · 历史与演进 · 核心机制 · 证据与评估 · 实践与生态 · 关联与元层`。
+- **`mode=watch`（方向2：增量）**——追踪一个领域的**变化**，七维：
+  `进展与热点 · 工业界与产品 · 蓝海与缺口 · 瓶颈与拐点 · 社会·政策·国际 · 资本与生态 · 信号与预测`。
+
+两者任务完成后都附带**确定性覆盖度评估** `coverage`（不需要 LLM）：
 
 ```json
-{"score": 88.7, "sourced_ratio": 0.909,
- "facets": [{"facet": "positioning", "title": "定位与背景", "populated": true,
-             "claim_count": 2, "sourced": 2, "has_boundary": false, "notes": []}, ...],
- "gaps": []}
+{"frame": "watch", "score": 88.7, "sourced_ratio": 0.909,
+ "facets": [{"facet": "progress", "title": "进展与热点", "populated": true,
+             "claim_count": 2, "sourced": 2, "has_boundary": true, "notes": []}, ...],
+ "gaps": [], "elements_hit": ["增量", "风险"], "elements_missing": ["不确定", "预测"]}
 ```
 
-`score = 100·(0.55·已覆盖facet比例 + 0.30·引用率 + 0.15·声明边界/代价的比例)`。
-`gaps` 列出未覆盖 / 无引用的 facet——**暴露缺口而非静默接受**。详见
+`score = 100·(0.45·已覆盖facet比例 + 0.25·引用率 + 0.15·声明边界/代价的比例 + 0.15·elements命中率)`。
+`gaps` 列出未覆盖 / 无引用的 facet 与缺失 elements——**暴露缺口而非静默接受**。详见
 [`knowledge-framework.md`](knowledge-framework.md)。
 
 ## 6. 端到端示例
@@ -153,12 +158,17 @@ curl -s localhost:8080/research/<job_id> | jq '{status, topic, coverage: .covera
 # 3) 取报告
 curl -s localhost:8080/research/<job_id>/report
 
-# 4) 追踪型研究 + config 覆盖
+# 4) 增量快照（追踪某领域的变化）
+curl -s -XPOST localhost:8080/research -H 'content-type: application/json' \
+  -d '{"query":"具身智能世界模型","mode":"watch","depth":"quick"}'
+
+# 5) 追踪型研究 + config 覆盖
 curl -s -XPOST localhost:8080/research -H 'content-type: application/json' \
   -d '{"topic":"vla","config":{"research":{"depth":"deep"}},"email":true}'
 ```
 
-CLI 的等价单次调用：`rb run --knowledge --query "中值定理" --depth quick`（打印 coverage 与 gaps）。
+CLI 的等价单次调用：`rb run --knowledge --query "中值定理" --depth quick`（打印 coverage 与 gaps），
+或 `rb run --watch --query "具身智能世界模型" --depth quick`。
 
 ## 7. 边界与已知取舍
 
