@@ -5,7 +5,11 @@ TOPIC ?= vla
 DEPTH ?= standard
 REPO ?= $(shell git config --get remote.origin.url 2>/dev/null | sed -E 's#(git@|https://)github.com[:/]##; s#\.git$$##')
 
-.PHONY: help install test lint fmt doctor run run-all topics skills report clean secrets schedule ci
+.PHONY: help install test lint fmt doctor run run-all topics skills report serve clean secrets schedule ci
+
+HOST ?= 127.0.0.1
+PORT ?= 8080
+WORKERS ?= 2
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
@@ -40,6 +44,9 @@ skills: ## List skills (local + deer-flow)
 
 report: ## List the report/push ledger
 	$(RB) report list
+
+serve: ## Run the HTTP research service: make serve HOST=0.0.0.0 PORT=8080 WORKERS=2
+	$(RB) serve --host $(HOST) --port $(PORT) --workers $(WORKERS)
 
 secrets: ## Push SMTP/LLM secrets to GitHub Actions (needs GITHUB_TOKEN + pynacl)
 	$(PY) scripts/set_github_secrets.py "$(REPO)"

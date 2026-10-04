@@ -1,0 +1,33 @@
+# Ready-to-run research-bot HTTP service.
+#
+#   cp .env.example .env        # fill LLM_API_KEY and (optionally) a token
+#   docker compose up --build   # then: curl localhost:8080/healthz
+#
+# The base image ships only the environment (no code); the repo is mounted and
+# installed editable at start, mirroring the daily CI job.
+services:
+  research-bot:
+    image: ghcr.io/embodist/research-bot-base:py3.12
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: >
+      sh -lc "pip install -e . --no-deps --no-build-isolation
+      && exec rb serve --host 0.0.0.0 --port 8080 --workers 2"
+    ports:
+      - "8080:8080"
+    environment:
+      RESEARCH_BOT_HOME: /app
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.whnetsea.com/v1}
+      LLM_MODEL: ${LLM_MODEL:-deepseek-v4-flash}
+      # Leave empty for an OPEN service (trusted network only); set to require
+      # `Authorization: Bearer <token>` on every endpoint except /healthz.
+      RESEARCH_BOT_API_TOKEN: ${RESEARCH_BOT_API_TOKEN:-}
+    # Run `docker compose --env-file .env up` to also load SMTP/search config.
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
