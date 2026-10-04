@@ -111,6 +111,9 @@ DEFAULTS: dict[str, Any] = {
     "kb": {
         "enabled": False,
         "path": "${KB_PATH:-report/knowledge.db}",
+        # For `watch` runs: if a run adds nothing new and changes nothing, skip the
+        # email so the same knowledge is not delivered again ("减少重复触达").
+        "skip_email_when_unchanged": True,
     },
     "email": {
         "enabled": False,

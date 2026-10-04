@@ -142,6 +142,15 @@ def cmd_run(args: argparse.Namespace) -> int:
 
     # ---- email delivery -----------------------------------------------------
     push_requested = args.email or (cfg.email.enabled and not args.no_email)
+    if (
+        push_requested
+        and frame == "watch"
+        and increments
+        and getattr(cfg.kb, "skip_email_when_unchanged", True)
+        and all(getattr(inc, "changed", 0) == 0 for _, inc in increments)
+    ):
+        push_requested = False
+        print("  watch: no new/changed items — skipping email (dedup)", file=sys.stderr)
     if push_requested:
         if getattr(cfg.email, "digest", False) and len(saved) > 1:
             paths = [p for _, _, _, p in saved]

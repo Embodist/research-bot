@@ -68,6 +68,10 @@ jobs:
       MAIL_TO: ${{ secrets.MAIL_TO }}
       # Merge all topics of a scheduled run into a single email.
       EMAIL_DIGEST: "true"
+      # --- Watch (path2: daily increment emails) ---
+      # Newline- or comma-separated watch queries. Empty => skip the watch step.
+      WATCH_QUERIES: ${{ vars.WATCH_QUERIES }}
+      WATCH_DEPTH: ${{ vars.WATCH_DEPTH || 'quick' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -83,6 +87,17 @@ jobs:
       - name: Install research-bot
         run: pip install -e . --no-deps --no-build-isolation
 
+      # Persist the SQLite knowledge base between runs so watch increments and
+      # push dedup work across days. Restores the newest cache and saves a fresh
+      # one each run (unique key + prefix restore).
+      - name: Restore knowledge base
+        uses: actions/cache@v4
+        with:
+          path: report/knowledge.db
+          key: kb-${{ github.run_id }}
+          restore-keys: |
+            kb-
+
       - name: Preflight (rb doctor)
         continue-on-error: true
         run: rb doctor
@@ -91,12 +106,25 @@ jobs:
         run: |
           set -eu
           if [ "${SEND_EMAIL}" = "true" ]; then
-            set -- --topic "$TOPIC" --depth "$DEPTH" --email
+            set -- --topic "$TOPIC" --depth "$DEPTH" --kb --email
           else
-            set -- --topic "$TOPIC" --depth "$DEPTH"
+            set -- --topic "$TOPIC" --depth "$DEPTH" --kb
           fi
           echo "rb run $*"
           rb run "$@"
+
+      # path2: incremental watch. One `rb run --watch` per configured query.
+      # `--kb` enables dedup: an unchanged run is recorded but not re-emailed.
+      - name: Run watch increments
+        if: ${{ env.WATCH_QUERIES != '' }}
+        run: |
+          set -eu
+          printf '%s\n' "$WATCH_QUERIES" | tr ',' '\n' | while IFS= read -r q; do
+            q=$(printf '%s' "$q" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')
+            [ -z "$q" ] && continue
+            echo "watch: $q"
+            rb run --watch --query "$q" --depth "$WATCH_DEPTH" --kb --email
+          done
 
       - name: Commit reports
         if: always()

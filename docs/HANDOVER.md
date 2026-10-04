@@ -31,6 +31,7 @@ ROS 2** 的前沿进展、经典论文、开源项目与数据集。它基于 [`
 | 证据要求 | ✅ 每条结论四轴证据：热度 / 权威 / 关注度 / 推荐度（见 §10） |
 | **HTTP 服务** | ✅ `rb serve`（stdlib `http.server`，异步任务 API）；离线测试覆盖，见 `docs/service.md` |
 | **跨领域知识体系** | ✅ 两套固定骨架（`knowledge` 学习 / `watch` 增量）+ 确定性覆盖度评估（`mode=knowledge\|watch`、`rb run --knowledge\|--watch`），见 `docs/knowledge-framework.md` |
+| **SQLite 知识库** | ✅ 多级 topic + 条目去重 + 增量 diff + 推送台账（不存地址）；`rb kb` / `rb run --kb`；CI 用 `actions/cache` 持久化，见 `docs/knowledge-base.md` |
 | Docker base 镜像 | ✅ `Dockerfile` + `image.yml` 发布到 `ghcr.io/embodist/research-bot-base:py3.12`；daily 工作流在该容器内跑，**容器内全链路已实测转绿**（run `36999238952`，2026-10-02：install → doctor → research → 回提交 → artifact 全 success） |
 
 > **Docker base 镜像**：只烤环境（Python 3.12 + `git` + `httpx/PyYAML/pytest/ruff/hatchling/editables`），
@@ -77,6 +78,7 @@ src/research_bot/     Python 包（产品本体）
   engine.py           编排器（plan/retrieve/extract/critique/synthesize）
   serve.py            HTTP 服务（stdlib：异步任务 API + 可选 bearer token）
   knowledge.py        跨领域固定骨架（knowledge 学习 / watch 增量）+ 覆盖率评估
+  store.py            SQLite 知识库（多级 topic / 报告历史 / 条目去重 / 推送台账）
   search/             engines.py（各引擎）+ router.py（RRF 融合 + 引擎权重）+ base.py
   config.py llm.py fetch.py skills.py topics.py report.py emailer.py cli.py util.py
 skills/               本地技能（SKILL.md，含 knowledge-framework、frontier-watch）
@@ -89,7 +91,7 @@ Dockerfile            base 镜像定义（`python:3.12-slim`，只烤环境不�
 docker-compose.yml    即用即起地跑 HTTP 服务（挂载仓库 + 装 editable + 起 `rb serve`）
 .github/workflows/    daily-research.yml（每日，容器内跑）、image.yml（发布 base 镜像）、ci.yml（lint+test）
 scripts/              bootstrap.sh、run_daily.sh、import_skill.sh、set_github_secrets.py
-docs/                 architecture / deep-research / service / knowledge-framework / email / github-actions / scheduling / skills-and-sources / HANDOVER
+docs/                 architecture / deep-research / service / knowledge-framework / knowledge-base / email / github-actions / scheduling / skills-and-sources / HANDOVER
 ```
 
 ## 6. 配置与密钥（**不要提交任何密钥**）
@@ -120,6 +122,8 @@ docs/                 architecture / deep-research / service / knowledge-framewo
 - **全部 + 邮件**：`.venv/bin/rb run --topic all --email`
 - **知识地图（方向1：学习）**：`.venv/bin/rb run --knowledge --query "C++ RAII 的核心思想" --depth quick`（打印 coverage + gaps）
 - **增量追踪（方向2：变化/蓝海/产业/社会）**：`.venv/bin/rb run --watch --query "具身智能世界模型" --depth quick`
+- **知识库**：`.venv/bin/rb kb init|stats|topics|recent|new`；`rb run ... --kb` 会把本次 run 入库并打印增量
+  `+N new, ~M updated, K known`。watch 且无新增/变化时默认**跳过邮件**（`kb.skip_email_when_unchanged`）。
 - **HTTP 服务**：`.venv/bin/rb serve --host 0.0.0.0 --port 8080 --workers 2`（`make serve` / `docker compose up`）；
   `POST /research` 传 `query`/`topic`（+ `mode=knowledge|watch`），轮询 `GET /research/{id}`；可选 `RESEARCH_BOT_API_TOKEN` 鉴权。
   详见 [`docs/service.md`](service.md)。

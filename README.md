@@ -167,13 +167,14 @@ email:
 
 | Command | Purpose |
 | --- | --- |
-| `rb run [--topic X] [--query "..."] [--knowledge\|--watch] [--depth quick\|standard\|deep] [--rounds N] [--no-fetch] [--email] [--dry-run-email] [--json]` | run the deep-research pipeline (`--knowledge` = 7-facet knowledge map; `--watch` = 7-facet increment snapshot) |
+| `rb run [--topic X] [--query "..."] [--knowledge\|--watch] [--depth quick\|standard\|deep] [--rounds N] [--no-fetch] [--email] [--dry-run-email] [--json] [--kb]` | run the deep-research pipeline (`--knowledge` = 7-facet knowledge map; `--watch` = 7-facet increment snapshot; `--kb` = record into the knowledge base) |
 | `rb serve [--host H] [--port P] [--workers N]` | run the HTTP research service (async job API) |
 | `rb doctor` | check LLM, every search engine, skills/topics, email config |
 | `rb skills [list\|show <name>]` | inspect skills (local + DeerFlow submodule) |
 | `rb topics [list\|show <name>]` | inspect research topics and seed resources |
 | `rb engines [list\|test] [--query ...]` | inspect / probe the search layer |
 | `rb report [list\|show <id>]` | inspect the archive and push ledger |
+| `rb kb [stats\|topics\|recent\|new\|init]` | inspect the SQLite knowledge base (increment + dedup) — see [docs/knowledge-base.md](docs/knowledge-base.md) |
 | `rb config [show\|init\|path] [--force]` | inspect / bootstrap config |
 
 ## HTTP service (`rb serve`)

@@ -70,8 +70,15 @@ docker run --rm -v "$PWD":/app -w /app \
 | Variable | Default | Notes |
 | --- | --- | --- |
 | `LLM_MODEL` | `deepseek-v4-flash` | override the model id |
-| `LLM_BASE_URL` | `https://api.deepseek.com/v1` | OpenAI-compatible base URL |
+| `LLM_BASE_URL` | `https://api.deepseek.com/v1` | OpenAI-compatible base URL (this repo is set to the whnetsea gateway) |
 | `SEARXNG_URL` | `http://43.155.145.78:58881` | your SearXNG (JSON or HTML) |
+| `WATCH_QUERIES` | *(empty)* | path2 增量：逗号/换行分隔的 watch 查询；空则**跳过** watch 步骤 |
+| `WATCH_DEPTH` | `quick` | watch 步骤的深度 |
+
+> **path2（每日增量）**：`Run watch increments` 步骤会对 `WATCH_QUERIES` 里的每条查询跑
+> `rb run --watch --query ... --kb --email`。`--kb` 让每次增量入库；若本次既无新增也无变化，
+> 邮件会被**去重跳过**（见 [`docs/knowledge-base.md`](knowledge-base.md)）。
+> 知识库 `report/knowledge.db` 由 `actions/cache` 跨天持久化（不提交进 git）。
 
 ## Schedule
 
