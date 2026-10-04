@@ -129,7 +129,9 @@ docs/                 architecture / deep-research / service / knowledge-framewo
   详见 [`docs/service.md`](service.md)。
 - **Makefile**：`make run TOPIC=vla DEPTH=quick` / `make run-all` / `make serve` / `make doctor` / `make test` / `make lint`
 - **GitHub Actions**：每日 `0 22 * * *` UTC 自动跑并回提交 + 发摘要邮件；也可 Actions → Daily Research →
-  Run workflow 手动触发（可选 topic/depth/send_email）
+  Run workflow 手动触发（`mode=research|knowledge|watch` 配 `topic` / `query`，加 `depth` / `send_email`）。
+  手动触发只跑所请求的 mode；`Run watch increments`（走 `WATCH_QUERIES`）**只在 schedule 事件**执行，避免重复。
+  **需设仓库 Variable `WATCH_QUERIES`**（逗号/换行分隔），否则定时跑也不会做 path2 增量。
 - **容器（可复现，无需本地装 Python）**：
   `docker run --rm -v "$PWD":/app -w /app -e LLM_API_KEY=... ghcr.io/embodist/research-bot-base:py3.12 sh -c 'pip install -e . --no-deps --no-build-isolation && rb run --topic vla --depth quick'`
 - **本地 cron/systemd**：见 [`docs/scheduling.md`](scheduling.md)

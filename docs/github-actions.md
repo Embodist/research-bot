@@ -89,7 +89,8 @@ on:
 ```
 
 GitHub cron is always UTC. Also runnable on demand from the **Actions → Daily Research → Run workflow**
-button, with inputs `topic`, `depth` and `send_email`.
+button, with inputs `mode` (`research` | `knowledge` | `watch`), `topic` (mode=research), `query`
+(mode=knowledge|watch), `depth` and `send_email`.
 
 ## Commit-back permissions
 
@@ -100,8 +101,16 @@ protection rule or push to a dedicated reports branch.
 ## Manual run
 
 ```bash
-gh workflow run daily-research.yml -f topic=vla -f depth=deep -f send_email=true
+# research mode (default): one topic or 'all'
+gh workflow run daily-research.yml -f mode=research -f topic=vla -f depth=deep -f send_email=true
+
+# knowledge / watch mode: a free-text query
+gh workflow run daily-research.yml -f mode=knowledge -f query="C++ RAII 的核心思想与边界" -f depth=quick
+gh workflow run daily-research.yml -f mode=watch -f query="具身智能世界模型" -f depth=quick
 ```
+
+> A manual dispatch runs **exactly** the requested mode; the `Run watch increments` step (which walks
+> `WATCH_QUERIES`) is gated to the **schedule** event, so it does not double-run on a manual trigger.
 
 ## Rate limits & cost notes
 

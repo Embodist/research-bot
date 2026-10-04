@@ -319,7 +319,8 @@ Required repository secrets (**Settings → Secrets and variables → Actions**)
 | `GITHUB_TOKEN` | provided automatically; used for higher GitHub API rate limits |
 
 The schedule is `cron: '0 22 * * *'` (22:00 UTC = 06:00 Asia/Shanghai). Edit the cron and the `MAIL_TO`
-secret to taste. Trigger manually from the Actions tab with optional `topic` / `depth` inputs.
+secret to taste. Trigger manually from the Actions tab with `mode` (`research`/`knowledge`/`watch`),
+`topic` or `query`, `depth` and `send_email` inputs.
 
 ## Email setup
 

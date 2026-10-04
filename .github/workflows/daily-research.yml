@@ -10,9 +10,18 @@ on:
     - cron: "0 22 * * *"
   workflow_dispatch:
     inputs:
+      mode:
+        description: "Run mode (research uses 'topic'; knowledge/watch use 'query')"
+        type: choice
+        options: [research, knowledge, watch]
+        default: research
       topic:
-        description: "Topic name (e.g. vla, cybersecurity, music-audio, embodied-manipulation) or 'all'"
+        description: "Topic name (mode=research; e.g. vla, cybersecurity, music-audio) or 'all'"
         default: "all"
+        required: false
+      query:
+        description: "Free-text query (mode=knowledge|watch)"
+        default: ""
         required: false
       depth:
         description: "Research depth"
@@ -49,7 +58,9 @@ jobs:
       run:
         working-directory: ${{ github.workspace }}
     env:
+      MODE: ${{ github.event.inputs.mode || 'research' }}
       TOPIC: ${{ github.event.inputs.topic || 'all' }}
+      QUERY: ${{ github.event.inputs.query || '' }}
       DEPTH: ${{ github.event.inputs.depth || 'standard' }}
       SEND_EMAIL: ${{ github.event.inputs.send_email || 'true' }}
       # --- LLM ---
@@ -105,18 +116,26 @@ jobs:
       - name: Run deep research
         run: |
           set -eu
-          if [ "${SEND_EMAIL}" = "true" ]; then
-            set -- --topic "$TOPIC" --depth "$DEPTH" --kb --email
-          else
+          if [ "${MODE}" = "research" ]; then
             set -- --topic "$TOPIC" --depth "$DEPTH" --kb
+          else
+            if [ -z "${QUERY}" ]; then
+              echo "mode=${MODE} requires a 'query' input" >&2
+              exit 1
+            fi
+            set -- --"${MODE}" --query "$QUERY" --depth "$DEPTH" --kb
+          fi
+          if [ "${SEND_EMAIL}" = "true" ]; then
+            set -- "$@" --email
           fi
           echo "rb run $*"
           rb run "$@"
 
       # path2: incremental watch. One `rb run --watch` per configured query.
       # `--kb` enables dedup: an unchanged run is recorded but not re-emailed.
+      # Only on the schedule, so a manual dispatch runs exactly what was asked.
       - name: Run watch increments
-        if: ${{ env.WATCH_QUERIES != '' }}
+        if: ${{ github.event_name == 'schedule' && env.WATCH_QUERIES != '' }}
         run: |
           set -eu
           printf '%s\n' "$WATCH_QUERIES" | tr ',' '\n' | while IFS= read -r q; do
