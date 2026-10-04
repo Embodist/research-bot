@@ -4,6 +4,7 @@ Commands
 --------
     rb doctor                 connectivity + configuration self-check
     rb run ...                run the deep-research pipeline (the headless tool)
+    rb serve ...              run the HTTP research service
     rb skills [list|show]     inspect DeerFlow-format skills (local + submodule)
     rb topics [list|show]     inspect research topics
     rb report [list|show]     inspect the report archive / push ledger
@@ -22,6 +23,7 @@ from . import __version__
 from .config import DEFAULTS, find_home, load_config
 from .emailer import is_configured, send_digest, send_report
 from .engine import DEPTH_PRESETS, DeepResearchEngine
+from .knowledge import KNOWLEDGE_SKILL, build_knowledge_topic, evaluate_coverage
 from .llm import LLM, LLMError
 from .report import git_metadata, load_index, record_email, save_report
 from .search import ENGINE_REGISTRY, SearchRouter
@@ -57,7 +59,17 @@ def cmd_run(args: argparse.Namespace) -> int:
     if args.query:
         cfg.research.extra_query = args.query
 
-    topics = resolve_topics(load_topics(home), args.topic or ["all"])
+    if args.knowledge:
+        seed = args.query or " ".join(args.topic or [])
+        if not seed:
+            print("--knowledge needs a domain: pass --query '...' or --topic '...'", file=sys.stderr)
+            return 2
+        names = list(cfg.research.skills or [])
+        if KNOWLEDGE_SKILL not in names:
+            cfg.research.skills = [*names, KNOWLEDGE_SKILL]
+        topics = [build_knowledge_topic(seed, language=str(cfg.research.language))]
+    else:
+        topics = resolve_topics(load_topics(home), args.topic or ["all"])
     if not topics:
         print("no topics found; create topics/*.yaml or pass --topic", file=sys.stderr)
         return 2
@@ -86,6 +98,18 @@ def cmd_run(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
 
+    # ---- knowledge coverage ------------------------------------------------
+    coverage: list[dict] = []
+    if args.knowledge:
+        for _, result, _, _ in saved:
+            report = evaluate_coverage(result)
+            coverage.append(report.to_dict())
+            print(f"\n[knowledge] coverage score={report.score}/100  sourced={report.sourced_ratio:.0%}", file=sys.stderr)
+            for gap in report.gaps:
+                print(f"  gap: {gap}", file=sys.stderr)
+            if not report.gaps:
+                print("  no gaps — all seven facets covered", file=sys.stderr)
+
     # ---- email delivery -----------------------------------------------------
     push_requested = args.email or (cfg.email.enabled and not args.no_email)
     if push_requested:
@@ -102,7 +126,11 @@ def cmd_run(args: argparse.Namespace) -> int:
                 print(f"  email[{result.topic}]: sent={rec['sent']} to={rec['to']} error={rec['error']}", file=sys.stderr)
 
     if args.json:
-        print(json.dumps([r[2] for r in saved], ensure_ascii=False, indent=2))
+        records = [r[2] for r in saved]
+        if args.knowledge:
+            for record, cov in zip(records, coverage, strict=False):
+                record["coverage"] = cov
+        print(json.dumps(records, ensure_ascii=False, indent=2))
     if failed:
         print(f"failed topics: {', '.join(failed)}", file=sys.stderr)
     return 0 if saved or not topics else 1
@@ -157,6 +185,16 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 
     print("\n" + ("doctor: OK" if ok else "doctor: issues found"))
     return 0 if ok else 1
+
+
+# ---------------------------------------------------------------------------
+# serve
+# ---------------------------------------------------------------------------
+def cmd_serve(args: argparse.Namespace) -> int:
+    from .serve import run_server
+
+    print(f"research-bot {__version__} · serving from home={find_home()}", file=sys.stderr)
+    return run_server(host=args.host, port=args.port, workers=args.workers, config_path=args.config)
 
 
 # ---------------------------------------------------------------------------
@@ -311,10 +349,17 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--no-email", action="store_true", help="never send email")
     p_run.add_argument("--dry-run-email", action="store_true", help="render email but do not send")
     p_run.add_argument("--json", action="store_true", help="print the run records as JSON")
+    p_run.add_argument("--knowledge", action="store_true", help="build a 7-facet knowledge map instead of a topic run")
     p_run.set_defaults(func=cmd_run)
 
     p_doc = sub.add_parser("doctor", help="self-check connectivity and config")
     p_doc.set_defaults(func=cmd_doctor)
+
+    p_srv = sub.add_parser("serve", help="run the HTTP research service")
+    p_srv.add_argument("--host", default="127.0.0.1", help="bind address (default: 127.0.0.1)")
+    p_srv.add_argument("--port", type=int, default=8080, help="bind port (default: 8080)")
+    p_srv.add_argument("--workers", type=int, default=2, help="concurrent research workers (default: 2)")
+    p_srv.set_defaults(func=cmd_serve)
 
     p_sk = sub.add_parser("skills", help="inspect skills")
     p_sk.add_argument("action", nargs="?", choices=["list", "show"], default="list")
