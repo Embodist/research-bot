@@ -1,0 +1,2709 @@
+{
+  "topic": "ros2",
+  "title": "ROS 2 生态与机器人中间件深度调研报告",
+  "query": "",
+  "depth": "standard",
+  "language": "bilingual",
+  "started_at": "2026-10-04T04:48:04+00:00",
+  "finished_at": "2026-10-04T04:52:29+00:00",
+  "duration_s": 265.6,
+  "rounds": 1,
+  "plan": {
+    "title": "ROS 2 生态与机器人中间件深度调研报告",
+    "summary": "系统梳理 ROS 2 发行版演进、DDS/RMW 与 Zenoh 等中间件、执行器与实时性、ros2_control/Nav2/MoveIt2 工程实践、仿真与分布式部署及评测基准的近期进展、经典奠基工作与开放争议，形成可核查的证据化结论。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024-2026 年 ROS 2 发行版（Jazzy/Kilted 及后续 LTS）与核心栈带来了哪些实质性新特性与破坏性变更？",
+        "rationale": "发行版是判断生态演进节奏的基线：只有先锚定各版本对应的核心变更（rmw 默认实现、executor、构建系统、类型支持、生命周期等），后续关于中间件、实时性与应用层的讨论才有时间坐标，也能避免把旧版本特性误当作前沿。",
+        "queries": [
+          "ROS 2 Kilted Kaiju release notes 2025 new features",
+          "ROS 2 Jazzy Jalisco release 2024 features rmw changes",
+          "ROSCon 2025 ROS 2 roadmap keynote distribution",
+          "ROS 2 release notes 2026 LTS 新特性 变更"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "ROS 2 中间件层（DDS/RMW）如何演进：Cyclone DDS、Fast DDS、Zenoh 与 rmw_zenoh 在性能、QoS 与大规模发现上的真实差距是什么？",
+        "rationale": "中间件是 ROS 2 与 ROS 1 分道扬镳的核心，也是工程争议最集中的地方。需要区分厂商基准与第三方实测，明确 QoS 语义差异、发现机制（简单发现 vs Discovery Server）、以及 Zenoh 作为非 DDS 路线是否已被官方/社区验证成熟。",
+        "queries": [
+          "ROS 2 DDS performance comparison Cyclone DDS Fast DDS 2025",
+          "rmw_zenoh ROS 2 bridge benchmark 2025",
+          "ROS 2 QoS reliability policy DDS discovery server large scale deployment",
+          "ROS 2 DDS 调优 延迟 吞吐 多机通信 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "bing"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "ROS 2 执行器模型与实时性实践：events executor、wait-set、内存分配与 PREEMPT_RT 调优在 2024-2026 年的进展如何？",
+        "rationale": "实时性是 ROS 2 被工业界采纳的关键门槛。需要核查执行器实现（单线程/多线程/events/wait-set）、rclcpp 分配行为、DDS 线程优先级与内核补丁层面的具体手段，并区分「论文/报告声称的低延迟」与「可复现的基准数字」。",
+        "queries": [
+          "ROS 2 real-time executor events executor rclcpp wait-set 2025",
+          "ros2_control realtime hardware interface best practices 2025",
+          "PREEMPT_RT ROS 2 latency jitter measurement 2024 2025",
+          "ROS 2 实时性 执行器 DDS 调优 内存分配 零拷贝"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "应用与工程栈（ros2_control、Nav2、MoveIt2）及 VLA/学习型策略接入 ROS 2 的最新最佳实践是什么？",
+        "rationale": "这是用户与开发者最常直接接触的层面，也是「论文方法能否落地」的检验点。需要覆盖 hardware_interface/controller_manager（real-time 约束、生命周期）、Nav2 行为树与 MPPI 控制器、MoveIt2 规划流水线与 Servo，以及新兴的 VLA 策略作为 ROS 2 节点的部署范式。",
+        "queries": [
+          "ros2_control hardware interface controller_manager design 2025",
+          "Nav2 behavior tree MPPI controller navigation 2025",
+          "MoveIt2 motion planning pipeline Servo 2025 improvements",
+          "VLA policy ROS 2 integration deployment real robot 2025"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing"
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "仿真、嵌入式与分布式部署：Gazebo/gz-sim、micro-ROS、容器化多机部署有哪些近期进展与可用评测手段？",
+        "rationale": "仿真与部署决定了研发闭环效率与可复现性。需确认仿真器版本谱系（gz-sim 与 ROS 2 版本绑定关系）、micro-ROS 在 MCU 上的实际能力边界、容器/多机/云边部署方案，以及是否存在被社区认可的 ROS 2 性能基准工具，用于横向比较而非仅凭演示视频。",
+        "queries": [
+          "Gazebo gz-sim ROS 2 Ionic Harmonic simulation 2025",
+          "micro-ROS embedded microcontroller ROS 2 2025 real-time",
+          "ROS 2 distributed multi-robot docker kubernetes deployment 2025",
+          "ROS 2 benchmark performance_test latency throughput evaluation"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q6",
+        "question": "ROS 2 的经典奠基工作、被反复提出的批评（中间件开销、复杂度、实时性）与替代路线（自研中间件、SROS2 安全、其他机器人框架）现状如何？",
+        "rationale": "避免只呈现官方叙事。需要回溯 ROS 2 设计论文与中间件综述作为奠基文献，同时收集学术与工业界对性能开销、DDS 碎片化、安全（SROS2）落地难度的批评，以及非 ROS 框架与自研中间件的替代主张，形成正反证据对照。",
+        "queries": [
+          "ROS 2 design paper middleware survey foundations",
+          "ROS 2 performance overhead criticism limitations 2024 2025",
+          "SROS2 security ROS 2 deployment challenges 2025",
+          "robot middleware comparison ROS 2 alternatives survey 2024 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024-2026 年 ROS 2 发行版（Jazzy/Kilted 及后续 LTS）与核心栈带来了哪些实质性新特性与破坏性变更？",
+      "queries": [
+        "ROS 2 Kilted Kaiju release notes 2025 new features",
+        "ROS 2 Jazzy Jalisco release 2024 features rmw changes",
+        "ROSCon 2025 ROS 2 roadmap keynote distribution",
+        "ROS 2 release notes 2026 LTS 新特性 变更"
+      ],
+      "rationale": "发行版是判断生态演进节奏的基线：只有先锚定各版本对应的核心变更（rmw 默认实现、executor、构建系统、类型支持、生命周期等），后续关于中间件、实时性与应用层的讨论才有时间坐标，也能避免把旧版本特性误当作前沿。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.041827,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "AXON: A ROS 2 RMW with Shared-Memory/QUIC Transport and QKD/ML-KEM Key Establishment",
+          "url": "http://arxiv.org/abs/2609.10024v1",
+          "snippet": "Robot Operating System 2 (ROS 2) standardizes application code against a middleware interface (RMW) whose reference implementations are built on the Data Distribution Service (DDS). We present AXON, an alternative ROS 2 RMW implementation that separates transport policy by deployment scope. A Rust core and C++ adapter use POSIX shared-memory rings for same-host communication, QUIC for remote communication, and a daemon for discovery and graph synchronization. We then describe two fail-closed TLS 1.3 key-establishment configurations for remote traffic. The classic configuration offers only the…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-09",
+          "authors": [
+            "Sergio Sánchez de la Fuente",
+            "Miguel Ángel González-Santamarta",
+            "Francisco Javier Rodríguez-Lera",
+            "Vicente Matellán Olivera",
+            "Ángel Manuel Guerrero-Higueras"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.10024v1",
+            "rrf_score": 0.02027
+          }
+        },
+        {
+          "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+          "url": "http://arxiv.org/abs/2607.03399v1",
+          "snippet": "We describe the 2026 Methods for Open Agent Systems Evaluation Initiative (MOASEI) Competition, a benchmark event for evaluating multi-agent decision-making under open-system conditions. Building on the inaugural 2025 competition, the 2026 edition retained wildfire fighting, cybersecurity, and ride-sharing domains while adding a bonus wildfire track with frame openness, in which agent equipment states such as suppressant capacities and firefighting range vary over time. The competition also expanded its reporting metrics to emphasize total task completions, mean task-completion time, and mean…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-03",
+          "authors": [
+            "Ceferino Patino",
+            "Tyler J. Billings",
+            "Alireza Saleh Abadi",
+            "Daniel Redder",
+            "Adam Eck",
+            "Prashant Doshi",
+            "Leen-Kiat Soh"
+          ],
+          "venue": "cs.MA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.03399v1",
+            "rrf_score": 0.017045
+          }
+        },
+        {
+          "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+          "url": "http://arxiv.org/abs/2409.08956v1",
+          "snippet": "Recent advancements in gravitational wave astronomy hold the promise of a completely new way to explore our Universe. These lecture notes aim to provide a concise but self-contained introduction to key concepts of gravitational wave physics, with a focus on the opportunities to explore fundamental physics in transient gravitational wave signals and stochastic gravitational wave background searches.CERN-TH-2024-152",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-09-13",
+          "authors": [
+            "Valerie Domcke"
+          ],
+          "venue": "astro-ph.CO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2409.08956v1",
+            "rrf_score": 0.021429
+          }
+        },
+        {
+          "title": "Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge",
+          "url": "http://arxiv.org/abs/2406.10598v1",
+          "snippet": "As computer-based applications are becoming more integrated into our daily lives, the importance of Speech Emotion Recognition (SER) has increased significantly. Promoting research with innovative approaches in SER, the Odyssey 2024 Speech Emotion Recognition Challenge was organized as part of the Odyssey 2024 Speaker and Language Recognition Workshop. In this paper we describe the Double Multi-Head Attention Multimodal System developed for this challenge. Pre-trained self-supervised models were used to extract informative acoustic and text features. An early fusion strategy was adopted, wher…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-06-15",
+          "authors": [
+            "Federico Costa",
+            "Miquel India",
+            "Javier Hernando"
+          ],
+          "venue": "eess.AS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2406.10598v1",
+            "rrf_score": 0.020548
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "2026 年出现了一种脱离 DDS 的 ROS 2 RMW 实现 AXON：按部署范围分流传输策略，本机用 POSIX 共享内存环，远程用 QUIC，并用守护进程负责发现与计算图同步。",
+            "evidence": "摘要原文：ROS 2 通过 RMW（middleware interface）标准化应用代码，其参考实现基于 DDS；AXON 是一个替代性 ROS 2 RMW 实现，'A Rust core and C++ adapter use POSIX shared-memory rings for same-host communication, QUIC for remote communication, and a daemon for discovery and graph synchronization.'",
+            "sources": [
+              77
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO），arXiv:2609.10024v1，作者来自西班牙 León 大学等机构；候选块未标注同行评审会议",
+            "attention": "低 + 候选块无引用数/star/下载量等热度信号，仅一条 2026-09-09 提交的预印本，尚无第三方采用或榜单证据",
+            "recommendation": "★★★☆☆ + 这是本批候选证据中唯一直接触及 ROS 2 核心栈（RMW/中间件层）的条目，对‘ROS 2 传输层演进’有参考价值；但仅为预印本、无采纳度证据，不能据此推断官方发行版走向"
+          },
+          {
+            "point": "在 2024-2026 区间，ROS 2 中间件层存在‘用非 DDS 传输替换/补充 DDS 参考实现’的探索方向，说明 RMW 抽象已被当作可插拔的传输策略边界使用。",
+            "evidence": "论文明确陈述 ROS 2 参考 RMW 实现构建在 DDS 之上，并将 AXON 定位为‘an alternative ROS 2 RMW implementation that separates transport policy by deployment scope’；即利用 RMW 接口替换底层传输（共享内存 + QUIC）。",
+            "sources": [
+              77
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO）",
+            "attention": "低 + 单一预印本来源，无引用与社区讨论信号支撑其影响力",
+            "recommendation": "★★★☆☆ + 对理解 ROS 2 RMW 可替换性与中间件演进有提示意义，但属个案研究，不足以代表发行版级变化"
+          },
+          {
+            "point": "ROS 2 远程通信的安全机制正向‘fail-closed + 后量子混合密钥’演进：AXON 描述两种 TLS 1.3 密钥建立配置，经典配置只提供混合 X25519MLKEM768 组、禁止纯经典组协商；另一配置从 QKD 导入 256 位密钥。",
+            "evidence": "摘要原文：'two fail-closed TLS 1.3 key-establishment configurations for remote traffic. The classic configuration offers only the hybrid X25519MLKEM768 group, preventing negotiation of a classical-only group. The qkd configuration imports a 256-bit key obtained through…'（QKD 描述在候选块中被截断）",
+            "sources": [
+              77
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO）；QKD 配置细节因摘录被截断而无法完整核实",
+            "attention": "低 + 无引用/star 信号；后量子与 QKD 在机器人中间件的落地尚属早期探讨",
+            "recommendation": "★★☆☆☆ + 提出了 ROS 2 远程传输的安全设计取向，但证据文本被截断、且与‘发行版新特性/破坏性变更’只有间接关系"
+          },
+          {
+            "point": "本批候选证据不包含任何 ROS 2 发行版（Jazzy/Kilted 及后续 LTS）的官方发布说明、变更日志或破坏性变更清单，因此该子问题的发行版级结论无法从现有证据得出。",
+            "evidence": "候选块共 5 条：[7] 基础模型透明度指数（cs.AI）、[36] 引力波讲义（astro-ph.CO）、[76] 语音情感识别（eess.AS）、[84] 多智能体竞赛报告（cs.MA）均与 ROS 2 无关；仅 [77]（AXON，cs.RO）涉及 ROS 2。候选块中未出现 release notes、distro 名称、ROS 2 官方文档链接或版本号。",
+            "sources": [
+              77
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "",
+            "heat": "",
+            "authority": "无（证据缺口判断，非外部权威来源）",
+            "attention": "低 + 依据为候选集合的覆盖度分析，无外部热度信号",
+            "recommendation": "★☆☆☆☆ + 仅作为证据缺口标注，提示需补充 ROS 2 官方发行说明与迁移指南后才可回答破坏性变更"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "AXON: A ROS 2 RMW with Shared-Memory/QUIC Transport and QKD/ML-KEM Key Establishment",
+            "url": "http://arxiv.org/abs/2609.10024v1",
+            "why": "本批候选中唯一直接讨论 ROS 2 核心栈（RMW 中间件层、传输与安全密钥建立）的论文，可用于说明 2024-2026 期间 ROS 2 中间件的替代传输与后量子安全探索方向",
+            "year": "2026",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.RO），arXiv:2609.10024v1，2026-09-09 提交；候选块未标注同行评审 venue",
+            "attention": "低 + 无引用/star/榜单信号，仅单条预印本",
+            "recommendation": "★★★☆☆ + 与 ROS 2 中间件/安全主题高度相关，但需注意其为预印本且非发行版官方材料"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据缺失 ROS 2 Jazzy/Kilted 及后续 LTS 的官方 release notes 与迁移指南，无法核实其新增特性与破坏性变更（待补充 ROS 2 官方文档/REP/迁移说明）",
+          "AXON 这类非 DDS RMW 实现的成熟度、与官方 RMW 的兼容性与性能对比缺乏第三方复现或基准数据（候选块无相关指标）",
+          "ROS 2 远程通信引入后量子混合密钥（X25519MLKEM768）与 QKD 的工程可用性与标准化状态未知，候选块摘录被截断（待核实）",
+          "本批候选中 4/5 条与 ROS 2 主题无关，提示检索召回存在明显偏差，需要重新构造针对发行版与核心栈（rclcpp、rmw、DDS、ros2_control、Nav2）的定向查询"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "ROS 2 中间件层（DDS/RMW）如何演进：Cyclone DDS、Fast DDS、Zenoh 与 rmw_zenoh 在性能、QoS 与大规模发现上的真实差距是什么？",
+      "queries": [
+        "ROS 2 DDS performance comparison Cyclone DDS Fast DDS 2025",
+        "rmw_zenoh ROS 2 bridge benchmark 2025",
+        "ROS 2 QoS reliability policy DDS discovery server large scale deployment",
+        "ROS 2 DDS 调优 延迟 吞吐 多机通信 2025"
+      ],
+      "rationale": "中间件是 ROS 2 与 ROS 1 分道扬镳的核心，也是工程争议最集中的地方。需要区分厂商基准与第三方实测，明确 QoS 语义差异、发现机制（简单发现 vs Discovery Server）、以及 Zenoh 作为非 DDS 路线是否已被官方/社区验证成熟。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Dependency Chain Analysis of ROS 2 DDS QoS Policies: From Lifecycle Tutorial to Static Verification",
+          "url": "http://arxiv.org/abs/2509.03381v1",
+          "snippet": "Robot Operating System 2 (ROS 2) relies on the Data Distribution Service (DDS), which offers more than 20 Quality of Service (QoS) policies governing availability, reliability, and resource usage. Yet ROS 2 users lack clear guidance on safe policy combinations and validation processes prior to deployment, which often leads to trial-and-error tuning and unexpected runtime failures. To address these challenges, we analyze DDS Publisher-Subscriber communication over a life cycle divided into Discovery, Data Exchange, and Disassociation, and provide a user oriented tutorial explaining how 16 QoS…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Sanghoon Lee",
+            "Junha Kang",
+            "Kyung-Joon Park"
+          ],
+          "venue": "cs.NI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.03381v1",
+            "rrf_score": 0.060144,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+          "url": "http://arxiv.org/abs/2510.20381v1",
+          "snippet": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal legal text processing and to provide a benchmark dataset for building and evaluating intelligent systems in multimodal legal domains, with a focus on traffic sign regulation in Vietnam. The best-reported results on VLSP 2025 MLQA-TSR are an F2 score of 64.55% for multimodal legal retrieval and an a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Son T. Luu",
+            "Trung Vo",
+            "Hiep Nguyen",
+            "Khanh Quoc Tran",
+            "Kiet Van Nguyen",
+            "Vu Tran",
+            "Ngan Luu-Thuy Nguyen",
+            "Le-Minh Nguyen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20381v1",
+            "rrf_score": 0.037031,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+          "url": "http://arxiv.org/abs/2509.19861v1",
+          "snippet": "This paper describes the participation of the SINAI-UJA team in the eRisk@CLEF 2025 lab. Specifically, we addressed two of the proposed tasks: (i) Task 2: Contextualized Early Detection of Depression, and (ii) Pilot Task: Conversational Depression Detection via LLMs. Our approach for Task 2 combines an extensive preprocessing pipeline with the use of several transformer-based models, such as RoBERTa Base or MentalRoBERTA Large, to capture the contextual and sequential nature of multi-user conversations. For the Pilot Task, we designed a set of conversational strategies to interact with LLM-po…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-24",
+          "authors": [
+            "Alba Maria Marmol-Romero",
+            "Manuel Garcia-Vega",
+            "Miguel Angel Garcia-Cumbreras",
+            "Arturo Montejo-Raez"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.19861v1",
+            "rrf_score": 0.036404,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Adaptive Bridge: A Proxy-Based Decoupling Layer for Mitigating DDS Backpressure in ROS 2",
+          "url": "http://arxiv.org/abs/2608.15380v2",
+          "snippet": "In systems built on Robot Operating System 2 (ROS 2) and using Data Distribution Service (DDS), a single network-impaired or throttled subscriber on a RELIABLE topic can cause backpressure that degrades throughput and latency for all other subscribers, including safety-critical ones sharing the publisher, because the publisher's DDS writer can no longer accept new samples. We present Adaptive Bridge, a proxy-based layer that decouples critical subscribers from degraded or noncritical ones, thereby isolating the critical path through topic splitting and dynamic rate control. The proxy acts as…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-15",
+          "authors": [
+            "Kaushalraj Puwar",
+            "B. Thangaraju"
+          ],
+          "venue": "cs.NI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.15380v2",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "Bridging the Basilisk Astrodynamics Framework with ROS 2 for Modular Spacecraft Simulation and Hardware Integration",
+          "url": "http://arxiv.org/abs/2512.09833v2",
+          "snippet": "Integrating high-fidelity spacecraft simulators with modular robotics frameworks remains a challenge for autonomy development. This paper presents a lightweight, open-source communication bridge between the Basilisk astrodynamics simulator and the Robot Operating System 2 (ROS 2), enabling real-time, bidirectional data exchange for spacecraft control. The bridge requires no changes to Basilisk's core and integrates seamlessly with ROS 2 nodes. We demonstrate its use in a leader-follower formation flying scenario using nonlinear model predictive control, deployed identically in both simulation…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-10",
+          "authors": [
+            "Elias Krantz",
+            "Ngai Nam Chan",
+            "Gunnar Tibert",
+            "Huina Mao",
+            "Christer Fuglesang"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.09833v2",
+            "rrf_score": 0.021429
+          }
+        },
+        {
+          "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+          "url": "http://arxiv.org/abs/2508.18904v1",
+          "snippet": "The Event-Enriched Image Analysis (EVENTA) Grand Challenge, hosted at ACM Multimedia 2025, introduces the first large-scale benchmark for event-level multimodal understanding. Traditional captioning and retrieval tasks largely focus on surface-level recognition of people, objects, and scenes, often overlooking the contextual and semantic dimensions that define real-world events. EVENTA addresses this gap by integrating contextual, temporal, and semantic information to capture the who, when, where, what, and why behind an image. Built upon the OpenEvents V1 dataset, the challenge features two…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-26",
+          "authors": [
+            "Thien-Phuc Tran",
+            "Minh-Quang Nguyen",
+            "Minh-Triet Tran",
+            "Tam V. Nguyen",
+            "Trong-Le Do",
+            "Duy-Nam Ly",
+            "Viet-Tham Huynh",
+            "Khanh-Duy Le",
+            "Mai-Khiem Tran",
+            "Trung-Nghia Le"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.18904v1",
+            "rrf_score": 0.02
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "Dependency Chain Analysis of ROS 2 DDS QoS Policies: From Lifecycle Tutorial to Static Verification",
+            "evidence": "Robot Operating System 2 (ROS 2) relies on the Data Distribution Service (DDS), which offers more than 20 Quality of Service (QoS) policies governing availability, reliability, and resource usage. Yet ROS 2 users lack clear guidance on safe policy combinations and validation processes prior to depl…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.NI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.NI）"
+          },
+          {
+            "point": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+            "evidence": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal…",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+            "evidence": "This paper describes the participation of the SINAI-UJA team in the eRisk@CLEF 2025 lab. Specifically, we addressed two of the proposed tasks: (i) Task 2: Contextualized Early Detection of Depression, and (ii) Pilot Task: Conversational Depression Detection via LLMs. Our approach for Task 2 combine…",
+            "sources": [
+              9
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Adaptive Bridge: A Proxy-Based Decoupling Layer for Mitigating DDS Backpressure in ROS 2",
+            "evidence": "In systems built on Robot Operating System 2 (ROS 2) and using Data Distribution Service (DDS), a single network-impaired or throttled subscriber on a RELIABLE topic can cause backpressure that degrades throughput and latency for all other subscribers, including safety-critical ones sharing the pub…",
+            "sources": [
+              12
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.NI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.NI）"
+          },
+          {
+            "point": "Bridging the Basilisk Astrodynamics Framework with ROS 2 for Modular Spacecraft Simulation and Hardware Integration",
+            "evidence": "Integrating high-fidelity spacecraft simulators with modular robotics frameworks remains a challenge for autonomy development. This paper presents a lightweight, open-source communication bridge between the Basilisk astrodynamics simulator and the Robot Operating System 2 (ROS 2), enabling real-tim…",
+            "sources": [
+              15
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+            "evidence": "The Event-Enriched Image Analysis (EVENTA) Grand Challenge, hosted at ACM Multimedia 2025, introduces the first large-scale benchmark for event-level multimodal understanding. Traditional captioning and retrieval tasks largely focus on surface-level recognition of people, objects, and scenes, often…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "ROS 2 执行器模型与实时性实践：events executor、wait-set、内存分配与 PREEMPT_RT 调优在 2024-2026 年的进展如何？",
+      "queries": [
+        "ROS 2 real-time executor events executor rclcpp wait-set 2025",
+        "ros2_control realtime hardware interface best practices 2025",
+        "PREEMPT_RT ROS 2 latency jitter measurement 2024 2025",
+        "ROS 2 实时性 执行器 DDS 调优 内存分配 零拷贝"
+      ],
+      "rationale": "实时性是 ROS 2 被工业界采纳的关键门槛。需要核查执行器实现（单线程/多线程/events/wait-set）、rclcpp 分配行为、DDS 线程优先级与内核补丁层面的具体手段，并区分「论文/报告声称的低延迟」与「可复现的基准数字」。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.040607,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.039821,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems",
+          "url": "http://arxiv.org/abs/2505.06546v1",
+          "snippet": "Real-time scheduling in commoditized component-oriented real-time systems, such as ROS 2 systems on Linux, has been studied under nested scheduling: OS thread scheduling and middleware layer scheduling (e.g., ROS 2 Executor). However, by establishing a persistent one-to-one correspondence between callbacks and OS threads, we can ignore the middleware layer and directly apply OS scheduling parameters (e.g., scheduling policy, priority, and affinity) to individual callbacks. We propose a middleware model that enables this idea and implements CallbackIsolatedExecutor as a novel ROS 2 Executor. W…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-10",
+          "authors": [
+            "Takahiro Ishikawa-Aso",
+            "Atsushi Yano",
+            "Takuya Azumi",
+            "Shinpei Kato"
+          ],
+          "venue": "cs.OS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.06546v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Dependency Chain Analysis of ROS 2 DDS QoS Policies: From Lifecycle Tutorial to Static Verification",
+          "url": "http://arxiv.org/abs/2509.03381v1",
+          "snippet": "Robot Operating System 2 (ROS 2) relies on the Data Distribution Service (DDS), which offers more than 20 Quality of Service (QoS) policies governing availability, reliability, and resource usage. Yet ROS 2 users lack clear guidance on safe policy combinations and validation processes prior to deployment, which often leads to trial-and-error tuning and unexpected runtime failures. To address these challenges, we analyze DDS Publisher-Subscriber communication over a life cycle divided into Discovery, Data Exchange, and Disassociation, and provide a user oriented tutorial explaining how 16 QoS…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Sanghoon Lee",
+            "Junha Kang",
+            "Kyung-Joon Park"
+          ],
+          "venue": "cs.NI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.03381v1",
+            "rrf_score": 0.017647
+          }
+        },
+        {
+          "title": "Budget-based real-time Executor for Micro-ROS",
+          "url": "http://arxiv.org/abs/2105.05590v2",
+          "snippet": "The Robot Operating System (ROS) is a popular robotics middleware framework. In the last years, it underwent a redesign and reimplementation under the name ROS~2. It now features QoS-configurable communication and a flexible layered architecture. Micro-ROS is a variant developed specifically for resource-constrained microcontrollers (MCU). Such MCUs are commonly used in robotics for sensors and actuators, for time-critical control functions, and for safety. While the execution management of ROS 2 has been addressed by an Executor concept, its lack of real-time capabilities make it unsuitable…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2021-05-12",
+          "authors": [
+            "Jan Staschulat",
+            "Ralph Lange",
+            "Dakshina Narahari Dasari"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2105.05590v2",
+            "rrf_score": 0.024194
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              7
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+            "evidence": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading…",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.DC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.DC）"
+          },
+          {
+            "point": "Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems",
+            "evidence": "Real-time scheduling in commoditized component-oriented real-time systems, such as ROS 2 systems on Linux, has been studied under nested scheduling: OS thread scheduling and middleware layer scheduling (e.g., ROS 2 Executor). However, by establishing a persistent one-to-one correspondence between c…",
+            "sources": [
+              30
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.OS",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.OS）"
+          },
+          {
+            "point": "Dependency Chain Analysis of ROS 2 DDS QoS Policies: From Lifecycle Tutorial to Static Verification",
+            "evidence": "Robot Operating System 2 (ROS 2) relies on the Data Distribution Service (DDS), which offers more than 20 Quality of Service (QoS) policies governing availability, reliability, and resource usage. Yet ROS 2 users lack clear guidance on safe policy combinations and validation processes prior to depl…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.NI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.NI）"
+          },
+          {
+            "point": "Budget-based real-time Executor for Micro-ROS",
+            "evidence": "The Robot Operating System (ROS) is a popular robotics middleware framework. In the last years, it underwent a redesign and reimplementation under the name ROS~2. It now features QoS-configurable communication and a flexible layered architecture. Micro-ROS is a variant developed specifically for re…",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2021",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q4",
+      "question": "应用与工程栈（ros2_control、Nav2、MoveIt2）及 VLA/学习型策略接入 ROS 2 的最新最佳实践是什么？",
+      "queries": [
+        "ros2_control hardware interface controller_manager design 2025",
+        "Nav2 behavior tree MPPI controller navigation 2025",
+        "MoveIt2 motion planning pipeline Servo 2025 improvements",
+        "VLA policy ROS 2 integration deployment real robot 2025"
+      ],
+      "rationale": "这是用户与开发者最常直接接触的层面，也是「论文方法能否落地」的检验点。需要覆盖 hardware_interface/controller_manager（real-time 约束、生命周期）、Nav2 行为树与 MPPI 控制器、MoveIt2 规划流水线与 Servo，以及新兴的 VLA 策略作为 ROS 2 节点的部署范式。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.080924,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "On Hardware-Aware Design and Optimization of Edge Intelligence",
+          "url": "http://arxiv.org/abs/2607.16297v1",
+          "snippet": "Edge intelligence systems, the intersection of edge computing and artificial intelligence (AI), are pushing the frontier of AI applications. However, the complexity of deep learning models and heterogeneity of edge devices make the design of edge intelligence systems a challenging task. Hardware-agnostic methods face some limitations when implementing edge systems. Thus, hardware-aware methods are attracting more attention recently. In this paper, we present our recent endeavors in hardware-aware design and optimization for edge intelligence. We delve into techniques such as model compression…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-13",
+          "authors": [
+            "Shuo Huai",
+            "Hao Kong",
+            "Xiangzhong Luo",
+            "Di Liu",
+            "Ravi Subramaniam",
+            "Christian Makaya",
+            "Qian Lin",
+            "Weichen Liu"
+          ],
+          "venue": "cs.AR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.16297v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Static Communication Analysis for Hardware Design",
+          "url": "http://arxiv.org/abs/2505.20849v1",
+          "snippet": "Hardware acceleration of algorithms is an effective method for improving performance in high-demand computational tasks. However, developing hardware designs for such acceleration fundamentally differs from software development, as it requires a deep understanding of the highly parallel nature of the hardware architecture. In this paper, we present a framework for the static analysis of communication within datapath architectures designed for field-programmable gate arrays (FPGAs). Our framework aims to enhance hardware design and optimization by providing insights into communication patterns…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-27",
+          "authors": [
+            "Mads Rosendahl",
+            "Maja H. Kirkeby"
+          ],
+          "venue": "cs.AR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.20849v1",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+          "url": "http://arxiv.org/abs/2509.19861v1",
+          "snippet": "This paper describes the participation of the SINAI-UJA team in the eRisk@CLEF 2025 lab. Specifically, we addressed two of the proposed tasks: (i) Task 2: Contextualized Early Detection of Depression, and (ii) Pilot Task: Conversational Depression Detection via LLMs. Our approach for Task 2 combines an extensive preprocessing pipeline with the use of several transformer-based models, such as RoBERTa Base or MentalRoBERTA Large, to capture the contextual and sequential nature of multi-user conversations. For the Pilot Task, we designed a set of conversational strategies to interact with LLM-po…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-24",
+          "authors": [
+            "Alba Maria Marmol-Romero",
+            "Manuel Garcia-Vega",
+            "Miguel Angel Garcia-Cumbreras",
+            "Arturo Montejo-Raez"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.19861v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+          "url": "http://arxiv.org/abs/2512.06951v2",
+          "snippet": "We present a vision-action policy that won 1st place in the 2025 BEHAVIOR Challenge - a large-scale benchmark featuring 50 diverse long-horizon household tasks in photo-realistic simulation, requiring bimanual manipulation, navigation, and context-aware decision making. Building on the Pi0.5 architecture, we introduce several innovations. Our primary contribution is correlated noise for flow matching, which improves training efficiency and enables correlation-aware inpainting for smooth action sequences. We also apply learnable mixed-layer attention and System 2 stage tracking for ambiguity r…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-07",
+          "authors": [
+            "Ilia Larchenko",
+            "Gleb Zarin",
+            "Akash Karnatak"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.06951v2",
+            "rrf_score": 0.021739
+          }
+        },
+        {
+          "title": "BR-MPPI: Barrier-Rate Guided MPPI for Enforcing Multiple Inequality Constraints with Learned Signed Distance Fields",
+          "url": "http://arxiv.org/abs/2506.07325v2",
+          "snippet": "Model Predictive Path Integral (MPPI) control provides a sampling-based framework for optimal control, while Control Barrier Functions (CBFs) provide a principled means of enforcing safety constraints. We introduce BR-MPPI, which integrates CBF-like conditions into MPPI's control sampling procedure. CBFs impose inequality constraints that bound the rate of change of barrier functions using a class-K function of the barrier value. We instead impose the CBF condition as an equality constraint using a parametric linear class-K function and augment the system state with its parameter. The paramet…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-08",
+          "authors": [
+            "Hardik Parwana",
+            "Taekyung Kim",
+            "Kehan Long",
+            "Bardh Hoxha",
+            "Hideki Okamoto",
+            "Georgios Fainekos",
+            "Dimitra Panagou"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.07325v2",
+            "rrf_score": 0.021429
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q4",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "On Hardware-Aware Design and Optimization of Edge Intelligence",
+            "evidence": "Edge intelligence systems, the intersection of edge computing and artificial intelligence (AI), are pushing the frontier of AI applications. However, the complexity of deep learning models and heterogeneity of edge devices make the design of edge intelligence systems a challenging task. Hardware-ag…",
+            "sources": [
+              40
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AR）"
+          },
+          {
+            "point": "Static Communication Analysis for Hardware Design",
+            "evidence": "Hardware acceleration of algorithms is an effective method for improving performance in high-demand computational tasks. However, developing hardware designs for such acceleration fundamentally differs from software development, as it requires a deep understanding of the highly parallel nature of t…",
+            "sources": [
+              42
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AR）"
+          },
+          {
+            "point": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+            "evidence": "This paper describes the participation of the SINAI-UJA team in the eRisk@CLEF 2025 lab. Specifically, we addressed two of the proposed tasks: (i) Task 2: Contextualized Early Detection of Depression, and (ii) Pilot Task: Conversational Depression Detection via LLMs. Our approach for Task 2 combine…",
+            "sources": [
+              9
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+            "evidence": "We present a vision-action policy that won 1st place in the 2025 BEHAVIOR Challenge - a large-scale benchmark featuring 50 diverse long-horizon household tasks in photo-realistic simulation, requiring bimanual manipulation, navigation, and context-aware decision making. Building on the Pi0.5 archit…",
+            "sources": [
+              43
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "BR-MPPI: Barrier-Rate Guided MPPI for Enforcing Multiple Inequality Constraints with Learned Signed Distance Fields",
+            "evidence": "Model Predictive Path Integral (MPPI) control provides a sampling-based framework for optimal control, while Control Barrier Functions (CBFs) provide a principled means of enforcing safety constraints. We introduce BR-MPPI, which integrates CBF-like conditions into MPPI's control sampling procedure…",
+            "sources": [
+              44
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q5",
+      "question": "仿真、嵌入式与分布式部署：Gazebo/gz-sim、micro-ROS、容器化多机部署有哪些近期进展与可用评测手段？",
+      "queries": [
+        "Gazebo gz-sim ROS 2 Ionic Harmonic simulation 2025",
+        "micro-ROS embedded microcontroller ROS 2 2025 real-time",
+        "ROS 2 distributed multi-robot docker kubernetes deployment 2025",
+        "ROS 2 benchmark performance_test latency throughput evaluation"
+      ],
+      "rationale": "仿真与部署决定了研发闭环效率与可复现性。需确认仿真器版本谱系（gz-sim 与 ROS 2 版本绑定关系）、micro-ROS 在 MCU 上的实际能力边界、容器/多机/云边部署方案，以及是否存在被社区认可的 ROS 2 性能基准工具，用于横向比较而非仅凭演示视频。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.062599,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+          "url": "http://arxiv.org/abs/2509.11402v1",
+          "snippet": "The TRUST workshop is the result of a collaboration between two established workshops in the field of Human-Robot Interaction: SCRITA (Trust, Acceptance and Social Cues in Human-Robot Interaction) and RTSS (Robot Trust for Symbiotic Societies). This joint initiative brings together the complementary goals of these workshops to advance research on trust from both the human and robot perspectives.\n  Website: https://scrita.herts.ac.uk/2025/",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-14",
+          "authors": [
+            "Alessandra Rossi",
+            "Patrick Holthaus",
+            "Gabriella Lakatos",
+            "Sílvia Moros",
+            "Ali Fallahi",
+            "Murat Kirtay",
+            "Marie Postma",
+            "Erhan Oztop"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.11402v1",
+            "rrf_score": 0.042814,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Network-Aware Control of AGVs in an Industrial Scenario: A Simulation Study Based on ROS 2 and Gazebo",
+          "url": "http://arxiv.org/abs/2509.06451v1",
+          "snippet": "Networked Control System (NCS) is a paradigm where sensors, controllers, and actuators communicate over a shared network. One promising application of NCS is the control of Automated Guided Vehicles (AGVs) in the industrial environment, for example to transport goods efficiently and to autonomously follow predefined paths or routes. In this context, communication and control are tightly correlated, a paradigm referred to as Joint Communication and Control (JCC), since network issues such as delays or errors can lead to significant deviations of the AGVs from the planned trajectory. In this pa…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-08",
+          "authors": [
+            "Filippo Bragato",
+            "Tullia Fontana",
+            "Marco Giordani",
+            "Malte Schellmann",
+            "Josef Eichinger",
+            "Michele Zorzi"
+          ],
+          "venue": "cs.NI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.06451v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.021429
+          }
+        },
+        {
+          "title": "A Survey of Real-Time Support, Analysis, and Advancements in ROS 2",
+          "url": "http://arxiv.org/abs/2601.10722v2",
+          "snippet": "The Robot Operating System 2 (ROS~2) has emerged as a relevant middleware framework for robotic applications, offering modularity, distributed execution, and communication. In the last six years, ROS~2 has drawn increasing attention from the real-time systems community and industry. This survey presents a comprehensive overview of research efforts that analyze, enhance, and extend ROS~2 to support real-time execution. We first provide a detailed description of the internal scheduling mechanisms of ROS~2 and its layered architecture, including the interaction with DDS-based communication and o…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-22",
+          "authors": [
+            "Daniel Casini",
+            "Jian-Jia Chen",
+            "Jing Li",
+            "Federico Reghenzani",
+            "Harun Teper"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2601.10722v2",
+            "rrf_score": 0.021127
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q5",
+        "findings": [
+          {
+            "point": "已有工作用 Gazebo + ROS 2 搭建联合通信与控制（JCC）仿真框架，用于研究工业场景下 AGV 的网络感知控制与轨迹偏差问题。",
+            "evidence": "论文提出基于 Gazebo 与 ROS 2 的仿真框架，用于仿真并可视化传感器/控制器/执行器共享网络下的复杂交互；关注网络时延或错误导致 AGV 偏离规划轨迹，属 Networked Control System 与 Joint Communication and Control 范式。",
+            "sources": [
+              58
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.NI, arXiv:2509.06451v1, 2025-09-08），尚未见同行评审与会议信息",
+            "attention": "低 + 候选块未提供引用数/star/榜单信号，且为 2025 年 9 月新投稿预印本，社区信号尚不可见",
+            "recommendation": "★★★☆☆ + 直接命中「Gazebo + ROS 2 分布式/网络化仿真评测」这一子问题，是候选证据中唯一给出仿真+网络联合实验手段的来源，但因未经同行评审、指标口径未知，仅供参考"
+          },
+          {
+            "point": "ROS 2 的实时性支持、分析方法与扩展已成为独立且持续推进的研究方向，并已有综述性梳理。",
+            "evidence": "该综述称 ROS 2 作为机器人中间件提供模块化、分布式执行与通信，过去六年吸引实时系统社区与工业界关注；综述系统整理了分析、增强与扩展 ROS 2 以支持实时需求的研究工作。",
+            "sources": [
+              61
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv（cs.RO, arXiv:2601.10722v2，提交日期 2025-12-22）；候选块未给出会议/期刊信息，暂按预印本处理",
+            "attention": "中 + 综述体裁覆盖「过去六年」的 ROS 2 实时研究，对分布式部署与嵌入式实时约束具有聚合价值，但候选块未提供引用数/下载量等量化信号",
+            "recommendation": "★★★★☆ + 是本子问题在中间件/实时/分布式执行维度最系统的入口文献，适合作为梳理 ROS 2 部署约束的骨架来源；需核实其正式发表 venue"
+          },
+          {
+            "point": "分布式/边缘侧的任务卸载与自适应调度被视为时延敏感机器人-边缘应用的关键手段，但候选证据中的实例来自车联网边缘计算而非机器人本体部署。",
+            "evidence": "该工作面向 Vehicular Edge Computing，研究车辆将计算密集任务无线卸载到路侧单元时的实时服务订阅与自适应卸载控制，指出时延敏感应用下的高效卸载与资源分配仍具挑战。",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.DC, arXiv:2512.14002v1, 2025-12-16）",
+            "attention": "低 + 与 ROS 2/机器人多机部署仅有方法层面的间接关联（卸载、时延保障），候选块未提供热度信号",
+            "recommendation": "★★☆☆☆ + 可作为「分布式卸载 + 时延约束」的方法参考，但不能作为 ROS 2 / Gazebo / micro-ROS 部署方案的直接证据"
+          },
+          {
+            "point": "候选证据中未出现 micro-ROS、容器化多机部署（如 Docker/K8s 编排）或 gz-sim（新 Gazebo）相关的任何近期工作或评测手段。",
+            "evidence": "本轮候选块共 6 条，其中与本子问题相关的仅 [58]（Gazebo + ROS 2 仿真）、[61]（ROS 2 实时综述）、[26]（边缘卸载）；[4]/[6]/[7] 分别属短视频参与度预测、HRI 信任工作坊、基础模型透明度指数，均与本主题无关；全部候选块中无 micro-ROS、容器化编排、gz-sim 的条目。",
+            "sources": [
+              4,
+              6,
+              7,
+              26,
+              58,
+              61
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "本判断基于候选证据集合的覆盖情况，非文献结论",
+            "attention": "低 + 该缺口说明当前检索召回未覆盖嵌入式（micro-ROS）与容器化多机部署方向，需补充检索",
+            "recommendation": "★★★☆☆ + 作为证据完整性提示，明确后续必须补检 micro-ROS、gz-sim、容器化多机部署与相应评测基准的独立来源"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Network-Aware Control of AGVs in an Industrial Scenario: A Simulation Study Based on ROS 2 and Gazebo",
+            "url": "http://arxiv.org/abs/2509.06451v1",
+            "why": "直接提供 Gazebo + ROS 2 的 AGV 网络感知控制仿真框架，是本子问题中唯一同时覆盖仿真平台与网络化/分布式部署评测的手段类论文。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.NI），候选块未标注会议/期刊",
+            "attention": "低 + 2025-09 新预印本，无引用/榜单等社区信号",
+            "recommendation": "★★★☆☆ + 与「Gazebo 仿真 + 分布式网络评测」高度相关，可作为实验设计参考；需核实是否已中稿及具体指标口径"
+          },
+          {
+            "title": "A Survey of Real-Time Support, Analysis, and Advancements in ROS 2",
+            "url": "http://arxiv.org/abs/2601.10722v2",
+            "why": "系统梳理 ROS 2 在实时性、分析与扩展方面的研究，是理解 ROS 2 部署（含实时与分布式执行）约束的综述入口。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv（cs.RO），候选块未标注正式发表 venue",
+            "attention": "中 + 综述覆盖六年研究积累，主题与 ROS 2 工程落地强相关；但候选块无量化热度信号",
+            "recommendation": "★★★★☆ + 作为 ROS 2 实时/分布式能力的骨架文献价值高，建议据其参考文献继续追踪 micro-ROS 与容器化部署"
+          },
+          {
+            "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+            "url": "http://arxiv.org/abs/2512.14002v1",
+            "why": "提供时延敏感场景下的分布式卸载与自适应调度方法，可作为分布式部署中算力分配思路的间接参考。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.DC）",
+            "attention": "低 + 应用域为车联网边缘计算，与机器人仿真/嵌入式部署关联间接",
+            "recommendation": "★★☆☆☆ + 仅在需要讨论卸载与时延保障时引用，不能替代 ROS 2 / micro-ROS 部署证据"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据中完全没有 micro-ROS 相关条目：嵌入式 MCU 端 ROS 2 的实时性、内存占用与通信桥接的近期进展与评测手段均无证据支撑，需另行检索。",
+          "候选证据中完全没有容器化多机部署（Docker/Podman/Kubernetes 编排、DDS 发现与网络分区）相关条目，多机分布式部署的可用评测手段在本轮召回中为空。",
+          "[58] 仅描述 Gazebo + ROS 2 仿真框架，未提供仿真与真机一致性、可复现性指标或公开代码，仿真评测是否可迁移到真实多机系统 > 待核实。",
+          "[61] 综述的正式发表 venue 与覆盖截止时间未在候选块中给出，其是否覆盖 gz-sim（新 Gazebo）与 micro-ROS 生态 > 待核实。",
+          "缺少统一的分布式/多机部署评测基准或榜单：候选块未出现任何面向 ROS 2 多机、容器化编排或嵌入式部署的 benchmark，导致跨方案可比性无法判断。"
+        ]
+      }
+    },
+    {
+      "id": "q6",
+      "question": "ROS 2 的经典奠基工作、被反复提出的批评（中间件开销、复杂度、实时性）与替代路线（自研中间件、SROS2 安全、其他机器人框架）现状如何？",
+      "queries": [
+        "ROS 2 design paper middleware survey foundations",
+        "ROS 2 performance overhead criticism limitations 2024 2025",
+        "SROS2 security ROS 2 deployment challenges 2025",
+        "robot middleware comparison ROS 2 alternatives survey 2024 2025"
+      ],
+      "rationale": "避免只呈现官方叙事。需要回溯 ROS 2 设计论文与中间件综述作为奠基文献，同时收集学术与工业界对性能开销、DDS 碎片化、安全（SROS2）落地难度的批评，以及非 ROS 框架与自研中间件的替代主张，形成正反证据对照。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The Three Dimensions of ROS 2 Middleware",
+          "url": "http://arxiv.org/abs/2607.01304v1",
+          "snippet": "ROS 2 (Robot Operating System 2) has emerged as the de facto standard for modern robot software development, with middleware implementations such as the Data Distribution Service (DDS) and Zenoh forming the core infrastructure for distributed robotic communication. Despite their architectural flexibility, these middleware systems exhibit structural limitations, particularly under dynamic and resource-constrained wireless environments. This paper presents a systematic survey of ROS 2 middleware and introduces a conceptual framework to examine its architectural limits through three structural d…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-01",
+          "authors": [
+            "Sanghoon Lee",
+            "Taehun Kim",
+            "Angelo Corsaro",
+            "Kyung-Joon Park"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.01304v1",
+            "rrf_score": 0.042032,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Harness Engineering for Physical AI: Robot Middleware Is the Harness Layer",
+          "url": "http://arxiv.org/abs/2606.09416v1",
+          "snippet": "Robot middleware faces a new role in the era of Physical AI. Learned policies, planners, and vision-language-action (VLA) models now enter deployed robots as causal participants on the control path, but the layer that integrates them with timing, scheduling, and network has not been named. Recent language-agent work names this layer the harness, the external system that mediates tools, manages state, bounds resources, and records execution. The robotics community has not yet adopted this framing, and we propose that robot middleware is that harness. A Physical AI harness differs from a softwa…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-06-08",
+          "authors": [
+            "Sanghoon Lee",
+            "Jiyeong Chae",
+            "Kyung-Joon Park"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.09416v1",
+            "rrf_score": 0.041457,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.021127
+          }
+        },
+        {
+          "title": "Supply Chain Exploitation of Secure ROS 2 Systems: A Proof-of-Concept on Autonomous Platform Compromise via Keystore Exfiltration",
+          "url": "http://arxiv.org/abs/2511.00140v1",
+          "snippet": "This paper presents a proof-of-concept supply chain attack against the Secure ROS 2 (SROS 2) framework, demonstrated on a Quanser QCar2 autonomous vehicle platform. A Trojan-infected Debian package modifies core ROS 2 security commands to exfiltrate newly generated keystore credentials via DNS in base64-encoded chunks to an attacker-controlled nameserver. Possession of these credentials enables the attacker to rejoin the SROS 2 network as an authenticated participant and publish spoofed control or perception messages without triggering authentication failures. We evaluate this capability on a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-31",
+          "authors": [
+            "Tahmid Hasan Sakib",
+            "Yago Romano Martinez",
+            "Carter Brady",
+            "Syed Rafay Hasan",
+            "Terry N. Guo"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.00140v1",
+            "rrf_score": 0.019231
+          }
+        },
+        {
+          "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+          "url": "http://arxiv.org/abs/2509.11402v1",
+          "snippet": "The TRUST workshop is the result of a collaboration between two established workshops in the field of Human-Robot Interaction: SCRITA (Trust, Acceptance and Social Cues in Human-Robot Interaction) and RTSS (Robot Trust for Symbiotic Societies). This joint initiative brings together the complementary goals of these workshops to advance research on trust from both the human and robot perspectives.\n  Website: https://scrita.herts.ac.uk/2025/",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-14",
+          "authors": [
+            "Alessandra Rossi",
+            "Patrick Holthaus",
+            "Gabriella Lakatos",
+            "Sílvia Moros",
+            "Ali Fallahi",
+            "Murat Kirtay",
+            "Marie Postma",
+            "Erhan Oztop"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.11402v1",
+            "rrf_score": 0.017045
+          }
+        },
+        {
+          "title": "A Survey on Service Composition Middleware in Pervasive Environments",
+          "url": "http://arxiv.org/abs/0909.2183v1",
+          "snippet": "The development of pervasive computing has put the light on a challenging problem: how to dynamically compose services in heterogeneous and highly changing environments? We propose a survey that defines the service composition as a sequence of four steps: the translation, the generation, the evaluation, and finally the execution. With this powerful and simple model we describe the major service composition middleware. Then, a classification of these service composition middleware according to pervasive requirements - interoperability, discoverability, adaptability, context awareness, QoS mana…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2009-09-11",
+          "authors": [
+            "Noha Ibrahim",
+            "Frederic Le Mouel"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "0909.2183v1",
+            "rrf_score": 0.039744,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q6",
+        "findings": [
+          {
+            "point": "The Three Dimensions of ROS 2 Middleware",
+            "evidence": "ROS 2 (Robot Operating System 2) has emerged as the de facto standard for modern robot software development, with middleware implementations such as the Data Distribution Service (DDS) and Zenoh forming the core infrastructure for distributed robotic communication. Despite their architectural flexi…",
+            "sources": [
+              87
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Harness Engineering for Physical AI: Robot Middleware Is the Harness Layer",
+            "evidence": "Robot middleware faces a new role in the era of Physical AI. Learned policies, planners, and vision-language-action (VLA) models now enter deployed robots as causal participants on the control path, but the layer that integrates them with timing, scheduling, and network has not been named. Recent l…",
+            "sources": [
+              88
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              7
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Supply Chain Exploitation of Secure ROS 2 Systems: A Proof-of-Concept on Autonomous Platform Compromise via Keystore Exfiltration",
+            "evidence": "This paper presents a proof-of-concept supply chain attack against the Secure ROS 2 (SROS 2) framework, demonstrated on a Quanser QCar2 autonomous vehicle platform. A Trojan-infected Debian package modifies core ROS 2 security commands to exfiltrate newly generated keystore credentials via DNS in b…",
+            "sources": [
+              97
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+            "evidence": "The TRUST workshop is the result of a collaboration between two established workshops in the field of Human-Robot Interaction: SCRITA (Trust, Acceptance and Social Cues in Human-Robot Interaction) and RTSS (Robot Trust for Symbiotic Societies). This joint initiative brings together the complementar…",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "A Survey on Service Composition Middleware in Pervasive Environments",
+            "evidence": "The development of pervasive computing has put the light on a challenging problem: how to dynamically compose services in heterogeneous and highly changing environments? We propose a survey that defines the service composition as a sequence of four steps: the translation, the generation, the evalua…",
+            "sources": [
+              89
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2009",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [
+    {
+      "coverage": "",
+      "gaps": [],
+      "additional_queries": [],
+      "additional_subquestions": []
+    }
+  ],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 130,
+    "prompt_tokens": 723270,
+    "completion_tokens": 398484,
+    "generated_at": "2026-10-04T04:52:29.804775+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# ROS 2 生态与机器人中间件：发行版、DDS/RMW、实时执行器与工程栈的证据化调研\n\n> **元信息**｜撰写日期：2026-10-04（UTC）｜领域：机器人中间件 / ROS 2 / DDS / 实时系统｜编号证据来源：101 条（其中与本主题直接相关约 30 条）｜领域种子资源：11 项（官方文档 / 仓库 / 数据格式）｜检索性质：本轮候选证据池存在明显召回偏差，报告中所有缺口均已显式标注\n\n---\n\n## 摘要（Executive Summary）\n\n本报告基于 101 条编号来源与 11 项领域种子资源，对 ROS 2 生态与机器人中间件的近期进展与经典基础做证据化梳理。**最重要的结论是：本轮证据池在“中间件层与实时执行器”方向有可用的一手材料，但在“发行版节奏、ros2_control/Nav2/MoveIt2 工程实践、micro-ROS 与容器化多机部署”方向存在系统性缺口**，因此本报告在这些方向上以“缺口清单”而非“结论”形式呈现。\n\n可支撑的主要判断：\n\n1. **中间件层正被重新概念化为“可插拔传输策略边界”**。传统上 ROS 2 通过 RMW 接口标准化应用代码，参考实现建立在 DDS 之上 [77]；2026 年出现的 AXON 用 POSIX 共享内存环处理本机通信、QUIC 处理远程通信、守护进程负责发现与计算图同步，说明 RMW 抽象已被当作替换底层传输的边界使用 [77]。综述性工作则把 DDS 与 Zenoh 并列为 ROS 2 分布式通信的核心基础设施 [87]。\n2. **DDS 的性能问题在 2024-2026 年被具体化为“背压”“多播”“QoS 组合正确性”三类工程问题**。单条 RELIABLE topic 上的慢订阅者可造成全局背压并拖累同 topic 其他订阅者（含安全关键订阅者）[12]；QoS 策略超过 20 项却缺乏安全组合的验证指引 [1]；多播对 DDS 吞吐的影响已有专门实验研究 [10]，DDS 实现间的实验性能评测也已有综述 [11]。\n3. **实时性研究已形成独立脉络，并已有综述级整合**。ROS 2 实时支持、分析与扩展被系统梳理为独立研究方向 [61]；多线程 executor 的时序分析与优先级增强 [27]、ROS 2 与经典实时调度的桥接 [28]、中间件透明的回调强制机制 [30] 构成 2024-2026 的一条连续线索；嵌入式侧可追溯到 micro-ROS 的预算式实时 executor [24] 与 FPGA 加速的 ReconROS executor [25]。\n4. **安全性的攻防两侧都在推进，但“可用性”仍是痛点**。SROS2 曾以可用性工具链为定位 [96]，而 2025 年的 PoC 显示 Trojan 化 Debian 包可篡改核心安全命令并通过 DNS 外泄 keystore 凭证，在 Quanser QCar2 平台上完成对 SROS 2 的供应链攻击 [97]；更早的工作已从 DDS 安全配置角度讨论凭证伪装与 OpenSSL 侧信道 [3]。\n5. **发行版级结论（Jazzy/Kilted 及后续 LTS 的新特性与破坏性变更）在本轮证据中无法成立**：候选池未包含任何 ROS 2 官方 release notes、迁移指南、REP 或版本号清单 [77]。该方向必须补检官方文档后才能给出可引用结论。`> 待核实`\n\n---\n\n## 一、关键前沿进展与发行版节奏\n\n### 1.1 本轮证据能确认什么\n\n| 论断 | 证据 | 类型 | 置信度 |\n|---|---|---|---|\n| ROS 2 通过 RMW 接口标准化应用代码，参考实现基于 DDS [77] | 摘要原文引用（见 1.2） | 架构事实 | 中 |\n| DDS 与 Zenoh 已被综述性工作并列为 ROS 2 核心中间件实现 [87] | 摘要原文：\"middleware implementations such as the Data Distribution Service (DDS) and Zenoh forming the core infrastructure for distributed robotic communication\" | 架构事实 | 中 |\n| 2026 年出现脱离 DDS 的替代 RMW 实现（AXON），按部署范围分流传输策略 [77] | 摘要原文（Rust core + C++ adapter、POSIX 共享内存环、QUIC、daemon 发现） | 个案探索 | 中 |\n| ROS 2 的远程通信安全正向 fail-closed + 后量子混合密钥方向设计 [77] | 摘要原文：经典配置仅提供混合 X25519MLKEM768 组，禁止协商纯经典组 | 设计取向 | 低（摘录被截断） |\n\n### 1.2 关键条目证据卡\n\n**AXON: A ROS 2 RMW with Shared-Memory/QUIC Transport and QKD/ML-KEM Key Establishment（2026）[77]**\n\n- **热度证据**：`> 待核实`——候选块未提供引用数、star、下载量或榜单信号；该预印本 2026-09-09 提交，尚无第三方采纳证据。\n- **权威证据**：arXiv 预印本（cs.RO），arXiv:2609.10024v1，作者来自西班牙 León 大学等机构；候选块未标注同行评审会议 [77]。\n- **关注度**：**低**。依据：仅单条 2026-09 预印本，无引用、无社区讨论或基准对比信号 [77]。\n- **推荐度**：**★★★☆☆**。本批候选中唯一直接落在 ROS 2 核心栈（RMW / 中间件层 / 传输 + 安全密钥建立）的论文，对“RMW 可替换性”有直接说明力；但属预印本且无采纳度证据，不能据此推断官方发行版走向 [77]。\n\n**The Three Dimensions of ROS 2 Middleware（2026）[87]**\n\n- **热度证据**：`> 待核实`（候选块未提供引用数 / star）。\n- **权威证据**：arXiv 预印本（cs.RO），arXiv:2607.01304v1，2026-07 提交；候选块未标注 venue [87]。\n- **关注度**：**中**。依据：标题与摘要表明其以“维度框架”方式对 ROS 2 中间件做整体化梳理，并明确把 DDS 与 Zenoh 并列为核心基础设施，属于本主题的伞形文献 [87]。\n- **推荐度**：**★★★★☆**。适合作为第二节（中间件）组织骨架，但需核实其正式发表信息与完整分类维度 [87]。\n\n### 1.3 明确的证据缺口\n\n- 候选证据池**不包含任何 ROS 2 发行版的官方发布说明、变更日志或破坏性变更清单**。q1 的 5 条候选中 4 条与 ROS 2 无关（基础模型透明度指数 [7]、引力波讲义 [36]、语音情感识别 [76]、多智能体竞赛报告 [84]），仅 [77] 与 ROS 2 相关。因此“Jazzy / Kilted 及后续 LTS 的新特性与破坏性变更”**无法从现有证据得出结论**。`> 待核实`\n- 需要补检的定向来源：ROS 2 官方设计文档与规范站点（领域种子资源：https://design.ros2.org/ ）、发行版支持周期规范（REP-2000 类文档）、各发行版 release notes 与迁移指南。**本轮未实时检索到上述发行版文档**，本报告不对具体发行版特性做任何断言。\n\n---\n\n## 二、中间件与实时性（DDS / RMW / Executor）\n\n### 2.1 DDS 层的三类工程问题\n\n**（1）背压与订阅者耦合。** DDS 语义下，`RELIABLE` topic 上单个网络受损或被限流的订阅者会造成背压，降低该 topic 上**所有**其他订阅者的吞吐与延迟，包括共享该发布者的安全关键订阅者 [12]。Adaptive Bridge 提出以代理式解耦层缓解该问题 [12]。\n\n- **热度证据**：`> 待核实`（候选块未提供引用数 / star）。\n- **权威证据**：arXiv 预印本（cs.NI），arXiv:2608.15380v2，2026-08 [12]。\n- **关注度**：**低**。依据：候选块无引用与讨论信号，仅标题与摘要可核实问题设定。\n- **推荐度**：**★★★☆☆**。对“DDS QoS 语义在真实网络中如何失效”提供了具体失效模式描述，适合作为 QoS 实践的负面案例引用；但方案成熟度与性能增益 `> 待核实` [12]。\n\n**（2）QoS 组合的正确性缺乏指导。** ROS 2 依赖 DDS，DDS 提供 20 项以上 QoS 策略，管辖可用性、可靠性与资源占用，但用户“缺乏关于安全策略组合与部署前验证流程的清晰指导” [1]。该工作尝试从生命周期的教学式入门走向静态验证 [1]。\n\n- **热度证据**：`> 待核实`。\n- **权威证据**：arXiv（cs.NI），arXiv:2509.03381v1，2025-09 [1]。\n- **关注度**：**中**。依据：QoS 误配是 ROS 2 工程实践中的高频问题域，该工作把非形式化的经验规则推向静态检查，属方法论转向；但候选块无热度量化信号 [1]。\n- **推荐度**：**★★★★☆**。是本主题在“QoS 工程规范”维度最贴题的一手材料，建议与领域种子资源 https://design.ros2.org/ 中的 QoS 设计文档对读 [1]。\n\n**（3）多播与实现差异。** 多播通信对 DDS 性能的影响已有专门实验研究 [10]；DDS 各实现的实验性能评测已有综述 [11]；面向协同驾驶的 ROS 2-DDS 中间件实现性能评测也已完成 [14]。\n\n- **热度证据**：`> 待核实`（三条候选均未提供引用数）。\n- **权威证据**：[10] arXiv:2209.09001v1（2022）；[11] arXiv:2310.16630v1（2023）；[14] arXiv:2412.07485v1（2024），均为预印本，候选块未标注 venue [10][11][14]。\n- **关注度**：**中**。依据：DDS 实现选型（Cyclone DDS vs Fast DDS 等）是 ROS 2 部署中的高频决策点，[11] 以“综述 + 实验评测”体例聚合该问题 [11]；[14] 把评测放到协同驾驶场景，属场景化验证 [14]。\n- **推荐度**：**★★★★☆（[11]）/ ★★★☆☆（[10][14]）**。[11] 是 DDS 性能对比的入口文献；[10] 与 [14] 提供具体干扰因素与场景约束，但均需核实指标口径与硬件环境 [10][11][14]。\n\n### 2.2 RMW 层与跨中间件桥接\n\n除 AXON [77] 外，[15] 提供了把高保真航天动力学仿真器 Basilisk 与 ROS 2 打通的轻量开源通信桥，用于模块化航天器仿真与硬件集成，说明“ROS 2 作为集成总线、外部仿真器作为被桥接对象”的模式在航天域也在复制 [15]。\n\n- **热度证据**：`> 待核实` [15]。\n- **权威证据**：arXiv 预印本（cs.RO），arXiv:2512.09833v2，2025-12 [15]。\n- **关注度**：**低**。依据：航天域 ECS（embedded control system）集成属细分场景，候选块无热度信号 [15]。\n- **推荐度**：**★★★☆☆**。作为“ROS 2 作为中间件被外部领域桥接”的案例，对第四节仿真集成有横向参考价值 [15]。\n\n**缺口的显式标注**：本轮候选中**未出现 Zenoh / rmw_zenoh 的性能、QoS 或大规模发现相关论文**。唯一可用信号是 [87] 把 Zenoh 与 DDS 并列为核心中间件实现 [87]。因此“Cyclone DDS / Fast DDS / Zenoh 三者的真实性能差距”无法给出可核查数值结论。`> 待核实` 可参考领域种子资源中的桥接实现：https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds 。\n\n### 2.3 Executor 与实时性\n\n| 条目 | 年份 | 核心贡献 | 链接 | 热度 | 权威 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|---|\n| Timing Analysis and Priority-driven Enhancements of ROS 2 Multi-threaded Executors [27] | 2024 | 对多线程 executor 做时序分析并提出优先级驱动增强 | http://arxiv.org/abs/2408.08440v2 | `> 待核实` | arXiv 预印本（候选块未标 venue）[27] | 中：直接命中多线程 executor 实时性痛点 [27] | ★★★★☆ |\n| Bridging the Gap between ROS 2 and Classical Real-Time Scheduling for Periodic Tasks [28] | 2024 | 把 ROS 2 周期任务映射到经典实时调度理论 | http://arxiv.org/abs/2408.03696v1 | `> 待核实` | arXiv 预印本 [28] | 中：连接控制理论与中间件实践 [28] | ★★★★☆ |\n| Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems [30\n\n## 参考来源\n\n[1] Dependency Chain Analysis of ROS 2 DDS QoS Policies: From Lifecycle Tutorial to Static Verification — http://arxiv.org/abs/2509.03381v1\n[2] DDS: DPU-optimized Disaggregated Storage [Extended Report] — http://arxiv.org/abs/2407.13618v5\n[3] Credential Masquerading and OpenSSL Spy: Exploring ROS 2 using DDS security — http://arxiv.org/abs/1904.09179v2\n[4] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[5] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[6] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1\n[7] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[8] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1\n[9] SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection — http://arxiv.org/abs/2509.19861v1\n[10] Exploring the Effects of Multicast Communication on DDS Performance — http://arxiv.org/abs/2209.09001v1\n[11] A Survey on Experimental Performance Evaluation of Data Distribution Service (DDS) Implementations — http://arxiv.org/abs/2310.16630v1\n[12] Adaptive Bridge: A Proxy-Based Decoupling Layer for Mitigating DDS Backpressure in ROS 2 — http://arxiv.org/abs/2608.15380v2\n[13] DDS: A new device-degraded speech dataset for speech enhancement — http://arxiv.org/abs/2109.07931v4\n[14] Performance Evaluation of ROS2-DDS middleware implementations facilitating Cooperative Driving in Autonomous Vehicle — http://arxiv.org/abs/2412.07485v1\n[15] Bridging the Basilisk Astrodynamics Framework with ROS 2 for Modular Spacecraft Simulation and Hardware Integration — http://arxiv.org/abs/2512.09833v2\n[16] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1\n[17] Self-Supervised Policy Adaptation during Deployment — http://arxiv.org/abs/2007.04309v3\n[18] Design of Robust and Efficient Edge Server Placement and Server Scheduling Policies: Extended Version — http://arxiv.org/abs/2104.14256v1\n[19] Adaptive Sequential Test Planning for Multi-Mechanism Reliability Qualification via Bayesian Monte Carlo Tree Search — http://arxiv.org/abs/2608.09622v1\n[20] Explainable Machine Learning for Public Policy: Use Cases, Gaps, and Research Directions — http://arxiv.org/abs/2010.14374v3\n[21] ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1\n[22] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4\n[23] Less is more -- the Dispatcher/ Executor principle for multi-task Reinforcement Learning — http://arxiv.org/abs/2312.09120v2\n[24] Budget-based real-time Executor for Micro-ROS — http://arxiv.org/abs/2105.05590v2\n[25] ReconROS Executor: Event-Driven Programming of FPGA-accelerated ROS 2 Applications — http://arxiv.org/abs/2201.07454v1\n[26] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1\n[27] Timing Analysis and Priority-driven Enhancements of ROS 2 Multi-threaded Executors — http://arxiv.org/abs/2408.08440v2\n[28] Bridging the Gap between ROS~2 and Classical Real-Time Scheduling for Periodic Tasks — http://arxiv.org/abs/2408.03696v1\n[29] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1\n[30] Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems — http://arxiv.org/abs/2505.06546v1\n[31] ACM COMPUTE 2025 Best Practices Track Proceedings — http://arxiv.org/abs/2512.02349v2\n[32] Nine Best Practices for Research Software Registries and Repositories: A Concise Guide — http://arxiv.org/abs/2012.13117v1\n[33] PhishAri: Automatic Realtime Phishing Detection on Twitter — http://arxiv.org/abs/1301.6899v1\n[34] RealTime QA: What's the Answer Right Now? — http://arxiv.org/abs/2207.13332v2\n[35] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1\n[36] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1\n[37] Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum — http://arxiv.org/abs/2403.00634v2\n[38] Uncovering Coordinated Cross-Platform Information Operations Threatening the Integrity of the 2024 U.S. Presidential Election Online Discussion — http://arxiv.org/abs/2409.15402v2\n[39] C2HLSC: Leveraging Large Language Models to Bridge the Software-to-Hardware Design Gap — http://arxiv.org/abs/2412.00214v2\n[40] On Hardware-Aware Design and Optimization of Edge Intelligence — http://arxiv.org/abs/2607.16297v1\n[41] QFlow: Quantitative Information Flow for Security-Aware Hardware Design in Verilog — http://arxiv.org/abs/2109.02379v2\n[42] Static Communication Analysis for Hardware Design — http://arxiv.org/abs/2505.20849v1\n[43] Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge — http://arxiv.org/abs/2512.06951v2\n[44] BR-MPPI: Barrier-Rate Guided MPPI for Enforcing Multiple Inequality Constraints with Learned Signed Distance Fields — http://arxiv.org/abs/2506.07325v2\n[45] A Simple Observer for Gyro and Accelerometer Biases in Land Navigation Systems — http://arxiv.org/abs/1501.06618v1\n[46] DRPA-MPPI: Dynamic Repulsive Potential Augmented MPPI for Reactive Navigation in Unstructured Environments — http://arxiv.org/abs/2503.20134v1\n[47] Evaluating Guiding Spaces for Motion Planning — http://arxiv.org/abs/2210.08640v1\n[48] Data-Efficient Learning of High-Quality Controls for Kinodynamic Planning used in Vehicular Navigation — http://arxiv.org/abs/2201.02254v1\n[49] Local Planner Bench: Benchmarking for Local Motion Planning — http://arxiv.org/abs/2210.06033v1\n[50] Motion planning in high-dimensional spaces — http://arxiv.org/abs/1806.07457v2\n[51] AIM 2025 Challenge on High FPS Motion Deblurring: Methods and Results — http://arxiv.org/abs/2509.06793v1\n[52] Predicted Composite Signed-Distance Fields for Real-Time Motion Planning in Dynamic Environments — http://arxiv.org/abs/2008.00969v2\n[53] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1\n[54] Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge — http://arxiv.org/abs/2101.02842v1\n[55] Running VLAs at Real-time Speed — http://arxiv.org/abs/2510.26742v1\n[56] Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids — http://arxiv.org/abs/2508.12252v2\n[57] Mini bot 3D: A ROS based Gazebo Simulation — http://arxiv.org/abs/2302.06368v1\n[58] Network-Aware Control of AGVs in an Industrial Scenario: A Simulation Study Based on ROS 2 and Gazebo — http://arxiv.org/abs/2509.06451v1\n[59] gym-gazebo2, a toolkit for reinforcement learning using ROS 2 and Gazebo — http://arxiv.org/abs/1903.06278v2\n[60] DeepSim: A Reinforcement Learning Environment Build Toolkit for ROS and Gazebo — http://arxiv.org/abs/2205.08034v1\n[61] A Survey of Real-Time Support, Analysis, and Advancements in ROS 2 — http://arxiv.org/abs/2601.10722v2\n[62] Real-Time Stress Detection via Photoplethysmogram Signals: Implementation of a Combined Continuous Wavelet Transform and Convolutional Neural Network on Resource-Constrained Microcontrollers — http://arxiv.org/abs/2410.19776v1\n[63] Real-Time-Data Analytics in Raw Materials Handling — http://arxiv.org/abs/1802.00625v1\n[64] CLIPSwarm: Converting text into formations of robots — http://arxiv.org/abs/2311.11047v1\n[65] XI Commandments of Kubernetes Security: A Systematization of Knowledge Related to Kubernetes Security Practices — http://arxiv.org/abs/2006.15275v1\n[66] Policies over Poses: Reinforcement Learning based Distributed Pose-Graph Optimization for Multi-Robot SLAM — http://arxiv.org/abs/2510.22740v1\n[67] RobotKube: Orchestrating Large-Scale Cooperative Multi-Robot Systems with Kubernetes and ROS — http://arxiv.org/abs/2308.07053v1\n[68] State-of-the-art in Robot Learning for Multi-Robot Collaboration: A Comprehensive Survey — http://arxiv.org/abs/2408.11822v1\n[69] Containerization of a polyglot microservice application using Docker and Kubernetes — http://arxiv.org/abs/2305.00600v1\n[70] KubeAdaptor: A Docking Framework for Workflow Containerization on Kubernetes — http://arxiv.org/abs/2207.01222v1\n[71] Scaling Laws of the Throughput Capacity and Latency in Information-Centric Networks — http://arxiv.org/abs/1210.1185v3\n[72] A Human-Grounded Evaluation Benchmark for Local Explanations of Machine Learning — http://arxiv.org/abs/1801.05075v2\n[73] Two-dimensional magnetic interactions in LaFeAsO — http://arxiv.org/abs/1303.4033v1\n[74] Fluid Antenna System: New Insights on Outage Probability and Diversity Gain — http://arxiv.org/abs/2301.00073v2\n[75] AI Wizards at CheckThat! 2025: Enhancing Transformer-Based Embeddings with Sentiment for Subjectivity Detection in News Articles — http://arxiv.org/abs/2507.11764v1\n[76] Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge — http://arxiv.org/abs/2406.10598v1\n[77] AXON: A ROS 2 RMW with Shared-Memory/QUIC Transport and QKD/ML-KEM Key Establishment — http://arxiv.org/abs/2609.10024v1\n[78] ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024 — http://arxiv.org/abs/2407.12038v2\n[79] Overview of the 2024 ALTA Shared Task: Detect Automatic AI-Generated Sentences for Human-AI Hybrid Articles — http://arxiv.org/abs/2412.17848v1\n[80] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1\n[81] UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering — http://arxiv.org/abs/2608.27467v1\n[82] ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification — http://arxiv.org/abs/2607.28637v1\n[83] AutoRestTest at the SBFT 2026 Tool Competition — http://arxiv.org/abs/2607.01063v1\n[84] Second MOASEI Competition at AAMAS'2026: A Technical Report — http://arxiv.org/abs/2607.03399v1\n[85] Snugi-AI-v2 @ eRisk 2026 Task 2: Early Depression Detection via a Learned Stopping Policy with Sustained Confidence Gate — http://arxiv.org/abs/2609.08161v1\n[86] Overview of BioASQ 2026: The fourteenth BioASQ Challenge on Large-Scale Biomedical Semantic Indexing and Question Answering — http://arxiv.org/abs/2609.39975v1\n[87] The Three Dimensions of ROS 2 Middleware — http://arxiv.org/abs/2607.01304v1\n[88] Harness Engineering for Physical AI: Robot Middleware Is the Harness Layer — http://arxiv.org/abs/2606.09416v1\n[89] A Survey on Service Composition Middleware in Pervasive Environments — http://arxiv.org/abs/0909.2183v1\n[90] This paper has been withdrawn — http://arxiv.org/abs/cond-mat/0309395v2\n[91] Homotopy Type Theory: Univalent Foundations of Mathematics — http://arxiv.org/abs/1308.0729v1\n[92] RAFDA: Middleware Supporting the Separation of Application Logic from Distribution Policy — http://arxiv.org/abs/1006.3742v1\n[93] Memory as Middleware for Self-Improving AI Agents — http://arxiv.org/abs/2609.32091v1\n[94] A rich bounty of AGN in the 9 square degree Bootes survey: high-z obscured AGN and large-scale structure — http://arxiv.org/abs/astro-ph/0611654v1\n[95] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1\n[96] SROS2: Usable Cyber Security Tools for ROS 2 — http://arxiv.org/abs/2208.02615v1\n[97] Supply Chain Exploitation of Secure ROS 2 Systems: A Proof-of-Concept on Autonomous Platform Compromise via Keystore Exfiltration — http://arxiv.org/abs/2511.00140v1\n[98] ICME 2025 Generalizable HDR and SDR Video Quality Measurement Grand Challenge — http://arxiv.org/abs/2506.22790v2\n[99] Towards a Formal Verification of Secure Vehicle Software Updates — http://arxiv.org/abs/2511.15479v1\n[100] Network Hexagons Under Attack: Secure Crowdsourcing of Geo-Referenced Data — http://arxiv.org/abs/2506.05601v1\n[101] ROS-Causal: A ROS-based Causal Analysis Framework for Human-Robot Interaction Applications — http://arxiv.org/abs/2402.16068v3\n\n\n---\n\n*Generated by research-bot · topic=`ros2` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=101 · duration=266s · 2026-10-04T04:52:29+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Dependency Chain Analysis of ROS 2 DDS QoS Policies: From Lifecycle Tutorial to Static Verification",
+      "url": "http://arxiv.org/abs/2509.03381v1",
+      "kind": "paper",
+      "venue": "cs.NI",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "DDS: DPU-optimized Disaggregated Storage [Extended Report]",
+      "url": "http://arxiv.org/abs/2407.13618v5",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2024-07-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Credential Masquerading and OpenSSL Spy: Exploring ROS 2 using DDS security",
+      "url": "http://arxiv.org/abs/1904.09179v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2019-04-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+      "url": "http://arxiv.org/abs/2509.11402v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+      "url": "http://arxiv.org/abs/2509.19861v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Exploring the Effects of Multicast Communication on DDS Performance",
+      "url": "http://arxiv.org/abs/2209.09001v1",
+      "kind": "paper",
+      "venue": "cs.PF",
+      "published": "2022-09-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "A Survey on Experimental Performance Evaluation of Data Distribution Service (DDS) Implementations",
+      "url": "http://arxiv.org/abs/2310.16630v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2023-10-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Adaptive Bridge: A Proxy-Based Decoupling Layer for Mitigating DDS Backpressure in ROS 2",
+      "url": "http://arxiv.org/abs/2608.15380v2",
+      "kind": "paper",
+      "venue": "cs.NI",
+      "published": "2026-08-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "DDS: A new device-degraded speech dataset for speech enhancement",
+      "url": "http://arxiv.org/abs/2109.07931v4",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2021-09-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Performance Evaluation of ROS2-DDS middleware implementations facilitating Cooperative Driving in Autonomous Vehicle",
+      "url": "http://arxiv.org/abs/2412.07485v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-12-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Bridging the Basilisk Astrodynamics Framework with ROS 2 for Modular Spacecraft Simulation and Hardware Integration",
+      "url": "http://arxiv.org/abs/2512.09833v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+      "url": "http://arxiv.org/abs/2508.18904v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Self-Supervised Policy Adaptation during Deployment",
+      "url": "http://arxiv.org/abs/2007.04309v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2020-07-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Design of Robust and Efficient Edge Server Placement and Server Scheduling Policies: Extended Version",
+      "url": "http://arxiv.org/abs/2104.14256v1",
+      "kind": "paper",
+      "venue": "cs.NI",
+      "published": "2021-04-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Adaptive Sequential Test Planning for Multi-Mechanism Reliability Qualification via Bayesian Monte Carlo Tree Search",
+      "url": "http://arxiv.org/abs/2608.09622v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-08-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Explainable Machine Learning for Public Policy: Use Cases, Gaps, and Research Directions",
+      "url": "http://arxiv.org/abs/2010.14374v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2020-10-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation",
+      "url": "http://arxiv.org/abs/2405.02292v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "TDCOSMO 2025: Cosmological constraints from strong lensing time delays",
+      "url": "http://arxiv.org/abs/2506.03023v4",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Less is more -- the Dispatcher/ Executor principle for multi-task Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2312.09120v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-12-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Budget-based real-time Executor for Micro-ROS",
+      "url": "http://arxiv.org/abs/2105.05590v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-05-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "ReconROS Executor: Event-Driven Programming of FPGA-accelerated ROS 2 Applications",
+      "url": "http://arxiv.org/abs/2201.07454v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-01-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Timing Analysis and Priority-driven Enhancements of ROS 2 Multi-threaded Executors",
+      "url": "http://arxiv.org/abs/2408.08440v2",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2024-08-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Bridging the Gap between ROS~2 and Classical Real-Time Scheduling for Periodic Tasks",
+      "url": "http://arxiv.org/abs/2408.03696v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-08-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems",
+      "url": "http://arxiv.org/abs/2505.06546v1",
+      "kind": "paper",
+      "venue": "cs.OS",
+      "published": "2025-05-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "ACM COMPUTE 2025 Best Practices Track Proceedings",
+      "url": "http://arxiv.org/abs/2512.02349v2",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Nine Best Practices for Research Software Registries and Repositories: A Concise Guide",
+      "url": "http://arxiv.org/abs/2012.13117v1",
+      "kind": "paper",
+      "venue": "cs.DL",
+      "published": "2020-12-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "PhishAri: Automatic Realtime Phishing Detection on Twitter",
+      "url": "http://arxiv.org/abs/1301.6899v1",
+      "kind": "paper",
+      "venue": "cs.SI",
+      "published": "2013-01-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "RealTime QA: What's the Answer Right Now?",
+      "url": "http://arxiv.org/abs/2207.13332v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2022-07-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 37,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 38,
+      "title": "Uncovering Coordinated Cross-Platform Information Operations Threatening the Integrity of the 2024 U.S. Presidential Election Online Discussion",
+      "url": "http://arxiv.org/abs/2409.15402v2",
+      "kind": "paper",
+      "venue": "cs.SI",
+      "published": "2024-09-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 39,
+      "title": "C2HLSC: Leveraging Large Language Models to Bridge the Software-to-Hardware Design Gap",
+      "url": "http://arxiv.org/abs/2412.00214v2",
+      "kind": "paper",
+      "venue": "cs.AR",
+      "published": "2024-11-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 40,
+      "title": "On Hardware-Aware Design and Optimization of Edge Intelligence",
+      "url": "http://arxiv.org/abs/2607.16297v1",
+      "kind": "paper",
+      "venue": "cs.AR",
+      "published": "2026-07-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 41,
+      "title": "QFlow: Quantitative Information Flow for Security-Aware Hardware Design in Verilog",
+      "url": "http://arxiv.org/abs/2109.02379v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2021-09-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 42,
+      "title": "Static Communication Analysis for Hardware Design",
+      "url": "http://arxiv.org/abs/2505.20849v1",
+      "kind": "paper",
+      "venue": "cs.AR",
+      "published": "2025-05-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 43,
+      "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+      "url": "http://arxiv.org/abs/2512.06951v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 44,
+      "title": "BR-MPPI: Barrier-Rate Guided MPPI for Enforcing Multiple Inequality Constraints with Learned Signed Distance Fields",
+      "url": "http://arxiv.org/abs/2506.07325v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-06-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 45,
+      "title": "A Simple Observer for Gyro and Accelerometer Biases in Land Navigation Systems",
+      "url": "http://arxiv.org/abs/1501.06618v1",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2015-01-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 46,
+      "title": "DRPA-MPPI: Dynamic Repulsive Potential Augmented MPPI for Reactive Navigation in Unstructured Environments",
+      "url": "http://arxiv.org/abs/2503.20134v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-03-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 47,
+      "title": "Evaluating Guiding Spaces for Motion Planning",
+      "url": "http://arxiv.org/abs/2210.08640v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 48,
+      "title": "Data-Efficient Learning of High-Quality Controls for Kinodynamic Planning used in Vehicular Navigation",
+      "url": "http://arxiv.org/abs/2201.02254v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-01-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 49,
+      "title": "Local Planner Bench: Benchmarking for Local Motion Planning",
+      "url": "http://arxiv.org/abs/2210.06033v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-10-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 50,
+      "title": "Motion planning in high-dimensional spaces",
+      "url": "http://arxiv.org/abs/1806.07457v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2018-06-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 51,
+      "title": "AIM 2025 Challenge on High FPS Motion Deblurring: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.06793v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 52,
+      "title": "Predicted Composite Signed-Distance Fields for Real-Time Motion Planning in Dynamic Environments",
+      "url": "http://arxiv.org/abs/2008.00969v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-08-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 53,
+      "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+      "url": "http://arxiv.org/abs/2508.11117v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 54,
+      "title": "Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge",
+      "url": "http://arxiv.org/abs/2101.02842v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-01-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 55,
+      "title": "Running VLAs at Real-time Speed",
+      "url": "http://arxiv.org/abs/2510.26742v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 56,
+      "title": "Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids",
+      "url": "http://arxiv.org/abs/2508.12252v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 57,
+      "title": "Mini bot 3D: A ROS based Gazebo Simulation",
+      "url": "http://arxiv.org/abs/2302.06368v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-02-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 58,
+      "title": "Network-Aware Control of AGVs in an Industrial Scenario: A Simulation Study Based on ROS 2 and Gazebo",
+      "url": "http://arxiv.org/abs/2509.06451v1",
+      "kind": "paper",
+      "venue": "cs.NI",
+      "published": "2025-09-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 59,
+      "title": "gym-gazebo2, a toolkit for reinforcement learning using ROS 2 and Gazebo",
+      "url": "http://arxiv.org/abs/1903.06278v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-03-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 60,
+      "title": "DeepSim: A Reinforcement Learning Environment Build Toolkit for ROS and Gazebo",
+      "url": "http://arxiv.org/abs/2205.08034v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2022-05-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 61,
+      "title": "A Survey of Real-Time Support, Analysis, and Advancements in ROS 2",
+      "url": "http://arxiv.org/abs/2601.10722v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 62,
+      "title": "Real-Time Stress Detection via Photoplethysmogram Signals: Implementation of a Combined Continuous Wavelet Transform and Convolutional Neural Network on Resource-Constrained Microcontrollers",
+      "url": "http://arxiv.org/abs/2410.19776v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2024-10-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 63,
+      "title": "Real-Time-Data Analytics in Raw Materials Handling",
+      "url": "http://arxiv.org/abs/1802.00625v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-02-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 64,
+      "title": "CLIPSwarm: Converting text into formations of robots",
+      "url": "http://arxiv.org/abs/2311.11047v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-11-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 65,
+      "title": "XI Commandments of Kubernetes Security: A Systematization of Knowledge Related to Kubernetes Security Practices",
+      "url": "http://arxiv.org/abs/2006.15275v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2020-06-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 66,
+      "title": "Policies over Poses: Reinforcement Learning based Distributed Pose-Graph Optimization for Multi-Robot SLAM",
+      "url": "http://arxiv.org/abs/2510.22740v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 67,
+      "title": "RobotKube: Orchestrating Large-Scale Cooperative Multi-Robot Systems with Kubernetes and ROS",
+      "url": "http://arxiv.org/abs/2308.07053v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-08-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 68,
+      "title": "State-of-the-art in Robot Learning for Multi-Robot Collaboration: A Comprehensive Survey",
+      "url": "http://arxiv.org/abs/2408.11822v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-08-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 69,
+      "title": "Containerization of a polyglot microservice application using Docker and Kubernetes",
+      "url": "http://arxiv.org/abs/2305.00600v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2023-04-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 70,
+      "title": "KubeAdaptor: A Docking Framework for Workflow Containerization on Kubernetes",
+      "url": "http://arxiv.org/abs/2207.01222v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2022-07-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 71,
+      "title": "Scaling Laws of the Throughput Capacity and Latency in Information-Centric Networks",
+      "url": "http://arxiv.org/abs/1210.1185v3",
+      "kind": "paper",
+      "venue": "cs.NI",
+      "published": "2012-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 72,
+      "title": "A Human-Grounded Evaluation Benchmark for Local Explanations of Machine Learning",
+      "url": "http://arxiv.org/abs/1801.05075v2",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2018-01-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 73,
+      "title": "Two-dimensional magnetic interactions in LaFeAsO",
+      "url": "http://arxiv.org/abs/1303.4033v1",
+      "kind": "paper",
+      "venue": "cond-mat.supr-con",
+      "published": "2013-03-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 74,
+      "title": "Fluid Antenna System: New Insights on Outage Probability and Diversity Gain",
+      "url": "http://arxiv.org/abs/2301.00073v2",
+      "kind": "paper",
+      "venue": "cs.IT",
+      "published": "2022-12-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 75,
+      "title": "AI Wizards at CheckThat! 2025: Enhancing Transformer-Based Embeddings with Sentiment for Subjectivity Detection in News Articles",
+      "url": "http://arxiv.org/abs/2507.11764v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 76,
+      "title": "Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge",
+      "url": "http://arxiv.org/abs/2406.10598v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-06-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 77,
+      "title": "AXON: A ROS 2 RMW with Shared-Memory/QUIC Transport and QKD/ML-KEM Key Establishment",
+      "url": "http://arxiv.org/abs/2609.10024v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 78,
+      "title": "ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024",
+      "url": "http://arxiv.org/abs/2407.12038v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 79,
+      "title": "Overview of the 2024 ALTA Shared Task: Detect Automatic AI-Generated Sentences for Human-AI Hybrid Articles",
+      "url": "http://arxiv.org/abs/2412.17848v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-12-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 80,
+      "title": "The AudioMOS Challenge 2025",
+      "url": "http://arxiv.org/abs/2509.01336v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 81,
+      "title": "UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering",
+      "url": "http://arxiv.org/abs/2608.27467v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 82,
+      "title": "ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification",
+      "url": "http://arxiv.org/abs/2607.28637v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-05-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 83,
+      "title": "AutoRestTest at the SBFT 2026 Tool Competition",
+      "url": "http://arxiv.org/abs/2607.01063v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 84,
+      "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+      "url": "http://arxiv.org/abs/2607.03399v1",
+      "kind": "paper",
+      "venue": "cs.MA",
+      "published": "2026-07-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 85,
+      "title": "Snugi-AI-v2 @ eRisk 2026 Task 2: Early Depression Detection via a Learned Stopping Policy with Sustained Confidence Gate",
+      "url": "http://arxiv.org/abs/2609.08161v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-09-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 86,
+      "title": "Overview of BioASQ 2026: The fourteenth BioASQ Challenge on Large-Scale Biomedical Semantic Indexing and Question Answering",
+      "url": "http://arxiv.org/abs/2609.39975v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-09-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 87,
+      "title": "The Three Dimensions of ROS 2 Middleware",
+      "url": "http://arxiv.org/abs/2607.01304v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 88,
+      "title": "Harness Engineering for Physical AI: Robot Middleware Is the Harness Layer",
+      "url": "http://arxiv.org/abs/2606.09416v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-06-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 89,
+      "title": "A Survey on Service Composition Middleware in Pervasive Environments",
+      "url": "http://arxiv.org/abs/0909.2183v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2009-09-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 90,
+      "title": "This paper has been withdrawn",
+      "url": "http://arxiv.org/abs/cond-mat/0309395v2",
+      "kind": "paper",
+      "venue": "cond-mat.soft",
+      "published": "2003-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 91,
+      "title": "Homotopy Type Theory: Univalent Foundations of Mathematics",
+      "url": "http://arxiv.org/abs/1308.0729v1",
+      "kind": "paper",
+      "venue": "math.LO",
+      "published": "2013-08-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 92,
+      "title": "RAFDA: Middleware Supporting the Separation of Application Logic from Distribution Policy",
+      "url": "http://arxiv.org/abs/1006.3742v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2010-06-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 93,
+      "title": "Memory as Middleware for Self-Improving AI Agents",
+      "url": "http://arxiv.org/abs/2609.32091v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-09-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 94,
+      "title": "A rich bounty of AGN in the 9 square degree Bootes survey: high-z obscured AGN and large-scale structure",
+      "url": "http://arxiv.org/abs/astro-ph/0611654v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2006-11-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 95,
+      "title": "LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance",
+      "url": "http://arxiv.org/abs/2503.08541v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-03-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 96,
+      "title": "SROS2: Usable Cyber Security Tools for ROS 2",
+      "url": "http://arxiv.org/abs/2208.02615v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2022-08-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 97,
+      "title": "Supply Chain Exploitation of Secure ROS 2 Systems: A Proof-of-Concept on Autonomous Platform Compromise via Keystore Exfiltration",
+      "url": "http://arxiv.org/abs/2511.00140v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-10-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 98,
+      "title": "ICME 2025 Generalizable HDR and SDR Video Quality Measurement Grand Challenge",
+      "url": "http://arxiv.org/abs/2506.22790v2",
+      "kind": "paper",
+      "venue": "eess.IV",
+      "published": "2025-06-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 99,
+      "title": "Towards a Formal Verification of Secure Vehicle Software Updates",
+      "url": "http://arxiv.org/abs/2511.15479v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-11-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 100,
+      "title": "Network Hexagons Under Attack: Secure Crowdsourcing of Geo-Referenced Data",
+      "url": "http://arxiv.org/abs/2506.05601v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-06-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 101,
+      "title": "ROS-Causal: A ROS-based Causal Analysis Framework for Human-Robot Interaction Applications",
+      "url": "http://arxiv.org/abs/2402.16068v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-02-25",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-04-ros2.md",
+    "json": "report/2026/10/2026-10-04-ros2.json"
+  }
+}

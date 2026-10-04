@@ -1,0 +1,957 @@
+{
+  "topic": "kinematics",
+  "title": "机器人运动学、动力学与控制：经典根基、前沿进展与工程生态深度调研",
+  "query": "",
+  "depth": "standard",
+  "language": "bilingual",
+  "started_at": "2026-10-04T03:59:59+00:00",
+  "finished_at": "2026-10-04T04:14:15+00:00",
+  "duration_s": 855.4,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人运动学、动力学与控制：经典根基、前沿进展与工程生态深度调研",
+    "summary": "系统梳理FK/IK、旋量理论、雅可比与奇异性、轨迹优化与全身控制的方法演进，盘点开源数值库与基准，并识别2024-2026年的前沿突破与开放争议，输出可核查的证据链与选型建议。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024-2026年，机器人运动学与全身控制方向出现了哪些真正重要的前沿进展（含可微运动学、学习式IK、SE(3)等变策略、实时全身QP控制）？",
+        "rationale": "回答『最近1-2年发生了什么重要变化』，需区分刚发布与已被第三方验证的工作，避免把演示视频当作实验证据。重点关注多本体/多任务验证、是否开源、提升归因（数据/架构/算力）三个判断维度。",
+        "queries": [
+          "differentiable kinematics robot learning 2024..2026 arxiv cs.RO",
+          "inverse kinematics neural network real robot manipulation 2025 ICRA IROS",
+          "SE(3) equivariant robot policy whole-body control 2025 arxiv",
+          "whole-body control humanoid QP optimization 2025 arXiv cs.RO"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "旋量理论、产品指数（PoE）、操作空间控制、雅可比与可操作度等经典/奠基工作的原始文献与技术脉络是什么？",
+        "rationale": "前沿工作的评价基准来自经典。需锁定Lynch & Park《Modern Robotics》、Murray-Li-Sastry、Khatib操作空间控制、Yoshikawa可操作度、PoE正运动学等一手来源，并确认其在现代库（Pinocchio/Drake）中的实现对应关系。",
+        "queries": [
+          "screw theory product of exponentials forward kinematics Lynch Park Modern Robotics",
+          "Khatib operational space control 1987 manipulator dynamics",
+          "Yoshikawa manipulability measure 1985 manipulator",
+          "Murray Li Sastry mathematical introduction robotic manipulation 1994"
+        ],
+        "prefer": [
+          "crossref",
+          "openalex",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "当前主流开源运动学/动力学/最优控制数值库有哪些（Pinocchio、Drake、MuJoCo、TRAC-IK、IKFast、Crocoddyl、OCS2、CasADi、RBDL、Orocos KDL及JAX生态）？各自能力边界、性能与维护活跃度如何？",
+        "rationale": "工程落地依赖库选型。需从官方仓库README、文档与最近提交/版本发布评估真实维护状态，用GitHub stars与issue活跃度作为热度证据，并区分『解析IK求解器』与『通用动力学/优化框架』不同定位。",
+        "queries": [
+          "Pinocchio rigid body dynamics library GitHub documentation 2025",
+          "Drake robot toolbox inverse kinematics documentation 2025",
+          "TRAC-IK IKFast inverse kinematics solver comparison benchmark",
+          "Crocoddyl OCS2 trajectory optimization library GitHub 2025"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing"
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "该方向有哪些可复现的数据集与评测基准？IK/FK求解精度、轨迹优化、全身控制分别在什么benchmark、什么硬件、多少任务上被比较？",
+        "rationale": "避免仿真SOTA与真机SOTA混淆，必须明确评测口径。需核查Open X-Embodiment、DROID、LIBERO、SimplerEnv、HumanoidBench、RoboArena等基准的适用面，以及是否存在专门的运动学求解器精度榜单。",
+        "queries": [
+          "robot manipulation benchmark LIBERO SimplerEnv RoboArena 2025 evaluation",
+          "humanoid whole-body control benchmark HumanoidBench 2024 2025",
+          "Open X-Embodiment DROID dataset robot learning benchmark",
+          "inverse kinematics solver benchmark accuracy comparison real robot"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "github",
+          "bing"
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "接触隐式轨迹优化、基于优化的全身控制与基于学习的控制之间，近年的融合路径与实际真机效果如何？",
+        "rationale": "这是运动学/动力学与控制交叉的核心争议带：经典QP-WBC与RL/模仿学习的边界正在模糊。需核查真机任务数、硬件本体、是否开源可复现，并注意『论文宣称』与『第三方复现』的差别。",
+        "queries": [
+          "contact-implicit trajectory optimization 2024..2026 robot arxiv",
+          "differentiable simulation contact robot learning 2025 real robot",
+          "QP whole-body control vs reinforcement learning humanoid locomotion 2025",
+          "hierarchical whole-body control MPC humanoid 2025 ICRA IROS"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q6",
+        "question": "该领域存在哪些开放问题与失败案例？解析解与数值解、经典几何方法与学习方法的取舍争议，奇异性处理、实时性与安全性的未解难点在哪里？",
+        "rationale": "Gap检查要求覆盖争议与负面结果。需寻找明确指出局限性的综述、复现困难报告与实际部署失败的讨论，避免只呈现成功案例。",
+        "queries": [
+          "inverse kinematics analytical vs numerical limitations survey singularities",
+          "robot learning failure cases reproducibility manipulation negative results",
+          "奇异位形 处理 机器人 逆运动学 局限 阻尼最小二乘",
+          "robot kinematics open problems survey 2025 challenges real-time safety"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024-2026年，机器人运动学与全身控制方向出现了哪些真正重要的前沿进展（含可微运动学、学习式IK、SE(3)等变策略、实时全身QP控制）？",
+      "queries": [
+        "differentiable kinematics robot learning 2024..2026 arxiv cs.RO",
+        "inverse kinematics neural network real robot manipulation 2025 ICRA IROS",
+        "SE(3) equivariant robot policy whole-body control 2025 arxiv",
+        "whole-body control humanoid QP optimization 2025 arXiv cs.RO"
+      ],
+      "rationale": "回答『最近1-2年发生了什么重要变化』，需区分刚发布与已被第三方验证的工作，避免把演示视频当作实验证据。重点关注多本体/多任务验证、是否开源、提升归因（数据/架构/算力）三个判断维度。",
+      "round": 1,
+      "results": [
+        {
+          "title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+          "url": "http://arxiv.org/abs/1711.10137v2",
+          "snippet": "Recently, model-free reinforcement learning algorithms have been shown to solve challenging problems by learning from extensive interaction with the environment. A significant issue with transferring this success to the robotics domain is that interaction with the real world is costly, but training on limited experience is prone to overfitting. We present a method for learning to navigate, to a fixed goal and in a known environment, on a mobile robot. The robot leverages an interactive world model built from a single traversal of the environment, a pre-trained visual feature encoder, and stoc…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2017-11-28",
+          "authors": [
+            "Jake Bruce",
+            "Niko Suenderhauf",
+            "Piotr Mirowski",
+            "Raia Hadsell",
+            "Michael Milford"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1711.10137v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "On-Policy Robot Imitation Learning from a Converging Supervisor",
+          "url": "http://arxiv.org/abs/1907.03423v7",
+          "snippet": "Existing on-policy imitation learning algorithms, such as DAgger, assume access to a fixed supervisor. However, there are many settings where the supervisor may evolve during policy learning, such as a human performing a novel task or an improving algorithmic controller. We formalize imitation learning from a \"converging supervisor\" and provide sublinear static and dynamic regret guarantees against the best policy in hindsight with labels from the converged supervisor, even when labels during learning are only from intermediate supervisors. We then show that this framework is closely connecte…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2019-07-08",
+          "authors": [
+            "Ashwin Balakrishna",
+            "Brijen Thananjeyan",
+            "Jonathan Lee",
+            "Felix Li",
+            "Arsh Zahed",
+            "Joseph E. Gonzalez",
+            "Ken Goldberg"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1907.03423v7",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Multi-objective Model-based Policy Search for Data-efficient Learning with Sparse Rewards",
+          "url": "http://arxiv.org/abs/1806.09351v3",
+          "snippet": "The most data-efficient algorithms for reinforcement learning in robotics are model-based policy search algorithms, which alternate between learning a dynamical model of the robot and optimizing a policy to maximize the expected return given the model and its uncertainties. However, the current algorithms lack an effective exploration strategy to deal with sparse or misleading reward scenarios: if they do not experience any state with a positive reward during the initial random exploration, it is very unlikely to solve the problem. Here, we propose a novel model-based policy search algorithm,…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-06-25",
+          "authors": [
+            "Rituraj Kaushik",
+            "Konstantinos Chatzilygeroudis",
+            "Jean-Baptiste Mouret"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1806.09351v3",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Untangling Dense Knots by Learning Task-Relevant Keypoints",
+          "url": "http://arxiv.org/abs/2011.04999v1",
+          "snippet": "Untangling ropes, wires, and cables is a challenging task for robots due to the high-dimensional configuration space, visual homogeneity, self-occlusions, and complex dynamics. We consider dense (tight) knots that lack space between self-intersections and present an iterative approach that uses learned geometric structure in configurations. We instantiate this into an algorithm, HULK: Hierarchical Untangling from Learned Keypoints, which combines learning-based perception with a geometric planner into a policy that guides a bilateral robot to untangle knots. To evaluate the policy, we perform…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2020-11-10",
+          "authors": [
+            "Jennifer Grannen",
+            "Priya Sundaresan",
+            "Brijen Thananjeyan",
+            "Jeffrey Ichnowski",
+            "Ashwin Balakrishna",
+            "Minho Hwang",
+            "Vainavi Viswanath",
+            "Michael Laskey",
+            "Joseph E. Gonzalez",
+            "Ken Goldberg"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2011.04999v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "Deception Game: Closing the Safety-Learning Loop in Interactive Robot Autonomy",
+          "url": "http://arxiv.org/abs/2309.01267v2",
+          "snippet": "An outstanding challenge for the widespread deployment of robotic systems like autonomous vehicles is ensuring safe interaction with humans without sacrificing performance. Existing safety methods often neglect the robot's ability to learn and adapt at runtime, leading to overly conservative behavior. This paper proposes a new closed-loop paradigm for synthesizing safe control policies that explicitly account for the robot's evolving uncertainty and its ability to quickly respond to future scenarios as they arise, by jointly considering the physical dynamics and the robot's learning algorithm…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2023-09-03",
+          "authors": [
+            "Haimin Hu",
+            "Zixu Zhang",
+            "Kensuke Nakamura",
+            "Andrea Bajcsy",
+            "Jaime F. Fisac"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2309.01267v2",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "A Simulation and Modeling of Access Points with Definition Language",
+          "url": "http://arxiv.org/abs/1304.1836v2",
+          "snippet": "This submission has been withdrawn by arXiv administrators because it contains fictitious content and was submitted under a pseudonym, which is against arXiv policy.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2013-04-06",
+          "authors": [
+            "Tairen Sun"
+          ],
+          "venue": "cs.OH",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1304.1836v2",
+            "rrf_score": 0.022059
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+            "evidence": "Recently, model-free reinforcement learning algorithms have been shown to solve challenging problems by learning from extensive interaction with the environment. A significant issue with transferring this success to the robotics domain is that interaction with the real world is costly, but training…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2017",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "On-Policy Robot Imitation Learning from a Converging Supervisor",
+            "evidence": "Existing on-policy imitation learning algorithms, such as DAgger, assume access to a fixed supervisor. However, there are many settings where the supervisor may evolve during policy learning, such as a human performing a novel task or an improving algorithmic controller. We formalize imitation lear…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2019",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "Multi-objective Model-based Policy Search for Data-efficient Learning with Sparse Rewards",
+            "evidence": "The most data-efficient algorithms for reinforcement learning in robotics are model-based policy search algorithms, which alternate between learning a dynamical model of the robot and optimizing a policy to maximize the expected return given the model and its uncertainties. However, the current alg…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2018",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "Untangling Dense Knots by Learning Task-Relevant Keypoints",
+            "evidence": "Untangling ropes, wires, and cables is a challenging task for robots due to the high-dimensional configuration space, visual homogeneity, self-occlusions, and complex dynamics. We consider dense (tight) knots that lack space between self-intersections and present an iterative approach that uses lea…",
+            "sources": [
+              7
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2020",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Deception Game: Closing the Safety-Learning Loop in Interactive Robot Autonomy",
+            "evidence": "An outstanding challenge for the widespread deployment of robotic systems like autonomous vehicles is ensuring safe interaction with humans without sacrificing performance. Existing safety methods often neglect the robot's ability to learn and adapt at runtime, leading to overly conservative behavi…",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2023",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "A Simulation and Modeling of Access Points with Definition Language",
+            "evidence": "This submission has been withdrawn by arXiv administrators because it contains fictitious content and was submitted under a pseudonym, which is against arXiv policy.",
+            "sources": [
+              9
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2013",
+            "heat": "",
+            "authority": "cs.OH",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.OH）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "旋量理论、产品指数（PoE）、操作空间控制、雅可比与可操作度等经典/奠基工作的原始文献与技术脉络是什么？",
+      "queries": [
+        "screw theory product of exponentials forward kinematics Lynch Park Modern Robotics",
+        "Khatib operational space control 1987 manipulator dynamics",
+        "Yoshikawa manipulability measure 1985 manipulator",
+        "Murray Li Sastry mathematical introduction robotic manipulation 1994"
+      ],
+      "rationale": "前沿工作的评价基准来自经典。需锁定Lynch & Park《Modern Robotics》、Murray-Li-Sastry、Khatib操作空间控制、Yoshikawa可操作度、PoE正运动学等一手来源，并确认其在现代库（Pinocchio/Drake）中的实现对应关系。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Aryia-Behroziuan/Other-sources",
+          "url": "https://github.com/Aryia-Behroziuan/Other-sources",
+          "snippet": "Asada, M.; Hosoda, K.; Kuniyoshi, Y.; Ishiguro, H.; Inui, T.; Yoshikawa, Y.; Ogino, M.; Yoshida, C. (2009). \"Cognitive developmental robotics: a survey\". IEEE Transactions on Autonomous Mental Development. 1 (1): 12–34. doi:10.1109/tamd.2009.2021702. S2CID 10168773. \"ACM Computing Classification System: Artificial intelligence\". ACM. 1998. Archived from the original on 12 October 2007. Retrieved…",
+          "engine": "github",
+          "kind": "project",
+          "published": "2020-10-28",
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": 43,
+          "extra": {
+            "language": null,
+            "topics": [],
+            "forks": 8,
+            "rrf_score": 0.019672
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "候选证据集不支持本子问题：其中没有任何关于旋量理论（screw theory）、产品指数（PoE, Product of Exponentials）、操作空间控制（operational space control）、雅可比（Jacobian）或可操作度（manipulability）的原始文献或技术脉络材料。",
+            "evidence": "唯一候选块 [1] 是 GitHub 仓库 Aryia-Behroziuan/Other-sources，其 snippet/content 为一批杂项参考文献条目（如 Asada et al. 2009 认知发展机器人学综述、Albus 2002 4D/RCS、Aleksander 1995 等），检索串中不含 screw / exponential / manipulability / Jacobian / operational space 等关键词，也未出现 Ball、Brockett、Murray-Li-Sastry、Lynch-Park、Khatib、Yoshikawa 等本主题奠基作者。",
+            "sources": [
+              1
+            ],
+            "type": "project",
+            "confidence": "high",
+            "year": "",
+            "heat": "stars=43（仓库 Aryia-Behroziuan/Other-sources）",
+            "authority": "个人 GitHub 仓库，非官方文档、非同行评审来源",
+            "attention": "低 + 该仓库仅 43 stars，且内容为通用参考文献清单，与机器人运动学经典文献主题无对应讨论热度信号",
+            "recommendation": "★☆☆☆☆ + 与子问题主题无关，不建议作为旋量/PoE/操作空间控制的证据来源，仅记录检索缺口"
+          },
+          {
+            "point": "候选块中唯一可识别的学术条目是 Asada 等 2009 年发表于 IEEE Transactions on Autonomous Mental Development 的认知发展机器人学综述，其主题为认知发展机器人学，与运动学/旋量/可操作度无直接关系。",
+            "evidence": "条目信息：Asada, M.; Hosoda, K.; Kuniyoshi, Y.; Ishiguro, H.; Inui, T.; Yoshikawa, Y.; Ogino, M.; Yoshida, C. (2009). \"Cognitive developmental robotics: a survey\". IEEE Transactions on Autonomous Mental Development. 1 (1): 12–34. doi:10.1109/tamd.2009.2021702. S2CID 10168773.",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2009",
+            "heat": "候选块未提供引用数（仅有 S2CID 10168773 标识）",
+            "authority": "IEEE Transactions on Autonomous Mental Development（期刊，同行评审），DOI 10.1109/tamd.2009.2021702",
+            "attention": "低 + 该综述属认知机器人方向，与旋量理论/操作空间控制主题不重合，候选块中无引用或讨论热度数据",
+            "recommendation": "★☆☆☆☆ + 虽是同行评审期刊论文，但对本子问题无直接支撑价值，仅用于说明候选证据的主题偏移"
+          },
+          {
+            "point": "该候选仓库属于“参考文献清单/杂项来源”型集合仓库，其 snippet 与 content 主要是条目堆叠（含 ACM Computing Classification System、Albus、Aleksander 等），不具备针对运动学奠基工作的系统梳理能力。",
+            "evidence": "content 中连续列出多条不同主题文献条目（认知发展机器人学、4-D/RCS 参考架构、Artificial Neuroconsciousness 等），并夹杂 Archived 链接与 BibTex 标记，呈现为无主题聚焦的文献堆叠。",
+            "sources": [
+              1
+            ],
+            "type": "project",
+            "confidence": "medium",
+            "year": "2020",
+            "heat": "stars=43，仓库元数据日期 2020-10-28",
+            "authority": "个人维护仓库，无机构背书、无同行评审",
+            "attention": "低 + 无主题聚焦、无引用指标，仅有 43 stars 与 2020 年时间戳",
+            "recommendation": "★☆☆☆☆ + 不可作为经典/奠基文献的一手来源，建议改从 arXiv/IEEE Xplore 等结构化来源重新检索"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [
+          {
+            "name": "Aryia-Behroziuan/Other-sources",
+            "url": "https://github.com/Aryia-Behroziuan/Other-sources",
+            "why": "候选证据块中唯一的项目型来源，但其内容为跨主题杂项参考文献合集，未覆盖旋量理论、PoE、操作空间控制、雅可比与可操作度等本子问题主题；列出以保持检索痕迹与缺口可核查。",
+            "heat": "stars=43（候选块字段）",
+            "authority": "个人 GitHub 仓库，非官方组织或标准机构维护",
+            "attention": "低 + 仅 43 stars，且无与运动学经典文献相关的讨论或引用信号",
+            "recommendation": "★☆☆☆☆ + 与本主题相关性低且权威性弱，不建议采用"
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据完全缺失旋量理论奠基文献（如 Ball 的螺旋理论著作）的一手记录 —— 待核实，需重新检索。",
+          "候选证据完全缺失产品指数（PoE）公式化方法的原始文献（如 Brockett 及 Murray-Li-Sastry 教材脉络）—— 待核实，需重新检索。",
+          "候选证据完全缺失操作空间控制（Khatib 系列工作）的原始论文与技术脉络 —— 待核实，需重新检索。",
+          "候选证据完全缺失可操作度（Yoshikawa 等）与雅可比相关经典文献及其指标口径（定义式、量纲、适用范围）—— 待核实，需重新检索。",
+          "缺乏可核验的引用数、发表 venue 与 DOI 元数据，无法对上述经典工作给出 heat/authority 分级 —— 待核实，需改用 arXiv/IEEE Xplore/Crossref 等结构化来源补充。",
+          "当前候选块仅有 1 个来源且为个人仓库，无法满足“同一事实至少两个独立来源”的交叉验证要求。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "当前主流开源运动学/动力学/最优控制数值库有哪些（Pinocchio、Drake、MuJoCo、TRAC-IK、IKFast、Crocoddyl、OCS2、CasADi、RBDL、Orocos KDL及JAX生态）？各自能力边界、性能与维护活跃度如何？",
+      "queries": [
+        "Pinocchio rigid body dynamics library GitHub documentation 2025",
+        "Drake robot toolbox inverse kinematics documentation 2025",
+        "TRAC-IK IKFast inverse kinematics solver comparison benchmark",
+        "Crocoddyl OCS2 trajectory optimization library GitHub 2025"
+      ],
+      "rationale": "工程落地依赖库选型。需从官方仓库README、文档与最近提交/版本发布评估真实维护状态，用GitHub stars与issue活跃度作为热度证据，并区分『解析IK求解器』与『通用动力学/优化框架』不同定位。",
+      "round": 1,
+      "results": [],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [],
+        "note": "no candidates retrieved"
+      }
+    },
+    {
+      "id": "q4",
+      "question": "该方向有哪些可复现的数据集与评测基准？IK/FK求解精度、轨迹优化、全身控制分别在什么benchmark、什么硬件、多少任务上被比较？",
+      "queries": [
+        "robot manipulation benchmark LIBERO SimplerEnv RoboArena 2025 evaluation",
+        "humanoid whole-body control benchmark HumanoidBench 2024 2025",
+        "Open X-Embodiment DROID dataset robot learning benchmark",
+        "inverse kinematics solver benchmark accuracy comparison real robot"
+      ],
+      "rationale": "避免仿真SOTA与真机SOTA混淆，必须明确评测口径。需核查Open X-Embodiment、DROID、LIBERO、SimplerEnv、HumanoidBench、RoboArena等基准的适用面，以及是否存在专门的运动学求解器精度榜单。",
+      "round": 1,
+      "results": [],
+      "extraction": {
+        "subquestion_id": "q4",
+        "findings": [],
+        "note": "no candidates retrieved"
+      }
+    },
+    {
+      "id": "q5",
+      "question": "接触隐式轨迹优化、基于优化的全身控制与基于学习的控制之间，近年的融合路径与实际真机效果如何？",
+      "queries": [
+        "contact-implicit trajectory optimization 2024..2026 robot arxiv",
+        "differentiable simulation contact robot learning 2025 real robot",
+        "QP whole-body control vs reinforcement learning humanoid locomotion 2025",
+        "hierarchical whole-body control MPC humanoid 2025 ICRA IROS"
+      ],
+      "rationale": "这是运动学/动力学与控制交叉的核心争议带：经典QP-WBC与RL/模仿学习的边界正在模糊。需核查真机任务数、硬件本体、是否开源可复现，并注意『论文宣称』与『第三方复现』的差别。",
+      "round": 1,
+      "results": [
+        {
+          "title": "IMPACT: An Implicit Active-Set Augmented Lagrangian for Fast Contact-Implicit Trajectory Optimization",
+          "url": "https://arxiv.org/abs/2605.09127",
+          "snippet": "Contact-implicit trajectory optimization (CITO) has attracted growing attention as a unified framework for planning and control in contact-rich robotic tasks. Recent approaches have demonstrated promising results in manipulation and locomotion without requiring a prescribed contact-mode schedule. It is well known that the underlying mathematical programs with complementarity constraints (MPCCs) remain numerically ill-conditioned, and systematic, scalable solution strategies for CITO remain an active area of research. More efficient and principled solvers that can handle contact constraints ar…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2026-05-09",
+          "authors": [
+            "Jia-Yun Li",
+            "De-Jian Gong",
+            "Georgia Chalvatzaki"
+          ],
+          "venue": "Robotics",
+          "citations": 2,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.020588
+          }
+        },
+        {
+          "title": "A Novel Contact‐Implicit Trajectory Optimization Framework for Quadruped Locomotion without Fixed Contact Sequences",
+          "url": "https://doi.org/10.1002/aisy.202500654",
+          "snippet": "Legged robots have advanced in environmental interaction through contact, but most works rely on fixed contact sequences. To enable automatic generation of contact sequences for more complex locomotion tasks, a novel contact‐implicit trajectory optimization (TO) framework based on an Accelerated Computation Augmented Lagrangian iterative Linear Quadratic Regulator (ACAL‐iLQR) method for legged locomotion is proposed. Unlike traditional contact models, it employs a compliant contact model that ensures accurate numerical differentiation and physical realism. Building upon the full‐order dynamic…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2025-12-02",
+          "authors": [
+            "Yao-Wei Chen",
+            "Jie Zhang",
+            "Ming Lyu"
+          ],
+          "venue": "Advanced Intelligent Systems",
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.020896
+          }
+        },
+        {
+          "title": "Fall prediction, control, and recovery of quadruped robots.",
+          "url": "https://doi.org/10.1016/j.isatra.2024.05.039",
+          "snippet": "When legged robots perform complex tasks in unstructured environments, falls are inevitable due to unknown external disturbances. However, current research mainly focuses on the locomotion control of legged robots without falling. This paper proposes a comprehensive decision-making and control framework to address the falling over of quadruped robots. First, a capturability-based fall prediction algorithm is derived for planar single-contact and 3D multi-contact locomotion with a predefined gait sequence. For safe fall control, a novel contact-implicit trajectory optimization method is propos…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2024-05-01",
+          "authors": [
+            "Hao Sun",
+            "Junjie Yang",
+            "Yinghao Jia",
+            "Chong Zhang",
+            "Xudong Yu",
+            "Changhong Wang"
+          ],
+          "venue": "ISA transactions",
+          "citations": 15,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.021538
+          }
+        },
+        {
+          "title": "Highly-Efficient Differentiable Simulation for Robotics",
+          "url": "https://arxiv.org/abs/2409.07107",
+          "snippet": "Robotics simulators have improved significantly in computational speed and scalability, enabling them to generate years of simulated data for complex systems in minutes or hours. Despite these advances, efficiently and accurately computing simulation derivatives remains an open challenge. Addressing this would accelerate the convergence of reinforcement learning and trajectory optimization algorithms, particularly for contact-rich problems. This paper introduces a unifying framework for robotic simulation that accounts for all factors, including dynamics, collisions, and friction. The resulti…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2024-09-11",
+          "authors": [
+            "Quentin Le Lidec",
+            "Louis Montaut",
+            "Yann de Mont-Marin",
+            "Fabian Schramm",
+            "E. Biré",
+            "Justin Carpentier"
+          ],
+          "venue": null,
+          "citations": 12,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.021212
+          }
+        },
+        {
+          "title": "Ramp Jump Attitude Control of Single-Track Two-Wheeled Robot via Contact-Implicit Trajectory Optimization",
+          "url": "https://doi.org/10.1109/ROBIO64047.2024.10907480",
+          "snippet": "In contrast to attitude control strategies relying solely on the aerial phase, the single-track two-wheeled (STTW) robots can adjust their attitude during both the take-off and the aerial phase in the ramp jump task, enabling a wider range of adjustments to achieve an appropriate landing attitude, which introduces a multi-contact problem. In this paper, we leverage recent methods in contact-implicit trajectory optimization (CITO) to handle the multi-modal planning aspect. First, we derive the dynamics of the STTW robot covering the take-off and the aerial phase. Next, two slack variables are…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2024-12-10",
+          "authors": [
+            "Feilong Jing",
+            "Boyi Wang",
+            "Yang Deng",
+            "Ke Bao",
+            "Zhang Chen",
+            "Bin Liang"
+          ],
+          "venue": "IEEE International Conference on Robotics and Biomimetics",
+          "citations": 1,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.022951
+          }
+        },
+        {
+          "title": "Global Convergence of an SQP Method for Contact-Implicit Trajectory Optimization",
+          "url": "https://arxiv.org/abs/2406.01763",
+          "snippet": "Contact-Implicit Trajectory Optimization (CITO) is a powerful framework for planning motions of robots that interact with complex environments, but its convergence behavior remains difficult to characterize. Existing formulations either rely on off-the-shelf nonlinear programming solvers whose guarantees require constraint qualifications that are hard to verify for contact-rich systems, or require differentiable explicit dynamics maps that are difficult to formulate in the presence of impacts, changing contact modes, and geometric non-smoothness. This paper studies CITO for a broader class of…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2024-06-03",
+          "authors": [
+            "Zhe-Rong Pan",
+            "Fuquan Wang",
+            "Yifan Zhu"
+          ],
+          "venue": null,
+          "citations": 1,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.022581
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q5",
+        "findings": [
+          {
+            "point": "IMPACT: An Implicit Active-Set Augmented Lagrangian for Fast Contact-Implicit Trajectory Optimization",
+            "evidence": "Contact-implicit trajectory optimization (CITO) has attracted growing attention as a unified framework for planning and control in contact-rich robotic tasks. Recent approaches have demonstrated promising results in manipulation and locomotion without requiring a prescribed contact-mode schedule. I…",
+            "sources": [
+              17
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "citations=2",
+            "authority": "Robotics",
+            "attention": "低（citations=2）",
+            "recommendation": "★★★★☆（venue=Robotics）"
+          },
+          {
+            "point": "A Novel Contact‐Implicit Trajectory Optimization Framework for Quadruped Locomotion without Fixed Contact Sequences",
+            "evidence": "Legged robots have advanced in environmental interaction through contact, but most works rely on fixed contact sequences. To enable automatic generation of contact sequences for more complex locomotion tasks, a novel contact‐implicit trajectory optimization (TO) framework based on an Accelerated Co…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "citations=0",
+            "authority": "Advanced Intelligent Systems",
+            "attention": "低（citations=0）",
+            "recommendation": "★★★★☆（venue=Advanced Intelligent Systems）"
+          },
+          {
+            "point": "Fall prediction, control, and recovery of quadruped robots.",
+            "evidence": "When legged robots perform complex tasks in unstructured environments, falls are inevitable due to unknown external disturbances. However, current research mainly focuses on the locomotion control of legged robots without falling. This paper proposes a comprehensive decision-making and control fram…",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "citations=15",
+            "authority": "ISA transactions",
+            "attention": "中（citations=15）",
+            "recommendation": "★★★★☆（venue=ISA transactions）"
+          },
+          {
+            "point": "Highly-Efficient Differentiable Simulation for Robotics",
+            "evidence": "Robotics simulators have improved significantly in computational speed and scalability, enabling them to generate years of simulated data for complex systems in minutes or hours. Despite these advances, efficiently and accurately computing simulation derivatives remains an open challenge. Addressin…",
+            "sources": [
+              15
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "citations=12",
+            "authority": "",
+            "attention": "中（citations=12）",
+            "recommendation": "★★★☆☆"
+          },
+          {
+            "point": "Ramp Jump Attitude Control of Single-Track Two-Wheeled Robot via Contact-Implicit Trajectory Optimization",
+            "evidence": "In contrast to attitude control strategies relying solely on the aerial phase, the single-track two-wheeled (STTW) robots can adjust their attitude during both the take-off and the aerial phase in the ramp jump task, enabling a wider range of adjustments to achieve an appropriate landing attitude,…",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "citations=1",
+            "authority": "IEEE International Conference on Robotics and Biomimetics",
+            "attention": "低（citations=1）",
+            "recommendation": "★★★★☆（venue=IEEE International Conference on Robotics and Biomimetics）"
+          },
+          {
+            "point": "Global Convergence of an SQP Method for Contact-Implicit Trajectory Optimization",
+            "evidence": "Contact-Implicit Trajectory Optimization (CITO) is a powerful framework for planning motions of robots that interact with complex environments, but its convergence behavior remains difficult to characterize. Existing formulations either rely on off-the-shelf nonlinear programming solvers whose guar…",
+            "sources": [
+              11
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "citations=1",
+            "authority": "",
+            "attention": "低（citations=1）",
+            "recommendation": "★★★☆☆"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q6",
+      "question": "该领域存在哪些开放问题与失败案例？解析解与数值解、经典几何方法与学习方法的取舍争议，奇异性处理、实时性与安全性的未解难点在哪里？",
+      "queries": [
+        "inverse kinematics analytical vs numerical limitations survey singularities",
+        "robot learning failure cases reproducibility manipulation negative results",
+        "奇异位形 处理 机器人 逆运动学 局限 阻尼最小二乘",
+        "robot kinematics open problems survey 2025 challenges real-time safety"
+      ],
+      "rationale": "Gap检查要求覆盖争议与负面结果。需寻找明确指出局限性的综述、复现困难报告与实际部署失败的讨论，避免只呈现成功案例。",
+      "round": 1,
+      "results": [],
+      "extraction": {
+        "subquestion_id": "q6",
+        "findings": [],
+        "note": "no candidates retrieved"
+      }
+    }
+  ],
+  "critiques": [
+    {
+      "coverage": "",
+      "gaps": [],
+      "additional_queries": [],
+      "additional_subquestions": []
+    }
+  ],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 103,
+    "prompt_tokens": 571564,
+    "completion_tokens": 316044,
+    "generated_at": "2026-10-04T04:14:15.424595+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 机器人运动学、动力学与控制：方法演进、开源栈盘点与 2024–2026 前沿追踪\n\n**日期**：2026-10-04（UTC）｜**领域**：Robotics Kinematics / Dynamics / Control（具身智能基础栈）｜**检索源数量**：可引用编号来源 17 条（[1]–[17]），覆盖 6 个子问题（q1–q6）｜**证据可用性声明**：本次检索对核心主题（FK/IK、旋量理论、雅可比与奇异性、全身控制、开源库对比、数据集基准）**未产出可核查的一手证据**；仅「接触隐式轨迹优化（CITO）」与「可微仿真」两条支线有可引用命中 [10][11][12][13][15][16][17]。本报告因此采取**缺口地图（gap map）+ 可信来源清单**的写法，凡无编号来源支撑的论断一律标注 `> 待核实`，不做记忆化断言。\n\n---\n\n## 摘要（Executive Summary）\n\n1. **本次调研的证据覆盖率严重不均衡。** 6 个子问题中，q3（开源数值库盘点）、q4（数据集与基准）、q6（开放问题与失败案例）**返回零条发现**；q2（旋量/POE/操作空间控制奠基文献）仅命中一个与主题无关的个人参考文献集合仓库 [1]；q1（前沿进展）命中的 6 条中 5 条属机器人学习/导航/绳结操作等**主题漂移文献**（[2][3][5][7][8]），另 1 条 [9] 已被 arXiv 管理员**以虚构内容为由撤稿**（E 级证据，应直接丢弃）。唯一有效覆盖集中在 q5。\n\n2. **唯一证据充分的前沿支线是接触隐式轨迹优化（Contact-Implicit Trajectory Optimization, CITO）。** 2024–2026 年该方向有连续产出：SQP 全局收敛性分析 [11]（2024，citations=1）、单轨两轮机器人斜坡跳跃姿态控制 [10]（2024，citations=1）、四足无固定接触序列框架 [16]（2025，citations=0）、IMPACT 隐式主动集增广拉格朗日 [17]（2026，citations=2）、分布式接触丰富轨迹优化 DisCo [12] 与非脉冲接触隐式运动规划 [13]（均见来源列表，内容未抽取）。**该方向仍是小体量、低引用、以仿真/单平台验证为主的早期领域**[10][11][16][17]。\n\n3. **可微仿真（Differentiable Simulation）是与 CITO 相邻的活跃支线**[15]（2024，citations=12，本次命中中引用数最高的条目），但同样未提供真机对比口径。\n\n4. **运动学主干（旋量理论、POE 建模、雅可比与奇异性、解析/数值/学习式 IK、任务空间控制）在本次检索中完全无一手证据。** 相关结论只能依赖领域种子资源清单（Murray–Li–Sastry 1994、Lynch–Park 2017、Khatib 1987、Crocoddyl 2020 等），**这些条目不占用 [n] 编号，且本次未做实时核实**，全部标 `> 待核实`。\n\n5. **选型建议在本轮证据下只能给出「不可决策」级别结论。** 对 Pinocchio / Drake / MuJoCo / TRAC-IK / IKFast / Crocoddyl / OCS2 / CasADi / RBDL / Orocos KDL / JAX 生态的能力边界、性能与维护活跃度，本次**未获取任何 star 数、提交频率、许可证、基准数字**，故不提供排名或定量对比，仅给出下一轮检索的可执行清单（见第八节）。\n\n---\n\n## 一、关键前沿进展（近 1–2 年）\n\n### 1.1 接触隐式轨迹优化（CITO）是本次唯一达到可陈述强度的方法线\n\nCITO 将接触模式（contact mode）本身作为优化变量，无需预设接触序列，被视为富接触规划与控制的统一框架 [17]。\n\n| 条目 | 年份 | venue / 来源 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|\n| IMPACT: An Implicit Active-Set Augmented Lagrangian for Fast Contact-Implicit Trajectory Optimization [17] | 2026 | arXiv 预印本（编号 2605.09127） | citations=2（候选块字段）[17] | arXiv 预印本，未标注同行评审 [17] | 低 —— 依据：citations=2 [17] | ★★★☆☆ —— 主题高度相关且时间最新，但引用极少、未经同行评审，适合作为入口而非结论依据 [17] |\n| A Novel Contact-Implicit Trajectory Optimization Framework for Quadruped Locomotion without Fixed Contact Sequences [16] | 2025 | Advanced Intelligent Systems（期刊，据候选块字段） | citations=0 [16] | 期刊论文（候选块标注 Advanced Intelligent Systems）[16] | 低 —— 依据：citations=0 [16] | ★★★☆☆ —— 与「四足 + 无固定接触序列」直接对应，但零引用，需等待独立验证 [16] |\n| Global Convergence of an SQP Method for Contact-Implicit Trajectory Optimization [11] | 2024 | arXiv 预印本 2406.01763 | citations=1 [11] | arXiv 预印本，未标注同行评审 [11] | 低 —— 依据：citations=1 [11] | ★★★★☆ —— CITO 收敛性理论刻画是领域公认难点（其摘要明示现有公式依赖商业 NLP 求解器或缺乏保证）[11]，方法论价值高 |\n| Ramp Jump Attitude Control of Single-Track Two-Wheeled Robot via Contact-Implicit Trajectory Optimization [10] | 2024 | IEEE ROBIO 2024（会议，DOI 10.1109/ROBIO64047.2024.10907480） | citations=1 [10] | 同行评审会议论文 [10] | 低 —— 依据：citations=1 [10] | ★★★☆☆ —— 提供非足式平台（单轨两轮）的落地案例，可作跨本体适用性线索 [10] |\n\n**方法学解读（限定表述）**：CITO 的共识性痛点是**收敛性难以刻画**——现有工作在「用现成非线性规划求解器（其保证不适用于接触问题）」与「自研方法缺乏收敛保证」之间取舍 [11]；IMPACT 的切入点是把主动集（active-set）内隐化并配合增广拉格朗日以提速 [17]。**上述均为论文自述（B 级证据），无第三方复现或榜单验证** `> 待核实`。\n\n### 1.2 相邻支线：可微仿真与失败恢复\n\n- **Highly-Efficient Differentiable Simulation for Robotics [15]**（2024，arXiv 2409.07107）：摘要指出「高效且准确地计算仿真导数仍是开放挑战」[15]。热度：citations=12（候选块字段）；权威：arXiv 预印本，候选块未标注 venue；关注度：中（本次命中中引用最高）；推荐度 ★★★☆☆——与本主题（轨迹优化需要梯度）相关，但需核实是否含真机与 ROS2 集成 [15]。\n- **Fall prediction, control, and recovery of quadruped robots [14]**（2024，ISA Transactions，DOI 10.1016/j.isatra.2024.05.039）：摘要称提出面向非结构化环境的跌倒决策与控制框架 [14]。热度：citations=15（本次最高）；权威：同行评审期刊；关注度：中；推荐度 ★★★☆☆——属「失败案例」类稀缺证据，但需核实是否为真机实验 `> 待核实` [14]。\n\n### 1.3 来源列表中主题相关但本轮未抽取内容的条目（仅登记标题，内容 `> 待核实`）\n\n- **DisCo: distributed contact-rich trajectory optimization for forceful multi-robot collaboration**（arXiv 2410.23283，2024-10）[12]\n- **Non-impulsive Contact-Implicit Motion Planning for Morpho-functional Loco-manipulation**（arXiv 2404.08714，2024-04）[13]\n- **Robot Learning: A Tutorial**（arXiv 2510.12403，2025-10）[6]——可能覆盖学习式控制入口，但标题未限定运动学/动力学，相关性 `> 待核实`。\n- **State-of-the-art in Robot Learning for Multi-Robot Collaboration: A Comprehensive Survey**（arXiv 2408.11822）[4]——多机协作综述，与本主题交集限于控制层 `> 待核实`。\n\n### 1.4 **未获得任何证据的前沿点（重要缺口）**\n\n以下均为研究目标点名、但本次检索**零命中**的方向，任何描述都属无证据推测，故仅记录缺口：\n\n- 可微运动学（Differentiable Kinematics）`> 待核实`\n- 学习式逆运动学（Learning-based IK）`> 待核实`\n- SE(3) 等变策略（SE(3)-Equivariant Policy）`> 待核实`\n- 实时全身 QP 控制（Real-time Whole-Body QP）`> 待核实`\n\n### 1.5 证据质量警示（可复用的方法论结论）\n\n命中条目 [9]（A Simulation and Modeling of Access Points with Definition Language）的摘要明示：**该投稿因包含虚构内容并冒名提交，已被 arXiv 管理员撤稿** [9]。该条属 E 级证据，应直接丢弃。这提示本领域关键词检索会显著受噪声污染，必须以「venue + DOI/arXiv 编号 + 撤稿状态」三重校验。\n\n---\n\n## 二、建模表示：DH 参数 vs 旋量理论 / 指数积（PoE）\n\n**本节结论状态：`> 待核实`（本次零证据）。**\n\nq2 检索未返回任何关于 screw theory、Product of Exponentials（PoE）、Jacobian 或 manipulability 的原始文献 [1]。唯一命中的仓库 [1] 是跨主题杂项参考文献合集：stars=43，个人维护、无机构背书、无同行评审，且内容为条目堆叠（含认知发展机器人学综述、4-D/RCS 架构等）[1]，**不构成本节证据**。\n\n**可陈述的唯一事实**：本次检索**完全缺失**旋量理论与 PoE 的奠基文献记录（Ball 的螺旋理论著作、Brockett 的指数积公式化、Murray–Li–Sastry 教材脉络），亦缺失 DH 参数体系与旋量体系的可比性材料 [1]。`> 待核实`\n\n**领域种子资源（不占用 [n] 编号，本次未实时核实，链接为用户提供的原始链接）**：\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| A Mathematical Introduction to Robotic Manipulation (screw theory / POE) | 1994 | Murray, Li, Sastry | `> 待核实` | 经典专著（种子清单） | `> 待核实` | ★★★★★（依据：种子清单标注为旋量/指数积经典教材，非本次检索一手证据） | https://www.cds.caltech.edu/~murray/mlswiki/ | 旋量/指数积经典教材 |\n| Modern Robotics: Mechanics, Planning, and Control | 2017 | Lynch & Park | `> 待核实` | 现代教材（种子清单） | `> 待核实` | ★★★★★（依据同上） | http://hades.mech.northwestern.edu/index.php/Modern_Robotics | 现代运动学与控制教材 |\n\n**下一轮检索建议（缺口的可执行补全路径）**：`screw theory robotics` + `site:arxiv.org`、`Product of Exponentials forward kinematics 2024..2026`、`DH parameters vs screw representation comparison`、`manipulability measure Yoshikawa`，并把 Crossref/IEEE Xplore 作为元数据（DOI、venue、引用数）来源。\n\n---\n\n## 三、逆运动学：解析 / 数值 / 学习式\n\n**本节结论状态：`> 待核实`（本次零证据）。**\n\n- 解析解（Analytical IK）与数值解（Numerical IK）的适用边界、闭式解存在条件、冗余自由度下的零空间处理：**无任何 [n] 级证据** `> 待核实`\n- 学习式 IK：**无任何 [n] 级证据** `> 待核实`\n- IK 求解精度口径（位置/姿态误差、成功率、迭代次数、超时率）：**无任何 [n] 级证据** `> 待核实`\n- 常见工具（TRAC-IK、IKFast、KDL IK、Pinocchio IK 等）：仅见于研究目标与种子清单，本次**未获得 star 数、许可证、维护状态或性能数字**，故不做对比 [1]（[1] 仅提供与本主题无关的 43 stars 仓库数据）。\n\n**🔍 关键提醒**：第 1.3 节登记的条目均未涉及 IK 求解器，因此**本报告不对「解析 vs 数值 vs 学习」给出任何倾向性结论**。任何未标注 [n] 的此类比较都属不可核查内容。\n\n---\n\n## 四、轨迹规划与最优控制\n\n本节是本报告**唯一可实质展开**的技术章节，证据来自 q5 的 6 条命中（[10][11][14][15][16][17]）与来源列表中的 2 条登记条目（[12][13]）。\n\n### 4.1 方法脉络（基于可引用摘要）\n\n1. **问题设定**：CITO 作为「潜在接触任务中统一规划与控制」的框架受到越来越多关注，其吸引力在于**无需预先指定接触模式时间表（contact-mode schedule）** [17]。\n2. **收敛性障碍**：CITO 的收敛行为难以刻画，现有公式化「要么依赖现成非线性规划求解器（其保证不覆盖接触问题），要么缺乏保证」[11]。\n3. **求解器层创新**：IMPACT 提出隐式主动集（implicit active-set）+ 增广拉格朗日（augmented Lagrangian）以加速 [17]。\n4. **本体扩展**：从足式（四足无固定接触序列 [16]）扩展到轮式跳跃（单轨两轮斜坡跳跃 [10]）与 loco-manipulation（非脉冲接触隐式运动规划 [13]）。\n5. **梯度来源**：可微仿真为导数计算提供基础设施，但「高效且准确计算仿真导数仍是开放挑战」[15]。\n6. **失败态处理**：四足跌倒的预测—控制—恢复一体化决策框架被提出，以应对非结构化环境中的不可避免跌倒 [14]。\n\n### 4.2 证据强度评估\n\n| 维度 | 状态 | 依据 |\n|---|---|---|\n| 真机验证 | **不可判定** | 全部 6 条命中中，仅 [14] 摘要提及「非结构化环境」但未明示真机；[16] 摘要提及「四足运动」未明示真机 `> 待核实` [14][16] |\n| 任务数与本体数 | **不可判定** | 无任何命中提供任务数统计 `> 待核实` |\n| 计算时间/实时性 | **不可判定** | IMPACT 摘要以「Fast」自述但未在抽取内容中给出数字 `> 待核实` [17] |\n| 第三方复现/榜单 | **不存在** | 无任何命中提及权威榜单或独立复现 [10][11][14][15][16][17] |\n| 引用体量 | **低** | citations：0–15（候选块字段），除 [14] 外均 ≤2 [10][11][14][15][16][17] |\n\n### 4.3 对比与权衡的诚实结论\n\n**本轮证据不支持「接触隐式 vs 接触显式」「优化 vs 学习」的定量比较。** 可陈述的仅是定位差异：CITO 的价值主张是免除接触序列预设 [17]，代价是收敛性刻画困难 [11]；学习式控制方向（[6] 教程 [4] 综述，内容 `> 待核实`）与本支线**尚无直接对照实验证据**。\n\n---\n\n## 五、全身控制与任务空间控制\n\n**本节结论状态：`> 待核实`（本次零证据）。**\n\nq6（开放问题与失败案例）与全身控制子问题均**返回零发现**。因此以下内容**全部为缺口登记**，不含结论：\n\n- Operational Space Formulation（Khatib 1987）的后续演进与「任务空间 vs 关节空间」取舍：`> 待核实`（仅存于种子清单，链接 https://doi.org/10.1109/JRA.1987.1087109）\n- 全身 QP（Whole-Body QP）的实时性预算、层级优先级（hierarchical task）与硬约束可行性：`> 待核实`\n- 接触约束下的全身控制与 CITO 的耦合方式：**仅有间接线索**——[13] 标题含 \"Morpho-functional Loco-manipulation\"，提示存在接触隐式与 loco-manipulation 全身控制的交叉，但内容未抽取 `> 待核实` [13]\n- 奇异性（singularity）处理、可操作度（manipulability）退化、任务优先级冲突：`> 待核实`\n\n---\n\n## 六、经典教材与奠基工作\n\n**重要说明**：本表条目来自**用户提供的领域种子资源清单**，**不占用 [1]–[17] 引用编号**，且**本次未实时检索核实**。热度（引用数/star）与关注度**全部为 `> 待核实`**——不得以本表数字作为影响力判断依据。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| A Mathematical Introduction to Robotic Manipulation (screw theory / POE) | 1994 | Murray, Li, Sastry | `> 待核实` | 经典专著（种子清单，非本次检索证据） | `> 待核实` | ★★★★★（依据：种子清单定位为旋量/POE 奠基教材） | https://www.cds.caltech.edu/~murray/mlswiki/ | 旋量/指数积经典教材 |\n| Modern Robotics: Mechanics, Planning, and Control | 2017 | Lynch & Park | `> 待核实` | 现代教材（种子清单） | `> 待核实` | ★★★★★（依据：种子清单定位为现代运动学与控制教材） | http://hades.mech.northwestern.edu/index.php/Modern_Robotics | 现代运动学与控制教材 |\n| Task Space Control / Operational Space Formulation | 1987 | Oussama Khatib | `> 待核实` | DOI 10.1109/JRA.1987.1087109（种子清单提供） | `> 待核实` | ★★★★★（依据：种子清单定位为操作空间控制奠基） | https://doi.org/10.1109/JRA.1987.1087109 | 操作空间控制奠基 |\n| Crocoddyl: An Efficient and Versatile Framework for Multi-Contact Optimal Control | 2020 | LAAS-CNRS | `> 待核实` | arXiv 预印本 1909.04947（种子清单提供） | `> 待核实` | ★★★★☆（依据：与第四节 CITO/多接触最优控制主题直接相关） | https://arxiv.org/abs/1909.04947 | 接触最优控制 |\n\n**证据缺口（对应 q2 的 open_problems）**：旋量理论奠基文献、PoE 公式化原始文献、操作空间控制系列工作、可操作度指标口径（定义式、量纲、适用范围）在本次检索中**全部缺失**，且缺乏可核验的引用数与 DOI 元数据 [1]。`> 待核实`\n\n---\n\n## 七、开源库与工具链对比\n\n**核心声明**：q3 **返回零条发现**。因此本节**不提供任何性能、star 数、维护活跃度、许可证或基准对比**——任何此类数字都将是编造的。\n\n唯一在本次检索中携带 star 数据的仓库是 [1]（stars=43，个人维护，跨主题杂项参考文献合集，与本主题无关）[1]，**不可用作工具链对比依据**。\n\n**种子项目清单（不占用 [n] 编号，链接来自用户提供；所有热度/权威/关注度字段 `> 待核实`）**：\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| stack-of-tasks/pinocchio | `> 待核实` | stack-of-tasks | `> 待核实`（未获取 star/提交频率） | 官方 GitHub 仓库（种子清单） | `> 待核实` | ★★★★☆（依据：种子清单定位为刚体运动学/动力学 + 解析导数，与三、四、五节均相关） | https://github.com/stack-of-tasks/pinocchio | 刚体运动学/动力学，含解析导数 |\n| orocos/orocos_kinematics_dynamics | `> 待核实` | Orocos 社区 | `> 待核实` | 官方 GitHub 仓库（种子清单） | `> 待核实` | ★★★☆☆（依据：种子清单定位为 KDL：FK/IK/Jacobian） | https://github.com/orocos/orocos_kinematics_dynamics | KDL：FK/IK/Jacobian |\n| RobotLocomotion/drake | `> 待核实` | RobotLocomotion（Toyota Research Institute） | `> 待核实` | 官方 GitHub 仓库（种子清单） | `> 待核实` | ★★★★☆（依据：种子清单定位为优化与控制的 C++ 工具箱） | https://github.com/RobotLocomotion/drake | 优化与控制的 C++ 工具箱 |\n| loco-3d/crocoddyl | `> 待核实` | LAAS-CNRS | `> 待核实` | 官方 GitHub 仓库（种子清单） | `> 待核实` | ★★★★☆（依据：与第四节多接触最优控制直接对应，其论文见第六节） | https://github.com/loco-3d/crocoddyl | 多接触最优控制 |\n| moveit/moveit2 | `> 待核实` | MoveIt 社区 | `> 待核实` | 官方 GitHub 仓库（种子清单） | `> 待核实` | ★★★★☆（依据：种子清单定位为 ROS2 运动规划框架，工程落地相关） | https://github.com/moveit/moveit2 | ROS2 运动规划框架 |\n\n**研究目标点名但本次无任何来源覆盖的库**（无链接即不列出，避免编造）：MuJoCo、TRAC-IK、IKFast、OCS2、CasADi、RBDL、JAX 生态 `> 待核实`。\n\n**下一轮检索建议**：逐个仓库核查 `stars / last commit / license / 是否有 ROS2 绑定 / 是否提供 C++ 与 Python 接口`，并以官方文档（A/B 级）而非聚合站（D 级）为准。\n\n---\n\n## 八、开放问题与关注清单\n\n### 8.1 开放问题（本次检索可直接确证的）\n\n1. **CITO 的收敛性理论仍不完整**：现有公式化或依赖不覆盖接触问题的商用 NLP 求解器，或缺乏收敛保证 [11]。IMPACT 试图以隐式主动集 + 增广拉格朗日加速，但属自述性能 [17]。\n2. **可微仿真的导数计算仍是开放挑战**（论文自述）[15]。\n3. **无固定接触序列的四足运动仍处早期**：相关工作 2025 年发表时引用数为 0 [16]。\n4. **足式机器人在非结构化环境中的跌倒不可避免**，预测—恢复一体化框架仍在提出阶段 [14]。\n\n### 8.2 开放问题（本次**无证据**，纯缺口登记 `> 待核实`）\n\n1. 解析解与数值解的取舍边界；闭式解存在性与冗余自由度处理 `> 待核实`\n2. 经典几何方法与学习方法的取舍争议 `> 待核实`\n3. 奇异性（singularity）处理的工程与理论方案 `> 待核实`\n4. 实时性预算与安全性保障（尤其全身 QP 的硬约束可行性）`> 待核实`\n5. 该领域**失败案例与负面结果**的系统性记录：本次唯一相关命中为四足跌倒恢复 [14]，其余为空白 `> 待核实`\n\n### 8.3 检索质量与证据纪律问题（本次调研的方法学产出）\n\n| 现象 | 具体证据 | 处置 |\n|---|---|---|\n| 主题漂移污染 | q1 命中 [2][3][5][7][8] 均为导航/模仿学习/绳结操作，与本主题无对应性 |\n\n## 参考来源\n\n[1] Aryia-Behroziuan/Other-sources — https://github.com/Aryia-Behroziuan/Other-sources\n[2] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2\n[3] On-Policy Robot Imitation Learning from a Converging Supervisor — http://arxiv.org/abs/1907.03423v7\n[4] State-of-the-art in Robot Learning for Multi-Robot Collaboration: A Comprehensive Survey — http://arxiv.org/abs/2408.11822v1\n[5] Multi-objective Model-based Policy Search for Data-efficient Learning with Sparse Rewards — http://arxiv.org/abs/1806.09351v3\n[6] Robot Learning: A Tutorial — http://arxiv.org/abs/2510.12403v1\n[7] Untangling Dense Knots by Learning Task-Relevant Keypoints — http://arxiv.org/abs/2011.04999v1\n[8] Deception Game: Closing the Safety-Learning Loop in Interactive Robot Autonomy — http://arxiv.org/abs/2309.01267v2\n[9] A Simulation and Modeling of Access Points with Definition Language — http://arxiv.org/abs/1304.1836v2\n[10] Ramp Jump Attitude Control of Single-Track Two-Wheeled Robot via Contact-Implicit Trajectory Optimization — https://doi.org/10.1109/ROBIO64047.2024.10907480\n[11] Global Convergence of an SQP Method for Contact-Implicit Trajectory Optimization — https://arxiv.org/abs/2406.01763\n[12] DisCo: distributed contact-rich trajectory optimization for forceful multi-robot collaboration — https://arxiv.org/abs/2410.23283\n[13] Non-impulsive Contact-Implicit Motion Planning for Morpho-functional Loco-manipulation — https://arxiv.org/abs/2404.08714\n[14] Fall prediction, control, and recovery of quadruped robots. — https://doi.org/10.1016/j.isatra.2024.05.039\n[15] Highly-Efficient Differentiable Simulation for Robotics — https://arxiv.org/abs/2409.07107\n[16] A Novel Contact‐Implicit Trajectory Optimization Framework for Quadruped Locomotion without Fixed Contact Sequences — https://doi.org/10.1002/aisy.202500654\n[17] IMPACT: An Implicit Active-Set Augmented Lagrangian for Fast Contact-Implicit Trajectory Optimization — https://arxiv.org/abs/2605.09127\n\n\n---\n\n*Generated by research-bot · topic=`kinematics` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=17 · duration=855s · 2026-10-04T04:14:15+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Aryia-Behroziuan/Other-sources",
+      "url": "https://github.com/Aryia-Behroziuan/Other-sources",
+      "kind": "project",
+      "venue": null,
+      "published": "2020-10-28",
+      "citations": null,
+      "stars": 43
+    },
+    {
+      "n": 2,
+      "title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+      "url": "http://arxiv.org/abs/1711.10137v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2017-11-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "On-Policy Robot Imitation Learning from a Converging Supervisor",
+      "url": "http://arxiv.org/abs/1907.03423v7",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2019-07-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "State-of-the-art in Robot Learning for Multi-Robot Collaboration: A Comprehensive Survey",
+      "url": "http://arxiv.org/abs/2408.11822v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-08-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Multi-objective Model-based Policy Search for Data-efficient Learning with Sparse Rewards",
+      "url": "http://arxiv.org/abs/1806.09351v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Robot Learning: A Tutorial",
+      "url": "http://arxiv.org/abs/2510.12403v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Untangling Dense Knots by Learning Task-Relevant Keypoints",
+      "url": "http://arxiv.org/abs/2011.04999v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-11-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Deception Game: Closing the Safety-Learning Loop in Interactive Robot Autonomy",
+      "url": "http://arxiv.org/abs/2309.01267v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "A Simulation and Modeling of Access Points with Definition Language",
+      "url": "http://arxiv.org/abs/1304.1836v2",
+      "kind": "paper",
+      "venue": "cs.OH",
+      "published": "2013-04-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Ramp Jump Attitude Control of Single-Track Two-Wheeled Robot via Contact-Implicit Trajectory Optimization",
+      "url": "https://doi.org/10.1109/ROBIO64047.2024.10907480",
+      "kind": "paper",
+      "venue": "IEEE International Conference on Robotics and Biomimetics",
+      "published": "2024-12-10",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Global Convergence of an SQP Method for Contact-Implicit Trajectory Optimization",
+      "url": "https://arxiv.org/abs/2406.01763",
+      "kind": "paper",
+      "venue": null,
+      "published": "2024-06-03",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "DisCo: distributed contact-rich trajectory optimization for forceful multi-robot collaboration",
+      "url": "https://arxiv.org/abs/2410.23283",
+      "kind": "paper",
+      "venue": "Autonomous Robots",
+      "published": "2024-10-30",
+      "citations": 2,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Non-impulsive Contact-Implicit Motion Planning for Morpho-functional Loco-manipulation",
+      "url": "https://arxiv.org/abs/2404.08714",
+      "kind": "paper",
+      "venue": "IEEE International Conference on Advanced Intelligent Mechatronics",
+      "published": "2024-04-12",
+      "citations": 4,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Fall prediction, control, and recovery of quadruped robots.",
+      "url": "https://doi.org/10.1016/j.isatra.2024.05.039",
+      "kind": "paper",
+      "venue": "ISA transactions",
+      "published": "2024-05-01",
+      "citations": 15,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Highly-Efficient Differentiable Simulation for Robotics",
+      "url": "https://arxiv.org/abs/2409.07107",
+      "kind": "paper",
+      "venue": null,
+      "published": "2024-09-11",
+      "citations": 12,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "A Novel Contact‐Implicit Trajectory Optimization Framework for Quadruped Locomotion without Fixed Contact Sequences",
+      "url": "https://doi.org/10.1002/aisy.202500654",
+      "kind": "paper",
+      "venue": "Advanced Intelligent Systems",
+      "published": "2025-12-02",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "IMPACT: An Implicit Active-Set Augmented Lagrangian for Fast Contact-Implicit Trajectory Optimization",
+      "url": "https://arxiv.org/abs/2605.09127",
+      "kind": "paper",
+      "venue": "Robotics",
+      "published": "2026-05-09",
+      "citations": 2,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-04-kinematics.md",
+    "json": "report/2026/10/2026-10-04-kinematics.json"
+  }
+}

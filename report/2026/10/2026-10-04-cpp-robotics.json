@@ -1,0 +1,3018 @@
+{
+  "topic": "cpp-robotics",
+  "title": "C++ 机器人工程与实时系统：生态、数值库、实时实践与工程工具链深度调研",
+  "query": "",
+  "depth": "standard",
+  "language": "bilingual",
+  "started_at": "2026-10-04T02:54:54+00:00",
+  "finished_at": "2026-10-04T02:59:09+00:00",
+  "duration_s": 254.9,
+  "rounds": 1,
+  "plan": {
+    "title": "C++ 机器人工程与实时系统：生态、数值库、实时实践与工程工具链深度调研",
+    "summary": "系统梳理机器人领域 C++ 生态（Eigen/Sophus/Ceres/GTSAM/Pinocchio 等）、实时系统实践、构建与包管理、性能工程及学习型策略部署的前沿进展、经典奠基工作、开源工程实践、基准与开放争议，产出可核查的证据化结论。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 1-2 年，C++ 机器人工程与实时系统领域出现了哪些真正重要的新进展（语言标准、实时执行框架、性能工程范式）？",
+        "rationale": "回答前沿问题需先界定时间窗口内的一手论文与官方技术报告，区分「刚发布」与「已被验证」，避免把模型训练知识当最新进展。关注 C++20/23 在后端工程中的落地（modules、concepts、coroutines）、ROS2 实时执行器演进与新的实时 C++ 实践。",
+        "queries": [
+          "real-time C++ robotics best practices 2025 arXiv cs.RO",
+          "C++20 modules robotics build system adoption 2025",
+          "ROS2 real-time executor C++ latency benchmark 2025",
+          "机器人 C++ 实时 性能优化 2025 实践"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "Eigen、Sophus、Ceres Solver、GTSAM、Pinocchio 等数值与几何库各自的奠基性工作是什么，它们解决了什么问题？",
+        "rationale": "任何工程选型都需要先建立经典论文图谱：这些库的方法论源头（稠密/稀疏线性代数、李群流形优化、非线性最小二乘、因子图平滑与增量推断、刚体动力学算法）决定了其能力边界与性能特征。",
+        "queries": [
+          "Eigen linear algebra template library robotics sparse solver design",
+          "Ceres Solver nonlinear least squares Agarwal Mierle 2010",
+          "GTSAM factor graph incremental smoothing Dellaert 2017",
+          "Pinocchio rigid body dynamics algorithms Carpentier 2019"
+        ],
+        "prefer": [
+          "semantic_scholar",
+          "crossref",
+          "openalex",
+          "arxiv"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "当前 C++ 机器人项目的开源工程实践与工具链最佳实践是什么（CMake、Conan/vcpkg、pybind11、clang-tidy、CI 与交叉编译）？",
+        "rationale": "工程实践类知识主要沉淀在官方仓库、文档与会议报告（ROSCon/CppCon）而非论文，需以 GitHub 与官方文档为一手来源，关注可复现的构建配方、依赖管理与静态检查落地方式。",
+        "queries": [
+          "pybind11 C++ Python binding robotics project 2025",
+          "modern CMake robotics project structure best practices 2025",
+          "Conan vs vcpkg C++ robotics dependency management 2025",
+          "机器人 C++ 项目 构建 包管理 Conan vcpkg clang-tidy 实践"
+        ],
+        "prefer": [
+          "github",
+          "bing"
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "如何评测与对比这些 C++ 数值/优化/动力学库：存在哪些公开数据集、基准与可比指标？",
+        "rationale": "库选型结论必须落在可核查的基准上，且需区分仿真 SOTA 与真机表现、区分论文宣称与第三方复现。需要梳理 Bundle Adjustment in the Large、EuRoC、KITTI 等通用数据集，以及各库自带的 benchmark 与第三方对比报告。",
+        "queries": [
+          "factor graph library benchmark Ceres GTSAM comparison 2025",
+          "Bundle Adjustment in the Large BAL dataset benchmark solver",
+          "Pinocchio RBDL rigid body dynamics benchmark comparison 2025",
+          "ROS2 real-time performance benchmark latency measurement 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "实时 C++ 机器人系统中有哪些公认的开放问题与争议（自动微分 vs 解析雅可比、实时内存分配、ABI/对齐与 EIGEN_MAKE_ALIGNED_OPERATOR_NEW、编译时间与模板代价）？",
+        "rationale": "失败案例与技术争议往往决定工程可行性，需纳入报告。该子问题聚焦那些在社区中长期存在分歧、且直接影响实时性与可维护性的工程取舍。",
+        "queries": [
+          "automatic differentiation vs analytic Jacobian robotics performance tradeoff",
+          "real-time C++ deterministic memory allocation robotics no malloc 2025",
+          "Eigen alignment ABI incompatibility EIGEN_MAKE_ALIGNED_OPERATOR_NEW issue",
+          "C++ template metaprogramming compile time robotics library cost 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q6",
+        "question": "学习型策略（VLA / 神经网络策略）如何在实时 C++ 系统中部署：LibTorch、ONNX Runtime、TensorRT 与 ROS2 集成的现状与延迟约束？",
+        "rationale": "该子问题连接主题关键词（pybind11、real-time C++）与具身智能前沿，属于交叉热点；需核查推理延迟、实时性与安全回退机制的一手数据，而非演示视频。",
+        "queries": [
+          "LibTorch C++ inference real-time robotics latency 2025",
+          "ONNX Runtime ROS2 real-time policy deployment 2025",
+          "vision-language-action policy C++ inference latency 2025",
+          "机器人 学习策略 C++ 部署 实时 推理 延迟"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 1-2 年，C++ 机器人工程与实时系统领域出现了哪些真正重要的新进展（语言标准、实时执行框架、性能工程范式）？",
+      "queries": [
+        "real-time C++ robotics best practices 2025 arXiv cs.RO",
+        "C++20 modules robotics build system adoption 2025",
+        "ROS2 real-time executor C++ latency benchmark 2025",
+        "机器人 C++ 实时 性能优化 2025 实践"
+      ],
+      "rationale": "回答前沿问题需先界定时间窗口内的一手论文与官方技术报告，区分「刚发布」与「已被验证」，避免把模型训练知识当最新进展。关注 C++20/23 在后端工程中的落地（modules、concepts、coroutines）、ROS2 实时执行器演进与新的实时 C++ 实践。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories",
+          "url": "http://arxiv.org/abs/2607.15330v2",
+          "snippet": "We present Xiaomi-Robotics-1, a foundational vision-language-action (VLA) model capable of (1) following diverse language instructions to perform a wide range of mobile manipulation tasks in unseen environments out-of-the-box, and (2) efficiently adapting to novel downstream tasks with minimal fine-tuning data. We propose a two-stage training recipe consisting of pre-training and post-training. During pre-training, we imbue the model with broad and generalizable action-generation capabilities by training on over 100k hours of real-world manipulation trajectories collected via UMI devices. Cru…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-16",
+          "authors": [
+            " Xiaomi Robotics Team",
+            "Jun Guo",
+            "Piaopiao Jin",
+            "Jason Li",
+            "Peiyan Li",
+            "Yingyan Li",
+            "Futeng Liu",
+            "Wanli Peng",
+            "Optimus Qin",
+            "Yifei Su",
+            "Nan Sun",
+            "Qiao Sun",
+            "Runze Suo",
+            "Heyun Wang",
+            "Yunhong Wang",
+            "Rujie Wu",
+            "Caoyu Xia",
+            "Lina Zhang",
+            "Jack Zhao",
+            "Guoliang Chen",
+            "Wenlong Chen",
+            "Xinze He",
+            "Bin Li",
+            "Qing Li",
+            "Zhuorong Li",
+            "Heng Qu",
+            "Wenxuan Song",
+            "Diyun Xiang",
+            "Yifan Xie",
+            "Peiran Xu",
+            "Hangjun Ye",
+            "Wen Ye",
+            "Han Zhao",
+            "Quanyun Zhou"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.15330v2",
+            "rrf_score": 0.045549,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.043674,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.035471,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+          "url": "http://arxiv.org/abs/2510.20381v1",
+          "snippet": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal legal text processing and to provide a benchmark dataset for building and evaluating intelligent systems in multimodal legal domains, with a focus on traffic sign regulation in Vietnam. The best-reported results on VLSP 2025 MLQA-TSR are an F2 score of 64.55% for multimodal legal retrieval and an a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Son T. Luu",
+            "Trung Vo",
+            "Hiep Nguyen",
+            "Khanh Quoc Tran",
+            "Kiet Van Nguyen",
+            "Vu Tran",
+            "Ngan Luu-Thuy Nguyen",
+            "Le-Minh Nguyen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20381v1",
+            "rrf_score": 0.033605,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "CMU's IWSLT 2025 Simultaneous Speech Translation System",
+          "url": "http://arxiv.org/abs/2506.13143v1",
+          "snippet": "This paper presents CMU's submission to the IWSLT 2025 Simultaneous Speech Translation (SST) task for translating unsegmented English speech into Chinese and German text in a streaming manner. Our end-to-end speech-to-text system integrates a chunkwise causal Wav2Vec 2.0 speech encoder, an adapter, and the Qwen2.5-7B-Instruct as the decoder. We use a two-stage simultaneous training procedure on robust speech segments curated from LibriSpeech, CommonVoice, and VoxPopuli datasets, utilizing standard cross-entropy loss. Our model supports adjustable latency through a configurable latency multipl…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-16",
+          "authors": [
+            "Siqi Ouyang",
+            "Xi Xu",
+            "Lei Li"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.13143v1",
+            "rrf_score": 0.02027
+          }
+        },
+        {
+          "title": "Edge Computing–Enabled Intelligent Financial Auditing: An Advanced Real-Time Framework for Automated Fraud Detection, Predictive Accounting Analytics, and Financial Risk Assessment",
+          "url": "https://doi.org/10.63544/jbii.v5i5.194",
+          "snippet": "Purpose: The increasing volume, velocity, and complexity of digital financial transactions have reduced the effectiveness of conventional auditing systems that depend on centralized processing, periodic examination, and static rule-based controls. This study develops an edge computing–enabled intelligent financial auditing framework for real-time fraud detection, predictive accounting analytics, and dynamic financial risk assessment.\nDesign/Methodology/Approach. The framework integrates distributed edge nodes, secure financial gateways, machine learning, attention-based deep learning, explain…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2026-05-25",
+          "authors": [
+            "Muhammad Adil",
+            "Shahzeb Iqbal",
+            "F. Arzu",
+            "Ashraf Zia",
+            "M. Siddique"
+          ],
+          "venue": "Journal of Business Insight and Innovation",
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.016667
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "在给定候选证据中，没有任何一条直接涉及 C++ 语言标准（如 C++23/C++26）、ROS2 执行器模型、DDS/实时中间件或机器人实时执行框架的进展；该子问题的核心维度在当前证据集内处于证据真空状态。",
+            "evidence": "候选块共 6 条：[2] 为 VLA 模型（cs.RO，2026-07-16）；[48] 为车联网边缘计算实时任务卸载（cs.DC，2025-12-16）；[34] 短视频参与度预测（ICCV 2025 challenge）；[80] 越南语多模态法律问答（cs.CL）；[82] CMU 同声传译系统（cs.CL）；[87] 边缘计算金融审计（Journal of Business Insight and Innovation）。无一条主题为 C++ 标准、ROS2/rclcpp、实时调度框架或机器人性能工程。",
+            "sources": [
+              2,
+              48,
+              34,
+              80,
+              82,
+              87
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 候选集内无任何围绕 C++/实时框架的论文、仓库或榜单信号，无法据此判断社区关注度",
+            "recommendation": "★☆☆☆☆ + 该结论为『证据缺口』陈述，不建议作为技术结论引用，只能作为触发补充检索的提示"
+          },
+          {
+            "point": "候选集中唯一与『实时系统』方法论相关的一手论文，是面向车联网边缘计算（VEC）的截止期约束任务卸载与资源分配研究，属于实时调度/资源分配理论方向，而非 C++ 机器人软件栈。",
+            "evidence": "[48] 提出 Deadline-Constrained Task Offloading and Resource Allocation Problem（DOAP，记为 P），在带宽与计算资源双重约束下最大化车辆总效用，并提出 SARound 求解方法；针对时延敏感应用的截止期与网络波动挑战（arXiv:2512.14002v1，cs.DC，2025-12-16）。",
+            "sources": [
+              48
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.DC），未标注同行评审 venue，作者 Chuanchao Gao、Arvind Easwaran（后者为实时系统领域常见作者名，但候选块未给出机构信息）",
+            "attention": "低 + 无引用数/榜单/社区讨论信号，且领域为车联网而非机器人软件栈",
+            "recommendation": "★★☆☆☆ + 仅作为『实时约束建模』的方法参考，与 C++/ROS2 实时执行框架主题相关性弱"
+          },
+          {
+            "point": "候选集反映出的机器人侧主要趋势是 VLA 基础模型的规模化（真实世界轨迹数据量级扩大），与 C++ 工程/实时系统无直接关联，但可作为『上层模型负载对实时执行栈提出更高要求』的背景线索。",
+            "evidence": "[2] Xiaomi-Robotics-1 以 two-stage（pre-training + post-training）配方训练 VLA 基础模型，宣称使用 over 100K Hours Real-World Trajectories，支持未见环境下的移动操作与少量微调迁移（arXiv:2607.15330v2，cs.RO，2026-07-16 提交 / 2026-07-22 修订）。",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO），Xiaomi Robotics Team 官方提交；候选块未提供会议/期刊接收信息与引用数",
+            "attention": "中 + 由 33 位以上作者的小米机器人团队发布、且处于 VLA 规模化热点方向，但候选块未给出引用/榜单等量化热度信号",
+            "recommendation": "★★★☆☆ + 与『实时推理负载』间接相关，但对 C++ 实时框架问题不构成直接证据"
+          },
+          {
+            "point": "候选集包含若干标题含 real-time / framework 但与机器人无关的论文，说明单纯以『real-time framework』为关键词检索会引入大量跨领域噪声（金融审计、短视频、法律问答、语音翻译），需要加入 robotics/C++/ROS2 限定词。",
+            "evidence": "[87] 标题含『Advanced Real-Time Framework』但主题为边缘计算金融审计与欺诈检测（DOI 10.63544/jbii.v5i5.194，citations=0）；[34] 为 ICCV 2025 短视频参与度预测挑战赛；[80] 为 VLSP 2025 越南语交通标志法规多模态问答（最佳结果：多模态法律检索 F2 64.55%，问答准确率 86.30%）；[82] 为 CMU IWSLT 2025 同声传译系统。",
+            "sources": [
+              87,
+              34,
+              80,
+              82
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "[87] citations=0；[34][80][82] 候选块未给出引用数",
+            "authority": "[87] 发表于 Journal of Business Insight and Innovation（非机器人与系统软件主流 venue）；[34] 为 ICCV 2025 workshop/challenge 报告；[80] 为 VLSP 2025 评测任务报告；[82] 为 IWSLT 2025 系统描述论文",
+            "attention": "低 + 与本子问题主题（C++ 机器人工程与实时系统）均不相关，属于检索噪声",
+            "recommendation": "★☆☆☆☆ + 不建议引用，仅用于说明检索词需收紧"
+          },
+          {
+            "point": "无法从当前候选证据中确认任何『近 1-2 年 C++ 标准演进、实时执行框架（如 ROS2 执行器/CycloneDDS/PREEMPT_RT 集成）、或性能工程范式（零拷贝、锁自由数据结构、确定性调度）』的具体新进展，相关判断必须回到补充检索后才能做出。",
+            "evidence": "全部 6 条候选块的主题分别为 VLA 模型、VEC 卸载、短视频参与度、越南语法律问答、同声传译、金融审计；无一条包含 C++ 标准编号、ROS2 组件名、实时内核补丁、确定性延迟指标或机器人性能基准数据。",
+            "sources": [
+              2,
+              48,
+              34,
+              80,
+              82,
+              87
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 无相关信号可依据",
+            "recommendation": "★☆☆☆☆ + 作为负面结论记录：现有候选证据不足以支撑该子问题作答"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+            "url": "http://arxiv.org/abs/2512.14002v1",
+            "why": "候选集中唯一直接处理实时/截止期约束问题建模的一手论文，提供 Deadline-Constrained Task Offloading and Resource Allocation（DOAP）形式化与 SARound 方法，可作为实时约束建模思路参考，但不涉及 C++ 机器人软件栈。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.DC），未标注同行评审 venue",
+            "attention": "低 + 无引用/榜单/社区讨论信号，且领域为车联网而非机器人",
+            "recommendation": "★★☆☆☆ + 与 C++/ROS2 实时执行框架主题相关性弱，仅在需要实时任务建模方法论时参考"
+          },
+          {
+            "title": "Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories",
+            "url": "http://arxiv.org/abs/2607.15330v2",
+            "why": "代表候选集中唯一的机器人前沿方向（VLA 基础模型规模化），其宣称的 100K 小时真实轨迹规模间接提示上层模型负载与实时推理执行的需求，但不构成 C++/实时系统进展证据。",
+            "year": "2026",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.RO），Xiaomi Robotics Team 官方提交，未标注接收会议",
+            "attention": "中 + 小米机器人团队大规模作者署名、VLA 规模化热点方向，但候选块无量化热度信号",
+            "recommendation": "★★★☆☆ + 对机器人 AI 负载背景有价值，对 C++ 实时框架问题不直接相关"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据完全缺失 C++ 语言标准（C++23/C++26 新特性对机器人/实时场景的影响）的任何信息，需补充检索 ISO C++ 提案与编译器支持现状。",
+          "候选证据完全缺失 ROS2 执行器模型、rclcpp 实时化改造、DDS/零拷贝传输、确定性调度等实时执行框架的一手材料，需针对 ROS2 官方仓库与设计文档定向检索。",
+          "候选证据完全缺失机器人性能工程范式（锁自由数据结构、内存分配实时性、WCET 分析、PREEMPT_RT 集成、实时基准测试）的证据，需补充实时 Linux 与机器人中间件社区来源。",
+          "无法判断『近 1-2 年』该领域是否存在真正的范式变化：当前候选集既无经典工作也无最新进展，缺少时间线与证据强度分层。",
+          "候选集显示以「real-time framework」为关键词会产生大量跨领域噪声（金融审计、短视频、法律问答、语音翻译），后续检索必须强制加入 robotics / ROS2 / C++ 限定词与 venue 限定（如 ICRA/IROS/RSS/RTSS/ECRTS）。"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "Eigen、Sophus、Ceres Solver、GTSAM、Pinocchio 等数值与几何库各自的奠基性工作是什么，它们解决了什么问题？",
+      "queries": [
+        "Eigen linear algebra template library robotics sparse solver design",
+        "Ceres Solver nonlinear least squares Agarwal Mierle 2010",
+        "GTSAM factor graph incremental smoothing Dellaert 2017",
+        "Pinocchio rigid body dynamics algorithms Carpentier 2019"
+      ],
+      "rationale": "任何工程选型都需要先建立经典论文图谱：这些库的方法论源头（稠密/稀疏线性代数、李群流形优化、非线性最小二乘、因子图平滑与增量推断、刚体动力学算法）决定了其能力边界与性能特征。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Fast Convergence for Weighted Least Squares Estimates",
+          "url": "http://arxiv.org/abs/2605.00198v3",
+          "snippet": "It is well-known that maximum likelihood estimates converge faster than the classic square root rate if the Fisher information is infinite. This is often the case when the effective region depends on the estimated parameters, or when density has a singularity inside the effective region at a point dependent on the estimated parameters. We present a one-parameter family of bivariate absolutely continuous distributions on the half-space with smooth densities. The effective domain is always the same half-space and does not depend on this parameter. The order of magnitude for the weighted least s…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-04-30",
+          "authors": [
+            "Andrey Sarantsev"
+          ],
+          "venue": "math.ST",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.00198v3",
+            "rrf_score": 0.018519
+          }
+        },
+        {
+          "title": "Smoothing Out the Edges: Continuous-Time Estimation with Gaussian Process Motion Priors on Factor Graphs",
+          "url": "http://arxiv.org/abs/2605.09073v1",
+          "snippet": "Continuous-time state estimation is gaining in popularity due to its abilities to provide smooth solutions, handle asynchronous sensors, and interpolate between data points. While there are two main paradigms, parametric (e.g., temporal basis functions, splines) and nonparametric (Gaussian processes), the latter has seen less adoption despite its technical advantages and relative ease of implementation. In this article, we seek to rectify this situation by providing a new simplified explanation of GP continuous-time estimation rooted in the language of factor graphs, which have become the de…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-09",
+          "authors": [
+            "Connor Holmes",
+            "Sven Lilge",
+            "Zi Cong Guo",
+            "Frank Dellaert",
+            "Timothy D. Barfoot"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.09073v1",
+            "rrf_score": 0.015464
+          }
+        },
+        {
+          "title": "DQ Robotics: a Library for Robot Modeling and Control",
+          "url": "http://arxiv.org/abs/1910.11612v3",
+          "snippet": "Dual quaternion algebra and its application to robotics have gained considerable interest in the last two decades. Dual quaternions have great geometric appeal and easily capture physical phenomena inside an algebraic framework that is useful for both robot modeling and control. Mathematical objects, such as points, lines, planes, infinite cylinders, spheres, coordinate systems, twists, and wrenches are all well defined as dual quaternions. Therefore, simple operators are used to represent those objects in different frames and operations such as inner products and cross products are used to e…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2019-10-25",
+          "authors": [
+            "Bruno Vilhena Adorno",
+            "Murilo Marques Marinho"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1910.11612v3",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Linear Mappings of Free Algebra",
+          "url": "http://arxiv.org/abs/1003.1544v2",
+          "snippet": "For arbitrary F-algebra, in which the operation of addition is defined, I explore biring of matrices of mappings. The sum of matrices is determined by the sum in F-algebra, and the product of matrices is determined by the product of mappings. The system of equations, whose matrix is a matrix of mappings, is called a system of additive equations. I considered the methods of solving system of additive equations. As an example, I consider the solution of a system of linear equations over the complex field provided that the equations contain unknown quantities and their conjugates.\n  Linear mappi…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2010-03-08",
+          "authors": [
+            "Aleks Kleyn"
+          ],
+          "venue": "math.RA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1003.1544v2",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Robotic Template Library",
+          "url": "http://arxiv.org/abs/2107.00324v1",
+          "snippet": "Robotic Template Library (RTL) is a set of tools for dealing with geometry and point cloud processing, especially in robotic applications. The software package covers basic objects such as vectors, line segments, quaternions, rigid transformations, etc., however, its main contribution lies in the more advanced modules: The segmentation module for batch or stream clustering of point clouds, the fast vectorization module for approximation of continuous point clouds by geometric objects of higher grade and the LaTeX export module enabling automated generation of high-quality visual outputs. It i…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2021-07-01",
+          "authors": [
+            "Ales Jelinek",
+            "Adam Ligocki",
+            "Ludek Zalud"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2107.00324v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "The CERES/NA45 Radial Drift Time Projection Chamber",
+          "url": "http://arxiv.org/abs/0802.1443v2",
+          "snippet": "The design, calibration, and performance of the first radial drift Time Projection Chamber (TPC) are presented. The TPC was built and installed at the CERES/NA45 experiment at the CERN SPS in the late nineties, with the objective to improve the momentum resolution of the spectrometer. The upgraded experiment took data twice, in 1999 and in 2000. After a detailed study of residual distortions a spatial resolution of 340 um in the azimuthal and 640 um in the radial direction was achieved, corresponding to a momentum resolution of Dp/p = sqrt{(1% * p/GeV)^2 + (2%)^2}.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2008-02-09",
+          "authors": [
+            " The CERES Collaboration"
+          ],
+          "venue": "nucl-ex",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "0802.1443v2",
+            "rrf_score": 0.019231
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "Fast Convergence for Weighted Least Squares Estimates",
+            "evidence": "It is well-known that maximum likelihood estimates converge faster than the classic square root rate if the Fisher information is infinite. This is often the case when the effective region depends on the estimated parameters, or when density has a singularity inside the effective region at a point…",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "math.ST",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=math.ST）"
+          },
+          {
+            "point": "Smoothing Out the Edges: Continuous-Time Estimation with Gaussian Process Motion Priors on Factor Graphs",
+            "evidence": "Continuous-time state estimation is gaining in popularity due to its abilities to provide smooth solutions, handle asynchronous sensors, and interpolate between data points. While there are two main paradigms, parametric (e.g., temporal basis functions, splines) and nonparametric (Gaussian processe…",
+            "sources": [
+              21
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "DQ Robotics: a Library for Robot Modeling and Control",
+            "evidence": "Dual quaternion algebra and its application to robotics have gained considerable interest in the last two decades. Dual quaternions have great geometric appeal and easily capture physical phenomena inside an algebraic framework that is useful for both robot modeling and control. Mathematical object…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2019",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Linear Mappings of Free Algebra",
+            "evidence": "For arbitrary F-algebra, in which the operation of addition is defined, I explore biring of matrices of mappings. The sum of matrices is determined by the sum in F-algebra, and the product of matrices is determined by the product of mappings. The system of equations, whose matrix is a matrix of map…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2010",
+            "heat": "",
+            "authority": "math.RA",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=math.RA）"
+          },
+          {
+            "point": "Robotic Template Library",
+            "evidence": "Robotic Template Library (RTL) is a set of tools for dealing with geometry and point cloud processing, especially in robotic applications. The software package covers basic objects such as vectors, line segments, quaternions, rigid transformations, etc., however, its main contribution lies in the m…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2021",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "The CERES/NA45 Radial Drift Time Projection Chamber",
+            "evidence": "The design, calibration, and performance of the first radial drift Time Projection Chamber (TPC) are presented. The TPC was built and installed at the CERES/NA45 experiment at the CERN SPS in the late nineties, with the objective to improve the momentum resolution of the spectrometer. The upgraded…",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2008",
+            "heat": "",
+            "authority": "nucl-ex",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=nucl-ex）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "当前 C++ 机器人项目的开源工程实践与工具链最佳实践是什么（CMake、Conan/vcpkg、pybind11、clang-tidy、CI 与交叉编译）？",
+      "queries": [
+        "pybind11 C++ Python binding robotics project 2025",
+        "modern CMake robotics project structure best practices 2025",
+        "Conan vs vcpkg C++ robotics dependency management 2025",
+        "机器人 C++ 项目 构建 包管理 Conan vcpkg clang-tidy 实践"
+      ],
+      "rationale": "工程实践类知识主要沉淀在官方仓库、文档与会议报告（ROSCon/CppCon）而非论文，需以 GitHub 与官方文档为一手来源，关注可复现的构建配方、依赖管理与静态检查落地方式。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Action Flow Matching for Continual Robot Learning",
+          "url": "http://arxiv.org/abs/2504.18471v2",
+          "snippet": "Continual learning in robotics seeks systems that can constantly adapt to changing environments and tasks, mirroring human adaptability. A key challenge is refining dynamics models, essential for planning and control, while addressing issues such as safe adaptation, catastrophic forgetting, outlier management, data efficiency, and balancing exploration with exploitation -- all within task and onboard resource constraints. Towards this goal, we introduce a generative framework leveraging flow matching for online robot dynamics model alignment. Rather than executing actions based on a misaligne…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-25",
+          "authors": [
+            "Alejandro Murillo-Gonzalez",
+            "Lantao Liu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.18471v2",
+            "rrf_score": 0.05931,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Python Bindings for a Large C++ Robotics Library: The Case of OMPL",
+          "url": "http://arxiv.org/abs/2603.04668v1",
+          "snippet": "Python bindings are a critical bridge between high-performance C++ libraries and the flexibility of Python, enabling rapid prototyping, reproducible experiments, and integration with simulation and learning frameworks in robotics research. Yet, generating bindings for large codebases is a tedious process that creates a heavy burden for a small group of maintainers. In this work, we investigate the use of Large Language Models (LLMs) to assist in generating nanobind wrappers, with human experts kept in the loop. Our workflow mirrors the structure of the C++ codebase, scaffolds empty wrapper fi…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-04",
+          "authors": [
+            "Weihang Guo",
+            "Theodoros Tyrovouzis",
+            "Lydia E. Kavraki"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.04668v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "CONAN: A Python package for modeling lightcurve and radial velocity data of exoplanetary systems",
+          "url": "http://arxiv.org/abs/2508.20196v1",
+          "snippet": "We present CONAN (COde for exoplaNet ANalysis), an open-source Python package for comprehensive analyses of exoplanetary systems. It provides a unified Bayesian framework to simultaneously analyze diverse exoplanet datasets to derive global system parameters. CONAN allows to consistently model photometric transit light curves, occultations, phase curves, and radial velocity measurements, while detrending each dataset with any combination of parametric, sinusoidal, Gaussian Processes, and spline models.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-27",
+          "authors": [
+            "Babatunde Akinsanmi",
+            "Monika Lendl",
+            "Andreas Krenn"
+          ],
+          "venue": "astro-ph.IM",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.20196v1",
+            "rrf_score": 0.013274
+          }
+        },
+        {
+          "title": "FC-CONAN: An Exhaustively Paired Dataset for Robust Evaluation of Retrieval Systems",
+          "url": "http://arxiv.org/abs/2601.01350v1",
+          "snippet": "Hate speech (HS) is a critical issue in online discourse, and one promising strategy to counter it is through the use of counter-narratives (CNs). Datasets linking HS with CNs are essential for advancing counterspeech research. However, even flagship resources like CONAN (Chung et al., 2019) annotate only a sparse subset of all possible HS-CN pairs, limiting evaluation. We introduce FC-CONAN (Fully Connected CONAN), the first dataset created by exhaustively considering all combinations of 45 English HS messages and 129 CNs. A two-stage annotation process involving nine annotators and four val…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-01-04",
+          "authors": [
+            "Juan Junqueras",
+            "Florian Boudin",
+            "May-Myo Zin",
+            "Ha-Thanh Nguyen",
+            "Wachara Fungwacharakorn",
+            "Damián Ariel Furman",
+            "Akiko Aizawa",
+            "Ken Satoh"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2601.01350v1",
+            "rrf_score": 0.013158
+          }
+        },
+        {
+          "title": "Conan: Progressive Learning to Reason Like a Detective over Multi-Scale Visual Evidence",
+          "url": "http://arxiv.org/abs/2510.20470v2",
+          "snippet": "Video reasoning, which requires multi-step deduction across frames, remains a major challenge for multimodal large language models (MLLMs). While reinforcement learning (RL)-based methods enhance reasoning capabilities, they often rely on text-only chains that yield ungrounded or hallucinated conclusions. Conversely, frame-retrieval approaches introduce visual grounding, yet still struggle with inaccurate evidence localization. To address these limitations, we present Conan, a framework for evidence-grounded multi-step video reasoning. Conan identifies context and evidence frames, reasons ove…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Kun Ouyang",
+            "Yuanxin Liu",
+            "Linli Yao",
+            "Yishuo Cai",
+            "Hao Zhou",
+            "Jie Zhou",
+            "Fandong Meng",
+            "Xu Sun"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20470v2",
+            "rrf_score": 0.012931
+          }
+        },
+        {
+          "title": "Simple-Robotics/nanoeigenpy - GitHub",
+          "url": "https://github.com/Simple-Robotics/nanoeigenpy",
+          "snippet": "A support library for bindings between Eigen in C++ and Python, based on nanobind - Simple-Robotics/nanoeigenpy.",
+          "engine": "searxng",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.012857
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "在候选证据中，唯一被一手论文直接覆盖的 C++ 工程实践环节是「C++ ↔ Python 绑定」（pybind11/nanobind 这一档），且证据指向 nanobind 而非 pybind11",
+            "evidence": "[31] 针对大型 C++ 运动规划库 OMPL 研究用 LLM 辅助生成 nanobind 包装器，并保持 human-in-the-loop；文中报告了常见失败模式：shared pointer 管理、重载（overloads）与 trampoline 处理。摘要未给出量化指标（如绑定覆盖率/耗时对比），数字待核实。",
+            "sources": [
+              31
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO），未标注同行评审；作者含 Lydia E. Kavraki（OMPL 生态核心团队）",
+            "attention": "中 —— 2026-03 新预印本，且主题是大规模 C++ 库的绑定维护负担，属社区长期痛点；候选块未提供引用数",
+            "recommendation": "★★★★☆ —— 是本次候选中唯一直接讨论 C++ 机器人库绑定工程实践的一手材料，与本子问题高度相关；但为预印本且无量化结果，需交叉验证"
+          },
+          {
+            "point": "LLM 辅助生成绑定代码的工程流程已有具体描述：以 C++ 代码库结构为镜像脚手架空包装文件，再由 LLM 填充绑定定义，最后由专家审校",
+            "evidence": "[31] 摘要明确 workflow：mirrors the structure of the C++ codebase, scaffolds empty wrapper files, employs LLMs to fill in binding definitions, experts review and refine for correctness/compatibility/performance。",
+            "sources": [
+              31
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO），非同行评审",
+            "attention": "中 —— 属于 2025-2026 年「LLM 辅助大规模 C++ 工程」的热点方向；候选块无引用数据",
+            "recommendation": "★★★☆☆ —— 流程描述有参考价值，可作为『用 LLM 降低绑定维护成本』的实践线索；但缺少量化收益证据"
+          },
+          {
+            "point": "Eigen 与 Python 的绑定存在专门的 nanobind 支持库（nanoeigenpy），由 Simple-Robotics 维护，说明机器人数值栈正在从 Boost.Python/pybind11 向 nanobind 迁移",
+            "evidence": "[44] 仓库描述：A support library for bindings between Eigen in C++ and Python, based on nanobind - Simple-Robotics/nanoeigenpy。",
+            "sources": [
+              44
+            ],
+            "type": "project",
+            "confidence": "medium",
+            "year": "",
+            "heat": "",
+            "authority": "官方 GitHub 仓库，维护方为 Simple-Robotics（pinocchio/机器人动力学生态）",
+            "attention": "低 —— 候选块未提供 star 数或其他社区信号，仅能确认仓库存在与用途",
+            "recommendation": "★★★☆☆ —— 若项目使用 Eigen + nanobind，此库可直接复用；但候选证据不足，需实地核验 star/最近提交"
+          },
+          {
+            "point": "候选证据对『Conan 包管理器在 C++ 机器人项目中的实践』没有任何有效覆盖，检索出现严重关键词歧义",
+            "evidence": "命中 [39] 为系外行星光变曲线分析 Python 包 CONAN（astro-ph.IM）、[40] 为仇恨言论-反叙事检索数据集 FC-CONAN（cs.CL）、[43] 为视频推理方法 Conan（cs.CV），三者均与 C++ 包管理器 Conan 无关；本批候选中无任何 Conan 包管理实践的一手证据。",
+            "sources": [
+              39,
+              40,
+              43
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "三条均为 arXiv 预印本，但主题与本子问题无关",
+            "attention": "低 —— 属检索噪声，非真实技术关注度信号",
+            "recommendation": "★☆☆☆☆ —— 只作为『检索需排除同名干扰、Conan 结论待新一轮检索』的负面证据使用"
+          },
+          {
+            "point": "候选证据完全缺失 CMake 现代实践、vcpkg、clang-tidy 静态检查、CI 流水线与交叉编译（aarch64/树莓派/嵌入式）等子问题关键维度",
+            "evidence": "本批候选共 5 条（[25][31][39][40][44]）+ 3 条 Conan 同名论文，除 [31][44] 涉及 Python 绑定外，无一条摘要或正文片段提及 CMake、vcpkg、clang-tidy、GitHub Actions/CI 或交叉编译工具链。",
+            "sources": [
+              25,
+              31,
+              39,
+              40,
+              43,
+              44
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "基于本批候选覆盖范围的判断，非外部权威结论",
+            "attention": "低 —— 这是证据缺口信号，不是社区热度信号",
+            "recommendation": "★★☆☆☆ —— 明确指出缺口，要求下一轮定向检索补齐（CMake presets、vcpkg manifest、ROS2 colcon + ament、交叉编译 Docker）"
+          },
+          {
+            "point": "候选证据中唯一与机器人学习相关但与本子问题无关的条目是动作流匹配持续学习论文，属噪声项",
+            "evidence": "[25] Action Flow Matching for Continual Robot Learning（arXiv 2504.18471v2, 2025-04-25/修订 2025-09-06）讨论流匹配用于在线动力学模型对齐，完全不涉及 C++ 构建/工具链。",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO），非同行评审",
+            "attention": "低 —— 与 C++ 工程实践主题无关",
+            "recommendation": "★☆☆☆☆ —— 与本子问题无关，仅记录为噪声以便去重"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Python Bindings for a Large C++ Robotics Library: The Case of OMPL",
+            "url": "http://arxiv.org/abs/2603.04668v1",
+            "why": "本批候选中唯一直接研究『大型 C++ 机器人库如何生成 Python 绑定』的一手论文，覆盖 nanobind 包装器生成、LLM 辅助与专家审校流程，并列出 shared pointer/overload/trampoline 等典型失败模式，直接对应子问题中的 pybind11 一环。",
+            "year": "2026",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（arXiv:2603.04668v1, cs.RO），提交于 2026-03-04，未标注同行评审；作者为 Weihang Guo, Theodoros Tyrovouzis, Lydia E. Kavraki",
+            "attention": "中 —— 2026-03 新出预印本，作者含 OMPL 生态核心研究者，主题命中社区长期维护痛点；无引用/榜单信号可查",
+            "recommendation": "★★★★☆ —— 与子问题『pybind11/绑定』直接相关且来自权威团队，值得精读全文并要求补充量化数据"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "Simple-Robotics/nanoeigenpy",
+            "url": "https://github.com/Simple-Robotics/nanoeigenpy",
+            "why": "为 Eigen（C++）与 Python 之间提供基于 nanobind 的绑定支持库，是机器人数值/动力学栈中替代 pybind11 路线的现成组件，可作为『Eigen 类型零拷贝互操作』的落地参考。",
+            "heat": "候选块未提供 star 数或采用度数据",
+            "authority": "官方 GitHub 仓库，维护方 Simple-Robotics（同一组织维护 pinocchio 等机器人动力学库）",
+            "attention": "低 —— 候选块仅有仓库描述，无 star/提交/社区讨论等信号",
+            "recommendation": "★★★☆☆ —— 若技术栈为 Eigen + nanobind 可直接复用，但需实地核验 star 数、最近提交与文档完整度"
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据中完全没有覆盖 CMake 最佳实践（target-based、CMakePresets、FetchContent/install export、现代 generator），需补充官方文档级证据",
+          "Conan 与 vcpkg 的对比与选型（锁定/二进制缓存/交叉编译支持）在本批候选中零覆盖，且检索词 'Conan' 被同名论文（系外行星包、聚类数据集、视频推理模型）严重污染，需重新构造查询",
+          "clang-tidy / 静态检查与格式化（clang-format、pre-commit）在机器人 C++ 项目中的实际接入方式无一手证据",
+          "CI 流水线实践（GitHub Actions 矩阵构建、ROS2 colcon/ament、Docker 化构建、硬件在环测试）无一手证据",
+          "交叉编译（aarch64/ARM 机器人平台、Docker + 工具链文件、ROS2 交叉编译）无一手证据",
+          "Python 绑定路线尚未形成共识：pybind11 vs nanobind 的选择依据、ABI/异常语义差异与维护成本，候选证据仅给出 nanobind 单侧材料 [31][44]，缺少 pybind11 侧与第三方复现对比",
+          "候选证据未提供任何可复现的量化指标（构建时间、绑定生成耗时、CI 通过率），所有涉及数字的结论均 > 待核实"
+        ]
+      }
+    },
+    {
+      "id": "q4",
+      "question": "如何评测与对比这些 C++ 数值/优化/动力学库：存在哪些公开数据集、基准与可比指标？",
+      "queries": [
+        "factor graph library benchmark Ceres GTSAM comparison 2025",
+        "Bundle Adjustment in the Large BAL dataset benchmark solver",
+        "Pinocchio RBDL rigid body dynamics benchmark comparison 2025",
+        "ROS2 real-time performance benchmark latency measurement 2025"
+      ],
+      "rationale": "库选型结论必须落在可核查的基准上，且需区分仿真 SOTA 与真机表现、区分论文宣称与第三方复现。需要梳理 Bundle Adjustment in the Large、EuRoC、KITTI 等通用数据集，以及各库自带的 benchmark 与第三方对比报告。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.058995,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.09190v1",
+          "snippet": "This paper presents a summary of the VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models (LMMs), hosted as part of the ICCV 2025 Workshop on Visual Quality Assessment. The challenge aims to evaluate and enhance the ability of state-of-the-art LMMs to perform open-ended and detailed reasoning about visual quality differences across multiple images. To this end, the competition introduces a novel benchmark comprising thousands of coarse-to-fine grained visual quality comparison tasks, spanning single images, pairs, and multi-image groups. Each task requires models to…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-11",
+          "authors": [
+            "Hanwei Zhu",
+            "Haoning Wu",
+            "Zicheng Zhang",
+            "Lingyu Zhu",
+            "Yixuan Li",
+            "Peilin Chen",
+            "Shiqi Wang",
+            "Chris Wei Zhou",
+            "Linhan Cao",
+            "Wei Sun",
+            "Xiangyang Zhu",
+            "Weixia Zhang",
+            "Yucheng Zhu",
+            "Jing Liu",
+            "Dandan Zhu",
+            "Guangtao Zhai",
+            "Xiongkuo Min",
+            "Zhichao Zhang",
+            "Xinyue Li",
+            "Shubo Xu",
+            "Anh Dao",
+            "Yifan Li",
+            "Hongyuan Yu",
+            "Jiaojiao Yi",
+            "Yiding Tian",
+            "Yupeng Wu",
+            "Feiran Sun",
+            "Lijuan Liao",
+            "Song Jiang"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.09190v1",
+            "rrf_score": 0.04173,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+          "url": "http://arxiv.org/abs/2504.14582v3",
+          "snippet": "This paper presents the NTIRE 2025 image super-resolution ($\\times$4) challenge, one of the associated competitions of the 10th NTIRE Workshop at CVPR 2025. The challenge aims to recover high-resolution (HR) images from low-resolution (LR) counterparts generated through bicubic downsampling with a $\\times$4 scaling factor. The objective is to develop effective network designs or solutions that achieve state-of-the-art SR performance. To reflect the dual objectives of image SR research, the challenge includes two sub-tracks: (1) a restoration track, emphasizes pixel-wise accuracy and ranks sub…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-20",
+          "authors": [
+            "Zheng Chen",
+            "Kai Liu",
+            "Jue Gong",
+            "Jingkai Wang",
+            "Lei Sun",
+            "Zongwei Wu",
+            "Radu Timofte",
+            "Yulun Zhang",
+            "Xiangyu Kong",
+            "Xiaoxuan Yu",
+            "Hyunhee Park",
+            "Suejin Han",
+            "Hakjae Jeon",
+            "Dafeng Zhang",
+            "Hyung-Ju Chun",
+            "Donghun Ryou",
+            "Inju Ha",
+            "Bohyung Han",
+            "Lu Zhao",
+            "Yuyi Zhang",
+            "Pengyu Yan",
+            "Jiawei Hu",
+            "Pengwei Liu",
+            "Fengjun Guo",
+            "Hongyuan Yu",
+            "Pufan Xu",
+            "Zhijuan Huang",
+            "Shuyuan Cui",
+            "Peng Guo",
+            "Jiahui Liu",
+            "Dongkai Zhang",
+            "Heng Zhang",
+            "Huiyuan Fu",
+            "Huadong Ma",
+            "Yanhui Guo",
+            "Sisi Tian",
+            "Xin Liu",
+            "Jinwen Liang",
+            "Jie Liu",
+            "Jie Tang",
+            "Gangshan Wu",
+            "Zeyu Xiao",
+            "Zhuoyuan Li",
+            "Yinxiang Zhang",
+            "Wenxuan Cai",
+            "Vijayalaxmi Ashok Aralikatti",
+            "Nikhil Akalwadi",
+            "G Gyaneshwar Rao",
+            "Chaitra Desai",
+            "Ramesh Ashok Tabib",
+            "Uma Mudenagudi",
+            "Marcos V. Conde",
+            "Alejandro Merino",
+            "Bruno Longarela",
+            "Javier Abad",
+            "Weijun Yuan",
+            "Zhan Li",
+            "Zhanglu Chen",
+            "Boyang Yao",
+            "Aagam Jain",
+            "Milan Kumar Singh",
+            "Ankit Kumar",
+            "Shubh Kawa",
+            "Divyavardhan Singh",
+            "Anjali Sarvaiya",
+            "Kishor Upla",
+            "Raghavendra Ramachandra",
+            "Chia-Ming Lee",
+            "Yu-Fan Lin",
+            "Chih-Chung Hsu",
+            "Risheek V Hiremath",
+            "Yashaswini Palani",
+            "Yuxuan Jiang",
+            "Qiang Zhu",
+            "Siyue Teng",
+            "Fan Zhang",
+            "Shuyuan Zhu",
+            "Bing Zeng",
+            "David Bull",
+            "Jingwei Liao",
+            "Yuqing Yang",
+            "Wenda Shao",
+            "Junyi Zhao",
+            "Qisheng Xu",
+            "Kele Xu",
+            "Sunder Ali Khowaja",
+            "Ik Hyun Lee",
+            "Snehal Singh Tomar",
+            "Rajarshi Ray",
+            "Klaus Mueller",
+            "Sachin Chaudhary",
+            "Surya Vashisth",
+            "Akshay Dudhane",
+            "Praful Hambarde",
+            "Satya Naryan Tazi",
+            "Prashant Patil",
+            "Santosh Kumar Vipparthi",
+            "Subrahmanyam Murala",
+            "Bilel Benjdira",
+            "Anas M. Ali",
+            "Wadii Boulila",
+            "Zahra Moammeri",
+            "Ahmad Mahmoudi-Aznaveh",
+            "Ali Karbasi",
+            "Hossein Motamednia",
+            "Liangyan Li",
+            "Guanhua Zhao",
+            "Kevin Le",
+            "Yimo Ning",
+            "Haoxuan Huang",
+            "Jun Chen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.14582v3",
+            "rrf_score": 0.041149,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+          "url": "http://arxiv.org/abs/2510.20381v1",
+          "snippet": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal legal text processing and to provide a benchmark dataset for building and evaluating intelligent systems in multimodal legal domains, with a focus on traffic sign regulation in Vietnam. The best-reported results on VLSP 2025 MLQA-TSR are an F2 score of 64.55% for multimodal legal retrieval and an a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Son T. Luu",
+            "Trung Vo",
+            "Hiep Nguyen",
+            "Khanh Quoc Tran",
+            "Kiet Van Nguyen",
+            "Vu Tran",
+            "Ngan Luu-Thuy Nguyen",
+            "Le-Minh Nguyen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20381v1",
+            "rrf_score": 0.040245,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.039706,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "CPRet: A Dataset, Benchmark, and Model for Retrieval in Competitive Programming",
+          "url": "http://arxiv.org/abs/2505.12925v2",
+          "snippet": "Competitive programming benchmarks are widely used in scenarios such as programming contests and large language model assessments. However, the growing presence of duplicate or highly similar problems raises concerns not only about competition fairness, but also about the validity of competitive programming as a benchmark for model evaluation. In this paper, we propose a new problem, similar question retrieval, to tackle this issue. Due to the lack of both data and models, solving this problem is challenging. To this end, we introduce CPRet, a retrieval-oriented benchmark suite for competitiv…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-19",
+          "authors": [
+            "Han Deng",
+            "Yuan Meng",
+            "Shixiang Tang",
+            "Wanli Ouyang",
+            "Xinzhu Ma"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.12925v2",
+            "rrf_score": 0.019481
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q4",
+        "findings": [
+          {
+            "point": "本轮候选证据中没有任何一条涉及 C++ 数值/优化/动力学库的评测、公开数据集或可比指标，该子问题在本批证据下无法回答。",
+            "evidence": "6 条候选（[34][91][51][80][50][99]）全部属于 cs.CV / cs.CL / cs.AI / cs.SE 领域，主题分别为短视频互动预测挑战赛、LMM 视觉质量比较挑战赛、图像超分挑战赛、越南语多模态法律问答、基础模型透明度指数、竞赛编程检索数据集；无一条出现 C++、数值线性代数、优化求解器、刚体动力学、ROS/机器人库、基准耗时或收敛性等关键词。",
+            "sources": [
+              34,
+              91,
+              51,
+              80,
+              50,
+              99
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 该批候选与子问题主题零重叠，无引用数/榜单等信号可支撑其在本子问题中的关注度",
+            "recommendation": "★1 + 与 C++ 数值/优化/动力学库评测无相关性，仅作为‘本轮检索未覆盖主题’的证据记录"
+          },
+          {
+            "point": "候选证据中唯一以‘Dataset, Benchmark, and Model’形式组织的一手工作是 CPRet，但其评测对象为竞赛编程题目检索，不能迁移到数值/优化/动力学库评测。",
+            "evidence": "[99] 标题为 ‘CPRet: A Dataset, Benchmark, and Model for Retrieval in Competitive Programming’，摘要指出竞赛编程基准被用于竞赛与 LLM 评估，并关注重复/高相似题目的公平性与基准有效性问题；全文未涉及数值计算库、优化库或动力学库。",
+            "sources": [
+              99
+            ],
+            "type": "dataset",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (arXiv:2505.12925v2)，未标注同行评审 venue",
+            "attention": "中 + 属基准有效性（benchmark validity）讨论，方法论上对‘如何设计基准’有参考价值，但领域不同",
+            "recommendation": "★★☆☆☆ + 仅在‘基准有效性/去重’方法论层面可借鉴，对 C++ 数值库评测无直接证据价值"
+          },
+          {
+            "point": "候选证据显示 2025 年主流评测以‘挑战赛 + 新数据集 + Methods and Results 汇总’的范式组织，可作为评测协议设计的参照模板，但不提供任何数值库相关指标。",
+            "evidence": "[34] VQualA 2025 Engagement Prediction Challenge（ICCV 2025 workshop）使用含真实平台互动指标的新短视频 UGC 数据集；[91] VQualA 2025 Visual Quality Comparison for LMMs（ICCV 2025 Workshop on Visual Quality Assessment）引入‘包含数千样本的新基准’；[51] NTIRE 2025 Image Super-Resolution (x4)（CVPR 2025 第 10 届 NTIRE Workshop）以 bicubic ×4 下采样设定任务；[80] VLSP 2025 MLQA-TSR 给出最佳成绩 F2 64.55%（多模态法律检索）与准确率 86.30%（多模态问答）。",
+            "sources": [
+              34,
+              91,
+              51,
+              80
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "均为 arXiv 预印本，但明确挂靠 ICCV 2025 / CVPR 2025 / VLSP 2025 官方 workshop 或 shared task",
+            "attention": "中 + 属会议官方挑战赛总结类文献，短期社区参与度高，但与本子问题领域无关",
+            "recommendation": "★★☆☆☆ + 可借鉴其‘任务定义—数据集—统一指标—排行榜公布’的组织方式，用于设计 C++ 库对比协议，但本身不含目标领域证据"
+          },
+          {
+            "point": "候选证据未提供任何可用于数值库横向对比的量化指标（如求解耗时、内存占用、数值精度/残差、收敛迭代次数、跨平台可移植性），因此不能据此推导任何可比指标清单。",
+            "evidence": "候选块中出现的量化结果仅有：[80] 的 F2 64.55% 与准确率 86.30%，[34]/[91] 的挑战赛排名与参赛方法结果，[51] 的 ×4 超分 PSNR 类指标语境（摘要层面），[50] 的透明度指标框架；均属视觉/语言/透明度维度，无一项属于数值计算或动力学仿真口径。",
+            "sources": [
+              34,
+              91,
+              51,
+              80,
+              50
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 无任何与数值性能相关的量化信号",
+            "recommendation": "★1 + 不能作为本子问题指标体系来源；指标体系需另行检索（待核实）"
+          },
+          {
+            "point": "候选证据中存在一类‘对评测对象本身进行元评测’的工作（基础模型透明度、基准重复性），提示评测对比时需额外考虑基准有效性与可复现性维度，但候选块同样未涉及 C++ 软件栈。",
+            "evidence": "[50] ‘The 2025 Foundation Model Transparency Index’ 为年度透明度量化工作的第三版，新增与数据获取相关指标；[99] 指出竞赛编程基准中重复/高相似题目会损害作为模型评估基准的有效性。二者共同提示：基准自身的可信度需要被评估。",
+            "sources": [
+              50,
+              99
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "均为 arXiv 预印本；[50] 为年度系列报告的第三版，具延续性",
+            "attention": "中 + 基准有效性与透明度是 2025 年社区持续讨论议题，但与本子问题领域不重叠",
+            "recommendation": "★★☆☆☆ + 可用于提醒‘库对比基准也需评估有效性/可复现性’，但不构成目标领域证据"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "本批候选证据完全未覆盖 C++ 数值/优化/动力学库评测：没有出现任何线性代数库、非线性优化求解器、物理/动力学引擎、机器人中间件的对比研究、数据集或基准。",
+          "缺乏可核查的量化对比口径：候选块中无求解耗时、内存占用、数值残差、收敛迭代数、跨平台（x86/ARM、编译器/优化级别）一致性等指标，需另行检索。",
+          "需要补充检索方向（本轮未执行，待核实）：①数值线性代数与优化库的公开基准仓库与复现报告；②动力学仿真引擎的接触/摩擦一致性验证与真机轨迹回归测试；③CI 级性能基准工具链与跨库接口一致性测试。以上均无候选证据支撑，不得在结论中引用具体基准名称与数字。",
+          "评测协议层面可借鉴的仅有‘挑战赛 + 新数据集 + 统一指标 + 汇总论文’的组织范式（来自 [34][91][51][80]）与‘基准有效性需被元评估’的思路（来自 [50][99]），但迁移到 C++ 库评测时需重新定义任务、硬件口径与统计方法（待核实）。"
+        ]
+      }
+    },
+    {
+      "id": "q5",
+      "question": "实时 C++ 机器人系统中有哪些公认的开放问题与争议（自动微分 vs 解析雅可比、实时内存分配、ABI/对齐与 EIGEN_MAKE_ALIGNED_OPERATOR_NEW、编译时间与模板代价）？",
+      "queries": [
+        "automatic differentiation vs analytic Jacobian robotics performance tradeoff",
+        "real-time C++ deterministic memory allocation robotics no malloc 2025",
+        "Eigen alignment ABI incompatibility EIGEN_MAKE_ALIGNED_OPERATOR_NEW issue",
+        "C++ template metaprogramming compile time robotics library cost 2025"
+      ],
+      "rationale": "失败案例与技术争议往往决定工程可行性，需纳入报告。该子问题聚焦那些在社区中长期存在分歧、且直接影响实时性与可维护性的工程取舍。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories",
+          "url": "http://arxiv.org/abs/2607.15330v2",
+          "snippet": "We present Xiaomi-Robotics-1, a foundational vision-language-action (VLA) model capable of (1) following diverse language instructions to perform a wide range of mobile manipulation tasks in unseen environments out-of-the-box, and (2) efficiently adapting to novel downstream tasks with minimal fine-tuning data. We propose a two-stage training recipe consisting of pre-training and post-training. During pre-training, we imbue the model with broad and generalizable action-generation capabilities by training on over 100k hours of real-world manipulation trajectories collected via UMI devices. Cru…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-16",
+          "authors": [
+            " Xiaomi Robotics Team",
+            "Jun Guo",
+            "Piaopiao Jin",
+            "Jason Li",
+            "Peiyan Li",
+            "Yingyan Li",
+            "Futeng Liu",
+            "Wanli Peng",
+            "Optimus Qin",
+            "Yifei Su",
+            "Nan Sun",
+            "Qiao Sun",
+            "Runze Suo",
+            "Heyun Wang",
+            "Yunhong Wang",
+            "Rujie Wu",
+            "Caoyu Xia",
+            "Lina Zhang",
+            "Jack Zhao",
+            "Guoliang Chen",
+            "Wenlong Chen",
+            "Xinze He",
+            "Bin Li",
+            "Qing Li",
+            "Zhuorong Li",
+            "Heng Qu",
+            "Wenxuan Song",
+            "Diyun Xiang",
+            "Yifan Xie",
+            "Peiran Xu",
+            "Hangjun Ye",
+            "Wen Ye",
+            "Han Zhao",
+            "Quanyun Zhou"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.15330v2",
+            "rrf_score": 0.061808,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Action Flow Matching for Continual Robot Learning",
+          "url": "http://arxiv.org/abs/2504.18471v2",
+          "snippet": "Continual learning in robotics seeks systems that can constantly adapt to changing environments and tasks, mirroring human adaptability. A key challenge is refining dynamics models, essential for planning and control, while addressing issues such as safe adaptation, catastrophic forgetting, outlier management, data efficiency, and balancing exploration with exploitation -- all within task and onboard resource constraints. Towards this goal, we introduce a generative framework leveraging flow matching for online robot dynamics model alignment. Rather than executing actions based on a misaligne…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-25",
+          "authors": [
+            "Alejandro Murillo-Gonzalez",
+            "Lantao Liu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.18471v2",
+            "rrf_score": 0.036752,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Scalable Aerial GNSS Localization for Marine Robots",
+          "url": "http://arxiv.org/abs/2505.04095v2",
+          "snippet": "Accurate localization is crucial for water robotics, yet traditional onboard Global Navigation Satellite System (GNSS) approaches are difficult or ineffective due to signal reflection on the water's surface and its high cost of aquatic GNSS receivers. Existing approaches, such as inertial navigation, Doppler Velocity Loggers (DVL), SLAM, and acoustic-based methods, face challenges like error accumulation and high computational complexity. Therefore, a more efficient and scalable solution remains necessary. This paper proposes an alternative approach that leverages an aerial drone equipped wit…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-07",
+          "authors": [
+            "Shuo Wen",
+            "Edwin Meriaux",
+            "Mariana Sosa Guzmán",
+            "Charlotte Morissette",
+            "Chloe Si",
+            "Bobak Baghi",
+            "Gregory Dudek"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.04095v2",
+            "rrf_score": 0.035306,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Influence of Operator Expertise on Robot Supervision and Intervention",
+          "url": "http://arxiv.org/abs/2601.15069v2",
+          "snippet": "With increasing levels of robot autonomy, robots are increasingly being supervised by users with varying levels of robotics expertise. As the diversity of the user population increases, it is important to understand how users with different expertise levels approach the supervision task and how this impacts performance of the human-robot team. This exploratory study investigates how operators with varying expertise levels perceive information and make intervention decisions when supervising a remote robot. We conducted a user study (N=27) where participants supervised a robot autonomously exp…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-01-21",
+          "authors": [
+            "Yanran Jiang",
+            "Pavan Sikka",
+            "Leimin Tian",
+            "Dana Kuliic",
+            "Cecile Paris"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2601.15069v2",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.021739
+          }
+        },
+        {
+          "title": "Aligning Artificial Superintelligence via a Multi-Box Protocol",
+          "url": "http://arxiv.org/abs/2511.21779v1",
+          "snippet": "We propose a novel protocol for aligning artificial superintelligence (ASI) based on mutual verification among multiple isolated systems that self-modify to achieve alignment. The protocol operates by containing multiple diverse artificial superintelligences in strict isolation (\"boxes\"), with humans remaining entirely outside the system. Each superintelligence has no ability to communicate with humans and cannot communicate directly with other superintelligences. The only interaction possible is through an auditable submission interface accessible exclusively to the superintelligences themse…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-26",
+          "authors": [
+            "Avraham Yair Negozio"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.21779v1",
+            "rrf_score": 0.016854
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q5",
+        "findings": [
+          {
+            "point": "候选证据集对本子问题的四项核心争议（自动微分 vs 解析雅可比、实时内存分配、ABI/对齐与 EIGEN_MAKE_ALIGNED_OPERATOR_NEW、编译时间与模板代价）完全无覆盖，无法据此形成任何可核查结论。",
+            "evidence": "6 条候选块主题分别为：VLA 基础模型（[2]）、持续学习的动作流匹配（[25]）、海洋机器人空中 GNSS 定位（[26]）、操作员专业度对人机协作监督的影响（[30]）、车载边缘计算的任务卸载（[48]）、超级智能多盒对齐协议（[75]）。无一篇讨论 C++ 语言机制、Eigen 对齐宏、实时内存分配器或模板实例化开销；候选块中也未出现 'autodiff'、'Jacobian'、'EIGEN_MAKE_ALIGNED_OPERATOR_NEW'、'ABI'、'real-time allocator' 等任一关键词。",
+            "sources": [
+              2,
+              25,
+              26,
+              30,
+              48,
+              75
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 —— 候选块无任何与该子问题相关的讨论热度信号（无引用数/star/榜单信息可用于该主题）",
+            "recommendation": "★☆☆☆☆ —— 该结论仅说明证据缺口，不构成领域结论；应补充检索 Eigen 官方文档、ROS 2 实时设计文档（design.ros2.org）、ros2_control 与 Pinocchio/Drake 相关讨论后再作答"
+          },
+          {
+            "point": "候选集中最接近“实时计算资源约束”主题的是车载边缘计算的任务卸载工作，其将时延敏感任务的卸载与资源分配列为开放挑战，但目前仅停留在网络/边缘计算层面，未涉及机器人端 C++ 运行时的内存或模板机制。",
+            "evidence": "[48] 摘要指出：VEC 通过将计算密集任务无线卸载到路侧单元以提升效率，但“time-critical applications 的高效任务卸载与资源分配仍具挑战，原因在于资源受限”。该表述与实时性预算相关，但研究对象是车辆-边缘网络，而非 C++ 实时控制回路。",
+            "sources": [
+              48
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.DC，2025-12-16 提交，v1），候选块未给出会议/期刊录用信息，同行评审状态待核实",
+            "attention": "低 —— 候选块未提供引用数、下载量或榜单信号；且主题与机器人 C++ 实时工程相距较远",
+            "recommendation": "★☆☆☆☆ —— 仅可作为“实时/资源受限”大背景的弱类比引用，不能用于支撑 C++ 实时实践的结论"
+          },
+          {
+            "point": "候选集中另一条与“机载资源约束”相关的证据来自机器人持续学习方向，其将机载资源约束与安全适应、灾难性遗忘、数据效率并列为关键挑战，说明机器人学习侧确实存在计算预算问题，但同样未展开底层 C++ 实现层面的争议。",
+            "evidence": "[25] 摘要明确列出 continual learning 在机器人中需在“task and onboard resource constraints”下同时处理 safe adaptation、catastrophic forgetting、outlier management、data efficiency 与探索-利用平衡；全文未提及实时分配器、Eigen 对齐或模板编译代价。",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO，2025-04-25 v1 / 2025-09-06 v2），候选块未标注录用 venue，同行评审状态待核实",
+            "attention": "低 —— 候选块未提供引用数或其他热度信号；其关注点在算法层面的持续学习而非系统实现",
+            "recommendation": "★☆☆☆☆ —— 可作为“机载算力受限是机器人系统公认约束”的旁证，但无法回答本子问题的 C++ 工程争议"
+          },
+          {
+            "point": "候选证据整体呈现的检索偏向是“学习型策略与任务级智能”（VLA、持续学习、人机监督），缺少系统/基础设施（systems & infrastructure）视角的文献，这正是本子问题未被覆盖的根本原因。",
+            "evidence": "6 条候选中 4 条（[2][25][30][75]）属于策略学习、人机交互或 AI 对齐，1 条（[26]）属于定位感知，1 条（[48]）属于边缘计算；无一条来自系统软件、实时系统或机器人中间件方向，亦无可用的 GitHub 仓库或数据集入口可用于核实工程实践。",
+            "sources": [
+              2,
+              25,
+              26,
+              30,
+              48,
+              75
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 —— 属于对候选集构成的观察，非社区关注度信号",
+            "recommendation": "★☆☆☆☆ —— 建议以此为依据发起补充检索（如 site:github.com Eigen aligned operator new、ROS 2 real-time memory allocation、Pinocchio analytic Jacobian）后重做本子问题"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "自动微分 vs 解析雅可比：在实时控制回路中的取舍（延迟确定性、内存抖动、代码可维护性）——候选证据未涉及，待核实",
+          "实时内存分配：控制周期内禁止动态分配、预分配缓冲区、实时安全分配器与锁自由数据结构——候选证据未涉及，待核实",
+          "ABI/对齐问题：EIGEN_MAKE_ALIGNED_OPERATOR_NEW 与固定尺寸向量化类型的对齐要求、跨 ABI 边界的结构体布局风险——候选证据未涉及，待核实",
+          "编译时间与模板代价：Eigen/模板元编程导致的重编译时间、二进制膨胀与跨编译单元实例化——候选证据未涉及，待核实",
+          "候选证据缺口：本子问题需要系统软件/实时机器人中间件方向的来源（Eigen 官方文档、ROS 2 实时设计文档、ros2_control、Pinocchio/Drake 讨论等），当前 6 条候选均不可用"
+        ]
+      }
+    },
+    {
+      "id": "q6",
+      "question": "学习型策略（VLA / 神经网络策略）如何在实时 C++ 系统中部署：LibTorch、ONNX Runtime、TensorRT 与 ROS2 集成的现状与延迟约束？",
+      "queries": [
+        "LibTorch C++ inference real-time robotics latency 2025",
+        "ONNX Runtime ROS2 real-time policy deployment 2025",
+        "vision-language-action policy C++ inference latency 2025",
+        "机器人 学习策略 C++ 部署 实时 推理 延迟"
+      ],
+      "rationale": "该子问题连接主题关键词（pybind11、real-time C++）与具身智能前沿，属于交叉热点；需核查推理延迟、实时性与安全回退机制的一手数据，而非演示视频。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.044071,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.035795,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.034926,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories",
+          "url": "http://arxiv.org/abs/2607.15330v2",
+          "snippet": "We present Xiaomi-Robotics-1, a foundational vision-language-action (VLA) model capable of (1) following diverse language instructions to perform a wide range of mobile manipulation tasks in unseen environments out-of-the-box, and (2) efficiently adapting to novel downstream tasks with minimal fine-tuning data. We propose a two-stage training recipe consisting of pre-training and post-training. During pre-training, we imbue the model with broad and generalizable action-generation capabilities by training on over 100k hours of real-world manipulation trajectories collected via UMI devices. Cru…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-16",
+          "authors": [
+            " Xiaomi Robotics Team",
+            "Jun Guo",
+            "Piaopiao Jin",
+            "Jason Li",
+            "Peiyan Li",
+            "Yingyan Li",
+            "Futeng Liu",
+            "Wanli Peng",
+            "Optimus Qin",
+            "Yifei Su",
+            "Nan Sun",
+            "Qiao Sun",
+            "Runze Suo",
+            "Heyun Wang",
+            "Yunhong Wang",
+            "Rujie Wu",
+            "Caoyu Xia",
+            "Lina Zhang",
+            "Jack Zhao",
+            "Guoliang Chen",
+            "Wenlong Chen",
+            "Xinze He",
+            "Bin Li",
+            "Qing Li",
+            "Zhuorong Li",
+            "Heng Qu",
+            "Wenxuan Song",
+            "Diyun Xiang",
+            "Yifan Xie",
+            "Peiran Xu",
+            "Hangjun Ye",
+            "Wen Ye",
+            "Han Zhao",
+            "Quanyun Zhou"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.15330v2",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Action Flow Matching for Continual Robot Learning",
+          "url": "http://arxiv.org/abs/2504.18471v2",
+          "snippet": "Continual learning in robotics seeks systems that can constantly adapt to changing environments and tasks, mirroring human adaptability. A key challenge is refining dynamics models, essential for planning and control, while addressing issues such as safe adaptation, catastrophic forgetting, outlier management, data efficiency, and balancing exploration with exploitation -- all within task and onboard resource constraints. Towards this goal, we introduce a generative framework leveraging flow matching for online robot dynamics model alignment. Rather than executing actions based on a misaligne…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-25",
+          "authors": [
+            "Alejandro Murillo-Gonzalez",
+            "Lantao Liu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.18471v2",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "When Faster VLA Deployment Changes Closed-Loop Behavior: Task Success-Latency Analysis of SmolVLA Across PyTorch and ONNX Variants",
+          "url": "http://arxiv.org/abs/2609.14146v2",
+          "snippet": "Vision-language-action (VLA) deployment can reduce inference latency while changing closed-loop task behavior. We evaluate HuggingFaceVLA/smolvla_libero on an RTX 2060 (6 GB) in LIBERO Spatial and Object (MuJoCo 3.3.2, LeRobot 0.6.1, seed 42), comparing PyTorch+AMP with ONNX Runtime CUDA Execution Provider (CUDA EP). The main evaluation uses 100 episodes/suite; a paired rollout uses 300 episodes/suite. PyTorch+AMP reaches 70.0%/88.0% Spatial/Object success at 1181 ms p99. Requested-FP16 and requested-INT8 ONNX reduce tether-inspect p99 to 601 ms and 532 ms, while Spatial success falls to 41.0…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-12",
+          "authors": [
+            "Rafiqul Islam"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.14146v2",
+            "rrf_score": 0.019231
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q6",
+        "findings": [
+          {
+            "point": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+            "evidence": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading…",
+            "sources": [
+              48
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.DC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.DC）"
+          },
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              34
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              50
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories",
+            "evidence": "We present Xiaomi-Robotics-1, a foundational vision-language-action (VLA) model capable of (1) following diverse language instructions to perform a wide range of mobile manipulation tasks in unseen environments out-of-the-box, and (2) efficiently adapting to novel downstream tasks with minimal fine…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Action Flow Matching for Continual Robot Learning",
+            "evidence": "Continual learning in robotics seeks systems that can constantly adapt to changing environments and tasks, mirroring human adaptability. A key challenge is refining dynamics models, essential for planning and control, while addressing issues such as safe adaptation, catastrophic forgetting, outlier…",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "When Faster VLA Deployment Changes Closed-Loop Behavior: Task Success-Latency Analysis of SmolVLA Across PyTorch and ONNX Variants",
+            "evidence": "Vision-language-action (VLA) deployment can reduce inference latency while changing closed-loop task behavior. We evaluate HuggingFaceVLA/smolvla_libero on an RTX 2060 (6 GB) in LIBERO Spatial and Object (MuJoCo 3.3.2, LeRobot 0.6.1, seed 42), comparing PyTorch+AMP with ONNX Runtime CUDA Execution…",
+            "sources": [
+              53
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [
+    {
+      "coverage": "",
+      "gaps": [],
+      "additional_queries": [],
+      "additional_subquestions": []
+    }
+  ],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 20,
+    "prompt_tokens": 116257,
+    "completion_tokens": 61045,
+    "generated_at": "2026-10-04T02:59:09.171009+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# C++ 机器人工程与实时系统：证据化调研报告\n\n> **日期**：2026-10-04（UTC）\n> **研究领域**：机器人 C++ 软件生态 / 实时系统 / 数值与优化库 / 构建与包管理 / 学习型策略部署\n> **检索源规模**：106 条可引用候选编号（[1]–[106]）+ 12 项人工维护种子资源（无检索编号，链接单独标注）\n> **证据分级约定**：**A** = 同行评审论文 / 官方标准与文档；**B** = arXiv 预印本 / 官方代码仓库 / 官方数据集主页；**C** = 第三方复现 / 榜单；**D** = 社区帖子；**E** = 不可用\n> **引用纪律**：本报告只引用上述编号中真实存在的条目，不使用编号外的论文/项目/数字。种子资源因无编号，一律标注为「种子资源，无检索编号」，其热度/引用数不得据本报告断言。\n> **重大提示**：本次候选证据在 **C++ 语言标准、ROS2 执行器/DDS 实时化、CMake/Conan/vcpkg 构建与包管理、数值库横向基准、实时内存与模板代价争议** 五个子问题上存在 **系统性证据真空**。下文凡无一手证据处均以 `> 待核实` 显式标注，**不得将其读作「该方向无进展」**。\n\n---\n\n## 摘要（Executive Summary）\n\n**结论 1｜本次调研的首要产出是一个负面但重要的元发现：候选证据在核心子问题上系统性缺失。**\nq1（C++ 语言标准与实时执行框架）、q3（构建与包管理）、q4（库横向基准）、q5（实时内存/对齐/模板代价争议）四个子问题的候选块中，**没有任何一条**直接涉及 ISO C++ 标准编号、rclcpp 执行器、DDS/零拷贝、Conan/vcpkg、CMake 现代实践、clang-tidy、交叉编译或数值库对比基准 [2][25][48][80][82][87]。该缺口横跨多个子问题，属于**检索词构造失败**而非领域沉寂（依据：同一批检索中出现了大量与机器人无关的跨领域命中）。\n\n**结论 2｜但在候选池的完整编号表（[1]–[106]）中，确实存在若干高相关的可核查一手证据，构成报告的实体骨架：**\n\n| 主题 | 关键证据 | 证据等级 | 一句话价值 |\n|---|---|---|---|\n| ROS2 实时执行器 | [86] ring-buffer ROS2 executor（IEEE SCC 2023，DOI 10.1109/SCC57168.2023.00021） | **A** | 面向航天实时场景对 ROS2 执行器做结构性改造的一手工程论文 |\n| ROS2 多节点延迟 | [84\n\n## 参考来源\n\n[1] DQ Robotics: a Library for Robot Modeling and Control — http://arxiv.org/abs/1910.11612v3\n[2] Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories — http://arxiv.org/abs/2607.15330v2\n[3] Linear Mappings of Free Algebra — http://arxiv.org/abs/1003.1544v2\n[4] Non-linear positive maps between $C^*$-algebras — http://arxiv.org/abs/1811.03128v1\n[5] Robotic Template Library — http://arxiv.org/abs/2107.00324v1\n[6] Design of an Adaptive Lightweight LiDAR to Decouple Robot-Camera Geometry — http://arxiv.org/abs/2302.14334v2\n[7] Grüss type inequalities for positive linear maps on $C^*$-algebras — http://arxiv.org/abs/1610.03868v1\n[8] G.O.G: A Versatile Gripper-On-Gripper Design for Bimanual Cloth Manipulation with a Single Robotic Arm — http://arxiv.org/abs/2401.10702v1\n[9] Dilepton measurements with CERES — http://arxiv.org/abs/0802.2679v1\n[10] The CERES/NA45 Radial Drift Time Projection Chamber — http://arxiv.org/abs/0802.1443v2\n[11] BVRI photometric evolution of the very fast Nova Ophiuchi 2010 N.1 = V2673 Oph — http://arxiv.org/abs/1003.5371v1\n[12] A Molecular Implementation of the Least Mean Squares Estimator — http://arxiv.org/abs/1701.00602v1\n[13] Fast Convergence for Weighted Least Squares Estimates — http://arxiv.org/abs/2605.00198v3\n[14] nlstac: Non-Gradient Separable Nonlinear Least Squares Fitting — http://arxiv.org/abs/2402.04124v1\n[15] Convergence of Alternating Least Squares Optimisation for Rank-One Approximation to High Order Tensors — http://arxiv.org/abs/1503.05431v1\n[16] The Cosmological Parameters 2010 — http://arxiv.org/abs/1002.3488v1\n[17] Four Simple Proprioceptive Estimators for Legged Robots — http://arxiv.org/abs/2605.23100v1\n[18] The 4th Reactive Synthesis Competition (SYNTCOMP 2017): Benchmarks, Participants & Results — http://arxiv.org/abs/1711.11439v1\n[19] Ghosts of Jupiter's past: is 2017 UV43 a relative of comet Shoemaker-Levy 9? — http://arxiv.org/abs/1712.03230v2\n[20] ConceptNet at SemEval-2017 Task 2: Extending Word Embeddings with Multilingual Relational Knowledge — http://arxiv.org/abs/1704.03560v2\n[21] Smoothing Out the Edges: Continuous-Time Estimation with Gaussian Process Motion Priors on Factor Graphs — http://arxiv.org/abs/2605.09073v1\n[22] Relevance Score of Triplets Using Knowledge Graph Embedding - The Pigweed Triple Scorer at WSDM Cup 2017 — http://arxiv.org/abs/1712.08353v1\n[23] Batch and Incremental Kinodynamic Motion Planning using Dynamic Factor Graphs — http://arxiv.org/abs/2005.12514v2\n[24] Pre-proceedings of the 27th International Symposium on Logic-Based Program Synthesis and Transformation (LOPSTR 2017) — http://arxiv.org/abs/1708.07854v2\n[25] Action Flow Matching for Continual Robot Learning — http://arxiv.org/abs/2504.18471v2\n[26] Scalable Aerial GNSS Localization for Marine Robots — http://arxiv.org/abs/2505.04095v2\n[27] Using Physiological Measures, Gaze, and Facial Expressions to Model Human Trust in a Robot Partner — http://arxiv.org/abs/2504.05291v1\n[28] Model-Based Capacitive Touch Sensing in Soft Robotics: Achieving Robust Tactile Interactions for Artistic Applications — http://arxiv.org/abs/2503.02280v1\n[29] Technical Report for ICRA 2025 GOOSE 3D Semantic Segmentation Challenge: Adaptive Point Cloud Understanding for Heterogeneous Robotic Systems — http://arxiv.org/abs/2506.06995v1\n[30] Influence of Operator Expertise on Robot Supervision and Intervention — http://arxiv.org/abs/2601.15069v2\n[31] Python Bindings for a Large C++ Robotics Library: The Case of OMPL — http://arxiv.org/abs/2603.04668v1\n[32] ACM COMPUTE 2025 Best Practices Track Proceedings — http://arxiv.org/abs/2512.02349v2\n[33] Nine Best Practices for Research Software Registries and Repositories: A Concise Guide — http://arxiv.org/abs/2012.13117v1\n[34] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[35] CONAN -- the cruncher of local exchange coefficients for strongly interacting confined systems in one dimension — http://arxiv.org/abs/1603.02662v2\n[36] Conan: a platform for complex network analysis — http://arxiv.org/abs/1012.0091v1\n[37] CONAN: Complementary Pattern Augmentation for Rare Disease Detection — http://arxiv.org/abs/1911.13232v1\n[38] Fast Iterative Tomographic Wave-front Estimation with Recursive Toeplitz Reconstructor Structure for Large Scale Systems — http://arxiv.org/abs/1806.07938v1\n[39] CONAN: A Python package for modeling lightcurve and radial velocity data of exoplanetary systems — http://arxiv.org/abs/2508.20196v1\n[40] FC-CONAN: An Exhaustively Paired Dataset for Robust Evaluation of Retrieval Systems — http://arxiv.org/abs/2601.01350v1\n[41] Python Bindings for a Large C++ Robotics Library:The Case of OMPL — https://arxiv.org/html/2603.04668v1\n[42] The $^{12}$C(n, 2n)$^{11}$C cross section from threshold to 26.5 MeV — http://arxiv.org/abs/1707.09375v2\n[43] Conan: Progressive Learning to Reason Like a Detective over Multi-Scale Visual Evidence — http://arxiv.org/abs/2510.20470v2\n[44] Simple-Robotics/nanoeigenpy - GitHub — https://github.com/Simple-Robotics/nanoeigenpy\n[45] RobotPy · Python 3 for the FIRST Robotics Competition (FRC) — https://robotpy.github.io/\n[46] Creating a C++ Extension - Robot Control Stack — https://robotcontrolstack.org/development/cpp_extension.html\n[47] Developing a Python Interface utilizing Pybind11 for SHOT - Doria — https://www.doria.fi/bitstream/handle/10024/192709/ekman_johan.pdf?sequence=2&isAllowed=y\n[48] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1\n[49] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1\n[50] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[51] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[52] Developing a Robotic Surgery Training System for Wide Accessibility and Research — http://arxiv.org/abs/2505.20562v2\n[53] When Faster VLA Deployment Changes Closed-Loop Behavior: Task Success-Latency Analysis of SmolVLA Across PyTorch and ONNX Variants — http://arxiv.org/abs/2609.14146v2\n[54] Self-Supervised Policy Adaptation during Deployment — http://arxiv.org/abs/2007.04309v3\n[55] Real-Time-Data Analytics in Raw Materials Handling — http://arxiv.org/abs/1802.00625v1\n[56] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1\n[57] BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Models — http://arxiv.org/abs/2512.11769v1\n[58] Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge — http://arxiv.org/abs/2512.06951v2\n[59] Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection — http://arxiv.org/abs/2603.13782v1\n[60] Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos — http://arxiv.org/abs/2607.10797v1\n[61] Observation of $Ξ_{c}(2930)^0$ and updated measurement of $B^{-} \\to K^{-} Λ_{c}^{+} \\barΛ_{c}^{-}$ at Belle — http://arxiv.org/abs/1712.03612v3\n[62] Characterizing the astrophysical S-factor for $^{12}$C+$^{12}$C with wave-packet dynamics — http://arxiv.org/abs/1802.01160v6\n[63] Measurement of Meson Resonance Production in $π^{-} + $C Interactions at SPS energies — http://arxiv.org/abs/1705.08206v1\n[64] $^{15}$C: from Halo-EFT structure to the study of transfer, breakup and radiative-capture reactions — http://arxiv.org/abs/1907.11753v2\n[65] Differentiable Physics-based System Identification for Robotic Manipulation of Elastoplastic Materials — http://arxiv.org/abs/2411.00554v3\n[66] DDBot: Differentiable Physics-based Digging Robot for Unknown Granular Materials — http://arxiv.org/abs/2510.17335v4\n[67] Automatically designing robot swarms in environments populated by other robots: an experiment in robot shepherding — http://arxiv.org/abs/2404.18221v1\n[68] Secure and secret cooperation in robotic swarms — http://arxiv.org/abs/1904.09266v3\n[69] A Survey of Robot Manipulation in Contact — http://arxiv.org/abs/2112.01942v3\n[70] Optimal Algorithm Allocation for Robotic Network Cloud Systems — http://arxiv.org/abs/2104.12710v5\n[71] Eigen mode selection in human subject game experiment — http://arxiv.org/abs/2204.08071v1\n[72] Deliberative Technology for Alignment — http://arxiv.org/abs/2312.03893v1\n[73] Stochastic invariance of closed sets for jump-diffusions with non-Lipschitz coefficients — http://arxiv.org/abs/1612.07647v2\n[74] Measurement incompatibility under loss — http://arxiv.org/abs/2411.05920v3\n[75] Aligning Artificial Superintelligence via a Multi-Box Protocol — http://arxiv.org/abs/2511.21779v1\n[76] Gain Stabilization of SiPMs — http://arxiv.org/abs/1403.8104v1\n[77] Incompatibility of the Copenhagen interpretation with quantum mechanics formalism — http://arxiv.org/abs/physics/0604111v2\n[78] Towards Learning Geometric Eigen-Lengths Crucial for Fitting Tasks — http://arxiv.org/abs/2312.15610v1\n[79] ROBUSfT: Robust Real-Time Shape-from-Template, a C++ Library — http://arxiv.org/abs/2301.04037v3\n[80] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1\n[81] Autonomous Planning In-space Assembly Reinforcement-learning free-flYer (APIARY) International Space Station Astrobee Testing — http://arxiv.org/abs/2512.03729v1\n[82] CMU's IWSLT 2025 Simultaneous Speech Translation System — http://arxiv.org/abs/2506.13143v1\n[83] Towards Transparent Ethical AI: A Roadmap for Trustworthy Robotic Systems — http://arxiv.org/abs/2508.05846v1\n[84] Latency Analysis of ROS2 Multi-Node Systems — http://arxiv.org/abs/2101.02074v3\n[85] On the Off-chip Memory Latency of Real-Time Systems: Is DDR DRAM Really the Best Option? — http://arxiv.org/abs/1810.07059v1\n[86] The ring-buffer ROS2 executor: a novel approach for real-time ROS2 Space applications — https://doi.org/10.1109/SCC57168.2023.00021\n[87] Edge Computing–Enabled Intelligent Financial Auditing: An Advanced Real-Time Framework for Automated Fraud Detection, Predictive Accounting Analytics, and Financial Risk Assessment — https://doi.org/10.63544/jbii.v5i5.194\n[88] Self-Evolving Autonomous Software Architectures Using Large-Scale Graph Neural Networks and Real-Time Big Data Feedback Loops for Economic Optimization and Cost-Efficient Resource Allocation — https://doi.org/10.63544/jbii.v5i5.188\n[89] A Task-Agnostic Algebraic Integrity Metric for Event-Camera Streams Toward SOTIF-Compliant Perception using Pearson Correlation Coefficient — https://arxiv.org/abs/2605.21500\n[90] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1\n[91] VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models: Methods and Results — http://arxiv.org/abs/2509.09190v1\n[92] Developing a 21st Century Global Library for Mathematics Research — http://arxiv.org/abs/1404.1905v1\n[93] The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset — http://arxiv.org/abs/2405.19595v1\n[94] Student's T Robust Bundle Adjustment Algorithm — http://arxiv.org/abs/1111.1400v1\n[95] Power Bundle Adjustment for Large-Scale 3D Reconstruction — http://arxiv.org/abs/2204.12834v4\n[96] Pedestrian Attribute Recognition: A New Benchmark Dataset and A Large Language Model Augmented Framework — http://arxiv.org/abs/2408.09720v1\n[97] The RSNA Lumbar Degenerative Imaging Spine Classification (LumbarDISC) Dataset — http://arxiv.org/abs/2506.09162v1\n[98] Bitstream-Corrupted Video Recovery: A Novel Benchmark Dataset and Method — http://arxiv.org/abs/2309.13890v2\n[99] CPRet: A Dataset, Benchmark, and Model for Retrieval in Competitive Programming — http://arxiv.org/abs/2505.12925v2\n[100] L-FAME: Longitudinal Focused Attention Meditation EEG Dataset and Benchmark — http://arxiv.org/abs/2605.22893v1\n[101] PINOCCHIO and the hierarchical build-up of dark matter haloes — http://arxiv.org/abs/astro-ph/0109324v1\n[102] Robust bundle adjustment for large-scale structure from motion — https://doi.org/10.1007/s11042-017-4581-5\n[103] The Relativistic Elasticity of Rigid Bodies — http://arxiv.org/abs/physics/0307019v3\n[104] Caspar: CUDA Accelerator for Symbolic Programming with Adaptive Reordering — https://doi.org/10.48550/arxiv.2605.30583\n[105] On the invariant motions of rigid body rotation over the fixed point, via Euler angles — http://arxiv.org/abs/1601.04526v1\n[106] Network Anatomy and Real-Time Measurement of Nvidia GeForce NOW Cloud Gaming — http://arxiv.org/abs/2401.06366v2\n\n\n---\n\n*Generated by research-bot · topic=`cpp-robotics` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=106 · duration=255s · 2026-10-04T02:59:09+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "DQ Robotics: a Library for Robot Modeling and Control",
+      "url": "http://arxiv.org/abs/1910.11612v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-10-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories",
+      "url": "http://arxiv.org/abs/2607.15330v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Linear Mappings of Free Algebra",
+      "url": "http://arxiv.org/abs/1003.1544v2",
+      "kind": "paper",
+      "venue": "math.RA",
+      "published": "2010-03-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Non-linear positive maps between $C^*$-algebras",
+      "url": "http://arxiv.org/abs/1811.03128v1",
+      "kind": "paper",
+      "venue": "math.OA",
+      "published": "2018-11-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Robotic Template Library",
+      "url": "http://arxiv.org/abs/2107.00324v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Design of an Adaptive Lightweight LiDAR to Decouple Robot-Camera Geometry",
+      "url": "http://arxiv.org/abs/2302.14334v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-02-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Grüss type inequalities for positive linear maps on $C^*$-algebras",
+      "url": "http://arxiv.org/abs/1610.03868v1",
+      "kind": "paper",
+      "venue": "math.OA",
+      "published": "2016-10-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "G.O.G: A Versatile Gripper-On-Gripper Design for Bimanual Cloth Manipulation with a Single Robotic Arm",
+      "url": "http://arxiv.org/abs/2401.10702v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-01-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Dilepton measurements with CERES",
+      "url": "http://arxiv.org/abs/0802.2679v1",
+      "kind": "paper",
+      "venue": "nucl-ex",
+      "published": "2008-02-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "The CERES/NA45 Radial Drift Time Projection Chamber",
+      "url": "http://arxiv.org/abs/0802.1443v2",
+      "kind": "paper",
+      "venue": "nucl-ex",
+      "published": "2008-02-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "BVRI photometric evolution of the very fast Nova Ophiuchi 2010 N.1 = V2673 Oph",
+      "url": "http://arxiv.org/abs/1003.5371v1",
+      "kind": "paper",
+      "venue": "astro-ph.SR",
+      "published": "2010-03-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "A Molecular Implementation of the Least Mean Squares Estimator",
+      "url": "http://arxiv.org/abs/1701.00602v1",
+      "kind": "paper",
+      "venue": "q-bio.MN",
+      "published": "2017-01-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Fast Convergence for Weighted Least Squares Estimates",
+      "url": "http://arxiv.org/abs/2605.00198v3",
+      "kind": "paper",
+      "venue": "math.ST",
+      "published": "2026-04-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "nlstac: Non-Gradient Separable Nonlinear Least Squares Fitting",
+      "url": "http://arxiv.org/abs/2402.04124v1",
+      "kind": "paper",
+      "venue": "math.ST",
+      "published": "2024-02-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Convergence of Alternating Least Squares Optimisation for Rank-One Approximation to High Order Tensors",
+      "url": "http://arxiv.org/abs/1503.05431v1",
+      "kind": "paper",
+      "venue": "math.NA",
+      "published": "2015-03-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "The Cosmological Parameters 2010",
+      "url": "http://arxiv.org/abs/1002.3488v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2010-02-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Four Simple Proprioceptive Estimators for Legged Robots",
+      "url": "http://arxiv.org/abs/2605.23100v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-05-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "The 4th Reactive Synthesis Competition (SYNTCOMP 2017): Benchmarks, Participants & Results",
+      "url": "http://arxiv.org/abs/1711.11439v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2017-11-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Ghosts of Jupiter's past: is 2017 UV43 a relative of comet Shoemaker-Levy 9?",
+      "url": "http://arxiv.org/abs/1712.03230v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2017-12-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "ConceptNet at SemEval-2017 Task 2: Extending Word Embeddings with Multilingual Relational Knowledge",
+      "url": "http://arxiv.org/abs/1704.03560v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2017-04-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Smoothing Out the Edges: Continuous-Time Estimation with Gaussian Process Motion Priors on Factor Graphs",
+      "url": "http://arxiv.org/abs/2605.09073v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-05-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Relevance Score of Triplets Using Knowledge Graph Embedding - The Pigweed Triple Scorer at WSDM Cup 2017",
+      "url": "http://arxiv.org/abs/1712.08353v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2017-12-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Batch and Incremental Kinodynamic Motion Planning using Dynamic Factor Graphs",
+      "url": "http://arxiv.org/abs/2005.12514v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-05-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Pre-proceedings of the 27th International Symposium on Logic-Based Program Synthesis and Transformation (LOPSTR 2017)",
+      "url": "http://arxiv.org/abs/1708.07854v2",
+      "kind": "paper",
+      "venue": "cs.PL",
+      "published": "2017-08-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Action Flow Matching for Continual Robot Learning",
+      "url": "http://arxiv.org/abs/2504.18471v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-04-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Scalable Aerial GNSS Localization for Marine Robots",
+      "url": "http://arxiv.org/abs/2505.04095v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Using Physiological Measures, Gaze, and Facial Expressions to Model Human Trust in a Robot Partner",
+      "url": "http://arxiv.org/abs/2504.05291v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-04-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Model-Based Capacitive Touch Sensing in Soft Robotics: Achieving Robust Tactile Interactions for Artistic Applications",
+      "url": "http://arxiv.org/abs/2503.02280v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-03-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Technical Report for ICRA 2025 GOOSE 3D Semantic Segmentation Challenge: Adaptive Point Cloud Understanding for Heterogeneous Robotic Systems",
+      "url": "http://arxiv.org/abs/2506.06995v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-06-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Influence of Operator Expertise on Robot Supervision and Intervention",
+      "url": "http://arxiv.org/abs/2601.15069v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-01-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Python Bindings for a Large C++ Robotics Library: The Case of OMPL",
+      "url": "http://arxiv.org/abs/2603.04668v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-03-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "ACM COMPUTE 2025 Best Practices Track Proceedings",
+      "url": "http://arxiv.org/abs/2512.02349v2",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Nine Best Practices for Research Software Registries and Repositories: A Concise Guide",
+      "url": "http://arxiv.org/abs/2012.13117v1",
+      "kind": "paper",
+      "venue": "cs.DL",
+      "published": "2020-12-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "CONAN -- the cruncher of local exchange coefficients for strongly interacting confined systems in one dimension",
+      "url": "http://arxiv.org/abs/1603.02662v2",
+      "kind": "paper",
+      "venue": "cond-mat.quant-gas",
+      "published": "2016-03-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "Conan: a platform for complex network analysis",
+      "url": "http://arxiv.org/abs/1012.0091v1",
+      "kind": "paper",
+      "venue": "q-bio.QM",
+      "published": "2010-12-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 37,
+      "title": "CONAN: Complementary Pattern Augmentation for Rare Disease Detection",
+      "url": "http://arxiv.org/abs/1911.13232v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2019-11-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 38,
+      "title": "Fast Iterative Tomographic Wave-front Estimation with Recursive Toeplitz Reconstructor Structure for Large Scale Systems",
+      "url": "http://arxiv.org/abs/1806.07938v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2018-06-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 39,
+      "title": "CONAN: A Python package for modeling lightcurve and radial velocity data of exoplanetary systems",
+      "url": "http://arxiv.org/abs/2508.20196v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2025-08-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 40,
+      "title": "FC-CONAN: An Exhaustively Paired Dataset for Robust Evaluation of Retrieval Systems",
+      "url": "http://arxiv.org/abs/2601.01350v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-01-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 41,
+      "title": "Python Bindings for a Large C++ Robotics Library:The Case of OMPL",
+      "url": "https://arxiv.org/html/2603.04668v1",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 42,
+      "title": "The $^{12}$C(n, 2n)$^{11}$C cross section from threshold to 26.5 MeV",
+      "url": "http://arxiv.org/abs/1707.09375v2",
+      "kind": "paper",
+      "venue": "nucl-ex",
+      "published": "2017-07-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 43,
+      "title": "Conan: Progressive Learning to Reason Like a Detective over Multi-Scale Visual Evidence",
+      "url": "http://arxiv.org/abs/2510.20470v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 44,
+      "title": "Simple-Robotics/nanoeigenpy - GitHub",
+      "url": "https://github.com/Simple-Robotics/nanoeigenpy",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 45,
+      "title": "RobotPy · Python 3 for the FIRST Robotics Competition (FRC)",
+      "url": "https://robotpy.github.io/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 46,
+      "title": "Creating a C++ Extension - Robot Control Stack",
+      "url": "https://robotcontrolstack.org/development/cpp_extension.html",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 47,
+      "title": "Developing a Python Interface utilizing Pybind11 for SHOT - Doria",
+      "url": "https://www.doria.fi/bitstream/handle/10024/192709/ekman_johan.pdf?sequence=2&isAllowed=y",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 48,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 49,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 50,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 51,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 52,
+      "title": "Developing a Robotic Surgery Training System for Wide Accessibility and Research",
+      "url": "http://arxiv.org/abs/2505.20562v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 53,
+      "title": "When Faster VLA Deployment Changes Closed-Loop Behavior: Task Success-Latency Analysis of SmolVLA Across PyTorch and ONNX Variants",
+      "url": "http://arxiv.org/abs/2609.14146v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 54,
+      "title": "Self-Supervised Policy Adaptation during Deployment",
+      "url": "http://arxiv.org/abs/2007.04309v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2020-07-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 55,
+      "title": "Real-Time-Data Analytics in Raw Materials Handling",
+      "url": "http://arxiv.org/abs/1802.00625v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-02-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 56,
+      "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+      "url": "http://arxiv.org/abs/2608.17095v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-08-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 57,
+      "title": "BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Models",
+      "url": "http://arxiv.org/abs/2512.11769v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 58,
+      "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+      "url": "http://arxiv.org/abs/2512.06951v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 59,
+      "title": "Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection",
+      "url": "http://arxiv.org/abs/2603.13782v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-03-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 60,
+      "title": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+      "url": "http://arxiv.org/abs/2607.10797v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-07-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 61,
+      "title": "Observation of $Ξ_{c}(2930)^0$ and updated measurement of $B^{-} \\to K^{-} Λ_{c}^{+} \\barΛ_{c}^{-}$ at Belle",
+      "url": "http://arxiv.org/abs/1712.03612v3",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2017-12-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 62,
+      "title": "Characterizing the astrophysical S-factor for $^{12}$C+$^{12}$C with wave-packet dynamics",
+      "url": "http://arxiv.org/abs/1802.01160v6",
+      "kind": "paper",
+      "venue": "nucl-th",
+      "published": "2018-02-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 63,
+      "title": "Measurement of Meson Resonance Production in $π^{-} + $C Interactions at SPS energies",
+      "url": "http://arxiv.org/abs/1705.08206v1",
+      "kind": "paper",
+      "venue": "nucl-ex",
+      "published": "2017-05-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 64,
+      "title": "$^{15}$C: from Halo-EFT structure to the study of transfer, breakup and radiative-capture reactions",
+      "url": "http://arxiv.org/abs/1907.11753v2",
+      "kind": "paper",
+      "venue": "nucl-th",
+      "published": "2019-07-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 65,
+      "title": "Differentiable Physics-based System Identification for Robotic Manipulation of Elastoplastic Materials",
+      "url": "http://arxiv.org/abs/2411.00554v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-11-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 66,
+      "title": "DDBot: Differentiable Physics-based Digging Robot for Unknown Granular Materials",
+      "url": "http://arxiv.org/abs/2510.17335v4",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 67,
+      "title": "Automatically designing robot swarms in environments populated by other robots: an experiment in robot shepherding",
+      "url": "http://arxiv.org/abs/2404.18221v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 68,
+      "title": "Secure and secret cooperation in robotic swarms",
+      "url": "http://arxiv.org/abs/1904.09266v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-04-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 69,
+      "title": "A Survey of Robot Manipulation in Contact",
+      "url": "http://arxiv.org/abs/2112.01942v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-12-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 70,
+      "title": "Optimal Algorithm Allocation for Robotic Network Cloud Systems",
+      "url": "http://arxiv.org/abs/2104.12710v5",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-04-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 71,
+      "title": "Eigen mode selection in human subject game experiment",
+      "url": "http://arxiv.org/abs/2204.08071v1",
+      "kind": "paper",
+      "venue": "econ.TH",
+      "published": "2022-04-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 72,
+      "title": "Deliberative Technology for Alignment",
+      "url": "http://arxiv.org/abs/2312.03893v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2023-12-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 73,
+      "title": "Stochastic invariance of closed sets for jump-diffusions with non-Lipschitz coefficients",
+      "url": "http://arxiv.org/abs/1612.07647v2",
+      "kind": "paper",
+      "venue": "math.PR",
+      "published": "2016-12-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 74,
+      "title": "Measurement incompatibility under loss",
+      "url": "http://arxiv.org/abs/2411.05920v3",
+      "kind": "paper",
+      "venue": "quant-ph",
+      "published": "2024-11-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 75,
+      "title": "Aligning Artificial Superintelligence via a Multi-Box Protocol",
+      "url": "http://arxiv.org/abs/2511.21779v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-11-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 76,
+      "title": "Gain Stabilization of SiPMs",
+      "url": "http://arxiv.org/abs/1403.8104v1",
+      "kind": "paper",
+      "venue": "physics.ins-det",
+      "published": "2014-03-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 77,
+      "title": "Incompatibility of the Copenhagen interpretation with quantum mechanics formalism",
+      "url": "http://arxiv.org/abs/physics/0604111v2",
+      "kind": "paper",
+      "venue": "physics.gen-ph",
+      "published": "2006-04-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 78,
+      "title": "Towards Learning Geometric Eigen-Lengths Crucial for Fitting Tasks",
+      "url": "http://arxiv.org/abs/2312.15610v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2023-12-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 79,
+      "title": "ROBUSfT: Robust Real-Time Shape-from-Template, a C++ Library",
+      "url": "http://arxiv.org/abs/2301.04037v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2023-01-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 80,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 81,
+      "title": "Autonomous Planning In-space Assembly Reinforcement-learning free-flYer (APIARY) International Space Station Astrobee Testing",
+      "url": "http://arxiv.org/abs/2512.03729v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 82,
+      "title": "CMU's IWSLT 2025 Simultaneous Speech Translation System",
+      "url": "http://arxiv.org/abs/2506.13143v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 83,
+      "title": "Towards Transparent Ethical AI: A Roadmap for Trustworthy Robotic Systems",
+      "url": "http://arxiv.org/abs/2508.05846v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-08-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 84,
+      "title": "Latency Analysis of ROS2 Multi-Node Systems",
+      "url": "http://arxiv.org/abs/2101.02074v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-01-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 85,
+      "title": "On the Off-chip Memory Latency of Real-Time Systems: Is DDR DRAM Really the Best Option?",
+      "url": "http://arxiv.org/abs/1810.07059v1",
+      "kind": "paper",
+      "venue": "cs.AR",
+      "published": "2018-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 86,
+      "title": "The ring-buffer ROS2 executor: a novel approach for real-time ROS2 Space applications",
+      "url": "https://doi.org/10.1109/SCC57168.2023.00021",
+      "kind": "paper",
+      "venue": "IEEE International Conference on Services Computing",
+      "published": "2023-07-01",
+      "citations": 5,
+      "stars": null
+    },
+    {
+      "n": 87,
+      "title": "Edge Computing–Enabled Intelligent Financial Auditing: An Advanced Real-Time Framework for Automated Fraud Detection, Predictive Accounting Analytics, and Financial Risk Assessment",
+      "url": "https://doi.org/10.63544/jbii.v5i5.194",
+      "kind": "paper",
+      "venue": "Journal of Business Insight and Innovation",
+      "published": "2026-05-25",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 88,
+      "title": "Self-Evolving Autonomous Software Architectures Using Large-Scale Graph Neural Networks and Real-Time Big Data Feedback Loops for Economic Optimization and Cost-Efficient Resource Allocation",
+      "url": "https://doi.org/10.63544/jbii.v5i5.188",
+      "kind": "paper",
+      "venue": "Journal of Business Insight and Innovation",
+      "published": "2026-05-26",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 89,
+      "title": "A Task-Agnostic Algebraic Integrity Metric for Event-Camera Streams Toward SOTIF-Compliant Perception using Pearson Correlation Coefficient",
+      "url": "https://arxiv.org/abs/2605.21500",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2026-05-08",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 90,
+      "title": "The AudioMOS Challenge 2025",
+      "url": "http://arxiv.org/abs/2509.01336v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 91,
+      "title": "VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.09190v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 92,
+      "title": "Developing a 21st Century Global Library for Mathematics Research",
+      "url": "http://arxiv.org/abs/1404.1905v1",
+      "kind": "paper",
+      "venue": "math.HO",
+      "published": "2014-04-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 93,
+      "title": "The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset",
+      "url": "http://arxiv.org/abs/2405.19595v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 94,
+      "title": "Student's T Robust Bundle Adjustment Algorithm",
+      "url": "http://arxiv.org/abs/1111.1400v1",
+      "kind": "paper",
+      "venue": "stat.CO",
+      "published": "2011-11-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 95,
+      "title": "Power Bundle Adjustment for Large-Scale 3D Reconstruction",
+      "url": "http://arxiv.org/abs/2204.12834v4",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2022-04-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 96,
+      "title": "Pedestrian Attribute Recognition: A New Benchmark Dataset and A Large Language Model Augmented Framework",
+      "url": "http://arxiv.org/abs/2408.09720v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-08-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 97,
+      "title": "The RSNA Lumbar Degenerative Imaging Spine Classification (LumbarDISC) Dataset",
+      "url": "http://arxiv.org/abs/2506.09162v1",
+      "kind": "paper",
+      "venue": "eess.IV",
+      "published": "2025-06-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 98,
+      "title": "Bitstream-Corrupted Video Recovery: A Novel Benchmark Dataset and Method",
+      "url": "http://arxiv.org/abs/2309.13890v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2023-09-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 99,
+      "title": "CPRet: A Dataset, Benchmark, and Model for Retrieval in Competitive Programming",
+      "url": "http://arxiv.org/abs/2505.12925v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-05-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 100,
+      "title": "L-FAME: Longitudinal Focused Attention Meditation EEG Dataset and Benchmark",
+      "url": "http://arxiv.org/abs/2605.22893v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2026-05-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 101,
+      "title": "PINOCCHIO and the hierarchical build-up of dark matter haloes",
+      "url": "http://arxiv.org/abs/astro-ph/0109324v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2001-09-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 102,
+      "title": "Robust bundle adjustment for large-scale structure from motion",
+      "url": "https://doi.org/10.1007/s11042-017-4581-5",
+      "kind": "paper",
+      "venue": "Multimedia Tools and Applications",
+      "published": "2017-04-01",
+      "citations": 25,
+      "stars": null
+    },
+    {
+      "n": 103,
+      "title": "The Relativistic Elasticity of Rigid Bodies",
+      "url": "http://arxiv.org/abs/physics/0307019v3",
+      "kind": "paper",
+      "venue": "physics.gen-ph",
+      "published": "2003-07-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 104,
+      "title": "Caspar: CUDA Accelerator for Symbolic Programming with Adaptive Reordering",
+      "url": "https://doi.org/10.48550/arxiv.2605.30583",
+      "kind": "paper",
+      "venue": "arXiv (Cornell University)",
+      "published": "2026-05-28",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 105,
+      "title": "On the invariant motions of rigid body rotation over the fixed point, via Euler angles",
+      "url": "http://arxiv.org/abs/1601.04526v1",
+      "kind": "paper",
+      "venue": "physics.gen-ph",
+      "published": "2015-12-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 106,
+      "title": "Network Anatomy and Real-Time Measurement of Nvidia GeForce NOW Cloud Gaming",
+      "url": "http://arxiv.org/abs/2401.06366v2",
+      "kind": "paper",
+      "venue": "cs.NI",
+      "published": "2024-01-12",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-04-cpp-robotics.md",
+    "json": "report/2026/10/2026-10-04-cpp-robotics.json"
+  }
+}

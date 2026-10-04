@@ -1,0 +1,2946 @@
+{
+  "topic": "music-audio",
+  "title": "音乐与音频算法深度调研计划：MIR、音乐生成、音乐理解、歌声转换、音源分离与翻唱识别的经典与前沿",
+  "query": "",
+  "depth": "standard",
+  "language": "bilingual",
+  "started_at": "2026-10-04T04:14:15+00:00",
+  "finished_at": "2026-10-04T04:48:04+00:00",
+  "duration_s": 2028.8,
+  "rounds": 2,
+  "plan": {
+    "title": "音乐与音频算法深度调研计划：MIR、音乐生成、音乐理解、歌声转换、音源分离与翻唱识别的经典与前沿",
+    "summary": "系统梳理音乐信息检索、音乐生成与理解、歌声转换、音源分离、翻唱识别及自监督音频表征的奠基工作、2024-2026 最新进展、开源工程栈、数据集基准与开放争议，形成可核查的论文与项目清单。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "音乐与音频算法的奠基工作与技术演进脉络是什么？（MIR 任务体系、表征方法、深度学习的引入与 neuro-symbolic 传统）",
+        "rationale": "需要先建立 taxonomy 与时间轴骨架：从手工特征（chroma/HPCP、MFCC、HPSS、dynamic-programming beat tracking）到 CNN/CRNN、Transformer 与自监督，才能判断哪些是真正的新范式、哪些是旧任务的重新包装。",
+        "queries": [
+          "music information retrieval survey fundamentals Müller 2021 pattern recognition",
+          "ISMIR 20 years music information retrieval review taxonomy",
+          "deep learning for music information retrieval survey 2017 IEEE TASLP",
+          "beat tracking dynamic programming Ellis 2007 chroma HPCP chord recognition"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "近 1-2 年音乐生成（text-to-music、可控生成、扩散与自回归 token 模型）的前沿进展与代表模型有哪些？",
+        "rationale": "生成方向迭代最快、厂商与学术高度混杂，需要区分「demo 视频/技术报告」与「有客观指标与第三方复现」的工作，并按时间线梳理 MusicGen、Stable Audio、音频 codec-LM 路线的分野。",
+        "queries": [
+          "text to music generation diffusion transformer survey 2025",
+          "MusicGen AudioCraft Stable Audio Open Meta audio generation 2024",
+          "text-to-music benchmark evaluation FAD CLAP score music generation 2024 2025",
+          "基于语言模型的音乐生成 音频codec 2025 综述"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "github",
+          "bing"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "音乐理解、自监督音频表征与音频-语言基础模型（audio representation learning、audio LLM、neural audio codec）的现状与基准表现如何？",
+        "rationale": "理解与表征是 MIR 任务迁移能力的核心，也是「音乐基础模型」叙事的依据；需交叉核对模型论文宣称的 probing 结果与独立榜单/复现，避免把单一数据集 SOTA 当作通用能力。",
+        "queries": [
+          "self-supervised audio representation learning music MERT MusicFM 2024 2025",
+          "CLAP music audio language contrastive representation music understanding",
+          "music foundation model music understanding 2025 transformer audio LLM",
+          "神经网络音频编解码器 neural audio codec 音乐 表征 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex",
+          "github"
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "歌声转换（SVC）、音源分离与翻唱识别（CSI）这三类任务的前沿方法、评测口径与真机/真曲目上的实际效果如何？",
+        "rationale": "这三个任务常被并列讨论但评测体系差异极大：SVC 依赖说话人/歌手相似度与自然度主观评测，分离依赖 SI-SDR/SDR 与 MUSDB 榜单，CSI 依赖 Covers80/DA-TACOS 等小规模集合，混淆口径会得出错误结论。",
+        "queries": [
+          "singing voice conversion zero-shot diffusion 2025 SVC survey",
+          "music source separation benchmark 2025 Demucs MDX SDR MUSDB18",
+          "cover song identification CSI deep learning 2024 2025 cross-domain",
+          "歌声转换 零样本 扩散模型 翻唱识别 2025 音源分离 综述"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "github",
+          "bing"
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "该领域可用的数据集、评测基准与挑战赛（MIREX、MUSDB18-HQ、MTG-Jamendo、MusicCaps、DA-TACOS、Slakh、FMA 等）现状、许可与可比性如何？",
+        "rationale": "数据与许可直接决定复现可行性与法律风险（尤其生成模型训练数据与翻唱识别），且各基准的划分方式、版权状态与评测脚本质量参差，必须逐项核实主页与官方说明。",
+        "queries": [
+          "MIREX challenge 2025 tasks results music information retrieval",
+          "MUSDB18-HQ MoisesDB music source separation dataset license",
+          "MTG-Jamendo MusicCaps Song Describer music captioning dataset",
+          "cover song identification dataset DA-TACOS Covers80 Second Hand Songs benchmark"
+        ],
+        "prefer": [
+          "openalex",
+          "semantic_scholar",
+          "github",
+          "bing"
+        ]
+      },
+      {
+        "id": "q6",
+        "question": "可复现的开源项目与工程栈有哪些？该领域存在哪些开放问题与争议（版权与授权、评测指标有效性、生成模型训练数据来源、AC 与学术指标脱节）？",
+        "rationale": "工程落地依赖 librosa/Essentia/madmom/Asteroid/Demucs/stable-audio-tools 等实际可用的栈，而版权诉讼、训练数据披露缺失与指标饱和（如 FAD 的可比性）是当前最实质的争议，需要一手来源与官方仓库状态佐证。",
+        "queries": [
+          "music generation copyright lawsuit training data RIAA 2024 2025",
+          "FAD metric limitations music generation evaluation critique 2024",
+          "open source music information retrieval toolkit librosa Essentia madmom Asteroid Demucs",
+          "AI音乐 版权 评测指标 争议 2025 开源工具链"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing",
+          "semantic_scholar"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "音乐与音频算法的奠基工作与技术演进脉络是什么？（MIR 任务体系、表征方法、深度学习的引入与 neuro-symbolic 传统）",
+      "queries": [
+        "music information retrieval survey fundamentals Müller 2021 pattern recognition",
+        "ISMIR 20 years music information retrieval review taxonomy",
+        "deep learning for music information retrieval survey 2017 IEEE TASLP",
+        "beat tracking dynamic programming Ellis 2007 chroma HPCP chord recognition",
+        "music information retrieval survey 2024 2025 arXiv taxonomy beat tracking chord recognition automatic music transcription",
+        "text-to-music generation survey 2025 diffusion autoregressive comparison MusicGen Stable Audio AudioLDM"
+      ],
+      "rationale": "需要先建立 taxonomy 与时间轴骨架：从手工特征（chroma/HPCP、MFCC、HPSS、dynamic-programming beat tracking）到 CNN/CRNN、Transformer 与自监督，才能判断哪些是真正的新范式、哪些是旧任务的重新包装。",
+      "round": 1,
+      "results": [
+        {
+          "title": "GlobalMood: A cross-cultural benchmark for music emotion recognition",
+          "url": "http://arxiv.org/abs/2505.09539v2",
+          "snippet": "Human annotations of mood in music are essential for music generation and recommender systems. However, existing datasets predominantly focus on Western songs with terms derived from English, which may limit generalizability across diverse linguistic and cultural backgrounds. We introduce 'GlobalMood', a novel cross-cultural benchmark dataset comprising 1,180 songs sampled from 59 countries, with large-scale annotations collected from 2,519 individuals across five culturally and linguistically distinct locations: U.S., France, Mexico, S. Korea, and Egypt. Rather than imposing predefined emoti…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-14",
+          "authors": [
+            "Harin Lee",
+            "Elif Çelen",
+            "Peter Harrison",
+            "Manuel Anglada-Tort",
+            "Pol van Rijn",
+            "Minsu Park",
+            "Marc Schönwiesner",
+            "Nori Jacoby"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.09539v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "IMPACT: Iterative Mask-based Parallel Decoding for Text-to-Audio Generation with Diffusion Modeling",
+          "url": "http://arxiv.org/abs/2506.00736v1",
+          "snippet": "Text-to-audio generation synthesizes realistic sounds or music given a natural language prompt. Diffusion-based frameworks, including the Tango and the AudioLDM series, represent the state-of-the-art in text-to-audio generation. Despite achieving high audio fidelity, they incur significant inference latency due to the slow diffusion sampling process. MAGNET, a mask-based model operating on discrete tokens, addresses slow inference through iterative mask-based parallel decoding. However, its audio quality still lags behind that of diffusion-based models. In this work, we introduce IMPACT, a te…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-31",
+          "authors": [
+            "Kuan-Po Huang",
+            "Shu-wen Yang",
+            "Huy Phan",
+            "Bo-Ru Lu",
+            "Byeonggeun Kim",
+            "Sashank Macha",
+            "Qingming Tang",
+            "Shalini Ghosh",
+            "Hung-yi Lee",
+            "Chieh-Chi Kao",
+            "Chao Wang"
+          ],
+          "venue": "eess.AS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.00736v1",
+            "rrf_score": 0.021429
+          }
+        },
+        {
+          "title": "Baseline Systems For The 2025 Low-Resource Audio Codec Challenge",
+          "url": "http://arxiv.org/abs/2510.00264v3",
+          "snippet": "The Low-Resource Audio Codec (LRAC) Challenge aims to advance neural audio coding for deployment in resource-constrained environments. The first edition focuses on low-resource neural speech codecs that must operate reliably under everyday noise and reverberation, while satisfying strict constraints on computational complexity, latency, and bitrate. Track 1 targets transparency codecs, which aim to preserve the perceptual transparency of input speech under mild noise and reverberation. Track 2 addresses enhancement codecs, which combine coding and compression with denoising and dereverberatio…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-30",
+          "authors": [
+            "Yusuf Ziya Isik",
+            "Rafał Łaganowski"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.00264v3",
+            "rrf_score": 0.020833
+          }
+        },
+        {
+          "title": "Instrumental Text-to-Music Generation with Auxiliary Conditioning Branches",
+          "url": "http://arxiv.org/abs/2605.21433v1",
+          "snippet": "Text-to-music generation has advanced rapidly, with modern autoregressive and diffusion-based models producing convincing music from natural-language prompts. However, much of this progress relies on large-scale training data and external pretraining, making it difficult to isolate which design choices remain effective when data and pretraining are controlled. We study this setting using a Diffusion Transformer backbone with lyric and timbre conditioning, adapted to an instrumental-only text-to-music task in which the auxiliary lyric and timbre branches receive only degenerate conditioning si…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Junyoung Koh"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21433v1",
+            "rrf_score": 0.020548
+          }
+        },
+        {
+          "title": "A Functional Taxonomy of Music Generation Systems",
+          "url": "http://arxiv.org/abs/1812.04186v1",
+          "snippet": "Digital advances have transformed the face of automatic music generation since its beginnings at the dawn of computing. Despite the many breakthroughs, issues such as the musical tasks targeted by different machines and the degree to which they succeed remain open questions. We present a functional taxonomy for music generation systems with reference to existing systems. The taxonomy organizes systems according to the purposes for which they were designed. It also reveals the inter-relatedness amongst the systems. This design-centered approach contrasts with predominant methods-based surveys…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-12-11",
+          "authors": [
+            "Dorien Herremans",
+            "Ching-Hua Chuan",
+            "Elaine Chew"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1812.04186v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "MIRFLEX: Music Information Retrieval Feature Library for Extraction",
+          "url": "http://arxiv.org/abs/2411.00469v1",
+          "snippet": "This paper introduces an extendable modular system that compiles a range of music feature extraction models to aid music information retrieval research. The features include musical elements like key, downbeats, and genre, as well as audio characteristics like instrument recognition, vocals/instrumental classification, and vocals gender detection. The integrated models are state-of-the-art or latest open-source. The features can be extracted as latent or post-processed labels, enabling integration into music applications such as generative music, recommendation, and playlist generation. The m…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-11-01",
+          "authors": [
+            "Anuradha Chopra",
+            "Abhinaba Roy",
+            "Dorien Herremans"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2411.00469v1",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "GlobalMood: A cross-cultural benchmark for music emotion recognition",
+            "evidence": "Human annotations of mood in music are essential for music generation and recommender systems. However, existing datasets predominantly focus on Western songs with terms derived from English, which may limit generalizability across diverse linguistic and cultural backgrounds. We introduce 'GlobalMo…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.IR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.IR）"
+          },
+          {
+            "point": "IMPACT: Iterative Mask-based Parallel Decoding for Text-to-Audio Generation with Diffusion Modeling",
+            "evidence": "Text-to-audio generation synthesizes realistic sounds or music given a natural language prompt. Diffusion-based frameworks, including the Tango and the AudioLDM series, represent the state-of-the-art in text-to-audio generation. Despite achieving high audio fidelity, they incur significant inferenc…",
+            "sources": [
+              22
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "eess.AS",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=eess.AS）"
+          },
+          {
+            "point": "Baseline Systems For The 2025 Low-Resource Audio Codec Challenge",
+            "evidence": "The Low-Resource Audio Codec (LRAC) Challenge aims to advance neural audio coding for deployment in resource-constrained environments. The first edition focuses on low-resource neural speech codecs that must operate reliably under everyday noise and reverberation, while satisfying strict constraint…",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SD",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SD）"
+          },
+          {
+            "point": "Instrumental Text-to-Music Generation with Auxiliary Conditioning Branches",
+            "evidence": "Text-to-music generation has advanced rapidly, with modern autoregressive and diffusion-based models producing convincing music from natural-language prompts. However, much of this progress relies on large-scale training data and external pretraining, making it difficult to isolate which design cho…",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.SD",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SD）"
+          },
+          {
+            "point": "A Functional Taxonomy of Music Generation Systems",
+            "evidence": "Digital advances have transformed the face of automatic music generation since its beginnings at the dawn of computing. Despite the many breakthroughs, issues such as the musical tasks targeted by different machines and the degree to which they succeed remain open questions. We present a functional…",
+            "sources": [
+              17
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2018",
+            "heat": "",
+            "authority": "cs.SD",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SD）"
+          },
+          {
+            "point": "MIRFLEX: Music Information Retrieval Feature Library for Extraction",
+            "evidence": "This paper introduces an extendable modular system that compiles a range of music feature extraction models to aid music information retrieval research. The features include musical elements like key, downbeats, and genre, as well as audio characteristics like instrument recognition, vocals/instrum…",
+            "sources": [
+              18
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "",
+            "authority": "cs.SD",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SD）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "近 1-2 年音乐生成（text-to-music、可控生成、扩散与自回归 token 模型）的前沿进展与代表模型有哪些？",
+      "queries": [
+        "text to music generation diffusion transformer survey 2025",
+        "MusicGen AudioCraft Stable Audio Open Meta audio generation 2024",
+        "text-to-music benchmark evaluation FAD CLAP score music generation 2024 2025",
+        "基于语言模型的音乐生成 音频codec 2025 综述"
+      ],
+      "rationale": "生成方向迭代最快、厂商与学术高度混杂，需要区分「demo 视频/技术报告」与「有客观指标与第三方复现」的工作，并按时间线梳理 MusicGen、Stable Audio、音频 codec-LM 路线的分野。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Story2MIDI: Emotionally Aligned Music Generation from Text",
+          "url": "http://arxiv.org/abs/2512.02192v1",
+          "snippet": "In this paper, we introduce Story2MIDI, a sequence-to-sequence Transformer-based model for generating emotion-aligned music from a given piece of text. To develop this model, we construct the Story2MIDI dataset by merging existing datasets for sentiment analysis from text and emotion classification in music. The resulting dataset contains pairs of text blurbs and music pieces that evoke the same emotions in the reader or listener. Despite the small scale of our dataset and limited computational resources, our results indicate that our model effectively learns emotion-relevant features in musi…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-01",
+          "authors": [
+            "Mohammad Shokri",
+            "Alexandra C. Salem",
+            "Gabriel Levine",
+            "Johanna Devaney",
+            "Sarah Ita Levitan"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.02192v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Instrumental Text-to-Music Generation with Auxiliary Conditioning Branches",
+          "url": "http://arxiv.org/abs/2605.21433v1",
+          "snippet": "Text-to-music generation has advanced rapidly, with modern autoregressive and diffusion-based models producing convincing music from natural-language prompts. However, much of this progress relies on large-scale training data and external pretraining, making it difficult to isolate which design choices remain effective when data and pretraining are controlled. We study this setting using a Diffusion Transformer backbone with lyric and timbre conditioning, adapted to an instrumental-only text-to-music task in which the auxiliary lyric and timbre branches receive only degenerate conditioning si…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Junyoung Koh"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21433v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "UT-AISTimprt submission for ICME 2026 Grand Challenge on Academic Text-to-Music Generation",
+          "url": "http://arxiv.org/abs/2607.01669v1",
+          "snippet": "This work investigates the effect of batch sampling strategies during training for text-to-audio music generation under low-data and small-scale model settings. This paper describes our approach and findings for the ICME 2026 Grand Challenge on Academic Text-to-Music Generation. Training data are clustered using either text embeddings or audio embeddings, and samples with similar characteristics are grouped within the same mini-batch to mitigate gradient interference. The effects of modality and cluster granularity on clustering are analyzed. Results show that clustering based on text embeddi…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-02",
+          "authors": [
+            "Shunsuke Yoshida",
+            "Yu-Hua Chen",
+            "Satoru Fukayama"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.01669v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.021739
+          }
+        },
+        {
+          "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+          "url": "http://arxiv.org/abs/2504.14582v3",
+          "snippet": "This paper presents the NTIRE 2025 image super-resolution ($\\times$4) challenge, one of the associated competitions of the 10th NTIRE Workshop at CVPR 2025. The challenge aims to recover high-resolution (HR) images from low-resolution (LR) counterparts generated through bicubic downsampling with a $\\times$4 scaling factor. The objective is to develop effective network designs or solutions that achieve state-of-the-art SR performance. To reflect the dual objectives of image SR research, the challenge includes two sub-tracks: (1) a restoration track, emphasizes pixel-wise accuracy and ranks sub…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-20",
+          "authors": [
+            "Zheng Chen",
+            "Kai Liu",
+            "Jue Gong",
+            "Jingkai Wang",
+            "Lei Sun",
+            "Zongwei Wu",
+            "Radu Timofte",
+            "Yulun Zhang",
+            "Xiangyu Kong",
+            "Xiaoxuan Yu",
+            "Hyunhee Park",
+            "Suejin Han",
+            "Hakjae Jeon",
+            "Dafeng Zhang",
+            "Hyung-Ju Chun",
+            "Donghun Ryou",
+            "Inju Ha",
+            "Bohyung Han",
+            "Lu Zhao",
+            "Yuyi Zhang",
+            "Pengyu Yan",
+            "Jiawei Hu",
+            "Pengwei Liu",
+            "Fengjun Guo",
+            "Hongyuan Yu",
+            "Pufan Xu",
+            "Zhijuan Huang",
+            "Shuyuan Cui",
+            "Peng Guo",
+            "Jiahui Liu",
+            "Dongkai Zhang",
+            "Heng Zhang",
+            "Huiyuan Fu",
+            "Huadong Ma",
+            "Yanhui Guo",
+            "Sisi Tian",
+            "Xin Liu",
+            "Jinwen Liang",
+            "Jie Liu",
+            "Jie Tang",
+            "Gangshan Wu",
+            "Zeyu Xiao",
+            "Zhuoyuan Li",
+            "Yinxiang Zhang",
+            "Wenxuan Cai",
+            "Vijayalaxmi Ashok Aralikatti",
+            "Nikhil Akalwadi",
+            "G Gyaneshwar Rao",
+            "Chaitra Desai",
+            "Ramesh Ashok Tabib",
+            "Uma Mudenagudi",
+            "Marcos V. Conde",
+            "Alejandro Merino",
+            "Bruno Longarela",
+            "Javier Abad",
+            "Weijun Yuan",
+            "Zhan Li",
+            "Zhanglu Chen",
+            "Boyang Yao",
+            "Aagam Jain",
+            "Milan Kumar Singh",
+            "Ankit Kumar",
+            "Shubh Kawa",
+            "Divyavardhan Singh",
+            "Anjali Sarvaiya",
+            "Kishor Upla",
+            "Raghavendra Ramachandra",
+            "Chia-Ming Lee",
+            "Yu-Fan Lin",
+            "Chih-Chung Hsu",
+            "Risheek V Hiremath",
+            "Yashaswini Palani",
+            "Yuxuan Jiang",
+            "Qiang Zhu",
+            "Siyue Teng",
+            "Fan Zhang",
+            "Shuyuan Zhu",
+            "Bing Zeng",
+            "David Bull",
+            "Jingwei Liao",
+            "Yuqing Yang",
+            "Wenda Shao",
+            "Junyi Zhao",
+            "Qisheng Xu",
+            "Kele Xu",
+            "Sunder Ali Khowaja",
+            "Ik Hyun Lee",
+            "Snehal Singh Tomar",
+            "Rajarshi Ray",
+            "Klaus Mueller",
+            "Sachin Chaudhary",
+            "Surya Vashisth",
+            "Akshay Dudhane",
+            "Praful Hambarde",
+            "Satya Naryan Tazi",
+            "Prashant Patil",
+            "Santosh Kumar Vipparthi",
+            "Subrahmanyam Murala",
+            "Bilel Benjdira",
+            "Anas M. Ali",
+            "Wadii Boulila",
+            "Zahra Moammeri",
+            "Ahmad Mahmoudi-Aznaveh",
+            "Ali Karbasi",
+            "Hossein Motamednia",
+            "Liangyan Li",
+            "Guanhua Zhao",
+            "Kevin Le",
+            "Yimo Ning",
+            "Haoxuan Huang",
+            "Jun Chen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.14582v3",
+            "rrf_score": 0.021429
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.021127
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "文本到音乐生成当前的两大主流技术范式为自回归模型与扩散模型，二者均能从自然语言提示生成具有说服力的音乐；但该领域进展高度依赖大规模训练数据与外部预训练，使得在控制数据与预训练条件下难以隔离出哪些设计选择仍然有效。",
+            "evidence": "候选论文指出：\"modern autoregressive and diffusion-based models producing convincing music from natural-language prompts\"，并强调 \"much of this progress relies on large-scale training data and external pretraining, making it difficult to isolate which design choices remain effective when data and pretraining are controlled\"。",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD），单作者，候选块未给同行评审 venue",
+            "attention": "低 + 候选块无引用数/star/榜单等热度信号，为单作者预印本，未见第三方复现或榜单记录",
+            "recommendation": "★★★☆☆ 对理解'数据与预训练受控下哪种设计仍有效'这一方法论问题有价值，但证据等级仅 B 且缺独立验证"
+          },
+          {
+            "point": "在受控消融中，扩散 Transformer（DiT）的辅助条件分支（歌词 lyric、音色 timbre）即便只接收退化条件信号，仍表现出'训练期架构锚点'作用：去除这些分支后模型在多项评测上得分下降，而将节省的参数转投为更深的 DiT 只能带来边际恢复。",
+            "evidence": "论文在仅器乐（instrumental-only）文本到音乐任务上做受控消融，发现 \"models retrained without these branches score lower across AudioBox aesthetics, LLM-as-judge, and human MOS, and that reinvesting the saved parameters as additional DiT depth recovers only marginally\"；作者据此推断辅助分支 \"may act as training-time architectural anchors\"。评测口径含 AudioBox aesthetics（客观）、LLM-as-judge 与 human MOS（主观）三类。",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD），单作者；含人评 MOS 与 LLM-as-judge，但无同行评审或榜单背书",
+            "attention": "低 + 预印本，候选块中无引用数、下载或社区讨论热度数据",
+            "recommendation": "★★★☆☆ 三类评测口径（客观指标 + LLM 评判 + 人评 MOS）与受控消融设计较规范，对可控生成的条件机制有参考价值，仍需独立复现"
+          },
+          {
+            "point": "情感对齐（emotionally aligned）音乐生成已作为 text-to-music 的可控生成子方向出现：Story2MIDI 用序列到序列 Transformer 从文本生成与文本情感一致的音乐，其数据通过合并'文本情感分析数据集'与'音乐情感分类数据集'构建成文本-音乐情感配对。",
+            "evidence": "论文摘要称 \"we introduce Story2MIDI, a sequence-to-sequence Transformer-based model for generating emotion-aligned music from a given piece of text\"，并构建 Story2MIDI 数据集：\"we construct the Story2MIDI dataset by merging existing datasets for sentiment analysis from text and emotion classification in music. The resulting dataset contains pairs of text blurbs and music pieces that evoke the same emotions in the reader or listener\"。输出为 MIDI 序列，非音频波形。",
+            "sources": [
+              80
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD），8 页（正文 6 页），机构作者含 Johanna Devaney、Sarah Ita Levitan 等，候选块未给同行评审 venue",
+            "attention": "低 + 预印本，候选块无引用数/star/榜单等热度信号",
+            "recommendation": "★★★☆☆ 是文本情感→音乐情感对齐的可控生成实例，且附数据集构建方法，但样本规模小、算力有限，结论外推性受限"
+          },
+          {
+            "point": "小数据、小模型设定下的文本到音乐训练，批次采样策略（batch sampling）会显著影响结果：按文本嵌入聚类分组优于按音频嵌入聚类，且聚类粒度对各项评测指标的影响方向不一致。",
+            "evidence": "ICME 2026 Academic Text-to-Music Generation Grand Challenge 参赛报告称：\"Training data are clustered using either text embeddings or audio embeddings, and samples with similar characteristics are grouped within the same mini-batch to mitigate gradient interference\"；结论为 \"clustering based on text embeddings achieves better performance on objective evaluation metrics than clustering based on audio embeddings\"，且 \"different cluster granularity leads to different behaviors across evaluation criteria: a moderate number of clusters performs...\"。研究场景限定为低数据、小规模模型。",
+            "sources": [
+              81
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD），为 ICME 2026 Grand Challenge（学术文本到音乐生成）参赛提交，含竞赛评测背景",
+            "attention": "低 + 竞赛提交预印本，候选块无引用数/榜单名次等热度信号",
+            "recommendation": "★★★☆☆ 给出了低数据场景下可复用的批次采样经验（文本嵌入聚类更优），但仅为单队提交、未给出最终名次，结论需以挑战赛官方结果为准"
+          },
+          {
+            "point": "该候选证据集合未能覆盖'音乐生成'领域的自回归 token 模型路线（如基于音频/音乐 token 的自回归生成）的一手进展，也未出现该方向代表性模型的名称、开源实现或权威榜单数据。",
+            "evidence": "候选块中与音乐生成相关的仅有 [80][25][81] 三条 arXiv cs.SD 预印本，其中 [25] 仅在背景陈述中提及 'autoregressive and diffusion-based models'，未给出任何自回归模型名称、指标或开源链接；其余候选块 [63][83] 属视频参与度预测与图像超分，[66] 为基础模型透明度指数，与音乐生成主题不相关。",
+            "sources": [
+              25,
+              63,
+              83,
+              66
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 该结论基于候选集合的证据缺口判断，非来自任一来源的直接陈述",
+            "recommendation": "★★☆☆☆ 作为检索覆盖度提示有价值，但本身不是领域结论，需补充检索后再下判断"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Instrumental Text-to-Music Generation with Auxiliary Conditioning Branches",
+            "url": "http://arxiv.org/abs/2605.21433v1",
+            "why": "在数据与预训练受控条件下，用 DiT + 歌词/音色辅助条件分支做受控消融，给出'辅助分支作为训练期架构锚点'的可检验假设，并以客观指标、LLM-as-judge、人评 MOS 三类口径评测，是候选集中方法论最清晰的可控生成研究。",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD），单作者，未见同行评审 venue",
+            "attention": "低 + 新预印本，候选块无引用/下载/讨论热度信号",
+            "recommendation": "★★★★☆ 与'可控生成 + 扩散路线'子问题高度相关，实验设计可控性强，值得精读；但需独立复现"
+          },
+          {
+            "title": "Story2MIDI: Emotionally Aligned Music Generation from Text",
+            "url": "http://arxiv.org/abs/2512.02192v1",
+            "why": "把文本情感与音乐情感对齐作为生成目标，构建文本-音乐情感配对数据集并给出人听感评测，是候选集中唯一明确的可控（情感）文本到音乐生成模型，且产物为 MIDI 可解释性强。",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD），8 页短文，多作者（含 Johanna Devaney、Sarah Ita Levitan），未见同行评审 venue",
+            "attention": "低 + 预印本，候选块无引用/榜单热度信号",
+            "recommendation": "★★★★☆ 对'可控生成（情感条件）'这一分支有代表性价值，且附带数据集构建流程，值得阅读；受限于小数据与有限算力"
+          },
+          {
+            "title": "UT-AISTimprt submission for ICME 2026 Grand Challenge on Academic Text-to-Music Generation",
+            "url": "http://arxiv.org/abs/2607.01669v1",
+            "why": "以竞赛提交形式研究低数据、小模型场景下的训练批次采样策略，给出'文本嵌入聚类优于音频嵌入聚类'的工程结论，是候选集中唯一带竞赛评测背景的音乐生成工作。",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD），ICME 2026 Grand Challenge 参赛提交（学术文本到音乐生成赛道）",
+            "attention": "低 + 竞赛提交预印本，候选块未给名次或引用数据",
+            "recommendation": "★★★☆☆ 对低资源训练配方有直接工程参考价值，但结论为单队自述，需对照挑战赛官方结果"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [
+          {
+            "name": "Story2MIDI dataset",
+            "url": "http://arxiv.org/abs/2512.02192v1",
+            "why": "由'文本情感分析数据集'与'音乐情感分类数据集'合并构建，包含唤起相同情感的文本短句与音乐片段配对，是情感对齐文本到音乐生成的监督信号来源；作者自述数据集规模较小。",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD）作者自建数据集，候选块未说明是否公开发布、是否有独立基准地位",
+            "attention": "低 + 新提出、仅见于该预印本，无使用度或引用信号",
+            "recommendation": "★★★☆☆ 对情感条件音乐生成研究有潜在复用价值，但规模小、开放性（是否开源、链接）待核实"
+          }
+        ],
+        "open_problems": [
+          "候选证据中未出现任何自回归音乐 token 模型的具体模型名、架构或指标，'扩散 vs 自回归'的实证对比在本次证据集合内无法完成，需另行检索（待核实）。",
+          "音乐生成的评测缺少统一、权威的榜单证据：候选块仅给出 AudioBox aesthetics、LLM-as-judge、human MOS 等局部口径，未见跨模型可比榜单或第三方复现结果。",
+          "低数据/小模型设定下的可复现性存疑：相关结论（批次采样聚类、辅助条件分支）均来自单篇预印本或单队竞赛提交，缺少独立验证。",
+          "情感、歌词、音色等可控条件的有效机制尚未厘清：'辅助分支仅为训练期架构锚点'是作者的推断性解释，尚需因果性实验与更广任务验证。",
+          "候选证据未覆盖数据集/权重的开源情况与许可，导致'是否可复现'无法判定。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "音乐理解、自监督音频表征与音频-语言基础模型（audio representation learning、audio LLM、neural audio codec）的现状与基准表现如何？",
+      "queries": [
+        "self-supervised audio representation learning music MERT MusicFM 2024 2025",
+        "CLAP music audio language contrastive representation music understanding",
+        "music foundation model music understanding 2025 transformer audio LLM",
+        "神经网络音频编解码器 neural audio codec 音乐 表征 2025"
+      ],
+      "rationale": "理解与表征是 MIR 任务迁移能力的核心，也是「音乐基础模型」叙事的依据；需交叉核对模型论文宣称的 probing 结果与独立榜单/复现，避免把单一数据集 SOTA 当作通用能力。",
+      "round": 1,
+      "results": [
+        {
+          "title": "CultureMERT: Continual Pre-Training for Cross-Cultural Music Representation Learning",
+          "url": "http://arxiv.org/abs/2506.17818v1",
+          "snippet": "Recent advances in music foundation models have improved audio representation learning, yet their effectiveness across diverse musical traditions remains limited. We introduce CultureMERT-95M, a multi-culturally adapted foundation model developed to enhance cross-cultural music representation learning and understanding. To achieve this, we propose a two-stage continual pre-training strategy that integrates learning rate re-warming and re-decaying, enabling stable adaptation even with limited computational resources. Training on a 650-hour multi-cultural data mix, comprising Greek, Turkish, an…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-21",
+          "authors": [
+            "Angelos-Nikolaos Kanatas",
+            "Charilaos Papaioannou",
+            "Alexandros Potamianos"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.17818v1",
+            "rrf_score": 0.021429
+          }
+        },
+        {
+          "title": "MusCaps: Generating Captions for Music Audio",
+          "url": "http://arxiv.org/abs/2104.11984v1",
+          "snippet": "Content-based music information retrieval has seen rapid progress with the adoption of deep learning. Current approaches to high-level music description typically make use of classification models, such as in auto-tagging or genre and mood classification. In this work, we propose to address music description via audio captioning, defined as the task of generating a natural language description of music audio content in a human-like manner. To this end, we present the first music audio captioning model, MusCaps, consisting of an encoder-decoder with temporal attention. Our method combines conv…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2021-04-24",
+          "authors": [
+            "Ilaria Manco",
+            "Emmanouil Benetos",
+            "Elio Quinton",
+            "Gyorgy Fazekas"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2104.11984v1",
+            "rrf_score": 0.046329,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The Whole Is Greater than the Sum of Its Parts: Improving Music Source Separation by Bridging Network",
+          "url": "http://arxiv.org/abs/2305.07855v2",
+          "snippet": "This paper presents the crossing scheme (X-scheme) for improving the performance of deep neural network (DNN)-based music source separation (MSS) with almost no increasing calculation cost. It consists of three components: (i) multi-domain loss (MDL), (ii) bridging operation, which couples the individual instrument networks, and (iii) combination loss (CL). MDL enables the taking advantage of the frequency- and time-domain representations of audio signals. We modify the target network, i.e., the network architecture of the original DNN-based MSS, by adding bridging paths for each output instr…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2023-05-13",
+          "authors": [
+            "Ryosuke Sawata",
+            "Naoya Takahashi",
+            "Stefan Uhlich",
+            "Shusuke Takahashi",
+            "Yuki Mitsufuji"
+          ],
+          "venue": "eess.AS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2305.07855v2",
+            "rrf_score": 0.044564,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Joint Music and Language Attention Models for Zero-shot Music Tagging",
+          "url": "http://arxiv.org/abs/2310.10159v1",
+          "snippet": "Music tagging is a task to predict the tags of music recordings. However, previous music tagging research primarily focuses on close-set music tagging tasks which can not be generalized to new tags. In this work, we propose a zero-shot music tagging system modeled by a joint music and language attention (JMLA) model to address the open-set music tagging problem. The JMLA model consists of an audio encoder modeled by a pretrained masked autoencoder and a decoder modeled by a Falcon7B. We introduce preceiver resampler to convert arbitrary length audio into fixed length embeddings. We introduce…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2023-10-16",
+          "authors": [
+            "Xingjian Du",
+            "Zhesong Yu",
+            "Jiaju Lin",
+            "Bilei Zhu",
+            "Qiuqiang Kong"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2310.10159v1",
+            "rrf_score": 0.044194,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Music SketchNet: Controllable Music Generation via Factorized Representations of Pitch and Rhythm",
+          "url": "http://arxiv.org/abs/2008.01291v1",
+          "snippet": "Drawing an analogy with automatic image completion systems, we propose Music SketchNet, a neural network framework that allows users to specify partial musical ideas guiding automatic music generation. We focus on generating the missing measures in incomplete monophonic musical pieces, conditioned on surrounding context, and optionally guided by user-specified pitch and rhythm snippets. First, we introduce SketchVAE, a novel variational autoencoder that explicitly factorizes rhythm and pitch contour to form the basis of our proposed model. Then we introduce two discriminative architectures, S…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2020-08-04",
+          "authors": [
+            "Ke Chen",
+            "Cheng-i Wang",
+            "Taylor Berg-Kirkpatrick",
+            "Shlomo Dubnov"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2008.01291v1",
+            "rrf_score": 0.04408,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Introduction to Gestural Similarity in Music. An Application of Category Theory to the Orchestra",
+          "url": "http://arxiv.org/abs/1904.10340v1",
+          "snippet": "Mathematics, and more generally computational sciences, intervene in several aspects of music. Mathematics describes the acoustics of the sounds giving formal tools to physics, and the matter of music itself in terms of compositional structures and strategies. Mathematics can also be applied to the entire making of music, from the score to the performance, connecting compositional structures to acoustical reality of sounds. Moreover, the precise concept of gesture has a decisive role in understanding musical performance. In this paper, we apply some concepts of category theory to compare gest…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2019-04-22",
+          "authors": [
+            "Maria Mannone"
+          ],
+          "venue": "math.HO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1904.10340v1",
+            "rrf_score": 0.043561,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "跨文化音乐自监督表征可通过两阶段持续预训练显著提升，同时控制对西方基准的灾难性遗忘",
+            "evidence": "CultureMERT-95M 在 650 小时融合希腊、土耳其、印度音乐传统的数据混合上训练，采用 learning rate re-warming 与 re-decaying 的两阶段持续预训练策略；在多种非西方音乐 auto-tagging 任务上 ROC-AUC 与 AP 平均提升 4.9%，超过此前 SOTA，且对以西方为中心的基准仅有极小遗忘。",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD, arXiv:2506.17818v1），未标注同行评审或会议录用",
+            "attention": "低 + 候选块未提供引用数、star、下载量或榜单排名，无法判断社区关注度",
+            "recommendation": "★★★★☆ 直接回应跨文化音乐表征的泛化缺口并给出可量化提升幅度，是候选证据中最贴近音乐表征学习前沿的一条，值得精读；但仅为预印本，需等待复现与同行评审"
+          },
+          {
+            "point": "音频-语言模型已用于开放集/零样本音乐标注，将预训练音频编码器与十亿级语言解码器耦合",
+            "evidence": "JMLA 模型由预训练 masked autoencoder 作为音频编码器、Falcon7B 作为解码器构成；引入 perceiver resampler 将任意长度音频转为固定长度嵌入，并在编码器与解码器层间加入 dense attention 连接以改善信息流；从互联网收集大规模音乐-描述数据集，并用 ChatGPT 将原始描述转写为形式化且多样的描述用于训练。",
+            "sources": [
+              11
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2023",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD, arXiv:2310.10159v1），未标注同行评审或会议录用",
+            "attention": "低 + 候选块未提供引用数、star 或榜单排名，无法判断社区关注度",
+            "recommendation": "★★★★☆ 是候选证据中少见的「音频-语言模型 + 零样本下游任务」完整案例，与 audio LLM 方向高度相关；但证据仅来自摘要，具体评测指标与基线对比待核实"
+          },
+          {
+            "point": "音乐音频字幕生成（music audio captioning）作为比分类/打标签更细粒度的音乐理解任务被形式化并建模",
+            "evidence": "MusCaps 被描述为首个音乐音频字幕模型，由带时间注意力的 encoder-decoder 构成，结合卷积与循环神经网络，通过多模态编码器联合处理音频-文本输入，并利用音频数据预训练获得能概括音乐特征的表示；自动评测指标上优于所设基线设计。",
+            "sources": [
+              9
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2021",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD, arXiv:2104.11984v1），未标注同行评审或会议录用",
+            "attention": "低 + 候选块未提供引用数、star 或榜单排名，无法判断社区关注度",
+            "recommendation": "★★★☆☆ 音乐理解与自然语言接口的早期开创性工作，作为技术脉络起点有价值；但时间较早且仅用自动指标评测，需结合更新的音乐字幕研究交叉验证"
+          },
+          {
+            "point": "音乐源分离可通过多域损失与跨乐器网络桥接提升性能，且几乎不增加计算成本",
+            "evidence": "X-scheme（crossing scheme）包含三个组件：(i) multi-domain loss（MDL），利用音频信号的频域与时域表示；(ii) bridging operation，为每个输出乐器增加桥接路径以共享信息；(iii) combination loss（CL），施加于输出源的组合之上；论文声称在几乎不增加计算成本的情况下提升基于 DNN 的音乐源分离性能。",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2023",
+            "heat": "",
+            "authority": "arXiv 预印本（eess.AS, arXiv:2305.07855v2，v1 2023-05-13 / v2 2024-08-06），未标注同行评审或会议录用",
+            "attention": "低 + 候选块未提供引用数、star 或榜单排名，无法判断社区关注度",
+            "recommendation": "★★★☆☆ 属于音频信号处理侧的基础任务改进，与音乐理解/表征学习相关的上游建模有关，但与 audio LLM 主线关联较弱；可作背景参考"
+          },
+          {
+            "point": "候选证据未覆盖神经音频编解码器（neural audio codec）与通用音频-语言基础模型的基准表现",
+            "evidence": "本次给出的 6 条候选（CultureMERT、MusCaps、X-scheme、JMLA、Music SketchNet、Gestural Similarity）全部集中在音乐表征、音乐字幕、音乐标注、音乐源分离与音乐生成/理论，没有任何一条涉及 neural audio codec（如 RVQ/残差矢量量化类编解码器）或通用音频-语言基础模型的评测基准与量化结果。",
+            "sources": [
+              4,
+              9,
+              10,
+              11,
+              5,
+              12
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "基于本批候选证据覆盖范围的判断，非外部权威来源",
+            "attention": "低 + 该结论来自候选集缺口的观察，非社区热度信号",
+            "recommendation": "★★☆☆☆ 作为证据缺口提示有检索价值，本身不构成领域结论；需补充检索 neural audio codec 与 audio LLM 基准后可升级为正式发现"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "CultureMERT: Continual Pre-Training for Cross-Cultural Music Representation Learning",
+            "url": "http://arxiv.org/abs/2506.17818v1",
+            "why": "提出 CultureMERT-95M，用两阶段持续预训练在 650 小时多文化（希腊/土耳其/印度）数据上做跨文化音乐表征适配，非西方 auto-tagging 任务 ROC-AUC/AP 平均提升 4.9% 且对西方基准遗忘极小，直接对应自监督音频表征学习的泛化与灾难性遗忘问题。",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD），未标注同行评审或会议录用",
+            "attention": "低 + 候选块无引用数/star/榜单信号，无法判断社区关注度",
+            "recommendation": "★★★★☆ 与本子问题（自监督音频表征、音乐理解）最直接相关，指标具体可核查，值得全文精读；待核实复现性与发表状态"
+          },
+          {
+            "title": "Joint Music and Language Attention Models for Zero-shot Music Tagging",
+            "url": "http://arxiv.org/abs/2310.10159v1",
+            "why": "音频-语言基础模型用于开放集音乐标注的代表案例：MAE 音频编码器 + Falcon7B 解码器、perceiver resampler 处理变长音频、编码器-解码器稠密注意力连接，并用 ChatGPT 构造大规模音乐-描述训练数据。",
+            "year": "2023",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD），未标注同行评审或会议录用",
+            "attention": "低 + 候选块无引用数/star/榜单信号，无法判断社区关注度",
+            "recommendation": "★★★★☆ 覆盖 audio LLM 在音乐零样本任务上的应用路径，与子问题中「音频-语言基础模型」高度相关；需要核对其零样本评测设定与指标口径"
+          },
+          {
+            "title": "MusCaps: Generating Captions for Music Audio",
+            "url": "http://arxiv.org/abs/2104.11984v1",
+            "why": "首个音乐音频字幕模型，将音乐描述从分类/打标签扩展为自然语言生成，是音乐理解与语言接口方向的开创性工作。",
+            "year": "2021",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.SD），未标注同行评审或会议录用",
+            "attention": "低 + 候选块无引用数/star/榜单信号，无法判断社区关注度",
+            "recommendation": "★★★☆☆ 作为音乐字幕任务的技术脉络起点有引用价值；年代较早，仅自动指标评测，建议与近期音乐字幕工作一并阅读"
+          },
+          {
+            "title": "The Whole Is Greater than the Sum of Its Parts: Improving Music Source Separation by Bridging Network",
+            "url": "http://arxiv.org/abs/2305.07855v2",
+            "why": "提出 X-scheme（multi-domain loss + bridging operation + combination loss）改进 DNN 音乐源分离且几乎不增加计算成本，属于音乐音频基础建模的上游方法。",
+            "year": "2023",
+            "heat": "",
+            "authority": "arXiv 预印本（eess.AS），未标注同行评审或会议录用",
+            "attention": "低 + 候选块无引用数/star/榜单信号，无法判断社区关注度",
+            "recommendation": "★★★☆☆ 与音乐音频建模相关但偏离表征学习/LLM 主线，作为背景与技术参考即可"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据仅涉及音乐领域，缺少神经音频编解码器（neural audio codec，如残差矢量量化类）与通用音频-语言基础模型的最新方法与基准数据，该缺口需进一步检索补全",
+          "音乐表征模型的跨文化泛化与灾难性遗忘如何同时优化：CultureMERT 报告非西方任务提升 4.9% 且西方基准遗忘极小，但该结论目前仅来自单篇预印本，缺乏第三方复现",
+          "音乐/音频-语言模型的开源程度、权重可得性与统一评测基准缺失：候选证据中 JMLA 仅描述自建互联网音乐-描述数据集，未给出公开数据集或榜单，跨工作可比性存疑",
+          "音频字幕等生成式音乐理解任务的评测仍以自动指标为主，缺少与人类判断一致性的系统验证"
+        ]
+      }
+    },
+    {
+      "id": "q4",
+      "question": "歌声转换（SVC）、音源分离与翻唱识别（CSI）这三类任务的前沿方法、评测口径与真机/真曲目上的实际效果如何？",
+      "queries": [
+        "singing voice conversion zero-shot diffusion 2025 SVC survey",
+        "music source separation benchmark 2025 Demucs MDX SDR MUSDB18",
+        "cover song identification CSI deep learning 2024 2025 cross-domain",
+        "歌声转换 零样本 扩散模型 翻唱识别 2025 音源分离 综述"
+      ],
+      "rationale": "这三个任务常被并列讨论但评测体系差异极大：SVC 依赖说话人/歌手相似度与自然度主观评测，分离依赖 SI-SDR/SDR 与 MUSDB 榜单，CSI 依赖 Covers80/DA-TACOS 等小规模集合，混淆口径会得出错误结论。",
+      "round": 1,
+      "results": [],
+      "extraction": {
+        "subquestion_id": "q4",
+        "findings": [],
+        "note": "no candidates retrieved"
+      }
+    },
+    {
+      "id": "q5",
+      "question": "该领域可用的数据集、评测基准与挑战赛（MIREX、MUSDB18-HQ、MTG-Jamendo、MusicCaps、DA-TACOS、Slakh、FMA 等）现状、许可与可比性如何？",
+      "queries": [
+        "MIREX challenge 2025 tasks results music information retrieval",
+        "MUSDB18-HQ MoisesDB music source separation dataset license",
+        "MTG-Jamendo MusicCaps Song Describer music captioning dataset",
+        "cover song identification dataset DA-TACOS Covers80 Second Hand Songs benchmark"
+      ],
+      "rationale": "数据与许可直接决定复现可行性与法律风险（尤其生成模型训练数据与翻唱识别），且各基准的划分方式、版权状态与评测脚本质量参差，必须逐项核实主页与官方说明。",
+      "round": 1,
+      "results": [],
+      "extraction": {
+        "subquestion_id": "q5",
+        "findings": [],
+        "note": "no candidates retrieved"
+      }
+    },
+    {
+      "id": "q6",
+      "question": "可复现的开源项目与工程栈有哪些？该领域存在哪些开放问题与争议（版权与授权、评测指标有效性、生成模型训练数据来源、AC 与学术指标脱节）？",
+      "queries": [
+        "music generation copyright lawsuit training data RIAA 2024 2025",
+        "FAD metric limitations music generation evaluation critique 2024",
+        "open source music information retrieval toolkit librosa Essentia madmom Asteroid Demucs",
+        "AI音乐 版权 评测指标 争议 2025 开源工具链"
+      ],
+      "rationale": "工程落地依赖 librosa/Essentia/madmom/Asteroid/Demucs/stable-audio-tools 等实际可用的栈，而版权诉讼、训练数据披露缺失与指标饱和（如 FAD 的可比性）是当前最实质的争议，需要一手来源与官方仓库状态佐证。",
+      "round": 1,
+      "results": [
+        {
+          "title": "CultureMERT: Continual Pre-Training for Cross-Cultural Music Representation Learning",
+          "url": "http://arxiv.org/abs/2506.17818v1",
+          "snippet": "Recent advances in music foundation models have improved audio representation learning, yet their effectiveness across diverse musical traditions remains limited. We introduce CultureMERT-95M, a multi-culturally adapted foundation model developed to enhance cross-cultural music representation learning and understanding. To achieve this, we propose a two-stage continual pre-training strategy that integrates learning rate re-warming and re-decaying, enabling stable adaptation even with limited computational resources. Training on a 650-hour multi-cultural data mix, comprising Greek, Turkish, an…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-21",
+          "authors": [
+            "Angelos-Nikolaos Kanatas",
+            "Charilaos Papaioannou",
+            "Alexandros Potamianos"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.17818v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "TerraGen: A Unified Multi-Task Layout Generation Framework for Remote Sensing Data Augmentation",
+          "url": "http://arxiv.org/abs/2510.21391v1",
+          "snippet": "Remote sensing vision tasks require extensive labeled data across multiple, interconnected domains. However, current generative data augmentation frameworks are task-isolated, i.e., each vision task requires training an independent generative model, and ignores the modeling of geographical information and spatial constraints. To address these issues, we propose \\textbf{TerraGen}, a unified layout-to-image generation framework that enables flexible, spatially controllable synthesis of remote sensing imagery for various high-level vision tasks, e.g., detection, segmentation, and extraction. Spe…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-24",
+          "authors": [
+            "Datao Tang",
+            "Hao Wang",
+            "Yudeng Xin",
+            "Hui Qiao",
+            "Dongsheng Jiang",
+            "Yin Li",
+            "Zhiheng Yu",
+            "Xiangyong Cao"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.21391v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "No Encore: Unlearning as Opt-Out in Music Generation",
+          "url": "http://arxiv.org/abs/2509.06277v2",
+          "snippet": "AI music generation is rapidly emerging in the creative industries, enabling intuitive music generation from textual descriptions. However, these systems pose risks in exploitation of copyrighted creations, raising ethical and legal concerns. In this paper, we present preliminary results on the first application of machine unlearning techniques from an ongoing research to prevent inadvertent usage of creative content. Particularly, we explore existing methods in machine unlearning to a pre-trained Text-to-Music (TTM) baseline and analyze their efficacy in unlearning pre-trained datasets witho…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-08",
+          "authors": [
+            "Jinju Kim",
+            "Taehan Kim",
+            "Abdul Waheed",
+            "Jong Hwan",
+            "Rita Singh"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.06277v2",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "The IEEE-IS2 2024 Music Packet Loss Concealment Challenge",
+          "url": "http://arxiv.org/abs/2409.18564v1",
+          "snippet": "We present the IEEE-IS2 2024 Music Packet Loss Concealment Challenge. We begin by detailing the challenge rules, followed by an overview of the provided baseline system, the blind test set, and the evaluation methodology used to determine the final ranking. This inaugural edition aimed to foster collaboration between researchers and practitioners from the fields of signal processing, machine learning, and networked music performance, while also laying the groundwork for future advancements in packet loss concealment for music signals.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-09-27",
+          "authors": [
+            "Alessandro Ilic Mezza",
+            "Alberto Bernardini"
+          ],
+          "venue": "eess.AS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2409.18564v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Training Foundation Models as Data Compression: On Information, Model Weights and Copyright Law",
+          "url": "http://arxiv.org/abs/2407.13493v4",
+          "snippet": "The training process of foundation models as for other classes of deep learning systems is based on minimizing the reconstruction error over a training set. For this reason, they are susceptible to the memorization and subsequent reproduction of training samples. In this paper, we introduce a training-as-compressing perspective, wherein the model's weights embody a compressed representation of the training data. From a copyright standpoint, this point of view implies that the weights can be considered a reproduction or, more likely, a derivative work of a potentially protected set of works. W…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-07-18",
+          "authors": [
+            "Giorgio Franceschelli",
+            "Claudia Cevenini",
+            "Mirco Musolesi"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2407.13493v4",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Improving Choral Music Separation through Expressive Synthesized Data from Sampled Instruments",
+          "url": "http://arxiv.org/abs/2209.02871v1",
+          "snippet": "Choral music separation refers to the task of extracting tracks of voice parts (e.g., soprano, alto, tenor, and bass) from mixed audio. The lack of datasets has impeded research on this topic as previous work has only been able to train and evaluate models on a few minutes of choral music data due to copyright issues and dataset collection difficulties. In this paper, we investigate the use of synthesized training data for the source separation task on real choral music. We make three contributions: first, we provide an automated pipeline for synthesizing choral music data from sampled instru…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2022-09-07",
+          "authors": [
+            "Ke Chen",
+            "Hao-Wen Dong",
+            "Yi Luo",
+            "Julian McAuley",
+            "Taylor Berg-Kirkpatrick",
+            "Miller Puckette",
+            "Shlomo Dubnov"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2209.02871v1",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q6",
+        "findings": [
+          {
+            "point": "CultureMERT: Continual Pre-Training for Cross-Cultural Music Representation Learning",
+            "evidence": "Recent advances in music foundation models have improved audio representation learning, yet their effectiveness across diverse musical traditions remains limited. We introduce CultureMERT-95M, a multi-culturally adapted foundation model developed to enhance cross-cultural music representation learn…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SD",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SD）"
+          },
+          {
+            "point": "TerraGen: A Unified Multi-Task Layout Generation Framework for Remote Sensing Data Augmentation",
+            "evidence": "Remote sensing vision tasks require extensive labeled data across multiple, interconnected domains. However, current generative data augmentation frameworks are task-isolated, i.e., each vision task requires training an independent generative model, and ignores the modeling of geographical informat…",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "No Encore: Unlearning as Opt-Out in Music Generation",
+            "evidence": "AI music generation is rapidly emerging in the creative industries, enabling intuitive music generation from textual descriptions. However, these systems pose risks in exploitation of copyrighted creations, raising ethical and legal concerns. In this paper, we present preliminary results on the fir…",
+            "sources": [
+              7
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "The IEEE-IS2 2024 Music Packet Loss Concealment Challenge",
+            "evidence": "We present the IEEE-IS2 2024 Music Packet Loss Concealment Challenge. We begin by detailing the challenge rules, followed by an overview of the provided baseline system, the blind test set, and the evaluation methodology used to determine the final ranking. This inaugural edition aimed to foster co…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "",
+            "authority": "eess.AS",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=eess.AS）"
+          },
+          {
+            "point": "Training Foundation Models as Data Compression: On Information, Model Weights and Copyright Law",
+            "evidence": "The training process of foundation models as for other classes of deep learning systems is based on minimizing the reconstruction error over a training set. For this reason, they are susceptible to the memorization and subsequent reproduction of training samples. In this paper, we introduce a train…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "",
+            "authority": "cs.CY",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CY）"
+          },
+          {
+            "point": "Improving Choral Music Separation through Expressive Synthesized Data from Sampled Instruments",
+            "evidence": "Choral music separation refers to the task of extracting tracks of voice parts (e.g., soprano, alto, tenor, and bass) from mixed audio. The lack of datasets has impeded research on this topic as previous work has only been able to train and evaluate models on a few minutes of choral music data due…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2022",
+            "heat": "",
+            "authority": "cs.SD",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SD）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "r2q1",
+      "question": "音乐生成与理解的评测指标（FAD、CLAP score、SDR/SI-SDR、MOS）各自的有效性、局限与人类听感相关性如何？学术界对指标滥用有哪些批评？",
+      "queries": [
+        "FAD Fréchet Audio Distance limitations critique music generation evaluation",
+        "CLAP score music generation evaluation validity 2024 2025",
+        "SDR SI-SDR uSDR music separation metric comparison BSS Eval v4",
+        "listening test MOS music generation reproducibility human evaluation best practice"
+      ],
+      "rationale": "critique gap",
+      "round": 2,
+      "results": [
+        {
+          "title": "An Empirical Analysis of Task-Induced Encoder Bias in Fréchet Audio Distance",
+          "url": "http://arxiv.org/abs/2602.23958v2",
+          "snippet": "Fréchet Audio Distance (FAD) is the de facto standard for evaluating text-to-audio generation, yet its scores depend on the underlying encoder's embedding space. An encoder's training task dictates which acoustic features are preserved or discarded, causing FAD to inherit systematic task-induced biases. We decompose evaluation into Recall, Precision, and Alignment (split into semantic and structural dimensions), using log-scale normalization for fair cross-encoder comparison. Controlled experiments on six encoders across two datasets reveal a four-axis trade-off: reconstruction-based AudioMAE…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-27",
+          "authors": [
+            "Wonwoo Jeong"
+          ],
+          "venue": "eess.AS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.23958v2",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Unified Cross-modal Translation of Score Images, Symbolic Music, and Performance Audio",
+          "url": "http://arxiv.org/abs/2505.12863v1",
+          "snippet": "Music exists in various modalities, such as score images, symbolic scores, MIDI, and audio. Translations between each modality are established as core tasks of music information retrieval, such as automatic music transcription (audio-to-MIDI) and optical music recognition (score image to symbolic score). However, most past work on multimodal translation trains specialized models on individual translation tasks. In this paper, we propose a unified approach, where we train a general-purpose model on many translation tasks simultaneously. Two key factors make this unified approach viable: a new…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-19",
+          "authors": [
+            "Jongmin Jung",
+            "Dongmin Kim",
+            "Sihun Lee",
+            "Seola Cho",
+            "Hyungjoon Soh",
+            "Irmak Bukey",
+            "Chris Donahue",
+            "Dasaem Jeong"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.12863v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Beyond SDR: How Music Source Separation Reshapes Rhythm-Relevant Signal Properties",
+          "url": "http://arxiv.org/abs/2609.04224v1",
+          "snippet": "Music source separation (MSS) is increasingly used not to remix music but to measure it: separated drum stems feed studies of microtiming, dynamics, and groove. The field evaluates separators almost exclusively by signal-to-distortion ratio (SDR), yet microrhythm research shows that a sound's perceived temporal location (its p-centre) is co-determined by its attack and envelope, precisely the properties SDR was not designed to protect. We quantify what four open separators spanning four architecture generations (Spleeter, HT-Demucs, BS-Roformer, SCNetXL) do to rhythm-critical signal propertie…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-12",
+          "authors": [
+            "Chuxin Ding"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.04224v1",
+            "rrf_score": 0.019481
+          }
+        },
+        {
+          "title": "Music SketchNet: Controllable Music Generation via Factorized Representations of Pitch and Rhythm",
+          "url": "http://arxiv.org/abs/2008.01291v1",
+          "snippet": "Drawing an analogy with automatic image completion systems, we propose Music SketchNet, a neural network framework that allows users to specify partial musical ideas guiding automatic music generation. We focus on generating the missing measures in incomplete monophonic musical pieces, conditioned on surrounding context, and optionally guided by user-specified pitch and rhythm snippets. First, we introduce SketchVAE, a novel variational autoencoder that explicitly factorizes rhythm and pitch contour to form the basis of our proposed model. Then we introduce two discriminative architectures, S…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2020-08-04",
+          "authors": [
+            "Ke Chen",
+            "Cheng-i Wang",
+            "Taylor Berg-Kirkpatrick",
+            "Shlomo Dubnov"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2008.01291v1",
+            "rrf_score": 0.055862,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Introduction to Gestural Similarity in Music. An Application of Category Theory to the Orchestra",
+          "url": "http://arxiv.org/abs/1904.10340v1",
+          "snippet": "Mathematics, and more generally computational sciences, intervene in several aspects of music. Mathematics describes the acoustics of the sounds giving formal tools to physics, and the matter of music itself in terms of compositional structures and strategies. Mathematics can also be applied to the entire making of music, from the score to the performance, connecting compositional structures to acoustical reality of sounds. Moreover, the precise concept of gesture has a decisive role in understanding musical performance. In this paper, we apply some concepts of category theory to compare gest…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2019-04-22",
+          "authors": [
+            "Maria Mannone"
+          ],
+          "venue": "math.HO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1904.10340v1",
+            "rrf_score": 0.034823,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Fréchet Audio Distance: A Metric for Evaluating Music Enhancement Algorithms",
+          "url": "http://arxiv.org/abs/1812.08466v4",
+          "snippet": "We propose the Fréchet Audio Distance (FAD), a novel, reference-free evaluation metric for music enhancement algorithms. We demonstrate how typical evaluation metrics for speech enhancement and blind source separation can fail to accurately measure the perceived effect of a wide variety of distortions. As an alternative, we propose adapting the Fréchet Inception Distance (FID) metric used to evaluate generative image models to the audio domain. FAD is validated using a wide variety of artificial distortions and is compared to the signal based metrics signal to distortion ratio (SDR), cosine d…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-12-20",
+          "authors": [
+            "Kevin Kilgour",
+            "Mauricio Zuluaga",
+            "Dominik Roblek",
+            "Matthew Sharifi"
+          ],
+          "venue": "eess.AS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1812.08466v4",
+            "rrf_score": 0.02459
+          }
+        }
+      ],
+      "extraction": {
+        "name": "...",
+        "url": "...",
+        "subquestion_id": "r2q1"
+      }
+    },
+    {
+      "id": "r2q2",
+      "question": "音乐与音频模型在实时/流式与端侧部署上的现状如何？低延迟生成与流式分离的可行性与代表工作有哪些？",
+      "queries": [
+        "real-time streaming music generation low latency 2025",
+        "streaming music source separation low latency on-device",
+        "on-device audio model deployment quantization music 2025"
+      ],
+      "rationale": "critique gap",
+      "round": 2,
+      "results": [
+        {
+          "title": "Rolling Forcing: Autoregressive Long Video Diffusion in Real Time",
+          "url": "https://arxiv.org/abs/2509.25161",
+          "snippet": "Streaming video generation, as one fundamental component in interactive world models and neural game engines, aims to generate high-quality, low-latency, and temporally coherent long video streams. However, most existing work suffers from severe error accumulation that often significantly degrades the generated stream videos over long horizons. We design Rolling Forcing, a novel video generation technique that enables streaming long videos with minimal error accumulation. Rolling Forcing comes with three novel designs. First, instead of iteratively sampling individual frames, which accelerate…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2025-09-29",
+          "authors": [
+            "Kunhao Liu",
+            "Wen-Bo Hu",
+            "Jia-Le Xu",
+            "Shan Ying",
+            "Shi-Jian Lu"
+          ],
+          "venue": "arXiv.org",
+          "citations": 215,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.018421
+          }
+        },
+        {
+          "title": "Baseline Systems For The 2025 Low-Resource Audio Codec Challenge",
+          "url": "http://arxiv.org/abs/2510.00264v3",
+          "snippet": "The Low-Resource Audio Codec (LRAC) Challenge aims to advance neural audio coding for deployment in resource-constrained environments. The first edition focuses on low-resource neural speech codecs that must operate reliably under everyday noise and reverberation, while satisfying strict constraints on computational complexity, latency, and bitrate. Track 1 targets transparency codecs, which aim to preserve the perceptual transparency of input speech under mild noise and reverberation. Track 2 addresses enhancement codecs, which combine coding and compression with denoising and dereverberatio…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-30",
+          "authors": [
+            "Yusuf Ziya Isik",
+            "Rafał Łaganowski"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.00264v3",
+            "rrf_score": 0.039567,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Towards Practical Real-Time Low-Latency Music Source Separation",
+          "url": "https://arxiv.org/abs/2511.13146",
+          "snippet": "In recent years, significant progress has been made in the field of deep learning for music demixing. However, there has been limited attention on real-time, low-latency music demixing, which holds potential for various applications, such as hearing aids, audio stream remixing, and live performances. Additionally, a notable tendency has emerged towards the development of larger models, limiting their applicability in certain scenarios. In this paper, we introduce a lightweight real-time low-latency model called Real-Time Single-Path TFC-TDF UNET (RT-STT), which is based on the Dual-Path TFC-T…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2025-06-30",
+          "authors": [
+            "Junyu Wu",
+            "Jie Liu",
+            "Tianrui Pan",
+            "Jie Tang",
+            "Gang-Shan Wu"
+          ],
+          "venue": "IEEE International Conference on Multimedia and Expo",
+          "citations": 3,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.036518,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "MIDAS: Multimodal Interactive Digital-humAn Synthesis via Real-time Autoregressive Video Generation",
+          "url": "https://arxiv.org/abs/2508.19320",
+          "snippet": "Recently, interactive digital human video generation has attracted widespread attention and achieved remarkable progress. However, building such a practical system that can interact with diverse input signals in real time remains challenging to existing methods, which often struggle with heavy computational cost and limited controllability. In this work, we introduce an autoregressive video generation framework that enables interactive multimodal control and low-latency extrapolation in a streaming manner. With minimal modifications to a standard large language model (LLM), our framework acce…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2025-08-26",
+          "authors": [
+            "Ming Chen",
+            "Liyuan Cui",
+            "Wen-Yuan Zhang",
+            "Haoxian Zhang",
+            "Yan Zhou",
+            "Xiaohan Li",
+            "Songlin Tang",
+            "Jiwen Liu",
+            "Borui Liao",
+            "Hejia Chen",
+            "Xiao-Qiang Liu",
+            "Peng-Fei Wan"
+          ],
+          "venue": "arXiv.org",
+          "citations": 20,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.019178
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Toward Low-Latency End-to-End Voice Agents for Telecommunications Using Streaming ASR, Quantized LLMs, and Real-Time TTS",
+          "url": "https://arxiv.org/abs/2508.04721",
+          "snippet": "We introduce a low-latency telecom AI voice agent pipeline for real-time, interactive telecommunications use, enabling advanced voice AI for call center automation, intelligent IVR (Interactive Voice Response), and AI-driven customer support. The solution is built for telecom, combining four specialized models by NetoAI: TSLAM, a 4-bit quantized Telecom-Specific Large Language Model (LLM); T-VEC, a Telecom-Specific Embedding Model; TTE, a Telecom-Specific Automatic Speech Recognition (ASR) model; and T-Synth, a Telecom-Specific Text-to-Speech (TTS) model. These models enable highly responsive…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2025-08-05",
+          "authors": [
+            "Vignesh Ethiraj",
+            "Ashwath David",
+            "Sidhanth Menon",
+            "Divya Vijay"
+          ],
+          "venue": "arXiv.org",
+          "citations": 11,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.020588
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "r2q2",
+        "findings": [
+          {
+            "point": "Rolling Forcing: Autoregressive Long Video Diffusion in Real Time",
+            "evidence": "Streaming video generation, as one fundamental component in interactive world models and neural game engines, aims to generate high-quality, low-latency, and temporally coherent long video streams. However, most existing work suffers from severe error accumulation that often significantly degrades…",
+            "sources": [
+              59
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "citations=215",
+            "authority": "arXiv.org",
+            "attention": "高（citations=215）",
+            "recommendation": "★★★★★（venue=arXiv.org, 高热度）"
+          },
+          {
+            "point": "Baseline Systems For The 2025 Low-Resource Audio Codec Challenge",
+            "evidence": "The Low-Resource Audio Codec (LRAC) Challenge aims to advance neural audio coding for deployment in resource-constrained environments. The first edition focuses on low-resource neural speech codecs that must operate reliably under everyday noise and reverberation, while satisfying strict constraint…",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SD",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SD）"
+          },
+          {
+            "point": "Towards Practical Real-Time Low-Latency Music Source Separation",
+            "evidence": "In recent years, significant progress has been made in the field of deep learning for music demixing. However, there has been limited attention on real-time, low-latency music demixing, which holds potential for various applications, such as hearing aids, audio stream remixing, and live performance…",
+            "sources": [
+              46
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "citations=3",
+            "authority": "IEEE International Conference on Multimedia and Expo",
+            "attention": "低（citations=3）",
+            "recommendation": "★★★★☆（venue=IEEE International Conference on Multimedia and Expo）"
+          },
+          {
+            "point": "MIDAS: Multimodal Interactive Digital-humAn Synthesis via Real-time Autoregressive Video Generation",
+            "evidence": "Recently, interactive digital human video generation has attracted widespread attention and achieved remarkable progress. However, building such a practical system that can interact with diverse input signals in real time remains challenging to existing methods, which often struggle with heavy comp…",
+            "sources": [
+              55
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "citations=20",
+            "authority": "arXiv.org",
+            "attention": "中（citations=20）",
+            "recommendation": "★★★★☆（venue=arXiv.org）"
+          },
+          {
+            "point": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+            "evidence": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading…",
+            "sources": [
+              47
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.DC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.DC）"
+          },
+          {
+            "point": "Toward Low-Latency End-to-End Voice Agents for Telecommunications Using Streaming ASR, Quantized LLMs, and Real-Time TTS",
+            "evidence": "We introduce a low-latency telecom AI voice agent pipeline for real-time, interactive telecommunications use, enabling advanced voice AI for call center automation, intelligent IVR (Interactive Voice Response), and AI-driven customer support. The solution is built for telecom, combining four specia…",
+            "sources": [
+              53
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "citations=11",
+            "authority": "arXiv.org",
+            "attention": "中（citations=11）",
+            "recommendation": "★★★★☆（venue=arXiv.org）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "r2q3",
+      "question": "AI 音乐生成引发的版权与授权争议有哪些一手证据与法律进展？训练数据来源披露与 opt-out 机制现状如何？",
+      "queries": [
+        "RIAA lawsuit Suno Udio 2024 2025 court ruling",
+        "music AI training data copyright disclosure opt-out Spawning",
+        "generative music licensing deal 2025 label artist consent"
+      ],
+      "rationale": "critique gap",
+      "round": 2,
+      "results": [
+        {
+          "title": "Data-Driven Analysis of Text-Conditioned AI-Generated Music: A Case Study with Suno and Udio",
+          "url": "http://arxiv.org/abs/2509.11824v1",
+          "snippet": "Online AI platforms for creating music from text prompts (AI music), such as Suno and Udio, are now being used by hundreds of thousands of users. Some AI music is appearing in advertising, and even charting, in multiple countries. How are these platforms being used? What subjects are inspiring their users? This article answers these questions for Suno and Udio using a large collection of songs generated by users of these platforms from May to October 2024. Using a combination of state-of-the-art text embedding models, dimensionality reduction and clustering methods, we analyze the prompts, ta…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-15",
+          "authors": [
+            "Luca Casini",
+            "Laura Cros Vila",
+            "David Dalmazzo",
+            "Anna-Kaisa Kaila",
+            "Bob L. T. Sturm"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.11824v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Who Gets Heard? Rethinking Fairness in AI for Music Systems",
+          "url": "http://arxiv.org/abs/2511.05953v1",
+          "snippet": "In recent years, the music research community has examined risks of AI models for music, with generative AI models in particular, raised concerns about copyright, deepfakes, and transparency. In our work, we raise concerns about cultural and genre biases in AI for music systems (music-AI systems) which affect stakeholders including creators, distributors, and listeners shaping representation in AI for music. These biases can misrepresent marginalized traditions, especially from the Global South, producing inauthentic outputs (e.g., distorted ragas) that reduces creators' trust on these system…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-08",
+          "authors": [
+            "Atharva Mehta",
+            "Shivam Chauhan",
+            "Megha Sharma",
+            "Gus Xia",
+            "Kaustuv Kanti Ganguli",
+            "Nishanth Chandran",
+            "Zeerak Talat",
+            "Monojit Choudhury"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.05953v1",
+            "rrf_score": 0.021739
+          }
+        },
+        {
+          "title": "No Encore: Unlearning as Opt-Out in Music Generation",
+          "url": "http://arxiv.org/abs/2509.06277v2",
+          "snippet": "AI music generation is rapidly emerging in the creative industries, enabling intuitive music generation from textual descriptions. However, these systems pose risks in exploitation of copyrighted creations, raising ethical and legal concerns. In this paper, we present preliminary results on the first application of machine unlearning techniques from an ongoing research to prevent inadvertent usage of creative content. Particularly, we explore existing methods in machine unlearning to a pre-trained Text-to-Music (TTM) baseline and analyze their efficacy in unlearning pre-trained datasets witho…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-08",
+          "authors": [
+            "Jinju Kim",
+            "Taehan Kim",
+            "Abdul Waheed",
+            "Jong Hwan",
+            "Rita Singh"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.06277v2",
+            "rrf_score": 0.021429
+          }
+        },
+        {
+          "title": "Penalizing Transparency? How AI Disclosure and Author Demographics Shape Human and AI Judgments About Writing",
+          "url": "http://arxiv.org/abs/2507.01418v1",
+          "snippet": "As AI integrates in various types of human writing, calls for transparency around AI assistance are growing. However, if transparency operates on uneven ground and certain identity groups bear a heavier cost for being honest, then the burden of openness becomes asymmetrical. This study investigates how AI disclosure statement affects perceptions of writing quality, and whether these effects vary by the author's race and gender. Through a large-scale controlled experiment, both human raters (n = 1,970) and LLM raters (n = 2,520) evaluated a single human-written news article while disclosure st…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-02",
+          "authors": [
+            "Inyoung Cheong",
+            "Alicia Guo",
+            "Mina Lee",
+            "Zhehui Liao",
+            "Kowe Kadoma",
+            "Dongyoung Go",
+            "Joseph Chee Chang",
+            "Peter Henderson",
+            "Mor Naaman",
+            "Amy X. Zhang"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.01418v1",
+            "rrf_score": 0.020833
+          }
+        },
+        {
+          "title": "Opening Musical Creativity? Embedded Ideologies in Generative-AI Music Systems",
+          "url": "http://arxiv.org/abs/2508.08805v1",
+          "snippet": "AI systems for music generation are increasingly common and easy to use, granting people without any musical background the ability to create music. Because of this, generative-AI has been marketed and celebrated as a means of democratizing music making. However, inclusivity often functions as marketable rhetoric rather than a genuine guiding principle in these industry settings. In this paper, we look at four generative-AI music making systems available to the public as of mid-2025 (AIVA, Stable Audio, Suno, and Udio) and track how they are rhetoricized by their developers, and received by u…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-12",
+          "authors": [
+            "Liam Pram",
+            "Fabio Morreale"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.08805v1",
+            "rrf_score": 0.02
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "r2q3",
+        "findings": [
+          {
+            "point": "Data-Driven Analysis of Text-Conditioned AI-Generated Music: A Case Study with Suno and Udio",
+            "evidence": "Online AI platforms for creating music from text prompts (AI music), such as Suno and Udio, are now being used by hundreds of thousands of users. Some AI music is appearing in advertising, and even charting, in multiple countries. How are these platforms being used? What subjects are inspiring thei…",
+            "sources": [
+              64
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.IR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.IR）"
+          },
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              66
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Who Gets Heard? Rethinking Fairness in AI for Music Systems",
+            "evidence": "In recent years, the music research community has examined risks of AI models for music, with generative AI models in particular, raised concerns about copyright, deepfakes, and transparency. In our work, we raise concerns about cultural and genre biases in AI for music systems (music-AI systems) w…",
+            "sources": [
+              71
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CY",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CY）"
+          },
+          {
+            "point": "No Encore: Unlearning as Opt-Out in Music Generation",
+            "evidence": "AI music generation is rapidly emerging in the creative industries, enabling intuitive music generation from textual descriptions. However, these systems pose risks in exploitation of copyrighted creations, raising ethical and legal concerns. In this paper, we present preliminary results on the fir…",
+            "sources": [
+              7
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Penalizing Transparency? How AI Disclosure and Author Demographics Shape Human and AI Judgments About Writing",
+            "evidence": "As AI integrates in various types of human writing, calls for transparency around AI assistance are growing. However, if transparency operates on uneven ground and certain identity groups bear a heavier cost for being honest, then the burden of openness becomes asymmetrical. This study investigates…",
+            "sources": [
+              72
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CY",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CY）"
+          },
+          {
+            "point": "Opening Musical Creativity? Embedded Ideologies in Generative-AI Music Systems",
+            "evidence": "AI systems for music generation are increasingly common and easy to use, granting people without any musical background the ability to create music. Because of this, generative-AI has been marketed and celebrated as a means of democratizing music making. However, inclusivity often functions as mark…",
+            "sources": [
+              74
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SD",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SD）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [
+    {
+      "coverage": "六个子问题仅为框架，findings 全为空，尚无任何可核查证据，覆盖度实质为零，且缺失评测指标有效性、版权诉讼、符号音乐/AMT 等关键维度。",
+      "gaps": [
+        "全部子问题均无 findings，q1-q6 目前均为空壳，未检索到任何可引用来源",
+        "q1 未拆分 MIR 具体任务链（beat/downbeat、和弦识别、自动转谱 AMT、音高估计、结构分析），也未覆盖 neuro-symbolic 传统的代表工作（如 IDyOM、Harmony/Chord 规则系统）",
+        "q2 未覆盖可控生成的具体控制轴（歌词、旋律、结构、inpainting/续写、stem-conditioned）与开源权重可用性（MusicGen/AudioLDM/Stable Audio/ACE-Step 等的许可与权重）",
+        "q2 未覆盖扩散 vs 自回归 token 路线的公平对比与归因（数据/规模/采样器），也缺少蒸馏与实时低延迟生成",
+        "q3 未系统对比 neural audio codec（SoundStream/EnCodec/DAC/Mimi/SNAC）的 token 率与重建质量，缺少 audio LLM 的基准榜单与幻觉评测",
+        "q4 缺少音源分离的现代评测口径细节（SDR/SI-SDR/uSDR、BSS Eval v4、MDX 榜单）与真曲目泛化、以及 SVC 的说话人/歌手泄漏与防伪检测",
+        "q5 缺少各数据集与基准的许可与版权状态核查（如 MUSDB18 的 NC 限制、MTG-Jamendo、DA-TACOS、Slakh、FMA 的实际 license），可比性口径未定义",
+        "q6 未覆盖版权与授权争议的一手证据（RIAA 诉 Suno/Udio、训练数据来源披露、opt-out 机制）与 AC 指标与人类听感脱节的实证研究",
+        "整体缺失维度：评测指标有效性（FAD/CLAP score/MOS 的可信度）、实时与端侧部署、音乐 deepfake 检测与歌唱者识别、video-to-music 与情绪/舞蹈多模态生成",
+        "缺失领域综述与经典锚点：缺少 2022-2026 的 music generation / MIR 深度综述与教科书级经典（如 Müller 教材、ISMIR 综述）作为 taxonomy 骨架",
+        "未覆盖失败案例与复现困难（negative results）、以及不同论文数字口径（任务数/硬件/仿真 or 真曲）的交叉验证"
+      ],
+      "additional_queries": [
+        "music information retrieval survey 2024 2025 arXiv taxonomy beat tracking chord recognition automatic music transcription",
+        "text-to-music generation survey 2025 diffusion autoregressive comparison MusicGen Stable Audio AudioLDM",
+        "neural audio codec comparison EnCodec DAC SoundStream Mimi token rate reconstruction 2025",
+        "music generation evaluation metrics FAD CLAP score validity human listening test critique",
+        "AI music copyright lawsuit RIAA Suno Udio training data opt-out 2025",
+        "music source separation benchmark MUSDB18-HQ MDX SDR uSDR BSS Eval v4 state of the art",
+        "singing voice conversion survey 2024 2025 real-world generalization anti-spoofing singer identification",
+        "cover song identification CSI deep learning benchmark DA-TACOS evaluation",
+        "audio LLM benchmark hallucination music understanding MU-LLaMA MusicQA 2025",
+        "video-to-music generation emotion dance multimodal 2025",
+        "symbolic music generation MIDI neuro-symbolic IDyOM harmony rule-based deep learning",
+        "music dataset license MUSDB18 MTG-Jamendo Slakh FMA DA-TACOS commercial use"
+      ],
+      "additional_subquestions": [
+        {
+          "question": "音乐生成与理解的评测指标（FAD、CLAP score、SDR/SI-SDR、MOS）各自的有效性、局限与人类听感相关性如何？学术界对指标滥用有哪些批评？",
+          "queries": [
+            "FAD Fréchet Audio Distance limitations critique music generation evaluation",
+            "CLAP score music generation evaluation validity 2024 2025",
+            "SDR SI-SDR uSDR music separation metric comparison BSS Eval v4",
+            "listening test MOS music generation reproducibility human evaluation best practice"
+          ]
+        },
+        {
+          "question": "音乐与音频模型在实时/流式与端侧部署上的现状如何？低延迟生成与流式分离的可行性与代表工作有哪些？",
+          "queries": [
+            "real-time streaming music generation low latency 2025",
+            "streaming music source separation low latency on-device",
+            "on-device audio model deployment quantization music 2025"
+          ]
+        },
+        {
+          "question": "AI 音乐生成引发的版权与授权争议有哪些一手证据与法律进展？训练数据来源披露与 opt-out 机制现状如何？",
+          "queries": [
+            "RIAA lawsuit Suno Udio 2024 2025 court ruling",
+            "music AI training data copyright disclosure opt-out Spawning",
+            "generative music licensing deal 2025 label artist consent"
+          ]
+        },
+        {
+          "question": "音乐 deepfake 检测、歌唱者识别与 AI 生成音频取证的技术与评测现状如何？",
+          "queries": [
+            "singing voice deepfake detection 2025 challenge",
+            "AI generated music detection benchmark 2025",
+            "singer identification state of the art 2024 2025"
+          ]
+        },
+        {
+          "question": "video-to-music、情绪/舞蹈条件音乐生成等多模态音乐生成方向的前沿与基准是什么？",
+          "queries": [
+            "video-to-music generation benchmark 2025",
+            "emotion conditioned music generation evaluation",
+            "dance music generation multimodal 2025"
+          ]
+        },
+        {
+          "question": "neuro-symbolic 与符号音乐理解传统（IDyOM、和弦/和声规则、音乐认知模型）如何影响当代深度 MIR 与生成？",
+          "queries": [
+            "neuro-symbolic music generation survey",
+            "IDyOM information dynamics music cognition deep learning",
+            "symbolic music understanding transformer chord harmony 2025"
+          ]
+        }
+      ]
+    }
+  ],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 119,
+    "prompt_tokens": 660673,
+    "completion_tokens": 364524,
+    "generated_at": "2026-10-04T04:48:04.216752+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 音乐与音频算法调研报告：MIR、音乐生成与理解、歌声转换、音源分离与自监督音频表征\n\n**日期**：2026-10-04（UTC） ｜ **领域**：Music & Audio（MIR / Generation / Understanding / Separation） ｜ **检索源数量**：可引用证据源 88 条（本报告正文引用 55 条）+ 题面提供的种子资源 12 条 ｜ **覆盖子问题**：8 个，其中 **3 个（q4 歌声转换/分离/翻唱识别、q5 数据集与挑战赛、r2q1 评测指标有效性）在本次抽取中零检出**，对应章节以显式证据缺口呈现\n\n> **方法学与证据纪律说明**\n> 1. 本报告严格只引用任务给定的 [1]–[88] 编号来源与题面种子资源链接，未新增任何 URL；凡检索结果未覆盖之处一律标注 `> 待核实`。\n> 2. 四类证据轴（**热度** citations/star/下载、**权威** venue/同行评审/维护机构、**关注度** 高/中/低 + 依据、**推荐度** ★1–5）逐条给出；候选块未提供热度数字者一律写 `> 待核实`，**未编造任何引用数、star 数或榜单排名**。\n> 3. 本次候选集合存在明显**检索噪声**：如遥感数据增强 [6]、拜占庭鲁棒 SGD [8]、引力波讲义 [67]、小行星大气进入 [68]、选举信息操作 [69]、图像超分挑战 [83]、越南法律问答 [84]、强透镜宇宙学 [86] 等与音乐音频无关，已剔除；另有实时视频生成 [59]、数字人视频合成 [55]、电信语音智能体 [53]、车辆边缘计算 [47]、多通道直播 [45]、LabVIEW 电机诊断 [49] 属于\"实时/低延迟\"关键词误召回，仅在本报告第五章作为**反例**说明检索偏差。\n> 4. 证据等级：A=同行评审/官方技术报告；B=arXiv 预印本/官方仓库；C=第三方复现/榜单；D=社区内容。本次绝大多数条目为 **B 级预印本**，这是本报告最需要读者警惕的系统性局限。\n\n---\n\n## 摘要（Executive Summary）\n\n- **音乐生成（Music Generation）**：2024–2026 年的主流叙事是\"自回归 + 扩散两条路线并存\"，但本次检索**未能取得任何自回归音乐 token 模型的具名一手证据**（模型名、架构、指标均缺失），因此\"扩散 vs 自回归\"的实证对比在本报告内**无法完成** [25] `> 待核实`。可核查的前沿集中在**可控/编辑式生成**：辅助条件分支的受控消融 [25]、指令微调编辑 [21]、音频提示轻量适配 [23]、情感对齐生成 [80]、低资源竞赛配方 [81]。\n- **音乐理解与自监督表征**：CultureMERT-95M 用两阶段持续预训练在 650 小时希腊/土耳其/印度音乐数据上适配，非西方 auto-tagging 任务 ROC-AUC 与 AP 平均提升 **4.9%** 且对西方基准遗忘极小 [4]；音频-语言模型已用于开放集零样本音乐标注（MAE 编码器 + Falcon7B 解码器 + perceiver resampler）[11]；音乐字幕（music audio captioning）自 MusCaps 起被形式化 [9]；CLAP 类通用音频-语言表示仍在演进 [36]。\n- **音乐源分离（Music Source Separation, MSS）**：方法演进呈现\"架构改进（Band-Split RoPE Transformer [40]、X-scheme 多域损失+桥接 [10]）+ 低延迟/实时化 [46][62][57] + 评测反思 [43][39]\"三条线；**波形域端到端分离的可行性早在 2018 年即被系统讨论** [42]，Demucs 系工程栈已开源（种子资源）。\n- **翻唱识别（CSI）与歌声转换（SVC）**：本次检索**零检出**。仅有相邻任务的挑战赛证据——歌声深伪检测 SVDD 2024 [38] 与语音隐私 Voice Privacy 2024（非音乐 SVC）[65]。**任何关于 SVC/CSI 前沿方法的结论在本报告内都不可核查** `> 待核实`。\n- **评测指标**：FAD 自 2018 年提出 [29] 后被发现存在**任务诱导的编码器偏置** [30]，并已被专门改造用于生成式音乐评测 [31]；SDR 早在 2018 年就被质疑\"half-baked\" [43]，2026 年进一步出现\"Beyond SDR\"的再反思 [39]。**指标滥用是本领域最稳固的批判性共识**。\n- **版权、授权与治理**：已有针对 Suno/Udio 的文本条件 AI 音乐**真实使用数据**分析 [64]、以机器遗忘实现 opt-out 的初步实验 [7]、从\"数据压缩\"角度论证模型权重与版权关系的理论工作 [2]、隐私与版权的生命周期视角 [73]、以及公平性 [71][74] 与透明度指数 [66]。**训练数据披露与 opt-out 机制仍无统一行业标准**。\n- **最大缺口**：数据集/基准章节（第五章）与评测指标章节（r2q1）在本次抽取中为空；翻唱识别与歌声转换无一手来源；音乐生成缺少跨模型可比榜单。以上均以 `> 待核实` 显式标注，不做事后补写。\n\n---\n\n## 一、关键前沿进展（近 1–2 年）\n\n### 1.1 可控与编辑式文本到音乐生成（Controllable & Editable Text-to-Music）\n\n**受控消融下的条件分支作用。** 在仅器乐（instrumental-only）文本到音乐任务上，作者以 DiT（Diffusion Transformer）为骨干，引入歌词（lyric）与音色（timbre）辅助条件分支，并做\"退化条件信号\"的受控消融：去掉这些分支后模型在 **AudioBox aesthetics、LLM-as-judge、human MOS** 三类口径上得分下降，而把节省出的参数转为更深的 DiT 仅能带来**边际恢复**；作者据此提出辅助分支\"可能充当训练期架构锚点（training-time architectural anchors）\"的推断性解释 [25]。\n> **热度**：`> 待核实`（候选块未提供 citations/star/下载数据）[25]\n> **权威**：arXiv 预印本（cs.SD），单作者，未见同行评审 venue [25]\n> **关注度**：低 —— 依据：新预印本，候选块无引用/讨论/榜单信号 [25]\n> **推荐度**：★★★★☆ —— 三类评测口径齐全、消融设计可控，是\"条件机制是否真在起作用\"这一问题的高相关样本，但结论需独立复现 [25]\n\n**编辑与指令化路线。** Instruct-MusicGen 通过指令微调把音乐语言模型开放给文本到音乐**编辑**任务 [21]；Audio Prompt Adapter 用轻量微调释放文本到音乐的编辑能力 [23]；IteraTTA 提供同时探索文本提示与音频先验的交互界面 [26]。这三者共同指向\"生成 → 编辑 → 人机迭代\"的工作流转变。\n> **热度**：`> 待核实`（候选块未给引用数/star）[21][23][26]\n> **权威**：均为 arXiv 预印本（cs.SD / eess.AS），未标注同行评审 [21][23][26]\n> **关注度**：低 —— 依据：候选块无热度信号 `> 待核实` [21][23][26]\n> **推荐度**：★★★☆☆ —— 属\"可控生成\"主线但本报告仅有标题级信息，具体指标与基线对比 `> 待核实` [21][23]\n\n**情感对齐生成。** Story2MIDI 用序列到序列 Transformer 从文本生成情感一致的音乐：先合并\"文本情感分析数据集\"与\"音乐情感分类数据集\"构造 **Story2MIDI dataset**（唤起相同情感的文本短句—音乐片段配对），输出 MIDI 序列而非音频波形 [80]。\n> **热度**：`> 待核实` [80]\n> **权威**：arXiv 预印本（cs.SD），8 页短文，多作者（含 Johanna Devaney、Sarah Ita Levitan），未见同行评审 venue [80]\n> **关注度**：低 —— 依据：候选块无引用/榜单信号，数据集为作者自建 [80]\n> **推荐度**：★★★★☆ —— 是\"情感条件\"这一可控生成分支中少见的、附数据集构建流程的工作，输出 MIDI 可解释性强；受限于小数据与有限算力 [80]\n\n**低资源竞赛配方。** ICME 2026 Academic Text-to-Music Generation Grand Challenge 的参赛报告指出：训练数据按**文本嵌入聚类**分组优于按音频嵌入聚类，且聚类粒度对不同评测指标影响方向不一致（中等聚类数表现较优），研究场景限定为低数据、小模型 [81]。\n> **热度**：`> 待核实`（候选块未给名次）[81]\n> **权威**：arXiv 预印本（cs.SD），竞赛参赛提交（含竞赛评测背景）[81]\n> **关注度**：低 —— 依据：单队提交预印本，无引用/名次信号 [81]\n> **推荐度**：★★★☆☆ —— 对低资源训练配方有直接工程参考价值，但为单队自述，须对照挑战赛官方结果 [81]\n\n**并行解码与扩散提速。** IMPACT 提出迭代式掩码并行解码（iterative mask-based parallel decoding）用于扩散建模的文本到音频生成，直面 Tango/AudioLDM 系列\"高保真但推理开销大\"的问题 [22]；Fast Timing-Conditioned Latent Audio Diffusion 关注快速、带时序条件的潜空间音频扩散 [28]。\n> **热度**：`> 待核实` [22][28]\n> **权威**：arXiv 预印本（eess.AS / cs.SD），未标注同行评审 [22][28]\n> **关注度**：低 —— 依据：候选块无热度信号 [22]\n> **推荐度**：★★★☆☆ —— 推理效率是生成音乐落地的关键瓶颈，值得与实时化工作交叉阅读 [22][28]\n\n### 1.2 跨文化表征与音乐基础模型（Cross-Cultural Representation）\n\nCultureMERT-95M 在 650 小时融合希腊、土耳其、印度音乐传统的数据混合上做**两阶段持续预训练**（learning rate re-warming + re-decaying），在多种非西方音乐 auto-tagging 任务上 ROC-AUC 与 AP **平均提升 4.9%**，超过此前 SOTA，且对以西方为中心的基准仅有**极小遗忘** [4]。\n> **热度**：`> 待核实`（候选块未提供 citations/star/榜单）[4]\n> **权威**：arXiv 预印本（cs.SD，2506.17818v1），未标注同行评审或会议录用 [4]\n> **关注度**：低 —— 依据：候选块无引用/下载/榜单信号，无法判断社区关注度 [4]\n> **推荐度**：★★★★☆ —— 同时回应\"跨文化泛化\"与\"灾难性遗忘\"两个真实痛点，指标具体可核查，是本报告中最值得精读的音乐表征工作；但缺乏第三方复现 [4]\n\n跨文化评测侧，GlobalMood 提出跨文化音乐情绪识别（music emotion recognition）基准，指出既有数据集**以西方歌曲与英文派生术语为主**\n\n## 参考来源\n\n[1] The IEEE-IS2 2024 Music Packet Loss Concealment Challenge — http://arxiv.org/abs/2409.18564v1\n[2] Training Foundation Models as Data Compression: On Information, Model Weights and Copyright Law — http://arxiv.org/abs/2407.13493v4\n[3] Improving Choral Music Separation through Expressive Synthesized Data from Sampled Instruments — http://arxiv.org/abs/2209.02871v1\n[4] CultureMERT: Continual Pre-Training for Cross-Cultural Music Representation Learning — http://arxiv.org/abs/2506.17818v1\n[5] Music SketchNet: Controllable Music Generation via Factorized Representations of Pitch and Rhythm — http://arxiv.org/abs/2008.01291v1\n[6] TerraGen: A Unified Multi-Task Layout Generation Framework for Remote Sensing Data Augmentation — http://arxiv.org/abs/2510.21391v1\n[7] No Encore: Unlearning as Opt-Out in Music Generation — http://arxiv.org/abs/2509.06277v2\n[8] Byzantine-Resilient SGD in High Dimensions on Heterogeneous Data — http://arxiv.org/abs/2005.07866v1\n[9] MusCaps: Generating Captions for Music Audio — http://arxiv.org/abs/2104.11984v1\n[10] The Whole Is Greater than the Sum of Its Parts: Improving Music Source Separation by Bridging Network — http://arxiv.org/abs/2305.07855v2\n[11] Joint Music and Language Attention Models for Zero-shot Music Tagging — http://arxiv.org/abs/2310.10159v1\n[12] Introduction to Gestural Similarity in Music. An Application of Category Theory to the Orchestra — http://arxiv.org/abs/1904.10340v1\n[13] Symbolic Music Representations for Classification Tasks: A Systematic Evaluation — http://arxiv.org/abs/2309.02567v2\n[14] Network Modulation Synthesis: New Algorithms for Generating Musical Audio Using Autoencoder Networks — http://arxiv.org/abs/2109.01948v1\n[15] Dorabella Cipher as Musical Inspiration — http://arxiv.org/abs/2509.17950v1\n[16] GlobalMood: A cross-cultural benchmark for music emotion recognition — http://arxiv.org/abs/2505.09539v2\n[17] A Functional Taxonomy of Music Generation Systems — http://arxiv.org/abs/1812.04186v1\n[18] MIRFLEX: Music Information Retrieval Feature Library for Extraction — http://arxiv.org/abs/2411.00469v1\n[19] Towards Multimodal MIR: Predicting individual differences from music-induced movement — http://arxiv.org/abs/2007.10695v1\n[20] Barwise Music Structure Analysis with the Correlation Block-Matching Segmentation Algorithm — http://arxiv.org/abs/2311.18604v1\n[21] Instruct-MusicGen: Unlocking Text-to-Music Editing for Music Language Models via Instruction Tuning — http://arxiv.org/abs/2405.18386v3\n[22] IMPACT: Iterative Mask-based Parallel Decoding for Text-to-Audio Generation with Diffusion Modeling — http://arxiv.org/abs/2506.00736v1\n[23] Audio Prompt Adapter: Unleashing Music Editing Abilities for Text-to-Music with Lightweight Finetuning — http://arxiv.org/abs/2407.16564v2\n[24] Baseline Systems For The 2025 Low-Resource Audio Codec Challenge — http://arxiv.org/abs/2510.00264v3\n[25] Instrumental Text-to-Music Generation with Auxiliary Conditioning Branches — http://arxiv.org/abs/2605.21433v1\n[26] IteraTTA: An interface for exploring both text prompts and audio priors in generating music with text-to-audio models — http://arxiv.org/abs/2307.13005v1\n[27] Vision-to-Music Generation: A Survey — http://arxiv.org/abs/2503.21254v1\n[28] Fast Timing-Conditioned Latent Audio Diffusion — http://arxiv.org/abs/2402.04825v3\n[29] Fréchet Audio Distance: A Metric for Evaluating Music Enhancement Algorithms — http://arxiv.org/abs/1812.08466v4\n[30] An Empirical Analysis of Task-Induced Encoder Bias in Fréchet Audio Distance — http://arxiv.org/abs/2602.23958v2\n[31] Adapting Frechet Audio Distance for Generative Music Evaluation — http://arxiv.org/abs/2311.01616v2\n[32] Generation of lyrics lines conditioned on music audio clips — http://arxiv.org/abs/2009.14375v1\n[33] Digital Audio Processing Tools for Music Corpus Studies — http://arxiv.org/abs/2111.03895v2\n[34] Unified Cross-modal Translation of Score Images, Symbolic Music, and Performance Audio — http://arxiv.org/abs/2505.12863v1\n[35] OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation — http://arxiv.org/abs/2409.02649v2\n[36] M2D-CLAP: Exploring General-purpose Audio-Language Representations Beyond CLAP — http://arxiv.org/abs/2503.22104v2\n[37] Learning to Traverse Latent Spaces for Musical Score Inpainting — http://arxiv.org/abs/1907.01164v1\n[38] SVDD Challenge 2024: A Singing Voice Deepfake Detection Challenge Evaluation Plan — http://arxiv.org/abs/2405.05244v1\n[39] Beyond SDR: How Music Source Separation Reshapes Rhythm-Relevant Signal Properties — http://arxiv.org/abs/2609.04224v1\n[40] Music Source Separation with Band-Split RoPE Transformer — http://arxiv.org/abs/2309.02612v2\n[41] Sanidha: A Studio Quality Multi-Modal Dataset for Carnatic Music — http://arxiv.org/abs/2501.06959v1\n[42] End-to-end music source separation: is it possible in the waveform domain? — http://arxiv.org/abs/1810.12187v2\n[43] SDR - half-baked or well done? — http://arxiv.org/abs/1811.02508v1\n[44] Rights by Architecture: A Human-Compatible Sociotechnical Layer for Digital Protection Across Regulatory Regimes — http://arxiv.org/abs/2609.02455v1\n[45] A 3D Framework for Improving Low-Latency Multi-Channel Live Streaming — http://arxiv.org/abs/2410.16284v2\n[46] Towards Practical Real-Time Low-Latency Music Source Separation — https://arxiv.org/abs/2511.13146\n[47] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1\n[48] LK Jam: System Architecture and Implementation of a Real-Time Human-AI Interactive Music Generation System using Role-Aware GRU — http://arxiv.org/abs/2606.21018v1\n[49] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1\n[50] Gesture2Music: A Low-Latency Real-Time Framework for Continuous Gesture-Driven Music Generation — http://arxiv.org/abs/2511.00793v2\n[51] Gesture2Music: A Low-Latency Real-Time Framework for Continuous Gesture-Driven Music Generation — https://arxiv.org/abs/2511.00793\n[52] Advancing Multi-Instrument Music Transcription: Results from the 2025 AMT Challenge — http://arxiv.org/abs/2603.27528v1\n[53] Toward Low-Latency End-to-End Voice Agents for Telecommunications Using Streaming ASR, Quantized LLMs, and Real-Time TTS — https://arxiv.org/abs/2508.04721\n[54] SAGE-Music: Low-Latency Symbolic Music Generation via Attribute-Specialized Key-Value Head Sharing — https://arxiv.org/abs/2510.00395\n[55] MIDAS: Multimodal Interactive Digital-humAn Synthesis via Real-time Autoregressive Video Generation — https://arxiv.org/abs/2508.19320\n[56] Real-Time and Low-Latency Processing in Computer Vision: ALiterature Review — https://doi.org/10.71063/djttt.2025.1204\n[57] Low Latency Time Domain Multichannel Speech and Music Source Separation — http://arxiv.org/abs/2204.05609v1\n[58] A Lightweight Video Streaming Framework for Low-End Systems Using FFMPEG and UDP for Real-Time Transmission — https://doi.org/10.1109/GCON65540.2025.11173312\n[59] Rolling Forcing: Autoregressive Long Video Diffusion in Real Time — https://arxiv.org/abs/2509.25161\n[60] Multi-Stage Music Source Restoration with BandSplit-RoFormer Separation and HiFi++ GAN — http://arxiv.org/abs/2603.04032v1\n[61] Audio query-based music source separation — http://arxiv.org/abs/1908.06593v1\n[62] Real-Time Low-Latency Music Source Separation Using Hybrid Spectrogram-Tasnet — https://arxiv.org/abs/2402.17701\n[63] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[64] Data-Driven Analysis of Text-Conditioned AI-Generated Music: A Case Study with Suno and Udio — http://arxiv.org/abs/2509.11824v1\n[65] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1\n[66] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[67] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1\n[68] Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum — http://arxiv.org/abs/2403.00634v2\n[69] Uncovering Coordinated Cross-Platform Information Operations Threatening the Integrity of the 2024 U.S. Presidential Election Online Discussion — http://arxiv.org/abs/2409.15402v2\n[70] ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024 — http://arxiv.org/abs/2407.12038v2\n[71] Who Gets Heard? Rethinking Fairness in AI for Music Systems — http://arxiv.org/abs/2511.05953v1\n[72] Penalizing Transparency? How AI Disclosure and Author Demographics Shape Human and AI Judgments About Writing — http://arxiv.org/abs/2507.01418v1\n[73] Privacy and Copyright Protection in Generative AI: A Lifecycle Perspective — http://arxiv.org/abs/2311.18252v3\n[74] Opening Musical Creativity? Embedded Ideologies in Generative-AI Music Systems — http://arxiv.org/abs/2508.08805v1\n[75] \"Melatonin\": A Case Study on AI-induced Musical Style — http://arxiv.org/abs/2208.08968v1\n[76] Representation Learning of Music Using Artist Labels — http://arxiv.org/abs/1710.06648v2\n[77] Representation Learning of Music Using Artist, Album, and Track Information — http://arxiv.org/abs/1906.11783v1\n[78] Text-to-image Diffusion Models in Generative AI: A Survey — http://arxiv.org/abs/2303.07909v3\n[79] Music Transformer — http://arxiv.org/abs/1809.04281v3\n[80] Story2MIDI: Emotionally Aligned Music Generation from Text — http://arxiv.org/abs/2512.02192v1\n[81] UT-AISTimprt submission for ICME 2026 Grand Challenge on Academic Text-to-Music Generation — http://arxiv.org/abs/2607.01669v1\n[82] Controllable Generation with Text-to-Image Diffusion Models: A Survey — http://arxiv.org/abs/2403.04279v2\n[83] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[84] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1\n[85] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1\n[86] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4\n[87] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1\n[88] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1\n\n\n---\n\n*Generated by research-bot · topic=`music-audio` · depth=`standard` · rounds=2 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=88 · duration=2029s · 2026-10-04T04:48:04+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "The IEEE-IS2 2024 Music Packet Loss Concealment Challenge",
+      "url": "http://arxiv.org/abs/2409.18564v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-09-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Training Foundation Models as Data Compression: On Information, Model Weights and Copyright Law",
+      "url": "http://arxiv.org/abs/2407.13493v4",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2024-07-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Improving Choral Music Separation through Expressive Synthesized Data from Sampled Instruments",
+      "url": "http://arxiv.org/abs/2209.02871v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2022-09-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "CultureMERT: Continual Pre-Training for Cross-Cultural Music Representation Learning",
+      "url": "http://arxiv.org/abs/2506.17818v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-06-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Music SketchNet: Controllable Music Generation via Factorized Representations of Pitch and Rhythm",
+      "url": "http://arxiv.org/abs/2008.01291v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2020-08-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "TerraGen: A Unified Multi-Task Layout Generation Framework for Remote Sensing Data Augmentation",
+      "url": "http://arxiv.org/abs/2510.21391v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-10-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "No Encore: Unlearning as Opt-Out in Music Generation",
+      "url": "http://arxiv.org/abs/2509.06277v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Byzantine-Resilient SGD in High Dimensions on Heterogeneous Data",
+      "url": "http://arxiv.org/abs/2005.07866v1",
+      "kind": "paper",
+      "venue": "stat.ML",
+      "published": "2020-05-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "MusCaps: Generating Captions for Music Audio",
+      "url": "http://arxiv.org/abs/2104.11984v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2021-04-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "The Whole Is Greater than the Sum of Its Parts: Improving Music Source Separation by Bridging Network",
+      "url": "http://arxiv.org/abs/2305.07855v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2023-05-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Joint Music and Language Attention Models for Zero-shot Music Tagging",
+      "url": "http://arxiv.org/abs/2310.10159v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2023-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Introduction to Gestural Similarity in Music. An Application of Category Theory to the Orchestra",
+      "url": "http://arxiv.org/abs/1904.10340v1",
+      "kind": "paper",
+      "venue": "math.HO",
+      "published": "2019-04-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Symbolic Music Representations for Classification Tasks: A Systematic Evaluation",
+      "url": "http://arxiv.org/abs/2309.02567v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2023-09-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Network Modulation Synthesis: New Algorithms for Generating Musical Audio Using Autoencoder Networks",
+      "url": "http://arxiv.org/abs/2109.01948v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2021-09-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Dorabella Cipher as Musical Inspiration",
+      "url": "http://arxiv.org/abs/2509.17950v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "GlobalMood: A cross-cultural benchmark for music emotion recognition",
+      "url": "http://arxiv.org/abs/2505.09539v2",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-05-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "A Functional Taxonomy of Music Generation Systems",
+      "url": "http://arxiv.org/abs/1812.04186v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2018-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "MIRFLEX: Music Information Retrieval Feature Library for Extraction",
+      "url": "http://arxiv.org/abs/2411.00469v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2024-11-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Towards Multimodal MIR: Predicting individual differences from music-induced movement",
+      "url": "http://arxiv.org/abs/2007.10695v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2020-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Barwise Music Structure Analysis with the Correlation Block-Matching Segmentation Algorithm",
+      "url": "http://arxiv.org/abs/2311.18604v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2023-11-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Instruct-MusicGen: Unlocking Text-to-Music Editing for Music Language Models via Instruction Tuning",
+      "url": "http://arxiv.org/abs/2405.18386v3",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2024-05-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "IMPACT: Iterative Mask-based Parallel Decoding for Text-to-Audio Generation with Diffusion Modeling",
+      "url": "http://arxiv.org/abs/2506.00736v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2025-05-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Audio Prompt Adapter: Unleashing Music Editing Abilities for Text-to-Music with Lightweight Finetuning",
+      "url": "http://arxiv.org/abs/2407.16564v2",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2024-07-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Baseline Systems For The 2025 Low-Resource Audio Codec Challenge",
+      "url": "http://arxiv.org/abs/2510.00264v3",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-09-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Instrumental Text-to-Music Generation with Auxiliary Conditioning Branches",
+      "url": "http://arxiv.org/abs/2605.21433v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "IteraTTA: An interface for exploring both text prompts and audio priors in generating music with text-to-audio models",
+      "url": "http://arxiv.org/abs/2307.13005v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2023-07-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Vision-to-Music Generation: A Survey",
+      "url": "http://arxiv.org/abs/2503.21254v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-03-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Fast Timing-Conditioned Latent Audio Diffusion",
+      "url": "http://arxiv.org/abs/2402.04825v3",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2024-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Fréchet Audio Distance: A Metric for Evaluating Music Enhancement Algorithms",
+      "url": "http://arxiv.org/abs/1812.08466v4",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2018-12-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "An Empirical Analysis of Task-Induced Encoder Bias in Fréchet Audio Distance",
+      "url": "http://arxiv.org/abs/2602.23958v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2026-02-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Adapting Frechet Audio Distance for Generative Music Evaluation",
+      "url": "http://arxiv.org/abs/2311.01616v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2023-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Generation of lyrics lines conditioned on music audio clips",
+      "url": "http://arxiv.org/abs/2009.14375v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2020-09-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Digital Audio Processing Tools for Music Corpus Studies",
+      "url": "http://arxiv.org/abs/2111.03895v2",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2021-11-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "Unified Cross-modal Translation of Score Images, Symbolic Music, and Performance Audio",
+      "url": "http://arxiv.org/abs/2505.12863v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-05-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation",
+      "url": "http://arxiv.org/abs/2409.02649v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-09-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "M2D-CLAP: Exploring General-purpose Audio-Language Representations Beyond CLAP",
+      "url": "http://arxiv.org/abs/2503.22104v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2025-03-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 37,
+      "title": "Learning to Traverse Latent Spaces for Musical Score Inpainting",
+      "url": "http://arxiv.org/abs/1907.01164v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2019-07-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 38,
+      "title": "SVDD Challenge 2024: A Singing Voice Deepfake Detection Challenge Evaluation Plan",
+      "url": "http://arxiv.org/abs/2405.05244v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-05-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 39,
+      "title": "Beyond SDR: How Music Source Separation Reshapes Rhythm-Relevant Signal Properties",
+      "url": "http://arxiv.org/abs/2609.04224v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2026-07-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 40,
+      "title": "Music Source Separation with Band-Split RoPE Transformer",
+      "url": "http://arxiv.org/abs/2309.02612v2",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2023-09-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 41,
+      "title": "Sanidha: A Studio Quality Multi-Modal Dataset for Carnatic Music",
+      "url": "http://arxiv.org/abs/2501.06959v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-01-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 42,
+      "title": "End-to-end music source separation: is it possible in the waveform domain?",
+      "url": "http://arxiv.org/abs/1810.12187v2",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2018-10-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 43,
+      "title": "SDR - half-baked or well done?",
+      "url": "http://arxiv.org/abs/1811.02508v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2018-11-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 44,
+      "title": "Rights by Architecture: A Human-Compatible Sociotechnical Layer for Digital Protection Across Regulatory Regimes",
+      "url": "http://arxiv.org/abs/2609.02455v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2026-09-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 45,
+      "title": "A 3D Framework for Improving Low-Latency Multi-Channel Live Streaming",
+      "url": "http://arxiv.org/abs/2410.16284v2",
+      "kind": "paper",
+      "venue": "cs.MM",
+      "published": "2024-10-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 46,
+      "title": "Towards Practical Real-Time Low-Latency Music Source Separation",
+      "url": "https://arxiv.org/abs/2511.13146",
+      "kind": "paper",
+      "venue": "IEEE International Conference on Multimedia and Expo",
+      "published": "2025-06-30",
+      "citations": 3,
+      "stars": null
+    },
+    {
+      "n": 47,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 48,
+      "title": "LK Jam: System Architecture and Implementation of a Real-Time Human-AI Interactive Music Generation System using Role-Aware GRU",
+      "url": "http://arxiv.org/abs/2606.21018v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2026-06-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 49,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 50,
+      "title": "Gesture2Music: A Low-Latency Real-Time Framework for Continuous Gesture-Driven Music Generation",
+      "url": "http://arxiv.org/abs/2511.00793v2",
+      "kind": "paper",
+      "venue": "cs.MM",
+      "published": "2025-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 51,
+      "title": "Gesture2Music: A Low-Latency Real-Time Framework for Continuous Gesture-Driven Music Generation",
+      "url": "https://arxiv.org/abs/2511.00793",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-11-02",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 52,
+      "title": "Advancing Multi-Instrument Music Transcription: Results from the 2025 AMT Challenge",
+      "url": "http://arxiv.org/abs/2603.27528v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2026-03-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 53,
+      "title": "Toward Low-Latency End-to-End Voice Agents for Telecommunications Using Streaming ASR, Quantized LLMs, and Real-Time TTS",
+      "url": "https://arxiv.org/abs/2508.04721",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2025-08-05",
+      "citations": 11,
+      "stars": null
+    },
+    {
+      "n": 54,
+      "title": "SAGE-Music: Low-Latency Symbolic Music Generation via Attribute-Specialized Key-Value Head Sharing",
+      "url": "https://arxiv.org/abs/2510.00395",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2025-10-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 55,
+      "title": "MIDAS: Multimodal Interactive Digital-humAn Synthesis via Real-time Autoregressive Video Generation",
+      "url": "https://arxiv.org/abs/2508.19320",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2025-08-26",
+      "citations": 20,
+      "stars": null
+    },
+    {
+      "n": 56,
+      "title": "Real-Time and Low-Latency Processing in Computer Vision: ALiterature Review",
+      "url": "https://doi.org/10.71063/djttt.2025.1204",
+      "kind": "paper",
+      "venue": "Doupe Journal of Top Trending Technologies",
+      "published": "2025",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 57,
+      "title": "Low Latency Time Domain Multichannel Speech and Music Source Separation",
+      "url": "http://arxiv.org/abs/2204.05609v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2022-04-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 58,
+      "title": "A Lightweight Video Streaming Framework for Low-End Systems Using FFMPEG and UDP for Real-Time Transmission",
+      "url": "https://doi.org/10.1109/GCON65540.2025.11173312",
+      "kind": "paper",
+      "venue": "2025 IEEE Guwahati Subsection Conference (GCON)",
+      "published": "2025-06-18",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 59,
+      "title": "Rolling Forcing: Autoregressive Long Video Diffusion in Real Time",
+      "url": "https://arxiv.org/abs/2509.25161",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2025-09-29",
+      "citations": 215,
+      "stars": null
+    },
+    {
+      "n": 60,
+      "title": "Multi-Stage Music Source Restoration with BandSplit-RoFormer Separation and HiFi++ GAN",
+      "url": "http://arxiv.org/abs/2603.04032v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2026-03-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 61,
+      "title": "Audio query-based music source separation",
+      "url": "http://arxiv.org/abs/1908.06593v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2019-08-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 62,
+      "title": "Real-Time Low-Latency Music Source Separation Using Hybrid Spectrogram-Tasnet",
+      "url": "https://arxiv.org/abs/2402.17701",
+      "kind": "paper",
+      "venue": "IEEE International Conference on Acoustics, Speech, and Signal Processing",
+      "published": "2024-02-27",
+      "citations": 18,
+      "stars": null
+    },
+    {
+      "n": 63,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 64,
+      "title": "Data-Driven Analysis of Text-Conditioned AI-Generated Music: A Case Study with Suno and Udio",
+      "url": "http://arxiv.org/abs/2509.11824v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-09-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 65,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 66,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 67,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 68,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 69,
+      "title": "Uncovering Coordinated Cross-Platform Information Operations Threatening the Integrity of the 2024 U.S. Presidential Election Online Discussion",
+      "url": "http://arxiv.org/abs/2409.15402v2",
+      "kind": "paper",
+      "venue": "cs.SI",
+      "published": "2024-09-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 70,
+      "title": "ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024",
+      "url": "http://arxiv.org/abs/2407.12038v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 71,
+      "title": "Who Gets Heard? Rethinking Fairness in AI for Music Systems",
+      "url": "http://arxiv.org/abs/2511.05953v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-11-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 72,
+      "title": "Penalizing Transparency? How AI Disclosure and Author Demographics Shape Human and AI Judgments About Writing",
+      "url": "http://arxiv.org/abs/2507.01418v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-07-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 73,
+      "title": "Privacy and Copyright Protection in Generative AI: A Lifecycle Perspective",
+      "url": "http://arxiv.org/abs/2311.18252v3",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2023-11-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 74,
+      "title": "Opening Musical Creativity? Embedded Ideologies in Generative-AI Music Systems",
+      "url": "http://arxiv.org/abs/2508.08805v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-08-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 75,
+      "title": "\"Melatonin\": A Case Study on AI-induced Musical Style",
+      "url": "http://arxiv.org/abs/2208.08968v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2022-08-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 76,
+      "title": "Representation Learning of Music Using Artist Labels",
+      "url": "http://arxiv.org/abs/1710.06648v2",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2017-10-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 77,
+      "title": "Representation Learning of Music Using Artist, Album, and Track Information",
+      "url": "http://arxiv.org/abs/1906.11783v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2019-06-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 78,
+      "title": "Text-to-image Diffusion Models in Generative AI: A Survey",
+      "url": "http://arxiv.org/abs/2303.07909v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2023-03-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 79,
+      "title": "Music Transformer",
+      "url": "http://arxiv.org/abs/1809.04281v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-09-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 80,
+      "title": "Story2MIDI: Emotionally Aligned Music Generation from Text",
+      "url": "http://arxiv.org/abs/2512.02192v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-12-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 81,
+      "title": "UT-AISTimprt submission for ICME 2026 Grand Challenge on Academic Text-to-Music Generation",
+      "url": "http://arxiv.org/abs/2607.01669v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2026-07-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 82,
+      "title": "Controllable Generation with Text-to-Image Diffusion Models: A Survey",
+      "url": "http://arxiv.org/abs/2403.04279v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-03-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 83,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 84,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 85,
+      "title": "The AudioMOS Challenge 2025",
+      "url": "http://arxiv.org/abs/2509.01336v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 86,
+      "title": "TDCOSMO 2025: Cosmological constraints from strong lensing time delays",
+      "url": "http://arxiv.org/abs/2506.03023v4",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 87,
+      "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+      "url": "http://arxiv.org/abs/2509.11402v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 88,
+      "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+      "url": "http://arxiv.org/abs/2508.18904v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-26",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-04-music-audio.md",
+    "json": "report/2026/10/2026-10-04-music-audio.json"
+  }
+}

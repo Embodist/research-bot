@@ -1,0 +1,3185 @@
+{
+  "topic": "ai",
+  "title": "基础模型前沿深度调研：推理与测试时计算、后训练、Agent、多模态与效率（2024–2026）",
+  "query": "",
+  "depth": "standard",
+  "language": "bilingual",
+  "started_at": "2026-10-04T02:50:25+00:00",
+  "finished_at": "2026-10-04T02:54:54+00:00",
+  "duration_s": 268.5,
+  "rounds": 1,
+  "plan": {
+    "title": "基础模型前沿深度调研：推理与测试时计算、后训练、Agent、多模态与效率（2024–2026）",
+    "summary": "系统梳理 2024–2026 年大模型与基础模型在推理/测试时计算、后训练（RLHF/RLVR）、Agent 与工具使用、多模态、MoE 与扩展律、长上下文与推理效率六个方向的前沿进展、经典奠基工作、开源工程栈、数据集基准与开放争议，形成可核查、带证据分级的调研报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 1–2 年（2024–2026），大模型的推理能力与测试时计算（test-time compute / inference-time scaling）出现了哪些真正重要的进展？o1/R1 类推理模型、长思维链、自洽采样、搜索与验证器（verifier）路线分别做到什么程度？",
+        "rationale": "这是当前最热且变化最快的方向，需要区分'论文宣称'与'可复现/第三方评测'；用户主题把 reasoning 与 test-time compute 列为首要关键词。",
+        "queries": [
+          "OpenAI o1 reasoning test-time compute scaling law arxiv 2024",
+          "DeepSeek-R1 reinforcement learning verifiable rewards reasoning 2025 arxiv",
+          "inference-time scaling chain-of-thought search verifier survey 2025 arxiv",
+          "test-time compute vs model scale compute-optimal 2024 arxiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openreview",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "后训练（post-training）技术栈的演进脉络是什么？从 RLHF、DPO/偏好优化到 RLVR/可验证奖励、拒绝采样与蒸馏，各阶段代表工作（InstructGPT、DPO、Constitutional AI、GRPO、DeepSeek-R1 等）解决了什么问题、留下什么缺口？",
+        "rationale": "后训练是基础模型能力兑现的关键环节，也是争议集中地（RLHF 是否触及推理上限、RLVR 是否只是采样效率提升）。",
+        "queries": [
+          "InstructGPT RLHF training language models human feedback 2022 arxiv",
+          "DPO direct preference optimization 2023 NeurIPS arxiv",
+          "reinforcement learning verifiable rewards RLVR survey 2025 arxiv",
+          "GRPO group relative policy optimization DeepSeek 2024 arxiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref",
+          "openreview"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "LLM Agent 与工具使用（tool use / function calling）在 2024–2026 年的前沿进展如何？包括 ReAct 式提示、多智能体框架、计算机使用 Agent（computer-use）、MCP 等工具协议、以及 Agent 在真实任务上的可靠性与失败模式。",
+        "rationale": "Agent 是从'模型'走向'系统'的落地关键，需同时覆盖学术方法与工程协议（MCP、function calling）两条线。",
+        "queries": [
+          "LLM agent tool use survey 2025 arxiv",
+          "ReAct reasoning acting language models 2022 arxiv",
+          "computer use agent benchmark OSWorld WebArena 2024 2025",
+          "Model Context Protocol MCP tool integration agent 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "多模态基础模型在 2024–2026 年的主要技术路线与代表模型有哪些？原生多模态（early fusion / unified token）与后接视觉编码器（CLIP+LLM）路线谁更占优？视频、语音、具身行动模态的融合进展如何？",
+        "rationale": "多模态是基础模型向外扩展的主要方向，且与具身智能衔接紧密；需要区分 demo 与可复现评测。",
+        "queries": [
+          "multimodal foundation model survey 2025 arxiv",
+          "GPT-4o Gemini native multimodal early fusion 2024 2025 technical report",
+          "vision language model unified tokenizer any-to-any 2025 arxiv",
+          "video-language model long video understanding benchmark 2025 arxiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref",
+          "bing"
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "MoE 架构与扩展律（scaling laws）在 2024–2026 年有哪些新结论？稀疏专家路由、细粒度专家、共享专家、以及'数据受限下的扩展''推理算力扩展律'等新范式是否改变了传统 Chinchilla 结论？",
+        "rationale": "MoE 与扩展律决定算力/数据/参数的资源分配，是工业界与学术界共同的核心议题。",
+        "queries": [
+          "mixture of experts LLM survey 2024 2025 arxiv",
+          "DeepSeek-V3 Mixtral MoE architecture fine-grained experts 2024 arxiv",
+          "scaling laws language models revisited Chinchilla 2022 arxiv",
+          "scaling laws for inference time compute reasoning 2025 arxiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q6",
+        "question": "长上下文与推理效率的工程与算法进展如何？包括注意力近似/稀疏化、KV cache 压缩、线性注意力与状态空间模型、量化与投机解码，以及长上下文评测基准的真实有效性争议（'lost in the middle'、needle-in-haystack 是否足够）。",
+        "rationale": "长上下文与效率直接决定推理成本与可用性，且存在大量'宣称支持 1M 上下文但实际退化'的争议，需要交叉验证。",
+        "queries": [
+          "long context LLM efficient attention survey 2025 arxiv",
+          "KV cache compression quantization LLM serving 2024 2025 arxiv",
+          "state space model Mamba vs transformer long sequence 2023 2024 arxiv",
+          "speculative decoding inference acceleration LLM 2023 2025 arxiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 1–2 年（2024–2026），大模型的推理能力与测试时计算（test-time compute / inference-time scaling）出现了哪些真正重要的进展？o1/R1 类推理模型、长思维链、自洽采样、搜索与验证器（verifier）路线分别做到什么程度？",
+      "queries": [
+        "OpenAI o1 reasoning test-time compute scaling law arxiv 2024",
+        "DeepSeek-R1 reinforcement learning verifiable rewards reasoning 2025 arxiv",
+        "inference-time scaling chain-of-thought search verifier survey 2025 arxiv",
+        "test-time compute vs model scale compute-optimal 2024 arxiv"
+      ],
+      "rationale": "这是当前最热且变化最快的方向，需要区分'论文宣称'与'可复现/第三方评测'；用户主题把 reasoning 与 test-time compute 列为首要关键词。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+          "url": "http://arxiv.org/abs/2504.16021v1",
+          "snippet": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making. This paper proposes a context-aware cognitive augmentation framework that adapts interventions based on three key contextual factors: type, timing, and scale. By leveraging multimodal behavioral cues (e.g., gaze behavior, typing hesitation, interaction speed), AI can dynamically adjust cognitive su…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-22",
+          "authors": [
+            "Dinithi Dissanayake",
+            "Suranga Nanayakkara"
+          ],
+          "venue": "cs.HC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.16021v1",
+            "rrf_score": 0.038685,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Sleep-time Compute: Beyond Inference Scaling at Test-time",
+          "url": "http://arxiv.org/abs/2504.13171v1",
+          "snippet": "Scaling test-time compute has emerged as a key ingredient for enabling large language models (LLMs) to solve difficult problems, but comes with high latency and inference cost. We introduce sleep-time compute, which allows models to \"think\" offline about contexts before queries are presented: by anticipating what queries users might ask and pre-computing useful quantities, we can significantly reduce the compute requirements at test-time. To demonstrate the efficacy of our method, we create modified versions of two reasoning tasks - Stateful GSM-Symbolic and Stateful AIME. We find that sleep-…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-17",
+          "authors": [
+            "Kevin Lin",
+            "Charlie Snell",
+            "Yu Wang",
+            "Charles Packer",
+            "Sarah Wooders",
+            "Ion Stoica",
+            "Joseph E. Gonzalez"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.13171v1",
+            "rrf_score": 0.033179,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "REASONING GYM: Reasoning Environments for Reinforcement Learning with Verifiable Rewards",
+          "url": "http://arxiv.org/abs/2505.24760v2",
+          "snippet": "We introduce Reasoning Gym (RG), a library of reasoning environments for reinforcement learning with verifiable rewards. It provides over 100 data generators and verifiers spanning multiple domains including algebra, arithmetic, computation, cognition, geometry, graph theory, logic, and various common games. Its key innovation is the ability to generate virtually infinite training data with adjustable complexity, unlike most previous reasoning datasets, which are typically fixed. This procedural generation approach allows for continuous evaluation across varying difficulty levels. Our experim…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-30",
+          "authors": [
+            "Zafir Stojanovski",
+            "Oliver Stanley",
+            "Joe Sharratt",
+            "Richard Jones",
+            "Abdulhakeem Adefioye",
+            "Jean Kaddour",
+            "Andreas Köpf"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.24760v2",
+            "rrf_score": 0.016484
+          }
+        },
+        {
+          "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2602.12375v1",
+          "snippet": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propagating local uncertainties around rewards. However, this approach only increases the value bonus for an action retroactively, after seeing a higher reward bonus from that state and action. Such an approach does not encourage the agent to visit a state and action for the first time. In this work, we in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-12",
+          "authors": [
+            "Abdul Wahab",
+            "Raksha Kumaraswamy",
+            "Martha White"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.12375v1",
+            "rrf_score": 0.016304
+          }
+        },
+        {
+          "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+          "url": "http://arxiv.org/abs/2607.18488v1",
+          "snippet": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We propose a physical platform that is designed to simplify the transition. In this paper, we present the Open Ant: a physical variant of the commonly used Gymnasium Ant environment, along with a simulation. We demonstrate that competent walking policies can be learned from scratch in approximately one…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-20",
+          "authors": [
+            "Elena Sorina Lupu",
+            "Patrick Spieler",
+            "Khurram Javed",
+            "Kris De Asis",
+            "John D. Martin",
+            "Martha Steenstrup",
+            "Joseph Modayil"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.18488v1",
+            "rrf_score": 0.016129
+          }
+        },
+        {
+          "title": "SwS: Self-aware Weakness-driven Problem Synthesis in Reinforcement Learning for LLM Reasoning",
+          "url": "http://arxiv.org/abs/2506.08989v1",
+          "snippet": "Reinforcement Learning with Verifiable Rewards (RLVR) has proven effective for training large language models (LLMs) on complex reasoning tasks, such as mathematical problem solving. A prerequisite for the scalability of RLVR is a high-quality problem set with precise and verifiable answers. However, the scarcity of well-crafted human-labeled math problems and limited-verification answers in existing distillation-oriented synthetic datasets limit their effectiveness in RL. Additionally, most problem synthesis strategies indiscriminately expand the problem set without considering the model's c…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-10",
+          "authors": [
+            "Xiao Liang",
+            "Zhong-Zhi Li",
+            "Yeyun Gong",
+            "Yang Wang",
+            "Hengyuan Zhang",
+            "Yelong Shen",
+            "Ying Nian Wu",
+            "Weizhu Chen"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.08989v1",
+            "rrf_score": 0.015789
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+            "evidence": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making.…",
+            "sources": [
+              21
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.HC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.HC）"
+          },
+          {
+            "point": "Sleep-time Compute: Beyond Inference Scaling at Test-time",
+            "evidence": "Scaling test-time compute has emerged as a key ingredient for enabling large language models (LLMs) to solve difficult problems, but comes with high latency and inference cost. We introduce sleep-time compute, which allows models to \"think\" offline about contexts before queries are presented: by an…",
+            "sources": [
+              48
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "REASONING GYM: Reasoning Environments for Reinforcement Learning with Verifiable Rewards",
+            "evidence": "We introduce Reasoning Gym (RG), a library of reasoning environments for reinforcement learning with verifiable rewards. It provides over 100 data generators and verifiers spanning multiple domains including algebra, arithmetic, computation, cognition, geometry, graph theory, logic, and various com…",
+            "sources": [
+              59
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+            "evidence": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propaga…",
+            "sources": [
+              61
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+            "evidence": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We…",
+            "sources": [
+              63
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "SwS: Self-aware Weakness-driven Problem Synthesis in Reinforcement Learning for LLM Reasoning",
+            "evidence": "Reinforcement Learning with Verifiable Rewards (RLVR) has proven effective for training large language models (LLMs) on complex reasoning tasks, such as mathematical problem solving. A prerequisite for the scalability of RLVR is a high-quality problem set with precise and verifiable answers. Howeve…",
+            "sources": [
+              66
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "后训练（post-training）技术栈的演进脉络是什么？从 RLHF、DPO/偏好优化到 RLVR/可验证奖励、拒绝采样与蒸馏，各阶段代表工作（InstructGPT、DPO、Constitutional AI、GRPO、DeepSeek-R1 等）解决了什么问题、留下什么缺口？",
+      "queries": [
+        "InstructGPT RLHF training language models human feedback 2022 arxiv",
+        "DPO direct preference optimization 2023 NeurIPS arxiv",
+        "reinforcement learning verifiable rewards RLVR survey 2025 arxiv",
+        "GRPO group relative policy optimization DeepSeek 2024 arxiv"
+      ],
+      "rationale": "后训练是基础模型能力兑现的关键环节，也是争议集中地（RLHF 是否触及推理上限、RLVR 是否只是采样效率提升）。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Rights by Architecture: A Human-Compatible Sociotechnical Layer for Digital Protection Across Regulatory Regimes",
+          "url": "http://arxiv.org/abs/2609.02455v1",
+          "snippet": "Digital rights increasingly exist in law but remain difficult to exercise through the information systems that mediate them. Using disciplined conceptual synthesis and problematization, this critical-conceptual IS paper explains the gap through the interaction of legal heterogeneity, conflicting organizational and commercial incentives, fragmented architectures, and asymmetrical control over rights-relevant acts. It then theorizes a human-compatible rights layer: a governed sociotechnical capability for standardized, machine-readable, bidirectional, and jurisdictionally plural communication o…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-02",
+          "authors": [
+            "Soheil Human"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.02455v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Human-Centered Evaluation of an LLM-Based Process Modeling Copilot: A Mixed-Methods Study with Domain Experts",
+          "url": "http://arxiv.org/abs/2603.12895v1",
+          "snippet": "Integrating Large Language Models (LLMs) into business process management tools promises to democratize Business Process Model and Notation (BPMN) modeling for non-experts. While automated frameworks assess syntactic and semantic quality, they miss human factors like trust, usability, and professional alignment. We conducted a mixed-methods evaluation of our proposed solution, an LLM-powered BPMN copilot, with five process modeling experts using focus groups and standardized questionnaires. Our findings reveal a critical tension between acceptable perceived usability (mean CUQ score: 67.2/100…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-13",
+          "authors": [
+            "Chantale Lauer",
+            "Peter Pfeiffer",
+            "Nijat Mehdiyev"
+          ],
+          "venue": "cs.HC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.12895v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "PLC-DPO: Posterior Label Correction in Noisy and Ambiguous Preference Optimization",
+          "url": "http://arxiv.org/abs/2608.30597v1",
+          "snippet": "Direct Preference Optimization (DPO) simplifies alignment through pairwise comparisons but assumes all observed preferences are reliable. Real data often violates this assumption, leading to reversed, weak, or ambiguous labels that cause harmful policy updates. To address this, we propose Posterior Label Correction DPO (PLC-DPO) to robustly optimize preferences by routing each pair's training signal as a clean, flip, or tie case. The key idea is to use the calibrated policy-reference margin as online evidence to take appropriate correction actions. This reframes noisy preference learning as a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-31",
+          "authors": [
+            "Boryeong Cho",
+            "Sumyeong Ahn",
+            "Se-Young Yun"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.30597v1",
+            "rrf_score": 0.017442
+          }
+        },
+        {
+          "title": "Reinforcement Learning with Human Feedback (RLHF)",
+          "url": "https://doi.org/10.1007/979-8-8688-2332-9_8",
+          "snippet": "",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2026-01-01",
+          "authors": [
+            "Irena Cronin"
+          ],
+          "venue": "Building and Training Generative AI Models",
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "doi": "10.1007/979-8-8688-2332-9_8",
+            "type": "book-chapter",
+            "rrf_score": 0.017391
+          }
+        },
+        {
+          "title": "The Role of Foundational Autoraters in Reinforcement Learning from Human Feedback (RLHF)&amp;nbsp;",
+          "url": "https://doi.org/10.2139/ssrn.6338238",
+          "snippet": "The advent of advanced artificial intelligence (AI) systems has fundamentally transformed diverse fields, including education, healthcare, and natural language processing. A particularly influential area within AI is Reinforcement Learning from Human Feedback (RLHF), which leverages human guidance to optimize learning processes and improve model performance. In this context, foundational autoraters serve as critical tools that automate the evaluation of written submissions, providing essential feedback that guides the learning trajectory of AI models. This abstract explores the significance o…",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2026-01-01",
+          "authors": [
+            "Samira Boukhris"
+          ],
+          "venue": null,
+          "citations": 4,
+          "stars": null,
+          "extra": {
+            "doi": "10.2139/ssrn.6338238",
+            "type": "posted-content",
+            "rrf_score": 0.016438
+          }
+        },
+        {
+          "title": "Linear-DPO: Linear Direct Preference Optimization for Diffusion and Flow-Matching Generative Models",
+          "url": "http://arxiv.org/abs/2605.21123v1",
+          "snippet": "Direct Preference Optimization (DPO) is successful for alignment in LLMs but still faces challenges in text-to-image generation. Existing studies are confined to denoising diffusion models while overlooking flow-matching, and suffer from an objective mismatch when applying discrete NLP-based DPO to regression-based generative tasks.\\ In this paper, we derive a generalized DPO objective that covers both diffusion and flow-matching via a unified reverse-time SDE framework, and point out from a gradient perspective that the standard DPO objective is suboptimal for text-to-image generation. Conse…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Kesong Li",
+            "Yixuan Xu",
+            "Kuo-kun Tseng",
+            "Weiyi Lu",
+            "Kan Liu",
+            "Tao Lan"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21123v1",
+            "rrf_score": 0.017241
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "Rights by Architecture: A Human-Compatible Sociotechnical Layer for Digital Protection Across Regulatory Regimes",
+            "evidence": "Digital rights increasingly exist in law but remain difficult to exercise through the information systems that mediate them. Using disciplined conceptual synthesis and problematization, this critical-conceptual IS paper explains the gap through the interaction of legal heterogeneity, conflicting or…",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CY",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CY）"
+          },
+          {
+            "point": "Human-Centered Evaluation of an LLM-Based Process Modeling Copilot: A Mixed-Methods Study with Domain Experts",
+            "evidence": "Integrating Large Language Models (LLMs) into business process management tools promises to democratize Business Process Model and Notation (BPMN) modeling for non-experts. While automated frameworks assess syntactic and semantic quality, they miss human factors like trust, usability, and professio…",
+            "sources": [
+              28
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.HC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.HC）"
+          },
+          {
+            "point": "PLC-DPO: Posterior Label Correction in Noisy and Ambiguous Preference Optimization",
+            "evidence": "Direct Preference Optimization (DPO) simplifies alignment through pairwise comparisons but assumes all observed preferences are reliable. Real data often violates this assumption, leading to reversed, weak, or ambiguous labels that cause harmful policy updates. To address this, we propose Posterior…",
+            "sources": [
+              33
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "Reinforcement Learning with Human Feedback (RLHF)",
+            "evidence": "",
+            "sources": [
+              34
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "citations=0",
+            "authority": "Building and Training Generative AI Models",
+            "attention": "低（citations=0）",
+            "recommendation": "★★★★☆（venue=Building and Training Generative AI Models）"
+          },
+          {
+            "point": "The Role of Foundational Autoraters in Reinforcement Learning from Human Feedback (RLHF)&amp;nbsp;",
+            "evidence": "The advent of advanced artificial intelligence (AI) systems has fundamentally transformed diverse fields, including education, healthcare, and natural language processing. A particularly influential area within AI is Reinforcement Learning from Human Feedback (RLHF), which leverages human guidance…",
+            "sources": [
+              43
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "citations=4",
+            "authority": "",
+            "attention": "低（citations=4）",
+            "recommendation": "★★★☆☆"
+          },
+          {
+            "point": "Linear-DPO: Linear Direct Preference Optimization for Diffusion and Flow-Matching Generative Models",
+            "evidence": "Direct Preference Optimization (DPO) is successful for alignment in LLMs but still faces challenges in text-to-image generation. Existing studies are confined to denoising diffusion models while overlooking flow-matching, and suffer from an objective mismatch when applying discrete NLP-based DPO to…",
+            "sources": [
+              35
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "LLM Agent 与工具使用（tool use / function calling）在 2024–2026 年的前沿进展如何？包括 ReAct 式提示、多智能体框架、计算机使用 Agent（computer-use）、MCP 等工具协议、以及 Agent 在真实任务上的可靠性与失败模式。",
+      "queries": [
+        "LLM agent tool use survey 2025 arxiv",
+        "ReAct reasoning acting language models 2022 arxiv",
+        "computer use agent benchmark OSWorld WebArena 2024 2025",
+        "Model Context Protocol MCP tool integration agent 2025"
+      ],
+      "rationale": "Agent 是从'模型'走向'系统'的落地关键，需同时覆盖学术方法与工程协议（MCP、function calling）两条线。",
+      "round": 1,
+      "results": [
+        {
+          "title": "When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents",
+          "url": "http://arxiv.org/abs/2606.20023v2",
+          "snippet": "As LLM agents increasingly select tools autonomously, their choices among tools with different privileges become safety-relevant. However, prior tool-selection studies focus on safety-agnostic metadata preferences, leaving privilege-sensitive choices underexplored. To address this gap, we study over-privileged tool selection, in which an agent selects or escalates to a higher-privilege tool despite a sufficient lower-privilege alternative. We introduce ToolPrivBench to evaluate whether agents choose higher-privilege tools despite sufficient lower-privilege alternatives, measuring both initial…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-06-18",
+          "authors": [
+            "Kaiyue Yang",
+            "Yuyan Bu",
+            "Jingwei Yi",
+            "Yuchi Wang",
+            "Biyu Zhou",
+            "Juntao Dai",
+            "Songlin Hu",
+            "Yaodong Yang"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.20023v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+          "url": "http://arxiv.org/abs/2506.14634v3",
+          "snippet": "The recent development and wider accessibility of LLMs have spurred discussions about how they can be used in survey research, including classifying open-ended survey responses. Due to their linguistic capacities, it is possible that LLMs are an efficient alternative to time-consuming manual coding and the pre-training of supervised machine learning models. As most existing research on this topic has focused on English-language responses relating to non-complex topics or on single LLMs, it is unclear whether its findings generalize and how the quality of these classifications compares to esta…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-17",
+          "authors": [
+            "Leah von der Heyde",
+            "Anna-Carolina Haensch",
+            "Bernd Weiß",
+            "Jessica Daikeler"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.14634v3",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+          "url": "http://arxiv.org/abs/2504.19675v2",
+          "snippet": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our approach combines traditional natural language processing and machine learning techniques implemented in the Annif toolkit with innovative LLM-based methods for translation and synthetic data generation, and merging predictions from monolingual models. The system ranked first in the all-subjects category…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-28",
+          "authors": [
+            "Osma Suominen",
+            "Juho Inkinen",
+            "Mona Lehtinen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.19675v2",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models",
+          "url": "http://arxiv.org/abs/2510.00071v2",
+          "snippet": "Large Reasoning Language Models (LRLMs or LRMs) demonstrate remarkable capabilities in complex reasoning tasks, but suffer from significant computational inefficiencies due to overthinking phenomena. Existing efficient reasoning methods face the challenge of balancing reasoning quality with inference cost reduction. We propose \\textbf{Adaptive Reasoning Suppression (ARS)}, a novel training-free approach that dynamically suppresses redundant reasoning steps while preserving accuracy through adaptive certainty monitoring. ARS introduces a multi-checkpoint certainty estimation mechanism with pro…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-29",
+          "authors": [
+            "Dongqi Zheng"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.00071v2",
+            "rrf_score": 0.017442
+          }
+        },
+        {
+          "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+          "url": "http://arxiv.org/abs/2504.16021v1",
+          "snippet": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making. This paper proposes a context-aware cognitive augmentation framework that adapts interventions based on three key contextual factors: type, timing, and scale. By leveraging multimodal behavioral cues (e.g., gaze behavior, typing hesitation, interaction speed), AI can dynamically adjust cognitive su…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-22",
+          "authors": [
+            "Dinithi Dissanayake",
+            "Suranga Nanayakkara"
+          ],
+          "venue": "cs.HC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.16021v1",
+            "rrf_score": 0.016854
+          }
+        },
+        {
+          "title": "ChaosBench-Logic: A Benchmark for Logical and Symbolic Reasoning on Chaotic Dynamical Systems",
+          "url": "http://arxiv.org/abs/2601.01982v1",
+          "snippet": "Large language models (LLMs) excel at natural language tasks but remain brittle in domains requiring precise logical and symbolic reasoning. Chaotic dynamical systems provide an especially demanding test because chaos is deterministic yet often misinterpreted as randomness or complexity. We introduce ChaosBench-Logic, a benchmark that evaluates LLM reasoning across 30 diverse dynamical systems using a unified first-order logic (FOL) ontology. Each system is annotated with truth assignments for 11 semantic predicates, and 621 questions are generated across seven reasoning categories, including…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-01-05",
+          "authors": [
+            "Noel Thomas"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2601.01982v1",
+            "rrf_score": 0.016667
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents",
+            "evidence": "As LLM agents increasingly select tools autonomously, their choices among tools with different privileges become safety-relevant. However, prior tool-selection studies focus on safety-agnostic metadata preferences, leaving privilege-sensitive choices underexplored. To address this gap, we study ove…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+            "evidence": "The recent development and wider accessibility of LLMs have spurred discussions about how they can be used in survey research, including classifying open-ended survey responses. Due to their linguistic capacities, it is possible that LLMs are an efficient alternative to time-consuming manual coding…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+            "evidence": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our appro…",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models",
+            "evidence": "Large Reasoning Language Models (LRLMs or LRMs) demonstrate remarkable capabilities in complex reasoning tasks, but suffer from significant computational inefficiencies due to overthinking phenomena. Existing efficient reasoning methods face the challenge of balancing reasoning quality with inferen…",
+            "sources": [
+              18
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+            "evidence": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making.…",
+            "sources": [
+              21
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.HC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.HC）"
+          },
+          {
+            "point": "ChaosBench-Logic: A Benchmark for Logical and Symbolic Reasoning on Chaotic Dynamical Systems",
+            "evidence": "Large language models (LLMs) excel at natural language tasks but remain brittle in domains requiring precise logical and symbolic reasoning. Chaotic dynamical systems provide an especially demanding test because chaos is deterministic yet often misinterpreted as randomness or complexity. We introdu…",
+            "sources": [
+              22
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q4",
+      "question": "多模态基础模型在 2024–2026 年的主要技术路线与代表模型有哪些？原生多模态（early fusion / unified token）与后接视觉编码器（CLIP+LLM）路线谁更占优？视频、语音、具身行动模态的融合进展如何？",
+      "queries": [
+        "multimodal foundation model survey 2025 arxiv",
+        "GPT-4o Gemini native multimodal early fusion 2024 2025 technical report",
+        "vision language model unified tokenizer any-to-any 2025 arxiv",
+        "video-language model long video understanding benchmark 2025 arxiv"
+      ],
+      "rationale": "多模态是基础模型向外扩展的主要方向，且与具身智能衔接紧密；需要区分 demo 与可复现评测。",
+      "round": 1,
+      "results": [
+        {
+          "title": "1$^{st}$ Place Solution of WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge",
+          "url": "http://arxiv.org/abs/2505.03543v1",
+          "snippet": "The WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge focuses on effectively applying multimodal embedding features to improve click-through rate (CTR) prediction in recommender systems. This technical report presents our 1$^{st}$ place winning solution for Task 2, combining sequential modeling and feature interaction learning to effectively capture user-item interactions. For multimodal information integration, we simply append the frozen multimodal embeddings to each item embedding. Experiments on the challenge dataset demonstrate the effectiveness of our method, achieving supe…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-06",
+          "authors": [
+            "Junwei Xu",
+            "Zehao Zhao",
+            "Xiaoyu Hu",
+            "Zhenjie Song"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.03543v1",
+            "rrf_score": 0.042944,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+          "url": "http://arxiv.org/abs/2510.20381v1",
+          "snippet": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal legal text processing and to provide a benchmark dataset for building and evaluating intelligent systems in multimodal legal domains, with a focus on traffic sign regulation in Vietnam. The best-reported results on VLSP 2025 MLQA-TSR are an F2 score of 64.55% for multimodal legal retrieval and an a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Son T. Luu",
+            "Trung Vo",
+            "Hiep Nguyen",
+            "Khanh Quoc Tran",
+            "Kiet Van Nguyen",
+            "Vu Tran",
+            "Ngan Luu-Thuy Nguyen",
+            "Le-Minh Nguyen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20381v1",
+            "rrf_score": 0.041051,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.036445,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook",
+          "url": "http://arxiv.org/abs/2509.14142v1",
+          "snippet": "This paper reviews the MARS2 2025 Challenge on Multimodal Reasoning. We aim to bring together different approaches in multimodal machine learning and LLMs via a large benchmark. We hope it better allows researchers to follow the state-of-the-art in this very dynamic area. Meanwhile, a growing number of testbeds have boosted the evolution of general-purpose large language models. Thus, this year's MARS2 focuses on real-world and specialized scenarios to broaden the multimodal reasoning applications of MLLMs. Our organizing team released two tailored datasets Lens and AdsQA as test sets, which…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-17",
+          "authors": [
+            "Peng Xu",
+            "Shengwu Xiong",
+            "Jiajun Zhang",
+            "Yaxiong Chen",
+            "Bowen Zhou",
+            "Chen Change Loy",
+            "David A. Clifton",
+            "Kyoung Mu Lee",
+            "Luc Van Gool",
+            "Ruiming He",
+            "Ruilin Yao",
+            "Xinwei Long",
+            "Jirui Huang",
+            "Kai Tian",
+            "Sa Yang",
+            "Yihua Shao",
+            "Jin Feng",
+            "Yue Zhong",
+            "Jiakai Zhou",
+            "Cheng Tang",
+            "Tianyu Zou",
+            "Yifang Zhang",
+            "Junming Liang",
+            "Guoyou Li",
+            "Zhaoxiang Wang",
+            "Qiang Zhou",
+            "Yichen Zhao",
+            "Shili Xiong",
+            "Hyeongjin Nam",
+            "Jaerin Lee",
+            "Jaeyoung Chung",
+            "JoonKyu Park",
+            "Junghun Oh",
+            "Kanggeon Lee",
+            "Wooseok Lee",
+            "Juneyoung Ro",
+            "Turghun Osman",
+            "Can Hu",
+            "Chaoyang Liao",
+            "Cheng Chen",
+            "Chengcheng Han",
+            "Chenhao Qiu",
+            "Chong Peng",
+            "Cong Xu",
+            "Dailin Li",
+            "Feiyu Wang",
+            "Feng Gao",
+            "Guibo Zhu",
+            "Guopeng Tang",
+            "Haibo Lu",
+            "Han Fang",
+            "Han Qi",
+            "Hanxiao Wu",
+            "Haobo Cheng",
+            "Hongbo Sun",
+            "Hongyao Chen",
+            "Huayong Hu",
+            "Hui Li",
+            "Jiaheng Ma",
+            "Jiang Yu",
+            "Jianing Wang",
+            "Jie Yang",
+            "Jing He",
+            "Jinglin Zhou",
+            "Jingxuan Li",
+            "Josef Kittler",
+            "Lihao Zheng",
+            "Linnan Zhao",
+            "Mengxi Jia",
+            "Muyang Yan",
+            "Nguyen Thanh Thien",
+            "Pu Luo",
+            "Qi Li",
+            "Shien Song",
+            "Shijie Dong",
+            "Shuai Shao",
+            "Shutao Li",
+            "Taofeng Xue",
+            "Tianyang Xu",
+            "Tianyi Gao",
+            "Tingting Li",
+            "Wei Zhang",
+            "Weiyang Su",
+            "Xiaodong Dong",
+            "Xiao-Jun Wu",
+            "Xiaopeng Zhou",
+            "Xin Chen",
+            "Xin Wei",
+            "Xinyi You",
+            "Xudong Kang",
+            "Xujie Zhou",
+            "Xusheng Liu",
+            "Yanan Wang",
+            "Yanbin Huang",
+            "Yang Liu",
+            "Yang Yang",
+            "Yanglin Deng",
+            "Yashu Kang",
+            "Ye Yuan",
+            "Yi Wen",
+            "Yicen Tian",
+            "Yilin Tao",
+            "Yin Tang",
+            "Yipeng Lin",
+            "Yiqing Wang",
+            "Yiting Xi",
+            "Yongkang Yu",
+            "Yumei Li",
+            "Yuxin Qin",
+            "Yuying Chen",
+            "Yuzhe Cen",
+            "Zhaofan Zou",
+            "Zhaohong Liu",
+            "Zhehao Shen",
+            "Zhenglin Du",
+            "Zhengyang Li",
+            "Zhenni Huang",
+            "Zhenwei Shao",
+            "Zhilong Song",
+            "Zhiyong Feng",
+            "Zhiyu Wang",
+            "Zhou Yu",
+            "Ziang Li",
+            "Zihan Zhai",
+            "Zijian Zhang",
+            "Ziyang Peng",
+            "Ziyun Xiao",
+            "Zongshu Li"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.14142v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "Multimodal AI for Gastrointestinal Diagnostics: Tackling VQA in MEDVQA-GI 2025",
+          "url": "http://arxiv.org/abs/2507.14544v1",
+          "snippet": "This paper describes our approach to Subtask 1 of the ImageCLEFmed MEDVQA 2025 Challenge, which targets visual question answering (VQA) for gastrointestinal endoscopy. We adopt the Florence model-a large-scale multimodal foundation model-as the backbone of our VQA pipeline, pairing a powerful vision encoder with a text encoder to interpret endoscopic images and produce clinically relevant answers. To improve generalization, we apply domain-specific augmentations that preserve medical features while increasing training diversity. Experiments on the KASVIR dataset show that fine-tuning Florence…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-19",
+          "authors": [
+            "Sujata Gaihre",
+            "Amir Thapa Magar",
+            "Prasuna Pokharel",
+            "Laxmi Tiwari"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.14544v1",
+            "rrf_score": 0.022388
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q4",
+        "findings": [
+          {
+            "point": "1$^{st}$ Place Solution of WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge",
+            "evidence": "The WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge focuses on effectively applying multimodal embedding features to improve click-through rate (CTR) prediction in recommender systems. This technical report presents our 1$^{st}$ place winning solution for Task 2, combining sequential…",
+            "sources": [
+              114
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.IR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.IR）"
+          },
+          {
+            "point": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+            "evidence": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal…",
+            "sources": [
+              115
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              116
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook",
+            "evidence": "This paper reviews the MARS2 2025 Challenge on Multimodal Reasoning. We aim to bring together different approaches in multimodal machine learning and LLMs via a large benchmark. We hope it better allows researchers to follow the state-of-the-art in this very dynamic area. Meanwhile, a growing numbe…",
+            "sources": [
+              118
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Multimodal AI for Gastrointestinal Diagnostics: Tackling VQA in MEDVQA-GI 2025",
+            "evidence": "This paper describes our approach to Subtask 1 of the ImageCLEFmed MEDVQA 2025 Challenge, which targets visual question answering (VQA) for gastrointestinal endoscopy. We adopt the Florence model-a large-scale multimodal foundation model-as the backbone of our VQA pipeline, pairing a powerful visio…",
+            "sources": [
+              119
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q5",
+      "question": "MoE 架构与扩展律（scaling laws）在 2024–2026 年有哪些新结论？稀疏专家路由、细粒度专家、共享专家、以及'数据受限下的扩展''推理算力扩展律'等新范式是否改变了传统 Chinchilla 结论？",
+      "queries": [
+        "mixture of experts LLM survey 2024 2025 arxiv",
+        "DeepSeek-V3 Mixtral MoE architecture fine-grained experts 2024 arxiv",
+        "scaling laws language models revisited Chinchilla 2022 arxiv",
+        "scaling laws for inference time compute reasoning 2025 arxiv"
+      ],
+      "rationale": "MoE 与扩展律决定算力/数据/参数的资源分配，是工业界与学术界共同的核心议题。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.034293,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+          "url": "http://arxiv.org/abs/2506.14634v3",
+          "snippet": "The recent development and wider accessibility of LLMs have spurred discussions about how they can be used in survey research, including classifying open-ended survey responses. Due to their linguistic capacities, it is possible that LLMs are an efficient alternative to time-consuming manual coding and the pre-training of supervised machine learning models. As most existing research on this topic has focused on English-language responses relating to non-complex topics or on single LLMs, it is unclear whether its findings generalize and how the quality of these classifications compares to esta…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-17",
+          "authors": [
+            "Leah von der Heyde",
+            "Anna-Carolina Haensch",
+            "Bernd Weiß",
+            "Jessica Daikeler"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.14634v3",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Insights into DeepSeek-V3: Scaling Challenges and Reflections on Hardware for AI Architectures",
+          "url": "http://arxiv.org/abs/2505.09343v2",
+          "snippet": "The rapid scaling of large language models (LLMs) has unveiled critical limitations in current hardware architectures, including constraints in memory capacity, computational efficiency, and interconnection bandwidth. DeepSeek-V3, trained on 2,048 NVIDIA H800 GPUs, demonstrates how hardware-aware model co-design can effectively address these challenges, enabling cost-efficient training and inference at scale. This paper presents an in-depth analysis of the DeepSeek-V3/R1 model architecture and its AI infrastructure, highlighting key innovations such as Multi-head Latent Attention (MLA) for en…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-14",
+          "authors": [
+            "Chenggang Zhao",
+            "Chengqi Deng",
+            "Chong Ruan",
+            "Damai Dai",
+            "Huazuo Gao",
+            "Jiashi Li",
+            "Liyue Zhang",
+            "Panpan Huang",
+            "Shangyan Zhou",
+            "Shirong Ma",
+            "Wenfeng Liang",
+            "Ying He",
+            "Yuqing Wang",
+            "Yuxuan Liu",
+            "Y. X. Wei"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.09343v2",
+            "rrf_score": 0.017647
+          }
+        },
+        {
+          "title": "FlexMoE: One-for-All Nested Intra-Expert Pruning for MoE Language Models",
+          "url": "http://arxiv.org/abs/2606.27866v1",
+          "snippet": "Mixture-of-Experts (MoE) language models scale model ability with sparsely activated experts, making this architecture a standard recipe for modern large models. However, sparse activation does not remove the deployment burden of storing and serving all experts, and the available deployment budget can vary substantially across devices, users, and workloads. Existing MoE compression methods are still largely fixed-budget, typically optimizing one compressed endpoint at each chosen target budget. We study a different setting: converting a large pretrained MoE LLM into a nested family of deploya…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-06-26",
+          "authors": [
+            "Fan Mo",
+            "Yuxuan Han",
+            "Geng Zhang",
+            "Wangbo Zhao",
+            "Yang You"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.27866v1",
+            "rrf_score": 0.017442
+          }
+        },
+        {
+          "title": "TAOT: Topology-Aware Optimal Transport for Dynamic Expert Replica Placement in MoE Training",
+          "url": "http://arxiv.org/abs/2608.03676v1",
+          "snippet": "Mixture-of-Experts (MoE) has become a key architecture for scaling large language models (LLMs), yet its dynamic routing causes severe load imbalance in expert-parallel training. Existing dynamic-replica methods copy hot experts onto idle ranks to share computation, but they optimize load balance alone and ignore the cost of moving expert weights across a multi-node topology, so the resulting cross-node communication can outweigh the balancing gain and inflate training cost. We present TAOT, a topology-aware optimal transport method for dynamic expert-replica placement. TAOT models the overlo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-04",
+          "authors": [
+            "Lingyun Zhang",
+            "Henghua Zhang",
+            "Shilei Gu",
+            "Kai Mo",
+            "Shuai Han",
+            "Shiyong Li",
+            "Yanpeng Wang",
+            "Dou Shen"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.03676v1",
+            "rrf_score": 0.017045
+          }
+        },
+        {
+          "title": "GuiLoMo: Allocating Expert Number and Rank for LoRA-MoE via Bilevel Optimization with GuidedSelection Vectors",
+          "url": "http://arxiv.org/abs/2506.14646v2",
+          "snippet": "Parameter-efficient fine-tuning (PEFT) methods, particularly Low-Rank Adaptation (LoRA), offer an efficient way to adapt large language models with reduced computational costs. However, their performance is limited by the small number of trainable parameters. Recent work combines LoRA with the Mixture-of-Experts (MoE), i.e., LoRA-MoE, to enhance capacity, but two limitations remain in hindering the full exploitation of its potential: 1) the influence of downstream tasks when assigning expert numbers, and 2) the uniform rank assignment across all LoRA experts, which restricts representational…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-17",
+          "authors": [
+            "Hengyuan Zhang",
+            "Xinrong Chen",
+            "Yingmin Qiu",
+            "Xiao Liang",
+            "Ziyue Li",
+            "Guanyu Wang",
+            "Weiping Li",
+            "Tong Mo",
+            "Hayden Kwok-Hay So",
+            "Ngai Wong"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.14646v2",
+            "rrf_score": 0.016854
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q5",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+            "evidence": "The recent development and wider accessibility of LLMs have spurred discussions about how they can be used in survey research, including classifying open-ended survey responses. Due to their linguistic capacities, it is possible that LLMs are an efficient alternative to time-consuming manual coding…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Insights into DeepSeek-V3: Scaling Challenges and Reflections on Hardware for AI Architectures",
+            "evidence": "The rapid scaling of large language models (LLMs) has unveiled critical limitations in current hardware architectures, including constraints in memory capacity, computational efficiency, and interconnection bandwidth. DeepSeek-V3, trained on 2,048 NVIDIA H800 GPUs, demonstrates how hardware-aware m…",
+            "sources": [
+              101
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.DC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.DC）"
+          },
+          {
+            "point": "FlexMoE: One-for-All Nested Intra-Expert Pruning for MoE Language Models",
+            "evidence": "Mixture-of-Experts (MoE) language models scale model ability with sparsely activated experts, making this architecture a standard recipe for modern large models. However, sparse activation does not remove the deployment burden of storing and serving all experts, and the available deployment budget…",
+            "sources": [
+              102
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "TAOT: Topology-Aware Optimal Transport for Dynamic Expert Replica Placement in MoE Training",
+            "evidence": "Mixture-of-Experts (MoE) has become a key architecture for scaling large language models (LLMs), yet its dynamic routing causes severe load imbalance in expert-parallel training. Existing dynamic-replica methods copy hot experts onto idle ranks to share computation, but they optimize load balance a…",
+            "sources": [
+              104
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.DC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.DC）"
+          },
+          {
+            "point": "GuiLoMo: Allocating Expert Number and Rank for LoRA-MoE via Bilevel Optimization with GuidedSelection Vectors",
+            "evidence": "Parameter-efficient fine-tuning (PEFT) methods, particularly Low-Rank Adaptation (LoRA), offer an efficient way to adapt large language models with reduced computational costs. However, their performance is limited by the small number of trainable parameters. Recent work combines LoRA with the Mixt…",
+            "sources": [
+              105
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q6",
+      "question": "长上下文与推理效率的工程与算法进展如何？包括注意力近似/稀疏化、KV cache 压缩、线性注意力与状态空间模型、量化与投机解码，以及长上下文评测基准的真实有效性争议（'lost in the middle'、needle-in-haystack 是否足够）。",
+      "queries": [
+        "long context LLM efficient attention survey 2025 arxiv",
+        "KV cache compression quantization LLM serving 2024 2025 arxiv",
+        "state space model Mamba vs transformer long sequence 2023 2024 arxiv",
+        "speculative decoding inference acceleration LLM 2023 2025 arxiv"
+      ],
+      "rationale": "长上下文与效率直接决定推理成本与可用性，且存在大量'宣称支持 1M 上下文但实际退化'的争议，需要交叉验证。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Gated Sparse Attention: Combining Computational Efficiency with Training Stability for Long-Context Language Models",
+          "url": "http://arxiv.org/abs/2601.15305v1",
+          "snippet": "The computational burden of attention in long-context language models has motivated two largely independent lines of work: sparse attention mechanisms that reduce complexity by attending to selected tokens, and gated attention variants that improve training sta-bility while mitigating the attention sink phenomenon. We observe that these approaches address complementary weaknesses and propose Gated Sparse Attention (GSA), an architecture that realizes the benefits of both. GSA incorporates a gated lightning indexer with sigmoid activations that produce bounded, interpretable selection scores,…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-01-12",
+          "authors": [
+            "Alfred Shen",
+            "Aaron Shen"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2601.15305v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Bridging LLMs and Symbolic Reasoning in Educational QA Systems: Insights from the XAI Challenge at IJCNN 2025",
+          "url": "http://arxiv.org/abs/2508.01263v1",
+          "snippet": "The growing integration of Artificial Intelligence (AI) into education has intensified the need for transparency and interpretability. While hackathons have long served as agile environments for rapid AI prototyping, few have directly addressed eXplainable AI (XAI) in real-world educational contexts. This paper presents a comprehensive analysis of the XAI Challenge 2025, a hackathon-style competition jointly organized by Ho Chi Minh City University of Technology (HCMUT) and the International Workshop on Trustworthiness and Reliability in Neurosymbolic AI (TRNS-AI), held as part of the Interna…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-02",
+          "authors": [
+            "Long S. T. Nguyen",
+            "Khang H. N. Vo",
+            "Thu H. A. Nguyen",
+            "Tuan C. Bui",
+            "Duc Q. Nguyen",
+            "Thanh-Tung Tran",
+            "Anh D. Nguyen",
+            "Minh L. Nguyen",
+            "Fabien Baldacci",
+            "Thang H. Bui",
+            "Emanuel Di Nardo",
+            "Angelo Ciaramella",
+            "Son H. Le",
+            "Ihsan Ullah",
+            "Lorenzo Di Rocco",
+            "Tho T. Quan"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.01263v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "AlayaDB: The Data Foundation for Efficient and Effective Long-context LLM Inference",
+          "url": "http://arxiv.org/abs/2504.10326v1",
+          "snippet": "AlayaDB is a cutting-edge vector database system natively architected for efficient and effective long-context inference for Large Language Models (LLMs) at AlayaDB AI. Specifically, it decouples the KV cache and attention computation from the LLM inference systems, and encapsulates them into a novel vector database system. For the Model as a Service providers (MaaS), AlayaDB consumes fewer hardware resources and offers higher generation quality for various workloads with different kinds of Service Level Objectives (SLOs), when comparing with the existing alternative solutions (e.g., KV cache…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-14",
+          "authors": [
+            "Yangshen Deng",
+            "Zhengxin You",
+            "Long Xiang",
+            "Qilong Li",
+            "Peiqi Yuan",
+            "Zhaoyang Hong",
+            "Yitao Zheng",
+            "Wanting Li",
+            "Runzhong Li",
+            "Haotian Liu",
+            "Kyriakos Mouratidis",
+            "Man Lung Yiu",
+            "Huan Li",
+            "Qiaomu Shen",
+            "Rui Mao",
+            "Bo Tang"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.10326v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025",
+          "url": "http://arxiv.org/abs/2506.02550v2",
+          "snippet": "In this report, we present a novel three-stage framework developed for the Ego4D Long-Term Action Anticipation (LTA) task. Inspired by recent advances in foundation models, our method consists of three stages: feature extraction, action recognition, and long-term action anticipation. First, visual features are extracted using a high-performance visual encoder. The features are then fed into a Transformer to predict verbs and nouns, with a verb-noun co-occurrence matrix incorporated to enhance recognition accuracy. Finally, the predicted verb-noun pairs are formatted as textual prompts and inp…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-03",
+          "authors": [
+            "Qiaohui Chu",
+            "Haoyu Zhang",
+            "Yisen Feng",
+            "Meng Liu",
+            "Weili Guan",
+            "Yaowei Wang",
+            "Liqiang Nie"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.02550v2",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Do New Attention Mechanisms Actually Fix Attention Sinks at Million-Token Context?",
+          "url": "http://arxiv.org/abs/2609.08574v2",
+          "snippet": "Long context language models now advertise windows of one million tokens, but two habits limit how much of that window is used. Attention heads with nothing useful to read still spend their budget on the first token, which is called the attention sink, and where a fact sits in the context changes whether the model finds it. Gated attention cut first token attention from 46.7 percent to 4.8 percent at NeurIPS 2025, and Kimi K3 pairs that idea with Kimi Delta Attention and Attention Residuals behind a one million token window, eight times past the range where these diagnostics have been reporte…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-08",
+          "authors": [
+            "Sara Rizwan",
+            "Samaanah Abdus Salam",
+            "Mohammed Mudassir Uddin"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.08574v2",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "FinLFQA: Evaluating Attributed Text Generation of LLMs in Financial Long-Form Question Answering",
+          "url": "http://arxiv.org/abs/2510.06426v1",
+          "snippet": "Large Language Models (LLMs) frequently hallucinate to long-form questions, producing plausible yet factually incorrect answers. A common mitigation strategy is to provide attribution to LLM outputs. However, existing benchmarks primarily focus on simple attribution that retrieves supporting textual evidence as references. We argue that in real-world scenarios such as financial applications, attribution goes beyond reference retrieval. We introduce FinLFQA, a benchmark designed to evaluate the ability of LLMs to generate long-form answers to complex financial questions with reliable and nuanc…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-07",
+          "authors": [
+            "Yitao Long",
+            "Tiansheng Hu",
+            "Yilun Zhao",
+            "Arman Cohan",
+            "Chen Zhao"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.06426v1",
+            "rrf_score": 0.022727
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q6",
+        "findings": [
+          {
+            "point": "Gated Sparse Attention: Combining Computational Efficiency with Training Stability for Long-Context Language Models",
+            "evidence": "The computational burden of attention in long-context language models has motivated two largely independent lines of work: sparse attention mechanisms that reduce complexity by attending to selected tokens, and gated attention variants that improve training sta-bility while mitigating the attention…",
+            "sources": [
+              71
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Bridging LLMs and Symbolic Reasoning in Educational QA Systems: Insights from the XAI Challenge at IJCNN 2025",
+            "evidence": "The growing integration of Artificial Intelligence (AI) into education has intensified the need for transparency and interpretability. While hackathons have long served as agile environments for rapid AI prototyping, few have directly addressed eXplainable AI (XAI) in real-world educational context…",
+            "sources": [
+              72
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "AlayaDB: The Data Foundation for Efficient and Effective Long-context LLM Inference",
+            "evidence": "AlayaDB is a cutting-edge vector database system natively architected for efficient and effective long-context inference for Large Language Models (LLMs) at AlayaDB AI. Specifically, it decouples the KV cache and attention computation from the LLM inference systems, and encapsulates them into a nov…",
+            "sources": [
+              73
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025",
+            "evidence": "In this report, we present a novel three-stage framework developed for the Ego4D Long-Term Action Anticipation (LTA) task. Inspired by recent advances in foundation models, our method consists of three stages: feature extraction, action recognition, and long-term action anticipation. First, visual…",
+            "sources": [
+              74
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Do New Attention Mechanisms Actually Fix Attention Sinks at Million-Token Context?",
+            "evidence": "Long context language models now advertise windows of one million tokens, but two habits limit how much of that window is used. Attention heads with nothing useful to read still spend their budget on the first token, which is called the attention sink, and where a fact sits in the context changes w…",
+            "sources": [
+              75
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "FinLFQA: Evaluating Attributed Text Generation of LLMs in Financial Long-Form Question Answering",
+            "evidence": "Large Language Models (LLMs) frequently hallucinate to long-form questions, producing plausible yet factually incorrect answers. A common mitigation strategy is to provide attribution to LLM outputs. However, existing benchmarks primarily focus on simple attribution that retrieves supporting textua…",
+            "sources": [
+              76
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [
+    {
+      "coverage": "",
+      "gaps": [],
+      "additional_queries": [],
+      "additional_subquestions": []
+    }
+  ],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 11,
+    "prompt_tokens": 60974,
+    "completion_tokens": 32428,
+    "generated_at": "2026-10-04T02:54:54.300798+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 人工智能基础模型前沿调研报告（2024–2026）：推理、后训练、Agent、多模态、MoE 与长上下文效率\n\n**日期**：2026-10-04（UTC） ｜ **领域**：Artificial Intelligence / Foundation Models（人工智能 / 基础模型） ｜ **检索源数量**：本次可引用候选来源 [1]–[136]，共 136 条编号记录，其中与主题直接相关的核心来源约 60 条，其余为检索噪声或弱相关条目（已在正文中说明剔除逻辑）\n\n> **方法与证据说明**：本报告严格只使用编号来源 [1]–[136] 与题目给出的领域种子资源。经逐条比对，候选集中存在一批与\"大模型/基础模型\"主题明显弱相关的记录（例如德语开放式问卷编码研究 [4]、区域气候变化情景工具 [5]、BirdCLEF 鸟类声学 [23]），这些条目**不作为本报告论据**，仅用于说明检索召回的噪声水平。凡无法从来源中核实的数字（引用数、GitHub star、下载量、榜单排名），一律标注 `> 待核实`，不做任何推测性填充。\n\n---\n\n## 摘要（Executive Summary）\n\n1. **推理与测试时计算（test-time compute）已成为 2024–2026 年基础模型最重要的能力杠杆之一**，其标志性事件是 OpenAI o1 系列以官方 System Card 形式公开了\"长思维链 + 强化学习\"的路线 [51]，随后出现大量第三方评估与质疑研究 [50][52][53][54][55][65]。当前共识是\"思考更久通常更好，但并非单调收益\"——存在 overthinking 现象 [70] 与思考最优长度问题 [56]。\n\n2. **测试时计算的形态正在从\"单次长 CoT\"扩散为多种互补范式**：潜空间/循环深度推理 [64]、离线预计算（sleep-time compute）[48]、推理抑制与提示优化等效率化手段 [18][24]，以及围绕**可验证奖励（RLVR）**构建的规模化训练环境 [59][66]。\n\n3. **后训练技术栈呈现清晰的三阶段演进**：RLHF（InstructGPT 式人类偏好对齐）→ 偏好优化（DPO 及其变体家族）→ 可验证奖励强化学习（RLVR，o1/R1 路线）。DPO 家族在 2024–2026 年仍高速扩张，但研究焦点已从\"能否替代 RLHF\"转向**偏好数据质量、噪声标签与难例选择** [32][33][41][44]，以及**人机混合反馈的成本-安全权衡** [36]。\n\n4. **Agent 与工具使用的研究重心从\"能做\"转向\"做得安全、可验证\"**：早期 ReAct 式提示范式 [17] 已成经典，2024–2026 年的新工作集中在工具权限选择 [2]、计划级安全与分解攻击 [14][15]、小模型工具学习短板 [3]，以及多智能体系统工程化分类 [10][11]。\n\n5. **多模态路线并未收敛为单一路线**：一方面有 foundation-model 时代的任务级综述（如分割 [117]、目标检测 [133]）与轻量化空间推理模型 [131]、统一 tokenization [130]、参数高效 CLIP 三维适配 [136]；另一方面 2025 年密集出现的挑战赛/基准（多模态推理 [118]、LMM 视觉质量对比 [121]、医学 VQA [119]、法律多模态 QA [115]、多模态 CTR [114]）显示评测仍是主要推进方式，而非架构统一。\n\n6. **MoE 与扩展律的核心张力是\"能力可扩展 vs 部署/训练不可扩展\"**：Mixtral [100] 确立了开源稀疏 MoE 基线，DeepSeek-V3 从硬件视角系统披露了 MoE 扩展的存储、带宽与互联瓶颈 [101]；由此催生专家剪枝 [94][102]、零计算专家 [103]、动态专家副本放置 [104]、LoRA-MoE 结构搜索 [105] 等一整条\"效率修正\"研究线。扩展律方面，**\"超越 Chinchilla 最优\"需把推理成本计入** [108]，MoE upcycling 扩展律 [109] 与下游任务扩展律 [110] 补充了传统预训练损失视角的空白。\n\n7. **长上下文与推理效率的瓶颈从\"注意力复杂度\"转移到\"注意力行为 + KV cache 内存\"**：新工作同时处理注意力汇（attention sink）行为与位置敏感性 [75]，并提出门控稀疏注意力以兼顾效率与训练稳定性 [71]；KV cache 方向形成压缩 [78][79][80][81]、量化 [82][83][84][85] 两条密集子线；状态空间模型（Mamba）在视觉/语音等模态持续扩展 [86][87][88]，但其在精确复制与 CoT 类推理上的局限已被明确指出 [89]。\n\n8. **最大的开放争议**包括：(a) o1 类模型是否真具备\"测试时计算可扩展性\" [65] 与 overthinking 的边界 [70]；(b) 长上下文榜单（needle-in-haystack 类）是否测到了真实长上下文能力 [75][76]；(c) MoE 的效率收益是否被系统开销抵消 [101][104]；(d) Agent 的权限与计划级安全缺乏可组合的验证机制 [2][14][15]；(e) 基础模型透明度进展缓慢 [116]。\n\n---\n\n## 一、关键前沿进展（近 1–2 年）\n\n下表按时间线组织 2024–2026 年可核查的关键节点。**证据强度**列标注该节点的证据类型（官方技术报告 / 同行评审 / 预印本 / 挑战赛报告）。\n\n| 时间 | 节点 | 方向 | 证据强度 | 一句话贡献 | 引用 |\n|---|---|---|---|---|---|\n| 2024-09 | o1 规划能力评估 | 推理 | 预印本（B） | 系统检验 o1 在规划任务的可行性、最优性与泛化性，指出规划能力有限 | [53] |\n| 2024-10 | o1 推理模式比较研究 | 推理 | 预印本（B） | 归纳 o1 的推理行为模式，为\"长 CoT 是否等于更强推理\"提供行为学证据 | [54] |\n| 2024-10 | o1-preview 高阶思维教育评估 | 推理 | 预印本（B） | 第三方领域评估，属\"能力宣称 vs 实测\"的对照证据 | [50] |\n| 2024-12 | **OpenAI o1 System Card** | 推理 | 官方技术报告（A） | 官方披露 o1 的训练与安全评估框架，是 o1 路线的一手来源 | [51] |\n| 2024-12 | Mixtral of Experts | MoE | 预印本（B） | 开源稀疏 MoE 里程碑，确立\"每 token 只激活部分专家\"的工程基线 | [100] |\n| 2024 | Beyond Chinchilla-Optimal | 扩展律 | 预印本（B） | 将**推理成本**纳入扩展律，修正 Chinchilla 只考虑训练算力的结论 | [108] |\n| 2024 | QServe / QAQ / QET | 效率 | 预印本（B） | W4A8KV4 系统协同设计、KV cache 质量自适应量化、元素替换+残差聚类压缩 | [82][83][84] |\n| 2024 | Vision Mamba / Speech-Mamba | 架构 | 预印本（B） | 双向/选择性状态空间模型扩展到视觉与长上下文语音 | [86][88] |\n| 2024 | Mamba 在 COPY 与 CoT 上的局限 | 架构 | 预印本（B） | 明确指出 SSM 在精确复制与思维链推理上的结构性短板 | [89] |\n| 2025-02 | MoE Upcycling 扩展律 | 扩展律 | 预印本（B） | 给出\"稠密模型升格为 MoE\"的扩展律，指导稀疏化改造 | [109] |\n| 2025-03 | Video-R1 | 多模态+RL | 预印本（B） | 用强化学习提升多模态大模型视频推理能力 | [69] |\n| 2025-04 | Sleep-time Compute | 测试时计算 | 预印本（B） | 提出查询前离线\"思考\"上下文，以摊薄在线延迟与推理成本 | [48] |\n| 2025-04 | AlayaDB | 长上下文系统 | 预印本（B） | 将 KV cache 与注意力计算从 LLM 推理系统中解耦为独立数据基础设施 | [73] |\n| 2025-05 | Reasoning Gym | RLVR 环境 | 预印本（B） | 提供 100+ 可验证奖励数据生成器与验证器，跨代数/算术/几何/图论/逻辑等域 | [59] |\n| 2025-05 | DeepSeek-V3 硬件反思 | MoE/系统 | 预印本（B） | 以 2048 张 H800 训练为例，系统分析显存容量、计算效率与互联带宽约束 | [101] |\n| 2025-05 | FLAME-MoE | MoE 平台 | 预印本（B） | 透明端到端 MoE 研究平台，降低 MoE 训练研究门槛 | [106] |\n| 2025-06 | SwS（弱点驱动问题合成） | RLVR | 预印本（B） | 用模型自感知弱点合成问题，缓解 RLVR 对高质量可验证题集的依赖 | [66] |\n| 2025-06 | CommVQ | KV cache | 预印本（B） | 交换式向量量化压缩 KV cache | [80] |\n| 2025-06 | GuiLoMo | MoE+PEFT | 预印本（B） | 用双层优化自动分配 LoRA-MoE 的专家数量与秩 | [105] |\n| 2025 | 法律推理中测试时扩展 LLM 评估 | 推理 | 同行评审（A，EMNLP Findings） | 对 o1、DeepSeek-R1 等在法律推理任务上的测试时扩展行为做第三方评测 | [52][55] |\n| 2025 | Revisiting o1-like 测试时扩展 | 推理 | 同行评审（A，ACL） | **质疑** o1 类模型是否真正具备测试时扩展能力，是本领域最重要的反向证据之一 | [65] |\n| 2025 | Thinking-Optimal Scaling | 推理 | 会议论文（A/B） | 提出\"思考最优\"而非\"思考最长\"的扩展目标 | [56] |\n| 2025 | 潜空间循环深度推理 | 推理 | 会议论文（A/B） | 用循环深度在潜空间扩展测试时计算，替代显式长 CoT | [64] |\n| 2025 | 量化/系统效率 | 效率 | 预印本（B） | Titanus 在线 KV 剪枝+量化；XQuant 跨层超低比特 KV 量化 | [81][85] |\n| 2025 | VQualA LMM 视觉质量对比 | 多模态评测 | 挑战赛报告（C） | 面向大型多模态模型的视觉质量比较评测 | [121] |\n| 2025 | MARS2 多模态推理挑战 | 多模态评测 | 挑战赛报告（C） | 用大规模基准汇集多模态推理不同技术路线 | [118] |\n| 2025 | 2025 Foundation Model Transparency Index | 治理 | 预印本（B） | 第三版年度基础模型透明度量化评估 | [116] |\n| 2026 | Gated Sparse Attention | 长上下文 | 预印本（B） | 融合稀疏注意力与门控注意力，兼顾计算效率与训练稳定性 | [71] |\n| 2026 | Do New Attention Mechanisms Actually Fix Attention Sinks | 长上下文 | 预印本（B） | **在百万 token 尺度检验注意力汇是否真被修复**，属评测有效性批判 | [75] |\n| 2026 | FlexMoE | MoE 压缩 | 预印本（B） | 嵌套式专家内剪枝，一次训练适配多部署预算 | [102] |\n| 2026 | TAOT | MoE 训练系统 | 预印本（B） | 用拓扑感知最优传输做动态专家副本放置，缓解专家并行负载不均 | [104] |\n| 2026 | PolyKV / MosaicKV | KV cache | 预印本（B） | 多智能体共享非对称压缩 KV 池；动态二维 KV 压缩服务长上下文 | [78][79] |\n| 2026 | PLC-DPO | 后训练 | 预印本（B） | 针对噪声与歧义偏好标签的后验标签修正 | [33] |\n| 2026 | Linear-DPO | 后训练/生成 | 预印本（B） | 将 DPO 扩展到扩散与 flow-matching 生成模型 | [35] |\n| 2026 | ARS / CROP / When More Thinking Hurts | 推理效率 | 预印本（B） | 自适应推理抑制、token 高效提示优化、以及 overthinking 的负面证据 | [18][24][70] |\n| 2026 | 工具权限与计划级安全 | Agent 安全 | 预印本/预印本存档（B/C） | 过度权限工具选择研究；逐步检查 ≠ 整体检查的分解攻击分析 | [2][14][15] |\n\n**三条趋势判断**（附证据）：\n\n- **趋势一：从\"更长思考\"到\"更优思考\"**。一方面系统卡与官方路线确立长 CoT 价值 [51]，另一方面 ACL 级别研究质疑其可扩展性 [65]，并有工作形式化\"思考最优缩放\" [56] 与 overthinking 代价 [70]。综合判断：**\"思考长度—正确率\"不是单调曲线**，这是 2025–2026 年最重要的认知修正。\n- **趋势二：效率研究从模型内部走向系统层**。KV cache 与注意力之外的系统组件被独立出来（向量数据库化解耦 [73]、共享 KV 池 [78]、动态压缩服务 [79]），说明瓶颈已从 FLOPs 转向内存与调度。\n- **趋势三：MoE 研究进入\"后稀疏化\"阶段**。当稀疏激活已成默认配方，\"如何把专家装进部署预算\"成为主问题 [94][102][103][104]。\n\n---\n\n## 二、推理与测试时计算\n\n### 2.1 一手路线：o1 与系统卡\n\n- **OpenAI o1 System Card** 是 o1 路线最权威的一手来源（官方技术报告，A 级），披露了长思维链与强化学习结合的训练与安全评估框架 [51]。热度和引用数 `> 待核实 [51]`；权威性来自官方发布 [51]；关注度为**高**（o1 引发 2024 年底至 2025 年大量第三方评估论文，可从 [50][52][53][54] 的密集出现侧面印证）；推荐度 **★5**——任何讨论\"推理模型\"的报告都应以该系统卡为一手锚点。\n- o1 在具体专业领域的表现被多篇第三方工作检验：教育高阶思维 [50]、医疗推理 [60]、生物医学（通过 RL 微调 o1-mini）[57]、法律推理 [52][55]、规划任务 [53]、推理模式归纳 [54]。这些构成\"能力宣称 vs 外部实测\"的对照证据链，**多为预印本/单领域小样本，不能外推为通用结论**。\n\n### 2.2 核心争议：测试时扩展是否真实存在\n\n- **[65]（ACL 2025，同行评审，A 级）** 直接以\"Revisiting the Test-Time Scaling of o1-like Models: Do they Truly Possess Test-Time Scaling Capabilities?\"为题提出质疑，是本节最重要的反向证据。关注度：**高**（发表于 ACL 主会长文，属可核查的同行评审记录）[65]；推荐度 **★5**——它是平衡\"官方能力叙事\"的必要对照。\n- **[56]（会议论文）** 提出\"Thinking-Optimal Scaling\"，主张存在最优思考量而非越长越好 [56]，与 [70] 的 overthinking 证据方向一致。\n- **[58]** 从微调角度指出\"限制\n\n## 参考来源\n\n[1] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[2] When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents — http://arxiv.org/abs/2606.20023v2\n[3] Small LLMs Are Weak Tool Learners: A Multi-LLM Agent — http://arxiv.org/abs/2401.07324v3\n[4] AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3\n[5] AIRCC-Clim: a user-friendly tool for generating regional probabilistic climate change scenarios and risk measures — http://arxiv.org/abs/2111.01762v1\n[6] Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs — http://arxiv.org/abs/2504.19675v2\n[7] SBFT Tool Competition 2025 -- Java Test Case Generation Track — http://arxiv.org/abs/2504.09168v1\n[8] hivelab - An Extension of Slurk for Group Conversations with LLM Agents — https://doi.org/10.5281/zenodo.17725131\n[9] Focus Agent: LLM-Powered Virtual Focus Group — http://arxiv.org/abs/2409.01907v1\n[10] Replication materials for the paper \"Engineering LLM-Based Multi-Agent Systems: A Taxonomy of Emerging Frameworks\" — https://doi.org/10.5281/zenodo.19919086\n[11] Replication materials for the paper \"Engineering LLM-Based Multi-Agent Systems: A Taxonomy of Emerging Frameworks\" — https://doi.org/10.5281/zenodo.19919085\n[12] hivelab --- An Extension of Slurk Enabling Automated Randomization for Parallel Group Conversations with LLM Agents — https://doi.org/10.5281/zenodo.18222221\n[13] hivelab --- An Extension of Slurk Enabling Automated Randomization for Parallel Group Conversations with LLM Agents — https://doi.org/10.5281/zenodo.17700283\n[14] Checked at Every Step Is Not Checked as a Whole: Two Senses of Plan-Level Safety for LLM Agents, and Why Decomposition Attacks Exploit the Gap Between Them — https://doi.org/10.5281/zenodo.22961078\n[15] Checked at Every Step Is Not Checked as a Whole: Two Senses of Plan-Level Safety for LLM Agents, and Why Decomposition Attacks Exploit the Gap Between Them — https://doi.org/10.5281/zenodo.22961077\n[16] РОЗРОБКА ІНФОРМАЦІЙНОЇ ТЕХНОЛОГІЇ АВТОМАТИЗОВАНОГО СТВОРЕННЯ І ТЕСТУВАННЯ ПРОГРАМ ДЛЯ ВИРІШЕННЯ ЗАДАЧ МАШИННОГО НАВЧАННЯ З ВИКОРИСТАННЯМ ВЕЛИКИХ МОВНИХ МОДЕЛЕЙ: DOI: 10.31673/2412-4338.2026.019011 — https://openalex.org/W7216766573\n[17] ReAct: Synergizing Reasoning and Acting in Language Models — http://arxiv.org/abs/2210.03629v3\n[18] ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models — http://arxiv.org/abs/2510.00071v2\n[19] CHC-COMP 2022: Competition Report — http://arxiv.org/abs/2211.12231v1\n[20] Making Large Language Models Better Reasoners with Alignment — http://arxiv.org/abs/2309.02144v1\n[21] Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support — http://arxiv.org/abs/2504.16021v1\n[22] ChaosBench-Logic: A Benchmark for Logical and Symbolic Reasoning on Chaotic Dynamical Systems — http://arxiv.org/abs/2601.01982v1\n[23] Motif Mining and Unsupervised Representation Learning for BirdCLEF 2022 — http://arxiv.org/abs/2206.04805v1\n[24] CROP: Token-Efficient Reasoning in Large Language Models via Regularized Prompt Optimization — http://arxiv.org/abs/2604.14214v1\n[25] RRHF: Rank Responses to Align Language Models with Human Feedback without tears — http://arxiv.org/abs/2304.05302v3\n[26] RLHF-Blender: A Configurable Interactive Interface for Learning from Diverse Human Feedback — http://arxiv.org/abs/2308.04332v1\n[27] Rights by Architecture: A Human-Compatible Sociotechnical Layer for Digital Protection Across Regulatory Regimes — http://arxiv.org/abs/2609.02455v1\n[28] Human-Centered Evaluation of an LLM-Based Process Modeling Copilot: A Mixed-Methods Study with Domain Experts — http://arxiv.org/abs/2603.12895v1\n[29] Analogy Generation by Prompting Large Language Models: A Case Study of InstructGPT — http://arxiv.org/abs/2210.04186v2\n[30] Training Language Models with Language Feedback — http://arxiv.org/abs/2204.14146v4\n[31] Using Large Language Models to Provide Explanatory Feedback to Human Tutors — http://arxiv.org/abs/2306.15498v1\n[32] TIS-DPO: Token-level Importance Sampling for Direct Preference Optimization With Estimated Weights — http://arxiv.org/abs/2410.04350v3\n[33] PLC-DPO: Posterior Label Correction in Noisy and Ambiguous Preference Optimization — http://arxiv.org/abs/2608.30597v1\n[34] Reinforcement Learning with Human Feedback (RLHF) — https://doi.org/10.1007/979-8-8688-2332-9_8\n[35] Linear-DPO: Linear Direct Preference Optimization for Diffusion and Flow-Matching Generative Models — http://arxiv.org/abs/2605.21123v1\n[36] Hybrid RLHF-AIF: Uncertainty-Guided Routing of Human and AI Feedback for Cost-Efficient Safety Alignment of Large Language Models — https://doi.org/10.3390/math14193523\n[37] MIA-DPO: Multi-Image Augmented Direct Preference Optimization For Large Vision-Language Models — http://arxiv.org/abs/2410.17637v1\n[38] Proximal Policy Optimization (PPO) and RLHF — https://doi.org/10.1007/979-8-8688-0273-7_11\n[39] Step-DPO: Step-wise Preference Optimization for Long-chain Reasoning of LLMs — http://arxiv.org/abs/2406.18629v1\n[40] Analogy Generation by Prompting Large Language Models: A Case Study of InstructGPT — https://doi.org/10.18653/v1/2022.inlg-main.25\n[41] Data-Centric Human Preference with Rationales for Direct Preference Alignment — http://arxiv.org/abs/2407.14477v4\n[42] Uni-DPO: A Unified Paradigm for Dynamic Preference Optimization of LLMs — http://arxiv.org/abs/2506.10054v4\n[43] The Role of Foundational Autoraters in Reinforcement Learning from Human Feedback (RLHF)&amp;nbsp; — https://doi.org/10.2139/ssrn.6338238\n[44] Difficulty-Based Preference Data Selection by DPO Implicit Reward Gap — http://arxiv.org/abs/2508.04149v2\n[45] 7 Reinforcement Learning from Human Feedback (RLHF) — https://doi.org/10.1515/9783111425078-007\n[46] Fairness-Aware Offline Reinforcement Learning with Human Feedback (Fair-RLHF): Mitigating Bias in Human Preferences — https://doi.org/10.36227/techrxiv.175382817.74693578/v1\n[47] Deep Reinforcement Learning with Python — https://doi.org/10.1007/979-8-8688-0273-7\n[48] Sleep-time Compute: Beyond Inference Scaling at Test-time — http://arxiv.org/abs/2504.13171v1\n[49] Learning Dexterous In-Hand Manipulation — http://arxiv.org/abs/1808.00177v5\n[50] A Systematic Assessment of OpenAI o1-Preview for Higher Order Thinking in Education — http://arxiv.org/abs/2410.21287v1\n[51] OpenAI o1 System Card — http://arxiv.org/abs/2412.16720v2\n[52] Evaluating Test-Time Scaling LLMs for Legal Reasoning: OpenAI o1, DeepSeek-R1, and Beyond — http://arxiv.org/abs/2503.16040v2\n[53] On The Planning Abilities of OpenAI's o1 Models: Feasibility, Optimality, and Generalizability — http://arxiv.org/abs/2409.19924v4\n[54] A Comparative Study on Reasoning Patterns of OpenAI's o1 Model — http://arxiv.org/abs/2410.13639v2\n[55] Evaluating Test-Time Scaling LLMs for Legal Reasoning: OpenAI o1, DeepSeek-R1, and Beyond — https://doi.org/10.18653/v1/2025.findings-emnlp.742\n[56] Towards Thinking-Optimal Scaling of Test-Time Compute for LLM Reasoning — https://doi.org/10.52202/085713-1452\n[57] RL-Finetuning of OpenAI o1-mini to Enhance Biomedical Reasoning — https://doi.org/10.1101/2025.05.19.654988\n[58] Rethinking Fine-Tuning when Scaling Test-Time Compute: Limiting Confidence Improves Mathematical Reasoning — https://doi.org/10.52202/085713-5304\n[59] REASONING GYM: Reasoning Environments for Reinforcement Learning with Verifiable Rewards — http://arxiv.org/abs/2505.24760v2\n[60] OpenAI o1-Preview vs. ChatGPT in Healthcare: A New Frontier in Medical AI Reasoning — https://doi.org/10.7759/cureus.70640\n[61] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1\n[62] ScaleRTL: Scaling LLMs with Reasoning Data and Test-Time Compute for Accurate RTL Code Generation — https://doi.org/10.1109/mlcad65511.2025.11189212\n[63] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1\n[64] Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach — https://doi.org/10.52202/085713-1380\n[65] Revisiting the Test-Time Scaling of o1-like Models: Do they Truly Possess Test-Time Scaling Capabilities? — https://doi.org/10.18653/v1/2025.acl-long.232\n[66] SwS: Self-aware Weakness-driven Problem Synthesis in Reinforcement Learning for LLM Reasoning — http://arxiv.org/abs/2506.08989v1\n[67] Causal-Paced Deep Reinforcement Learning — http://arxiv.org/abs/2507.02910v1\n[68] Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task — http://arxiv.org/abs/2510.22631v1\n[69] Video-R1: Reinforcing Video Reasoning in MLLMs — http://arxiv.org/abs/2503.21776v4\n[70] When More Thinking Hurts: Overthinking in LLM Test-Time Compute ... — https://arxiv.org/html/2604.10739v1\n[71] Gated Sparse Attention: Combining Computational Efficiency with Training Stability for Long-Context Language Models — http://arxiv.org/abs/2601.15305v1\n[72] Bridging LLMs and Symbolic Reasoning in Educational QA Systems: Insights from the XAI Challenge at IJCNN 2025 — http://arxiv.org/abs/2508.01263v1\n[73] AlayaDB: The Data Foundation for Efficient and Effective Long-context LLM Inference — http://arxiv.org/abs/2504.10326v1\n[74] Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025 — http://arxiv.org/abs/2506.02550v2\n[75] Do New Attention Mechanisms Actually Fix Attention Sinks at Million-Token Context? — http://arxiv.org/abs/2609.08574v2\n[76] FinLFQA: Evaluating Attributed Text Generation of LLMs in Financial Long-Form Question Answering — http://arxiv.org/abs/2510.06426v1\n[77] Pay Attention to What You Need — http://arxiv.org/abs/2307.13365v3\n[78] PolyKV: A Shared Asymmetrically-Compressed KV Cache Pool for Multi-Agent LLM Inference — http://arxiv.org/abs/2604.24971v1\n[79] MosaicKV: Serving Long-Context LLM with Dynamic Two-D KV Cache Compression — http://arxiv.org/abs/2607.00760v1\n[80] CommVQ: Commutative Vector Quantization for KV Cache Compression — http://arxiv.org/abs/2506.18879v1\n[81] Titanus: Enabling KV Cache Pruning and Quantization On-the-Fly for LLM Acceleration — http://arxiv.org/abs/2505.17787v1\n[82] QServe: W4A8KV4 Quantization and System Co-design for Efficient LLM Serving — http://arxiv.org/abs/2405.04532v3\n[83] QAQ: Quality Adaptive Quantization for LLM KV Cache — http://arxiv.org/abs/2403.04643v2\n[84] QET: Enhancing Quantized LLM Parameters and KV cache Compression through Element Substitution and Residual Clustering — http://arxiv.org/abs/2407.03637v4\n[85] XQuant: Achieving Ultra-Low Bit KV Cache Quantization with Cross-Layer Compression — http://arxiv.org/abs/2510.11236v1\n[86] Vision Mamba: Efficient Visual Representation Learning with Bidirectional State Space Model — http://arxiv.org/abs/2401.09417v3\n[87] MiM-ISTD: Mamba-in-Mamba for Efficient Infrared Small Target Detection — http://arxiv.org/abs/2403.02148v4\n[88] Speech-Mamba: Long-Context Speech Recognition with Selective State Spaces Models — http://arxiv.org/abs/2409.18654v1\n[89] Exploring the Limitations of Mamba in COPY and CoT Reasoning — http://arxiv.org/abs/2410.03810v3\n[90] Mamba Sequence Modeling meets Model Predictive Control — http://arxiv.org/abs/2604.13857v2\n[91] Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains — http://arxiv.org/abs/2309.11285v1\n[92] FR-Mamba: Time-Series Physical Field Reconstruction Based on State Space Model — http://arxiv.org/abs/2505.16083v1\n[93] Strategies to Harness the Transformers' Potential: UNSL at eRisk 2023 — http://arxiv.org/abs/2310.19970v1\n[94] Not All Experts are Equal: Efficient Expert Pruning and Skipping for Mixture-of-Experts Large Language Models — http://arxiv.org/abs/2402.14800v2\n[95] ExpertFlow: Efficient Mixture-of-Experts Inference via Predictive Expert Caching and Token Scheduling — http://arxiv.org/abs/2410.17954v2\n[96] GraphMETRO: Mitigating Complex Graph Distribution Shifts via Mixture of Aligned Experts — http://arxiv.org/abs/2312.04693v3\n[97] Mixtures of Experts Models — http://arxiv.org/abs/1806.08200v1\n[98] Convergence Rates for Softmax Gating Mixture of Experts — http://arxiv.org/abs/2503.03213v1\n[99] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1\n[100] Mixtral of Experts — http://arxiv.org/abs/2401.04088v1\n[101] Insights into DeepSeek-V3: Scaling Challenges and Reflections on Hardware for AI Architectures — http://arxiv.org/abs/2505.09343v2\n[102] FlexMoE: One-for-All Nested Intra-Expert Pruning for MoE Language Models — http://arxiv.org/abs/2606.27866v1\n[103] MoE++: Accelerating Mixture-of-Experts Methods with Zero-Computation Experts — http://arxiv.org/abs/2410.07348v1\n[104] TAOT: Topology-Aware Optimal Transport for Dynamic Expert Replica Placement in MoE Training — http://arxiv.org/abs/2608.03676v1\n[105] GuiLoMo: Allocating Expert Number and Rank for LoRA-MoE via Bilevel Optimization with GuidedSelection Vectors — http://arxiv.org/abs/2506.14646v2\n[106] FLAME-MoE: A Transparent End-to-End Research Platform for Mixture-of-Experts Language Models — http://arxiv.org/abs/2505.20225v1\n[107] Rethinking Cross-Domain Evaluation for Face Forgery Detection with Semantic Fine-grained Alignment and Mixture-of-Experts — http://arxiv.org/abs/2604.21478v1\n[108] Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws — http://arxiv.org/abs/2401.00448v3\n[109] Scaling Laws for Upcycling Mixture-of-Experts Language Models — http://arxiv.org/abs/2502.03009v2\n[110] Scaling Laws for Downstream Task Performance of Large Language Models — http://arxiv.org/abs/2402.04177v3\n[111] Language-based Audio Retrieval Task in DCASE 2022 Challenge — http://arxiv.org/abs/2206.06108v3\n[112] ÚFAL CorPipe at CRAC 2022: Effectivity of Multilingual Models for Coreference Resolution — http://arxiv.org/abs/2209.07278v3\n[113] A Holistic Assessment of the Carbon Footprint of Noor, a Very Large Arabic Language Model — http://arxiv.org/abs/2610.00223v1\n[114] 1$^{st}$ Place Solution of WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge — http://arxiv.org/abs/2505.03543v1\n[115] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1\n[116] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[117] Image Segmentation in Foundation Model Era: A Survey — http://arxiv.org/abs/2408.12957v3\n[118] MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook — http://arxiv.org/abs/2509.14142v1\n[119] Multimodal AI for Gastrointestinal Diagnostics: Tackling VQA in MEDVQA-GI 2025 — http://arxiv.org/abs/2507.14544v1\n[120] A Critical Analysis of Neurosymbolic Ai Models for Adaptive Multimodal Knowledge Integration in Conversational Chatbots for Inclusive Education — https://doi.org/10.47392/irjaeh.2025.0532\n[121] VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models: Methods and Results — http://arxiv.org/abs/2509.09190v1\n[122] Emotion AI in Mental Health — https://doi.org/10.1007/978-3-032-14778-3_11\n[123] Self-Evolving Autonomous Software Architectures Using Large-Scale Graph Neural Networks and Real-Time Big Data Feedback Loops for Economic Optimization and Cost-Efficient Resource Allocation — https://doi.org/10.63544/jbii.v5i5.188\n[124] MaLei at the PLABA Track of TREC 2024: RoBERTa for Term Replacement -- LLaMA3.1 and GPT-4o for Complete Abstract Adaptation — http://arxiv.org/abs/2411.07381v4\n[125] Team Samsung-RAL: Technical Report for 2024 RoboDrive Challenge-Robust Map Segmentation Track — http://arxiv.org/abs/2405.10567v2\n[126] Completeness Thresholds for Memory Safety of Array Traversing Programs: Early Technical Report — http://arxiv.org/abs/2211.11885v3\n[127] AIM 2025 Rip Current Segmentation (RipSeg) Challenge Report — http://arxiv.org/abs/2508.13401v3\n[128] Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge — http://arxiv.org/abs/2406.10598v1\n[129] Inaugural MOASEI Competition at AAMAS'2025: A Technical Report — http://arxiv.org/abs/2507.05469v1\n[130] TEAL: Tokenize and Embed ALL for Multi-modal Large Language Models — http://arxiv.org/abs/2311.04589v3\n[131] TinyGiantVLM: A Lightweight Vision-Language Architecture for Spatial Reasoning under Resource Constraints — http://arxiv.org/abs/2508.17595v1\n[132] Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025) — http://arxiv.org/abs/2412.16365v1\n[133] Object Detection with Multimodal Large Vision-Language Models: An In-depth Review — http://arxiv.org/abs/2508.19294v2\n[134] How do language models learn facts? Dynamics, curricula and hallucinations — http://arxiv.org/abs/2503.21676v2\n[135] Instituto de Telecomunicações at IWSLT 2025: Aligning Small-Scale Speech and Language Models for Speech-to-Text Learning — http://arxiv.org/abs/2506.17019v1\n[136] Parameter-Efficient CLIP Adaptation for 3D Understanding via Unified Tokenization — http://arxiv.org/abs/2505.18819v2\n\n\n---\n\n*Generated by research-bot · topic=`ai` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=136 · duration=269s · 2026-10-04T02:54:54+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents",
+      "url": "http://arxiv.org/abs/2606.20023v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-06-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Small LLMs Are Weak Tool Learners: A Multi-LLM Agent",
+      "url": "http://arxiv.org/abs/2401.07324v3",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-01-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+      "url": "http://arxiv.org/abs/2506.14634v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "AIRCC-Clim: a user-friendly tool for generating regional probabilistic climate change scenarios and risk measures",
+      "url": "http://arxiv.org/abs/2111.01762v1",
+      "kind": "paper",
+      "venue": "physics.ao-ph",
+      "published": "2021-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+      "url": "http://arxiv.org/abs/2504.19675v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "SBFT Tool Competition 2025 -- Java Test Case Generation Track",
+      "url": "http://arxiv.org/abs/2504.09168v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-04-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "hivelab - An Extension of Slurk for Group Conversations with LLM Agents",
+      "url": "https://doi.org/10.5281/zenodo.17725131",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2025-11-26",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Focus Agent: LLM-Powered Virtual Focus Group",
+      "url": "http://arxiv.org/abs/2409.01907v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2024-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Replication materials for the paper \"Engineering LLM-Based Multi-Agent Systems: A Taxonomy of Emerging Frameworks\"",
+      "url": "https://doi.org/10.5281/zenodo.19919086",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-04-30",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Replication materials for the paper \"Engineering LLM-Based Multi-Agent Systems: A Taxonomy of Emerging Frameworks\"",
+      "url": "https://doi.org/10.5281/zenodo.19919085",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-04-30",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "hivelab --- An Extension of Slurk Enabling Automated Randomization for Parallel Group Conversations with LLM Agents",
+      "url": "https://doi.org/10.5281/zenodo.18222221",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-01-12",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "hivelab --- An Extension of Slurk Enabling Automated Randomization for Parallel Group Conversations with LLM Agents",
+      "url": "https://doi.org/10.5281/zenodo.17700283",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-01-12",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Checked at Every Step Is Not Checked as a Whole: Two Senses of Plan-Level Safety for LLM Agents, and Why Decomposition Attacks Exploit the Gap Between Them",
+      "url": "https://doi.org/10.5281/zenodo.22961078",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-09-25",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Checked at Every Step Is Not Checked as a Whole: Two Senses of Plan-Level Safety for LLM Agents, and Why Decomposition Attacks Exploit the Gap Between Them",
+      "url": "https://doi.org/10.5281/zenodo.22961077",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-09-25",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "РОЗРОБКА ІНФОРМАЦІЙНОЇ ТЕХНОЛОГІЇ АВТОМАТИЗОВАНОГО СТВОРЕННЯ І ТЕСТУВАННЯ ПРОГРАМ ДЛЯ ВИРІШЕННЯ ЗАДАЧ МАШИННОГО НАВЧАННЯ З ВИКОРИСТАННЯМ ВЕЛИКИХ МОВНИХ МОДЕЛЕЙ: DOI: 10.31673/2412-4338.2026.019011",
+      "url": "https://openalex.org/W7216766573",
+      "kind": "paper",
+      "venue": "Telecommunication and information technologies",
+      "published": "2026-04-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "url": "http://arxiv.org/abs/2210.03629v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2022-10-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "ARS: Adaptive Reasoning Suppression for Efficient Large Reasoning Language Models",
+      "url": "http://arxiv.org/abs/2510.00071v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-09-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "CHC-COMP 2022: Competition Report",
+      "url": "http://arxiv.org/abs/2211.12231v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2022-11-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Making Large Language Models Better Reasoners with Alignment",
+      "url": "http://arxiv.org/abs/2309.02144v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+      "url": "http://arxiv.org/abs/2504.16021v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2025-04-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "ChaosBench-Logic: A Benchmark for Logical and Symbolic Reasoning on Chaotic Dynamical Systems",
+      "url": "http://arxiv.org/abs/2601.01982v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-01-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Motif Mining and Unsupervised Representation Learning for BirdCLEF 2022",
+      "url": "http://arxiv.org/abs/2206.04805v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2022-06-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "CROP: Token-Efficient Reasoning in Large Language Models via Regularized Prompt Optimization",
+      "url": "http://arxiv.org/abs/2604.14214v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-04-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "RRHF: Rank Responses to Align Language Models with Human Feedback without tears",
+      "url": "http://arxiv.org/abs/2304.05302v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-04-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "RLHF-Blender: A Configurable Interactive Interface for Learning from Diverse Human Feedback",
+      "url": "http://arxiv.org/abs/2308.04332v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-08-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Rights by Architecture: A Human-Compatible Sociotechnical Layer for Digital Protection Across Regulatory Regimes",
+      "url": "http://arxiv.org/abs/2609.02455v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2026-09-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Human-Centered Evaluation of an LLM-Based Process Modeling Copilot: A Mixed-Methods Study with Domain Experts",
+      "url": "http://arxiv.org/abs/2603.12895v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2026-03-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Analogy Generation by Prompting Large Language Models: A Case Study of InstructGPT",
+      "url": "http://arxiv.org/abs/2210.04186v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2022-10-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Training Language Models with Language Feedback",
+      "url": "http://arxiv.org/abs/2204.14146v4",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2022-04-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Using Large Language Models to Provide Explanatory Feedback to Human Tutors",
+      "url": "http://arxiv.org/abs/2306.15498v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-06-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "TIS-DPO: Token-level Importance Sampling for Direct Preference Optimization With Estimated Weights",
+      "url": "http://arxiv.org/abs/2410.04350v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-10-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "PLC-DPO: Posterior Label Correction in Noisy and Ambiguous Preference Optimization",
+      "url": "http://arxiv.org/abs/2608.30597v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-08-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "Reinforcement Learning with Human Feedback (RLHF)",
+      "url": "https://doi.org/10.1007/979-8-8688-2332-9_8",
+      "kind": "paper",
+      "venue": "Building and Training Generative AI Models",
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "Linear-DPO: Linear Direct Preference Optimization for Diffusion and Flow-Matching Generative Models",
+      "url": "http://arxiv.org/abs/2605.21123v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "Hybrid RLHF-AIF: Uncertainty-Guided Routing of Human and AI Feedback for Cost-Efficient Safety Alignment of Large Language Models",
+      "url": "https://doi.org/10.3390/math14193523",
+      "kind": "paper",
+      "venue": "Mathematics",
+      "published": "2026-09-28",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 37,
+      "title": "MIA-DPO: Multi-Image Augmented Direct Preference Optimization For Large Vision-Language Models",
+      "url": "http://arxiv.org/abs/2410.17637v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 38,
+      "title": "Proximal Policy Optimization (PPO) and RLHF",
+      "url": "https://doi.org/10.1007/979-8-8688-0273-7_11",
+      "kind": "paper",
+      "venue": "Deep Reinforcement Learning with Python",
+      "published": "2024-01-01",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 39,
+      "title": "Step-DPO: Step-wise Preference Optimization for Long-chain Reasoning of LLMs",
+      "url": "http://arxiv.org/abs/2406.18629v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-06-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 40,
+      "title": "Analogy Generation by Prompting Large Language Models: A Case Study of InstructGPT",
+      "url": "https://doi.org/10.18653/v1/2022.inlg-main.25",
+      "kind": "paper",
+      "venue": "Proceedings of the 15th International Conference on Natural Language Generation",
+      "published": "2022-01-01",
+      "citations": 28,
+      "stars": null
+    },
+    {
+      "n": 41,
+      "title": "Data-Centric Human Preference with Rationales for Direct Preference Alignment",
+      "url": "http://arxiv.org/abs/2407.14477v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-07-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 42,
+      "title": "Uni-DPO: A Unified Paradigm for Dynamic Preference Optimization of LLMs",
+      "url": "http://arxiv.org/abs/2506.10054v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-06-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 43,
+      "title": "The Role of Foundational Autoraters in Reinforcement Learning from Human Feedback (RLHF)&amp;nbsp;",
+      "url": "https://doi.org/10.2139/ssrn.6338238",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-01-01",
+      "citations": 4,
+      "stars": null
+    },
+    {
+      "n": 44,
+      "title": "Difficulty-Based Preference Data Selection by DPO Implicit Reward Gap",
+      "url": "http://arxiv.org/abs/2508.04149v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-08-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 45,
+      "title": "7 Reinforcement Learning from Human Feedback (RLHF)",
+      "url": "https://doi.org/10.1515/9783111425078-007",
+      "kind": "paper",
+      "venue": "Generative AI and LLMs",
+      "published": "2024-09-09",
+      "citations": 4,
+      "stars": null
+    },
+    {
+      "n": 46,
+      "title": "Fairness-Aware Offline Reinforcement Learning with Human Feedback (Fair-RLHF): Mitigating Bias in Human Preferences",
+      "url": "https://doi.org/10.36227/techrxiv.175382817.74693578/v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-07-29",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 47,
+      "title": "Deep Reinforcement Learning with Python",
+      "url": "https://doi.org/10.1007/979-8-8688-0273-7",
+      "kind": "paper",
+      "venue": null,
+      "published": "2024-01-01",
+      "citations": 6,
+      "stars": null
+    },
+    {
+      "n": 48,
+      "title": "Sleep-time Compute: Beyond Inference Scaling at Test-time",
+      "url": "http://arxiv.org/abs/2504.13171v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-04-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 49,
+      "title": "Learning Dexterous In-Hand Manipulation",
+      "url": "http://arxiv.org/abs/1808.00177v5",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-08-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 50,
+      "title": "A Systematic Assessment of OpenAI o1-Preview for Higher Order Thinking in Education",
+      "url": "http://arxiv.org/abs/2410.21287v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2024-10-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 51,
+      "title": "OpenAI o1 System Card",
+      "url": "http://arxiv.org/abs/2412.16720v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-12-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 52,
+      "title": "Evaluating Test-Time Scaling LLMs for Legal Reasoning: OpenAI o1, DeepSeek-R1, and Beyond",
+      "url": "http://arxiv.org/abs/2503.16040v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-03-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 53,
+      "title": "On The Planning Abilities of OpenAI's o1 Models: Feasibility, Optimality, and Generalizability",
+      "url": "http://arxiv.org/abs/2409.19924v4",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-09-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 54,
+      "title": "A Comparative Study on Reasoning Patterns of OpenAI's o1 Model",
+      "url": "http://arxiv.org/abs/2410.13639v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-10-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 55,
+      "title": "Evaluating Test-Time Scaling LLMs for Legal Reasoning: OpenAI o1, DeepSeek-R1, and Beyond",
+      "url": "https://doi.org/10.18653/v1/2025.findings-emnlp.742",
+      "kind": "paper",
+      "venue": "Findings of the Association for Computational Linguistics: EMNLP 2025",
+      "published": "2025-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 56,
+      "title": "Towards Thinking-Optimal Scaling of Test-Time Compute for LLM Reasoning",
+      "url": "https://doi.org/10.52202/085713-1452",
+      "kind": "paper",
+      "venue": "Advances in Neural Information Processing Systems 38",
+      "published": "2025-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 57,
+      "title": "RL-Finetuning of OpenAI o1-mini to Enhance Biomedical Reasoning",
+      "url": "https://doi.org/10.1101/2025.05.19.654988",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-05-24",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 58,
+      "title": "Rethinking Fine-Tuning when Scaling Test-Time Compute: Limiting Confidence Improves Mathematical Reasoning",
+      "url": "https://doi.org/10.52202/085713-5304",
+      "kind": "paper",
+      "venue": "Advances in Neural Information Processing Systems 38",
+      "published": "2025-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 59,
+      "title": "REASONING GYM: Reasoning Environments for Reinforcement Learning with Verifiable Rewards",
+      "url": "http://arxiv.org/abs/2505.24760v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-05-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 60,
+      "title": "OpenAI o1-Preview vs. ChatGPT in Healthcare: A New Frontier in Medical AI Reasoning",
+      "url": "https://doi.org/10.7759/cureus.70640",
+      "kind": "paper",
+      "venue": "Cureus",
+      "published": "2024-10-01",
+      "citations": 39,
+      "stars": null
+    },
+    {
+      "n": 61,
+      "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2602.12375v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-02-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 62,
+      "title": "ScaleRTL: Scaling LLMs with Reasoning Data and Test-Time Compute for Accurate RTL Code Generation",
+      "url": "https://doi.org/10.1109/mlcad65511.2025.11189212",
+      "kind": "paper",
+      "venue": "2025 ACM/IEEE 7th Symposium on Machine Learning for CAD (MLCAD)",
+      "published": "2025-09-08",
+      "citations": 6,
+      "stars": null
+    },
+    {
+      "n": 63,
+      "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+      "url": "http://arxiv.org/abs/2607.18488v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 64,
+      "title": "Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach",
+      "url": "https://doi.org/10.52202/085713-1380",
+      "kind": "paper",
+      "venue": "Advances in Neural Information Processing Systems 38",
+      "published": "2025-01-01",
+      "citations": 7,
+      "stars": null
+    },
+    {
+      "n": 65,
+      "title": "Revisiting the Test-Time Scaling of o1-like Models: Do they Truly Possess Test-Time Scaling Capabilities?",
+      "url": "https://doi.org/10.18653/v1/2025.acl-long.232",
+      "kind": "paper",
+      "venue": "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+      "published": "2025-01-01",
+      "citations": 6,
+      "stars": null
+    },
+    {
+      "n": 66,
+      "title": "SwS: Self-aware Weakness-driven Problem Synthesis in Reinforcement Learning for LLM Reasoning",
+      "url": "http://arxiv.org/abs/2506.08989v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-06-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 67,
+      "title": "Causal-Paced Deep Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2507.02910v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-06-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 68,
+      "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+      "url": "http://arxiv.org/abs/2510.22631v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 69,
+      "title": "Video-R1: Reinforcing Video Reasoning in MLLMs",
+      "url": "http://arxiv.org/abs/2503.21776v4",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-03-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 70,
+      "title": "When More Thinking Hurts: Overthinking in LLM Test-Time Compute ...",
+      "url": "https://arxiv.org/html/2604.10739v1",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 71,
+      "title": "Gated Sparse Attention: Combining Computational Efficiency with Training Stability for Long-Context Language Models",
+      "url": "http://arxiv.org/abs/2601.15305v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-01-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 72,
+      "title": "Bridging LLMs and Symbolic Reasoning in Educational QA Systems: Insights from the XAI Challenge at IJCNN 2025",
+      "url": "http://arxiv.org/abs/2508.01263v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-08-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 73,
+      "title": "AlayaDB: The Data Foundation for Efficient and Effective Long-context LLM Inference",
+      "url": "http://arxiv.org/abs/2504.10326v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-04-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 74,
+      "title": "Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025",
+      "url": "http://arxiv.org/abs/2506.02550v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 75,
+      "title": "Do New Attention Mechanisms Actually Fix Attention Sinks at Million-Token Context?",
+      "url": "http://arxiv.org/abs/2609.08574v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-09-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 76,
+      "title": "FinLFQA: Evaluating Attributed Text Generation of LLMs in Financial Long-Form Question Answering",
+      "url": "http://arxiv.org/abs/2510.06426v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 77,
+      "title": "Pay Attention to What You Need",
+      "url": "http://arxiv.org/abs/2307.13365v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-07-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 78,
+      "title": "PolyKV: A Shared Asymmetrically-Compressed KV Cache Pool for Multi-Agent LLM Inference",
+      "url": "http://arxiv.org/abs/2604.24971v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-04-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 79,
+      "title": "MosaicKV: Serving Long-Context LLM with Dynamic Two-D KV Cache Compression",
+      "url": "http://arxiv.org/abs/2607.00760v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 80,
+      "title": "CommVQ: Commutative Vector Quantization for KV Cache Compression",
+      "url": "http://arxiv.org/abs/2506.18879v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 81,
+      "title": "Titanus: Enabling KV Cache Pruning and Quantization On-the-Fly for LLM Acceleration",
+      "url": "http://arxiv.org/abs/2505.17787v1",
+      "kind": "paper",
+      "venue": "cs.AR",
+      "published": "2025-05-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 82,
+      "title": "QServe: W4A8KV4 Quantization and System Co-design for Efficient LLM Serving",
+      "url": "http://arxiv.org/abs/2405.04532v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-05-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 83,
+      "title": "QAQ: Quality Adaptive Quantization for LLM KV Cache",
+      "url": "http://arxiv.org/abs/2403.04643v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-03-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 84,
+      "title": "QET: Enhancing Quantized LLM Parameters and KV cache Compression through Element Substitution and Residual Clustering",
+      "url": "http://arxiv.org/abs/2407.03637v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-07-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 85,
+      "title": "XQuant: Achieving Ultra-Low Bit KV Cache Quantization with Cross-Layer Compression",
+      "url": "http://arxiv.org/abs/2510.11236v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 86,
+      "title": "Vision Mamba: Efficient Visual Representation Learning with Bidirectional State Space Model",
+      "url": "http://arxiv.org/abs/2401.09417v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-01-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 87,
+      "title": "MiM-ISTD: Mamba-in-Mamba for Efficient Infrared Small Target Detection",
+      "url": "http://arxiv.org/abs/2403.02148v4",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-03-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 88,
+      "title": "Speech-Mamba: Long-Context Speech Recognition with Selective State Spaces Models",
+      "url": "http://arxiv.org/abs/2409.18654v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-09-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 89,
+      "title": "Exploring the Limitations of Mamba in COPY and CoT Reasoning",
+      "url": "http://arxiv.org/abs/2410.03810v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-10-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 90,
+      "title": "Mamba Sequence Modeling meets Model Predictive Control",
+      "url": "http://arxiv.org/abs/2604.13857v2",
+      "kind": "paper",
+      "venue": "math.OC",
+      "published": "2026-04-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 91,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 92,
+      "title": "FR-Mamba: Time-Series Physical Field Reconstruction Based on State Space Model",
+      "url": "http://arxiv.org/abs/2505.16083v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-05-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 93,
+      "title": "Strategies to Harness the Transformers' Potential: UNSL at eRisk 2023",
+      "url": "http://arxiv.org/abs/2310.19970v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 94,
+      "title": "Not All Experts are Equal: Efficient Expert Pruning and Skipping for Mixture-of-Experts Large Language Models",
+      "url": "http://arxiv.org/abs/2402.14800v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-02-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 95,
+      "title": "ExpertFlow: Efficient Mixture-of-Experts Inference via Predictive Expert Caching and Token Scheduling",
+      "url": "http://arxiv.org/abs/2410.17954v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 96,
+      "title": "GraphMETRO: Mitigating Complex Graph Distribution Shifts via Mixture of Aligned Experts",
+      "url": "http://arxiv.org/abs/2312.04693v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-12-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 97,
+      "title": "Mixtures of Experts Models",
+      "url": "http://arxiv.org/abs/1806.08200v1",
+      "kind": "paper",
+      "venue": "stat.ME",
+      "published": "2018-06-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 98,
+      "title": "Convergence Rates for Softmax Gating Mixture of Experts",
+      "url": "http://arxiv.org/abs/2503.03213v1",
+      "kind": "paper",
+      "venue": "stat.ML",
+      "published": "2025-03-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 99,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 100,
+      "title": "Mixtral of Experts",
+      "url": "http://arxiv.org/abs/2401.04088v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-01-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 101,
+      "title": "Insights into DeepSeek-V3: Scaling Challenges and Reflections on Hardware for AI Architectures",
+      "url": "http://arxiv.org/abs/2505.09343v2",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-05-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 102,
+      "title": "FlexMoE: One-for-All Nested Intra-Expert Pruning for MoE Language Models",
+      "url": "http://arxiv.org/abs/2606.27866v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-06-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 103,
+      "title": "MoE++: Accelerating Mixture-of-Experts Methods with Zero-Computation Experts",
+      "url": "http://arxiv.org/abs/2410.07348v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-10-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 104,
+      "title": "TAOT: Topology-Aware Optimal Transport for Dynamic Expert Replica Placement in MoE Training",
+      "url": "http://arxiv.org/abs/2608.03676v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2026-08-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 105,
+      "title": "GuiLoMo: Allocating Expert Number and Rank for LoRA-MoE via Bilevel Optimization with GuidedSelection Vectors",
+      "url": "http://arxiv.org/abs/2506.14646v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 106,
+      "title": "FLAME-MoE: A Transparent End-to-End Research Platform for Mixture-of-Experts Language Models",
+      "url": "http://arxiv.org/abs/2505.20225v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-05-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 107,
+      "title": "Rethinking Cross-Domain Evaluation for Face Forgery Detection with Semantic Fine-grained Alignment and Mixture-of-Experts",
+      "url": "http://arxiv.org/abs/2604.21478v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-04-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 108,
+      "title": "Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws",
+      "url": "http://arxiv.org/abs/2401.00448v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-12-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 109,
+      "title": "Scaling Laws for Upcycling Mixture-of-Experts Language Models",
+      "url": "http://arxiv.org/abs/2502.03009v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-02-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 110,
+      "title": "Scaling Laws for Downstream Task Performance of Large Language Models",
+      "url": "http://arxiv.org/abs/2402.04177v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-02-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 111,
+      "title": "Language-based Audio Retrieval Task in DCASE 2022 Challenge",
+      "url": "http://arxiv.org/abs/2206.06108v3",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2022-06-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 112,
+      "title": "ÚFAL CorPipe at CRAC 2022: Effectivity of Multilingual Models for Coreference Resolution",
+      "url": "http://arxiv.org/abs/2209.07278v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2022-09-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 113,
+      "title": "A Holistic Assessment of the Carbon Footprint of Noor, a Very Large Arabic Language Model",
+      "url": "http://arxiv.org/abs/2610.00223v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-09-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 114,
+      "title": "1$^{st}$ Place Solution of WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge",
+      "url": "http://arxiv.org/abs/2505.03543v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-05-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 115,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 116,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 117,
+      "title": "Image Segmentation in Foundation Model Era: A Survey",
+      "url": "http://arxiv.org/abs/2408.12957v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-08-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 118,
+      "title": "MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook",
+      "url": "http://arxiv.org/abs/2509.14142v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 119,
+      "title": "Multimodal AI for Gastrointestinal Diagnostics: Tackling VQA in MEDVQA-GI 2025",
+      "url": "http://arxiv.org/abs/2507.14544v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-07-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 120,
+      "title": "A Critical Analysis of Neurosymbolic Ai Models for Adaptive Multimodal Knowledge Integration in Conversational Chatbots for Inclusive Education",
+      "url": "https://doi.org/10.47392/irjaeh.2025.0532",
+      "kind": "paper",
+      "venue": "International Research Journal on Advanced Engineering Hub (IRJAEH)",
+      "published": "2025-09-23",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 121,
+      "title": "VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.09190v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 122,
+      "title": "Emotion AI in Mental Health",
+      "url": "https://doi.org/10.1007/978-3-032-14778-3_11",
+      "kind": "paper",
+      "venue": "Information systems engineering and management",
+      "published": "2026-01-01",
+      "citations": 2,
+      "stars": null
+    },
+    {
+      "n": 123,
+      "title": "Self-Evolving Autonomous Software Architectures Using Large-Scale Graph Neural Networks and Real-Time Big Data Feedback Loops for Economic Optimization and Cost-Efficient Resource Allocation",
+      "url": "https://doi.org/10.63544/jbii.v5i5.188",
+      "kind": "paper",
+      "venue": "Journal of Business Insight and Innovation",
+      "published": "2026-05-26",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 124,
+      "title": "MaLei at the PLABA Track of TREC 2024: RoBERTa for Term Replacement -- LLaMA3.1 and GPT-4o for Complete Abstract Adaptation",
+      "url": "http://arxiv.org/abs/2411.07381v4",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-11-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 125,
+      "title": "Team Samsung-RAL: Technical Report for 2024 RoboDrive Challenge-Robust Map Segmentation Track",
+      "url": "http://arxiv.org/abs/2405.10567v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 126,
+      "title": "Completeness Thresholds for Memory Safety of Array Traversing Programs: Early Technical Report",
+      "url": "http://arxiv.org/abs/2211.11885v3",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2022-11-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 127,
+      "title": "AIM 2025 Rip Current Segmentation (RipSeg) Challenge Report",
+      "url": "http://arxiv.org/abs/2508.13401v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 128,
+      "title": "Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge",
+      "url": "http://arxiv.org/abs/2406.10598v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-06-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 129,
+      "title": "Inaugural MOASEI Competition at AAMAS'2025: A Technical Report",
+      "url": "http://arxiv.org/abs/2507.05469v1",
+      "kind": "paper",
+      "venue": "cs.MA",
+      "published": "2025-07-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 130,
+      "title": "TEAL: Tokenize and Embed ALL for Multi-modal Large Language Models",
+      "url": "http://arxiv.org/abs/2311.04589v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-11-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 131,
+      "title": "TinyGiantVLM: A Lightweight Vision-Language Architecture for Spatial Reasoning under Resource Constraints",
+      "url": "http://arxiv.org/abs/2508.17595v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 132,
+      "title": "Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025)",
+      "url": "http://arxiv.org/abs/2412.16365v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-12-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 133,
+      "title": "Object Detection with Multimodal Large Vision-Language Models: An In-depth Review",
+      "url": "http://arxiv.org/abs/2508.19294v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 134,
+      "title": "How do language models learn facts? Dynamics, curricula and hallucinations",
+      "url": "http://arxiv.org/abs/2503.21676v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-03-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 135,
+      "title": "Instituto de Telecomunicações at IWSLT 2025: Aligning Small-Scale Speech and Language Models for Speech-to-Text Learning",
+      "url": "http://arxiv.org/abs/2506.17019v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 136,
+      "title": "Parameter-Efficient CLIP Adaptation for 3D Understanding via Unified Tokenization",
+      "url": "http://arxiv.org/abs/2505.18819v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-05-24",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-04-ai.md",
+    "json": "report/2026/10/2026-10-04-ai.json"
+  }
+}
