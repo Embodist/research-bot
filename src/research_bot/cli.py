@@ -20,7 +20,7 @@ import logging
 import sys
 
 from . import __version__
-from .config import DEFAULTS, find_home, load_config
+from .config import DEFAULTS, find_home, load_config, load_dotenv
 from .emailer import is_configured, send_digest, send_report
 from .engine import DEPTH_PRESETS, DeepResearchEngine
 from .knowledge import build_knowledge_topic, evaluate_coverage, get_frame
@@ -400,6 +400,7 @@ def main(argv: list[str] | None = None) -> int:
         import os
 
         os.environ["RESEARCH_BOT_HOME"] = args.home
+    load_dotenv(find_home() / ".env")
     return int(args.func(args))
 
 

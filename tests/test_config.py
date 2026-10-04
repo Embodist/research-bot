@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from research_bot.config import DotDict, deep_merge, expand_env, find_home, load_config
+from research_bot.config import DotDict, deep_merge, expand_env, find_home, load_config, load_dotenv
 
 
 def test_expand_env_default_and_value(monkeypatch):
@@ -60,3 +60,26 @@ def test_find_home(tmp_path, monkeypatch):
 def test_find_home_env_override(tmp_path, monkeypatch):
     monkeypatch.setenv("RESEARCH_BOT_HOME", str(tmp_path))
     assert find_home(Path("/")) == tmp_path.resolve()
+
+
+def test_load_dotenv_sets_missing_keys_only(tmp_path, monkeypatch):
+    monkeypatch.delenv("RB_DOTENV_NEW", raising=False)
+    monkeypatch.setenv("RB_DOTENV_KEEP", "existing")
+    env = tmp_path / ".env"
+    env.write_text(
+        "# comment\nRB_DOTENV_NEW=from-file\n"  # noqa: E501
+        "RB_DOTENV_KEEP=from-file\n"
+        'RB_DOTENV_QUOTED="quoted value"\n'
+        "not-a-kv-line\n",
+        encoding="utf-8",
+    )
+    load_dotenv(env)
+    import os
+
+    assert os.environ["RB_DOTENV_NEW"] == "from-file"
+    assert os.environ["RB_DOTENV_KEEP"] == "existing"  # existing env wins
+    assert os.environ["RB_DOTENV_QUOTED"] == "quoted value"
+
+
+def test_load_dotenv_missing_file_is_noop(tmp_path):
+    load_dotenv(tmp_path / "absent.env")  # must not raise

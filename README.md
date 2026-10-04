@@ -119,7 +119,9 @@ Outputs land in `report/YYYY/MM/DD-<topic>.md` and `.json`, with the ledger in `
 ## Configuration
 
 Config resolution: `--config` → `$RESEARCH_BOT_CONFIG` → `<repo>/config/config.yaml` → built-in defaults.
-Strings support `${VAR}` and `${VAR:-default}` expansion from the environment.
+Strings support `${VAR}` and `${VAR:-default}` expansion from the environment. `rb` also auto-loads
+`<repo>/.env` at startup (existing environment variables always win), so you can keep keys and
+`LLM_BASE_URL` out of `config.yaml`.
 
 Key knobs (`config/config.example.yaml` is fully commented):
 

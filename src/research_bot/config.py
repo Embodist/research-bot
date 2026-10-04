@@ -159,6 +159,28 @@ def expand_env(value: Any) -> Any:
     return value
 
 
+def load_dotenv(path: str | os.PathLike[str] | None = None) -> None:
+    """Load ``KEY=VALUE`` lines from a .env file into ``os.environ`` (stdlib only).
+
+    Existing environment variables always win (never overwritten). A missing file
+    is a no-op, so this is safe to call unconditionally at process start.
+    """
+    if path is None:
+        path = find_home() / ".env"
+    candidate = Path(path)
+    if not candidate.is_file():
+        return
+    for raw in candidate.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        if not key or key in os.environ:
+            continue
+        os.environ[key] = value.strip().strip('"').strip("'")
+
+
 def deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
     out = copy.deepcopy(base)
     for key, value in (override or {}).items():

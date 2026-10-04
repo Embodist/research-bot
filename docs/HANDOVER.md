@@ -95,7 +95,9 @@ docs/                 architecture / deep-research / service / knowledge-framewo
 ## 6. 配置与密钥（**不要提交任何密钥**）
 
 **本地**（`config/config.yaml`，已 gitignore）：LLM、search、research、email 四段。
-可覆盖的环境变量见 [`.env.example`](../.env.example)。
+可覆盖的环境变量见 [`.env.example`](../.env.example)。`rb` 启动时会自动加载 `<repo>/.env`（已存在的
+环境变量优先、不覆盖），因此密钥与 `LLM_BASE_URL` 可只放 `.env`，不必写进 `config.yaml`；
+`config.yaml` 里对应值写成 `${LLM_BASE_URL:-...}` 占位即可被 env 注入。
 
 **GitHub Actions**（Settings → Secrets and variables → Actions）——注意 **Secrets 与 Variables 是两处**：
 
