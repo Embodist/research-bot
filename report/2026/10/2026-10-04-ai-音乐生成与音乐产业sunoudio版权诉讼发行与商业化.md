@@ -1,309 +1,230 @@
-# AI 音乐生成与音乐产业七维增量快照（2024–2026）
+# AI 音乐生成与音乐产业（2024–2026）增量快照：模型能力、开源栈、评测、版权与商业化发行
 
-**日期**：2026-10-04（UTC） ｜ **领域**：AI 音乐生成（text-to-music / symbolic music）、音乐产业版权与发行 ｜ **检索源数量**：31 条候选来源，其中与本主题直接相关 13 条、方法邻接 4 条、检索噪声 8 条（见文末“未采用来源”） ｜ **检索窗口**：以 2024–2026 为基线窗口，参照 2018–2023 奠基工作
+**日期**：2026-10-04（UTC）｜**领域**：AI 音乐生成 / 文本到音乐（Text-to-Music, TTM）/ 音频生成工程栈 / 音乐产业版权与商业化｜**可引用检索源**：30 条（[1]–[30]），其中与本研究主题**直接相关约 15 条**，另有 10 条属明显误召回（见文末「误召回来源清单」）
 
-> **证据基线声明（务必先读）**：本次可引用的证据集**以 arXiv 预印本（B 级）为主**，缺少同行评审终稿、厂商官方公告与法律文书。因此：
-> 1. 凡涉及 **Suno/Udio 诉讼进展、和解与授权协议、唱片公司分成、EU AI Act / 美国版权局动作** 的内容，本证据集内**无一手来源**，一律标注 `> 待核实`，不作事实陈述；
-> 2. 凡涉及 **引用数、GitHub star、下载量、榜单排名** 的数字，本次检索**未取得**，一律标注 `> 待核实`，不编造；
-> 3. 若下文中某条“关注度/推荐度”只能定性判断，会明确写出判断依据与不确定性。
-> 4. 时间标注依据 arXiv ID 前缀（如 `2509`≈2025-09、`2607`≈2026-07）推断，精确发表日 `> 待核实`。
+> **证据基线声明（必须先读）**
+> 1. 题设已知基线为 2023 年的 MusicLM / MusicGen / AudioLDM 一代。本证据集中**没有任何一条来源可对应这三者**，因此「相对 2023 基线的定量 SOTA 变化」在本报告证据范围内**无法回答**，一律标注为 `> 待核实`。
+> 2. 子问题 q3（Suno/Udio 版权诉讼、授权和解、监管政策、资本生态）在候选证据中**完全无覆盖**：抽取到的 4 条材料（[13][22][23][24]）与音乐、版权、投融资均无交集，其中 [22][23][24] 为本证据集中的误召回项。本报告第 5、6 章因此以**缺口声明**而非结论形式撰写。
+> 3. 本报告所有「热度」字段均缺可核查数字（候选块未提供 citations / stars / 下载量 / 榜单排名），统一标注 `> 待核实`，**不编造任何数字**。
 
 ---
 
 ## 1. 进展与热点（Progress & Hotspots）
 
-**增量判断（一句话）**：相对“能否生成出动听音乐”的上一基线，2024–2026 的增量重心已明显转向 **“如何评测 / 如何对齐人类偏好 / 如何在低资源下可归因地复现”**——标志是首次出现针对合成音频主观质量预测的专门挑战（AudioMOS 2025）[1]、学术赛道转向低数据小模型设定 [3]，以及“人类偏好奖励”被引入 text-to-music 训练目标 [8]；但**闭源商用系统（Suno/Udio）与开源权重模型（ACE-Step/YuE/DiffRhythm）在本证据集内均无一手来源**，其 SOTA 迁移无法核查。
+**一句话增量判断**：相对 2023 年「更大模型 + 更大数据堆指标」的基线，2024–2026 的真正增量**不在模型规模，而在方法论转向**——受控消融式架构归因、低资源/小模型训练策略、多轴（客观 + LLM 裁判 + 人类 MOS）主观评测，以及对「真实制作工作流」与「合规 opt-out」的首次实证研究。
 
-### 1.1 最新进展（近 1–2 年，带时间线）
+### 1.1 最新进展（近 1–2 年，2025–2026）
 
-| 时间（据 arXiv ID 推断） | 条目 | 增量（相对上一基线） | 证据 |
-|---|---|---|---|
-| 2026-07 | **ICME 2026 Grand Challenge on Academic Text-to-Music Generation** 参赛方案 [3] | 学术赛道把问题设定为**低数据 + 小模型**，并研究 *batch sampling 策略* 的影响——从“堆数据”转向“可归因的训练设计” | [3] |
-| 2026-06 | **Improving Text-to-Music Generation with Human Preference Rewards** [8] | 把**人类偏好奖励**引入音乐生成优化，属于 RLHF/偏好对齐范式向音频域的迁移 | [8]（仅题名可核，方法与指标 `> 待核实`） |
-| 2026-05 | **Instrumental Text-to-Music Generation with Auxiliary Conditioning Branches** [2] | 明确指出当前进展“依赖大规模训练数据与外部预训练，导致**难以隔离是哪个设计选择在起作用**”——把**可归因性（attribution）** 提为问题 | [2] |
-| 2025-12 | **Story2MIDI**：情绪对齐的文本→MIDI 生成 [5] | 从音频波形域延伸到**符号域（MIDI）** 的情绪对齐生成，并自建数据集（合并文本情感与音乐情绪标注数据） | [5] |
-| 2025-10 | **2025 Low-Resource Audio Codec Challenge 基线系统** [17] | 音频编解码在**低资源语言/低资源条件**下设立可比基线，是生成式音频上游表征的评测基建 | [17] |
-| 2025-09 | **The AudioMOS Challenge 2025** [1] | **首个**面向合成音频“自动主观质量预测”的挑战，含三个赛道；赛道一评 text-to-music 的**整体质量与文本对齐** | [1] |
-| 2025-09 | **The Shape of Surprise: Structured Uncertainty and Co-Creativity in AI Music Tools** [25] | 把“结构化不确定性”与**共创（co-creativity）** 作为工具设计变量，而非只追求单次生成质量 | [25] |
-| 2025-09 | **Ethics Statements in AI Music Papers: The Effective and the Ineffective** [23] | 指出 AI 音乐研究者对伦理后果的参与“未跟上研究规模增长”，评估伦理声明的**有效与无效** | [23] |
-| 2025-08 | **Opening Musical Creativity? Embedded Ideologies in Generative-AI Music Systems** [21] | 对“AI 让音乐创作民主化”的营销叙事做**意识形态批判**（包容性常被当作营销） | [21] |
-| 2025-11 | **Who Gets Heard? Rethinking Fairness in AI for Music Systems** [22] | 在版权/深伪/透明之外，提出**文化与流派偏见**这一被忽视的公平性维度 | [22] |
-| 2024-07 | **ICAGC 2024: Inspirational and Convincing Audio Generation Challenge** [18] | 生成式音频挑战赛序列的早期节点（“鼓舞性/说服力”作为评价目标） | [18] |
-| 2025-03 | **Vision-to-Music Generation: A Survey** [15] | 把 text-to-music 扩展到**视觉→音乐**的条件生成，并给出综述性分类 | [15] |
+**(a) 受控消融成为 TTM 的显式研究取向（2026-05）** —— [1] 以 Diffusion Transformer 为骨干，加入 lyric 与 timbre 条件分支，在纯器乐文本生成任务中让辅助分支只接收**退化条件信号**；去掉辅助分支后重训的模型在 AudioBox aesthetics、LLM-as-judge、人类 MOS 三项上得分更低，而把参数改为加深 DiT 只能 marginal 恢复。作者据此推测辅助分支起「训练期架构锚点（training-time architectural anchors）」作用。
+**【热度】** `> 待核实`（候选块无引用数）｜**【权威】** arXiv 预印本（arXiv:2605.21433v1, cs.SD），单作者，未见同行评审 venue [1]｜**【关注度】** 低，依据：仅可确认为 2026-05 新近预印本，无引用/榜单信号 [1]｜**【推荐度】** ★★★☆☆ —— 稀缺的「数据受控下做架构归因」证据类型，但单作者预印本且无第三方复现，宜作方法论线索。
 
-**四类证据（针对本章最关键的 3 条）**
+**(b) 低数据 / 小模型成为明确子方向，且训练期批采样策略被证明影响质量（2026-07）** —— [2] 为 ICME 2026 Grand Challenge on Academic Text-to-Music Generation 参赛方案 [2]，用文本 embedding 或音频 embedding 对训练数据聚类组批以缓解梯度干扰；结果显示**文本 embedding 聚类在客观指标上优于音频 embedding 聚类**，且中等簇数表现较好。
+**【热度】** `> 待核实`｜**【权威】** 会议挑战赛参赛方案（arXiv:2607.01669v1, cs.SD），作者含 Satoru Fukayama（UT-AIST），与会议评审流程相关 [2]｜**【关注度】** 中，依据：有明确挑战赛语境；但候选块未给出最终榜单名次 [2]｜**【推荐度】** ★★★★☆ —— 结论具体可操作，且挂在公认 benchmark 上。
 
-- **AudioMOS Challenge 2025（首个合成音频主观质量预测挑战）**[1]
-  - 热度证据：引用数 `> 待核实`；GitHub/榜单数据 `> 待核实`
-  - 权威证据：arXiv preprint（cs.SD），**尚未见同行评审终稿**；挑战赛组织形式本身（附会会议举办）属领域制度化信号 [1]
-  - 关注度：**中**——依据：被描述为“**首个**”此类挑战，具备零到一的事件性，但无引用/参赛量数字支撑 [1]
-  - 推荐度：**★★★★☆**——若关注“音乐生成如何被客观评测”，这是本窗口最直接的可比性入口 [1]
-- **人类偏好奖励用于 text-to-music**[8]
-  - 热度证据：`> 待核实`
-  - 权威证据：arXiv preprint（题名可核，正文未取得）→ 结论需降级
-  - 关注度：**中**——依据：与 AudioMOS [1] 共同指向“从可听转向可偏好”的同一条主线，属趋势交叉印证，但单篇证据弱
-  - 推荐度：**★★★☆☆**——方向重要，但本条只到题名级证据，需补正文后再引用其数字 [8]
-- **可归因性批评（Auxiliary Conditioning Branches）**[2]
-  - 热度证据：`> 待核实`
-  - 权威证据：arXiv preprint（cs.SD，2026-05）
-  - 关注度：**中低**——依据：属方法学反思类工作，短期热度有限但长期被引概率高（定性判断）
-  - 推荐度：**★★★★☆**——为“提升到底来自数据、架构还是算力”提供可直接引用的批判性表述 [2]
+**(c) 评测口径从单一客观指标扩为多轴组合（2025–2026）** —— [1] 同时报告 AudioBox aesthetics / LLM-as-judge / human MOS [1]；[2] 使用客观指标并分析其对聚类簇粒度的敏感性 [2]；[14] AudioMOS Challenge 2025 是**首个面向合成音频的自动主观质量预测挑战赛**，其第一轨道即针对 text-to-music 样本评估 overall quality 与 textual alignment [14]。
+**【热度】** `> 待核实`｜**【权威】** [14] 为挑战赛总结论文（cs.SD, 2025），[1][2] 为预印本/挑战赛方案；候选块中**未见统一评测协议文档** [1][2][14]｜**【关注度】** 中，依据：至少两篇独立工作使用不同评价轴，说明口径尚未收敛 [1][2]｜**【推荐度】** ★★★★☆ —— 评测口径变化是判断「SOTA 是否实质变化」的关键维度，但各指标**不可跨论文直接比较** [1][2][14]。
 
-### 1.2 经典与奠基性工作（与“最新进展”严格分节）
+**(d) 对齐方向出现人类偏好奖励路线（2026-06）** —— [16] 标题即为 *Improving Text-to-Music Generation with Human Preference Rewards*，表明「用人类偏好作为奖励信号改进 TTM」已形成独立课题。
+**【热度】** `> 待核实`｜**【权威】** arXiv 预印本（cs.SD 类），venue 未确认 [16]｜**【关注度】** 低—中，依据：仅标题级证据，方法细节 `> 待核实` [16]｜**【推荐度】** ★★★☆☆ —— 与 1.1(c) 的主观评测潮流同向，但本报告仅能确认其存在。
+
+**(e) 可控编辑与可控生成脉络** —— [3] Audio Prompt Adapter 提出用**轻量微调**为 TTM 模型赋予音乐编辑能力（2024-07）[3]；更早的 [18] Music SketchNet 用 pitch/rhythm 的**因式分解表征**实现可控生成（2020）[18]，是可控性路线的奠基性工作之一。
+**【热度】** `> 待核实`｜**【权威】** 两者均为 arXiv 预印本，候选块未提供 venue 与引用数 [3][18]｜**【关注度】** 中（[3] 属 2024 年工作）／低（[18]）—— 依据：`> 待核实`，无数字信号｜**【推荐度】** ★★★☆☆（[3]，工程可用性较明确）；★★★☆☆（[18]，历史脉络价值）。
+
+**(f) 从「模型能力」转向「真实制作工作流」的人因实证（2025-09）** —— [4] 是针对 TTM 模型如何影响音乐制作人创作流程的用户研究，参与者使用将 TTM 与 source（分离/素材）结合的自定义工具制作曲目；摘要指出 TTM 已改变创作格局，但其融入音乐人工作流的方式仍被 underexplored [4]。
+**【热度】** `> 待核实`｜**【权威】** arXiv 预印本（arXiv:2509.23364v1, eess.AS），未见同行评审 venue [4]｜**【关注度】** 低，依据：无引用数或社区讨论信号 [4]｜**【推荐度】** ★★★☆☆ —— 是对纯指标 SOTA 叙事的重要补充，但为单篇用户研究。
+
+**(g) 共创设计视角：把「不确定性」作为交互要素（2025-09）** —— [29] *The Shape of Surprise: Structured Uncertainty and Co-Creativity in AI Music Tools* 直接以「结构化不确定性」与共创为研究对象 [29]。
+**【热度】** `> 待核实`｜**【权威】** arXiv 预印本（cs.HC 类），venue 未确认 [29]｜**【关注度】** 低—中，依据：`> 待核实` [29]｜**【推荐度】** ★★★☆☆ —— 与人因研究 [4] 共同构成「工作流/共创」缺口的第一批填充。
+
+**(h) 任务外延：跨模态与叙事驱动生成** —— [6] *Vision-to-Music Generation: A Survey*（2025-03）把图像/视频→音乐的生成单列为综述对象 [6]；[7] Story2MIDI 面向「从文本生成情感对齐音乐」（2025-12）[7]。
+**【热度】** `> 待核实`｜**【权威】** [6] 为本证据集中**唯一综述**，[7] 为预印本；二者 venue、引用数均未提供 [6][7]｜**【关注度】** 中（综述类通常被用作入口）／低（[7]）—— 依据：`> 待核实`｜**【推荐度】** ★★★★☆（[6]，可作为 taxonomy 骨架，但注意其方向是 vision→music 而**非** TTM）；★★★☆☆（[7]）。
+
+**(i) 合规技术首次进入音乐生成：机器遗忘作为 opt-out（2025-09）** —— [5] 指出 AI 音乐生成存在使用受版权保护作品的风险，给出将机器遗忘（unlearning）技术用于音乐生成的**初步结果**，目标是防止对受保护作品的非预期使用；作者自述为 ongoing research 的 preliminary results [5]。
+**【热度】** `> 待核实`｜**【权威】** arXiv 预印本（arXiv:2509.06277v2, cs.CL），作者自述初步结果 [5]｜**【关注度】** 低，依据：无引用/榜单/政策文件信号 [5]｜**【推荐度】** ★★★☆☆ —— 议题（opt-out 直接影响模型可发布性）高度重要，但结论明确为 preliminary，**不可当成熟方案引用**。
+
+**(j) 第三方对商用模型输出的语料级实证分析（2025-09）** —— [11] *Data-Driven Analysis of Text-Conditioned AI-Generated Music: A Case Study with Suno and Udio* 以 Suno 与 Udio 为案例对象做数据驱动分析 [11]，是本证据集中**唯一直接触及 Suno/Udio 的可核查来源**（详情、样本量、版权处理方式 `> 待核实`）。
+**【热度】** `> 待核实`｜**【权威】** arXiv 预印本，venue 未确认 [11]｜**【关注度】** 中，依据：Suno/Udio 为产业焦点，标题即指向其输出特性 [11]｜**【推荐度】** ★★★★☆ —— 对「产品输出可被学术审计」这一结构性变化是关键证据（详见第 2 章）。
+
+### 1.2 经典与奠基性工作（相对上表为「旧基线」）
+
+> **重要缺口**：题设的 2023 基线 MusicLM / MusicGen / AudioLDM 在本证据集中**无对应来源**，其指标与架构细节 `> 待核实`。下表仅列出本证据集内**可定位链接**的早期工作。
 
 | 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
 |---|---|---|---|---|---|---|---|---|
-| **MusicLM: Generating Music From Text** | 2023 | Google（据题名与来源） | 引用数 `> 待核实` | arXiv preprint（B 级） | 高（定性：text-to-music 范式定义性工作；具体引用/衍生工作数 `> 待核实`） | ★★★★★ | http://arxiv.org/abs/2301.11325v1 [19] | 文本到音乐生成的代表性奠基工作；本章“经典/最新”分界即以 2023 为界 |
-| **SongMASS: Automatic Song Writing with Pre-training and Alignment Constraint** | 2020 | 未取得 | 引用数 `> 待核实` | arXiv preprint（B 级） | 中（定性：预训练 + 对齐约束的早期歌曲写作路线） | ★★★★☆ | http://arxiv.org/abs/2012.05168v1 [10] | 歌词—旋律对齐约束，是“结构可控生成”的早期先声 |
-| **A Functional Taxonomy of Music Generation Systems** | 2018 | 未取得 | 引用数 `> 待核实` | arXiv preprint（B 级） | 中高（定性：被作为分类骨架使用） | ★★★★☆ | http://arxiv.org/abs/1812.04186v1 [14] | 提供“功能分类学”，适合作为本领域的 taxonomy 骨架 |
-| **Large-Scale Cover Song Detection in Digital Music Libraries Using Metadata, Lyrics and Audio Features** | 2018 | 未取得 | 引用数 `> 待核实` | arXiv preprint（B 级） | 中（定性：与版权相似度检测技术邻接） | ★★★☆☆ | http://arxiv.org/abs/1808.10351v1 [9] | 翻唱/相似曲检测方法学，是“AI 音乐相似度与侵权判定”的技术前史（相关性为本文推断） |
-| **A Survey of Text-to-Music Generation with Deep Learning** | 2025 | 未取得 | 引用数 `> 待核实` | 期刊 DOI（正式出版，权威相对更高） | 中 | ★★★★☆ | https://doi.org/10.54254/2755-2721/2025.21641 [20] | 2025 年综述，可用作最新进展的检索入口（正文未精读） |
-| **Vision-to-Music Generation: A Survey** | 2025 | 未取得 | 引用数 `> 待核实` | arXiv preprint（B 级） | 中 | ★★★☆☆ | http://arxiv.org/abs/2503.21254v1 [15] | 多模态条件（视觉→音乐）综述 |
-| **Formal models of Structure Building in Music, Language and Animal Songs** | 2019 | 未取得 | 引用数 `> 待核实` | arXiv preprint（B 级） | 低中 | ★★☆☆☆ | http://arxiv.org/abs/1901.05180v1 [11] | 结构构建的形式模型；与工程相关性弱 |
-| **Modelling Emotion Dynamics in Song Lyrics with State Space Models** | 2022 | 未取得 | 引用数 `> 待核实` | arXiv preprint（B 级） | 低中 | ★★☆☆☆ | http://arxiv.org/abs/2210.09434v1 [12] | 歌词情绪动态建模，与 [5] 的情绪对齐路线相呼应 |
-
-> 说明：表中所有“热度”数字本次均未取得，凡写 `> 待核实` 者不得在二次引用中转写为具体数字。**“最新进展 vs 经典工作”分界**：本报告把 **2024 年及以后** 视为最新窗口（[18][1][3][8][2][5][17][21][22][23][25]），**2023 年及以前** 视为经典/奠基（[19][10][14][9][11][12]）。
-
-### 1.3 无法核查的“最新进展”（明确列出，避免被误读为已确认）
-
-- **Suno / Udio 的产品与技术报告**：本证据集内**零来源** → `> 待核实`
-- **ACE-Step / YuE / DiffRhythm 的开源权重、许可证、SOTA 表现**：本证据集内**零来源** → `> 待核实`（问题 q1 的该部分未获证据支撑）
-- **“SOTA 如何迁移”**：现有证据只能支持“评测与对齐成为新焦点”[1][8]，**不支持**任何具体的 SOTA 榜单迁移论断 → `> 待核实`
+| MusicLM / MusicGen / AudioLDM（2023 基线一代） | 2023 | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | 本证据集无来源，无法做定量基线对比 [1] 中亦未给直接对照 |
+| Music SketchNet: Controllable Music Generation via Factorized Representations of Pitch and Rhythm | 2020 | `> 待核实` | `> 待核实` | arXiv 预印本（2008.01291v1）｜未确认同行评审 [18] | 低｜依据：无引用/star 信号 [18] | ★★★☆☆ 可控生成（pitch×rhythm 因式分解）路线起点之一 | http://arxiv.org/abs/2008.01291v1 | 可控性脉络的早期代表，与 [3] 的轻量编辑形成演进关系 |
+| Improving Choral Music Separation through Expressive Synthesized Data from Sampled Instruments | 2022 | `> 待核实` | `> 待核实` | arXiv 预印本（2209.02871v1）[19] | 低｜依据：无信号 [19] | ★★☆☆☆（与 TTM 主题间接相关） | http://arxiv.org/abs/2209.02871v1 | 用合成数据补真实数据的思路，与 [2] 的低资源策略同源 |
+| "Melatonin": A Case Study on AI-induced Musical Style | 2022 | `> 待核实` | `> 待核实` | arXiv 预印本（2208.08968v1）[28] | 低｜依据：无信号 [28] | ★★★☆☆ 社会/美学影响研究的早期案例 | http://arxiv.org/abs/2208.08968v1 | 与 [26][27] 构成「AI 音乐的社会影响」脉络 |
 
 ---
 
 ## 2. 工业界与产品（Industry & Product）
 
-**增量判断（一句话）**：本周期内可核查的“工业增量”**不是产品发布，而是评测基础设施的准产品化**——自动主观质量预测挑战 [1] 与低资源 codec 基线 [17] 正在为工业侧（A&R、质检、版权筛查）提供可复用的自动化评测组件；而厂商产品与真机级部署证据在本证据集内**完全缺失**。
+**一句话增量判断**：本证据集对「产品发布 / 权重开放 / 发行渠道 / 定价」的覆盖**极弱**，仅能确认两项结构性事实：(a) 开源权重级音频生成模型已出现（Stable Audio Open, 2024-07）[15]；(b) Suno/Udio 的输出已规模化到可被第三方做语料级实证研究（2025-09）[11]。
 
-### 2.1 可核查的工程/生态事实
+- **Stable Audio Open（2024-07）**：本证据集中唯一明确属于「开源音频生成模型」标题级来源 [15]。机构、参数量、许可证与权重下载量 `> 待核实`。
+  **【热度】** `> 待核实`（无 star/下载量）｜**【权威】** arXiv 预印本（2407.14358v2）；是否为官方技术报告未确认 [15]｜**【关注度】** 中，依据：开源音频生成模型在工程社区通常具高关注度，但本报告无数字信号支撑 `> 待核实` [15]｜**【推荐度】** ★★★★☆ —— 对「开源工程栈」维度是本证据集内最直接可用的入口。
+- **Suno / Udio 作为被研究对象（2025-09）**：[11] 对两平台的文本条件生成音乐做数据驱动分析 [11]，意味着其输出已可被系统采集与量化分析——这是「产业影响力 → 学术可审计性」的增量信号。
+  **【热度】** `> 待核实`｜**【权威】** arXiv 预印本 [11]｜**【关注度】** 中，依据：标题直指产业头部平台 [11]｜**【推荐度】** ★★★★☆ —— 本报告产业章节的核心可引用证据。
+- **开源工程栈（微调/推理层）**：[3] 的音频提示适配器（Audio Prompt Adapter）以轻量微调实现音乐编辑 [3]，属「下游工具层」而非基础模型层，是独立开发者更可能直接复用的形态。
+  **【热度】** `> 待核实`｜**【权威】** arXiv 预印本（2407.16564v2）[3]｜**【关注度】** 中—低｜**【推荐度】** ★★★★☆ —— 轻量微调路线对工程落地最具参考性。
+- **产品化、发行与商业化事实（缺席声明）**：本证据集**不含**任何 AI 音乐产品的官方公告、财报、发行协议、订阅或分成模式材料；一切关于产品形态、用户规模、营收的陈述 `> 待核实`。
 
-- 自动主观质量预测（AudioMOS）首次成为独立挑战，含 text-to-music 的整体质量与文本对齐评估赛道 [1]——对工业侧意味着“把人工试听 MOS 部分自动化”的可行路径开始被系统性检验（该推断为本文判断，`> 待核实`）。
-- 学术赛道的低资源设定（低数据 + 小模型 + batch sampling 策略）[3] 与低资源 codec 基线 [17]，共同意味着**算力/数据门槛下降**成为工程议题。
-- **开源项目与工程实践**方面：本证据集内**没有**任何 AI 音乐模型仓库的一手信息（无 star、无许可证文本、无 commit 记录）。可用的只有**GitHub 生态层面的方法论研究**，见下表，用于回答“开源项目的可维护性、文档与治理难度”——但**不可**将其结论直接等同于音乐模型仓库现状。
-
-### 2.2 开源项目 / 工程实践（表）
+### 开源项目
 
 | 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
 |---|---|---|---|---|---|---|---|---|
-| **Open Source Software Development Challenges: A Systematic Literature Review on GitHub** | 2020 | 未取得 | 引用数 `> 待核实` | arXiv preprint（B 级，SLR 方法） | 中（定性：系统综述，常被引作 GitHub 生态依据） | ★★★★☆ | http://arxiv.org/abs/2003.10750v3 [4] | 系统梳理 GitHub 开源开发挑战，可**类比**用于评估音乐生成开源项目的协作与维护风险（不构成对具体音乐仓库的陈述） |
-| **The Empirical Commit Frequency Distribution of Open Source Projects** | 2014 | 未取得 | 引用数 `> 待核实` | arXiv preprint（B 级） | 低中 | ★★☆☆☆ | http://arxiv.org/abs/1408.4978v1 [6] | commit 频率分布经验规律，可用于判断“仓库是否活跃”，但**不能替代实测 star/commit 数据** |
-| **On the Prevalence and Usage of Commit Signing on GitHub: A Longitudinal and Cross-Domain Study** | 2025 | 未取得 | 引用数 `> 待核实` | arXiv preprint（B 级） | 低 | ★★☆☆☆ | http://arxiv.org/abs/2504.19215v1 [7] | 供应链安全（commit 签名）维度；与音乐生成关系间接，仅在评估“权重/数据供应链可信度”时作参考 |
-| **AI 音乐生成模型开源仓库（Suno 之外的 ACE-Step / YuE / DiffRhythm 等）** | — | — | `> 待核实` | `> 待核实` | `> 待核实` | 无法评级 | `> 待核实` | **本证据集内无来源**，故不列具体仓库、不写 star 数、不写许可证结论 |
-
-**四类证据（本章关键条目）**
-- **AudioMOS 作为准工业评测组件**[1]：热度 `> 待核实`；权威 = arXiv preprint + 附会挑战赛组织（B 级）；关注度 **中**（“首个”事件性）；推荐度 **★★★★☆**（工业质检/A&R 自动化的最直接学术入口）。
-- **GitHub 开源挑战 SLR**[4]：热度 `> 待核实`；权威 = 系统文献综述（方法严谨，但**主题不是音乐**）；关注度 **中**；推荐度 **★★★★☆**，但**必须注明其外部效度限制**。
-- **厂商产品/商业化**：`> 待核实`（本证据集内无 Suno/Udio 官方博客、无技术报告、无发行分成协议文本）。
-
-### 2.3 发行与商业化
-本证据集内**无**关于流媒体分成、厂牌授权、平台政策的一手或权威二手来源 → **本节无增量证据，判定为“本周期无显著可核查变化”**，全部 `> 待核实`。
+| Stable Audio Open | 2024 | `> 待核实` | `> 待核实`（无 star/下载量） | arXiv 预印本 2407.14358v2 [15] | 中｜依据：开源音频生成模型，但本报告无数字信号 [15] | ★★★★☆ 本证据集内最直接的开源音频生成入口 | http://arxiv.org/abs/2407.14358v2 | 是否含权重/许可证细节 `> 待核实` |
+| Audio Prompt Adapter | 2024 | `> 待核实` | `> 待核实` | arXiv 预印本 2407.16564v2 [3] | 中—低 [3] | ★★★★☆ 轻量微调实现音乐编辑，工程可复用性高 | http://arxiv.org/abs/2407.16564v2 | 代码是否公开 `> 待核实` |
+| UT-AISTimprt（ICME 2026 Grand Challenge 方案） | 2026 | UT-AIST 等（含 Satoru Fukayama） | `> 待核实` | 挑战赛方案（arXiv:2607.01669v1），与会议评审流程相关 [2] | 中｜依据：挑战赛语境 [2] | ★★★★☆ 低资源训练策略可直接借鉴 | http://arxiv.org/abs/2607.01669v1 | 代码/权重开放状态 `> 待核实` |
 
 ---
 
 ## 3. 蓝海与缺口（Blue Ocean & Gaps）
 
-**增量判断（一句话）**：当前最清晰的“无人区”是 **音频侧的生成内容检测与溯源基准** 与 **可审计的音乐 AI 公平性/偏见评测**——图像侧已有专门检测挑战 [24] 而音频侧在本证据集中为空白；公平性议题刚被提出 [21][22] 但尚无评测协议落地。
+**一句话增量判断**：2024–2026 的缺口已从「生成质量不够好」转移到**评测不可比、合规不可验证、产业事实无一手研究**三类「制度性缺口」——后者（版权/授权/资本）在本次证据集中**零覆盖**，是当前最大的无人区。
 
-### 3.1 现有可比性基础设施：数据集与基准（表）
+1. **统一 TTM 评测协议缺位**：[1] 用美学指标 + LLM 裁判 + 人类 MOS，[2] 用客观指标并分析簇粒度敏感性，两者指标不可直接跨论文比较；[14] AudioMOS 2025 可作为协议建设的起点，但覆盖面仍限于挑战赛轨道。[1][2][14]｜关注度 **中**，推荐度 **★★★★☆**（详见 1.1(c)）。
+2. **与 2023 基线的受控对照实验缺失**：本证据集内没有任何一条把 MusicLM / MusicGen / AudioLDM 作为对照的基准结果 `> 待核实`。
+3. **低资源策略 vs 大规模预训练的受控对照缺失**：[2] 的结论（文本 embedding 聚类更优）缺乏与大规模预训练模型同任务对照 [2]。
+4. **「辅助条件分支为何在退化条件下仍有益」仅有作者推测**：[1] 的 training-time architectural anchors 解释缺独立复现与理论刻画 [1]。
+5. **版权 opt-out / 遗忘的可验证性空白**：[5] 为 preliminary，遗忘效果、可审计性、对生成质量的影响均无成熟证据 [5]。
+6. **公平性——「谁被听见」**：[25] 把公平性议题引入 AI 音乐系统 [25]，是相对纯技术路线的新方向。
+7. **生成系统内嵌意识形态**：[26] 研究生成式 AI 音乐系统中的 embedded ideologies [26]，与 [25] 共同构成批判性研究蓝海。
+8. **伦理声明规范的有效性**：[27] 直接评估 AI 音乐论文中的伦理声明「哪些有效、哪些无效」[27]，指向元研究层面的缺口。
+9. **非西方/地方性音乐资源**：[20] Sanidha 提供 studio-quality 的 Carnatic music 多模态数据集（2025-01）[20]，是数据多样性方向的稀缺资产。
+10. **产业与法律的一手研究完全空白（最大蓝海）**：Suno/Udio 诉讼状态、授权条款、平台标注规则、收益分配争议在本次证据集中**无任何可引用来源**，全部 `> 待核实`；唯一沾边的是对两平台输出的技术性分析 [11]。
+
+### 数据集与基准
 
 | 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
 |---|---|---|---|---|---|---|---|---|
-| **The AudioMOS Challenge 2025** | 2025 | 未取得 | 引用数/参赛量 `> 待核实` | arXiv preprint（B 级）+ 挑战赛组织 | 中（“首个”合成音频主观质量预测挑战） | ★★★★☆ | http://arxiv.org/abs/2509.01336v1 [1] | 三赛道；赛道一评 text-to-music 整体质量与文本对齐；其余赛道细节 `> 待核实` |
-| **ICME 2026 Grand Challenge on Academic Text-to-Music Generation**（UT-AISTimprt 参赛方案） | 2026 | UT-AIST 等（据题名） | 引用数 `> 待核实` | arXiv preprint（B 级）+ 挑战赛组织 | 中（2026 年新设学术赛道） | ★★★★☆ | http://arxiv.org/abs/2607.01669v1 [3] | 低数据、小模型、batch sampling 策略；是“学术可复现赛道”的制度化信号 |
-| **ICAGC 2024（Inspirational and Convincing Audio Generation Challenge）** | 2024 | 未取得 | `> 待核实` | arXiv preprint（B 级）+ 挑战赛组织 | 中低 | ★★★☆☆ | http://arxiv.org/abs/2407.12038v2 [18] | 以“鼓舞性/说服力”为评价目标的生成挑战，属挑战赛序列早期节点 |
-| **Baseline Systems for The 2025 Low-Resource Audio Codec Challenge** | 2025 | 未取得 | `> 待核实` | arXiv preprint（B 级） | 中低 | ★★★☆☆ | http://arxiv.org/abs/2510.00264v3 [17] | 低资源音频 codec 基线；生成式音频上游表征的评测基建 |
-| **Story2MIDI 数据集**（随论文构建） | 2025 | 题名作者群（未取得细则） | `> 待核实` | arXiv preprint（B 级） | 低中 | ★★☆☆☆ | http://arxiv.org/abs/2512.02192v1 [5] | 合并文本情感与音乐情绪分类数据集的符号域数据；规模/许可 `> 待核实` |
-| **VQualA 2025（短视频参与度预测挑战）** | 2025 | 未取得 | `> 待核实` | arXiv preprint（B 级）+ ICCV 2025 关联 | 低（与音乐生成主题**邻接但不重合**） | ★★☆☆☆ | http://arxiv.org/abs/2509.02969v1 [13] | **主题相关性低的检索噪声**：评的是 UGC 短视频流行度预测，非音乐质量；列此仅为标注证据边界 |
-| **NTIRE 2026（AI 生成图像检测）** | 2026 | 未取得 | `> 待核实` | arXiv preprint（B 级）+ 挑战赛组织 | 中 | ★★★☆☆ | http://arxiv.org/abs/2604.11487v1 [24] | **图像**侧检测/溯源挑战；作为“音频侧缺失”的对照证据使用 |
-| **音频侧 AI 生成音乐检测/溯源基准** | — | — | `> 待核实` | `> 待核实` | `> 待核实` | 无法评级 | `> 待核实` | **本证据集内无来源 → 判定为缺口** |
-
-### 3.2 缺口清单（按可操作性排序）
-
-1. **音频侧生成音乐检测与溯源（最强缺口）**：图像侧已有成形挑战 [24]，音频侧在本证据集中**完全空白**；而版权争议的核心取证依赖相似度/来源判定——技术前史只有 2018 年的翻唱检测方法 [9]。→ 高杠杆、可发基准的方向。
-2. **自动主观评测与“偏好数据”基础设施**：[1] 是*首个*合成音频主观质量预测挑战，说明该评测范式刚起步；[8] 把人类偏好奖励引入训练，但**偏好数据集本身的构建、标注一致性、跨流派偏差**均无来源支撑 → `> 待核实`。
-3. **可归因的消融型基线（低资源 + 小模型）**：[2] 指出当前进展依赖大数据与外pretraining 导致**无法隔离设计选择**；[3][17] 提供低资源设定样板。→ “干净消融 + 公开训练配方”是明确无人区。
-4. **公平性与文化/流派偏见的可审计评测**：[22] 明确把文化/流派偏见列为被忽视风险；[21] 批判“民主化”营销叙事。两篇均为**问题提出**，未见评测协议 → 「提出而未测」即典型蓝海。
-5. **伦理/治理机制的有效性验证**：[23] 直接研究伦理声明“有效与无效”，说明该机制存在形式化风险；如何把伦理声明变成可核查项仍是缺口。
-6. **符号域与可控性/共创**：[5] 文本→MIDI 情绪对齐、[25] 结构化不确定性与共创——把“不可控的一次性生成”变成“可控的协作工具”仍属早期。
-7. **相似度→侵权判定的可解释链路**：检测方法 [9] 与生成系统之间缺“可解释相似度证据”桥梁（本文推断，`> 待核实`）。
-
-**四类证据（本章关键条目）**
-- **音频侧检测缺口（以图像侧 [24] 为对照）**：热度 `> 待核实`；权威 = BMVC/挑战赛类组织（依来源题名）；关注度 **中**（图像侧赛道化 → 音频侧缺失构成对比信号）；推荐度 **★★★★★**（蓝海程度最高，但**必须注明是“证据缺失推出的缺口”，不是已知结论**）。
-- **公平性缺口**[21][22]：热度 `> 待核实`；权威 = arXiv preprints（cs.SD / cs.CY，跨学科）；关注度 **中低**（新兴议题，社区讨论量 `> 待核实`）；推荐度 **★★★★☆**（议题先行、协议未定，适合作为立项切入点）。
+| AudioMOS Challenge 2025 | 2025 | `> 待核实` | `> 待核实` | 挑战赛总结论文（arXiv:2509.01336v1, cs.SD）[14] | 中—高｜依据：首个合成音频自动主观质量预测挑战赛，Track 1 面向 TTM（overall quality + textual alignment）[14] | ★★★★★ 评测自动化方向最直接的基准入口 | http://arxiv.org/abs/2509.01336v1 | 三轨道设计，含 TTM 主观质量预测；榜单细节 `> 待核实` |
+| ICME 2026 Grand Challenge on Academic Text-to-Music Generation | 2026 | 挑战赛组织方（参赛方案见 [2]） | `> 待核实` | 挑战赛语境（方案 arXiv:2607.01669v1）[2] | 中｜依据：有明确挑战赛语境，最终榜单 `> 待核实` [2] | ★★★★☆ 「学术 / 低资源」赛道的制度化信号 | http://arxiv.org/abs/2607.01669v1 | 低数据、小模型设定，恰好对准算力鸿沟 |
+| Sanidha: A Studio Quality Multi-Modal Dataset for Carnatic Music | 2025 | `> 待核实` | `> 待核实` | arXiv 预印本（2501.06959v1）[20] | 低—中｜依据：无引用/下载信号 [20] | ★★★★☆ 非西方音乐多模态数据稀缺资源 | http://arxiv.org/abs/2501.06959v1 | 规模、许可、可复现难度 `> 待核实` |
+| Suno / Udio 输出分析语料（案例研究，非公开发布数据集） | 2025 | `> 待核实` | `> 待核实` | arXiv 预印本（2509.11824v1）[11] | 中｜依据：指向产业头部平台 [11] | ★★★★☆ 反映「商用模型输出可被审计」的能力 | http://arxiv.org/abs/2509.11824v1 | 是否公开数据 `> 待核实` |
 
 ---
 
 ## 4. 瓶颈与拐点（Bottleneck & Inflection）
 
-**增量判断（一句话）**：瓶颈已从“生成质量”迁移到 **评测口径 + 归因能力 + 合规成本** 三条；拐点信号是**挑战赛的制度化节奏**（2024 → 2025 → 2026 连续设立）与**训练目标从“像”转向“被偏好”**[1][3][8][18]。
+**一句话增量判断**：当前主要瓶颈是**数据授权不确定性 + 评测不可比**，而非算力单点；2025–2026 出现了三个可观测的拐点信号——首个合成音频主观质量挑战赛 [14]、面向低资源的学术 TTM 挑战赛 [2]、以及合规技术（unlearning）进入音乐生成 [5]。
 
-### 4.1 四类瓶颈
+**瓶颈分层**
+- **数据瓶颈**：授权数据不可得与法律不确定性同时压制「更大模型」路线，反过来**催生**低资源子方向 [2] 与 opt-out 技术研究 [5]。这是「数据约束 → 方法转向」的因果链，属本周期最实质的结构变化。
+- **算力/门槛瓶颈**：轻量微调 [3] 与低数据小模型方案 [2] 的兴起，说明全量训练门槛已把大量研究者挤出，只能从适配器与训练策略切入。
+- **评测瓶颈**：多轴指标并存但不可跨论文比较 [1][2]，使「谁更好」难以被第三方裁定。
+- **合规/可验证性瓶颈**：opt-out 机制尚无成熟效果证据 [5]；产业层面的诉讼与授权状态在本证据集中不可核查 `> 待核实`。
+- **人才/工程瓶颈**：本证据集中无工程实践（部署、延迟、成本）类来源 `> 待核实`。
 
-| 瓶颈 | 表现 | 证据 |
-|---|---|---|
-| **归因瓶颈** | 进展依赖大规模数据与外部预训练，**无法隔离哪个设计选择在起作用** | [2] |
-| **评测瓶颈** | 自动主观质量预测**刚刚起步**（2025 才出现首个专门挑战）；跨组织口径不统一 | [1] |
-| **资源/复现瓶颈** | 学术侧需在**低数据 + 小模型**下工作，训练策略（如 batch sampling）成为变量；低资源 codec 也需专用基线 | [3], [17] |
-| **合规/伦理摩擦** | 伦理声明制度被质疑“有效与无效”并存；公平性风险（文化/流派偏见）已被点名但无评测协议 | [23], [22], [21] |
-| **版权制度性瓶颈** | 训练数据合法性、艺术家同意与署名、声音克隆的法律与商业规则 | 本证据集**无来源** → `> 待核实` |
+**拐点信号与可证伪假设**
 
-### 4.2 拐点信号（可观测指标）
-
-1. **评测制度化节奏**：ICAGC 2024 [18] → AudioMOS 2025 [1] → ICME 2026 学术赛道 [3]：**连续三年**出现面向生成音频的专门挑战/赛道，说明该方向已从“论文自评”转向“跨团队可比”。
-2. **目标函数拐点**：2026 年出现“人类偏好奖励”驱动的 text-to-music [8] → 训练目标从“信号层相似”转向“人类偏好对齐”。
-3. **可复现拐点**：学术赛道明确采用低数据小模型设定 [3]，配合低资源基线 [17] → 参赛门槛下降、可审计性上升。
-4. **治理工具不对称**：图像侧已有 AI 生成检测挑战 [24]，音频侧缺失 → 一旦音频侧补位，即为该领域“检测/溯源拐点”的确认信号。
-
-**四类证据（本章关键条目）**
-- **评测瓶颈**[1]：热度 `> 待核实`；权威 = 挑战赛组织 + 预印本（B 级）；关注度 **中**；推荐度 **★★★★☆**（瓶颈定位最直接）。
-- **归因瓶颈**[2]：热度 `> 待核实`；权威 = 预印本（B 级）；关注度 **中低**；推荐度 **★★★★☆**（可引用其批判性表述，但正文需补读，`> 待核实`）。
-- **合规摩擦**[23][22]：热度 `> 待核实`；权威 = 预印本（B 级，cs.CY 跨学科）；关注度 **中低**；推荐度 **★★★☆☆**（议题重要，量化证据缺）。
-- **版权制度瓶颈**：`> 待核实`（无来源，**不作出任何法律判断**）。
+- **[P] 假设 P1（评测收敛）**：若到 2027 年中，TTM 论文中「客观指标 + 人类 MOS 同时报告」的比例继续上升，并出现被多个团队复用的统一评测协议（以 [14] 的 AudioMOS 轨道为雏形），则「评测收敛拐点」成立；反之若 2027 年仍以各自口径报告，则判定不成立。**依据链**：多轴并行 [1][2] → 首个自动化主观质量挑战赛出现 [14] → 协议收敛压力形成。**置信度：中**。
+- **[P] 假设 P2（合规技术化）**：若 2026-2027 出现基于 unlearning 的商用 opt-out 服务、或主流模型卡披露遗忘流程，则「合规从法律议题转为工程模块」的拐点成立；若 [5] 之后 18 个月内无后续工作或产品化，则视为停留在研究阶段。**依据**：[5]（preliminary）。**置信度：低—中**。
+- **[P] 假设 P3（低资源赛道固化）**：若 ICME 2026 之后该学术 TTM 挑战赛持续举办并沉淀公开基线，则「学术界在无大规模算力下仍可参与 TTM」成立；依据 [2][14]。**置信度：中**。
+- **[P] 假设 P4（第三方审计能力）**：若未来 12 个月出现以 Suno/Udio 输出为对象、且含版权/授权维度的可复现审计基准或公开数据集，则「产品输出可被独立审计」拐点成立；依据 [11]。**置信度：低—中**。
+- **[P] 假设 P5（架构归因可复现性）**：[1] 的「辅助条件分支 = 训练期锚点」若在独立团队复现，则成为可引用结论，否则应降级为单点观察。**依据**：[1]。**置信度：低**。
 
 ---
 
 ## 5. 社会·政策·国际（Society, Policy & Geopolitics）
 
-**增量判断（一句话）**：本周期可核查的增量集中在 **学术共同体层面的“软治理”**（伦理声明制度、公平性议题、民主化叙事的批判），而 **正式法律与监管（诉讼、EU AI Act、美国版权局）在本证据集内无一手来源**，故本维度的“硬监管”部分判定为**证据不足**。
+**一句话增量判断**：本周期内可核查的增量集中在**研究共同体的自我治理**（公平性、意识形态、伦理声明元研究），而**立法、监管、国际格局层面在本证据集中零覆盖**。
 
-### 5.1 可核查内容（学术与伦理治理）
-
-- **伦理声明机制的有效性**：研究指出 AI 音乐论文的伦理参与未跟上研究规模，并区分“有效”与“无效”的伦理声明写法 [23] —— 这是**出版方作为软监管者**的实际影响面。
-- **公平性与代表性**：提出在版权、深伪、透明之外，需关注**文化与流派偏见**；即“谁被听见”的问题 [22]。
-- **叙事与权力**：批判“生成式 AI 使音乐创作民主化”的营销话语，指出包容性常被当作营销资源 [21]。
-- **检测/溯源的治理工具**：图像侧已把 AI 生成图像检测竞赛化 [24]；音频侧缺失 → 治理工具在**模态间不对称**（本文推断，`> 待核实`）。
-
-### 5.2 明确无法核查的内容（避免误读为已发生）
-
-- RIAA 诉 Suno / Udio 的案件进展、和解金额、授权协议 → `> 待核实`（无来源）
-- 美国版权局（U.S. Copyright Office）关于 AI 音乐的政策动作 → `> 待核实`（无来源）
-- EU AI Act 对音乐生成的具体条款与生效节点 → `> 待核实`（无来源）
-- 各国/地区的艺术家同意、署名、声音克隆立法 → `> 待核实`（无来源）
-
-> 结论：**本维度只能确认“学术共同体已开始自我治理与批判”，不能确认“法律层面发生了什么变化”。** 任何关于诉讼、和解、监管时间表的论断都必须另找 A 级来源（法院文书、监管机构官方公告、厂牌/平台公告）方可写入。
-
-**四类证据（本章关键条目）**
-- **伦理声明有效性**[23]：热度 `> 待核实`；权威 = 预印本（B 级，cs.CY）；关注度 **中低**（治理议题，社区量 `> 待核实`）；推荐度 **★★★☆☆**（用于论证“声明≠合规”的实证支撑）。
-- **公平性**[22]：热度 `> 待核实`；权威 = 预印本（B 级）；关注度 **中低**；推荐度 **★★★★☆**（跨学科、可延伸为评测协议）。
-- **模态不对称的治理工具**[24] 对照：热度 `> 待核实`；权威 = 挑战赛组织（依题名）；关注度 **中**；推荐度 **★★★☆☆**（仅作对照证据，不可外推为音频结论）。
+- **公平性进入 AI 音乐议程**：[25] *Who Gets Heard? Rethinking Fairness in AI for Music Systems*（2025-11）[25]。｜**【热度】** `> 待核实`｜**【权威】** arXiv 预印本，venue 未确认 [25]｜**【关注度】** 低—中｜**【推荐度】** ★★★★☆ —— 是「谁被代表」这一政策相关议题的可引用起点。
+- **生成系统的内嵌意识形态**：[26]（2025-08）研究生成式 AI 音乐系统中的 embedded ideologies [26]。｜**【权威】** arXiv 预印本 [26]｜**【关注度】** 低—中｜**【推荐度】** ★★★★☆ —— 与 [25] 共同支撑价值维度分析。
+- **伦理声明的有效性评估**：[27]（2025-09）分析 AI 音乐论文中伦理声明「有效与无效」之处 [27]。｜**【权威】** arXiv 预印本 [27]｜**【关注度】** 低—中｜**【推荐度】** ★★★★☆ —— 对「论文写作规范」这一微观治理层是稀缺证据。
+- **AI 诱发的音乐风格（早期案例）**：[28]（2022）以案例方式讨论 AI 诱发的音乐风格 [28]，属本议题的早期锚点（经典工作，见 1.2 表）。
+- **版权与 opt-out 的技术侧**：[5] 将遗忘作为 opt-out 手段 [5]，是政策压力向技术层传导的直接痕迹（详见 1.1(i)）。
+- **缺席与争议（必须显式标注）**：
+  - 各国监管（如 AI 透明度/版权义务）、声音肖像立法、流媒体平台对 AI 音乐的标注或下架规则：本证据集**无任何来源**，生效时间与适用范围 `> 待核实`。
+  - 训练数据合法性、「风格/声音」可版权性、平台责任、艺术家同意与补偿机制：**[Debated]**，但本报告**未取得任何一手司法或政策文书**，因此不给出倾向性结论，全部 `> 待核实`。
+  - 国际地缘与供应链影响：本周期**在可核查证据范围内无显著变化可陈述**（不排除事实存在，仅为本证据集未覆盖）。
 
 ---
 
 ## 6. 资本与生态（Capital & Ecosystem）
 
-**增量判断（一句话）**：本证据集内**没有任何融资、并购、估值、人才流动的一手数据**——因此“资本”维度只能判定为 **本周期无显著可核查变化**；可讨论的“生态”仅限**学术挑战赛生态**与**开源可持续性**两个可核查侧面。
+**一句话增量判断**：在可核查证据范围内，**本周期无融资、并购或市场份额数据**；唯一的生态层增量是——头部商用平台（Suno/Udio）已成为学术研究对象 [11]，且批判性与治理性研究（[25][26][27]）开始进入 AI 音乐论文生态。
 
-### 6.1 可核查的生态信号
-
-- **挑战赛生态扩张**：[18]（2024）→ [1]（2025）→ [3]（2026）形成连续赛道序列，且 2025 年出现“低资源 codec 基线” [17]，说明音频生成相关评测生态在**横向铺开**（音乐、编解码、主观质量）。
-- **开源可持续性（方法层面）**：GitHub 开源开发挑战的系统综述 [4]，以及 commit 频率分布 [6]、commit 签名普及的纵向研究 [7]，可用于评估“音乐生成开源项目是否具备可维护与供应链可信度”，但**这三篇都不提供任何音乐仓库的实测数据**，不能用于断言某个音乐模型仓库的状态。
-- **跨模态对照**：AI 生成图像检测已有专门挑战 [24]，反映相邻模态的生态投入；音频侧对应生态在证据集中不存在（`> 待核实`）。
-
-### 6.2 明确无法核查的内容
-
-- Suno / Udio 的融资、估值、收入、版权费用/分成安排 → `> 待核实`（无来源）
-- 唱片公司（major labels）与 AI 公司的授权交易 → `> 待核实`（无来源）
-- 人才流动、公司格局变化、开源基金会投入 → `> 待核实`（无来源）
-- 社区指标（stars、下载量、榜单排名）→ `> 待核实`（本次检索未取得任何数字）
-
-**四类证据（本章关键条目）**
-- **挑战赛生态扩张**[18][1][3][17]：热度 = 参赛规模 `> 待核实`；权威 = 挑战赛组织（B 级）；关注度 **中**（连续设立为可观测量）；推荐度 **★★★☆☆**（生态判断的可用证据，但缺资本侧数据）。
-- **开源可持续性方法论**[4][6][7]：热度 `> 待核实`；权威 = 预印本/SLR（B 级）；关注度 **中低**；推荐度 **★★★☆☆**（明确标注外部效度限制后方可使用）。
+- **可引用的生态信号**：[11] 以 Suno 与 Udio 为案例做数据驱动分析 [11]，间接说明其产品规模与影响力已达到「可被当作研究语料」的门槛（用户量、营收、版权交易细节 `> 待核实`）。｜**【热度】** `> 待核实`｜**【权威】** arXiv 预印本 [11]｜**【关注度】** 中｜**【推荐度】** ★★★★☆。
+- **研究生态的治理化**：公平性 [25]、意识形态 [26]、伦理声明元研究 [27] 三类论文同期出现，意味着 AI 音乐研究共同体开始自我约束与自我审视——这是生态成熟度信号，**但不是资本信号**。｜**【关注度】** 低—中（依据：均无引用数信号）｜**【推荐度】** ★★★★☆（[25][27]）。
+- **明确缺席**：唱片公司/发行商/流媒体平台的 AI 策略、投资并购、独立创作者收益分配争议——本证据集**无任何来源**，全部 `> 待核实`。本报告**不引用**任何未列出的媒体报道或传闻。
 
 ---
 
 ## 7. 信号与预测（Signals & Forecast）
 
-**增量判断（一句话）**：本周期最强的三个信号是 **① 评测制度化（挑战赛三连）、② 目标函数偏好化（人类偏好奖励）、③ 治理议题前置化（公平性与伦理声明有效性）**；而所有关于诉讼、发行分成的“市场信号”在本证据集内**均无来源**，不予推测。
+**一句话增量判断**：未来 6–18 个月，最值得押注的方向不是「更大的 TTM 模型」，而是**评测协议收敛**与**合规可验证性**两条制度性赛道；产业与法律维度的信号缺失，构成本次快照最大的观测盲区。
 
-### 7.1 早期信号清单
+**早期信号（已确证，带日期）**
+1. 2025-09：首个合成音频自动主观质量预测挑战赛出现，含 TTM 轨道 [14]。
+2. 2026-07：面向学术/低资源设定、挂在 ICME 2026 名下的 TTM 挑战赛出现参赛方案 [2]。
+3. 2026-05：出现明确以「控制数据与预训练」为前提做架构归因的研究 [1]。
+4. 2025-09：机器遗忘被首次应用于音乐生成的 opt-out 场景（preliminary）[5]。
+5. 2025-09：Suno/Udio 输出被第三方做语料级分析 [11]。
 
-| 信号 | 观测依据 | 证据强度 |
-|---|---|---|
-| 评测从“自评”走向“赛评” | ICAGC 2024 [18] → AudioMOS 2025 [1] → ICME 2026 学术赛道 [3] | 较大概率（连续可观测） |
-| 训练目标转向人类偏好 | 人类偏好奖励用于 text-to-music [8] | 推测（仅题名级证据） |
-| 学术侧转向低资源可复现 | 低数据小模型 + batch sampling 研究 [3]；低资源 codec 基线 [17] | 较大概率 |
-| 可归因性成为方法学议题 | 直指“无法隔离设计选择” [2] | 推测 |
-| 公平性从“被提及”走向“被测量” | 明确指出文化/流派偏见被忽视 [22]；民主化叙事批判 [21] | 较大概率（议题已提出，协议未定） |
-| 音频侧检测/溯源滞后于图像侧 | 图像侧检测挑战 [24] vs 音频侧空白 | 推测（由证据缺失推出） |
-| 版权法律制度变化 | 无来源 | **未知 / 需要数据** |
+**预测（均为 [P]，须写成可证伪假设）**
 
-### 7.2 预测（[P]：可证伪假设 + 依据 + 置信度）
+| 编号 | 预测（可证伪假设） | 依据链 | 置信度 | 证伪条件 |
+|---|---|---|---|---|
+| P1 | 评测收敛：2027 年中前出现被多团队复用的 TTM 统一协议 | 多轴并行 [1][2] → 首个自动化主观质量挑战赛 [14] → 协议压力 | 中 | 2027 年中仍各自口径，无共用协议 |
+| P2 | 合规技术化：2026-2027 出现基于 unlearning 的产品化/模型卡披露 | [5] 的初步可行路线 → 版权压力 | 低—中 | 18 个月内无后续工作或产品化 |
+| P3 | 低资源赛道固化：学术 TTM 挑战赛持续并沉淀公开基线 | [2][14] | 中 | 挑战赛停办或无公开基线 |
+| P4 | 审计能力：出现含版权维度的 Suno/Udio 输出审计基准 | [11] 已证明分析可行性 | 低—中 | 12 个月内无此类基准发布 |
+| P5 | 架构归因可复现：[1] 的「训练期锚点」被独立复现 | [1] | 低 | 无第三方复现报告 |
+| P6 | 产业/法律信号将从「不可核查」转为「可核查」，因为至少已出现以商用平台为对象的技术性研究 [11] | [11] | 低 | 若后续检索仍无一手法律文书或官方公告可达 |
 
-- **[P1] 假设**：若到 **2027 年底**，主流音频/音乐会议（如 ICASSP、ISMIR、ICME）或其附设挑战中出现 **“AI 生成音乐检测 / 溯源”** 的公开赛道或共享任务，则判定“音频侧检测拐点成立”。
-  **依据链**：图像侧已有 NTIRE 2026 检测挑战 [24] + 音乐生成评测本身正在赛道化 [1][3] + 版权取证需求的技术前史存在（翻唱/相似度检测 [9]）。
-  **置信度**：中。**不确定性**：跨模态迁移速度未知，音频取证难度（混合、母带处理）显著高于图像。
-- **[P2] 假设**：若到 **2026 年底**，至少 2 篇以上公开论文把 **自动主观质量预测（AudioMOS 类）** 作为 text-to-music 的辅助报告指标（而非仅人工 MOS），则判定“评测自动化拐点成立”。
-  **依据链**：[1] 首次设立该挑战；评测瓶颈已被识别为独立问题。
-  **置信度**：中低。**不确定性**：赛道二/三细节未取得，无法判断该指标是否已被广泛接受（`> 待核实`）。
-- **[P3] 假设**：若 2026–2027 年出现以 **“偏好对齐 / RLHF for music”** 为主赛道的公开挑战或共享任务，则判定“目标函数拐点成立”。
-  **依据链**：人类偏好奖励工作出现 [8] + 主观质量评测基础设施 [1] 提供奖励来源。
-  **置信度**：中低。**不确定性**：[8] 仅取得题名，方法与提升幅度 `> 待核实`。
-- **[P4] 假设**：若 12–18 个月内出现 **低资源/小模型可复现音乐生成基线**（含公开训练配方与消融），则判定“可归因性议题转入工程实践”。
-  **依据链**：可归因性批评 [2] + 低资源学术赛道 [3] + 低资源 codec 基线先例 [17]。
-  **置信度**：中。**不确定性**：数据版权限制可能阻止训练数据公开，从而卡住“公开配方”。
-- **[P5] 假设**：若公平性议题在 12 个月内仍停留在立场论文、未出现可执行评测协议，则判定“公平性蓝海未被填补”。
-  **依据链**：[22][21] 均为问题提出型工作，未见协议。
-  **置信度**：中高（负向假设，风险低）。**不确定性**：可能存在本证据集未检索到的协议型工作。
+**Watchlist（建议持续关注的观测点）**
+- AudioMOS 系列挑战赛的后续轨道设计与榜单是否被广泛引用 [14]。
+- ICME 2026 之后学术 TTM 挑战赛是否形成年度序列 [2]。
+- 是否出现以商用平台输出为对象的、含版权/授权维度的公开审计基准 [11]。
+- unlearning 路线是否从 preliminary 走向可复现评测 [5]。
+- 公平性与伦理声明元研究是否形成可复用的评估清单 [25][27]。
 
-### 7.3 传闻与争议（[R] / [Debated]）
+**不确定性声明**：P1–P6 均为基于**极窄证据集**（主题相关来源约 15 条，多为预印本）的推演；若第 5、6 章的缺失证据被补齐，P4 与 P6 的结论可能被显著改写。
 
-- **[R] Suno / Udio 与唱片公司的和解与授权协议、诉讼结果**：**待证实**。本证据集内无一手来源，任何金额、时间表、条款均**不得写入**。
-- **[R] Suno / Udio 最新模型版本与 SOTA 宣称**：**待证实**。无官方技术报告来源。
-- **[Debated] “AI 是否在民主化音乐创作”**：[21] 明确以批判视角指出包容性常被用作营销；这是价值判断层面的公开分歧，**不是可量化事实**，引用时应并列呈现不同立场 [21]。
-- **[Debated] 训练数据合法性、艺术家同意与署名、声音克隆**：本证据集内**无来源** → `> 待核实`，不作立场表态。
+---
 
-### 7.4 Watchlist（值得持续关注）
+## 误召回来源清单（避免误用）
 
-1. **AudioMOS 后续届次**（是否扩展赛道、是否公开数据集与基线代码）[1]
-2. **ICME 2026 学术赛道的赛后综述**（低资源条件下的可复现结论）[3]
-3. **人类偏好奖励 / 音乐 RLHF 的后续工作与开源实现**[8]
-4. **音频侧 AI 生成检测与溯源基准的出现**（当前空缺，可观测）[24]（对照）
-5. **公平性/偏见评测协议是否落地**[22][21]
-6. **伦理声明机制是否被出版方转为强制可核查项**[23]
-7. **可归因性：是否有论文系统做“数据 vs 架构 vs 算力”的解耦实验**[2]
+以下来源与「AI 音乐生成 / 版权 / 商业发行」无实质交集，仅作为检索召回的噪声记录，**不建议在音乐议题中引用**：[9]（Rip Current Segmentation 挑战赛）、[10]（MOASEI AAMAS'2025）、[12]（Ego4D 长期动作预测）、[13]（VQualA 短视频参与度预测）、[17]（GitHub 开源软件挑战 SLR）、[21]（RSNA RATIC CT 数据集）、[22]（ArchEHR-QA 2026 临床问答）、[23]（MOASEI AAMAS'2026）、[24]（LHC 物理机器学习 stocktake）、[30]（低分辨率车牌识别竞赛）。
 
 ---
 
 ## 参考来源
 
-1. The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1
-2. Instrumental Text-to-Music Generation with Auxiliary Conditioning Branches — http://arxiv.org/abs/2605.21433v1
-3. UT-AISTimprt submission for ICME 2026 Grand Challenge on Academic Text-to-Music Generation — http://arxiv.org/abs/2607.01669v1
-4. Open Source Software Development Challenges: A Systematic Literature Review on GitHub — http://arxiv.org/abs/2003.10750v3
-5. Story2MIDI: Emotionally Aligned Music Generation from Text — http://arxiv.org/abs/2512.02192v1
-6. The Empirical Commit Frequency Distribution of Open Source Projects — http://arxiv.org/abs/1408.4978v1
-7. On the Prevalence and Usage of Commit Signing on GitHub: A Longitudinal and Cross-Domain Study — http://arxiv.org/abs/2504.19215v1
-8. Improving Text-to-Music Generation with Human Preference Rewards — http://arxiv.org/abs/2606.21670v1
-9. Large-Scale Cover Song Detection in Digital Music Libraries Using Metadata, Lyrics and Audio Features — http://arxiv.org/abs/1808.10351v1
-10. SongMASS: Automatic Song Writing with Pre-training and Alignment Constraint — http://arxiv.org/abs/2012.05168v1
-11. Formal models of Structure Building in Music, Language and Animal Songs — http://arxiv.org/abs/1901.05180v1
-12. Modelling Emotion Dynamics in Song Lyrics with State Space Models — http://arxiv.org/abs/2210.09434v1
-13. VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
-14. A Functional Taxonomy of Music Generation Systems — http://arxiv.org/abs/1812.04186v1
-15. Vision-to-Music Generation: A Survey — http://arxiv.org/abs/2503.21254v1
-16. Vision Mamba: A Comprehensive Survey and Taxonomy — http://arxiv.org/abs/2405.04404v1
-17. Baseline Systems For The 2025 Low-Resource Audio Codec Challenge — http://arxiv.org/abs/2510.00264v3
-18. ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024 — http://arxiv.org/abs/2407.12038v2
-19. MusicLM: Generating Music From Text — http://arxiv.org/abs/2301.11325v1
-20. A Survey of Text-to-Music Generation with Deep Learning — https://doi.org/10.54254/2755-2721/2025.21641
-21. Opening Musical Creativity? Embedded Ideologies in Generative-AI Music Systems — http://arxiv.org/abs/2508.08805v1
-22. Who Gets Heard? Rethinking Fairness in AI for Music Systems — http://arxiv.org/abs/2511.05953v1
-23. Ethics Statements in AI Music Papers: The Effective and the Ineffective — http://arxiv.org/abs/2509.25496v1
-24. NTIRE 2026 Challenge on Robust AI-Generated Image Detection in the Wild — http://arxiv.org/abs/2604.11487v1
-25. The Shape of Surprise: Structured Uncertainty and Co-Creativity in AI Music Tools — http://arxiv.org/abs/2509.25028v1
-26. Expected Performance of the ATLAS Experiment - Detector, Trigger and Physics — http://arxiv.org/abs/0901.0512v4
-27. Status and initial physics performance studies of the MPD experiment at NICA — http://arxiv.org/abs/2202.08970v1
-28. Measurement of forward W and Z boson production in pp collisions at √s = 8 TeV — http://arxiv.org/abs/1511.08039v2
-29. Observation of the rare B⁰_s→μ⁺μ⁻ decay from the combined analysis of CMS and LHCb data — http://arxiv.org/abs/1411.4413v2
-30. Measurement of the Z+b-jet cross-section in pp collisions at √s = 7 TeV in the forward region — http://arxiv.org/abs/1411.1264v3
-31. Search for the doubly heavy baryon Ξ⁺_bc decaying to J/ψ Ξ⁺_c — http://arxiv.org/abs/2204.09541v2
-
-**未采用来源（检索噪声 / 主题无关，仅登记以免误引）**：[16] Vision Mamba 综述、[26]–[31] 高能物理实验与测量论文——与 AI 音乐生成及音乐产业无主题关联，本报告未将其作为任何论断的证据。
-
-> **本报告的证据缺口（供后续补检）**：(a) Suno/Udio 官方技术报告与产品公告；(b) RIAA 诉讼与和解的一手法律文书；(c) 美国版权局 / EU AI Act 官方文件；(d) 唱片公司—平台发行分成协议；(e) 音乐生成开源仓库的许可证与 star 实测数据；(f) MusicLM/MusicGen/Stable Audio 的原始论文与本报告 [19] 之外的后续工作；(g) ACE-Step / YuE / DiffRhythm 的一手来源。上述缺口项在本报告中一律未作事实陈述。
+[1] Instrumental Text-to-Music Generation with Auxiliary Conditioning Branches — http://arxiv.org/abs/2605.21433v1
+[2] UT-AISTimprt submission for ICME 2026 Grand Challenge on Academic Text-to-Music Generation — http://arxiv.org/abs/2607.01669v1
+[3] Audio Prompt Adapter: Unleashing Music Editing Abilities for Text-to-Music with Lightweight Finetuning — http://arxiv.org/abs/2407.16564v2
+[4] AI-Assisted Music Production: A User Study on Text-to-Music Models — http://arxiv.org/abs/2509.23364v1
+[5] No Encore: Unlearning as Opt-Out in Music Generation — http://arxiv.org/abs/2509.06277v2
+[6] Vision-to-Music Generation: A Survey — http://arxiv.org/abs/2503.21254v1
+[7] Story2MIDI: Emotionally Aligned Music Generation from Text — http://arxiv.org/abs/2512.02192v1
+[8] Dorabella Cipher as Musical Inspiration — http://arxiv.org/abs/2509.17950v1
+[9] AIM 2025 Rip Current Segmentation (RipSeg) Challenge Report — http://arxiv.org/abs/2508.13401v3
+[10] Inaugural MOASEI Competition at AAMAS'2025: A Technical Report — http://arxiv.org/abs/2507.05469v1
+[11] Data-Driven Analysis of Text-Conditioned AI-Generated Music: A Case Study with Suno and Udio — http://arxiv.org/abs/2509.11824v1
+[12] Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025 — http://arxiv.org/abs/2506.02550v2
+[13] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
+[14] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1
+[15] Stable Audio Open — http://arxiv.org/abs/2407.14358v2
+[16] Improving Text-to-Music Generation with Human Preference Rewards — http://arxiv.org/abs/2606.21670v1
+[17] Open Source Software Development Challenges: A Systematic Literature Review on GitHub — http://arxiv.org/abs/2003.10750v3
+[18] Music SketchNet: Controllable Music Generation via Factorized Representations of Pitch and Rhythm — http://arxiv.org/abs/2008.01291v1
+[19] Improving Choral Music Separation through Expressive Synthesized Data from Sampled Instruments — http://arxiv.org/abs/2209.02871v1
+[20] Sanidha: A Studio Quality Multi-Modal Dataset for Carnatic Music — http://arxiv.org/abs/2501.06959v1
+[21] The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset — http://arxiv.org/abs/2405.19595v1
+[22] UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering — http://arxiv.org/abs/2608.27467v1
+[23] Second MOASEI Competition at AAMAS'2026: A Technical Report — http://arxiv.org/abs/2607.03399v1
+[24] Machine learning for the LHC physics program: a 2025-2026 stocktake — http://arxiv.org/abs/2609.32874v1
+[25] Who Gets Heard? Rethinking Fairness in AI for Music Systems — http://arxiv.org/abs/2511.05953v1
+[26] Opening Musical Creativity? Embedded Ideologies in Generative-AI Music Systems — http://arxiv.org/abs/2508.08805v1
+[27] Ethics Statements in AI Music Papers: The Effective and the Ineffective — http://arxiv.org/abs/2509.25496v1
+[28] "Melatonin": A Case Study on AI-induced Musical Style — http://arxiv.org/abs/2208.08968v1
+[29] The Shape of Surprise: Structured Uncertainty and Co-Creativity in AI Music Tools — http://arxiv.org/abs/2509.25028v1
+[30] ICPR 2026 Competition on Low-Resolution License Plate Recognition — http://arxiv.org/abs/2604.22506v1
 
 ---
 
-*Generated by research-bot · topic=`ai-音乐生成与音乐产业sunoudio版权诉讼发行与商业化` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=31 · duration=229s · 2026-10-04T13:08:07+00:00*
+*Generated by research-bot · topic=`ai-音乐生成与音乐产业sunoudio版权诉讼发行与商业化` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=30 · duration=211s · 2026-10-04T23:09:14+00:00*

@@ -1,222 +1,277 @@
-# 具身智能（Embodied AI）调研报告：从模块化流水线到 VLA 基础模型
+# 具身智能（Embodied AI）方法演进与前沿进展调研报告
 
-**日期**：2026-10-04（UTC） ｜ **领域**：具身智能 / VLA（Vision-Language-Action）/ 机器人学习 / 仿真与 Sim2Real ｜ **检索源数量**：118 条编号来源（其中含明显主题漂移条目，见 §6.4） ｜ **证据纪律**：本报告仅引用编号来源 [1]–[118]；无编号的经典/种子资源以官方链接形式列出并标注 `> 待核实`；所有数字均标注口径来源，未取到热度信号者一律写 `> 待核实`。
+**日期**：2026-10-04（UTC）｜**领域**：Embodied AI / VLA / 机器人学习 / Sim2Real｜**检索源数量**：候选证据 119 条编号来源，其中与具身智能主线直接相关者约 65 条，其余为跨领域噪音条目（已在正文中剔除不用）｜**证据分级**：以 arXiv 一手预印本（B 级）为主，少量同行评审期刊/DOI 来源（A/B 级），第三方复现与榜单证据整体缺失
 
 ---
 
 ## 摘要（Executive Summary）
 
-1. **主线已从「单一 VLA 模型」转向「分层/双系统 VLA + 世界模型 + 效率优化」的组合范式**。双系统 VLA 已成为明确研究热点，但开源工作稀缺，[104] 是针对该缺口的综述＋实证＋开源模型；效率问题被单独系统化成综述议题 [100]。证据强度以 arXiv 预印本为主（B 级），仅 [20] 有明确同行评审 venue（RA-L，A 级）。
-2. **世界模型的定位正从「视频生成演示」转向「与 VLA 联合训练 / 跨本体统一表征 / 部署期策略引导」**：[22] 声称统一 VLA 与世界模型并在 LIBERO 仿真达 97.4% 成功率（论文自报，未同行评审）；[24] 用 3D 流世界模型做跨本体操作；[20] 是有同行评审的 RGB-D 世界模型；[84] 声称潜在世界模型可在部署期引导 VLA 而无需微调。**但候选证据中没有一条给出世界模型在「策略评估」上的可验证增益，该维度证据缺失**。
-3. **评测侧的可信度问题被两篇 2026 年预印本量化**：LIBERO-Para [113] 报告 VLA 在受控指令改写下性能下降 22–52 个百分点（7 个 0.6B–7.5B 配置）；LIBERO-VPro [114] 指出标准操作基准隐含「视觉观测干净、及时、一致」假设并施加闭环视觉扰动。这说明**现有 LIBERO 榜单排名可能高估真实泛化能力（待核实）**。
-4. **Sim2Real 的关键结论是「评测层落后于仿真层」**：[116] 明确指出现有基于视觉的机器人仿真基准显著推进了操作研究，但面向真实应用的评测落后；因此**仿真 SOTA 与真机 SOTA 不可直接互换**。
-5. **开源工程实践的复现瓶颈集中在数据/硬件/算力门槛与延迟约束**：[68] 将 LeRobot 定位为端到端机器人学习开源库；[81] 声称可在单张消费级 GPU 上以 30Hz 帧率、最高 480Hz 轨迹频率运行 π0 级别多视角 VLA（论文自报）。**GitHub star、下载量等热度信号在本轮证据中普遍缺失（待核实）**。
-6. **证据池质量警告**：本轮候选证据含大量主题外条目（[1] 短视频参与度、[69] 越南语法律问答、[87] 单细胞 RNA 测序、[111] 短视频超分、[31] 神经影像等），说明召回对齐度不足；凡依赖这些条目的结论均不可用于具身智能判断。
+1. **VLA（Vision-Language-Action）已成为具身智能主线架构**：从 RT-2 的"网络知识迁移到机器人控制"[5]、OpenVLA 的开源复现[106][109]，演进到 2025–2026 年的**任务适配 + 推理效率 + 推理期可控性**三条工程化支线[50][4][2][6]。近一年最具体的进展是 2025 BEHAVIOR Challenge 冠军方案基于 **Pi0.5 架构**、以 flow matching 的 correlated noise 为主要贡献，在 50 项长时程家庭任务（双臂操作 + 导航 + 上下文决策）上取得第一[50]。
+2. **世界模型（World Model）开始进入规划回路**：Embodied Tree of Thoughts 明确批评纯视频生成模型"缺乏严格物理 grounding"，转而用具身世界模型做审慎操纵规划[37]；另有工作尝试把 world-action model 从合成先验迁移到真机[24]，以及"潜在世界模型 + 形式化验证"的双系统动作 Transformer[60][61]。
+3. **人形全身控制走 RL 课程 + 真机自适应的路线**：如 annealing RL 课程实现全身羽毛球[62]、"Robot Trains Robot"的真人形真机策略自适应[118]，以及双足 locomoation 的 sim-to-real 系统性综述式章节[85]。
+4. **评测与数据侧**：Open X-Embodiment[69]、DROID[74]、LIBERO[79] 构成跨本体/大规模真机/终身学习的经典三件套；2025–2026 年出现 VLA-Arena[115]、Embodied Agent Arena[35] 等面向 VLA/VLM 泛化性的新基准。
+5. **结构性风险**：2025 FMTI 显示基础模型透明度平均分从 58 降至 40（满分 100），训练数据与算力披露最不透明[49]——这意味着具身基础模型的可核查性同样受限。
+6. **本报告的最大缺口（必须明示）**：本轮候选证据中，**世界模型、人形全身控制、导航代理三个维度的一手证据显著薄弱**，且几乎所有前沿条目均为自述型 arXiv 预印本，**缺少第三方复现、榜单交叉验证与开源状态确认**；相关结论一律降级表述。`> 待核实`
 
 ---
 
-## 一、关键前沿进展
+## 一、关键前沿进展（2024–2026，最新进展单列）
 
-### 1.1 VLA 架构：从单模型走向分层/双系统
+### 1.1 VLA 基础模型：从"能不能做"转向"做得多长、多大算力、可不可控"
 
-- 双系统（Dual-System）VLA 已被明确定位为「具身智能研究的热点」，但社区缺少足够的开源实现用于性能分析与优化；[104] 以此为切口，给出结构设计总结对比＋实证分析＋开源双系统 VLA 模型。
-  **证据四轴**：热度 citations=94（候选抽取块口径）[104]；权威 arXiv.org 预印本，未见同行评审 [104]；关注度 高（在候选证据中引用数最高之一）[104]；推荐度 ★★★★★（与本主题最直接相关且热度最高）[104]。
-- 综述层面已形成多篇并行梳理：[97][98] 面向具身操作的 VLA 综述（同文两版链接）、[102] 从模块到里程碑与挑战的 VLA 解剖、[100] 面向效率的系统综述。
-  **证据四轴**：热度 [100] citations=27（候选块口径），[97][98][102] `> 待核实`；权威 均为 arXiv 预印本，未见同行评审 [97][98][100][102]；关注度 中（[100] 有 27 次引用支撑）[100]，其余 `> 待核实`；推荐度 ★★★★☆（作为分类骨架可用，但需注意综述时效）[100][102]。
-- 小规模与低资源路线同样活跃：[83] 提出 tiny-scale VLA 的有效范式，[96] 提出低资源推理加速方案 BLURR。**二者具体增益数字`> 待核实`**（候选块仅含摘要）。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本，未见同行评审 [83][96]；关注度 `> 待核实`；推荐度 ★★★☆☆（作为效率方向的补充线索，需核实实验口径）。
+- **长时程多技能任务适配**：2025 BEHAVIOR Challenge 第一名方案建立在 Pi0.5 架构之上，主要技术贡献是 flow matching 的 correlated noise，基准含 50 项 photo-realistic 仿真长时程家庭任务，要求双臂操作、导航与情境感知决策[50]。
+  - **热度**：`> 待核实`（候选块未给引用数或 star）｜**权威**：arXiv 预印本（cs.RO, v2），第一方竞赛方案报告，未见同行评审或第三方复现[50]｜**关注度**：中——竞赛冠军方案通常受 VLA/长时程操作社区关注，但无第三方榜单确认[50]｜**推荐度**：★★★★☆——直接对应 VLA 能力边界，且基于已有 Pi0.5 架构，改进可归因[50]。
+- **推理侧轻量化**：BLURR 提出轻量推理封装，可**不重训、不改权重**地插入现有 VLA 控制器，以支撑高频机器人控制或消费级 GPU[4][116]。
+  - **热度**：`> 待核实`｜**权威**：arXiv 预印本（cs.RO），未见会议/期刊标注与开源仓库信息[4][116]｜**关注度**：中——切中 VLA 真机高频部署的工程痛点[4]｜**推荐度**：★★★☆☆——问题真实，证据仅限摘要[4]。
+- **推理期可控性（不重训干预）**：在 Alpamayo-R1 的 Qwen3-VL backbone 上，对检测器定位的交通参与者视觉 token 施加**有界加性 pre-softmax 注意力偏置**，作为 fail-open forward pre-hook、不改变权重；在 50 个合成 lane-change 场景中，轨迹解码器对偏置幅度呈**单调剂量-响应**，均值位移约 17 cm、clamp 处横向偏移约 140 cm[2]。
+  - **热度**：`> 待核实`｜**权威**：arXiv 预印本（cs.CV），未见同行评审[2]｜**关注度**：中——VLA 安全可控性的新方向[2]｜**推荐度**：★★★☆☆——实验仅 50 个合成场景、单一 backbone，真机泛化未证实[2]。
+- **VLA 自省能力**：有工作主张 VLA 模型内部**已存在可用于路径偏差检测的注意力头**，针对导航任务中视觉推理幻觉问题[6]。
+  - **热度**：`> 待核实`｜**权威**：arXiv 预印本（cs.RO）[6]｜**关注度**：中——把 VLA 幻觉问题转化为可解释性/自省问题[6]｜**推荐度**：★★★☆☆。
+- **VLA 与工具调用结合**：ART（Agentic Robot with Tool-use）是 tool-injection 框架，可微调任意 VLA 模型以调用现成工具模块（低层视觉、高层 affordance、本体增强）[8]。
+  - **热度**：`> 待核实`｜**权威**：arXiv 预印本（cs.RO, v3）[8]｜**关注度**：中——"VLA + agentic tool use"是 2026 年明显升温的范式[8]｜**推荐度**：★★★☆☆。
+- **跨本体与统一动作空间**：One Policy, Many Embodiments 提出统一的 camera-centric action geometry 预训练以支持异构本体[54]；MiMo-Embodied 为 X-Embodied 基础模型技术报告[55]；Embodied-R1.5[40]、Hy-Embodied-VLM-1.0[41]、ME-VLM[56] 分别推进具身基础模型与统一 VLM 智能体协同。这些条目均为 2025-11 至 2026-09 期间的一手预印本/技术报告。
+  - **热度**：`> 待核实`｜**权威**：arXiv 预印本/技术报告，未见同行评审[40][41][54][55][56]｜**关注度**：中——跨本体统一是社区公认的核心开放问题[29][54]｜**推荐度**：★★★☆☆——方向重要，但技术报告类证据难以独立验证[55]。
 
-### 1.2 实时性与推理效率成为独立工程命题
+### 1.2 速度与微调实践
 
-- [81] 声称可将 π0 级别的多视角 VLA 在**单张消费级 GPU** 上以 30Hz 帧率、最高 480Hz 轨迹频率运行，从而支撑此前被认为大 VLA 无法完成的动态实时任务（论文自报，未同行评审）。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本 [81]，未见同行评审；关注度 中（实时 VLA 是部署核心瓶颈，但候选块无量化热度信号）；推荐度 ★★★★☆（若结论可复现，对 ROS2 部署路径意义重大，需核实硬件型号与模型版本）。
-- [100] 指出 VLA 系统的核心瓶颈来自**巨大的计算与内存需求**，这是效率综述的立论前提。
-  **证据四轴**：热度 citations=27 [100]；权威 arXiv 预印本 [100]；关注度 中 [100]；推荐度 ★★★★☆（效率维度的首选入口综述）。
+- 微调效率成为独立议题：有工作系统研究 VLA 微调的**速度与成功率权衡**[107]；扩散策略推理加速方面出现动态缓存策略 OnlineCache（面向迭代去噪的静态缓存局限）[13]。其中 [13] 属通用扩散加速，与机器人策略仅为间接相关。
 
-### 1.3 世界模型 × VLA 的联合与引导
+### 1.3 透明度与可核查性（跨领域但方法学相关）
 
-- [22] RynnVLA-002：世界模型以动作与视觉输入预测未来图像状态以学习环境物理并精炼动作生成，VLA 再从图像观测产生后续动作、反哺世界模型图像生成；论文声称统一框架在仿真与真机任务上均超过单独的 VLA 与世界模型，LIBERO 仿真成功率 **97.4%**。
-  **证据四轴**：热度 citations=65（Semantic Scholar，候选块口径）[22]；权威 arXiv 预印本（cs.RO），候选块未标注同行评审，v1 2025-11-21、v3 2026-05-30 [22]；关注度 高（候选集中引用最高）[22]；推荐度 ★★★★☆（相关性最强，但 97.4% 必须标注为论文自报的仿真口径）。
-- [84] DREAMSTEER：声称潜在世界模型可在**部署期引导 VLA 策略且无需任何微调**。**具体增益`> 待核实`**（候选块仅摘要）。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本 [84]，未见同行评审；关注度 `> 待核实`；推荐度 ★★★☆☆（若成立，对「世界模型如何低成本介入部署」是关键线索）。
-- [86] 主张 VLA 可从与运动图像扩散（motion image diffusion）的联合学习中获益。**具体指标`> 待核实`**。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本 [86]；关注度 `> 待核实`；推荐度 ★★★☆☆（与 [22] 属同一「联合训练」思路的旁证）。
-
-> **缺口**：候选证据中**没有任何一条**提供世界模型/生成式仿真在**策略评估（policy evaluation）**上相对端到端 VLA 的协议、一致性指标或与真机结果相关性的数据 [22][24][20]。该维度 `> 待核实`。
-
-### 1.4 鲁棒性与失效模式成为新关注点
-
-- LIBERO-Para [113]：在独立变化动作表达与物体指代的受控改写条件下，7 个 VLA 配置（0.6B–7.5B）出现**一致的 22–52 个百分点性能下降**，退化主要由物体层面的词汇替换驱动，即便简单同义词替换也会触发。
-  **证据四轴**：热度 `> 待核实`（候选块未提供引用数）；权威 arXiv 预印本 arXiv:2603.28301v3（cs.LG，v1 2026-03-30，v3 2026-09-26），未见同行评审 [113]；关注度 低（无引用/star/榜单信号）；推荐度 ★★★☆☆（数字具体但仅来自摘要，需核实实验设置）。
-- [85] 评估并缓解 VLA 中的**反事实失败（vision overrides language）**，即视觉证据压倒语言指令。**具体指标`> 待核实`**。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本 [85]；关注度 `> 待核实`；推荐度 ★★★★☆（与 [113] 构成「语言侧鲁棒性」与「视觉侧鲁棒性」的一对诊断视角）。
-- LIBERO-VPro [114]：把评测焦点从静态任务成功率转向执行过程中的**闭环视觉鲁棒性**，通过扰动执行期可用视觉证据进行评估，并指出标准操作基准普遍假设视觉观测「干净、及时、一致」。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本 arXiv:2609.24350v1（cs.RO），未见同行评审 [114]；关注度 低；推荐度 ★★★☆☆（对「仿真评测是否反映真机鲁棒性」提供直接切入点，需核实任务/本体覆盖）。
-
-### 1.5 新本体与新场景扩展
-
-- [82] AeroManip-VLA：把 VLA 扩展到**空中操作**，用 RL 生成的演示解决数据稀缺。**具体成功率`> 待核实`**。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本（cs.RO）[82]，未见同行评审；关注度 `> 待核实`；推荐度 ★★★☆☆（代表「VLA 外推到非地面本体」的方向）。
-- [58] Robot Trains Robot：面向人形机器人的真机策略自适应与学习，指出仿真 RL 已显著推进人形运动任务，但**从零开始的真机 RL 或从预训练策略自适应的做法仍罕见**。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本（cs.RO）[58]，未见同行评审；关注度 中（触及真机学习这一公认瓶颈）；推荐度 ★★★★☆（人形 + 真机自适应的直接线索）。
-- [92] 面向 VLA 驾驶模型的推理期注意力引导（attention steering）；[94] 用组合式上下文微调 VLM 做复杂装配动作理解。**二者指标`> 待核实`**。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本 [92][94]，未见同行评审；关注度 `> 待核实`；推荐度 ★★★☆☆（体现 VLA 向驾驶/装配等垂直场景扩散）。
-
-### 1.6 安全、认证与治理
-
-- [88] 系统性梳理具身 AI 的风险、攻击与防御，指出具身 AI 把感知、认知、规划与交互整合进开放世界安全关键环境中的智能体。**为 2026 年条目（cs.CR）**。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本（cs.CR）[88]，未见同行评审；关注度 `> 待核实`；推荐度 ★★★★☆（安全维度目前最直接的系统性来源）。
-- [74] 提出基于成熟度的具身 AI 认证框架与量化评分机制。**具体机制`> 待核实`**。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv 预印本（cs.AI）[74]；关注度 `> 待核实`；推荐度 ★★★☆☆（治理/认证方向的早期线索）。
-- [2] 2025 年基础模型透明度指数（第三版）属通用基础模型治理，**与具身智能仅有间接关系**，不建议作为具身结论依据。
-  **证据四轴**：热度 `> 待核实`；权威 arXiv（cs.AI）[2]；关注度 `> 待核实`；推荐度 ★★☆☆☆（相关度低）。
+- **2025 FMTI** 为第三版年度评估，新增 data acquisition、usage data、monitoring 指标并首次评估 Alibaba、DeepSeek、xAI；平均分从 2024 年 58 分降至 2025 年 40 分；公司在 training data、training compute 与旗舰模型 post-deployment usage/impact 上最不透明[49]。
+  - **热度**：`> 待核实`（候选块未给引用数）｜**权威**：arXiv 预印本（cs.AI），作者含 Percy Liang、Rishi Bommasani，年度系列第三版[49]｜**关注度**：高——政策与学术界持续跟踪的年度指数[49]｜**推荐度**：★★★★☆——为评估具身基础模型数据/算力披露提供方法论背景[49]。
 
 ---
 
-## 二、方法谱系（模块化 / 端到端 / 基础模型 / 世界模型）
+## 二、方法谱系：模块化 → 端到端 → 基础模型 → 世界模型
 
-### 2.1 模块化流水线（2018 之前 → 至今仍在使用）
+| 阶段 | 代表范式 | 代表工作 | 关键转折 | 引用 |
+|---|---|---|---|---|
+| 模块化流水线 | 感知 / 规划 / 控制分层，任务规划依赖符号或搜索形式化 | 任务规划形式化传统（HTN 形式与语义） | 依赖人工建模，难以泛化到开放环境 | [58] |
+| LLM 规划 + 技能 grounding | LLM 生成高层计划，底层由可行技能/代码落地 | SayCan、Code as Policies（种子资源） | 把语言模型的语义先验接入真实机器人，但底层技能仍为手工定义 | 种子资源（无本次检索编号） |
+| 端到端模仿学习 | 视觉-动作直接映射，无需显式状态估计 | One-Shot Visual Imitation via Meta-Learning；Self-Supervised Correspondence in Visuomotor Policy Learning；Diffusion Policy | 从"少样本模仿"到"动作扩散"生成建模，动作分布建模能力大幅提升 | [22][10][16] |
+| 基础模型（VLA） | 视觉-语言预训练知识迁移到动作输出；统一 token 化动作 | RT-2；OpenVLA；VLA 综述 | 网络知识成为机器人泛化来源，开源权重使社区可复现 | [5][106][109][51] |
+| 基础模型 + 可靠性工程 | 推理加速、工具调用、推理期干预、细粒度感知 | BLURR；ART；推理期注意力引导；CCFT/LP-AT 装配动作理解 | 从"提升上限"转向"可部署、可干预、可解释" | [4][8][2][3] |
+| 世界模型 / 双系统 | 潜在世界模型 + 慢思考规划 + 快动作执行；世界模型用于规划前推演 | Embodied Tree of Thoughts；Latent World Models + Formal Verification；World-Action Model Sim2Real；多模态世界模型与扩散策略协同训练 | 从"反应式策略"转向"执行前推演"，并引入形式化验证 | [37][60][61][24][91] |
 
-**特征**：感知 → 任务/运动规划 → 控制器分离；可解释、可验证，但接口信息损失大、泛化差。
+**谱系判断（含限定）**：
+- 方法上，"模块化 → 端到端 → 基础模型"这一主线在综述性材料中有一致叙述：VLA 综述系统整理了具身操作中的 VLA 方法[51]；Robot Learning 教程把领域描述为"从经典模型驱动方法转向数据驱动学习范式的拐点"[32]（**推荐度**：★★★★☆；**权威**：arXiv cs.RO 教程类[32]；**热度**：`> 待核实`）。
+- 模块化并未消失，而是以"工具模块被 VLA 调用"的形式回归（ART[8]），这与早期 LLM 规划 + 技能 grounding 的思路形成呼应。
+- `> 待核实`：本报告未检索到权威的、时间连续的谱系综述能同时覆盖 2023 年前模块化方法与 2026 年世界模型范式，[51][57][32] 可作部分替代，但完整谱系仍需补充检索。
 
-- 规划与形式化：HDDL 2.1 讨论时序 HTN 规划的形式化与语义 [6]；Isaacs 方法求解微分博弈的**最优控制律综合** [48]。
-- 语言→任务的模块化衔接：[5] 面向协作手术机器人的 LLM 自然语言指令歧义检测；[3] 人机交互中的信任与接受度（TRUST 2025 workshop）。
-- 抓取与运动规划：[117] 面向 Real Robot Challenge 的灵巧操作抓取与运动规划。
+---
 
-**证据四轴（代表条目 [5][6][117]）**：热度 `> 待核实`；权威 均为 arXiv 预印本 [5][6][117]，未见同行评审；关注度 低–中（属传统模块化路线的延续）；推荐度 ★★☆☆☆（作为谱系起点保留，非当前主线）。
+## 三、仿真平台与基准对比
 
-### 2.2 端到端模仿学习（2022–2023 的范式转折）
+> 说明：候选证据中**缺少仿真平台本体的一手论文证据**（如 IsaacLab、Genesis、ManiSkill 的官方技术报告未出现在 119 条编号来源中）。以下平台信息来自种子资源链接，属**未经本次实时检索确认**的条目。
 
-**特征**：视觉/状态 → 动作 的直接映射，以行为克隆（BC）与扩散策略为主。
+| 平台 / 基准 | 类型 | 年份 | 关键特征 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 |
+|---|---|---|---|---|---|---|---|---|
+| BEHAVIOR-1K / OmniGibson | 仿真基准 | 2024 | 1000 项以人为中心的日常活动基准 | `> 待核实` | 种子资源，本次未取得一手论文条目 | 中——被 2025 BEHAVIOR Challenge 沿用为任务来源[50] | ★★★★☆ | https://behavior.stanford.edu/ ／ https://github.com/StanfordVL/BEHAVIOR-1K |
+| IsaacLab | GPU 并行机器人学习框架 | — | GPU 并行训练基础设施 | `> 待核实` | 种子资源（官方 GitHub），未见本次检索论文证据 | 中——Isaac 系列在机器人 RL 社区广泛使用 | ★★★★☆ | https://github.com/isaac-sim/IsaacLab |
+| ManiSkill | GPU 并行操作基准 | — | 操作任务并行评测 | `> 待核实` | 种子资源（官方 GitHub） | 中 | ★★★☆☆ | https://github.com/haosulab/ManiSkill |
+| Genesis | 生成式物理仿真引擎 | — | 生成式物理仿真 | `> 待核实` | 种子资源（官方 GitHub） | 中——发布期社区讨论较多，但本次未取得可核查热度数字 | ★★★☆☆ | https://github.com/Genesis-Embodied-AI/Genesis |
+| VLA-Arena | VLA 评测框架 | 2025 | 开源 VLA benchmark 框架 | `> 待核实` | arXiv 预印本[115] | 中 | ★★★☆☆ | http://arxiv.org/abs/2512.22539 |
+| Embodied Agent Arena | 前沿 VLM 智能体真机/任务就绪度实证评测 | 2026 | 检验前沿 VLM 是否可作为"机器人通才" | `> 待核实` | arXiv 预印本（cs.RO）[35] | 中——直面"VLM 能力 ≠ 机器人能力"的争议 | ★★★★☆ | http://arxiv.org/abs/2610.00854v1 |
+| LIBERO | 终身学习知识迁移基准 | 2023 | 面向 lifelong robot learning | `> 待核实` | arXiv 预印本[79] | 中高——长期被用作迁移学习基准 | ★★★★☆ | http://arxiv.org/abs/2306.03310v2 |
+| Sim-to-Real 策略评测基准视角 | 评测方法学 | 2025 | 指出仿真基准与真机评测脱节 | `> 待核实` | arXiv 预印本[89] | 中 | ★★★★☆ | http://arxiv.org/abs/2508.11117v1 |
 
-- **[47] ACT（Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware）**：用低成本硬件 + 动作分块实现精细双臂操作，发表于 **Robotics: Science and Systems（RSS）**，**citations=2553**（候选块口径）。这是把高精度双臂操作从「高端机器人 + 精确传感」拉低到「低成本 + 数据驱动」的转折点。
-  **证据四轴**：热度 citations=2553 [47]；权威 RSS（同行评审会议，A 级）[47]；关注度 高（候选证据中引用数最高）[47]；推荐度 ★★★★★（端到端模仿学习的必读基石）。
-- 演示质量与异构性：[25] 用偏好与表示学习区分并模仿异构人类演示，处理次优演示对数据质量的损害；[35] 从「收敛监督者」进行 on-policy 机器人模仿学习；[42] 在异构动作空间下做强化模仿。
-  **证据四轴**：热度 `> 待核实`；权威 均 arXiv 预印本 [25][35][42]；关注度 低–中；推荐度 ★★★☆☆（数据质量问题在 VLA 时代以「数据引擎」形式复现）。
-- 生成式策略：Diffusion Policy 类方法的轨迹选择问题被 [37] KDPE
+**对比结论（限定表述）**：仿真侧的"GPU 并行物理 + 大规模任务套件"与评测侧的"VLA 泛化性/就绪度"正在分化成两套基础设施——前者服务训练吞吐，后者服务可信度审计[115][35][89]。**二者之间尚无公认的映射关系**：`> 待核实`。
+
+---
+
+## 四、经典与奠基性工作
+
+> 下表"最新进展"与"经典工作"严格分节：本节仅收录 2024 年及以前的奠基性/经典条目。
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control | 2023 | Google DeepMind 等 | `> 待核实` | arXiv 预印本（cs.RO）；同行评审状态 `> 待核实` | 高——VLA 命名的奠基条目，后续工作普遍以其为起点[51] | ★★★★★ | http://arxiv.org/abs/2307.15818v1 | 首次系统证明网络规模视觉-语言知识可迁移为机器人动作 token[5] |
+| Diffusion Policy: Visuomotor Policy Learning via Action Diffusion | 2023 | 学术团队 | `> 待核实` | arXiv 预印本（v5）[16] | 高——动作扩散成为后续策略学习主流组件，被 2026 年工作继续引用/扩展[15][13] | ★★★★★ | http://arxiv.org/abs/2303.04137v5 | 用扩散生成建模替代高斯策略，显著改善多模态动作分布拟合[16] |
+| PaLM-E: An Embodied Multimodal Language Model | 2023 | Google | `> 待核实` | 种子资源，本次未取得一手编号条目 | 高——具身多模态 LLM 奠基 | ★★★★☆ | https://arxiv.org/abs/2303.03378 | 把具身观测直接注入多模态 LLM 的早期范式 |
+| SayCan: Do As I Can, Not As I Say | 2022 | Google | `> 待核实` | 种子资源 | 高——LLM 规划 × 技能可行性 grounding 的经典组合 | ★★★★★ | https://arxiv.org/abs/2204.01691 | 确立"语言规划必须受可行性约束"的原则 |
+| Code as Policies | 2022 | Google | `> 待核实` | 种子资源 | 高——LLM 生成策略代码的开创工作 | ★★★★☆ | https://arxiv.org/abs/2209.07753 | 把策略表达为可执行代码，为后续工具调用范式埋下伏笔[8] |
+| One-Shot Visual Imitation Learning via Meta-Learning | 2017 | 学术团队 | `> 待核实` | arXiv 预印本[22] | 中高——少样本模仿学习经典 | ★★★★☆ | http://arxiv.org/abs/1709.04905v1 | 元学习框架下的单次视觉模仿[22] |
+| Self-Supervised Correspondence in Visuomotor Policy Learning | 2019 | 学术团队 | `> 待核实` | arXiv 预印本[10] | 中——视觉对应表征的前置工作 | ★★★☆☆ | http://arxiv.org/abs/1909.06933v1 | 用自监督对应关系改善视觉运动策略泛化[10] |
+| Open X-Embodiment: Robotic Learning Datasets and RT-X Models | 2023 | 跨机构协作 | `> 待核实` | arXiv 预印本（v9）[69] | 高——跨本体真机数据的事实标准之一 | ★★★★★ | http://arxiv.org/abs/2310.08864v9 | 汇集多机构多本体真机数据并训练 RT-X 模型[69] |
+| DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset | 2024 | 跨机构协作 | `> 待核实` | arXiv 预印本（v2）[74] | 高——大规模"野外"真机操作数据集 | ★★★★☆ | http://arxiv.org/abs/2403.12945v2 | 强调场景与任务的野外多样性[74] |
+| LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning | 2023 | 学术团队 | `> 待核实` | arXiv 预印本（v2）[79] | 中高——终身机器人学习基准 | ★★★★☆ | http://arxiv.org/abs/2306.03310v2 | 面向知识迁移与终身学习的标准化评测[79] |
+| ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation | 2024 | 学术/工业团队 | `> 待核实` | arXiv 预印本[17] | 中高——低成本双臂遥操作硬件范式 | ★★★★☆ | http://arxiv.org/abs/2405.02292v1 | 让双臂数据采集在实验室尺度可负担[17] |
+| Understanding Domain Randomization for Sim-to-real Transfer | 2021 | 学术团队 | `> 待核实` | arXiv 预印本（v2）[87] | 中高——域随机化的理论化工作 | ★★★★☆ | http://arxiv.org/abs/2110.03239v2 | 为域随机化提供分析框架[87] |
+| DROPO: Sim-to-Real Transfer with Offline Domain Randomization | 2022 | 学术团队 | `> 待核实` | arXiv 预印本（v2）[86] | 中——离线域随机化代表 | ★★★☆☆ | http://arxiv.org/abs/2201.08434v2 | 用离线数据估计随机化分布，减少真机调参[86] |
+| One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay | 2017 | 学术团队 | `> 待核实` | arXiv 预印本（v2）[28] | 中——导航代理早期 RL 工作 | ★★★☆☆ | http://arxiv.org/abs/1711.10137v2 | 交互回放实现单次导航 RL[28] |
+| Learning to Act without Actions（世界模型线代表） | 2023 | 多机构 | `> 待核实` | 种子资源，本次未取得一手编号条目 | 中——世界模型驱动策略学习代表 | ★★★☆☆ | https://arxiv.org/abs/2312.10807 | 从无动作标签视频中学习可执行策略的思路 |
+
+---
+
+## 五、开源项目与工程实践栈
+
+> **重要限定**：候选证据中**未见任何官方 GitHub 仓库的 star 数、最近提交时间或下载量**，因此"热度"列几乎全部为 `> 待核实`。本节项目线索均来自 arXiv 论文标题/摘要或种子资源，**开源可用性与许可证未经验证**。
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| OpenVLA: An Open-Source Vision-Language-Action Model | 2024 | 学术团队 | `> 待核实` | arXiv 预印本（v3）；另有同题条目[109] | 高——被广泛作为开源 VLA 基线[51] | ★★★★★ | http://arxiv.org/abs/2406.09246v3 | 开源 VLA 权重的关键节点[106][109] |
+| LeRobot: An Open-Source Library for End-to-End Robot Learning | 2026 | 学术/社区 | `> 待核实` | arXiv 预印本（cs.RO）[112] | 中——端到端机器人学习库定位 | ★★★★☆ | http://arxiv.org/abs/2602.22818v1 | 端到端机器人学习工具库[112]；**是否为已知同名主流库的正式论文，`> 待核实`** |
+| Dexbotic: Open-Source Vision-Language-Action Toolbox | 2025 | 学术团队 | `> 待核实` | arXiv 预印本[110] | 中 | ★★★★☆ | https://arxiv.org/abs/2510.23511 | VLA 工具箱，面向数据/训练/部署流水线[110] |
+| RealMirror: Open-Source VLA Platform for Embodied AI | 2025 | 学术团队 | `> 待核实` | arXiv 预印本[111] | 中 | ★★★☆☆ | https://arxiv.org/abs/2509.14687 | 综合性开源 VLA 平台[111] |
+| StemVLA: Open-Source VLA with 3D Spatial Geometry & 4D Historical Representation | 2026 | 学术团队 | `> 待核实` | arXiv 预印本[114] | 中——3D/4D 表征是 VLA 新方向 | ★★★☆☆ | https://arxiv.org/abs/2602.23721 | 未来 3D 几何知识与 4D 历史表征[114] |
+| BLURR（推理封装） | 2025 | 学术团队 | `> 待核实` | arXiv 预印本[4][116] | 中 | ★★★☆☆ | https://arxiv.org/abs/2512.11769 | 可插拔、不重训的 VLA 轻量推理层[4][116] |
+| 开源 VLA 综述（期刊） | 2025 | 期刊综述 | `> 待核实` | Springer 期刊文章（DOI 存在）[113] | 中 | ★★★★☆ | https://doi.org/10.1007/s42791-025-00108-1 | 对开源 VLA 生态的系统梳理[113] |
+| AI Robotics Open Source R&D Survey (2023–2025) | 2025 | 综述作者 | citations = 1[75] | TechRxiv 预印本[75] | 低——引用数仅 1[75] | ★★★☆☆ | https://doi.org/10.36277/techrxiv.175756484.48648133/v1 | 覆盖基础模型/数据集/仿真/基准四支柱[75]；**引用数偏低，宜作为索引而非结论来源** |
+| IsaacLab | — | NVIDIA（种子资源） | `> 待核实` | 官方 GitHub（种子资源） | 中 | ★★★★☆ | https://github.com/isaac-sim/IsaacLab | GPU 并行机器人学习框架 |
+| ManiSkill | — | 社区（种子资源） | `> 待核实` | 官方 GitHub | 中 | ★★★☆☆ | https://github.com/haosulab/ManiSkill | GPU 并行操作基准 |
+| Genesis | — | 社区（种子资源） | `> 待核实` | 官方 GitHub | 中 | ★★★☆☆ | https://github.com/Genesis-Embodied-AI/Genesis | 生成式物理仿真引擎 |
+| BEHAVIOR-1K / OmniGibson | — | Stanford（种子资源） | `> 待核实` | 官方 GitHub + 基准主页 | 中高 | ★★★★☆ | https://github.com/StanfordVL/BEHAVIOR-1K | 1000 项日常活动基准与配套仿真 |
+
+**工程实践侧观察**：
+- 2025–2026 年开源工作的重心明显从"发布模型"转向"发布工具箱/推理层/评测框架"（Dexbotic[110]、RealMirror[111]、LeRobot[112]、VLA-Arena[115]、BLURR[4]），说明社区瓶颈已从算法原型转向**部署与可比性**。
+- ROS2 集成：本轮候选中**未见任何 ROS2 相关的 VLA 部署一手论文**。`> 待核实`（需要在下一轮补充 `ros2 VLA deployment`、`ros2_control policy inference` 等检索词）。
+
+---
+
+## 六、数据集与评测协议
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| Open X-Embodiment | 2023 | 跨机构协作 | `> 待核实` | arXiv 预印本（v9）[69] | 高 | ★★★★★ | https://robotics-transformer-x.github.io/ ；http://arxiv.org/abs/2310.08864v9 | 跨本体真机数据聚合，RT-X 训练基座[69] |
+| DROID | 2024 | 跨机构协作 | `> 待核实` | arXiv 预印本（v2）[74] | 高 | ★★★★☆ | http://arxiv.org/abs/2403.12945v2 | 大规模 in-the-wild 真机操作数据[74] |
+| BEHAVIOR-1K | 2024 | Stanford | `> 待核实` | 种子资源 + 基准主页；2025 Challenge 沿用其任务体系[50] | 中高 | ★★★★☆ | https://behavior.stanford.edu/ | 1000 项日常活动、以人为中心[50] |
+| LIBERO | 2023 | 学术团队 | `> 待核实` | arXiv 预印本[79] | 中高 | ★★★★☆ | http://arxiv.org/abs/2306.03310v2 | 终身学习/知识迁移评测[79] |
+| AgiBot World | — | 机构数据集 | `> 待核实` | 种子资源（未取得一手论文编号） | 中——大规模真机具身数据集定位 | ★★★☆☆ | https://agibot-world.com/ | 大规模真机数据——**规模数字与许可 `> 待核实`** |
+| VLA-Arena | 2025 | 学术团队 | `> 待核实` | arXiv 预印本[115] | 中 | ★★★☆☆ | http://arxiv.org/abs/2512.22539 | 开源 VLA 基准框架[115] |
+| Embodied Agent Arena | 2026 | 学术团队 | `> 待核实` | arXiv 预印本[35] | 中 | ★★★★☆ | http://arxiv.org/abs/2610.00854v1 | 用实证研究检验前沿 VLM 智能体作为机器人通才的就绪度[35] |
+| LongCoT | 2026 | 学术团队 | `> 待核实` | arXiv 预印本[34] | 中 | ★★★☆☆ | http://arxiv.org/abs/2604.14140v1 | 长程思维链推理可扩展基准；**非机器人专用**，可作为长时程推理评测参照[34] |
+| LongDS-Bench | 2026 | 学术团队 | `> 待核实` | arXiv 预印本（v3）[39] | 中 | ★★☆☆☆ | http://arxiv.org/abs/2605.30434v3 | 长时程智能体数据分析失败模式；与具身仅为间接相关[39] |
+| Physical AI World Model Synthetic dataset | — | — | `> 待核实` | 仅见于 [2] 的引用，发布方与主页未在候选中给出 | 低 | ★★☆☆☆ | `> 待核实` | VLA 驾驶注意力引导实验用 50 个 lane-change 场景[2]；**来源不可核实** |
+
+**评测协议的关键问题**：
+1. **仿真真机口径割裂**：仿真基准（BEHAVIOR-1K / LIBERO / VLA-Arena）与真机数据（Open X-Embodiment / DROID）之间缺少统一的迁移评价协议，[89] 明确指出真机泛化策略的评测"落后于"仿真基准的发展[89]。
+2. **基准要求 ≠ 能力证明**：BEHAVIOR Challenge 的基准要求包含 navigation，但 [50] 未给出导航子能力的独立方法证据[50]。
+3. **失败模式被系统化评测的尝试**：Embodied Agent Arena 明确以"局部能力是否构成完整任务能力"为问题[35]，LongDS-Bench 则以失败为研究对象[39]，代表评测从"排名"转向"归因"。
+4. 数据层的方法论整理可参考 Data Pyramid for Embodied Manipulation[57]（**权威**：arXiv 预印本（v2）；**热度**：`> 待核实`；**推荐度**：★★★☆☆）。
+
+---
+
+## 七、Sim2Real 与开放问题
+
+### 7.1 Sim2Real 技术路线（近 1–2 年）
+
+| 路线 | 代表工作 | 要点 | 证据强度 | 引用 |
+|---|---|---|---|---|
+| 域随机化（含离线估计） | Understanding Domain Randomization；DROPO | 域随机化的理论刻画与离线随机化分布估计 | B 级预印本，2021–2022 经典 | [87][86] |
+| 世界-动作模型的合成先验迁移 | Efficient Sim-to-Real Transfer of World-Action Models from Synthetic Priors | 用可扩展合成数据替代昂贵真机示教，**此前未见 world-action model 从仿真迁移到真机的证明** | B 级预印本（cs.RO, 2026） | [24] |
+| 双足运动 sim-to-real | Sim-to-Real Transfer in DRL for Bipedal Locomotion | 系统解剖 "curse of simulation" 的主要来源 | B 级预印本（cs.RO, 2025，章节形式） | [85] |
+| 数字孪生 / real2sim | MATTERIX（机器人化学实验室数字孪生）；DTaaS；实时数字孪生研究方向 | 把物理实验室/设备状态镜像为可反复求解的数字对象，减少 make-and-test 迭代 | 混合：MATTERIX 为 arXiv 预印本[95]，DTaaS 为 arXiv 预印本[90]，实时数字孪生为 6G 综述[94] | [95][90][94] |
+| GPU 并行物理仿真 | 种子资源 IsaacLab / ManiSkill / Genesis | 训练吞吐基础设施 | **本次候选证据中无一手论文支撑**，`> 待核实` | 种子资源 |
+
+**Sim2Real 证据强度总评**：
+- 所有 Sim2Real 条目均为 2021–2026 年预印本，**无第三方复现报告或统一榜单**（[24][85][89][86][87]）。**热度**：`> 待核实`；**权威**：arXiv 预印本为主；**关注度**：中高（Sim2Real 是部署必需环节[24][89]）；**推荐度**：★★★★☆（[24][89]）／★★★☆☆（[86][87] 较旧）。
+- 数字孪生方向与具身智能主线存在**术语漂移风险**：[95][97][90][94] 中部分工作属于化学实验室自动化、经颅超声、6G 波束成形，与机器人本体策略的 real2sim 不是同一问题，**不宜混为一谈**。`> 待核实`
+
+### 7.2 开放问题与争议
+
+1. **数据瓶颈与规模化规律**：Towards Embodiment Scaling Laws in Robot Locomotion 直接检验"增加训练本体数量能否提升对未见本体的泛化"，作者明确指出该假设的 enabling factors "仍知之甚少"[29]。
+   - **热度**：`> 待核实`｜**权威**：arXiv 预印本（cs.RO, v2, 2025）[29]｜**关注度**：高——规模化规律是具身基础模型的核心争议[29]｜**推荐度**：★★★★☆。
+2. **泛化与长程任务**：VLA 在长时程多技能任务上已有竞赛级方案[50]，但导航子能力受视觉推理幻觉限制[6]；VLM 是否足以支撑"机器人通才"存在直接实证质疑[35]。
+3. **评测可复现性**：真机评测滞后于仿真[89]；VLA 基准框架刚起步[115]；竞赛方案缺少独立复现[50]。
+4. **透明度与可核查性**：FMTI 2025 显示基础模型透明度整体倒退（58 → 40 分），训练数据与算力披露最弱[49]，这对具身基础模型（含 VLA 与世界模型）的数据来源审计构成结构性障碍。
+5. **失败案例与负结果**：候选证据中含明确负向/失败导向的研究，如长时程智能体数据分析的失败基准[39]、VLA 导航的视觉推理幻觉[6]、装配动作理解因"细微运动与细粒度手物交互"而困难的表述[3]。**这是本报告中少见的负结果证据，建议在后续调研中刻意放大检索**。
+6. **工业与协作场景的落地争议**：汽车制造业具身智能的 mini review 被更正（correction）[27]，**citations = 0**[27]，说明该方向的一手证据在本轮候选中非常薄弱；手术机器人协作方面有综述与歧义检测工作[45][44]（**权威**：arXiv 预印本；**热度**：`> 待核实`；**推荐度**：★★☆☆☆，与移动操作主线相关度有限）。
+
+### 7.3 尚不能确认的事项（显式列出）
+
+- 世界模型方向**缺乏跨任务、跨本体的第三方验证**：现有条目 [37][24][60][61][91] 中，[60][61] 为 Zenodo 存档（同一工作两个 DOI），[91] 为 Research Square 预印本，均非同行评审顶会证据。`> 待核实`
+- 人形全身控制条目 [62][118] 的**真机成功率、任务数与硬件平台**在候选摘要中未给出。`> 待核实`
+- 导航代理方向**未检索到专用的具身导航基础模型证据**（仅有 [6][28]）。`> 待核实`
+- 所有开源项目的 **star 数、最近提交时间、许可证**均未取得。`> 待核实`
+
+---
+
+## 八、建议关注清单（Watchlist）
+
+| # | 关注对象 | 类型 | 为什么值得盯 | 下一步验证动作 | 引用 |
+|---|---|---|---|---|---|
+| 1 | BEHAVIOR Challenge 后续赛季与 Pi0.5 系方案 | 基准 + 方法 | 长时程双臂+导航+情境决策的最强公开赛场，任务数明确（50 项） | 跟踪官方排行榜与第三方复现；确认冠军方案开源状态 | [50] |
+| 2 | VLA 推理期干预（注意力引导/剂量-响应） | 安全可控性 | 不重训即可引导安全关键注意力，是 VLA 上真机的低成本安全补丁思路 | 在非驾驶域、更多 backbone、真机上复现；确认是否有开源 hook 实现 | [2][6] |
+| 3 | VLA 轻量推理封装（BLURR 类） | 部署工程 | 直接击中"高频真机控制 + 消费级 GPU"的落地瓶颈 | 确认代码是否开放、在 OpenVLA/pi-zero 上的实测延迟 | [4][116] |
+| 4 | World-Action Model 的 sim-to-real 迁移 | 世界模型 × Sim2Real | 若成立，可用合成数据替代昂贵真机示教 | 核查是否给出真机成功率与本体清单 | [24] |
+| 5 | Embodied Tree of Thoughts / 潜在世界模型 + 形式化验证 | 规划 + 世界模型 | 把"执行前推演"与"可验证性"结合，是差异化的技术路线 | 核查形式化验证的适用范围与实际开销；[60][61] 为 Zenodo 存档，需找正式发表版本 | [37][60][61] |
+| 6 | Embodied Agent Arena | 评测方法学 | 直接质询"前沿 VLM 是否已是机器人通才"，属于必要的降温型研究 | 复现其失败模式分类，与其他基准做交叉对照 | [35] |
+| 7 | VLA-Arena + LIBERO + Sim-to-Real 评测视角 | 评测基础设施 | 训练侧与评测侧正在分化，需要统一口径 | 对比三者的任务分布、本体覆盖与真机/仿真比例 | [115][79][89] |
+| 8 | 跨本体统一动作空间（camera-centric / X-Embodied） | 表征与预训练 | 跨本体泛化是具身基础模型的核心未解问题 | 核查 [54][55] 的本体数量与迁移评测设置 | [54][55][29] |
+| 9 | 人形全身控制：RL 课程 + 真机自适应 | 全身控制 | 高动态全身任务（如羽毛球）与"机器人训练机器人"代表两条互补路线 | 核查真机硬件、成功率与是否开源 | [62][118][85] |
+| 10 | 具身数据方法学：Data Pyramid | 数据 | 数据金字塔可为"仿真-真机-互联网数据"配比提供框架 | 核查其分类维度是否可操作化 | [57][75] |
+| 11 | FMTI 年度透明度指数 | 元证据 | 决定具身基础模型结论能否被审计 | 每年跟踪平均分与 data/compute 披露项变化 | [49] |
+| 12 | VLA 触觉反馈（VLA-Touch） | 感知扩展 | 本轮候选中**唯一带明确引用数（citations = 68）的具身条目**，属相对高热度方向 | 核查触觉硬件依赖与在接触密集任务上的成功率 | [117] |
+
+---
 
 ## 参考来源
 
-[1] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
-[2] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
-[3] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1
-[4] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2
-[5] LLM-based ambiguity detection in natural language instructions for collaborative surgical robots — http://arxiv.org/abs/2507.11525v1
-[6] HDDL 2.1: Towards Defining a Formalism and a Semantics for Temporal HTN Planning — http://arxiv.org/abs/2306.07353v1
-[7] A Simulation and Modeling of Access Points with Definition Language — http://arxiv.org/abs/1304.1836v2
-[8] Breaking the Loop: A Hierarchical Dual-System Action Transformer with Latent World Models and Formal Verification — https://doi.org/10.5281/zenodo.21381253
-[9] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1
-[10] Breaking the Loop: A Hierarchical Dual-System Action Transformer with Latent World Models and Formal Verification — https://doi.org/10.5281/zenodo.21381252
-[11] Closing the Sim-to-Real Loop Through Representation, Interface, and Feedback: How Dynamics-Aware Perception, Factored Policy Structure, and Embodied Feedback Jointly Determine Transfer Fidelity in Robot Learning — https://doi.org/10.5281/zenodo.20608583
-[12] Closing the Sim-to-Real Loop Through Representation, Interface, and Feedback: How Dynamics-Aware Perception, Factored Policy Structure, and Embodied Feedback Jointly Determine Transfer Fidelity in Robot Learning — https://doi.org/10.5281/zenodo.20642294
-[13] Is Sora a World Simulator? A Comprehensive Survey on General World Models and Beyond — http://arxiv.org/abs/2405.03520v2
-[14] Correction: Neurorobotics for automotive manufacturing industry in era of embodied intelligence: a mini review — https://doi.org/10.3389/fnbot.2026.1829525
-[15] AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3
-[16] Agricultural Disruption — https://doi.org/10.1093/biosci/biz012
-[17] State, Action, and Transition: A Bottleneck-Driven Survey of World Models — https://doi.org/10.2139/ssrn.6757578
-[18] A Brief Survey on the Integration of Large Language Models with Marine Robotic Systems — https://doi.org/10.1109/MetroSea66681.2025.11245673
-[19] Multimodal Large Language Models: A Survey of Vision-Language Integration, Architectures, and Applications — https://doi.org/10.5281/zenodo.21365120
-[20] FlowDreamer: A RGB-D World Model With Flow-Based Motion Representations for Robot Manipulation — https://arxiv.org/abs/2505.10075
-[21] Multimodal Large Language Models: A Survey of Vision-Language Integration, Architectures, and Applications — https://doi.org/10.5281/zenodo.21365121
-[22] RynnVLA-002: A Unified Vision-Language-Action and World Model — https://arxiv.org/abs/2511.17502
-[23] Plastic and Reconstructive Surgery Best Paper Awards 2025 — https://doi.org/10.1097/prs.0000000000012340
-[24] 3DFlowAction: Learning Cross-Embodiment Manipulation from 3D Flow World Model — https://arxiv.org/abs/2506.06199
-[25] Learning to Discern: Imitating Heterogeneous Human Demonstrations with Preference and Representation Learning — http://arxiv.org/abs/2310.14196v1
-[26] Machine Learning for Health (ML4H) Workshop at NeurIPS 2018 — http://arxiv.org/abs/1811.07216v2
-[27] The Barbados 2018 List of Open Issues in Continual Learning — http://arxiv.org/abs/1811.07004v1
-[28] Deep-CLASS at ISIC Machine Learning Challenge 2018 — http://arxiv.org/abs/1807.08993v1
-[29] QCD and High Energy Interactions: Moriond 2018 Theory Summary — http://arxiv.org/abs/1806.04982v2
-[30] Evaluation of an open-source implementation of the SRP-PHAT algorithm within the 2018 LOCATA challenge — http://arxiv.org/abs/1812.05901v1
-[31] Domain-randomized deep learning for neuroimage analysis — http://arxiv.org/abs/2507.13458v1
-[32] The 4th Reactive Synthesis Competition (SYNTCOMP 2017): Benchmarks, Participants & Results — http://arxiv.org/abs/1711.11439v1
-[33] DexPoint: Generalizable Point Cloud Reinforcement Learning for Sim-to-Real Dexterous Manipulation — http://arxiv.org/abs/2211.09423v2
-[34] Proceedings of the Dialogue Robot Competition 2023 — http://arxiv.org/abs/2312.14430v5
-[35] On-Policy Robot Imitation Learning from a Converging Supervisor — http://arxiv.org/abs/1907.03423v7
-[36] Multi-objective Model-based Policy Search for Data-efficient Learning with Sparse Rewards — http://arxiv.org/abs/1806.09351v3
-[37] KDPE: A Kernel Density Estimation Strategy for Diffusion Policy Trajectory Selection — http://arxiv.org/abs/2508.10511v2
-[38] Deception Game: Closing the Safety-Learning Loop in Interactive Robot Autonomy — http://arxiv.org/abs/2309.01267v2
-[39] Diffusion Co-Policy for Synergistic Human-Robot Collaborative Tasks — http://arxiv.org/abs/2305.12171v4
-[40] Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains — http://arxiv.org/abs/2309.11285v1
-[41] Strategies to Harness the Transformers' Potential: UNSL at eRisk 2023 — http://arxiv.org/abs/2310.19970v1
-[42] Reinforced Imitation in Heterogeneous Action Space — http://arxiv.org/abs/1904.03438v2
-[43] UZH_CLyp at SemEval-2023 Task 9: Head-First Fine-Tuning and ChatGPT Data Generation for Cross-Lingual Learning in Tweet Intimacy Prediction — http://arxiv.org/abs/2303.01194v2
-[44] Imitation Learning for End to End Vehicle Longitudinal Control with Forward Camera — http://arxiv.org/abs/1812.05841v1
-[45] One-Shot Visual Imitation Learning via Meta-Learning — http://arxiv.org/abs/1709.04905v1
-[46] MarsEclipse at SemEval-2023 Task 3: Multi-Lingual and Multi-Label Framing Detection with Contrastive Learning — http://arxiv.org/abs/2304.14339v1
-[47] Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware — https://arxiv.org/abs/2304.13705
-[48] The Synthesis of Optimal Control Laws Using Isaacs' Method for the Solution of Differential Games — http://arxiv.org/abs/2112.10849v2
-[49] Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning — http://arxiv.org/abs/2511.04831v1
-[50] Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning — http://arxiv.org/abs/2108.10470v2
-[51] ISAAC Newton: Input-based Approximate Curvature for Newton's Method — http://arxiv.org/abs/2305.00604v1
-[52] SSM-CGM: Interpretable State-Space Forecasting Model of Continuous Glucose Monitoring for Personalized Diabetes Management — http://arxiv.org/abs/2510.04386v1
-[53] TacEx: GelSight Tactile Simulation in Isaac Sim -- Combining Soft-Body and Visuotactile Simulators — http://arxiv.org/abs/2411.04776v1
-[54] Multiresolution analysis on compact Riemannian manifolds — http://arxiv.org/abs/1404.5037v1
-[55] Sim-to-Real gap in RL: Use Case with TIAGo and Isaac Sim/Gym — http://arxiv.org/abs/2403.07091v2
-[56] The Sound of Simulation: Learning Multimodal Sim-to-Real Robot Policies with Generative Audio — http://arxiv.org/abs/2507.02864v2
-[57] Physics Briefing Book — http://arxiv.org/abs/1910.11775v2
-[58] Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids — http://arxiv.org/abs/2508.12252v2
-[59] Untangling Dense Knots by Learning Task-Relevant Keypoints — http://arxiv.org/abs/2011.04999v1
-[60] Real2Sim or Sim2Real: Robotics Visual Insertion using Deep Reinforcement Learning and Real2Sim Policy Adaptation — http://arxiv.org/abs/2206.02679v1
-[61] CMU's IWSLT 2025 Simultaneous Speech Translation System — http://arxiv.org/abs/2506.13143v1
-[62] MLLP-VRAIN UPV system for the IWSLT 2025 Simultaneous Speech Translation Translation task — http://arxiv.org/abs/2506.18828v1
-[63] RMIT-ADM+S at the SIGIR 2025 LiveRAG Challenge — http://arxiv.org/abs/2506.14516v2
-[64] NTU Speechlab LLM-Based Multilingual ASR System for Interspeech MLC-SLM Challenge 2025 — http://arxiv.org/abs/2506.13339v2
-[65] TalTech Systems for the Interspeech 2025 ML-SUPERB 2.0 Challenge — http://arxiv.org/abs/2506.01458v1
-[66] DeDisCo at the DISRPT 2025 Shared Task: A System for Discourse Relation Classification — http://arxiv.org/abs/2509.11498v4
-[67] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
-[68] LeRobot: An Open-Source Library for End-to-End Robot Learning — http://arxiv.org/abs/2602.22818v1
-[69] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1
-[70] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1
-[71] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4
-[72] Aligning Cyber Space with Physical World: A Comprehensive Survey on Embodied AI — http://arxiv.org/abs/2407.06886v8
-[73] PANORAMA: The Rise of Omnidirectional Vision in the Embodied AI Era — http://arxiv.org/abs/2509.12989v1
-[74] Toward Maturity-Based Certification of Embodied AI: Quantifying Trustworthiness Through Measurement Mechanisms — http://arxiv.org/abs/2601.03470v2
-[75] Multi-Step Guided Diffusion for Image Restoration on Edge Devices: Toward Lightweight Perception in Embodied AI — http://arxiv.org/abs/2506.07286v1
-[76] Docling: An Efficient Open-Source Toolkit for AI-driven Document Conversion — http://arxiv.org/abs/2501.17887v1
-[77] Faith in AI can narrow the futures individuals consider — http://arxiv.org/abs/2603.28944v2
-[78] Open Source Software Development Challenges: A Systematic Literature Review on GitHub — http://arxiv.org/abs/2003.10750v3
-[79] Self-Supervised Policy Adaptation during Deployment — http://arxiv.org/abs/2007.04309v3
-[80] Explainable Machine Learning for Public Policy: Use Cases, Gaps, and Research Directions — http://arxiv.org/abs/2010.14374v3
-[81] Running VLAs at Real-time Speed — http://arxiv.org/abs/2510.26742v1
-[82] AeroManip-VLA: Scalable Vision-Language-Action Learning for Aerial Manipulation with RL-Generated Demonstrations — http://arxiv.org/abs/2609.36915v1
-[83] VLA-Adapter: An Effective Paradigm for Tiny-Scale Vision-Language-Action Model — http://arxiv.org/abs/2509.09372v2
-[84] DREAMSTEER: Latent World Models Can Steer VLA Policies During Deployment Without Any Finetuning — http://arxiv.org/abs/2607.02865v1
-[85] When Vision Overrides Language: Evaluating and Mitigating Counterfactual Failures in VLAs — http://arxiv.org/abs/2602.17659v2
-[86] Robotic VLA Benefits from Joint Learning with Motion Image Diffusion — http://arxiv.org/abs/2512.18007v1
-[87] DeepSeq: High-Throughput Single-Cell RNA Sequencing Data Labeling via Web Search-Augmented Agentic Generative AI Foundation Models — http://arxiv.org/abs/2506.13817v1
-[88] Safety in Embodied AI: A Survey of Risks, Attacks, and Defenses — http://arxiv.org/abs/2605.02900v2
-[89] A Survey: Learning Embodied Intelligence from Physical Simulators and World Models — http://arxiv.org/abs/2507.00917v3
-[90] Robust Tabular Foundation Models — http://arxiv.org/abs/2512.03307v1
-[91] Foundations of GenIR — http://arxiv.org/abs/2501.02842v1
-[92] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1
-[93] Self-Evolving Autonomous Software Architectures Using Large-Scale Graph Neural Networks and Real-Time Big Data Feedback Loops for Economic Optimization and Cost-Efficient Resource Allocation — https://doi.org/10.63544/jbii.v5i5.188
-[94] Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos — http://arxiv.org/abs/2607.10797v1
-[95] Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge — http://arxiv.org/abs/2512.06951v2
-[96] BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Models — http://arxiv.org/abs/2512.11769v1
-[97] Survey of Vision-Language-Action Models for Embodied Manipulation — http://arxiv.org/abs/2508.15201v2
-[98] Survey of Vision-Language-Action Models for Embodied Manipulation — https://arxiv.org/abs/2508.15201
-[99] Denghaoyuan123/Awesome-RL-VLA: Awesome-RL-VLA v0.1.0 — https://doi.org/10.5281/zenodo.17713487
-[100] Efficient Vision-Language-Action Models for Embodied Manipulation: A Systematic Survey — https://arxiv.org/abs/2510.17111
-[101] Denghaoyuan123/Awesome-RL-VLA: Awesome-RL-VLA v0.1.0 — https://doi.org/10.5281/zenodo.17713146
-[102] An Anatomy of Vision-Language-Action Models: From Modules to Milestones and Challenges — https://arxiv.org/abs/2512.11362
-[103] Denghaoyuan123/Awesome-RL-VLA: Awesome-RL-VLA v0.1.0 — https://doi.org/10.5281/zenodo.17713147
-[104] OpenHelix: A Short Survey, Empirical Analysis, and Open-Source Dual-System VLA Model for Robotic Manipulation — https://arxiv.org/abs/2505.03912
-[105] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators — http://arxiv.org/abs/2507.12143v1
-[106] DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset — http://arxiv.org/abs/2403.12945v2
-[107] Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation — http://arxiv.org/abs/2407.15282v1
-[108] Open X-Embodiment: Robotic Learning Datasets and RT-X Models — http://arxiv.org/abs/2310.08864v9
-[109] Open-Ended Learning Leads to Generally Capable Agents — http://arxiv.org/abs/2107.12808v2
-[110] The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset — http://arxiv.org/abs/2405.19595v1
-[111] NTIRE 2025 Challenge on Short-form UGC Video Quality Assessment and Enhancement: KwaiSR Dataset and Study — http://arxiv.org/abs/2504.15003v1
-[112] Autonomous Improvement of Instruction Following Skills via Foundation Models — http://arxiv.org/abs/2407.20635v2
-[113] LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models — http://arxiv.org/abs/2603.28301v3
-[114] LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models — http://arxiv.org/abs/2609.24350v1
-[115] Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs — http://arxiv.org/abs/2504.19675v2
-[116] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1
-[117] Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge — http://arxiv.org/abs/2101.02842v1
-[118] JENGA: Exploiting Counter-Based RowHammer Countermeasures to Break Real-Time Predictability — http://arxiv.org/abs/2609.01077v1
+> 以下编号与正文引用一一对应；正文未引用的编号（跨领域噪音条目，如天体物理、选举信息操作、语音隐私等）未列入。
 
+[2] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1
+[3] Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos — http://arxiv.org/abs/2607.10797v1
+[4] BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Models — http://arxiv.org/abs/2512.11769v1
+[5] RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control — http://arxiv.org/abs/2307.15818v1
+[6] Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection — http://arxiv.org/abs/2603.13782v1
+[8] Evolve Vision-Language-Action Model into an Agent with On-the-fly Tool-use — http://arxiv.org/abs/2608.14047v3
+[10] Self-Supervised Correspondence in Visuomotor Policy Learning — http://arxiv.org/abs/1909.06933v1
+[13] OnlineCache: Learning Dynamic Caching Policies with Error Correction for Efficient Diffusion Inference — http://arxiv.org/abs/2607.29398v1
+[15] Factorizing Diffusion Policies for Observation Modality Prioritization — http://arxiv.org/abs/2509.16830v1
+[16] Diffusion Policy: Visuomotor Policy Learning via Action Diffusion — http://arxiv.org/abs/2303.04137v5
+[17] ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1
+[22] One-Shot Visual Imitation Learning via Meta-Learning — http://arxiv.org/abs/1709.04905v1
+[24] Efficient Sim-to-Real Transfer of World-Action Models from Synthetic Priors — http://arxiv.org/abs/2606.31101v1
+[27] Correction: Neurorobotics for automotive manufacturing industry in era of embodied intelligence: a mini review — https://doi.org/10.3389/fnbot.2026.1829525
+[28] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2
+[29] Towards Embodiment Scaling Laws in Robot Locomotion — http://arxiv.org/abs/2505.05753v2
+[32] Robot Learning: A Tutorial — http://arxiv.org/abs/2510.12403v1
+[34] LongCoT: Benchmarking Long-Horizon Chain-of-Thought Reasoning — http://arxiv.org/abs/2604.14140v1
+[35] Are Frontier VLM Agents Ready to Be Robot Generalists? An Empirical Study with the Embodied Agent Arena — http://arxiv.org/abs/2610.00854v1
+[37] Embodied Tree of Thoughts: Deliberate Manipulation Planning with Embodied World Model — http://arxiv.org/abs/2512.08188v1
+[39] LongDS-Bench: On the Failure of Long-Horizon Agentic Data Analysis — http://arxiv.org/abs/2605.30434v3
+[40] Embodied-R1.5: Evolving Physical Intelligence via Embodied Foundation Models — http://arxiv.org/abs/2606.11324v2
+[41] Hy-Embodied-VLM-1.0: Efficient Physical-World Agents — http://arxiv.org/abs/2607.12894v1
+[44] LLM-based ambiguity detection in natural language instructions for collaborative surgical robots — http://arxiv.org/abs/2507.11525v1
+[45] Human-Robot collaboration in surgery: Advances and challenges towards autonomous surgical assistants — http://arxiv.org/abs/2507.11460v1
+[49] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
+[50] Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge — http://arxiv.org/abs/2512.06951v2
+[51] Survey of Vision-Language-Action Models for Embodied Manipulation — http://arxiv.org/abs/2508.15201v2
+[54] One Policy, Many Embodiments: Unified Camera-Centric Action Geometry Pre-training for Heterogeneous Embodied Manipulation — http://arxiv.org/abs/2608.26058v1
+[55] MiMo-Embodied: X-Embodied Foundation Model Technical Report — http://arxiv.org/abs/2511.16518v2
+[56] ME-VLM: A Unified VLM for Embodied Cognition and Agent Coordination — http://arxiv.org/abs/2609.24526v2
+[57] Data Pyramid for Embodied Manipulation: A Survey — http://arxiv.org/abs/2607.24744v2
+[58] HDDL 2.1: Towards Defining a Formalism and a Semantics for Temporal HTN Planning — http://arxiv.org/abs/2306.07353v1
+[60] Breaking the Loop: A Hierarchical Dual-System Action Transformer with Latent World Models and Formal Verification — https://doi.org/10.5281/zenodo.21381253
+[61] Breaking the Loop: A Hierarchical Dual-System Action Transformer with Latent World Models and Formal Verification — https://doi.org/10.5281/zenodo.21381252
+[62] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4
+[69] Open X-Embodiment: Robotic Learning Datasets and RT-X Models — http://arxiv.org/abs/2310.08864v9
+[74] DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset — http://arxiv.org/abs/2403.12945v2
+[75] AI Robotics Open Source R&D Survey: Foundation Models, Datasets, Simulation, and Benchmarks Platforms (2023-2025) — https://doi.org/10.36227/techrxiv.175756484.48648133/v1
+[79] LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning — http://arxiv.org/abs/2306.03310v2
+[82] Forgetting and Imbalance in Robot Lifelong Learning with Off-policy Data — http://arxiv.org/abs/2204.05893v2
+[85] Sim-to-Real Transfer in Deep Reinforcement Learning for Bipedal Locomotion — http://arxiv.org/abs/2511.06465v1
+[86] DROPO: Sim-to-Real Transfer with Offline Domain Randomization — http://arxiv.org/abs/2201.08434v2
+[87] Understanding Domain Randomization for Sim-to-real Transfer — http://arxiv.org/abs/2110.03239v2
+[89] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1
+[90] Digital Twin as a Service (DTaaS): A Platform for Digital Twin Developers and Users — http://arxiv.org/abs/2305.07244v2
+[91] Co-Training Multimodal World Models and Diffusion-Guided Policies for Zero-Shot Contact-Rich Manipulation — https://doi.org/10.21203/rs.3.rs-7347334/v1
+[94] Real-Time Digital Twins: Vision and Research Directions for 6G and Beyond — http://arxiv.org/abs/2301.11283v1
+[95] MATTERIX: toward a digital twin for robotics-assisted chemistry laboratory automation — http://arxiv.org/abs/2601.13232v1
+[97] tFUSOperator: Operator Learning for Transcranial Focused Ultrasound Digital Twins — http://arxiv.org/abs/2608.01839v1
+[106] OpenVLA: An Open-Source Vision-Language-Action Model — http://arxiv.org/abs/2406.09246v3
+[107] Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success — http://arxiv.org/abs/2502.19645v2
+[109] OpenVLA: An Open-Source Vision-Language-Action Model — https://arxiv.org/abs/2406.09246
+[110] Dexbotic: Open-Source Vision-Language-Action Toolbox — https://arxiv.org/abs/2510.23511
+[111] RealMirror: A Comprehensive, Open-Source Vision-Language-Action Platform for Embodied AI — https://arxiv.org/abs/2509.14687
+[112] LeRobot: An Open-Source Library for End-to-End Robot Learning — http://arxiv.org/abs/2602.22818v1
+[113] Open-source vision-language-action models for robotics — https://doi.org/10.1007/s42791-025-00108-1
+[114] StemVLA: An Open-Source Vision-Language-Action Model with Future 3D Spatial Geometry Knowledge and 4D Historical Representation — https://arxiv.org/abs/2602.23721
+[115] VLA-Arena: An Open-Source Framework for Benchmarking Vision-Language-Action Models — https://arxiv.org/abs/2512.22539
+[116] BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Model — https://arxiv.org/abs/2512.11769
+[117] VLA-Touch: Enhancing Vision-Language-Action Models
 
 ---
 
-*Generated by research-bot · topic=`embodied-ai` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=118 · duration=321s · 2026-10-04T03:09:48+00:00*
+*Generated by research-bot · topic=`embodied-ai` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=119 · duration=340s · 2026-10-04T22:25:19+00:00*

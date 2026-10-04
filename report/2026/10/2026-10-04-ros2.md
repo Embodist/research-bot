@@ -1,206 +1,264 @@
-# ROS 2 生态与机器人中间件：发行版、DDS/RMW、实时执行器与工程栈的证据化调研
+# ROS 2 生态与机器人中间件：发行版、DDS/RMW/Zenoh、实时控制与工程栈前沿综述（2024–2026）
 
-> **元信息**｜撰写日期：2026-10-04（UTC）｜领域：机器人中间件 / ROS 2 / DDS / 实时系统｜编号证据来源：101 条（其中与本主题直接相关约 30 条）｜领域种子资源：11 项（官方文档 / 仓库 / 数据格式）｜检索性质：本轮候选证据池存在明显召回偏差，报告中所有缺口均已显式标注
+**日期**：2026-10-04（UTC） ｜ **领域**：机器人中间件 / ROS 2 生态（DDS、RMW、Zenoh、实时执行、Nav2/MoveIt2/仿真、分布式与安全） ｜ **可引用候选来源**：98 条，编号 [1]–[98] ｜ **实际引用编号**：见文末「参考来源」 ｜ **证据分级**：A（同行评审）> B（arXiv/官方仓库）> C（第三方评测）> D（社区）> E（不可用）
 
 ---
 
 ## 摘要（Executive Summary）
 
-本报告基于 101 条编号来源与 11 项领域种子资源，对 ROS 2 生态与机器人中间件的近期进展与经典基础做证据化梳理。**最重要的结论是：本轮证据池在“中间件层与实时执行器”方向有可用的一手材料，但在“发行版节奏、ros2_control/Nav2/MoveIt2 工程实践、micro-ROS 与容器化多机部署”方向存在系统性缺口**，因此本报告在这些方向上以“缺口清单”而非“结论”形式呈现。
+**证据基础与方法说明**：本轮候选来源共 [1]–[98]，但结构化发现显示检索召回质量严重不均。子问题 q1（发行版与生态进展）的候选块 **3/3 全部为误召回**（天文光谱合成代码 Cloudy 2025 版 [90]、高能物理 PDF 演化程序 HOPPET v2 [91]、2013 年行星历表 INPOP10e [86]），全部为「release / 新版本」关键词导致的跨领域噪声；q2/q4/q5 亦混入短视频参与度预测 [2]、基础模型透明度指数 [67]、LabVIEW 电机监测 [46] 等无关条目。因此本报告以「**已确证结论 + 明确标注的证据缺口**」双轨组织，凡候选证据不支持的判断一律写 `> 待核实`，不作推测性补全。
 
-可支撑的主要判断：
+**三条最稳固的结论（均有可核查来源）**
 
-1. **中间件层正被重新概念化为“可插拔传输策略边界”**。传统上 ROS 2 通过 RMW 接口标准化应用代码，参考实现建立在 DDS 之上 [77]；2026 年出现的 AXON 用 POSIX 共享内存环处理本机通信、QUIC 处理远程通信、守护进程负责发现与计算图同步，说明 RMW 抽象已被当作替换底层传输的边界使用 [77]。综述性工作则把 DDS 与 Zenoh 并列为 ROS 2 分布式通信的核心基础设施 [87]。
-2. **DDS 的性能问题在 2024-2026 年被具体化为“背压”“多播”“QoS 组合正确性”三类工程问题**。单条 RELIABLE topic 上的慢订阅者可造成全局背压并拖累同 topic 其他订阅者（含安全关键订阅者）[12]；QoS 策略超过 20 项却缺乏安全组合的验证指引 [1]；多播对 DDS 吞吐的影响已有专门实验研究 [10]，DDS 实现间的实验性能评测也已有综述 [11]。
-3. **实时性研究已形成独立脉络，并已有综述级整合**。ROS 2 实时支持、分析与扩展被系统梳理为独立研究方向 [61]；多线程 executor 的时序分析与优先级增强 [27]、ROS 2 与经典实时调度的桥接 [28]、中间件透明的回调强制机制 [30] 构成 2024-2026 的一条连续线索；嵌入式侧可追溯到 micro-ROS 的预算式实时 executor [24] 与 FPGA 加速的 ReconROS executor [25]。
-4. **安全性的攻防两侧都在推进，但“可用性”仍是痛点**。SROS2 曾以可用性工具链为定位 [96]，而 2025 年的 PoC 显示 Trojan 化 Debian 包可篡改核心安全命令并通过 DNS 外泄 keystore 凭证，在 Quanser QCar2 平台上完成对 SROS 2 的供应链攻击 [97]；更早的工作已从 DDS 安全配置角度讨论凭证伪装与 OpenSSL 侧信道 [3]。
-5. **发行版级结论（Jazzy/Kilted 及后续 LTS 的新特性与破坏性变更）在本轮证据中无法成立**：候选池未包含任何 ROS 2 官方 release notes、迁移指南、REP 或版本号清单 [77]。该方向必须补检官方文档后才能给出可引用结论。`> 待核实`
+1. **近两年 ROS 2 的一手学术关注重心在「通信的可预测性与鲁棒性」，而非发行版特性本身。** 代表工作集中在 DDS QoS 策略组合的静态验证 [3]、RELIABLE topic 的 backpressure 解耦 [4]、DDS 心跳/重传机制的概率化延迟建模 [20]、无线大负载链路优化 [41]、WAN 组网 [22]。这构成 2024–2026 年最密集的一条技术线。
+2. **综述体裁从「ROS 2 是什么」升级为「ROS 2 的限制在哪里」。** [62] 以三个研究问题系统梳理 ROS 2 相对 ROS 1 的改进、新限制与生态演进（ACM Computing Surveys，同行评审，citations=14）；[80] 汇总近六年实时性分析与增强工作；[30] 提出 Space（物理拓扑）/Time（控制回路时间可预测性）/State（状态管理）三维框架，明确把 DDS 与 Zenoh 并列为 ROS 2 的核心中间件基础设施。
+3. **评测层面尚无统一基准，评测方法以「自建实验」与「需求引出」两类为主。** [50] 用产业界软件工程师引出的需求作为标尺比较 ROS 2 Jazzy 与 AUTOSAR Adaptive R24-11；[61] 指出网络层检测存在盲区，评测需转向物理一致性监测（运动学/动力学不变量、电机级信号）。候选集中 **未出现任何 ROS 2 专属基准套件、数据集或榜单** `> 待核实`。
+
+**主要证据缺口（须补检索后再断言）**
+- ROS 2 发行版时间线与版本节奏、各发行版新增特性：**无一手证据** `> 待核实`；唯一可核查锚点是 [50] 中出现的「ROS 2 Jazzy」被用作 2026 年研究的对比基线。
+- rcl / rclcpp / rclpy / rmw 分层抽象的官方设计动机文献：候选集缺失，仅可指向种子设计文档 `> 待核实`。
+- Nav2 / MoveIt2 / micro-ROS / rosbag2 四个组件的近两年具体进展：除 Nav2 一篇实现导向综述 [63] 外**基本空白**。
+- Zenoh RMW（rmw_zenoh）的官方量化数据：候选集仅有第三方对比 [18]，无官方基准 `> 待核实`。
+- VLA 策略与 ROS 2 接口（节点/action/topic 化）的规范或实践：无一手证据 `> 待核实`。
 
 ---
 
 ## 一、关键前沿进展与发行版节奏
 
-### 1.1 本轮证据能确认什么
+### 1.1 发行版节奏：本轮无一手证据（最重要的缺口）
 
-| 论断 | 证据 | 类型 | 置信度 |
-|---|---|---|---|
-| ROS 2 通过 RMW 接口标准化应用代码，参考实现基于 DDS [77] | 摘要原文引用（见 1.2） | 架构事实 | 中 |
-| DDS 与 Zenoh 已被综述性工作并列为 ROS 2 核心中间件实现 [87] | 摘要原文："middleware implementations such as the Data Distribution Service (DDS) and Zenoh forming the core infrastructure for distributed robotic communication" | 架构事实 | 中 |
-| 2026 年出现脱离 DDS 的替代 RMW 实现（AXON），按部署范围分流传输策略 [77] | 摘要原文（Rust core + C++ adapter、POSIX 共享内存环、QUIC、daemon 发现） | 个案探索 | 中 |
-| ROS 2 的远程通信安全正向 fail-closed + 后量子混合密钥方向设计 [77] | 摘要原文：经典配置仅提供混合 X25519MLKEM768 组，禁止协商纯经典组 | 设计取向 | 低（摘录被截断） |
+本批次候选中**不存在**任何 ROS 2 官方发行公告、distro 文档、REP 提案或变更日志。结构化发现 q1 的全部候选条目均属天文/高能物理软件的版本发布说明：[90] 为 Cloudy 2025 版（j-resolved Lyman α 双线、Stout 数据库更新，arXiv:2508.01102v1）、[91] 为 HOPPET v2（N³LO QCD 演化、新增 Python 接口与 CMake 构建选项，arXiv:2510.09310v3）、[86] 为 2013 年 INPOP10e 行星历表。三者与 ROS 2 零相关。
 
-### 1.2 关键条目证据卡
+> 待核实：ROS 2 近 1–2 年（2024–2026）的发行版清单、发布节奏、各发行版新增核心特性与支持周期。核实路径建议以官方 distro 文档、REP 提案与本仓库 issue/PR 为准（种子资源见第七章）。
+> 待核实：工具链层面（colcon/ament、ros2cli、rosbag2、rviz2、ros2_control 发布变更）的任何版本化结论。
 
-**AXON: A ROS 2 RMW with Shared-Memory/QUIC Transport and QKD/ML-KEM Key Establishment（2026）[77]**
+**唯一可核查的发行版锚点**：[50] 的对照实验以 **ROS 2 Jazzy** 与 **AUTOSAR Adaptive Platform R24-11** 为对象，说明 Jazzy 在 2026 年的汽车中间件研究中被作为 ROS 2 侧基线使用。
+- 热度证据：`> 待核实`（候选块未提供引用数）[50]
+- 权威证据：arXiv 预印本 cs.SE，未见同行评审信息 [50]
+- 关注度：低 — 依据：无引用数、无社区热度信号，仅 2026-04 预印本 [50]
+- 推荐度：★★★☆☆ — 作为「发行版存在性与产业对照」的锚点可用，不能作为节奏结论 [50]
 
-- **热度证据**：`> 待核实`——候选块未提供引用数、star、下载量或榜单信号；该预印本 2026-09-09 提交，尚无第三方采纳证据。
-- **权威证据**：arXiv 预印本（cs.RO），arXiv:2609.10024v1，作者来自西班牙 León 大学等机构；候选块未标注同行评审会议 [77]。
-- **关注度**：**低**。依据：仅单条 2026-09 预印本，无引用、无社区讨论或基准对比信号 [77]。
-- **推荐度**：**★★★☆☆**。本批候选中唯一直接落在 ROS 2 核心栈（RMW / 中间件层 / 传输 + 安全密钥建立）的论文，对“RMW 可替换性”有直接说明力；但属预印本且无采纳度证据，不能据此推断官方发行版走向 [77]。
+### 1.2 生态级与结构级进展（最新进展，2024–2026）
 
-**The Three Dimensions of ROS 2 Middleware（2026）[87]**
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| ROS 2 in a Nutshell: A Survey | 2026 | `> 待核实` | citations=14 [62] | ACM Computing Surveys（同行评审期刊）[62] | 中 — 发表数月即 14 次引用，权威综述期刊 [62] | ★★★★★ | https://doi.org/10.1145/3815113 | 以 RQ1/RQ2 梳理 ROS 2 相对 ROS 1 的改进、新限制与重设计挑战进展，可作分类骨架 [62] |
+| A Survey of Real-Time Support, Analysis, and Advancements in ROS 2 | 2025 | `> 待核实` | `> 待核实` [80] | arXiv 预印本 cs.RO，候选块未标 venue [80] | 中 — 依据：cs.RO 综述体裁，无引用/下载数据 [80] | ★★★★☆ | http://arxiv.org/abs/2601.10722v2 | 汇总近六年对 ROS 2 的分析、增强与扩展工作，工程栈主干预备文献 [80] |
+| The Three Dimensions of ROS 2 Middleware | 2026 | 作者含 Angelo Corsaro `> 待核实其他作者` [30] | `> 待核实` [30] | arXiv 预印本 cs.RO（未评审）[30] | 中 — 依据：2026-07 新出预印本 + 综述定位，无引用数据 [30] | ★★★★☆ | http://arxiv.org/abs/2607.01304v1 | 提出 Space/Time/State 三维分析框架，指出 DDS/Zenoh 在动态受限无线网下的结构性局限 [30] |
+| Harness Engineering for Physical AI: Robot Middleware Is the Harness Layer | 2026 | `> 待核实` | `> 待核实` [32] | `> 待核实`（候选块未提供 venue/摘要）[32] | `> 待核实` [32] | ★★★☆☆ | http://arxiv.org/abs/2606.09416v1 | 标题即主张：机器人中间件是 Physical AI 的 harness 层；需读全文核实论证强度 [32] |
 
-- **热度证据**：`> 待核实`（候选块未提供引用数 / star）。
-- **权威证据**：arXiv 预印本（cs.RO），arXiv:2607.01304v1，2026-07 提交；候选块未标注 venue [87]。
-- **关注度**：**中**。依据：标题与摘要表明其以“维度框架”方式对 ROS 2 中间件做整体化梳理，并明确把 DDS 与 Zenoh 并列为核心基础设施，属于本主题的伞形文献 [87]。
-- **推荐度**：**★★★★☆**。适合作为第二节（中间件）组织骨架，但需核实其正式发表信息与完整分类维度 [87]。
-
-### 1.3 明确的证据缺口
-
-- 候选证据池**不包含任何 ROS 2 发行版的官方发布说明、变更日志或破坏性变更清单**。q1 的 5 条候选中 4 条与 ROS 2 无关（基础模型透明度指数 [7]、引力波讲义 [36]、语音情感识别 [76]、多智能体竞赛报告 [84]），仅 [77] 与 ROS 2 相关。因此“Jazzy / Kilted 及后续 LTS 的新特性与破坏性变更”**无法从现有证据得出结论**。`> 待核实`
-- 需要补检的定向来源：ROS 2 官方设计文档与规范站点（领域种子资源：https://design.ros2.org/ ）、发行版支持周期规范（REP-2000 类文档）、各发行版 release notes 与迁移指南。**本轮未实时检索到上述发行版文档**，本报告不对具体发行版特性做任何断言。
+**要点**
+- 生态叙事正在从「ROS 2 的通信能力」转向「ROS 2 作为 AI 系统的 harness/约束层」[32]，与 [62] 关于「新限制」的问题设定方向一致。
+- 分布式执行被反复描述为 ROS 2 的既有定位（modularity / distributed execution / communication）[80]，但候选证据中**没有任何多机部署的实操细节或性能数字** `> 待核实`。
 
 ---
 
 ## 二、中间件与实时性（DDS / RMW / Executor）
 
-### 2.1 DDS 层的三类工程问题
+### 2.1 通信与 DDS（最新进展，2024–2026）
 
-**（1）背压与订阅者耦合。** DDS 语义下，`RELIABLE` topic 上单个网络受损或被限流的订阅者会造成背压，降低该 topic 上**所有**其他订阅者的吞吐与延迟，包括共享该发布者的安全关键订阅者 [12]。Adaptive Bridge 提出以代理式解耦层缓解该问题 [12]。
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| Dependency Chain Analysis of ROS 2 DDS QoS Policies: From Lifecycle Tutorial to Static Verification | 2025 | `> 待核实` | `> 待核实` [3] | arXiv 预印本 cs.NI [3] | 中 — 依据：针对 20+ QoS 策略「安全组合 + 静态验证」的空白 [3] | ★★★★☆ | http://arxiv.org/abs/2509.03381v1 | 指出 ROS 2 用户缺乏策略组合安全性指导，提出依赖链分析与静态验证路径 [3] |
+| Adaptive Bridge: A Proxy-Based Decoupling Layer for Mitigating DDS Backpressure in ROS 2 | 2026 | `> 待核实` | `> 待核实` [4] | arXiv 预印本 cs.NI [4] | 中 — 依据：直击 RELIABLE topic 上单订阅者拖垮全链路的真实痛点 [4] | ★★★★☆ | http://arxiv.org/abs/2608.15380v2 | 用代理式解耦层隔离受限订阅者，保护其余（含安全关键）订阅者的吞吐与延迟 [4] |
+| Probabilistic Latency Analysis of the Data Distribution Service in ROS 2 | 2025 | `> 待核实` | `> 待核实` [20] | arXiv 预印本 cs.NI [20] | 中 — 依据：对 DDS 心跳/选择性重传机制做概率化延迟建模 [20] | ★★★★☆ | http://arxiv.org/abs/2508.10413v1 | 把 UDP + DDS 的可靠性机制（周期心跳、ACK、重传）纳入延迟分布分析 [20] |
+| Optimizing ROS 2 Communication for Wireless Robotic Systems | 2025 | `> 待核实` | `> 待核实` [41] | arXiv 预印本 cs.NI [41] | 中 — 依据：无线链路上大负载（图像、点云）是公认瓶颈 [41] | ★★★★☆ | http://arxiv.org/abs/2508.11366v1 | 指出默认 DDS 栈在丢包链路下显著退化，并给出优化方向 [41] |
+| ROS2 Connect: A new ROS2 over WAN Solution | 2026 | `> 待核实` | `> 待核实` [22] | arXiv 预印本 cs.RO [22] | 中 — 依据：DDS/RTPS 依赖组播发现，WAN 环境通常不可用，属长期痛点 [22] | ★★★★☆ | http://arxiv.org/abs/2608.25102v1 | 针对广域网场景绕过组播发现限制的 ROS 2 组网方案 [22] |
+| Performance Evaluation of ROS2-DDS middleware implementations facilitating Cooperative Driving in Autonomous Vehicle | 2024 | `> 待核实` | `> 待核实` [21] | arXiv 预印本 [21] | 低 — 依据：无引用/下载数据，领域限于协同驾驶 [21] | ★★★☆☆ | http://arxiv.org/abs/2412.07485v1 | 面向自动驾驶协同场景的多 DDS 实现性能对比 [21] |
 
-- **热度证据**：`> 待核实`（候选块未提供引用数 / star）。
-- **权威证据**：arXiv 预印本（cs.NI），arXiv:2608.15380v2，2026-08 [12]。
-- **关注度**：**低**。依据：候选块无引用与讨论信号，仅标题与摘要可核实问题设定。
-- **推荐度**：**★★★☆☆**。对“DDS QoS 语义在真实网络中如何失效”提供了具体失效模式描述，适合作为 QoS 实践的负面案例引用；但方案成熟度与性能增益 `> 待核实` [12]。
+### 2.2 实时性与 Executor 模型
 
-**（2）QoS 组合的正确性缺乏指导。** ROS 2 依赖 DDS，DDS 提供 20 项以上 QoS 策略，管辖可用性、可靠性与资源占用，但用户“缺乏关于安全策略组合与部署前验证流程的清晰指导” [1]。该工作尝试从生命周期的教学式入门走向静态验证 [1]。
+- **综述主干**：[80] 覆盖 ROS 2 实时支持的分析与增强工作，可作入口，但需注意其为预印本、无引用数据（热度 `> 待核实`；权威 arXiv cs.RO 未评审；关注度 中；推荐度 ★★★★☆）[80]。
+- **嵌套调度问题**：[65] 指出 ROS 2 on Linux 存在 OS 线程调度 + 中间件层调度（ROS 2 Executor）的嵌套调度问题，并尝试在中间件层做透明的 callback 约束（"Work in Progress" 状态）。热度 `> 待核实`；权威 arXiv cs.OS 预印本；关注度 中（问题指向明确）；推荐度 ★★★★☆ [65]。
+- **与控制理论调度对接**：[66] 处理 ROS 2 与经典实时周期任务调度之间的语义鸿沟（2024）。热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★☆ [66]。
+- **嵌入式实时**：[64] 面向 micro-ROS 的预算式实时 Executor（2021），属该方向的经典工作。热度 `> 待核实`；权威 arXiv 预印本（2105.05590）；关注度 中（被后续 micro-ROS 实时讨论反复引用，但候选块无引用数佐证）；推荐度 ★★★★☆ [64]。
+- **延迟基础分析**：[23] ROS 2 多节点系统延迟分析（2021），是 [20] 一类后续工作的前置。热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★☆☆ [23]。
+- **DDS 实现横评**：[7] 对 DDS 实现的实验性性能评测做综述（2023）。热度 `> 待核实`；权威 arXiv 预印本（候选块未标 venue）；关注度 中（选型时的常见入口）；推荐度 ★★★★☆ [7]。另 [5] 专门考察组播对 DDS 性能的影响（2022），是「默认配置为何在真实网络退化」的机制性补充。热度 `> 待核实`；权威 arXiv 预印本；关注度 低–中；推荐度 ★★★☆☆ [5]。
 
-- **热度证据**：`> 待核实`。
-- **权威证据**：arXiv（cs.NI），arXiv:2509.03381v1，2025-09 [1]。
-- **关注度**：**中**。依据：QoS 误配是 ROS 2 工程实践中的高频问题域，该工作把非形式化的经验规则推向静态检查，属方法论转向；但候选块无热度量化信号 [1]。
-- **推荐度**：**★★★★☆**。是本主题在“QoS 工程规范”维度最贴题的一手材料，建议与领域种子资源 https://design.ros2.org/ 中的 QoS 设计文档对读 [1]。
+### 2.3 本节明确缺口
 
-**（3）多播与实现差异。** 多播通信对 DDS 性能的影响已有专门实验研究 [10]；DDS 各实现的实验性能评测已有综述 [11]；面向协同驾驶的 ROS 2-DDS 中间件实现性能评测也已完成 [14]。
-
-- **热度证据**：`> 待核实`（三条候选均未提供引用数）。
-- **权威证据**：[10] arXiv:2209.09001v1（2022）；[11] arXiv:2310.16630v1（2023）；[14] arXiv:2412.07485v1（2024），均为预印本，候选块未标注 venue [10][11][14]。
-- **关注度**：**中**。依据：DDS 实现选型（Cyclone DDS vs Fast DDS 等）是 ROS 2 部署中的高频决策点，[11] 以“综述 + 实验评测”体例聚合该问题 [11]；[14] 把评测放到协同驾驶场景，属场景化验证 [14]。
-- **推荐度**：**★★★★☆（[11]）/ ★★★☆☆（[10][14]）**。[11] 是 DDS 性能对比的入口文献；[10] 与 [14] 提供具体干扰因素与场景约束，但均需核实指标口径与硬件环境 [10][11][14]。
-
-### 2.2 RMW 层与跨中间件桥接
-
-除 AXON [77] 外，[15] 提供了把高保真航天动力学仿真器 Basilisk 与 ROS 2 打通的轻量开源通信桥，用于模块化航天器仿真与硬件集成，说明“ROS 2 作为集成总线、外部仿真器作为被桥接对象”的模式在航天域也在复制 [15]。
-
-- **热度证据**：`> 待核实` [15]。
-- **权威证据**：arXiv 预印本（cs.RO），arXiv:2512.09833v2，2025-12 [15]。
-- **关注度**：**低**。依据：航天域 ECS（embedded control system）集成属细分场景，候选块无热度信号 [15]。
-- **推荐度**：**★★★☆☆**。作为“ROS 2 作为中间件被外部领域桥接”的案例，对第四节仿真集成有横向参考价值 [15]。
-
-**缺口的显式标注**：本轮候选中**未出现 Zenoh / rmw_zenoh 的性能、QoS 或大规模发现相关论文**。唯一可用信号是 [87] 把 Zenoh 与 DDS 并列为核心中间件实现 [87]。因此“Cyclone DDS / Fast DDS / Zenoh 三者的真实性能差距”无法给出可核查数值结论。`> 待核实` 可参考领域种子资源中的桥接实现：https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds 。
-
-### 2.3 Executor 与实时性
-
-| 条目 | 年份 | 核心贡献 | 链接 | 热度 | 权威 | 关注度 | 推荐度 |
-|---|---|---|---|---|---|---|---|
-| Timing Analysis and Priority-driven Enhancements of ROS 2 Multi-threaded Executors [27] | 2024 | 对多线程 executor 做时序分析并提出优先级驱动增强 | http://arxiv.org/abs/2408.08440v2 | `> 待核实` | arXiv 预印本（候选块未标 venue）[27] | 中：直接命中多线程 executor 实时性痛点 [27] | ★★★★☆ |
-| Bridging the Gap between ROS 2 and Classical Real-Time Scheduling for Periodic Tasks [28] | 2024 | 把 ROS 2 周期任务映射到经典实时调度理论 | http://arxiv.org/abs/2408.03696v1 | `> 待核实` | arXiv 预印本 [28] | 中：连接控制理论与中间件实践 [28] | ★★★★☆ |
-| Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems [30
-
-## 参考来源
-
-[1] Dependency Chain Analysis of ROS 2 DDS QoS Policies: From Lifecycle Tutorial to Static Verification — http://arxiv.org/abs/2509.03381v1
-[2] DDS: DPU-optimized Disaggregated Storage [Extended Report] — http://arxiv.org/abs/2407.13618v5
-[3] Credential Masquerading and OpenSSL Spy: Exploring ROS 2 using DDS security — http://arxiv.org/abs/1904.09179v2
-[4] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
-[5] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
-[6] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1
-[7] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
-[8] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1
-[9] SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection — http://arxiv.org/abs/2509.19861v1
-[10] Exploring the Effects of Multicast Communication on DDS Performance — http://arxiv.org/abs/2209.09001v1
-[11] A Survey on Experimental Performance Evaluation of Data Distribution Service (DDS) Implementations — http://arxiv.org/abs/2310.16630v1
-[12] Adaptive Bridge: A Proxy-Based Decoupling Layer for Mitigating DDS Backpressure in ROS 2 — http://arxiv.org/abs/2608.15380v2
-[13] DDS: A new device-degraded speech dataset for speech enhancement — http://arxiv.org/abs/2109.07931v4
-[14] Performance Evaluation of ROS2-DDS middleware implementations facilitating Cooperative Driving in Autonomous Vehicle — http://arxiv.org/abs/2412.07485v1
-[15] Bridging the Basilisk Astrodynamics Framework with ROS 2 for Modular Spacecraft Simulation and Hardware Integration — http://arxiv.org/abs/2512.09833v2
-[16] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1
-[17] Self-Supervised Policy Adaptation during Deployment — http://arxiv.org/abs/2007.04309v3
-[18] Design of Robust and Efficient Edge Server Placement and Server Scheduling Policies: Extended Version — http://arxiv.org/abs/2104.14256v1
-[19] Adaptive Sequential Test Planning for Multi-Mechanism Reliability Qualification via Bayesian Monte Carlo Tree Search — http://arxiv.org/abs/2608.09622v1
-[20] Explainable Machine Learning for Public Policy: Use Cases, Gaps, and Research Directions — http://arxiv.org/abs/2010.14374v3
-[21] ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1
-[22] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4
-[23] Less is more -- the Dispatcher/ Executor principle for multi-task Reinforcement Learning — http://arxiv.org/abs/2312.09120v2
-[24] Budget-based real-time Executor for Micro-ROS — http://arxiv.org/abs/2105.05590v2
-[25] ReconROS Executor: Event-Driven Programming of FPGA-accelerated ROS 2 Applications — http://arxiv.org/abs/2201.07454v1
-[26] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1
-[27] Timing Analysis and Priority-driven Enhancements of ROS 2 Multi-threaded Executors — http://arxiv.org/abs/2408.08440v2
-[28] Bridging the Gap between ROS~2 and Classical Real-Time Scheduling for Periodic Tasks — http://arxiv.org/abs/2408.03696v1
-[29] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1
-[30] Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems — http://arxiv.org/abs/2505.06546v1
-[31] ACM COMPUTE 2025 Best Practices Track Proceedings — http://arxiv.org/abs/2512.02349v2
-[32] Nine Best Practices for Research Software Registries and Repositories: A Concise Guide — http://arxiv.org/abs/2012.13117v1
-[33] PhishAri: Automatic Realtime Phishing Detection on Twitter — http://arxiv.org/abs/1301.6899v1
-[34] RealTime QA: What's the Answer Right Now? — http://arxiv.org/abs/2207.13332v2
-[35] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1
-[36] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1
-[37] Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum — http://arxiv.org/abs/2403.00634v2
-[38] Uncovering Coordinated Cross-Platform Information Operations Threatening the Integrity of the 2024 U.S. Presidential Election Online Discussion — http://arxiv.org/abs/2409.15402v2
-[39] C2HLSC: Leveraging Large Language Models to Bridge the Software-to-Hardware Design Gap — http://arxiv.org/abs/2412.00214v2
-[40] On Hardware-Aware Design and Optimization of Edge Intelligence — http://arxiv.org/abs/2607.16297v1
-[41] QFlow: Quantitative Information Flow for Security-Aware Hardware Design in Verilog — http://arxiv.org/abs/2109.02379v2
-[42] Static Communication Analysis for Hardware Design — http://arxiv.org/abs/2505.20849v1
-[43] Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge — http://arxiv.org/abs/2512.06951v2
-[44] BR-MPPI: Barrier-Rate Guided MPPI for Enforcing Multiple Inequality Constraints with Learned Signed Distance Fields — http://arxiv.org/abs/2506.07325v2
-[45] A Simple Observer for Gyro and Accelerometer Biases in Land Navigation Systems — http://arxiv.org/abs/1501.06618v1
-[46] DRPA-MPPI: Dynamic Repulsive Potential Augmented MPPI for Reactive Navigation in Unstructured Environments — http://arxiv.org/abs/2503.20134v1
-[47] Evaluating Guiding Spaces for Motion Planning — http://arxiv.org/abs/2210.08640v1
-[48] Data-Efficient Learning of High-Quality Controls for Kinodynamic Planning used in Vehicular Navigation — http://arxiv.org/abs/2201.02254v1
-[49] Local Planner Bench: Benchmarking for Local Motion Planning — http://arxiv.org/abs/2210.06033v1
-[50] Motion planning in high-dimensional spaces — http://arxiv.org/abs/1806.07457v2
-[51] AIM 2025 Challenge on High FPS Motion Deblurring: Methods and Results — http://arxiv.org/abs/2509.06793v1
-[52] Predicted Composite Signed-Distance Fields for Real-Time Motion Planning in Dynamic Environments — http://arxiv.org/abs/2008.00969v2
-[53] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1
-[54] Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge — http://arxiv.org/abs/2101.02842v1
-[55] Running VLAs at Real-time Speed — http://arxiv.org/abs/2510.26742v1
-[56] Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids — http://arxiv.org/abs/2508.12252v2
-[57] Mini bot 3D: A ROS based Gazebo Simulation — http://arxiv.org/abs/2302.06368v1
-[58] Network-Aware Control of AGVs in an Industrial Scenario: A Simulation Study Based on ROS 2 and Gazebo — http://arxiv.org/abs/2509.06451v1
-[59] gym-gazebo2, a toolkit for reinforcement learning using ROS 2 and Gazebo — http://arxiv.org/abs/1903.06278v2
-[60] DeepSim: A Reinforcement Learning Environment Build Toolkit for ROS and Gazebo — http://arxiv.org/abs/2205.08034v1
-[61] A Survey of Real-Time Support, Analysis, and Advancements in ROS 2 — http://arxiv.org/abs/2601.10722v2
-[62] Real-Time Stress Detection via Photoplethysmogram Signals: Implementation of a Combined Continuous Wavelet Transform and Convolutional Neural Network on Resource-Constrained Microcontrollers — http://arxiv.org/abs/2410.19776v1
-[63] Real-Time-Data Analytics in Raw Materials Handling — http://arxiv.org/abs/1802.00625v1
-[64] CLIPSwarm: Converting text into formations of robots — http://arxiv.org/abs/2311.11047v1
-[65] XI Commandments of Kubernetes Security: A Systematization of Knowledge Related to Kubernetes Security Practices — http://arxiv.org/abs/2006.15275v1
-[66] Policies over Poses: Reinforcement Learning based Distributed Pose-Graph Optimization for Multi-Robot SLAM — http://arxiv.org/abs/2510.22740v1
-[67] RobotKube: Orchestrating Large-Scale Cooperative Multi-Robot Systems with Kubernetes and ROS — http://arxiv.org/abs/2308.07053v1
-[68] State-of-the-art in Robot Learning for Multi-Robot Collaboration: A Comprehensive Survey — http://arxiv.org/abs/2408.11822v1
-[69] Containerization of a polyglot microservice application using Docker and Kubernetes — http://arxiv.org/abs/2305.00600v1
-[70] KubeAdaptor: A Docking Framework for Workflow Containerization on Kubernetes — http://arxiv.org/abs/2207.01222v1
-[71] Scaling Laws of the Throughput Capacity and Latency in Information-Centric Networks — http://arxiv.org/abs/1210.1185v3
-[72] A Human-Grounded Evaluation Benchmark for Local Explanations of Machine Learning — http://arxiv.org/abs/1801.05075v2
-[73] Two-dimensional magnetic interactions in LaFeAsO — http://arxiv.org/abs/1303.4033v1
-[74] Fluid Antenna System: New Insights on Outage Probability and Diversity Gain — http://arxiv.org/abs/2301.00073v2
-[75] AI Wizards at CheckThat! 2025: Enhancing Transformer-Based Embeddings with Sentiment for Subjectivity Detection in News Articles — http://arxiv.org/abs/2507.11764v1
-[76] Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge — http://arxiv.org/abs/2406.10598v1
-[77] AXON: A ROS 2 RMW with Shared-Memory/QUIC Transport and QKD/ML-KEM Key Establishment — http://arxiv.org/abs/2609.10024v1
-[78] ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024 — http://arxiv.org/abs/2407.12038v2
-[79] Overview of the 2024 ALTA Shared Task: Detect Automatic AI-Generated Sentences for Human-AI Hybrid Articles — http://arxiv.org/abs/2412.17848v1
-[80] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1
-[81] UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering — http://arxiv.org/abs/2608.27467v1
-[82] ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification — http://arxiv.org/abs/2607.28637v1
-[83] AutoRestTest at the SBFT 2026 Tool Competition — http://arxiv.org/abs/2607.01063v1
-[84] Second MOASEI Competition at AAMAS'2026: A Technical Report — http://arxiv.org/abs/2607.03399v1
-[85] Snugi-AI-v2 @ eRisk 2026 Task 2: Early Depression Detection via a Learned Stopping Policy with Sustained Confidence Gate — http://arxiv.org/abs/2609.08161v1
-[86] Overview of BioASQ 2026: The fourteenth BioASQ Challenge on Large-Scale Biomedical Semantic Indexing and Question Answering — http://arxiv.org/abs/2609.39975v1
-[87] The Three Dimensions of ROS 2 Middleware — http://arxiv.org/abs/2607.01304v1
-[88] Harness Engineering for Physical AI: Robot Middleware Is the Harness Layer — http://arxiv.org/abs/2606.09416v1
-[89] A Survey on Service Composition Middleware in Pervasive Environments — http://arxiv.org/abs/0909.2183v1
-[90] This paper has been withdrawn — http://arxiv.org/abs/cond-mat/0309395v2
-[91] Homotopy Type Theory: Univalent Foundations of Mathematics — http://arxiv.org/abs/1308.0729v1
-[92] RAFDA: Middleware Supporting the Separation of Application Logic from Distribution Policy — http://arxiv.org/abs/1006.3742v1
-[93] Memory as Middleware for Self-Improving AI Agents — http://arxiv.org/abs/2609.32091v1
-[94] A rich bounty of AGN in the 9 square degree Bootes survey: high-z obscured AGN and large-scale structure — http://arxiv.org/abs/astro-ph/0611654v1
-[95] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1
-[96] SROS2: Usable Cyber Security Tools for ROS 2 — http://arxiv.org/abs/2208.02615v1
-[97] Supply Chain Exploitation of Secure ROS 2 Systems: A Proof-of-Concept on Autonomous Platform Compromise via Keystore Exfiltration — http://arxiv.org/abs/2511.00140v1
-[98] ICME 2025 Generalizable HDR and SDR Video Quality Measurement Grand Challenge — http://arxiv.org/abs/2506.22790v2
-[99] Towards a Formal Verification of Secure Vehicle Software Updates — http://arxiv.org/abs/2511.15479v1
-[100] Network Hexagons Under Attack: Secure Crowdsourcing of Geo-Referenced Data — http://arxiv.org/abs/2506.05601v1
-[101] ROS-Causal: A ROS-based Causal Analysis Framework for Human-Robot Interaction Applications — http://arxiv.org/abs/2402.16068v3
-
+> 待核实：rcl / rclcpp / rclpy / rmw 的分层抽象与 QoS 设计动机的一手权威文献（官方设计文档 + REP）在本批候选中缺失。
+> 待核实：rmw_zenoh 与 rmw_cyclonedds / rmw_fastrtps 的可比量化数据（同一硬件、同一负载口径下的延迟/吞吐/CPU）。候选集中仅有 [18] 的 Zenoh/MQTT/Kafka/DDS 通用对比：热度 `> 待核实`；权威 arXiv 预印本（2023）；关注度 `> 待核实`（无下载/引用数据）；推荐度 ★★★☆☆ [18]。
+> 待核实：Executor 在 2024–2026 的官方实现变更（如回调组、并行执行策略的接口演进）无版本级证据。
 
 ---
 
-*Generated by research-bot · topic=`ros2` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=101 · duration=266s · 2026-10-04T04:52:29+00:00*
+## 三、控制与导航（ros2_control / Nav2 / MoveIt2）
+
+### 3.1 ros2_control
+
+- **[24] 模块化参考生成架构（2026）**：把「采集—校验—插值参考」的逻辑与控制律解耦，引入独立的 Reference Generator 组件，使控制器与机器人形态解耦。热度 `> 待核实`；权威 arXiv 预印本 cs.RO；关注度 中 — 依据：直接对应 ros2_control 长期痛点的架构性提案 [24]；推荐度 ★★★★☆。
+- **实时硬化路径**：[64]（micro-ROS 预算式 Executor）与 [65]（嵌套调度下的 callback 约束）为控制器实时性提供底层支撑思路 [64][65]。
+- **产业对照**：[50] 以汽车域引出的需求比较 ROS 2 Jazzy 与 AUTOSAR Adaptive R24-11，可作为控制/通信中间件的合规性参照；热度 `> 待核实`；权威 arXiv cs.SE 预印本；关注度 低；推荐度 ★★★☆☆ [50]。
+
+> 待核实：ros2_control 的硬件接口（hardware_interface）规范、控制器管理器（controller_manager）与实时循环在 2024–2026 的变更细节与最佳实践。官方文档见第七章种子资源。
+
+### 3.2 Nav2
+
+- 唯一直接来源：**[63] Nav2 for Autonomous Mobile Robots: An Implementation Oriented Survey of Architecture, Components, and Practical Limitations**（IJMERR，DOI 10.18178/ijmerr.15.5.496-513）。热度 `> 待核实`（候选块未提供 citations）；权威：同行评审期刊（IJMERR）；关注度 中 — 依据：实现导向综述且专述 practical limitations，填补官方文档不写的边界条件 [63]；推荐度 ★★★★☆。
+- 该综述定位为「架构 + 组件 + 实际限制」，是候选集中唯一可用于 Nav2 章节的主干文献 [63]。
+
+> 待核实：Nav2 的 2024–2026 版本演进（行为树节点、控制器插件、costmap 层、生命周期管理）具体变化；官方文档见第七章种子资源。
+> 待核实：Nav2 的多机器人/分布式导航实践与量化性能数据。
+
+### 3.3 MoveIt2
+
+**候选证据完全空白**。逐条核查 [2][13][67][71][78][80] 均未提及 MoveIt2 或运动规划库在 ROS 2 下的工程实践。仅有的相关规划类来源（[74] 引导空间评估、[76] 局部运动规划基准、[79] 预测性复合 SDF 实时规划）**均非 MoveIt2 相关**，属运动规划领域的一般性文献 [74][76][79]。
+
+> 待核实：MoveIt2 在 2024–2026 的进展、与 ros2_control 的集成方式、以及与 VLA/学习型策略的接口实践。种子仓库见第七章。
+> 待核实：MoveIt2 的基准与数据集（如规划器成功率/耗时对比）在候选集中无任何来源。
+
+---
+
+## 四、仿真与数据（gz-sim / rosbag2 / Foxglove）
+
+### 4.1 仿真
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| Bridging the Basilisk Astrodynamics Framework with ROS 2 for Modular Spacecraft Simulation and Hardware Integration | 2025 | `> 待核实` | `> 待核实` [11] | arXiv 预印本 cs.RO [11] | 中 — 依据：开源轻量桥接器，支持实时性与硬件在环，属仿真/ROS 2 集成的少见具体工程 [11] | ★★★☆☆ | http://arxiv.org/abs/2512.09833v2 | 把高保真航天动力学仿真器 Basilisk 与 ROS 2 打通，面向模块化仿真与硬件集成 [11] |
+| Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge | 2025 | `> 待核实` | `> 待核实` [71] | arXiv 预印本 cs.RO，竞赛方案报告，非同行评审 [71] | 中 — 依据：挑战赛冠军方案属性带来关注，但候选块无榜单/讨论量化信号 [71] | ★★☆☆☆ | http://arxiv.org/abs/2512.06951v2 | 照片级仿真中 50 项长程家务任务（双臂操作 + 导航 + 上下文决策），基于 Pi0.5 架构改造（flow matching 相关噪声、可学习混合层注意力、System 2 阶段跟踪）[71] |
+
+**要点与缺口**
+- 仿真侧证据集中在「**仿真器与 ROS 2 的桥接**」[11] 与「**照片级仿真中的长程任务基准**」[71] 两类，前者是工程集成，后者是策略评测。
+- gz-sim（新一代 Gazebo）、Isaac 系仿真器的 ROS 2 侧版本进展在候选集中**无一手证据** `> 待核实`（种子仓库见第七章）。
+- [71] 的贡献主体是 VLA 策略而非 ROS 工程栈，引用时应严格限定其证据范围 [71]。
+
+### 4.2 数据记录格式
+
+- 候选集中**没有** rosbag2 或 MCAP 的技术来源 `> 待核实`。可用的可核查资产仅为种子资源中的 rosbag2 / MCAP 官方站点（见第七章「数据集与基准」表），其内容未在本轮实时检索中验证。
+- **Foxglove** 在候选集中**无任何来源** `> 待核实`。
+
+> 待核实：rosbag2 的存储后端（MCAP / sqlite3）、序列化与 QoS 交互、以及大规模回放性能的 2024–2026 演进。
+
+---
+
+## 五、分布式与安全（Zenoh / DDS Security）
+
+### 5.1 Zenoh 与分布式组网
+
+- **[30] 把 DDS 与 Zenoh 并列为 ROS 2 的核心中间件基础设施**，并提出 Space/Time/State 三维框架，指出两者在动态、资源受限的无线环境下都暴露**结构性局限**。热度 `> 待核实`；权威 arXiv 预印本 cs.RO（未评审），作者含 Angelo Corsaro（与 Zenoh/Eclipse 生态相关）；关注度 中 — 依据：2026-07 新预印本、综述定位 [30]；推荐度 ★★★★☆。
+- **[22] ROS2 over WAN**：直指 DDS/RTPS 的组播发现机制在 WAN 不可用这一根因，是分布式部署的关键工程约束。热度 `> 待核实`；权威 arXiv 预印本 cs.RO；关注度 中；推荐度 ★★★★☆ [22]。
+- **[41] 无线优化**：默认 DDS 栈在丢包/高带宽需求下退化，是野外与移动机器人部署的核心障碍 [41]。热度 `> 待核实`；权威 arXiv cs.NI 预印本；关注度 中；推荐度 ★★★★☆。
+- **[18] Zenoh vs MQTT vs Kafka vs DDS 吞吐/延迟对比**：候选集中唯一的 Zenoh 量化对比来源，但**为第三方对比、非官方基准**。热度 `> 待核实`；权威 arXiv 预印本（2023）；关注度 `> 待核实`；推荐度 ★★★☆☆ [18]。按证据分级纪律，其数字应加限定词使用。
+
+> 待核实：rmw_zenoh 的官方性能数字、与 rmw_cyclonedds/rmw_fastrtps 的同口径对比、以及 zenoh-plugin-ros2dds 桥接模式的适用边界。种子项目见第七章。
+
+### 5.2 安全
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| Physics-Based Attack Detection for ROS 2 Robotic Systems: A Survey of Physics-Based Validation and Open Challenges | 2026 | `> 待核实` | citations=0 [61] | IEEE Open Journal of the Industrial Electronics Society（同行评审期刊）[61] | 低 — 依据：引用数 0，属新发表综述 [61] | ★★★★☆ | https://doi.org/10.1109/OJIES.2026.3731477 | 指出通过网络层检查的攻击仍可能违反运动/感知/控制的物理规律，评测转向物理一致性监测（运动学/动力学不变量、功率平衡、电流–速度相关性）[61] |
+| SROS2: Usable Cyber Security Tools for ROS 2 | 2022 | `> 待核实` | `> 待核实` [59] | arXiv 预印本（2208.02615）[59] | 中 — 依据：SROS2 是 ROS 2 官方安全工具链的核心组件，属入门必读 [59] | ★★★★☆ | http://arxiv.org/abs/2208.02615v1 | ROS 2 安全工具链与可用性讨论 [59] |
+| Credential Masquerading and OpenSSL Spy: Exploring ROS 2 using DDS security | 2019 | `> 待核实` | `> 待核实` [6] | arXiv 预印本 [6] | 低–中 — 依据：较早的 DDS Security 攻击面分析，仍被安全章节引用 [6] | ★★★☆☆ | http://arxiv.org/abs/1904.09179v2 | 对 ROS 2 使用 DDS Security 时的凭证伪装与 OpenSSL 侧信道问题做剖析 [6] |
+| Security and Performance Considerations in ROS 2: A Balancing Act | 2018 | `> 待核实` | `> 待核实` [8] | arXiv 预印本 [8] | 低 — 依据：发表较早，作为「安全 vs 性能」权衡的经典起点 [8] | ★★★☆☆ | http://arxiv.org/abs/1809.09566v1 | 提出安全机制引入后性能开销的权衡框架 [8] |
+
+**要点**
+- 安全评测的核心张力被明确表述为：**网络层合规 ≠ 物理层合规**，因此需要电机级/动力学级监测 [61]。
+- **多机器人分布式协作**的间接相关证据：[84] 多机器人协作机器人学习综述（2024，热度 `> 待核实`，权威 arXiv 预印本，关注度 中，推荐度 ★★★☆☆）[84]；[83] 面向多机器人 SLAM 的分布式位姿图优化强化学习方法（2025，热度 `> 待核实`，权威 arXiv 预印本，关注度 `> 待核实`，推荐度 ★★☆☆☆）[83]。二者均**不涉及 ROS 2 通信层实现**，仅作分布式协作的方向参考。
+
+> 待核实：DDS Security 的 2024–2026 实践（插件选型、证书分发、性能代价实测）与 ROS 2 官方安全指南的一致性。种子与官方文档见第七章。
+
+---
+
+## 六、AI 策略与 ROS 2 集成
+
+**本节是全报告证据最薄的一节**：候选集中与「VLA/具身智能 × ROS 2」直接相关的条目为零，仅有若干可迁移的相邻证据。
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| Harness Engineering for Physical AI: Robot Middleware Is the Harness Layer | 2026 | `> 待核实` | `> 待核实` [32] | `> 待核实` [32] | `> 待核实` [32] | ★★★☆☆ | http://arxiv.org/abs/2606.09416v1 | 主张机器人中间件是 Physical AI 的 harness 层，是「中间件作为 AI 约束/编排层」这一叙事的代表条目，需读全文验证 [32] |
+| Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge | 2025 | `> 待核实` | `> 待核实` [71] | arXiv 预印本 cs.RO（竞赛方案，非同行评审）[71] | 中 [71] | ★★☆☆☆ | http://arxiv.org/abs/2512.06951v2 | 照片级仿真 50 项长程任务上的 VLA 策略改造（Pi0.5、flow matching、可学习混合层注意力、System 2 跟踪）[71]；与 ROS 2 集成方式未在摘要中体现 |
+| CLIPSwarm: Converting text into formations of robots | 2023 | `> 待核实` | `> 待核实` [82] | arXiv 预印本 [82] | `> 待核实` [82] | ★★☆☆☆ | http://arxiv.org/abs/2311.11047v1 | 语言→机器人编队的早期尝试，可作为「语言接口驱动多机器人」的历史参照 [82] |
+| ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation | 2024 | `> 待核实` | `> 待核实` [27] | arXiv 预印本 [27] | 中 — 依据：低成本双臂遥操作硬件在具身智能社区广受关注，但候选块无量化热度信号 [27] | ★★★☆☆ | http://arxiv.org/abs/2405.02292v1 | 双臂遥操作硬件平台，是数据采集侧的基础设施，非中间件栈 [27] |
+| State-of-the-art in Robot Learning for Multi-Robot Collaboration: A Comprehensive Survey | 2024 | `> 待核实` | `> 待核实` [84] | arXiv 预印本 [84] | 中 [84] | ★★★☆☆ | http://arxiv.org/abs/2408.11822v1 | 多机器人协作学习综述，提供学习侧全景 [84] |
+
+**要点与缺口**
+
+> 待核实：把 VLA / 策略模型封装为 ROS 2 节点或 Action 接口的规范与实践（含推理频率、消息 schema、生命周期管理），候选集中**无一手证据**。
+> 待核实：ROS 2 侧面向具身智能的数据采集—训练—回放闭环（rosbag2/MCAP ↔ 策略训练 → 部署）的端到端工程报告。
+> 注意术语噪声：[34] *Memory as Middleware for Self-Improving AI Agents* 属 AI Agent 记忆机制，与机器人中间件**同名不同域**，不应作为 ROS 2 章节证据（热度 `> 待核实`；权威 arXiv 预印本；关注度 `> 待核实`；推荐度 ★☆☆☆☆）[34]。
+
+---
+
+## 七、经典参考资料与工程规范
+
+### 7.1 经典与奠基性工作
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| ROS 2 Design Docs（executors, lifecycle, QoS） | 持续更新 | Open Robotics / ROS 2 | `> 待核实` | 官方设计文档（第一手权威） | 高 — 依据：ROS 2 架构与 QoS 设计动机的规范性来源 | ★★★★★ | https://design.ros2.org/ | 本轮**未实时检索验证具体页面内容**；rcl/rclcpp/rclpy/rmw 分层与 Executor 设计动机的核实入口 |
+| ROS 2 in a Nutshell: A Survey | 2026 | `> 待核实` | citations=14 [62] | ACM Computing Surveys（同行评审）[62] | 中 [62] | ★★★★★ | https://doi.org/10.1145/3815113 | 目前最系统的 ROS 2 综述之一，RQ1/RQ2 可直接作为「限制与挑战」分类骨架 [62] |
+| A Survey on Experimental Performance Evaluation of DDS Implementations | 2023 | `> 待核实` | `> 待核实` [7] | arXiv 预印本 [7] | 中 — 依据：DDS 选型的常见入口 | ★★★★☆ | http://arxiv.org/abs/2310.16630v1 | DDS 实现性能评测方法的综述，选型方法论起点 [7] |
+| Latency Analysis of ROS2 Multi-Node Systems | 2021 | `> 待核实` | `> 待核实` [23] | arXiv 预印本 [23] | 中 [23] | ★★★☆☆ | http://arxiv.org/abs/2101.02074v3 | ROS 2 多节点延迟分析的早期奠基工作，后续概率化模型 [20] 的前置 [23] |
+| Budget-based real-time Executor for Micro-ROS | 2021 | `> 待核实` | `> 待核实` [64] | arXiv 预印本（2105.05590）[64] | 中 [64] | ★★★★☆ | http://arxiv.org/abs/2105.05590v2 | micro-ROS 实时 Executor 的经典设计 [64] |
+| SROS2: Usable Cyber Security Tools for ROS 2 | 2022 | `> 待核实` | `> 待核实` [59] | arXiv 预印本 [59] | 中 [59] | ★★★★☆ | http://arxiv.org/abs/2208.02615v1 | ROS 2 安全工具链可用性讨论 [59] |
+| Security and Performance Considerations in ROS 2: A Balancing Act | 2018 | `> 待核实` | `> 待核实` [8] | arXiv 预印本 [8] | 低 [8] | ★★★☆☆ | http://arxiv.org/abs/1809.09566v1 | 「安全 vs 性能」权衡的经典起点 [8] |
+| ros2_control documentation | 持续更新 | ros-controls | `> 待核实` | 官方文档（第一手权威） | 高 — 依据：硬件接口与控制器管理的唯一规范来源 | ★★★★★ | https://control.ros.org/ | 本轮未实时检索验证版本页；ros2_control 章节的必备核实入口 |
+| Nav2 documentation | 持续更新 | Open Navigation LLC | `> 待核实` | 官方文档（第一手权威） | 高 — 依据：导航栈与行为树的规范来源 | ★★★★★ | https://docs.nav2.org/ | 与 [63] 的 implementation-oriented 综述配合使用 |
+| Nav2 for Autonomous Mobile Robots: An Implementation Oriented Survey of Architecture, Components, and Practical Limitations | `> 待核实` | `> 待核实` | `> 待核实` [63] | IJMERR（同行评审期刊）[63] | 中 [63] | ★★★★☆ | https://doi.org/10.18178/ijmerr.15.5.496-513 | 候选集中唯一的 Nav2 专述文献 [63] |
+
+> 待核实：REP（ROS Enhancement Proposal）流程与具体提案编号在本批候选中**无任何来源**，本报告不对任何 REP 编号作断言。
+
+### 7.2 开源项目
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| ros2/ros2 | 持续更新 | Open Robotics / ROS 2 社区 | `> 待核实`（本报告未核实 star 数） | 官方主仓库 | 高 — 依据：发行版与生态的权威源头 | ★★★★★ | https://github.com/ros2/ros2 | 核实发行版节奏与变更日志的首选入口 |
+| ros-controls/ros2_control | 持续更新 | ros-controls | `> 待核实` | 官方组织仓库 | 高 | ★★★★★ | https://github.com/ros-controls/ros2_control | 与 [24] 的架构提案对照阅读 |
+| ros-navigation/navigation2 | 持续更新 | Open Navigation LLC / 社区 | `> 待核实` | 官方仓库 | 高 | ★★★★★ | https://github.com/ros-navigation/navigation2 | 与 [63] 的 practical limitations 对照 |
+| moveit/moveit2 | 持续更新 | MoveIt / PickNik | `> 待核实` | 官方仓库 | 中–高（本报告无候选证据支撑） | ★★★★☆ | https://github.com/moveit/moveit2 | 本报告第三章确认 MoveIt2 证据空白，此处仅为核实入口 |
+| eclipse-zenoh/zenoh-plugin-ros2dds | 持续更新 | Eclipse Zenoh | `> 待核实` | 官方仓库 | 中–高 | ★★★★☆ | https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds | 验证 Zenoh↔DDS 桥接边界；与 [30] 的三维框架、[22] 的 WAN 方案对照 |
+| micro-ROS/micro_ros_agent | 持续更新 | micro-ROS | `> 待核实` | 官方仓库 | 中 | ★★★★☆ | https://github.com/micro-ROS/micro_ros_agent | 与 [64] 的实时 Executor 配套 |
+| gazebosim/gz-sim | 持续更新 | Gazebo / Open Robotics | `> 待核实` | 官方仓库 | 中–高 | ★★★★☆ | https://github.com/gazebosim/gz-sim | 本报告第四章确认 gz-sim 无候选证据，此处仅为核实入口 |
+
+### 7.3 数据集与基准
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| rosbag2 / MCAP | 持续更新 | MCAP 社区 / ROS 2 | `> 待核实` | 格式规范与官方站点 | 中–高 | ★★★★☆ | https://mcap.dev/ | 机器人数据记录格式；本报告第四章确认候选集中无 rosbag2/MCAP 技术来源 |
+| `> 待核实`：ROS 2 专属性能基准 | — | — | — | — | — | — | — | 候选集中**未出现**任何 ROS 2 基准套件、数据集或榜单；[50] 采用「产业需求引出」式评测，[61] 采用物理一致性验证，均非通用基准 |
+
+> 待核实：是否存在被社区广泛采用的 ROS 2 通信/实时性基准（如基于 `performance_test` 一类的工具链）与可比榜单；需以「ros2 benchmark」「DDS 评测」「executor 实时性基准」等专有词另行检索确认。
+
+---
+
+## 八、建议关注清单（Watchlist）
+
+| # | 关注对象 | 类型 | 为什么关注 | 观察指标 | 证据起点 |
+|---|---|---|---|---|---|
+| 1 | ROS 2 发行版节奏与 distro 变更 | 生态 | 本轮**完全无一手证据**，是最大缺口，直接决定所有工程结论的版本适用性 | 官方 distro 文档与变更日志的发布时间、支持周期、REP 编号 | [50]（Jazzy 作为 2026 年研究基线的间接锚点）+ 种子仓库 https://github.com/ros2/ros2 |
+| 2 | DDS QoS 组合的静态验证 | 方法论 | 20+ QoS 策略缺乏安全组合指导，是生产事故的高发区 [3] | 是否形成可复用工具/规则集，是否被官方采纳 | [3] |
+| 3 | RELIABLE topic 的 backpressure 治理 | 通信工程 | 单个弱网订阅者即可拖垮全链路（含安全关键订阅者）[4] | 是否出现官方或 RMW 层原生解耦机制 | [4] |
+| 4 | DDS 概率化延迟模型 | 实时性 | 把心跳/重传机制纳入延迟分布，是实时保证的形式化前提 [20] | 模型是否被实验验证、是否覆盖多 DDS 实现 | [20][23] |
+| 5 | Zenoh 在 ROS 2 中的定位与量化优势 | 中间件选型 | [30] 已把 Zenoh 与 DDS 并列为核心基础设施并指出共同的结构性局限；而定量对比目前只有第三方 [18] | 官方 rmw_zenoh 基准、WAN/弱网场景数据 | [30][18][22] + 种子 https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds |
+| 6 | WAN / 无组播环境下的 ROS 2 组网 | 分布式部署 | DDS/RTPS 依赖组播发现，是跨地域部署的根因约束 [22][41] | 是否有稳定方案与实测吞吐/延迟 | [22][41] |
+| 7 | ROS 2 on Linux 的嵌套调度 | 实时系统 | OS 调度 + 中间件 Executor 调度的双层耦合问题仍处 "Work in Progress" [65][66] | 是否形成可用的 callback 约束机制与 WCET 分析 | [65][66][64] |
+| 8 | ros2_control 的参考生成解耦 | 控制 | 把参考采集/校验/插值与控制律解耦，直接改善可复用性与安全性 [24] | 是否被上游合并/成为推荐架构 | [24] + 种子 https://control.ros.org/ |
+| 9 | Nav2 的「实践限制」清单 | 导航 | 官方文档通常不写失败模式，[63] 的 implementation-oriented 视角补足这一点 | 限制条目是否随版本收敛 | [63] + 种子 https://docs.nav2.org/ |
+| 10 | 物理一致性安全监测 | 安全 | 网络层检测存在结构性盲区，需电机级信号校验 [61] | 是否出现可复现的检测流水线与误报率数据 | [61][59] |
+| 11 | 产业需求引出式评测方法 | 评测方法学 | 以真实工程师需求为标尺，比通用 benchmark 更贴近合规判断 [50] | 是否扩展到 ROS 2 之外的中间件对比 | [50] |
+| 12 | 中间件作为 Physical AI harness 层 | AI 集成 | 若成立，将重新定义 ROS 2 在 VLA/具身栈中的位置 [32]；但目前缺乏 ROS 2↔VLA 接口的一手证据 | 是否出现具体接口规范与端到端实测 | [32][71] |
+
+---
+
+## 参考来源
+
+以下为本报告**实际引用**的编号及其来源（完整候选集为 [1]–[98]，未引用编号均未在正文中作为证据使用）。
+
+1. [2] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1 （仅作检索噪声例证）
+2. [3] Dependency Chain Analysis of ROS 2 DDS QoS Policies: From Lifecycle Tutorial to Static Verification — http://arxiv.org/abs/2509.03381v1
+3. [4] Adaptive Bridge: A Proxy-Based Decoupling Layer for Mitigating DDS Backpressure in ROS 2 — http://arxiv.org/abs/2608.15380v2
+4. [5] Exploring the Effects of Multicast Communication on DDS Performance — http://arxiv.org/abs/2209.09001v1
+5. [6] Credential Masquerading and OpenSSL Spy: Exploring ROS 2 using DDS security — http://arxiv.org/abs/1904.09179v2
+6. [7] A Survey on Experimental Performance Evaluation of Data Distribution Service (DDS) Implementations — http://arxiv.org/abs/2310.16630v1
+7. [8] Security and Performance Considerations in ROS 2: A Balancing Act — http://arxiv.org/abs/1809.09566v1
+8. [11] Bridging the Basilisk Astrodynamics Framework with ROS 2 for Modular Spacecraft Simulation and Hardware Integration — http://arxiv.org/abs/2512.09833v2
+9. [18] A Performance Study on the Throughput and Latency of Zenoh, MQTT, Kafka, and DDS — http://arxiv.org/abs/2303.09419v1
+10. [20] Probabilistic Latency Analysis of the Data Distribution Service in ROS 2 — http://arxiv.org/abs/2508.10413v1
+11. [21] Performance Evaluation of ROS2-DDS middleware implementations facilitating Cooperative Driving in Autonomous Vehicle — http://arxiv.org/abs/2412.07485v1
+12. [22] ROS2 Connect
+
+---
+
+*Generated by research-bot · topic=`ros2` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=98 · duration=315s · 2026-10-04T22:58:29+00:00*
