@@ -142,6 +142,11 @@ def cmd_run(args: argparse.Namespace) -> int:
 
     # ---- email delivery -----------------------------------------------------
     push_requested = args.email or (cfg.email.enabled and not args.no_email)
+    # `--email` means "force delivery even when disabled in config" (see the flag
+    # help): the emailer bails early with "email disabled" unless we flip this.
+    # Without it, CI (no config.yaml, so email.enabled defaults false) never sends.
+    if args.email:
+        cfg.email.enabled = True
     if (
         push_requested
         and frame == "watch"

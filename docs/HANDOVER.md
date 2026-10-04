@@ -201,6 +201,11 @@ git push origin main
    （TLS/限流）之后运行，并设 `RESEARCH_BOT_API_TOKEN`；否则服务**开放无鉴权**（启动日志会警告）。并发受
    `--workers` 限（LLM 花费上界），`config` 覆盖只接受 `DEFAULTS` 顶层段（`llm/search/research/report/email`），
    经 `deep_merge`+`expand_env`，**绝不 eval**。
+11. **CI 邮件此前一直未发（已修复，2026-10-04）**：`--email` 的语义是"即使 config 里 disabled 也强制发信"，
+   但 `cmd_run` 只把它算进 `push_requested`，从未把 `cfg.email.enabled` 置真——emailer 里
+   `if not cfg.enabled: "email disabled"` 会直接拦下。CI 无 `config.yaml`（默认 `enabled:false`），故线上
+   即使传了 `--email` 也**只回提交报告、不发邮件**（日志里 `sent=False error=email disabled`）。修复：
+   `args.email` 为真时强制 `cfg.email.enabled=True`（回归测试 `tests/test_cli.py`）；本地/CI 均恢复正常发信。
 
 ## 11. 待办 / 下一步
 
@@ -221,6 +226,7 @@ git push origin main
 | `rb doctor` 里部分引擎 FAIL | 受限网络下的预期行为，其余引擎仍会跑 |
 | 新报告来源很少 / 空 | 扩大 `search.engines`、设 `GITHUB_TOKEN`、或提高 `research.max_subquestions` |
 | 邮件未发送 | `rb doctor` 看 `configured=True`，核对 SMTP Secrets / `config.yaml` |
+| CI 日志 `sent=False error=email disabled` | `--email` 现已强制置 `enabled=True`（见 §10.11）；若仍失败，核对 6 个 SMTP Secrets |
 | CI 检出子模块失败 | 工作流用 `submodules: false`，引擎无需子模块即可运行 |
 | CI 回提交被拒（`fetch first`） | 工作流已内置 `git pull --rebase origin main` 后再 push（见 §10.9）；手动 / 并发推送时就会遇到 |
 | CI 容器内 `Syntax error: "("` / `not in a git directory` | 容器任务默认 `sh` 且 workspace 未受信任（见 §10.8）；脚本须 POSIX、并设 `safe.directory` |
