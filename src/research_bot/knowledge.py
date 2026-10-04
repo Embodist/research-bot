@@ -56,6 +56,7 @@ FACETS: list[Facet] = [
 ]
 
 FACET_IDS: list[str] = [f.id for f in FACETS]
+_FACET_ZH: tuple[str, ...] = tuple(f.zh for f in FACETS)
 
 # Keywords that signal a facet has stated its boundary / cost (rigor invariant 2 & 3).
 _BOUNDARY_MARKERS = (
@@ -66,6 +67,7 @@ _BOUNDARY_MARKERS = (
 _CLAIM_RE = re.compile(r"^(\d+\.\s|[-*]\s)")
 _CITE_RE = re.compile(r"\[\d+\]")
 _HEADING_RE = re.compile(r"^(#{1,6})\s+(.*)$")
+_SECTION_TITLE_RE = re.compile(r"^\d+\.\s+\S")
 
 
 def knowledge_sections(language: str = "bilingual") -> list[str]:
@@ -139,15 +141,27 @@ class CoverageReport:
 
 
 def _split_sections(md: str) -> dict[str, str]:
-    """Map heading text -> body text for every heading in the report."""
+    """Map heading text -> body text for every heading in the report.
+
+    Recognises both Markdown headings and our bare numbered section titles
+    (``1. 定位与背景（Positioning）``), since a synthesiser may render the latter
+    with or without a ``#`` prefix.
+    """
     sections: dict[str, list[str]] = {}
     current: str | None = None
+    facet_titles = [f.zh for f in FACETS]
     for line in (md or "").splitlines():
-        m = _HEADING_RE.match(line.strip())
+        stripped = line.strip()
+        m = _HEADING_RE.match(stripped)
         if m:
             current = m.group(2).strip()
             sections.setdefault(current, [])
-        elif current is not None:
+            continue
+        if _SECTION_TITLE_RE.match(stripped) and any(t in stripped for t in facet_titles):
+            current = stripped
+            sections.setdefault(current, [])
+            continue
+        if current is not None:
             sections[current].append(line)
     return {k: "\n".join(v) for k, v in sections.items()}
 
@@ -160,6 +174,8 @@ def _claim_stats(text: str) -> tuple[int, int, list[str]]:
         s = line.strip()
         if not s or s.startswith("#") or s.startswith("> 待核实") or s.startswith("|--"):
             continue
+        if _SECTION_TITLE_RE.match(s) and any(t in s for t in _FACET_ZH):
+            continue  # a section title, not a claim
         is_claim = bool(_CLAIM_RE.match(s)) or (s.startswith("|") and s.count("|") >= 3)
         if not is_claim:
             continue

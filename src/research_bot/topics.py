@@ -186,7 +186,7 @@ def topic_from_query(text: str, *, llm: Any = None, language: str = "bilingual")
         except Exception as exc:  # noqa: BLE001 - fall back rather than fail the request
             log.warning("topic_from_query LLM parse failed: %s", exc)
 
-    name = slugify(text) or "topic"
+    name = slugify(text) if text else "topic"
     return Topic(
         name=name,
         title=text or name,
