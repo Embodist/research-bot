@@ -71,12 +71,24 @@
   否则要求 `res` 与查询的**有区分度词**重叠 **≥2**，才保留。
 
 ```python
+def _keyword_hit(text, keywords):        # whole-token match, NOT substring
+    for kw in keywords:
+        if kw.isascii():
+            if re.search(rf"(?<![0-9a-z]){re.escape(kw)}(?![0-9a-z])", text): return True
+        elif kw in text:
+            return True
+    return False
+
 def _is_offtopic(res, distinct_query, keywords):
     text = f"{res.title} {res.snippet}".lower()
-    if any(kw in text for kw in keywords):
+    if _keyword_hit(text, keywords):
         return False
     return len(_distinctive_tokens(text) & distinct_query) < 2
 ```
+
+**关键词必须整词匹配**：早期用子串匹配（`kw in text`），短查询词会误命中——查询里的 `ai` 会匹配
+`available` / `domain` / `maintain`，从而把天体物理论文放进"AI 音乐"报告。现在 ASCII 关键词按词边界匹配
+（`_keyword_hit`），CJK 关键词退回子串。
 
 **设计取舍**：门控对**所有引擎**生效（不再只针对 HTML 引擎）——因为 Crossref/OpenAlex 这类
 关键词匹配引擎同样会松散命中（`pi0` → π⁰ 介子）。若某子问题被全部滤掉，**故意留空**：把检索缺口暴露出来，
@@ -161,6 +173,9 @@ topic 的**种子资源**、**可引用来源列表**（`[n] 标题 — URL`）�
 `llm.py`。极简 OpenAI 兼容客户端，针对本网关（`whnetsea`）做了加固：
 
 - **tiers**：`fast`（抽取）与 `strong`（规划/评审/综合）两档映射到具体 model id；默认都是 `deepseek-v4-flash`。
+- **报告输出预算**：抽取/规划用 `max_tokens`（8192）；**综合另用 `max_tokens_report`**（默认 16384，`LLM_MAX_TOKENS_REPORT`）
+  ——七维 knowledge/watch 报告很长，用 8192 会在第 3 维被截断。综合 prompt 要求"写完所有章节，宁可精炼不可截断"，
+  且回复若缺章节会记 warning。
 - **模型兜底**：主模型报 `model_not_found` / `no available channel` / `does not exist` / `unknown model` 时，
   自动尝试 `fallback_models`（默认 `deepseek-flash`）。
 - **JSON 强制**：`json()` 用 `response_format={"type":"json_object"}`；解析失败时把上次回复回灌并要求"只输出合法 JSON"，
