@@ -170,7 +170,7 @@ topic 的**种子资源**、**可引用来源列表**（`[n] 标题 — URL`）�
 
 ### 1.8 LLM 客户端
 
-`llm.py`。极简 OpenAI 兼容客户端，针对本网关（`whnetsea`）做了加固：
+`llm.py`。极简 OpenAI 兼容客户端（默认指向 DeepSeek 官网 `https://api.deepseek.com/v1`），做了加固：
 
 - **tiers**：`fast`（抽取）与 `strong`（规划/评审/综合）两档映射到具体 model id；默认都是 `deepseek-v4-flash`。
 - **报告输出预算**：抽取/规划用 `max_tokens`（8192）；**综合另用 `max_tokens_report`**（默认 16384，`LLM_MAX_TOKENS_REPORT`）

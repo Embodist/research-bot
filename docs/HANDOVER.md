@@ -169,7 +169,9 @@ git push origin main
    官方文档）、**关注度**（高/中/低 + 依据）、**推荐度**（★1-5 + 理由）。抽取与综合 prompt 强制要求，报告证据表
    列为 `名称|年份|机构/作者|热度|权威|关注度|推荐度|链接|说明`；取不到的写 `> 待核实`，**不得编造数字**。
    降级抽取（LLM 不可用）用 `_attention_text` / `_recommendation_text` 从 citations/stars/venue 确定性推导。
-3. **模型 id**：网关只服务 `deepseek-v4-flash`；请求 `deepseek-v1-flash` 会 `model_not_found`。
+3. **模型 id**：默认网关是 DeepSeek 官网（`https://api.deepseek.com/v1`），canonical id 为
+   `deepseek-v4-flash`（别名 `deepseek-flash`）；换网关时改 `llm.base_url` / `llm.model`（走 `${LLM_BASE_URL}` /
+   `${LLM_MODEL}`）。
 4. **`deer-flow/` 子模块**：直接 `ruff check .` 会报 100+ 错，**全在子模块内**，不在 `src tests` 范围内，忽略即可。
 5. **`set_github_secrets.py` 只写 Secrets**，不写 Variables（见 §6）。
 6. **降级行为**：LLM 不可用时仍会产出「源码接地」的降级报告；搜索引擎被墙则按熔断逐个剔除——CI 不会因网络
@@ -207,7 +209,7 @@ git push origin main
 | 症状 | 处理 |
 | --- | --- |
 | `git push` 超时 | github 直连被墙，走 §9 的代理 |
-| `model_not_found: deepseek-v1-flash` | 改用 `deepseek-v4-flash` |
+| `model_not_found` | 把 `llm.model` 改成你的网关所服务的 id（默认 `deepseek-v4-flash`） |
 | `rb doctor` 里部分引擎 FAIL | 受限网络下的预期行为，其余引擎仍会跑 |
 | 新报告来源很少 / 空 | 扩大 `search.engines`、设 `GITHUB_TOKEN`、或提高 `research.max_subquestions` |
 | 邮件未发送 | `rb doctor` 看 `configured=True`，核对 SMTP Secrets / `config.yaml` |

@@ -55,7 +55,7 @@ docker run --rm -v "$PWD":/app -w /app \
 
 | Secret | Required | Notes |
 | --- | --- | --- |
-| `LLM_API_KEY` | yes | whnetsea / OpenAI-compatible key |
+| `LLM_API_KEY` | yes | DeepSeek / OpenAI-compatible key |
 | `SMTP_HOST` | for email | e.g. `smtp.qq.com`, `smtp.gmail.com` |
 | `SMTP_PORT` | for email | `465` (SSL) or `587` (STARTTLS) |
 | `SMTP_USER` | for email | login user |
@@ -70,7 +70,7 @@ docker run --rm -v "$PWD":/app -w /app \
 | Variable | Default | Notes |
 | --- | --- | --- |
 | `LLM_MODEL` | `deepseek-v4-flash` | override the model id |
-| `LLM_BASE_URL` | `https://api.whnetsea.com/v1` | OpenAI-compatible base URL |
+| `LLM_BASE_URL` | `https://api.deepseek.com/v1` | OpenAI-compatible base URL |
 | `SEARXNG_URL` | `http://43.155.145.78:58881` | your SearXNG (JSON or HTML) |
 
 ## Schedule

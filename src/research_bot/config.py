@@ -56,7 +56,7 @@ def _wrap(value: Any) -> Any:
 
 DEFAULTS: dict[str, Any] = {
     "llm": {
-        "base_url": "${LLM_BASE_URL:-https://api.whnetsea.com/v1}",
+        "base_url": "${LLM_BASE_URL:-https://api.deepseek.com/v1}",
         "api_key": "${LLM_API_KEY:-}",
         "model": "${LLM_MODEL:-deepseek-v4-flash}",
         "fallback_models": ["${LLM_MODEL_FALLBACK:-deepseek-flash}"],

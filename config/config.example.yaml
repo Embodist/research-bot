@@ -6,15 +6,14 @@
 
 # ---------------------------------------------------------------------------
 # LLM (OpenAI-compatible chat completions)
-# The endpoint below is the one requested for this deployment. `deepseek-v1-flash`
-# is not served by the gateway, so the working alias `deepseek-v4-flash` is used
-# by default; override `model` if your gateway exposes a different id.
+# Defaults to the DeepSeek official API. `deepseek-v4-flash` is the canonical id
+# served by https://api.deepseek.com (override `model` for another gateway).
 # ---------------------------------------------------------------------------
 llm:
-  base_url: https://api.whnetsea.com/v1
+  base_url: ${LLM_BASE_URL:-https://api.deepseek.com/v1}
   api_key: ${LLM_API_KEY:-}
   model: ${LLM_MODEL:-deepseek-v4-flash}
-  # If the primary model id is not served by the gateway, these are tried next.
+  # If the primary model id is not served, these are tried next.
   fallback_models:
     - ${LLM_MODEL_FALLBACK:-deepseek-flash}
   temperature: 0.3

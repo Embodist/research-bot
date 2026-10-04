@@ -39,6 +39,6 @@ make help                             # 全部管理目标
 ## 环境
 
 - Python ≥ 3.10；运行时依赖仅 `httpx` + `PyYAML`（不要引入重依赖，见 AGENTS.md）。
-- LLM 网关 `https://api.whnetsea.com/v1`；**可用模型 id 是 `deepseek-v4-flash`**，
-  `deepseek-v1-flash` 会返回 `model_not_found`。
+- LLM 网关默认 `https://api.deepseek.com/v1`（DeepSeek 官网）；**可用模型 id 是 `deepseek-v4-flash`**
+  （官网 canonical id，别名 `deepseek-flash`）；可用 `${LLM_BASE_URL}` / `${LLM_MODEL}` 覆盖。
 - `deer-flow/` 是 pinned git submodule，**不要在其中编辑**；引擎在子模块缺失时也必须能跑。

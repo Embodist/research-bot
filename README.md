@@ -102,7 +102,7 @@ uv venv .venv && uv pip install --python .venv/bin/python -e .
 
 # 2) configure
 cp config/config.example.yaml config/config.yaml
-export LLM_API_KEY=...            # whnetsea key (or set it in config.yaml)
+export LLM_API_KEY=...            # DeepSeek API key (or set it in config.yaml)
 
 # 3) self-check (LLM + every search engine + email)
 rb doctor
@@ -125,9 +125,9 @@ Key knobs (`config/config.example.yaml` is fully commented):
 
 ```yaml
 llm:
-  base_url: https://api.whnetsea.com/v1
+  base_url: ${LLM_BASE_URL:-https://api.deepseek.com/v1}   # DeepSeek official API
   api_key: ${LLM_API_KEY}
-  model: deepseek-v4-flash      # note: `deepseek-v1-flash` is NOT served by this gateway
+  model: deepseek-v4-flash      # DeepSeek's canonical id (alias: deepseek-flash)
   tiers: { fast: deepseek-v4-flash, strong: deepseek-v4-flash }
 
 research:
@@ -146,11 +146,11 @@ email:
   # smtp_* + to: [...]
 ```
 
-> **Model note.** The requested id `deepseek-v1-flash` returns
-> `model_not_found` from `https://api.whnetsea.com/v1`. The available and working id is
-> `deepseek-v4-flash` (alias `deepseek-flash`), which is the default. Change `llm.model` if your gateway
-> exposes a different id. If the primary model is missing, the client automatically retries the ids in
-> `llm.fallback_models`.
+> **Model note.** The LLM defaults to the **DeepSeek official API**
+> (`https://api.deepseek.com/v1`). `deepseek-v4-flash` is DeepSeek's canonical model id (alias
+> `deepseek-flash`), which is the default. Point `llm.base_url` at any OpenAI-compatible gateway and set
+> `llm.model` to an id that gateway serves. If the primary model is missing, the client automatically
+> retries the ids in `llm.fallback_models`.
 >
 > **Search note.** A local/remote **SearXNG is used when reachable** (JSON or HTML mode); the other eight
 > engines need no keys. Blocked engines are dropped per-run by a circuit breaker, so a restricted network
@@ -311,7 +311,7 @@ Required repository secrets (**Settings → Secrets and variables → Actions**)
 
 | Secret | Purpose |
 | --- | --- |
-| `LLM_API_KEY` | whnetsea / OpenAI-compatible key |
+| `LLM_API_KEY` | DeepSeek / OpenAI-compatible key |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, `MAIL_TO` | email delivery |
 | `GITHUB_TOKEN` | provided automatically; used for higher GitHub API rate limits |
 
@@ -380,7 +380,7 @@ architecture), [`docs/service.md`](docs/service.md) (HTTP service), [`docs/knowl
 
 | Symptom | Fix |
 | --- | --- |
-| `model_not_found: deepseek-v1-flash` | use `deepseek-v4-flash` (default) or a model your gateway serves |
+| `model_not_found` | set `llm.model` to an id your gateway serves (`deepseek-v4-flash` is the default) |
 | Some engines show `FAIL` in `rb doctor` | expected on restricted networks; the remaining engines still run |
 | `searxng not reachable` | start a local SearXNG on `SEARXNG_URL`, or ignore — it is optional |
 | Empty report / few sources | widen `search.engines`, set `GITHUB_TOKEN`, or raise `research.max_subquestions` |

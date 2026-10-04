@@ -1,4 +1,4 @@
-"""Minimal OpenAI-compatible chat client (works with the whnetsea gateway)."""
+"""Minimal OpenAI-compatible chat client (defaults to the DeepSeek official API)."""
 
 from __future__ import annotations
 
