@@ -23,7 +23,7 @@ from . import __version__
 from .config import DEFAULTS, find_home, load_config
 from .emailer import is_configured, send_digest, send_report
 from .engine import DEPTH_PRESETS, DeepResearchEngine
-from .knowledge import KNOWLEDGE_SKILL, build_knowledge_topic, evaluate_coverage
+from .knowledge import build_knowledge_topic, evaluate_coverage, get_frame
 from .llm import LLM, LLMError
 from .report import git_metadata, load_index, record_email, save_report
 from .search import ENGINE_REGISTRY, SearchRouter
@@ -59,15 +59,17 @@ def cmd_run(args: argparse.Namespace) -> int:
     if args.query:
         cfg.research.extra_query = args.query
 
-    if args.knowledge:
+    frame = "watch" if args.watch else "knowledge" if args.knowledge else None
+    if frame:
         seed = args.query or " ".join(args.topic or [])
         if not seed:
-            print("--knowledge needs a domain: pass --query '...' or --topic '...'", file=sys.stderr)
+            print(f"--{frame} needs a domain: pass --query '...' or --topic '...'", file=sys.stderr)
             return 2
+        skill = get_frame(frame).skill
         names = list(cfg.research.skills or [])
-        if KNOWLEDGE_SKILL not in names:
-            cfg.research.skills = [*names, KNOWLEDGE_SKILL]
-        topics = [build_knowledge_topic(seed, language=str(cfg.research.language))]
+        if skill not in names:
+            cfg.research.skills = [*names, skill]
+        topics = [build_knowledge_topic(seed, frame=frame, language=str(cfg.research.language))]
     else:
         topics = resolve_topics(load_topics(home), args.topic or ["all"])
     if not topics:
@@ -98,17 +100,17 @@ def cmd_run(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
 
-    # ---- knowledge coverage ------------------------------------------------
+    # ---- knowledge / watch coverage ---------------------------------------
     coverage: list[dict] = []
-    if args.knowledge:
+    if frame:
         for _, result, _, _ in saved:
-            report = evaluate_coverage(result)
+            report = evaluate_coverage(result, frame=frame)
             coverage.append(report.to_dict())
-            print(f"\n[knowledge] coverage score={report.score}/100  sourced={report.sourced_ratio:.0%}", file=sys.stderr)
+            print(f"\n[{frame}] coverage score={report.score}/100  sourced={report.sourced_ratio:.0%}", file=sys.stderr)
             for gap in report.gaps:
                 print(f"  gap: {gap}", file=sys.stderr)
             if not report.gaps:
-                print("  no gaps — all seven facets covered", file=sys.stderr)
+                print("  no gaps — all facets covered, discipline satisfied", file=sys.stderr)
 
     # ---- email delivery -----------------------------------------------------
     push_requested = args.email or (cfg.email.enabled and not args.no_email)
@@ -127,7 +129,7 @@ def cmd_run(args: argparse.Namespace) -> int:
 
     if args.json:
         records = [r[2] for r in saved]
-        if args.knowledge:
+        if frame:
             for record, cov in zip(records, coverage, strict=False):
                 record["coverage"] = cov
         print(json.dumps(records, ensure_ascii=False, indent=2))
@@ -349,7 +351,8 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--no-email", action="store_true", help="never send email")
     p_run.add_argument("--dry-run-email", action="store_true", help="render email but do not send")
     p_run.add_argument("--json", action="store_true", help="print the run records as JSON")
-    p_run.add_argument("--knowledge", action="store_true", help="build a 7-facet knowledge map instead of a topic run")
+    p_run.add_argument("--knowledge", action="store_true", help="build a 7-facet knowledge map (learn a domain) instead of a topic run")
+    p_run.add_argument("--watch", action="store_true", help="build a 7-facet increment report (changes/blue-ocean/industry/society) instead of a topic run")
     p_run.set_defaults(func=cmd_run)
 
     p_doc = sub.add_parser("doctor", help="self-check connectivity and config")

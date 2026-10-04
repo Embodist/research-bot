@@ -7,7 +7,10 @@ Zero new dependencies: the server is built on the stdlib ``http.server``.
 A request (free-text ``query`` or a known ``topic``, plus optional ``config``
 overrides) is parsed into a :class:`~research_bot.topics.Topic` and a merged
 config, then the deep-research pipeline runs **asynchronously** in a bounded
-worker pool. Clients poll for the report:
+worker pool. ``mode`` selects the report frame: ``research`` (default, a topic
+run), ``knowledge`` (learn a domain), or ``watch`` (track a domain's change).
+The latter two also return a deterministic ``coverage`` report for the frame.
+Clients poll for the report:
 
     GET  /healthz                 liveness + queue depth
     GET  /topics                  the built-in topics
@@ -42,7 +45,7 @@ from . import __version__
 from .config import DEFAULTS, _wrap, deep_merge, expand_env, find_home, load_config
 from .emailer import is_configured, send_report
 from .engine import DeepResearchEngine, ResearchResult
-from .knowledge import KNOWLEDGE_SKILL, build_knowledge_topic, evaluate_coverage
+from .knowledge import FRAMES, build_knowledge_topic, evaluate_coverage, get_frame
 from .report import save_report
 from .topics import Topic, load_topics, topic_from_query
 from .util import now_utc
@@ -198,9 +201,10 @@ class JobRegistry:
         result = engine.run(topic, query=str(job.request.get("query") or ""), depth=cfg.research.depth,
                             rounds=rounds, progress=progress)
 
+        mode = str(job.request.get("mode") or "research").lower()
         coverage = None
-        if str(job.request.get("mode") or "research").lower() == "knowledge":
-            coverage = evaluate_coverage(result).to_dict()
+        if mode in FRAMES:
+            coverage = evaluate_coverage(result, frame=mode).to_dict()
 
         with _REPORT_LOCK:
             record, md_path = save_report(self.home, cfg, result, run_meta={})
@@ -226,16 +230,17 @@ class JobRegistry:
             cfg.search.fetch_pages = False
 
         mode = str(request.get("mode") or "research").lower()
-        if mode == "knowledge":
+        if mode in FRAMES:
+            skill = get_frame(mode).skill
             names = list(cfg.research.skills or [])
-            if KNOWLEDGE_SKILL not in names:
-                cfg.research.skills = [*names, KNOWLEDGE_SKILL]
+            if skill not in names:
+                cfg.research.skills = [*names, skill]
 
         query = str(request.get("query") or "").strip()
         topic_name = str(request.get("topic") or "").strip()
 
-        if mode == "knowledge":
-            topic = build_knowledge_topic(query or topic_name, language=str(cfg.research.language))
+        if mode in FRAMES:
+            topic = build_knowledge_topic(query or topic_name, frame=mode, language=str(cfg.research.language))
         elif topic_name and topic_name in load_topics(self.home):
             topic = load_topics(self.home)[topic_name]
         else:
@@ -403,8 +408,8 @@ class _Handler(BaseHTTPRequestHandler):
         if not query and not topic:
             self._send_json(422, {"error": "provide 'query' (free text) or 'topic' (name)"})
             return
-        if mode not in ("research", "knowledge"):
-            self._send_json(422, {"error": "mode must be 'research' or 'knowledge'"})
+        if mode not in ("research", *FRAMES):
+            self._send_json(422, {"error": f"mode must be one of: research, {', '.join(FRAMES)}"})
             return
         err = _validate_overrides(body.get("config"))
         if err:

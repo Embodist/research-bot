@@ -138,6 +138,26 @@ def test_knowledge_job_end_to_end(server):
     assert b"#" in raw
 
 
+def test_watch_job_end_to_end(server):
+    _, port = server
+    status, raw = _req(port, "POST", "/research", {"query": "具身智能世界模型", "mode": "watch"})
+    assert status == 202, raw
+    job_id = json.loads(raw)["job_id"]
+
+    data = _wait(port, job_id)
+    assert data["status"] == "done", data
+    assert data["coverage"]["frame"] == "watch"
+    assert len(data["coverage"]["facets"]) == 7
+    assert data["coverage"]["facets"][0]["facet"] == "progress"
+
+
+def test_unknown_mode_is_422(server):
+    _, port = server
+    status, raw = _req(port, "POST", "/research", {"query": "x", "mode": "nope"})
+    assert status == 422
+    assert "mode must be one of" in json.loads(raw)["error"]
+
+
 def test_research_job_free_text(server):
     _, port = server
     status, raw = _req(port, "POST", "/research", {"query": "vision language action models", "depth": "quick"})
