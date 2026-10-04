@@ -14,10 +14,12 @@ coverage, then writes a cited Markdown report — and emails it to you. Every ru
 > base image** (`ghcr.io/embodist/research-bot-base:py3.12`)
 > ([→ run](https://github.com/Embodist/research-bot/actions)): install → `rb doctor` → research → commit
 > reports → upload artifacts. Nine search engines (including your SearXNG) pass the connectivity check;
-> 51 offline tests and lint pass. Email delivery (163 → outlook) is configured locally **and** in CI
+> 73 offline tests and lint pass. Email delivery (163 → outlook) is configured locally **and** in CI
 > (7 Action secrets + 3 variables) and verified working. Every report now carries four evidence axes per
 > item — **热度 heat · 权威 authority · 关注度 attention · 推荐度 recommendation** — and retrieval uses a
-> distinctive-token relevance gate that drops homonym drift.
+> distinctive-token relevance gate that drops homonym drift. Beyond batch runs, the pipeline can also be
+> driven as an **HTTP service** (`rb serve`, async job API) and in a **cross-domain knowledge-map mode**
+> (`mode=knowledge`, a rigorous 7-facet framework) — see below.
 
 ---
 
@@ -28,6 +30,8 @@ coverage, then writes a cited Markdown report — and emails it to you. Every ru
 - [Quick start](#quick-start)
 - [Configuration](#configuration)
 - [CLI reference](#cli-reference)
+- [HTTP service (`rb serve`)](#http-service-rb-serve)
+- [Cross-domain knowledge framework](#cross-domain-knowledge-framework)
 - [Skills](#skills)
 - [Topics](#topics)
 - [Search layer](#search-layer)
@@ -161,13 +165,43 @@ email:
 
 | Command | Purpose |
 | --- | --- |
-| `rb run [--topic X] [--query "..."] [--depth quick\|standard\|deep] [--rounds N] [--no-fetch] [--email] [--dry-run-email] [--json]` | run the deep-research pipeline |
+| `rb run [--topic X] [--query "..."] [--knowledge] [--depth quick\|standard\|deep] [--rounds N] [--no-fetch] [--email] [--dry-run-email] [--json]` | run the deep-research pipeline (`--knowledge` = 7-facet knowledge map) |
+| `rb serve [--host H] [--port P] [--workers N]` | run the HTTP research service (async job API) |
 | `rb doctor` | check LLM, every search engine, skills/topics, email config |
 | `rb skills [list\|show <name>]` | inspect skills (local + DeerFlow submodule) |
 | `rb topics [list\|show <name>]` | inspect research topics and seed resources |
 | `rb engines [list\|test] [--query ...]` | inspect / probe the search layer |
 | `rb report [list\|show <id>]` | inspect the archive and push ledger |
 | `rb config [show\|init\|path] [--force]` | inspect / bootstrap config |
+
+## HTTP service (`rb serve`)
+
+Expose the pipeline over HTTP for **即用即起**: `POST` a free-text `query` (or a `topic` name) plus optional
+config overrides → parse it into a config/topic → run deep-research **asynchronously** → poll for the report.
+Zero new dependencies (standard-library `http.server`).
+
+```bash
+rb serve --host 0.0.0.0 --port 8080 --workers 2     # or: make serve
+# or containerised: cp .env.example .env && docker compose up --build
+
+curl -s -XPOST localhost:8080/research -H 'content-type: application/json' \
+  -d '{"query":"C++ RAII 的核心思想与边界","mode":"knowledge","depth":"quick"}'
+# -> {"job_id":"...","status":"queued"}
+curl -s localhost:8080/research/<job_id>/report
+```
+
+Endpoints: `GET /healthz`, `GET /topics`, `POST /research`, `GET /research/{id}`, `GET /research/{id}/report`,
+`DELETE /research/{id}`. Optional bearer auth via `RESEARCH_BOT_API_TOKEN`. Full reference:
+[`docs/service.md`](docs/service.md).
+
+## Cross-domain knowledge framework
+
+`mode=knowledge` (or `rb run --knowledge`) turns **any** domain / concept / theorem / paradigm into a
+rigorous, closed-loop, evaluable knowledge map, using a fixed **7-facet** skeleton — 定位与背景 · 问题域 ·
+历史与演进 · 核心机制 · 证据与评估 · 实践与生态 · 关联与元层 — enforced by the `knowledge-framework` skill and
+checked by a deterministic coverage evaluator (`score`, `gaps`). Works across a C++ idiom (RAII), a
+math-analysis theorem (中值定理), and embodied-AI world models (real2sim / sim2real). See
+[`docs/knowledge-framework.md`](docs/knowledge-framework.md) for the ontology and three worked examples.
 
 ## Skills
 
@@ -188,6 +222,7 @@ conflict).
 | `ros2` | distributions, DDS/RMW, executors, ros2_control/Nav2/MoveIt2 |
 | `dataset-hunting` | dataset/benchmark audit checklist |
 | `report-writing` | report structure and citation format |
+| `knowledge-framework` | cross-domain 7-facet knowledge map (background → evolution → mechanism → boundaries → evolution) |
 
 Skills configured in `research.skills` are injected into every planner/researcher/critic/synthesiser prompt.
 
@@ -320,6 +355,7 @@ make lint                 # ruff
 make doctor               # live connectivity check
 make run TOPIC=vla DEPTH=quick
 make run-all              # every topic + email
+make serve                # HTTP service (HOST=0.0.0.0 PORT=8080 WORKERS=2)
 make report               # report/push ledger
 make secrets REPO=Owner/repo   # push SMTP/LLM secrets to GitHub Actions
 make schedule             # print a crontab line for a local daily run
@@ -328,7 +364,8 @@ make schedule             # print a crontab line for a local daily run
 Layout: `src/research_bot/` (package) · `skills/` · `topics/` · `config/` · `report/` · `scripts/` ·
 `.github/workflows/`. See [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md),
 [`docs/HANDOVER.md`](docs/HANDOVER.md), [`docs/deep-research.md`](docs/deep-research.md) (tech core +
-architecture), [`docs/architecture.md`](docs/architecture.md),
+architecture), [`docs/service.md`](docs/service.md) (HTTP service), [`docs/knowledge-framework.md`](docs/knowledge-framework.md)
+(cross-domain knowledge framework), [`docs/architecture.md`](docs/architecture.md),
 [`docs/github-actions.md`](docs/github-actions.md), [`docs/email.md`](docs/email.md),
 [`docs/scheduling.md`](docs/scheduling.md) and [`docs/skills-and-sources.md`](docs/skills-and-sources.md).
 

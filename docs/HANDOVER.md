@@ -3,7 +3,7 @@
 > 面向**接手人**的运行与维护手册：怎么跑、怎么配、坑在哪、下一步做什么。
 > 项目全貌见 [`README.md`](../README.md)，工程约定见 [`AGENTS.md`](../AGENTS.md)，AI 助手规则见
 > [`CLAUDE.md`](../CLAUDE.md)，**deep-research 技术核心与架构**见 [`docs/deep-research.md`](deep-research.md)。
-> **最后更新：2026-10-02。**
+> **最后更新：2026-10-04。**
 
 ---
 
@@ -17,18 +17,20 @@ ROS 2** 的前沿进展、经典论文、开源项目与数据集。它基于 [`
 一次运行的流程：`plan → retrieve（多引擎并行 + RRF 融合）→ extract（分级证据）→ critique（找缺口补检）
 → synthesize（带 `[n]` 引用的 Markdown 报告）`，产物落到 `report/` 并（可选）邮件推送。
 
-## 2. 当前状态（截至 2026-10-02）
+## 2. 当前状态（截至 2026-10-04）
 
 | 项 | 状态 |
 | --- | --- |
-| CLI / 引擎 / **11 个 topic** / 11 个 skill | ✅ 完成 |
-| 离线测试 | ✅ 51 项通过（`pytest`） |
+| CLI / 引擎 / **11 个 topic** / 12 个 skill | ✅ 完成 |
+| 离线测试 | ✅ 73 项通过（`pytest`） |
 | lint（`src tests`） | ✅ 通过（`deer-flow/` 子模块不在范围内） |
 | GitHub Actions 每日工作流 | ✅ 已配置（`0 22 * * *` UTC = 06:00 Asia/Shanghai） |
 | 邮件（本地） | ✅ 已配置并**实测发送成功**（163 → outlook） |
 | 邮件（CI） | ✅ 7 个 Secrets + 3 个 Variables 已写入仓库，链路实测成功 |
 | 报告质量 | ✅ 检索域漂移已修复（统一相关性门控，见 §10） |
 | 证据要求 | ✅ 每条结论四轴证据：热度 / 权威 / 关注度 / 推荐度（见 §10） |
+| **HTTP 服务** | ✅ `rb serve`（stdlib `http.server`，异步任务 API）；离线测试覆盖，见 `docs/service.md` |
+| **跨领域知识体系** | ✅ 七维 facet + 确定性覆盖度评估（`mode=knowledge`），见 `docs/knowledge-framework.md` |
 | Docker base 镜像 | ✅ `Dockerfile` + `image.yml` 发布到 `ghcr.io/embodist/research-bot-base:py3.12`；daily 工作流在该容器内跑，**容器内全链路已实测转绿**（run `36999238952`，2026-10-02：install → doctor → research → 回提交 → artifact 全 success） |
 
 > **Docker base 镜像**：只烤环境（Python 3.12 + `git` + `httpx/PyYAML/pytest/ruff/hatchling/editables`），
@@ -73,18 +75,21 @@ rb CLI → DeepResearchEngine（lead agent）
 ```
 src/research_bot/     Python 包（产品本体）
   engine.py           编排器（plan/retrieve/extract/critique/synthesize）
+  serve.py            HTTP 服务（stdlib：异步任务 API + 可选 bearer token）
+  knowledge.py        跨领域知识体系（七维 facet + 覆盖率评估）
   search/             engines.py（各引擎）+ router.py（RRF 融合 + 引擎权重）+ base.py
   config.py llm.py fetch.py skills.py topics.py report.py emailer.py cli.py util.py
-skills/               本地技能（SKILL.md）
+skills/               本地技能（SKILL.md，含 knowledge-framework）
 topics/               研究主题（seed 查询 + 种子资源目录）
 config/               config.example.yaml（入库）；config.yaml（gitignore，含密钥）
 report/               生成的报告 + 推送台账
 deer-flow/            upstream 子模块（**不要在其中编辑**）
 tests/                pytest（离线、确定性）
 Dockerfile            base 镜像定义（`python:3.12-slim`，只烤环境不烤代码）；配合 `.dockerignore`
+docker-compose.yml    即用即起地跑 HTTP 服务（挂载仓库 + 装 editable + 起 `rb serve`）
 .github/workflows/    daily-research.yml（每日，容器内跑）、image.yml（发布 base 镜像）、ci.yml（lint+test）
 scripts/              bootstrap.sh、run_daily.sh、import_skill.sh、set_github_secrets.py
-docs/                 architecture / deep-research / email / github-actions / scheduling / skills-and-sources / HANDOVER
+docs/                 architecture / deep-research / service / knowledge-framework / email / github-actions / scheduling / skills-and-sources / HANDOVER
 ```
 
 ## 6. 配置与密钥（**不要提交任何密钥**）
@@ -111,7 +116,11 @@ docs/                 architecture / deep-research / email / github-actions / sc
 
 - **单次**：`.venv/bin/rb run --topic vla --depth standard [--email]`
 - **全部 + 邮件**：`.venv/bin/rb run --topic all --email`
-- **Makefile**：`make run TOPIC=vla DEPTH=quick` / `make run-all` / `make doctor` / `make test` / `make lint`
+- **知识地图**：`.venv/bin/rb run --knowledge --query "C++ RAII 的核心思想" --depth quick`（打印 coverage + gaps）
+- **HTTP 服务**：`.venv/bin/rb serve --host 0.0.0.0 --port 8080 --workers 2`（`make serve` / `docker compose up`）；
+  `POST /research` 传 `query`/`topic`（+ `mode=knowledge`），轮询 `GET /research/{id}`；可选 `RESEARCH_BOT_API_TOKEN` 鉴权。
+  详见 [`docs/service.md`](service.md)。
+- **Makefile**：`make run TOPIC=vla DEPTH=quick` / `make run-all` / `make serve` / `make doctor` / `make test` / `make lint`
 - **GitHub Actions**：每日 `0 22 * * *` UTC 自动跑并回提交 + 发摘要邮件；也可 Actions → Daily Research →
   Run workflow 手动触发（可选 topic/depth/send_email）
 - **容器（可复现，无需本地装 Python）**：
@@ -176,6 +185,11 @@ git push origin main
 9. **CI 提交回写的竞态（2026-10-02）**：daily 任务运行数分钟，期间 `main` 可能已被手动推送推进，
    `git push` 会因 non-fast-forward 被拒（`fetch first`）。修复：commit 后先 `git pull --rebase origin main`
    再 push。若同一天同一 topic 已有报告，rebase 可能冲突并失败——属可接受的显式失败。
+10. **HTTP 服务是开发级、内存态（2026-10-04）**：`rb serve` 基于标准库 `http.server`，未做公网硬化；
+   作业历史仅存内存（默认保留最近 200 个已结束作业，重启即丢，报告本身仍落盘 `report/`）。生产应在反向代理
+   （TLS/限流）之后运行，并设 `RESEARCH_BOT_API_TOKEN`；否则服务**开放无鉴权**（启动日志会警告）。并发受
+   `--workers` 限（LLM 花费上界），`config` 覆盖只接受 `DEFAULTS` 顶层段（`llm/search/research/report/email`），
+   经 `deep_merge`+`expand_env`，**绝不 eval**。
 
 ## 11. 待办 / 下一步
 
@@ -199,6 +213,9 @@ git push origin main
 | CI 检出子模块失败 | 工作流用 `submodules: false`，引擎无需子模块即可运行 |
 | CI 回提交被拒（`fetch first`） | 工作流已内置 `git pull --rebase origin main` 后再 push（见 §10.9）；手动 / 并发推送时就会遇到 |
 | CI 容器内 `Syntax error: "("` / `not in a git directory` | 容器任务默认 `sh` 且 workspace 未受信任（见 §10.8）；脚本须 POSIX、并设 `safe.directory` |
+| `rb serve` 返回 401 | 已设 `RESEARCH_BOT_API_TOKEN`；请求需带 `Authorization: Bearer <token>`（`/healthz` 除外） |
+| `rb serve` 返回 400 `unknown config section` | `config` 覆盖只能是 `DEFAULTS` 顶层段（`llm/search/research/report/email`） |
+| 知识模式 `coverage` 有 gap | 属预期——报告确实缺该维/缺引用（见 `docs/knowledge-framework.md`） |
 
 ---
 MIT licensed. DeerFlow 归其各自作者所有（MIT）。
