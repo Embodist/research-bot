@@ -62,6 +62,7 @@ DEFAULTS: dict[str, Any] = {
         "fallback_models": ["${LLM_MODEL_FALLBACK:-deepseek-flash}"],
         "temperature": 0.3,
         "max_tokens": 8192,
+        "max_tokens_report": "${LLM_MAX_TOKENS_REPORT:-16384}",
         "timeout": 240,
         "max_retries": 3,
         "tiers": {"fast": "${LLM_MODEL_FAST:-deepseek-v4-flash}", "strong": "${LLM_MODEL_STRONG:-deepseek-v4-flash}"},

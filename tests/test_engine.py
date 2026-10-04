@@ -139,6 +139,35 @@ def test_relevance_gate_drops_generic_word_matches():
 
 
 
+def test_relevance_gate_keyword_matches_whole_word_only():
+    # The query term "ai" must not match "available"/"domain"/"maintain" — a
+    # substring test let gravitational-wave papers past the gate.
+    engine = _engine()
+    engine._topic_keywords = {"ai", "yue", "music"}
+    sub = SubQuestion(
+        id="q1",
+        question="AI music generation",
+        queries=["AI music generation YuE"],
+    )
+    junk = SearchResult(
+        title="GWTC-4.0: An Introduction to the Gravitational-Wave Transient Catalog",
+        url="https://arxiv.org/abs/2508.18080",
+        snippet="We detail the data available and the domain of transients maintainable by the catalog.",
+        engine="arxiv",
+        kind="paper",
+    )
+    keep = SearchResult(
+        title="YuE: Scaling Open Foundation Models for Long-Form Music Generation",
+        url="https://arxiv.org/abs/2503.08638",
+        snippet="We present an open AI music generation model.",
+        engine="arxiv",
+        kind="paper",
+    )
+    titles = [r.title for r in engine._rank_results([junk, keep], sub, max_keep=5, recency_days=9999)]
+    assert "GWTC-4.0: An Introduction to the Gravitational-Wave Transient Catalog" not in titles
+    assert "YuE: Scaling Open Foundation Models for Long-Form Music Generation" in titles
+
+
 def test_candidate_block_contains_citation_numbers():
     engine = _engine()
     reg = SourceRegistry()

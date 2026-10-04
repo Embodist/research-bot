@@ -60,9 +60,29 @@ def _distinctive_tokens(text: str) -> set[str]:
     return {t for t in _content_tokens(text) if t not in _GENERIC_TOKENS}
 
 
+def _keyword_hit(text: str, keywords: set[str]) -> bool:
+    """True if any keyword occurs in ``text`` as a *whole token*.
+
+    Plain substring matching is unsafe for short keys: the query term ``ai``
+    matches ``available`` / ``domain`` / ``maintain``, which lets off-topic
+    results (e.g. gravitational-wave papers) past the gate. ASCII keywords are
+    matched on word boundaries; CJK keywords fall back to substring (their
+    tokens are long enough that false positives are not a concern).
+    """
+    for kw in keywords:
+        if not kw:
+            continue
+        if kw.isascii():
+            if re.search(rf"(?<![0-9a-z]){re.escape(kw)}(?![0-9a-z])", text):
+                return True
+        elif kw in text:
+            return True
+    return False
+
+
 def _is_offtopic(res: SearchResult, distinct_query: set[str], keywords: set[str]) -> bool:
     text = f"{res.title} {res.snippet}".lower()
-    if any(kw in text for kw in keywords):
+    if _keyword_hit(text, keywords):
         return False
     return len(_distinctive_tokens(text) & distinct_query) < 2
 
@@ -614,14 +634,21 @@ class DeepResearchEngine:
                     "**推荐度**（★1-5，附一句话推荐理由，综合权威+热度+与本主题的相关性）；"
                     "四类证据都必须带 [n] 引用，证据缺失时写 `> 待核实`，不得编造数字或榜单。\n"
                     "7. 结尾附“参考来源”编号列表（可直接复用上面的来源列表）。\n"
+                    "8. **必须逐条写完上面列出的全部章节，一个都不能省略**；若内容过多，压缩每章篇幅"
+                    "（每章给出精炼要点即可），而不是省略靠后的章节。宁可精炼，不可截断。\n"
                     "只输出 Markdown 报告正文。"
                 ),
             },
         ]
+        budget = int(getattr(self.cfg.llm, "max_tokens_report", 0) or self.cfg.llm.max_tokens)
         try:
-            text = self.llm.chat(messages, tier="strong", temperature=0.35, max_tokens=int(self.cfg.llm.max_tokens))
+            text = self.llm.chat(messages, tier="strong", temperature=0.35, max_tokens=budget)
             if text and text.strip():
-                return text.strip()
+                text = text.strip()
+                missing = [s for s in sections if s.split("（")[0].split("(")[0].strip() not in text]
+                if missing:
+                    log.warning("synthesis may be truncated: %d/%d sections not found (budget=%d)", len(missing), len(sections), budget)
+                return text
         except LLMError as exc:
             log.warning("synthesis LLM failed (%s); emitting deterministic report", exc)
         return self._fallback_report(topic, plan, subquestions, refs)

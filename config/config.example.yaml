@@ -19,6 +19,9 @@ llm:
     - ${LLM_MODEL_FALLBACK:-deepseek-flash}
   temperature: 0.3
   max_tokens: 8192
+  # Synthesis (the final report) gets its own, larger budget: a 7-facet
+  # knowledge/watch report is long and would otherwise be cut off mid-way.
+  max_tokens_report: ${LLM_MAX_TOKENS_REPORT:-16384}
   timeout: 240
   max_retries: 3
   # Named tiers used by the pipeline (fast for extraction, strong for synthesis)
