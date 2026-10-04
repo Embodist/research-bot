@@ -220,7 +220,7 @@ git push origin main
 | `rb serve` 返回 400 `unknown config section` | `config` 覆盖只能是 `DEFAULTS` 顶层段（`llm/search/research/report/email`） |
 | `rb serve` 返回 422 `mode must be one of` | `mode` 只能是 `research` / `knowledge` / `watch` |
 | 知识/增量模式 `coverage` 有 gap | 属预期——报告确实缺该维/缺引用/缺 elements（见 `docs/knowledge-framework.md`） |
-| 报告只写到前几维 / 后半截断 | 综合输出预算不足；调大 `llm.max_tokens_report`（默认 16384，env `LLM_MAX_TOKENS_REPORT`）。日志会有 "synthesis may be truncated" |
+| 报告只写到前几维 / 后半截断 | 综合输出被截断时**会自动补写**缺失章节（`engine._complete_sections`，插到参考列表前）；仍不够就调大 `llm.max_tokens_report`（默认 16384，env `LLM_MAX_TOKENS_REPORT`）。日志会记 "synthesis truncated" |
 | 报告混入与本领域无关的论文 | 相关性门控已改为**关键词整词匹配**（`_keyword_hit`）；若仍漂移，多为 planner 生成了过泛查询，收紧种子查询 |
 
 ---

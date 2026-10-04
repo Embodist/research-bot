@@ -205,3 +205,20 @@ def test_fallback_recommendation_downgrades_without_signals():
     assert finding["attention"] == ""
     assert finding["recommendation"].startswith("★★☆☆☆")
 
+
+def test_missing_sections_detects_dropped_facets():
+    sections = ["1. 定位与背景（Positioning）", "7. 关联与元层（Meta）"]
+    text = "## 1. 定位与背景（Positioning）\n...\n## 参考来源\n[1] x"
+    assert DeepResearchEngine._missing_sections(text, sections) == ["7. 关联与元层（Meta）"]
+
+
+def test_splice_before_refs_inserts_before_reference_list():
+    text = "# T\n\n## 6. 实践与生态\nbody\n\n## 参考来源\n[1] x"
+    out = DeepResearchEngine._splice_before_refs(text, "## 7. 关联与元层\nmeta body")
+    assert out.index("## 6. 实践与生态") < out.index("## 7. 关联与元层") < out.index("## 参考来源")
+
+
+def test_splice_without_refs_appends():
+    out = DeepResearchEngine._splice_before_refs("# T\nbody", "## 7. 关联与元层\nx")
+    assert out.rstrip().endswith("## 7. 关联与元层\nx")
+

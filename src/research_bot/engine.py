@@ -645,13 +645,61 @@ class DeepResearchEngine:
             text = self.llm.chat(messages, tier="strong", temperature=0.35, max_tokens=budget)
             if text and text.strip():
                 text = text.strip()
-                missing = [s for s in sections if s.split("（")[0].split("(")[0].strip() not in text]
+                missing = self._missing_sections(text, sections)
                 if missing:
-                    log.warning("synthesis may be truncated: %d/%d sections not found (budget=%d)", len(missing), len(sections), budget)
+                    log.warning(
+                        "synthesis truncated: %d/%d sections missing (budget=%d); requesting them",
+                        len(missing),
+                        len(sections),
+                        budget,
+                    )
+                    extra = self._complete_sections(messages, missing, budget)
+                    if extra:
+                        text = self._splice_before_refs(text, extra)
                 return text
         except LLMError as exc:
             log.warning("synthesis LLM failed (%s); emitting deterministic report", exc)
         return self._fallback_report(topic, plan, subquestions, refs)
+
+    @staticmethod
+    def _missing_sections(text: str, sections: list[str]) -> list[str]:
+        """Original section headings whose leading name does not appear in ``text``."""
+        return [s for s in sections if s.split("（")[0].split("(")[0].strip() not in text]
+
+    def _complete_sections(self, messages: list[dict[str, Any]], missing: list[str], budget: int) -> str:
+        """One bounded follow-up call that writes only the sections the report dropped."""
+        instruction = (
+            "上一次回复被截断，缺少以下章节：\n"
+            + "\n".join(f"- {s}" for s in missing)
+            + "\n\n请**只**补写这些缺失章节（保留相同的编号与标题），继续遵守全部写作要求"
+            "（每个论断带 [n] 引用、四轴证据、证据不足写 `> 待核实`）；"
+            "不要重复已写过的章节，也不要输出“参考来源”列表。只输出 Markdown 正文。"
+        )
+        try:
+            extra = self.llm.chat(
+                [*messages, {"role": "user", "content": instruction}],
+                tier="strong",
+                temperature=0.3,
+                max_tokens=budget,
+            )
+        except LLMError as exc:
+            log.warning("section completion failed (%s); report stays truncated", exc)
+            return ""
+        return extra.strip() if extra and extra.strip() else ""
+
+    @staticmethod
+    def _splice_before_refs(text: str, extra: str) -> str:
+        """Insert ``extra`` just before the trailing reference list (or at the end)."""
+        lines = text.splitlines()
+        idx = next(
+            (i for i, ln in enumerate(lines) if re.match(r"^#{1,6}\s*(参考来源|References?)\b", ln.strip(), re.IGNORECASE)),
+            None,
+        )
+        if idx is None:
+            return text.rstrip() + "\n\n" + extra + "\n"
+        head, tail = "\n".join(lines[:idx]).rstrip(), "\n".join(lines[idx:])
+        return f"{head}\n\n{extra}\n\n{tail}\n"
+
 
     def _fallback_report(self, topic: Topic, plan: dict[str, Any], subquestions: list[SubQuestion], refs: list[dict[str, Any]]) -> str:
         lines = [f"# {plan.get('title') or topic.title}", ""]
