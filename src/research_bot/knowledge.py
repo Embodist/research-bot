@@ -129,8 +129,11 @@ FACET_IDS: list[str] = KNOWLEDGE_FRAME.facet_ids
 
 _CLAIM_RE = re.compile(r"^(\d+\.\s|[-*]\s)")
 _CITE_RE = re.compile(r"\[\d+\]")
-_HEADING_RE = re.compile(r"^(#{1,6})\s+(.*)$")
 _SECTION_TITLE_RE = re.compile(r"^\d+\.\s+\S")
+# A facet header, with or without a Markdown prefix: "## 1. 定位与背景（Positioning）"
+# or a bare "1. 定位与背景（Positioning）". A sub-heading like "### 1.1 ..." does NOT
+# match (after "1." comes a digit, not whitespace), so it stays with its parent facet.
+_FACET_HEAD_RE = re.compile(r"^#{0,6}\s*\d+\.\s+\S")
 
 
 def get_frame(frame: str | Frame | None = None) -> Frame:
@@ -223,19 +226,19 @@ class CoverageReport:
 
 
 def _split_sections(md: str, facet_titles: tuple[str, ...]) -> dict[str, str]:
-    """Map heading text -> body text, recognising Markdown headings and our
-    bare numbered section titles (``1. 定位与背景（Positioning）``)."""
+    """Map facet heading -> body, **including** any ``###`` sub-sections beneath it.
+
+    Recognises both Markdown facet headings (``## 1. 定位与背景（Positioning）``) and
+    our bare numbered titles. Sub-headings (``### 1.1 …``) and their content are
+    folded into the parent facet, since the report legitimately organises a facet
+    into named sub-parts (前置知识链, 代际, …).
+    """
     sections: dict[str, list[str]] = {}
     current: str | None = None
     for line in (md or "").splitlines():
         stripped = line.strip()
-        m = _HEADING_RE.match(stripped)
-        if m:
-            current = m.group(2).strip()
-            sections.setdefault(current, [])
-            continue
-        if _SECTION_TITLE_RE.match(stripped) and any(t in stripped for t in facet_titles):
-            current = stripped
+        if _FACET_HEAD_RE.match(stripped) and any(t in stripped for t in facet_titles):
+            current = stripped.lstrip("#").strip()
             sections.setdefault(current, [])
             continue
         if current is not None:

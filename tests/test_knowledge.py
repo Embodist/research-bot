@@ -140,6 +140,31 @@ def test_evaluate_coverage_full_report_scores_high():
     assert not [g for g in report.gaps if "未覆盖" in g]
 
 
+def test_evaluate_coverage_folds_subsections_into_facet():
+    # A facet whose content lives under `###` sub-headings must still count as
+    # covered (real reports organise facets into 前置知识链 / 代际 sub-parts).
+    md = """# Demo
+
+## 1. 定位与背景（Positioning）
+
+### 1.1 定义
+- 它是 X，不是 Y [1]
+
+### 1.2 前置知识链
+- 先学前置链 [1]
+
+## 2. 问题域（Problem Space）
+- 核心问题 [1]
+"""
+    report = evaluate_coverage(_result(md))
+    positioning = next(fc for fc in report.facets if fc.facet == "positioning")
+    assert positioning.populated
+    assert positioning.claim_count >= 2
+    problem = next(fc for fc in report.facets if fc.facet == "problem")
+    assert problem.populated
+    assert not any("「定位与背景」未覆盖" in g for g in report.gaps)
+
+
 def test_evaluate_coverage_thin_report_flags_gaps():
     report = evaluate_coverage(_result(_THIN_REPORT))
     assert report.score < 80
