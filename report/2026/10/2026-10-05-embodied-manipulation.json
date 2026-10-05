@@ -1,0 +1,3266 @@
+{
+  "topic": "embodied-manipulation",
+  "title": "具身智能·灵巧操作（Dexterous Manipulation & Grasping）深度调研计划",
+  "query": "",
+  "depth": "standard",
+  "language": "bilingual",
+  "started_at": "2026-10-05T22:31:07+00:00",
+  "finished_at": "2026-10-05T22:36:04+00:00",
+  "duration_s": 296.7,
+  "rounds": 1,
+  "plan": {
+    "title": "具身智能·灵巧操作（Dexterous Manipulation & Grasping）深度调研计划",
+    "summary": "系统梳理灵巧手与多指操作、抓取、接触丰富任务在模仿学习/扩散策略、触觉力感知与双臂协同方向的前沿进展、奠基工作、开源实践、数据集基准与开放争议，产出带证据分级的可核查调研报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024—2026 年灵巧操作与抓取方向的前沿进展是什么：扩散策略（Diffusion Policy）、动作分块（action chunking/ACT）、VLA 大模型、双臂协同等在真机与仿真上的最新 SOTA 分别是什么？",
+        "rationale": "这是主题的时间敏感核心，需要按季度建立时间线，并区分『论文宣称』与『第三方榜单/复现』；用户要求优先判断最近 1-2 年的进展。",
+        "queries": [
+          "diffusion policy dexterous manipulation 2025 RSS CoRL arxiv",
+          "action chunking ACT bimanual manipulation 2025 real robot",
+          "vision-language-action model dexterous hand manipulation 2025 arxiv",
+          "双臂协同 灵巧操作 扩散策略 2025 综述"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该方向的经典/奠基工作有哪些：从抓取检测与抓取合成（GraspNet/AnyGrasp、接触点表示），到 in-hand manipulation 的强化学习里程碑（OpenAI Dactyl、DextrAH、Visual Dexterity）与模仿学习范式（ALOHA/ACT）？",
+        "rationale": "需要建立方法演进脉络（模块化→端到端→基础模型→统一动作空间），并形成可引用的论文图谱，为后续对比提供基线。",
+        "queries": [
+          "OpenAI Dactyl shadow hand in-hand manipulation 2018 2019",
+          "DextrAH dexterous manipulation reinforcement learning arxiv",
+          "ALOHA ACT learning fine-grained bimanual manipulation 2023",
+          "grasp synthesis survey deep learning GraspNet AnyGrasp arxiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "有哪些可用的开源项目与工程实践栈（政策/仿真/硬件）：LeRobot、RoboSuite、Isaac Lab、MuJoCo Menagerie、AnyGrasp SDK、LEAP Hand、Open-TeleVision、Mobile ALOHA 等的维护状态、依赖与真机可复现性如何？",
+        "rationale": "用户关注工程落地与可复现性，需要以 GitHub 仓库的一手信息（README、最近提交、stars、issue 活跃度）判断项目是否『活着』，而非只看论文。",
+        "queries": [
+          "github huggingface lerobot dexterous manipulation policy training",
+          "github robosuite isaac lab dexterous manipulation benchmark",
+          "github LEAP hand dexterous manipulation open source",
+          "github Open-TeleVision AnyGrasp mobile aloha repo"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing"
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "当前主流数据集与基准是什么：Open X-Embodiment、DROID、LIBERO、RoboMimic、SimplerEnv、RoboArena、Adroit/DexArt/Meta-World 在任务数、本体、仿真/真机口径与榜单刷新情况上如何对比？评测协议是否存在可比性问题？",
+        "rationale": "判断 SOTA 必须追问『在什么 benchmark、什么硬件、多少任务、是否真机』，这是本主题最容易出现混淆（仿真 SOTA vs 真机 SOTA）的环节。",
+        "queries": [
+          "Open X-Embodiment dataset benchmark robot manipulation 2024",
+          "DROID robot dataset in-the-wild manipulation 2024",
+          "LIBERO SimplerEnv RoboArena benchmark comparison arxiv",
+          "dexterous manipulation benchmark Adroit DexArt Meta-World evaluation"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "github"
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "触觉与力感知在接触丰富操作中的现状如何：视觉触觉传感器（GelSight/DIGIT/Tac3D 类）、力/力矩反馈、触觉表征学习与 sim2real 触觉仿真（TacSim、DiffTactile 等）已达到什么水平，是否被主流策略真正用于真机闭环？",
+        "rationale": "触觉是本主题的关键差异化维度，且证据形态分散（论文、硬件手册、开源 SDK），需要交叉验证其成熟度，避免把演示视频当成实验证据。",
+        "queries": [
+          "visuotactile sensing contact-rich manipulation 2025 arxiv",
+          "tactile sim2real GelSight DIGIT policy learning 2024 2025",
+          "力触觉反馈 灵巧手 接触丰富任务 2025 综述",
+          "tactile representation learning robot manipulation benchmark 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q6",
+        "question": "开放问题与争议有哪些：sim2real 差距、数据规模律与跨本体泛化是否成立、评测可复现性与 benchmark 饱和、硬件耐久与成本、以及公开的失败案例与负结果？",
+        "rationale": "调研方法要求必须覆盖争议与失败案例，避免单向宣传式综述；同时为后续立项/选型提供风险清单。",
+        "queries": [
+          "sim2real gap dexterous manipulation failure analysis 2025",
+          "robot manipulation benchmark reproducibility critique 2025 arxiv",
+          "negative results imitation learning robot manipulation scaling data"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024—2026 年灵巧操作与抓取方向的前沿进展是什么：扩散策略（Diffusion Policy）、动作分块（action chunking/ACT）、VLA 大模型、双臂协同等在真机与仿真上的最新 SOTA 分别是什么？",
+      "queries": [
+        "diffusion policy dexterous manipulation 2025 RSS CoRL arxiv",
+        "action chunking ACT bimanual manipulation 2025 real robot",
+        "vision-language-action model dexterous hand manipulation 2025 arxiv",
+        "双臂协同 灵巧操作 扩散策略 2025 综述"
+      ],
+      "rationale": "这是主题的时间敏感核心，需要按季度建立时间线，并区分『论文宣称』与『第三方榜单/复现』；用户要求优先判断最近 1-2 年的进展。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.040724,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Benchmarking Generalizable Bimanual Manipulation: RoboTwin Dual-Arm Collaboration Challenge at CVPR 2025 MEIS Workshop",
+          "url": "http://arxiv.org/abs/2506.23351v2",
+          "snippet": "Embodied Artificial Intelligence (Embodied AI) is an emerging frontier in robotics, driven by the need for autonomous systems that can perceive, reason, and act in complex physical environments. While single-arm systems have shown strong task performance, collaborative dual-arm systems are essential for handling more intricate tasks involving rigid, deformable, and tactile-sensitive objects. To advance this goal, we launched the RoboTwin Dual-Arm Collaboration Challenge at the 2nd MEIS Workshop, CVPR 2025. Built on the RoboTwin Simulation platform (1.0 and 2.0) and the AgileX COBOT-Magic Robo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-29",
+          "authors": [
+            "Tianxing Chen",
+            "Kaixuan Wang",
+            "Zhaohui Yang",
+            "Yuhao Zhang",
+            "Zanxin Chen",
+            "Baijun Chen",
+            "Wanxi Dong",
+            "Ziyuan Liu",
+            "Dong Chen",
+            "Tianshuo Yang",
+            "Haibao Yu",
+            "Xiaokang Yang",
+            "Yusen Qin",
+            "Zhiqiang Xie",
+            "Yao Mu",
+            "Ping Luo",
+            "Tian Nian",
+            "Weiliang Deng",
+            "Yiheng Ge",
+            "Yibin Liu",
+            "Zixuan Li",
+            "Dehui Wang",
+            "Zhixuan Liang",
+            "Haohui Xie",
+            "Rijie Zeng",
+            "Yunfei Ge",
+            "Peiqing Cong",
+            "Guannan He",
+            "Zhaoming Han",
+            "Ruocheng Yin",
+            "Jingxiang Guo",
+            "Lunkai Lin",
+            "Tianling Xu",
+            "Hongzhe Bi",
+            "Xuewu Lin",
+            "Tianwei Lin",
+            "Shujie Luo",
+            "Keyu Li",
+            "Ziyan Zhao",
+            "Ke Fan",
+            "Heyang Xu",
+            "Bo Peng",
+            "Wenlong Gao",
+            "Dongjiang Li",
+            "Feng Jin",
+            "Hui Shen",
+            "Jinming Li",
+            "Chaowei Cui",
+            "Yu Chen",
+            "Yaxin Peng",
+            "Lingdong Zeng",
+            "Wenlong Dong",
+            "Tengfei Li",
+            "Weijie Ke",
+            "Jun Chen",
+            "Erdemt Bao",
+            "Tian Lan",
+            "Tenglong Liu",
+            "Jin Yang",
+            "Huiping Zhuang",
+            "Baozhi Jia",
+            "Shuai Zhang",
+            "Zhengfeng Zou",
+            "Fangheng Guan",
+            "Tianyi Jia",
+            "Ke Zhou",
+            "Hongjiu Zhang",
+            "Yating Han",
+            "Cheng Fang",
+            "Yixian Zou",
+            "Chongyang Xu",
+            "Qinglun Zhang",
+            "Shen Cheng",
+            "Xiaohe Wang",
+            "Ping Tan",
+            "Haoqiang Fan",
+            "Shuaicheng Liu",
+            "Jiaheng Chen",
+            "Chuxuan Huang",
+            "Chengliang Lin",
+            "Kaijun Luo",
+            "Boyu Yue",
+            "Yi Liu",
+            "Jinyu Chen",
+            "Zichang Tan",
+            "Liming Deng",
+            "Shuo Xu",
+            "Zijian Cai",
+            "Shilong Yin",
+            "Hao Wang",
+            "Hongshan Liu",
+            "Tianyang Li",
+            "Long Shi",
+            "Ran Xu",
+            "Huilin Xu",
+            "Zhengquan Zhang",
+            "Congsheng Xu",
+            "Jinchang Yang",
+            "Feng Xu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.23351v2",
+            "rrf_score": 0.021127
+          }
+        },
+        {
+          "title": "Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025",
+          "url": "http://arxiv.org/abs/2506.02550v2",
+          "snippet": "In this report, we present a novel three-stage framework developed for the Ego4D Long-Term Action Anticipation (LTA) task. Inspired by recent advances in foundation models, our method consists of three stages: feature extraction, action recognition, and long-term action anticipation. First, visual features are extracted using a high-performance visual encoder. The features are then fed into a Transformer to predict verbs and nouns, with a verb-noun co-occurrence matrix incorporated to enhance recognition accuracy. Finally, the predicted verb-noun pairs are formatted as textual prompts and inp…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-03",
+          "authors": [
+            "Qiaohui Chu",
+            "Haoyu Zhang",
+            "Yisen Feng",
+            "Meng Liu",
+            "Weili Guan",
+            "Yaowei Wang",
+            "Liqiang Nie"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.02550v2",
+            "rrf_score": 0.020548
+          }
+        },
+        {
+          "title": "Generalist Robot Manipulation beyond Action Labeled Data",
+          "url": "http://arxiv.org/abs/2509.19958v1",
+          "snippet": "Recent advances in generalist robot manipulation leverage pre-trained Vision-Language Models (VLMs) and large-scale robot demonstrations to tackle diverse tasks in a zero-shot manner. A key challenge remains: scaling high-quality, action-labeled robot demonstration data, which existing methods rely on for robustness and generalization. To address this, we propose a method that benefits from videos without action labels - featuring humans and/or robots in action - enhancing open-vocabulary performance and enabling data-efficient learning of new tasks. Our method extracts dense, dynamic 3D poin…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-24",
+          "authors": [
+            "Alexander Spiridonov",
+            "Jan-Nico Zaech",
+            "Nikolay Nikolov",
+            "Luc Van Gool",
+            "Danda Pani Paudel"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.19958v1",
+            "rrf_score": 0.02
+          }
+        },
+        {
+          "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+          "url": "http://arxiv.org/abs/2608.17095v1",
+          "snippet": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visual tokens of detector localized traffic actors on Alpamayo-R1's Qwen3-VL backbone. It is applied as a fail open forward pre-hook with no weight changes. On 50 lane-change scenarios from the Physical AI World Model Synthetic dataset. The trajectory decoder shows a monotonic dose response in the bias…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-17",
+          "authors": [
+            "Darshan Nagendra Prasad",
+            "Lars Ullrich",
+            "Knut Graichen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.17095v1",
+            "rrf_score": 0.018987
+          }
+        },
+        {
+          "title": "UniHM: Unified Dexterous Hand Manipulation with Vision Language Model",
+          "url": "http://arxiv.org/abs/2603.00732v1",
+          "snippet": "Planning physically feasible dexterous hand manipulation is a central challenge in robotic manipulation and Embodied AI. Prior work typically relies on object-centric cues or precise hand-object interaction sequences, foregoing the rich, compositional guidance of open-vocabulary instruction. We introduce UniHM, the first framework for unified dexterous hand manipulation guided by free-form language commands. We propose a Unified Hand-Dexterous Tokenizer that maps heterogeneous dexterous-hand morphologies into a single shared codebook, improving cross-dexterous hand generalization and scalabil…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-28",
+          "authors": [
+            "Zhenhao Zhang",
+            "Jiaxin Liu",
+            "Ye Shi",
+            "Jingya Wang"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.00732v1",
+            "rrf_score": 0.018519
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              45
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Benchmarking Generalizable Bimanual Manipulation: RoboTwin Dual-Arm Collaboration Challenge at CVPR 2025 MEIS Workshop",
+            "evidence": "Embodied Artificial Intelligence (Embodied AI) is an emerging frontier in robotics, driven by the need for autonomous systems that can perceive, reason, and act in complex physical environments. While single-arm systems have shown strong task performance, collaborative dual-arm systems are essentia…",
+            "sources": [
+              66
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025",
+            "evidence": "In this report, we present a novel three-stage framework developed for the Ego4D Long-Term Action Anticipation (LTA) task. Inspired by recent advances in foundation models, our method consists of three stages: feature extraction, action recognition, and long-term action anticipation. First, visual…",
+            "sources": [
+              68
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Generalist Robot Manipulation beyond Action Labeled Data",
+            "evidence": "Recent advances in generalist robot manipulation leverage pre-trained Vision-Language Models (VLMs) and large-scale robot demonstrations to tackle diverse tasks in a zero-shot manner. A key challenge remains: scaling high-quality, action-labeled robot demonstration data, which existing methods rely…",
+            "sources": [
+              70
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+            "evidence": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visu…",
+            "sources": [
+              72
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "UniHM: Unified Dexterous Hand Manipulation with Vision Language Model",
+            "evidence": "Planning physically feasible dexterous hand manipulation is a central challenge in robotic manipulation and Embodied AI. Prior work typically relies on object-centric cues or precise hand-object interaction sequences, foregoing the rich, compositional guidance of open-vocabulary instruction. We int…",
+            "sources": [
+              73
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该方向的经典/奠基工作有哪些：从抓取检测与抓取合成（GraspNet/AnyGrasp、接触点表示），到 in-hand manipulation 的强化学习里程碑（OpenAI Dactyl、DextrAH、Visual Dexterity）与模仿学习范式（ALOHA/ACT）？",
+      "queries": [
+        "OpenAI Dactyl shadow hand in-hand manipulation 2018 2019",
+        "DextrAH dexterous manipulation reinforcement learning arxiv",
+        "ALOHA ACT learning fine-grained bimanual manipulation 2023",
+        "grasp synthesis survey deep learning GraspNet AnyGrasp arxiv"
+      ],
+      "rationale": "需要建立方法演进脉络（模块化→端到端→基础模型→统一动作空间），并形成可引用的论文图谱，为后续对比提供基线。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Assembling Two Parts in One Hand",
+          "url": "http://arxiv.org/abs/2609.10137v1",
+          "snippet": "A hallmark of human dexterity is the cooperative use of fingers, where different fingers take on distinct yet coordinated roles to accomplish fine manipu- lation, such as capping a pen with the hand that holds it. We study this finger-level coordination through in-hand assembly: mating two rigid objects within a single dexterous hand, with no second arm and no fixture. We present a reinforcement learning formulation to solve this problem in a unified framework, which is driven by a goal relative pose between the two parts. Finger coordination is shaped by a function-based auxiliary reward and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-09",
+          "authors": [
+            "Liuao Pei",
+            "Tianyue Wu",
+            "Hui Zhang",
+            "Ping Luo",
+            "Jie Song"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.10137v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+          "url": "http://arxiv.org/abs/2607.18488v1",
+          "snippet": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We propose a physical platform that is designed to simplify the transition. In this paper, we present the Open Ant: a physical variant of the commonly used Gymnasium Ant environment, along with a simulation. We demonstrate that competent walking policies can be learned from scratch in approximately one…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-20",
+          "authors": [
+            "Elena Sorina Lupu",
+            "Patrick Spieler",
+            "Khurram Javed",
+            "Kris De Asis",
+            "John D. Martin",
+            "Martha Steenstrup",
+            "Joseph Modayil"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.18488v1",
+            "rrf_score": 0.020833
+          }
+        },
+        {
+          "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2602.12375v1",
+          "snippet": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propagating local uncertainties around rewards. However, this approach only increases the value bonus for an action retroactively, after seeing a higher reward bonus from that state and action. Such an approach does not encourage the agent to visit a state and action for the first time. In this work, we in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-12",
+          "authors": [
+            "Abdul Wahab",
+            "Raksha Kumaraswamy",
+            "Martha White"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.12375v1",
+            "rrf_score": 0.020548
+          }
+        },
+        {
+          "title": "Causal-Paced Deep Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2507.02910v1",
+          "snippet": "Designing effective task sequences is crucial for curriculum reinforcement learning (CRL), where agents must gradually acquire skills by training on intermediate tasks. A key challenge in CRL is to identify tasks that promote exploration, yet are similar enough to support effective transfer. While recent approach suggests comparing tasks via their Structural Causal Models (SCMs), the method requires access to ground-truth causal structures, an unrealistic assumption in most RL settings. In this work, we propose Causal-Paced Deep Reinforcement Learning (CP-DRL), a curriculum learning framework…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-24",
+          "authors": [
+            "Geonwoo Cho",
+            "Jaegyun Im",
+            "Doyoon Kim",
+            "Sundong Kim"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.02910v1",
+            "rrf_score": 0.02027
+          }
+        },
+        {
+          "title": "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware",
+          "url": "https://arxiv.org/abs/2304.13705",
+          "snippet": "Fine manipulation tasks, such as threading cable ties or slotting a battery, are notoriously difficult for robots because they require precision, careful coordination of contact forces, and closed-loop visual feedback. Performing these tasks typically requires high-end robots, accurate sensors, or careful calibration, which can be expensive and difficult to set up. Can learning enable low-cost and imprecise hardware to perform these fine manipulation tasks? We present a low-cost system that performs end-to-end imitation learning directly from real demonstrations, collected with a custom teleo…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2023-04-23",
+          "authors": [
+            "Tony Zhao",
+            "Vikash Kumar",
+            "S. Levine",
+            "Chelsea Finn"
+          ],
+          "venue": "Robotics: Science and Systems Conference",
+          "citations": 2564,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.017073
+          }
+        },
+        {
+          "title": "Enhancement of Position Accuracy via DPB-Embedded ACT Model for Fine-Grained Manipulation",
+          "url": "https://doi.org/10.54254/2755-2721/2025.22913",
+          "snippet": "Since the 1960s, research on robots performing fine manipulation tasks has continuously advanced with the progress of electronic and information technologies. Despite some progress, challenges remain in areas such as the spatial perception capability of sensors, cumulative errors in imitation learning, and multimodal information fusion. The ACT (Action Chunking with Transformers) model has certain advantages in these areas, but it still faces shortcomings in complex state prediction and multi-scale, multimodal data processing. To address these issues, a Dynamic Position Bias (DPB) module is i…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2025-05-15",
+          "authors": [
+            "Chengxu Yuan"
+          ],
+          "venue": "Applied and Computational Engineering",
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.016667
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "低成本双臂精细操作的学习范式奠基工作：该工作提出用学习+低成本硬件完成穿扎带、插电池等高精度双臂任务，是后续 ALOHA/ACT 类模仿学习范式的源头性工作。",
+            "evidence": "候选 [93] 标题《Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware》，摘要指出精细操作需要精度、接触力协调与闭环视觉反馈，通常需要高端机器人、精密传感器或仔细标定（昂贵且难部署），本文探究学习能否让低成本方案胜任；发表于 Robotics: Science and Systems Conference，Semantic Scholar 记录 citations=2564。",
+            "sources": [
+              93
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2023",
+            "heat": "citations=2564（Semantic Scholar）",
+            "authority": "Robotics: Science and Systems Conference (RSS)，同行评审机器人顶会",
+            "attention": "高 + 2564 次引用，是该方向被引最高的奠基性成果之一",
+            "recommendation": "★★★★★ 低成本双臂精细操作与动作分块模仿学习的必读源头论文，权威性、热度与主题相关性均最高"
+          },
+          {
+            "point": "ACT（Action Chunking with Transformers）已成为精细操作模仿学习的可复用基线与改进对象，并出现针对其定位精度不足的嵌入式改进版本（DPB-Embedded ACT）。",
+            "evidence": "候选 [94]（2025-05-15）指出：自 1960 年代以来精细操作研究持续推进，但在传感器空间感知能力、模仿学习的累积误差、多模态信息融合方面仍存挑战；ACT 模型存在一定局限，故提出 DPB-Embedded ACT 以提升位置精度；发表于 Applied and Computational Engineering，citations=0。",
+            "sources": [
+              94
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "citations=0（Semantic Scholar）",
+            "authority": "Applied and Computational Engineering（非机器人顶会/顶刊级别 venue）",
+            "attention": "低 + 零引用，仅能作为“ACT 被当作基线加以改进”的旁证",
+            "recommendation": "★★☆☆☆ 仅作为 ACT 衍生改进的线索，权威性与影响力弱，ACT 的真实基线地位需另找高等级来源核实"
+          },
+          {
+            "point": "in-hand 操作的近期 RL 前沿：以两只刚体在同一只灵巧手内完成装配为任务，用统一 RL 框架（由两部件目标相对位姿驱动）实现手指级协同，并可仿真到真机零样本迁移。",
+            "evidence": "候选 [83]《Assembling Two Parts in One Hand》(arXiv 2026-09-09, cs.RO；作者 Liuao Pei, Tianyue Wu, Hui Zhang, Ping Luo, Jie Song)：在单只灵巧手内配合两个刚体，无第二臂、无夹具；RL 由两部件的目标相对位姿驱动，用基于函数的辅助奖励塑造手指协同并正则化到单一人类参考姿态；结合域随机化与历史本体感知+物体观测融合以抵抗遮挡造成的估计噪声；同一配方解决 Bottle、Syringe、Marker 三个装配任务，纯仿真训练、零样本迁移到带单相机的真机硬件。",
+            "sources": [
+              83
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "候选块未提供引用数（arXiv 新近预印本）",
+            "authority": "arXiv 预印本（cs.RO），未标注同行评审 venue",
+            "attention": "中 + 2026-09 新发布预印本，尚无引用数据，主题与 in-hand manipulation RL 高度相关",
+            "recommendation": "★★★☆☆ 作为 in-hand 装配与手指级协同的最新 RL 证据值得跟踪，但因无引用、无同行评审记录，需后续核实其复现与真机细节"
+          },
+          {
+            "point": "候选证据中未见 GraspNet/AnyGrasp 等抓取检测与抓取合成工作、接触点表示方法、以及 OpenAI Dactyl、DextrAH、Visual Dexterity 等 in-hand manipulation 强化学习里程碑的直接证据，这些经典工作的存在与细节在本轮候选中无法核实。",
+            "evidence": "候选中 [85]《The Open Ant: A Robot Platform for Reinforcement Learning Research》(2026-07-20) 为四足/物理 RL 平台，[86]《Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning》(2026-02-12) 为通用 RL 探索算法，[87]《Causal-Paced Deep Reinforcement Learning》(2025-06-24) 为课程 RL，均属通用 RL 研究，与抓取合成、接触点表示或 in-hand manipulation 专有里程碑无直接关联；候选集合中未出现 GraspNet、AnyGrasp、Dactyl、DextrAH、Visual Dexterity 相关条目。",
+            "sources": [
+              85,
+              86,
+              87
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 仅说明候选证据覆盖缺口，未提供抓取/灵巧操作经典工作的任何信号",
+            "recommendation": "★★☆☆☆ 作为证据缺口提示记录，需补充检索 arXiv/GitHub 以获取 GraspNet/AnyGrasp/Dactyl/DextrAH/Visual Dexterity 的一手来源"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware",
+            "url": "https://arxiv.org/abs/2304.13705",
+            "why": "低成本双臂精细操作的奠基性学习范式工作，是 ALOHA/ACT 一脉模仿学习方法的源头，为后续动作分块与双臂协同研究提供基线与硬件方案。",
+            "year": "2023",
+            "heat": "citations=2564（Semantic Scholar）",
+            "authority": "Robotics: Science and Systems Conference (RSS)",
+            "attention": "高 + 2564 次引用，主题核心奠基论文",
+            "recommendation": "★★★★★ 该方向经典必读，权威与热度俱高"
+          },
+          {
+            "title": "Enhancement of Position Accuracy via DPB-Embedded ACT Model for Fine-Grained Manipulation",
+            "url": "https://doi.org/10.54254/2755-2721/2025.22913",
+            "why": "以 ACT 为改进对象，印证 ACT 已成为精细操作模仿学习的通用基线，并指出模仿学习累积误差、多模态融合等仍存问题。",
+            "year": "2025",
+            "heat": "citations=0（Semantic Scholar）",
+            "authority": "Applied and Computational Engineering",
+            "attention": "低 + 零引用",
+            "recommendation": "★★☆☆☆ 仅作 ACT 基线与局限性的旁证，不宜作为权威依据"
+          },
+          {
+            "title": "Assembling Two Parts in One Hand",
+            "url": "http://arxiv.org/abs/2609.10137v1",
+            "why": "以单只灵巧手内两刚体装配研究手指级协同，属 in-hand manipulation 的近期 RL 方向，并演示纯仿真到真机零样本迁移。",
+            "year": "2026",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.RO）",
+            "attention": "中 + 2026-09 新预印本，暂无引用数据",
+            "recommendation": "★★★☆☆ 前沿跟踪价值高，但需核实真机与复现细节"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+            "url": "http://arxiv.org/abs/2607.18488v1",
+            "why": "提供可在真机上从头训练行走策略的物理 RL 平台（约 1 小时，支持 SARSA(λ) 与 SAC）并配套仿真；与抓取/in-hand 操作主题弱相关，仅作为 RL 真机平台生态参考。",
+            "heat": "候选块未提供 stars 或引用数",
+            "authority": "arXiv 预印本（cs.RO），作者含 Joseph Modayil 等",
+            "attention": "低 + 主题（四足 RL 平台）与抓取/灵巧操作不直接相关",
+            "recommendation": "★★☆☆☆ 仅在需要 RL 真机平台参考时阅读，与本题核心关联弱"
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据未覆盖抓取检测与抓取合成经典工作（GraspNet、AnyGrasp）及接触点/抓取表示方法，需补充检索。",
+          "候选证据未覆盖 in-hand manipulation 强化学习里程碑（OpenAI Dactyl、DextrAH、Visual Dexterity）的一手来源，其任务设置、硬件与指标待核实。",
+          "ALOHA/ACT 一脉仅由 [93][94] 间接触及，ACT 的具体架构、动作分块机制与在真机上的成功率口径需引用原始论文核实。",
+          "精细操作模仿学习中的累积误差、多模态信息融合与传感器空间感知能力被 [94] 列为未解挑战，缺乏高等级证据支撑其严重程度。",
+          "候选 [83] 的 in-hand 装配结果（三任务、零样本迁移）为单一预印本宣称，尚无第三方复现或基准榜单验证。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "有哪些可用的开源项目与工程实践栈（政策/仿真/硬件）：LeRobot、RoboSuite、Isaac Lab、MuJoCo Menagerie、AnyGrasp SDK、LEAP Hand、Open-TeleVision、Mobile ALOHA 等的维护状态、依赖与真机可复现性如何？",
+      "queries": [
+        "github huggingface lerobot dexterous manipulation policy training",
+        "github robosuite isaac lab dexterous manipulation benchmark",
+        "github LEAP hand dexterous manipulation open source",
+        "github Open-TeleVision AnyGrasp mobile aloha repo"
+      ],
+      "rationale": "用户关注工程落地与可复现性，需要以 GitHub 仓库的一手信息（README、最近提交、stars、issue 活跃度）判断项目是否『活着』，而非只看论文。",
+      "round": 1,
+      "results": [
+        {
+          "title": "LeRobot: An Open-Source Library for End-to-End Robot Learning",
+          "url": "http://arxiv.org/abs/2602.22818v1",
+          "snippet": "Robotics is undergoing a significant transformation powered by advances in high-level control techniques based on machine learning, giving rise to the field of robot learning. Recent progress in robot learning has been accelerated by the increasing availability of affordable teleoperation systems, large-scale openly available datasets, and scalable learning-based methods. However, development in the field of robot learning is often slowed by fragmented, closed-source tools designed to only address specific sub-components within the robotics stack. In this paper, we present \\texttt{lerobot}, a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-26",
+          "authors": [
+            "Remi Cadene",
+            "Simon Aliberts",
+            "Francesco Capuano",
+            "Michel Aractingi",
+            "Adil Zouitine",
+            "Pepijn Kooijmans",
+            "Jade Choghari",
+            "Martino Russi",
+            "Caroline Pascal",
+            "Steven Palma",
+            "Mustafa Shukor",
+            "Jess Moss",
+            "Alexander Soare",
+            "Dana Aubakirova",
+            "Quentin Lhoest",
+            "Quentin Gallouédec",
+            "Thomas Wolf"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.22818v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "HANDO: Hierarchical Autonomous Navigation and Dexterous Omni-loco-manipulation",
+          "url": "http://arxiv.org/abs/2510.09221v1",
+          "snippet": "Seamless loco-manipulation in unstructured environments requires robots to leverage autonomous exploration alongside whole-body control for physical interaction. In this work, we introduce HANDO (Hierarchical Autonomous Navigation and Dexterous Omni-loco-manipulation), a two-layer framework designed for legged robots equipped with manipulators to perform human-centered mobile manipulation tasks. The first layer utilizes a goal-conditioned autonomous exploration policy to guide the robot to semantically specified targets, such as a black office chair in a dynamic environment. The second layer…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-10",
+          "authors": [
+            "Jingyuan Sun",
+            "Chaoran Wang",
+            "Mingyu Zhang",
+            "Cui Miao",
+            "Hongyu Ji",
+            "Zihan Qu",
+            "Han Sun",
+            "Bing Wang",
+            "Qingyi Si"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.09221v1",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "TransDex: Pre-training Visuo-Tactile Policy with Point Cloud Reconstruction for Dexterous Manipulation of Transparent Objects",
+          "url": "http://arxiv.org/abs/2603.13869v2",
+          "snippet": "Dexterous manipulation enables complex tasks but suffers from self-occlusion, severe depth noise, and depth information loss when manipulating transparent objects. To solve this problem, this paper proposes TransDex, a 3D visuo-tactile fusion motor policy based on point cloud reconstruction pre-training. Specifically, we first propose a self-supervised point cloud reconstruction pre-training approach based on Transformer. This method accurately recovers the 3D structure of objects from interactive point clouds of dexterous hands, even when random noise and large-scale masking are added. Build…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-14",
+          "authors": [
+            "Fengguan Li",
+            "Yifan Ma",
+            "Chen Qian",
+            "Wentao Rao",
+            "Weiwei Shang"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.13869v2",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning",
+          "url": "http://arxiv.org/abs/2511.04831v1",
+          "snippet": "We present Isaac Lab, the natural successor to Isaac Gym, which extends the paradigm of GPU-native robotics simulation into the era of large-scale multi-modal learning. Isaac Lab combines high-fidelity GPU parallel physics, photorealistic rendering, and a modular, composable architecture for designing environments and training robot policies. Beyond physics and rendering, the framework integrates actuator models, multi-frequency sensor simulation, data collection pipelines, and domain randomization tools, unifying best practices for reinforcement and imitation learning at scale within a singl…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-06",
+          "authors": [
+            " NVIDIA",
+            " :",
+            "Mayank Mittal",
+            "Pascal Roth",
+            "James Tigue",
+            "Antoine Richard",
+            "Octi Zhang",
+            "Peter Du",
+            "Antonio Serrano-Muñoz",
+            "Xinjie Yao",
+            "René Zurbrügg",
+            "Nikita Rudin",
+            "Lukasz Wawrzyniak",
+            "Milad Rakhsha",
+            "Alain Denzler",
+            "Eric Heiden",
+            "Ales Borovicka",
+            "Ossama Ahmed",
+            "Iretiayo Akinola",
+            "Abrar Anwar",
+            "Mark T. Carlson",
+            "Ji Yuan Feng",
+            "Animesh Garg",
+            "Renato Gasoto",
+            "Lionel Gulich",
+            "Yijie Guo",
+            "M. Gussert",
+            "Alex Hansen",
+            "Mihir Kulkarni",
+            "Chenran Li",
+            "Wei Liu",
+            "Viktor Makoviychuk",
+            "Grzegorz Malczyk",
+            "Hammad Mazhar",
+            "Masoud Moghani",
+            "Adithyavairavan Murali",
+            "Michael Noseworthy",
+            "Alexander Poddubny",
+            "Nathan Ratliff",
+            "Welf Rehberg",
+            "Clemens Schwarke",
+            "Ritvik Singh",
+            "James Latham Smith",
+            "Bingjie Tang",
+            "Ruchik Thaker",
+            "Matthew Trepte",
+            "Karl Van Wyk",
+            "Fangzhou Yu",
+            "Alex Millane",
+            "Vikram Ramasamy",
+            "Remo Steiner",
+            "Sangeeta Subramanian",
+            "Clemens Volk",
+            "CY Chen",
+            "Neel Jawale",
+            "Ashwin Varghese Kuruttukulam",
+            "Michael A. Lin",
+            "Ajay Mandlekar",
+            "Karsten Patzwaldt",
+            "John Welsh",
+            "Huihua Zhao",
+            "Fatima Anes",
+            "Jean-Francois Lafleche",
+            "Nicolas Moënne-Loccoz",
+            "Soowan Park",
+            "Rob Stepinski",
+            "Dirk Van Gelder",
+            "Chris Amevor",
+            "Jan Carius",
+            "Jumyung Chang",
+            "Anka He Chen",
+            "Pablo de Heras Ciechomski",
+            "Gilles Daviet",
+            "Mohammad Mohajerani",
+            "Julia von Muralt",
+            "Viktor Reutskyy",
+            "Michael Sauter",
+            "Simon Schirm",
+            "Eric L. Shi",
+            "Pierre Terdiman",
+            "Kenny Vilella",
+            "Tobias Widmer",
+            "Gordon Yeoman",
+            "Tiffany Chen",
+            "Sergey Grizan",
+            "Cathy Li",
+            "Lotus Li",
+            "Connor Smith",
+            "Rafael Wiltz",
+            "Kostas Alexis",
+            "Yan Chang",
+            "David Chu",
+            "Linxi \"Jim\" Fan",
+            "Farbod Farshidian",
+            "Ankur Handa",
+            "Spencer Huang",
+            "Marco Hutter",
+            "Yashraj Narang",
+            "Soha Pouya",
+            "Shiwei Sheng",
+            "Yuke Zhu",
+            "Miles Macklin",
+            "Adam Moravanszky",
+            "Philipp Reist",
+            "Yunrong Guo",
+            "David Hoeller",
+            "Gavriel State"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.04831v1",
+            "rrf_score": 0.020548
+          }
+        },
+        {
+          "title": "LabDex: A Hierarchical Benchmark for Dexterous Manipulation in Laboratories",
+          "url": "http://arxiv.org/abs/2608.18618v1",
+          "snippet": "Autonomous laboratories hold great promise for accelerating scientific discovery. To achieve this vision, robots are supposed to dexterously manipulate diverse labware and instruments and execute long-horizon, state-dependent experimental procedures. Yet existing benchmarks do not jointly capture dexterous hand use, real-world laboratory interactions, and multi-stage experimental procedures, limiting systematic training and evaluation. To bridge this gap, we introduce LabDex, a large-scale real-world dataset and benchmark for dexterous manipulation in chemistry laboratories, organized around…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-19",
+          "authors": [
+            "Zhipeng Tang",
+            "Sihang Chen",
+            "Sha Zhang",
+            "Peihao Yang",
+            "Yan Liu",
+            "Wentao Zhao",
+            "Xinrui Liu",
+            "Rui Huang",
+            "Wensheng Du",
+            "Yuting Huang",
+            "Jiajun Deng",
+            "Lidian Wang",
+            "Yuan Zhang",
+            "Yanyong Zhang"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.18618v1",
+            "rrf_score": 0.019481
+          }
+        },
+        {
+          "title": "Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation",
+          "url": "http://arxiv.org/abs/2609.11775v1",
+          "snippet": "Dexterous in-hand manipulation of a grasped object with an anthropomorphic hand is an unsolved frontier for robot dexterity. The contact-richness and highly dynamic nature of object-hand interactions tend to require extensive modeling or data-collection efforts for learning-based approaches. Modern simulators used for reinforcement learning (RL) cannot fully replicate the required contact complexity, while collecting dexterous demonstrations for imitation learning (IL) remains an open problem. In this research, we present an embodied control approach based on real-time task Jacobian estimatio…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-10",
+          "authors": [
+            "Kai Stewart",
+            "Yasunori Toshimitsu",
+            "Robert K. Katzschmann"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.11775v1",
+            "rrf_score": 0.018072
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "LeRobot: An Open-Source Library for End-to-End Robot Learning",
+            "evidence": "Robotics is undergoing a significant transformation powered by advances in high-level control techniques based on machine learning, giving rise to the field of robot learning. Recent progress in robot learning has been accelerated by the increasing availability of affordable teleoperation systems,…",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "HANDO: Hierarchical Autonomous Navigation and Dexterous Omni-loco-manipulation",
+            "evidence": "Seamless loco-manipulation in unstructured environments requires robots to leverage autonomous exploration alongside whole-body control for physical interaction. In this work, we introduce HANDO (Hierarchical Autonomous Navigation and Dexterous Omni-loco-manipulation), a two-layer framework designe…",
+            "sources": [
+              7
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "TransDex: Pre-training Visuo-Tactile Policy with Point Cloud Reconstruction for Dexterous Manipulation of Transparent Objects",
+            "evidence": "Dexterous manipulation enables complex tasks but suffers from self-occlusion, severe depth noise, and depth information loss when manipulating transparent objects. To solve this problem, this paper proposes TransDex, a 3D visuo-tactile fusion motor policy based on point cloud reconstruction pre-tra…",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning",
+            "evidence": "We present Isaac Lab, the natural successor to Isaac Gym, which extends the paradigm of GPU-native robotics simulation into the era of large-scale multi-modal learning. Isaac Lab combines high-fidelity GPU parallel physics, photorealistic rendering, and a modular, composable architecture for design…",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "LabDex: A Hierarchical Benchmark for Dexterous Manipulation in Laboratories",
+            "evidence": "Autonomous laboratories hold great promise for accelerating scientific discovery. To achieve this vision, robots are supposed to dexterously manipulate diverse labware and instruments and execute long-horizon, state-dependent experimental procedures. Yet existing benchmarks do not jointly capture d…",
+            "sources": [
+              11
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation",
+            "evidence": "Dexterous in-hand manipulation of a grasped object with an anthropomorphic hand is an unsolved frontier for robot dexterity. The contact-richness and highly dynamic nature of object-hand interactions tend to require extensive modeling or data-collection efforts for learning-based approaches. Modern…",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q4",
+      "question": "当前主流数据集与基准是什么：Open X-Embodiment、DROID、LIBERO、RoboMimic、SimplerEnv、RoboArena、Adroit/DexArt/Meta-World 在任务数、本体、仿真/真机口径与榜单刷新情况上如何对比？评测协议是否存在可比性问题？",
+      "queries": [
+        "Open X-Embodiment dataset benchmark robot manipulation 2024",
+        "DROID robot dataset in-the-wild manipulation 2024",
+        "LIBERO SimplerEnv RoboArena benchmark comparison arxiv",
+        "dexterous manipulation benchmark Adroit DexArt Meta-World evaluation"
+      ],
+      "rationale": "判断 SOTA 必须追问『在什么 benchmark、什么硬件、多少任务、是否真机』，这是本主题最容易出现混淆（仿真 SOTA vs 真机 SOTA）的环节。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The RSNA Intracranial Aneurysm (RSNA-ICA) Dataset",
+          "url": "http://arxiv.org/abs/2610.01135v2",
+          "snippet": "Intracranial aneurysm rupture is associated with substantial morbidity and mortality, yet aneurysm detection remains challenging, particularly for small lesions and on routine non-angiographic imaging examinations. To support the development and evaluation of artificial intelligence (AI) algorithms for intracranial aneurysm detection and localization, the Radiological Society of North America (RSNA), in collaboration with the American Society of Neuroradiology (ASNR), the Society of Neurointerventional Surgery (SNIS), and the European Society of Neuroradiology (ESNR), curated the RSNA Intracr…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-10-01",
+          "authors": [
+            "Maria Correia de Verdier",
+            "Rachit Saluja",
+            "Jason Sho",
+            "Maryam Vabarizad",
+            "Rennie Yung-Chieh Chen",
+            "Uyen N. T. Nguyen",
+            "Mona Alrehaili",
+            "Layal Aweidah",
+            "Deniz Bulja",
+            "Wesley C. Chan",
+            "Hernan Chaves",
+            "Madhavi Duvvuri",
+            "Huseyin Ekin Ergin",
+            "Undrakh-Erdene Erdenebold",
+            "Ekim Gumeler",
+            "Mohamed Sobhi Jabal",
+            "Chin-Chi Kuo",
+            "Fatima Mubarak",
+            "Sevde Nur Emir",
+            "Scott Riley K. Ong",
+            "Johanna Ortiz",
+            "Almudena Pérez-Lara",
+            "Andreas M. Rauschecker",
+            "Shayan Sirat Maheen Anwar",
+            "Charit Tippareddy",
+            "Tam Tran",
+            "Sorawis Visrutaratna",
+            "John Mongan",
+            "Adam E. Flanders",
+            "Robyn Ball",
+            "Greg Zaharchuk",
+            "Peter D. Chang",
+            "Felipe Kitamura",
+            "Errol Colak",
+            "Luciano Prevedello",
+            "Tyler Richards",
+            "Data Contributor Group",
+            "Dataset Annotator Group",
+            "Evan Calabrese",
+            "Jeffrey D. Rudie"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2610.01135v2",
+            "rrf_score": 0.043275,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models",
+          "url": "http://arxiv.org/abs/2603.28301v3",
+          "snippet": "Vision-Language-Action (VLA) models achieve strong performance in robotic manipulation by leveraging pre-trained vision-language backbones. However, in downstream robotic settings, they are typically fine-tuned with limited data, leading to overfitting to specific instruction formulations and leaving robustness to paraphrased instructions underexplored. To study this gap, we introduce LIBERO-Para, a controlled benchmark that independently varies action expressions and object references for fine-grained analysis of linguistic generalization. Across seven VLA configurations (0.6B-7.5B), we obse…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-30",
+          "authors": [
+            "Chanyoung Kim",
+            "Minwoo Kim",
+            "Minseok Kang",
+            "Hyunwoo Kim",
+            "Dahuin Jung"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.28301v3",
+            "rrf_score": 0.019481
+          }
+        },
+        {
+          "title": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+          "url": "http://arxiv.org/abs/2609.24350v1",
+          "snippet": "Robotic foundation models achieve impressive performance on standard manipulation benchmarks, yet these evaluations typically assume clean, timely, and consistent visual observations throughout execution. We introduce LIBERO-VPro, a benchmark for systematically evaluating the closed-loop visual robustness of robotic foundation models by perturbing the visual evidence available during execution. LIBERO-VPro covers four complementary dimensions, including Visual Evidence Degradation, Camera Staleness, Visual Source Consistency, and Task-Relevant Scene Variation, spanning 12 challenge categories…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-21",
+          "authors": [
+            "Huiqiong Li",
+            "Zhiting Mei",
+            "Anirudha Majumdar",
+            "Jingjing Chen",
+            "Yu-Gang Jiang",
+            "Bin Zhu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.24350v1",
+            "rrf_score": 0.019231
+          }
+        },
+        {
+          "title": "Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation",
+          "url": "http://arxiv.org/abs/2407.15282v1",
+          "snippet": "In this technical report, we detail our first-place solution for the 2024 Waymo Open Dataset Challenge's semantic segmentation track. We significantly enhanced the performance of Point Transformer V3 on the Waymo benchmark by implementing cutting-edge, plug-and-play training and inference technologies. Notably, our advanced version, Point Transformer V3 Extreme, leverages multi-frame training and a no-clipping-point policy, achieving substantial gains over the original PTv3 performance. Additionally, employing a straightforward model ensemble strategy further boosted our results. This approac…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-07-21",
+          "authors": [
+            "Xiaoyang Wu",
+            "Xiang Xu",
+            "Lingdong Kong",
+            "Liang Pan",
+            "Ziwei Liu",
+            "Tong He",
+            "Wanli Ouyang",
+            "Hengshuang Zhao"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2407.15282v1",
+            "rrf_score": 0.04486,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+          "url": "http://arxiv.org/abs/2410.02371v1",
+          "snippet": "In this work, we describe our submissions for the Voice Privacy Challenge 2024. Rather than proposing a novel speech anonymization system, we enhance the provided baselines to meet all required conditions and improve evaluated metrics. Specifically, we implement emotion embedding and experiment with WavLM and ECAPA2 speaker embedders for the B3 baseline. Additionally, we compare different speaker and prosody anonymization techniques. Furthermore, we introduce Mean Reversion F0 for B5, which helps to enhance privacy without a loss in utility. Finally, we explore disentanglement models, namely…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-10-03",
+          "authors": [
+            "Nikita Kuzmin",
+            "Hieu-Thi Luong",
+            "Jixun Yao",
+            "Lei Xie",
+            "Kong Aik Lee",
+            "Eng Siong Chng"
+          ],
+          "venue": "eess.AS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2410.02371v1",
+            "rrf_score": 0.04391,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Unfiltered Conversations: A Dataset of 2024 U.S. Presidential Election Discourse on Truth Social",
+          "url": "http://arxiv.org/abs/2411.01330v1",
+          "snippet": "Truth Social, launched as a social media platform with a focus on free speech, has become a prominent space for political discourse, attracting a user base with diverse, yet often conservative, viewpoints. As an emerging platform with minimal content moderation, Truth Social has facilitated discussions around contentious social and political issues but has also seen the spread of conspiratorial and hyper-partisan narratives. In this paper, we introduce and release a comprehensive dataset capturing activity on Truth Social related to the upcoming 2024 U.S. Presidential Election, including post…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-11-02",
+          "authors": [
+            "Kashish Shah",
+            "Patrick Gerard",
+            "Luca Luceri",
+            "Emilio Ferrara"
+          ],
+          "venue": "cs.SI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2411.01330v1",
+            "rrf_score": 0.042388,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q4",
+        "findings": [
+          {
+            "point": "主流操作基准（如 LIBERO 生态）正被衍生出面向鲁棒性的诊断型基准，说明原有评测协议的可比性假设正被系统性质疑。",
+            "evidence": "从候选证据看，LIBERO 已被两个诊断基准扩展：LIBERO-Para 独立变化『动作表述』与『物体指代』做细粒度语言泛化分析；LIBERO-VPro 则扰动执行期视觉证据，覆盖 Visual Evidence Degradation、Camera Staleness、Visual Source Consistency、Task-Relevant Scene Variation 四个维度，共 12 个挑战类别、96 个实验设置、3296 个 task-condition 用例，评测 3 个 VLA 模型与 3 个 world-action 模型，约 19.6 万个仿真 episode，另加 200 次真机 rollout。",
+            "sources": [
+              35,
+              36
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "候选块未提供 citations/stars 字段",
+            "authority": "均为 arXiv 预印本（2603.28301v3 cs.LG；2609.24350v1 cs.RO），未经同行评审；非官方基准主页",
+            "attention": "低 + 无引用/star/榜单信号，仅能依据 2026-03 与 2026-09 的近期 arXiv 提交时间判断为新兴工作",
+            "recommendation": "★★★☆☆ + 与『基准可比性』问题高度相关，但均为预印本、无采用度证据，宜作线索而非定论"
+          },
+          {
+            "point": "在 LIBERO 类基准上，指令改写会导致 VLA 模型出现两位数百分点级别的性能崩塌，标准评测分数无法反映语言泛化能力。",
+            "evidence": "LIBERO-Para 在 7 个 VLA 配置（0.6B–7.5B 参数）上观察到改写条件下 22–52 pp 的一致性能下降，且下降主要由物体层级的词汇变化驱动——即便简单同义词替换也会触发。",
+            "sources": [
+              35
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "候选块未提供 citations 字段",
+            "authority": "arXiv 预印本（cs.LG），未经同行评审；作者为 Chanyoung Kim 等 5 人",
+            "attention": "低 + 无引用数、无第三方复现信号，仅单一预印本（v1 2026-03-30，v3 2026-09-26）",
+            "recommendation": "★★★☆☆ + 直接支撑『评测协议可比性存疑』的判断，但需独立复现才能升级为强结论"
+          },
+          {
+            "point": "标准操作基准默认『执行全程视觉观测干净、及时、一致』的前提不成立，闭环视觉鲁棒性需要单独的评测协议。",
+            "evidence": "LIBERO-VPro 明确定位为闭环视觉鲁棒性基准，通过扰动执行期可用视觉证据来评测机器人类基础模型，并报告了跨 96 个实验设置的仿真评测规模（约 19.6 万 episode）与 200 次真机 rollout 的补充验证。",
+            "sources": [
+              36
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "候选块未提供 citations/stars 字段",
+            "authority": "arXiv 预印本（cs.RO），未经同行评审；作者含 Huiqiong Li、Zhiting Mei、Anirudha Majumdar、Jingjing Chen、Yu-Gang Jiang、Bin Zhu",
+            "attention": "低 + 无引用/star 数据，仅一次提交记录（2026-09-21，v1）",
+            "recommendation": "★★★☆☆ + 对『评测口径与可比性』主题相关性强，可作为鲁棒性评测设计参考"
+          },
+          {
+            "point": "候选证据中完全没有覆盖 Open X-Embodiment、DROID、RoboMimic、SimplerEnv、RoboArena、Adroit/DexArt/Meta-World 的任务数、本体、仿真/真机口径与榜单刷新信息，本子问题在该批证据下无法完成横向对比。",
+            "evidence": "本批 6 个候选块中，[28] 为 RSNA 颅内动脉瘤医学影像数据集、[26] 为 Waymo 语义分割竞赛方案、[27] 为 Voice Privacy 2024 语音匿名化系统、[29] 为 Truth Social 选举话语数据集，均与机器人操作数据集/基准无关；仅 [35][36] 涉及机器人基准且均属 LIBERO 衍生。因此上述数据库的任务数、本体数量与真机/仿真口径均无法从本批证据中抽取。",
+            "sources": [
+              28,
+              26,
+              27,
+              29,
+              35,
+              36
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 属于证据缺口陈述，非外部信号",
+            "recommendation": "★★★☆☆ + 用于明确标注检索缺口，提示需补充检索后再回答对比部分"
+          },
+          {
+            "point": "LIBERO 衍生基准的评测协议在『仿真规模 vs 真机验证』上呈明显不均衡：鲁棒性结论主要建立在仿真大规模 rollout 之上，真机样本量小两个数量级以上。",
+            "evidence": "LIBERO-VPro 的仿真侧约 196,000 个 episode，而真机侧仅 200 次 rollout；LIBERO-Para 的结论则完全基于受控的语言改写评测配置（7 个 VLA 配置）。",
+            "sources": [
+              35,
+              36
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本，未经同行评审",
+            "attention": "低 + 无引用/榜单信号",
+            "recommendation": "★★★☆☆ + 提示『仿真 SOTA 不能等同于真机 SOTA』这一口径问题，但数字仅来自单一预印本自述"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models",
+            "url": "http://arxiv.org/abs/2603.28301v3",
+            "why": "针对 VLA 指令改写鲁棒性提出受控诊断基准，量化出 22–52 pp 的性能下降，直接暴露标准基准评测口径的语言泛化缺口",
+            "year": "2026",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.LG），未经同行评审",
+            "attention": "低 + 无引用/star/榜单信号，仅近期提交记录",
+            "recommendation": "★★★☆☆ + 与评测可比性问题直接相关，但证据等级为 B（预印本）"
+          },
+          {
+            "title": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+            "url": "http://arxiv.org/abs/2609.24350v1",
+            "why": "系统化扰动执行期视觉证据来评测闭环视觉鲁棒性，覆盖 12 类挑战、96 个设置、3296 个 task-condition 用例，并给出仿真+小规模真机的双层结果",
+            "year": "2026",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.RO），未经同行评审",
+            "attention": "低 + 无引用/star 数据，仅 v1 一次提交",
+            "recommendation": "★★★☆☆ + 主题相关性强，但需核实后续正式发表与第三方复现"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [
+          {
+            "name": "LIBERO-Para（LIBERO 的语言泛化诊断衍生基准）",
+            "url": "http://arxiv.org/abs/2603.28301v3",
+            "why": "在 LIBERO 之上独立变化动作表述与物体指代，用于细粒度分析 VLA 的语言泛化，覆盖 7 个 VLA 配置（0.6B–7.5B）",
+            "heat": "候选块未提供引用/使用度数据",
+            "authority": "arXiv 预印本，发布方为学术团队（Chanyoung Kim 等），非官方 LIBERO 维护方",
+            "attention": "低 + 无引用/star/榜单信号",
+            "recommendation": "★★★☆☆ + 与『基准可比性』主题相关，可作为 LIBERO 评测协议局限的证据点"
+          },
+          {
+            "name": "LIBERO-VPro（LIBERO 的闭环视觉鲁棒性衍生基准）",
+            "url": "http://arxiv.org/abs/2609.24350v1",
+            "why": "从视觉退化、相机陈旧、视觉源一致性、任务相关场景变化四个维度评测闭环鲁棒性；12 类挑战、96 个设置、3296 个 task-condition 用例，约 19.6 万仿真 episode + 200 次真机 rollout",
+            "heat": "候选块未提供引用/使用度数据",
+            "authority": "arXiv 预印本，非官方 LIBERO 维护方",
+            "attention": "低 + 无引用/star 数据",
+            "recommendation": "★★★☆☆ + 对仿真/真机口径与挑战维度设计有参考价值，但需核实其与本子问题其他基准的兼容性"
+          }
+        ],
+        "open_problems": [
+          "候选证据未覆盖 Open X-Embodiment、DROID、RoboMimic、SimplerEnv、RoboArena、Adroit/DexArt/Meta-World 各自的任务数、本体数量、仿真/真机口径与榜单刷新状态，本子问题要求的横向对比在本批证据下无法完成，上述各项均 > 待核实。",
+          "缺少各基准的引用数、GitHub star、榜单排名等热度与关注度信号，无法判断哪些基准是当前社区实际主流。",
+          "缺少第三方独立复现或官方 leaderboard 数据，仅能依赖基准论文自述，属 B 级证据，冲突时无法交叉验证。",
+          "候选证据未涉及各基准的评测协议细节（如 episode 数、随机种子数、成功判定阈值、是否允许重置），因此『基准之间可比性』只能给出方法论层面的怀疑，无法量化。",
+          "LIBERO 衍生基准的真机验证规模（200 次 rollout）与仿真规模（约 19.6 万 episode）相差三个数量级，真机结论的统计效力 > 待核实。"
+        ]
+      }
+    },
+    {
+      "id": "q5",
+      "question": "触觉与力感知在接触丰富操作中的现状如何：视觉触觉传感器（GelSight/DIGIT/Tac3D 类）、力/力矩反馈、触觉表征学习与 sim2real 触觉仿真（TacSim、DiffTactile 等）已达到什么水平，是否被主流策略真正用于真机闭环？",
+      "queries": [
+        "visuotactile sensing contact-rich manipulation 2025 arxiv",
+        "tactile sim2real GelSight DIGIT policy learning 2024 2025",
+        "力触觉反馈 灵巧手 接触丰富任务 2025 综述",
+        "tactile representation learning robot manipulation benchmark 2025"
+      ],
+      "rationale": "触觉是本主题的关键差异化维度，且证据形态分散（论文、硬件手册、开源 SDK），需要交叉验证其成熟度，避免把演示视频当成实验证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Certifiably Safe Manipulation of Deformable Linear Objects via Joint Shape and Tension Prediction",
+          "url": "http://arxiv.org/abs/2505.13889v1",
+          "snippet": "Manipulating deformable linear objects (DLOs) is challenging due to their complex dynamics and the need for safe interaction in contact-rich environments. Most existing models focus on shape prediction alone and fail to account for contact and tension constraints, which can lead to damage to both the DLO and the robot. In this work, we propose a certifiably safe motion planning and control framework for DLO manipulation. At the core of our method is a predictive model that jointly estimates the DLO's future shape and tension. These predictions are integrated into a real-time trajectory optimi…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-20",
+          "authors": [
+            "Yiting Zhang",
+            "Shichen Li"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.13889v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "ManiFeel: Benchmarking and Understanding Visuotactile Manipulation Policy Learning",
+          "url": "http://arxiv.org/abs/2505.18472v2",
+          "snippet": "Supervised visuomotor policies have shown strong performance in robotic manipulation but often struggle in tasks with limited visual inputs, such as operations in confined spaces and dimly lit environments, or tasks requiring precise perception of object properties and environmental interactions. In such cases, tactile feedback becomes essential for manipulation. While the rapid progress of supervised visuomotor policies has benefited greatly from high-quality, reproducible simulation benchmarks in visual imitation, the visuotactile domain still lacks a similarly comprehensive and reliable be…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-24",
+          "authors": [
+            "Quan Khanh Luu",
+            "Pokuang Zhou",
+            "Zhengtong Xu",
+            "Zhiyuan Zhang",
+            "Qiang Qiu",
+            "Yu She"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.18472v2",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "ContactWorld: What Representations Matter for Vision-Tactile Latent World Models in Contact-Rich Manipulation",
+          "url": "http://arxiv.org/abs/2606.13877v3",
+          "snippet": "Contact-rich manipulation poses a fundamental challenge for world models: visual and tactile observations capture different aspects of physical interaction, and their utility depends critically on how this information is represented. We introduce ContactWorld, a controlled benchmark and empirical study of vision-tactile representations across 12 contact-rich manipulation tasks. Using a fixed world-model architecture, training procedure, and planning framework, we examine representation effects through three complementary properties: spatial fidelity, motion coherence, and predictive stability…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-06-11",
+          "authors": [
+            "Zhiyuan Zhang",
+            "Pokuang Zhou",
+            "Kaidi Zhang",
+            "Adeesh Desai",
+            "Temitope Amosa",
+            "Davood Soleymanzadeh",
+            "Jiuzhou Lei",
+            "Yuhao Zhou",
+            "Minghui Zheng",
+            "Yu She"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.13877v3",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.018987
+          }
+        },
+        {
+          "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+          "url": "http://arxiv.org/abs/2510.20381v1",
+          "snippet": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal legal text processing and to provide a benchmark dataset for building and evaluating intelligent systems in multimodal legal domains, with a focus on traffic sign regulation in Vietnam. The best-reported results on VLSP 2025 MLQA-TSR are an F2 score of 64.55% for multimodal legal retrieval and an a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Son T. Luu",
+            "Trung Vo",
+            "Hiep Nguyen",
+            "Khanh Quoc Tran",
+            "Kiet Van Nguyen",
+            "Vu Tran",
+            "Ngan Luu-Thuy Nguyen",
+            "Le-Minh Nguyen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20381v1",
+            "rrf_score": 0.01875
+          }
+        },
+        {
+          "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+          "url": "http://arxiv.org/abs/2509.11402v1",
+          "snippet": "The TRUST workshop is the result of a collaboration between two established workshops in the field of Human-Robot Interaction: SCRITA (Trust, Acceptance and Social Cues in Human-Robot Interaction) and RTSS (Robot Trust for Symbiotic Societies). This joint initiative brings together the complementary goals of these workshops to advance research on trust from both the human and robot perspectives.\n  Website: https://scrita.herts.ac.uk/2025/",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-14",
+          "authors": [
+            "Alessandra Rossi",
+            "Patrick Holthaus",
+            "Gabriella Lakatos",
+            "Sílvia Moros",
+            "Ali Fallahi",
+            "Murat Kirtay",
+            "Marie Postma",
+            "Erhan Oztop"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.11402v1",
+            "rrf_score": 0.018072
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q5",
+        "findings": [
+          {
+            "point": "Certifiably Safe Manipulation of Deformable Linear Objects via Joint Shape and Tension Prediction",
+            "evidence": "Manipulating deformable linear objects (DLOs) is challenging due to their complex dynamics and the need for safe interaction in contact-rich environments. Most existing models focus on shape prediction alone and fail to account for contact and tension constraints, which can lead to damage to both t…",
+            "sources": [
+              99
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "ManiFeel: Benchmarking and Understanding Visuotactile Manipulation Policy Learning",
+            "evidence": "Supervised visuomotor policies have shown strong performance in robotic manipulation but often struggle in tasks with limited visual inputs, such as operations in confined spaces and dimly lit environments, or tasks requiring precise perception of object properties and environmental interactions. I…",
+            "sources": [
+              100
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "ContactWorld: What Representations Matter for Vision-Tactile Latent World Models in Contact-Rich Manipulation",
+            "evidence": "Contact-rich manipulation poses a fundamental challenge for world models: visual and tactile observations capture different aspects of physical interaction, and their utility depends critically on how this information is represented. We introduce ContactWorld, a controlled benchmark and empirical s…",
+            "sources": [
+              102
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              76
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+            "evidence": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal…",
+            "sources": [
+              77
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+            "evidence": "The TRUST workshop is the result of a collaboration between two established workshops in the field of Human-Robot Interaction: SCRITA (Trust, Acceptance and Social Cues in Human-Robot Interaction) and RTSS (Robot Trust for Symbiotic Societies). This joint initiative brings together the complementar…",
+            "sources": [
+              52
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q6",
+      "question": "开放问题与争议有哪些：sim2real 差距、数据规模律与跨本体泛化是否成立、评测可复现性与 benchmark 饱和、硬件耐久与成本、以及公开的失败案例与负结果？",
+      "queries": [
+        "sim2real gap dexterous manipulation failure analysis 2025",
+        "robot manipulation benchmark reproducibility critique 2025 arxiv",
+        "negative results imitation learning robot manipulation scaling data"
+      ],
+      "rationale": "调研方法要求必须覆盖争议与失败案例，避免单向宣传式综述；同时为后续立项/选型提供风险清单。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.044466,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+          "url": "http://arxiv.org/abs/2508.18904v1",
+          "snippet": "The Event-Enriched Image Analysis (EVENTA) Grand Challenge, hosted at ACM Multimedia 2025, introduces the first large-scale benchmark for event-level multimodal understanding. Traditional captioning and retrieval tasks largely focus on surface-level recognition of people, objects, and scenes, often overlooking the contextual and semantic dimensions that define real-world events. EVENTA addresses this gap by integrating contextual, temporal, and semantic information to capture the who, when, where, what, and why behind an image. Built upon the OpenEvents V1 dataset, the challenge features two…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-26",
+          "authors": [
+            "Thien-Phuc Tran",
+            "Minh-Quang Nguyen",
+            "Minh-Triet Tran",
+            "Tam V. Nguyen",
+            "Trong-Le Do",
+            "Duy-Nam Ly",
+            "Viet-Tham Huynh",
+            "Khanh-Duy Le",
+            "Mai-Khiem Tran",
+            "Trung-Nghia Le"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.18904v1",
+            "rrf_score": 0.042936,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+          "url": "http://arxiv.org/abs/2509.11402v1",
+          "snippet": "The TRUST workshop is the result of a collaboration between two established workshops in the field of Human-Robot Interaction: SCRITA (Trust, Acceptance and Social Cues in Human-Robot Interaction) and RTSS (Robot Trust for Symbiotic Societies). This joint initiative brings together the complementary goals of these workshops to advance research on trust from both the human and robot perspectives.\n  Website: https://scrita.herts.ac.uk/2025/",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-14",
+          "authors": [
+            "Alessandra Rossi",
+            "Patrick Holthaus",
+            "Gabriella Lakatos",
+            "Sílvia Moros",
+            "Ali Fallahi",
+            "Murat Kirtay",
+            "Marie Postma",
+            "Erhan Oztop"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.11402v1",
+            "rrf_score": 0.02027
+          }
+        },
+        {
+          "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+          "url": "http://arxiv.org/abs/2504.14582v3",
+          "snippet": "This paper presents the NTIRE 2025 image super-resolution ($\\times$4) challenge, one of the associated competitions of the 10th NTIRE Workshop at CVPR 2025. The challenge aims to recover high-resolution (HR) images from low-resolution (LR) counterparts generated through bicubic downsampling with a $\\times$4 scaling factor. The objective is to develop effective network designs or solutions that achieve state-of-the-art SR performance. To reflect the dual objectives of image SR research, the challenge includes two sub-tracks: (1) a restoration track, emphasizes pixel-wise accuracy and ranks sub…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-20",
+          "authors": [
+            "Zheng Chen",
+            "Kai Liu",
+            "Jue Gong",
+            "Jingkai Wang",
+            "Lei Sun",
+            "Zongwei Wu",
+            "Radu Timofte",
+            "Yulun Zhang",
+            "Xiangyu Kong",
+            "Xiaoxuan Yu",
+            "Hyunhee Park",
+            "Suejin Han",
+            "Hakjae Jeon",
+            "Dafeng Zhang",
+            "Hyung-Ju Chun",
+            "Donghun Ryou",
+            "Inju Ha",
+            "Bohyung Han",
+            "Lu Zhao",
+            "Yuyi Zhang",
+            "Pengyu Yan",
+            "Jiawei Hu",
+            "Pengwei Liu",
+            "Fengjun Guo",
+            "Hongyuan Yu",
+            "Pufan Xu",
+            "Zhijuan Huang",
+            "Shuyuan Cui",
+            "Peng Guo",
+            "Jiahui Liu",
+            "Dongkai Zhang",
+            "Heng Zhang",
+            "Huiyuan Fu",
+            "Huadong Ma",
+            "Yanhui Guo",
+            "Sisi Tian",
+            "Xin Liu",
+            "Jinwen Liang",
+            "Jie Liu",
+            "Jie Tang",
+            "Gangshan Wu",
+            "Zeyu Xiao",
+            "Zhuoyuan Li",
+            "Yinxiang Zhang",
+            "Wenxuan Cai",
+            "Vijayalaxmi Ashok Aralikatti",
+            "Nikhil Akalwadi",
+            "G Gyaneshwar Rao",
+            "Chaitra Desai",
+            "Ramesh Ashok Tabib",
+            "Uma Mudenagudi",
+            "Marcos V. Conde",
+            "Alejandro Merino",
+            "Bruno Longarela",
+            "Javier Abad",
+            "Weijun Yuan",
+            "Zhan Li",
+            "Zhanglu Chen",
+            "Boyang Yao",
+            "Aagam Jain",
+            "Milan Kumar Singh",
+            "Ankit Kumar",
+            "Shubh Kawa",
+            "Divyavardhan Singh",
+            "Anjali Sarvaiya",
+            "Kishor Upla",
+            "Raghavendra Ramachandra",
+            "Chia-Ming Lee",
+            "Yu-Fan Lin",
+            "Chih-Chung Hsu",
+            "Risheek V Hiremath",
+            "Yashaswini Palani",
+            "Yuxuan Jiang",
+            "Qiang Zhu",
+            "Siyue Teng",
+            "Fan Zhang",
+            "Shuyuan Zhu",
+            "Bing Zeng",
+            "David Bull",
+            "Jingwei Liao",
+            "Yuqing Yang",
+            "Wenda Shao",
+            "Junyi Zhao",
+            "Qisheng Xu",
+            "Kele Xu",
+            "Sunder Ali Khowaja",
+            "Ik Hyun Lee",
+            "Snehal Singh Tomar",
+            "Rajarshi Ray",
+            "Klaus Mueller",
+            "Sachin Chaudhary",
+            "Surya Vashisth",
+            "Akshay Dudhane",
+            "Praful Hambarde",
+            "Satya Naryan Tazi",
+            "Prashant Patil",
+            "Santosh Kumar Vipparthi",
+            "Subrahmanyam Murala",
+            "Bilel Benjdira",
+            "Anas M. Ali",
+            "Wadii Boulila",
+            "Zahra Moammeri",
+            "Ahmad Mahmoudi-Aznaveh",
+            "Ali Karbasi",
+            "Hossein Motamednia",
+            "Liangyan Li",
+            "Guanhua Zhao",
+            "Kevin Le",
+            "Yimo Ning",
+            "Haoxuan Huang",
+            "Jun Chen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.14582v3",
+            "rrf_score": 0.02
+          }
+        },
+        {
+          "title": "ManipBench: Benchmarking Vision-Language Models for Low-Level Robot Manipulation",
+          "url": "http://arxiv.org/abs/2505.09698v2",
+          "snippet": "Vision-Language Models (VLMs) have revolutionized artificial intelligence and robotics due to their commonsense reasoning capabilities. In robotic manipulation, VLMs are used primarily as high-level planners, but recent work has also studied their lower-level reasoning ability, which refers to making decisions about precise robot movements. However, the community currently lacks a clear and common benchmark that can evaluate how well VLMs can aid low-level reasoning in robotics. Consequently, we propose a novel benchmark, ManipBench, to evaluate the low-level robot manipulation reasoning capa…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-14",
+          "authors": [
+            "Enyu Zhao",
+            "Vedant Raval",
+            "Hejia Zhang",
+            "Jiageng Mao",
+            "Zeyu Shangguan",
+            "Stefanos Nikolaidis",
+            "Yue Wang",
+            "Daniel Seita"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.09698v2",
+            "rrf_score": 0.019737
+          }
+        },
+        {
+          "title": "Dexterous Cable Manipulation: Taxonomy, Multi-Fingered Hand Design, and Long-Horizon Manipulation",
+          "url": "http://arxiv.org/abs/2502.00396v2",
+          "snippet": "Existing research that addressed cable manipulation relied on two-fingered grippers, which make it difficult to perform similar cable manipulation tasks that humans perform. However, unlike dexterous manipulation of rigid objects, the development of dexterous cable manipulation skills in robotics remains underexplored due to the unique challenges posed by a cable's deformability and inherent uncertainty. In addition, using a dexterous hand introduces specific difficulties in tasks, such as cable grasping, pulling, and in-hand bending, for which no dedicated task definitions, benchmarks, or ev…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-02-01",
+          "authors": [
+            "Sun Zhaole",
+            "Xiao Gao",
+            "Xiaofeng Mao",
+            "Jihong Zhu",
+            "Aude Billard",
+            "Robert B. Fisher"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2502.00396v2",
+            "rrf_score": 0.02459
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q6",
+        "findings": [
+          {
+            "point": "机器人操作领域缺少面向 VLM 低层运动推理的统一评测基准，导致不同工作难以横向比较、评测可复现性受限。",
+            "evidence": "ManipBench 摘要明确指出：VLM 在机器人操作中主要作为高层规划器使用，近期工作也开始研究其低层推理能力（即对精确机器人运动做出决策），但『the community currently lacks a clear and common benchmark』用于评测该能力；该文即为填补此空缺而提出基准。",
+            "sources": [
+              54
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 arXiv:2505.09698v2 (cs.RO)，候选块未给出 venue 或同行评审信息",
+            "attention": "中 — 直接命中机器人操作评测基准缺失这一社区痛点，且为 v2 修订版本，说明有持续维护；候选块未提供引用数或榜单采用度",
+            "recommendation": "★★★★☆ — 与『评测可复现性与 benchmark 缺口』子问题相关度最高，摘要即点明基准缺失；但仅有预印本摘要级证据，任务设置与第三方采用度待核实"
+          },
+          {
+            "point": "灵巧线缆（可变形物体）操作仍是明显欠探索方向，瓶颈同时来自物体可变形性与硬件（多指手设计）两侧。",
+            "evidence": "该文摘要指出：既有线缆操作研究依赖两指夹爪，难以完成人类可做的同类任务；与刚性物体灵巧操作不同，机器人灵巧线缆操作技能因『a cable's deformability and inherent uncertainty』仍『underexplored』，论文因此提出分类法、多指手设计与长时程操作方案。",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 arXiv:2502.00396v2 (cs.RO)，候选块未给出 venue",
+            "attention": "中 — 摘要自述该方向 underexplored 且为 v2 修订；候选块无引用数或 star 数据",
+            "recommendation": "★★★★☆ — 直接支撑硬件侧（多指手设计）与难题侧（可变形物体）开放问题；真机实验规模与成本数据待核实"
+          },
+          {
+            "point": "候选证据集中没有任何一条直接讨论 sim2real 差距、数据规模律（scaling law）或跨本体泛化，这三项无法由当前证据回答，必须补充检索。",
+            "evidence": "候选块共 6 条：[45][46][53] 为计算机视觉竞赛综述（短视频参与度预测、事件级图像理解、图像超分 x4），[52] 为人机交互信任主题 workshop 论文集，均不涉及机器人本体、仿真到真机迁移或跨本体训练；[54][1] 虽为 cs.RO，但分别聚焦低层操作基准与线缆灵巧操作，未提供 sim2real 或跨本体泛化结论。",
+            "sources": [
+              45,
+              46,
+              52,
+              53,
+              54,
+              1
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "对候选证据集覆盖度的判断，非外部权威来源",
+            "attention": "低 — 属证据缺口说明，不构成领域结论",
+            "recommendation": "★★★☆☆ — 作为缺口检查结论保留，提示后续需补充 sim2real、scaling law 与跨本体泛化的专项检索"
+          },
+          {
+            "point": "机器人领域的开放问题讨论已延伸到人机信任维度：信任、接受度与社会线索被视为人-机器人交互中尚未解决的研究议题。",
+            "evidence": "TRUST 2025 workshop 由 SCRITA（Trust, Acceptance and Social Cues in Human-Robot Interaction）与 RTSS（Robot Trust for Symbiotic Societies）两个既有 workshop 联合组成，目标是从人类与机器人两个视角推进信任研究，论文集收录 7 篇论文。",
+            "sources": [
+              52
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2509.11402v1 (cs.RO) workshop 论文集（RO-MAN 2025 关联），无 PDF 可下载，属 workshop 级别而非正式会议全文",
+            "attention": "中 — 信任被两个既有 workshop 持续联合推进，说明议题延续性；候选块未提供引用数或参会规模",
+            "recommendation": "★★★☆☆ — 与子问题中的『争议与开放问题』部分相关，但聚焦 HRI 信任而非 sim2real/硬件，且仅有摘要与网页链接，证据强度有限"
+          },
+          {
+            "point": "当前候选证据中大量条目来自视觉竞赛与评测综述，与具身智能核心开放问题（sim2real、跨本体、硬件耐久成本、失败案例）不匹配，存在明显的检索偏移风险。",
+            "evidence": "6 条候选中至少 3 条（[45] VQualA 短视频参与度预测、[46] EVENTA 事件级图像理解、[53] NTIRE 图像超分 x4）属纯视觉竞赛总结类论文，其评测对象为图像/视频质量与理解，与机器人本体、控制、硬件无关；其中 [46] 明确面向 captioning/retrieval 任务，[53] 面向 bicubic 下采样图像重建。",
+            "sources": [
+              45,
+              46,
+              53
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "对候选证据集构成的分析，非外部权威来源",
+            "attention": "低 — 属方法学层面的证据质量提示",
+            "recommendation": "★★★☆☆ — 提示本轮证据池与子问题匹配度不足，结论不宜外推，需以机器人专属来源重新检索"
+          },
+          {
+            "point": "没有任何候选证据提供公开的失败案例或负结果（negative results），本子问题中『失败案例与负结果』一项在现有证据下无法回答。",
+            "evidence": "逐条检查候选块：[1][54] 为方法/基准提出类论文，[45][46][53] 为竞赛方法与结果综述（报告优胜方案），[52] 为 workshop 论文集结介绍；均未包含失败案例复盘、负结果报告或复现失败记录。",
+            "sources": [
+              1,
+              45,
+              46,
+              52,
+              53,
+              54
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "对候选证据集覆盖度的判断，非外部权威来源",
+            "attention": "低 — 属证据缺口说明",
+            "recommendation": "★★★☆☆ — 明确标注该维度证据缺失，避免在最终综述中编造失败案例"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "ManipBench: Benchmarking Vision-Language Models for Low-Level Robot Manipulation",
+            "url": "http://arxiv.org/abs/2505.09698v2",
+            "why": "直接指出机器人操作领域缺少统一的低层 VLM 推理评测基准，是『评测可复现性与基准缺口』类开放问题的一手证据。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本 (cs.RO)，venue 未在候选块中给出",
+            "attention": "中 — 命中基准缺失痛点，v2 修订",
+            "recommendation": "★★★★☆ — 与本子问题相关性高；需核实任务规模与是否被第三方采用"
+          },
+          {
+            "title": "Dexterous Cable Manipulation: Taxonomy, Multi-Fingered Hand Design, and Long-Horizon Manipulation",
+            "url": "http://arxiv.org/abs/2502.00396v2",
+            "why": "说明可变形物体灵巧操作（含多指手硬件设计）仍为欠探索方向，支撑硬件与任务难度类开放问题。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本 (cs.RO)，venue 未在候选块中给出",
+            "attention": "中 — 自述该方向 underexplored，v2 修订",
+            "recommendation": "★★★★☆ — 对硬件设计与可变形物体难题有直接参考价值；真机规模与成本数据待核实"
+          },
+          {
+            "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+            "url": "http://arxiv.org/abs/2509.11402v1",
+            "why": "反映人-机器人信任与接受度作为持续存在的开放议题，是机器人开放问题讨论的一个侧面。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv workshop 论文集 (cs.RO)，RO-MAN 2025 关联，无 PDF",
+            "attention": "中 — 两个既有 workshop 联合延续该议题",
+            "recommendation": "★★★☆☆ — 与 HRI 信任相关，但与具身智能 sim2real/硬件主线相关度有限"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "sim2real 差距：候选证据未提供任何直接证据，需补充检索",
+          "数据规模律（scaling law）在机器人学习中是否成立：候选证据未覆盖",
+          "跨本体（cross-embodiment）泛化是否成立：候选证据未覆盖",
+          "评测可复现性与基准饱和：ManipBench 指出机器人低层 VLM 推理缺少统一共同基准 [54]",
+          "硬件耐久与成本：仅有灵巧线缆操作指出多指手设计与可变形物体挑战 [1]，无耐久/成本量化数据",
+          "公开失败案例与负结果：候选证据完全未覆盖，存在明显发表偏倚风险",
+          "人-机器人信任与接受度：TRUST 2025 将其作为持续研究方向 [52]",
+          "免责说明：以上多项因候选证据覆盖不足而无法给出结论，不得据现有材料外推"
+        ]
+      }
+    }
+  ],
+  "critiques": [
+    {
+      "coverage": "",
+      "gaps": [],
+      "additional_queries": [],
+      "additional_subquestions": []
+    }
+  ],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 74,
+    "prompt_tokens": 458264,
+    "completion_tokens": 288898,
+    "generated_at": "2026-10-05T22:36:04.329322+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 具身智能·灵巧操作（Dexterous Manipulation & Grasping）深度调研报告\n\n**元信息**：日期 2026-10-05（UTC） | 领域：具身智能 / 灵巧操作与抓取（Dexterous Manipulation & Grasping） | 覆盖方向：模仿学习与扩散/动作分块策略、灵巧手与手内操作（in-hand manipulation）、接触丰富任务与触觉力感知、双臂协同与 sim2real、数据集与基准 | 检索源规模：本轮可引用证据来源 [1]–[110] 共 110 条，覆盖 6 个子问题（q1–q6）的结构化发现，另纳入 3 类人工维护种子资源（论文/项目/数据集） | 证据纪律：所有关键论断带 [n] 引用；无法核实的数字与结论标 `> 待核实`；本轮候选证据存在明显主题偏移，已在正文中显式标注。\n\n---\n\n## 摘要（Executive Summary）\n\n1. **灵巧操作的技术主线已从\"抓取检测 + 分模块规划\"转向\"多模态策略学习 + 动作分块/扩散生成 + 触觉闭环\"**。低成本双臂精细操作的学习范式由 ALOHA/ACT 一脉奠定，其奠基论文累计引用 2564 次（Semantic Scholar），至今仍是可复用基线与被改进对象 [93][94]。\n2. **in-hand manipulation 的 RL 路线仍在推进**：从单物体重定向系统 [81]、手指级多智能体影子奖励 [84]、约束 RL [88]，到 2026 年新提出的\"单手内两刚体装配\"任务（纯仿真训练、零样本迁移真机）[83]，任务复杂度显著上升；但 [83] 为单一预印本自述，尚无第三方复现 `> 待核实`。\n3. **触觉与力感知已形成独立子生态**：视觉触觉仿真（GelSight 类图像生成 [103]、复杂形貌光学触觉传感器仿真 [105]）、触觉预训练 [96]、视触觉灵巧操作 [97][110]、触觉皮肤剪切/法向力 [106]、触觉反馈 RL [109]，并有专门基准 ManiFeel [100] 与 ManiSkill-ViTac 2025 挑战赛 [95]、世界模型表示研究 ContactWorld [102]。**但\"触觉是否被主流 VLA 策略用于真机闭环\"在本轮证据中未获直接证据** `> 待核实`。\n4. **双臂协同出现多个可复用结构与基准**：ALOHA 2 [17]、Mobile ALOHA [18]、InterACT 层级注意力动作分块 [65]、RoboTwin 双臂协作挑战赛 [66]、DAIR 解耦注意力正则 [67]、Stabilize to Act [69]、VoxAct-B [71]。\n5. **数据集与基准层面存在两处显著风险**：(a) 本轮候选证据**完全未覆盖** Open X-Embodiment、DROID、RoboMimic、SimplerEnv、RoboArena、Adroit/DexArt 之外的多数基准细节对比，仅取得 Open X-Embodiment [31]、DROID [33]、DexArt [43] 的论文链接；(b) LIBERO 生态正被衍生出语言泛化 [35] 与闭环视觉鲁棒性 [36] 两类诊断基准，**标准评测分数的可比性假设正被系统性质疑**——指令改写可导致 VLA 性能下降 22–52 个百分点 [35]。\n6. **证据偏移警告**：本轮候选中包含大量与具身智能无关的条目（短视频参与度预测 [45]、图像超分挑战 [53]、医学影像数据集 [28]、语音匿名化 [27] 等）。这些条目**不构成灵巧操作领域的证据**，本报告仅在\"证据缺口\"语境下引用，不做领域结论。\n7. **输出侧重**：第八章给出可直接执行的 Watchlist，附每条目的四类证据（热度/权威/关注度/推荐度）。\n\n---\n\n## 一、关键前沿进展（近 1–2 年）\n\n### 1.1 VLA 与统一灵巧手操作\n\n- **UniHM: Unified Dexterous Hand Manipulation with Vision Language Model**（2026，arXiv 预印本）[73]：提出以开放词汇指令的\"组合式引导\"替代纯物体中心线索或精确手-物交互序列，用于规划物理可行的灵巧手操作。\n  - **热度证据**：候选块未提供引用数 `> 待核实` [73]\n  - **权威证据**：arXiv 预印本（cs.RO），未标注同行评审 venue [73]\n  - **关注度**：中 — 依据为 2026 年新发布、主题直击 VLA×灵巧手交叉点，但无引用/star/榜单信号 [73]\n  - **推荐度**：★★★☆☆ — 与\"VLA 大模型进入灵巧手\"主线高度相关，需等待正式发表或第三方复现后再升级判断 [73]\n- **Generalist Robot Manipulation beyond Action Labeled Data**（2025）[70]：指出泛化操作的关键瓶颈在于\"动作标注数据难以规模化\"，尝试突破对动作标注的依赖。\n  - **热度证据**：`> 待核实` [70]\n  - **权威证据**：arXiv 预印本（cs.RO）[70]\n  - **关注度**：中 — 依据为直接命中\"数据规模律是否成立\"这一开放问题，但无引用数据 [70]\n  - **推荐度**：★★★★☆ — 与第五章 sim2real / 数据规模化主题直接相关 [70]\n\n### 1.2 双臂协作基准化\n\n- **RoboTwin Dual-Arm Collaboration Challenge**（CVPR 2025 MEIS Workshop）[66]：将\"双臂协作系统的泛化能力评测\"从单臂范式分离出来，明确指出现有单臂高性能系统不足以代表协作双臂能力。\n  - **热度证据**：`> 待核实` [66]\n  - **权威证据**：arXiv 预印本（cs.RO），关联 CVPR 2025 Workshop（非主会全文）[66]\n  - **关注度**：中 — 依据为 CVPR workshop 挑战赛形式带来的短期社区聚焦 [66]\n  - **推荐度**：★★★★☆ — 双臂协同评测的少数公开基准之一 [66]\n\n### 1.3 具身/长时程任务挑战赛\n\n- **BEHAVIOR Challenge 2025 第一名方案** [74]：面向 VLA 模型的任务自适应，属长时程家庭任务方向的竞赛级证据。\n  - **热度证据**：`> 待核实` [74]\n  - **权威证据**：arXiv 预印本（cs.RO），竞赛技术报告体裁 [74]\n  - **关注度**：中 — 依据为\"1st Place Solution\"标签与 2025 年时效性 [74]\n  - **推荐度**：★★★☆☆ — 对 VLA 任务适配有工程参考，但与灵巧手/触觉联系间接 [74]\n- **LabDex: A Hierarchical Benchmark for Dexterous Manipulation in Laboratories**（2026）[11]：指出既有基准**未能同时刻画**多样实验室器具的灵巧操作与长时程、状态依赖的实验流程，定位为分层基准。\n  - **热度证据**：`> 待核实` [11]\n  - **权威证据**：arXiv 预印本（cs.RO）[11]\n  - **关注度**：中 — 依据为填补\"灵巧操作 × 长时程 × 实验室场景\"交叉空白 [11]\n  - **推荐度**：★★★★☆ — 灵巧操作专用基准的新增候选，值得跟踪榜单是否落地 [11]\n\n### 1.4 必须标注的检索偏移\n\n本轮 q1/q5/q6 候选中混入大量非机器人条目：[45]（短视频参与度预测）、[46]（事件级图像理解）、[53]（图像超分 x4）、[52]（HRI 信任 workshop）、[76]（基础模型透明度指数）、[77]（越南语法律问答）、[68]（Ego4D 长时程动作预测）。**这些条目不得作为灵巧操作进展的证据**，仅提示检索召回质量需改进 [45][46][52][53][68][76][77]。\n\n---\n\n## 二、模仿学习与扩散/动作分块策略\n\n### 2.1 动作分块（action chunking）范式的奠基与现状\n\n- **Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware**（RSS 2023，即 ALOHA/ACT 一脉源头）[93]：论证\"学习 + 低成本硬件\"可胜任穿扎带、插电池等需要精度、接触力协调与闭环视觉反馈的任务。\n  - **热度证据**：citations=2564（Semantic Scholar）[93]\n  - **权威证据**：Robotics: Science and Systems Conference（RSS），同行评审机器人顶会 [93]\n  - **关注度**：高 — 依据为 2564 次引用，是本方向被引最高的奠基成果之一 [93]\n  - **推荐度**：★★★★★ — 动作分块模仿学习必读源头论文，权威、热度、相关性三者兼备 [93]\n- **ACT 作为可复用基线**：2025 年出现以 ACT 为改进对象的嵌入式版本（DPB-Embedded ACT），指出模仿学习累积误差、多模态信息融合、传感器空间感知仍是挑战 [94]。\n  - **热度证据**：citations=0（Semantic Scholar）[94]\n  - **权威证据**：Applied and Computational Engineering（非机器人顶会/顶刊）[94]\n  - **关注度**：低 — 依据为零引用、非权威 venue [94]\n  - **推荐度**：★★☆☆☆ — 仅作\"ACT 已成为通用基线\"的旁证，ACT 真实架构与真机成功率口径须回到原文核实 [93] `> 待核实` [94]\n\n### 2.2 扩散/生成式策略在灵巧操作中的扩散\n\n- **Dexterous Functional Pre-Grasp Manipulation with Diffusion Policy** [63]：标题即表明将扩散策略用于灵巧的功能性抓取前操作（pre-grasp manipulation）。\n  - **热度证据**：`> 待核实` [63]\n  - **权威证据**：arXiv 预印本 [63]\n  - **关注度**：中 — 依据为\"扩散策略 × 灵巧手\"交叉点，但本轮未取得引用/star 数据 [63]\n  - **推荐度**：★★★★☆ — 与第二章与第三章交叉主题直接相关 [63]\n- **扩散策略奠基工作（Diffusion Policy: Visuomotor Policy Learning via Action Diffusion, RSS 2023）**：来自种子资源，链接 https://arxiv.org/abs/2303.04137 。\n  - **热度证据**：`> 待核实`（本报告未取得可核查的引用数来源）\n  - **权威证据**：种子资源标注为 RSS，但**本轮检索未取回该文的一手页面**，故同行评审状态 `> 待核实`\n  - **关注度**：高 — 依据为\"扩散策略\"已成为具身策略生成的主流命名范式，本轮多项 2024–2026 工作（如 [63]）在标题层面即体现该范式延续 [63]\n  - **推荐度**：★★★★★ — 该方向的方法论起点，建议以原文与官方实现为准补全证据\n\n### 2.3 模仿学习的方法演进（种子块外的一手线索）\n\n本轮取回多条模仿学习/技能学习的一手论文链接，可作为脉络补全的入口：单演示由粗到精模仿 [55]、收敛监督者的 on-policy 模仿 [56]、元学习一次性视觉模仿 [57]、单相机遥操作驱动的多手灵巧模仿 [59]、异质人类演示的偏好与表征学习 [61]、基于先验数据的技能级模仿 [62]、长时程\"规划+模仿+RL\"协同 SPIRE [60]、层级感知逆强化学习 [89]。\n- **热度证据**：以上各条 `> 待核实`（候选块未提供引用数）\n- **权威证据**：均为 arXiv 预印本，本轮未取回 venue 字段\n- **关注度**：低–中 — 依据为缺少引用/榜单信号，仅能凭标题判断主题相关性\n- **推荐度**：★★★☆☆ 起的跟踪清单，其中 [59]（灵巧手 × 模仿学习 × 单相机遥操作）与本题相关度最高\n\n---\n\n## 三、灵巧手与手内操作\n\n### 3.1 手内操作（in-hand manipulation）最新进展\n\n| 工作 | 时间 | 关键点 | 四类证据 |\n|---|---|---|---|\n| **Assembling Two Parts in One Hand** [83] | 2026-09 预印本 | 单只灵巧手内配合两个刚体完成装配，无第二臂、无夹具；RL 由两部件目标相对位姿驱动，函数式辅助奖励塑造手指协同，域随机化 + 历史本体感知/物体观测融合抗遮挡；同一配方覆盖 Bottle/Syringe/Marker 三任务，纯仿真训练零样本迁移真机 | 热度：`> 待核实`；权威：arXiv 预印本 cs.RO，无同行评审记录；关注度：中（2026-09 新预印本，主题稀缺）；推荐度：★★★☆☆ — 前沿跟踪价值高，真机与复现细节待核实 [83] |\n| **Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation** [14] | 2026 | 以实时雅可比估计实现手内书写，摘要指出\"手内操作仍是未解前沿\"，接触丰富与高动态使建模/数据采集成本高 | 热度：`> 待核实`；权威：arXiv 预印本 cs.RO；关注度：中（目标新颖：书写）；推荐度：★★★★☆ — 与\"接触丰富 + 手内\"主线强相关 [14] |\n| **Stable In-hand Manipulation with Finger Specific Multi-agent Shadow Reward** [84] | 2023 | 手指级多智能体影子奖励 | 热度：`> 待核实`；权威：arXiv 预印本；关注度：中；推荐度：★★★★☆ [84] |\n| **A System for General In-Hand Object Re-Orientation** [81] | 2021 | 通用手内物体重定向系统 | 热度：`> 待核实`；权威：arXiv 预印本；关注度：中–高（该问题线的代表性系统之一）；推荐度：★★★★★ — in-hand re-orientation 必读线索 [81] |\n| **Constrained RL for Dexterous Manipulation** [88] | 2023 | 带约束的灵巧操作 RL | 热度：`> 待核实`；权威：arXiv 预印本；关注度：中；推荐度：★★★☆☆ [88] |\n\n- **说明**：结构化发现明确指出，本轮候选**未覆盖** OpenAI Dactyl、DextrAH、Visual Dexterity 的一手细节（任务设置、硬件、指标）`> 待核实`（见 [85][86][87] 均为通用 RL 平台/算法，与灵巧操作里程碑无直接关联）。**注意**：可引用来源 [2]《Learning Dexterous In-Hand Manipulation》与 [3]《Learning Complex Dexterous Manipulation with Deep RL and Demonstrations》即该一脉的关键原始入口，建议以原文补全。\n\n### 3.2 手硬件与开源手\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| **LEAP Hand** [13] | 2023 | 学术团队（arXiv cs.RO） | `> 待核实` | arXiv 预印本 | 中 — 依据为被广泛用作低成本拟人手选型 | ★★★★☆ 低成本拟人手做 robot learning 的主流选项 | http://arxiv.org/abs/2309.06440v1 |\n| **GelSight Svelte Hand** [104] | 2023 | 学术团队 | `> 待核实` | arXiv 预印本 | 中 — 三指两自由度、触觉丰富、低成本 | ★★★★☆ 触觉手硬件与低成本路线参考 | http://arxiv.org/abs/2309.10886v1 |\n| **Aero Hand Open** [16] | 2026 | 学术团队 | `> 待核实` | arXiv 预印本 | 中 — 仿真就绪的腱驱手 | ★★★☆☆ 面向仿真到学习的腱驱手 | http://arxiv.org/abs/2608.28578v2 |\n\n- **GraspNet / AnyGrasp / 接触点表示**：**本轮候选证据完全未覆盖**，需补充检索后作答 `> 待核实`（结构化发现 q2 明确记录该缺口）。\n\n### 3.3 灵巧操作的安全与变形体\n\n- **Certifiably Safe Manipulation of Deformable Linear Objects via Joint Shape and Tension Prediction** [99]：指出既有模型只做形状预测、忽略接触与张力约束，可能导致工具与人体损伤，提出形状+张力联合预测的可证明安全方案。\n  - 热度：`> 待核实`；权威：arXiv 预印本 cs.RO；关注度：中；推荐度：★★★★☆ — 唯一同时涉及\"安全约束 + 接触力\"的线缆操作条 [99]\n\n---\n\n## 四、接触丰富任务与触觉/力感知\n\n### 4.1 触觉表征与视触觉策略\n\n| 工作 | 年份 | 关键贡献 | 四类证据 |\n|---|---|---|---|\n| **ManiFeel** [100] | 2025 | 视触觉操作策略学习的基准与理解性研究：针对视觉受限（狭小空间、暗光）或需精细物体属性/交互感知的任务 | 热度 `> 待核实`；权威 arXiv 预印本 cs.RO；关注度 中–高（少见的视触觉专用基准）；推荐度 ★★★★★ — 触觉策略评测的核心参考 [100] |\n| **ContactWorld** [102] | 2026 | 面向接触丰富操作的\"视觉-触觉隐世界模型\"表示研究，指出视觉与触觉捕获交互的不同侧面，效用取决于表示方式 | 热度 `> 待核实`；权威 arXiv 预印本 cs.RO；关注度 中（世界模型×触觉交叉）；推荐度 ★★★★☆ [102] |\n| **ManiSkill-ViTac 2025 挑战赛** [95] | 2024 | 视觉+触觉感知的操作技能学习挑战赛 | 热度 `> 待核实`；权威 arXiv 预印本（challenge 综述）；关注度 中–高（有挑战赛形式）；推荐度 ★★★★☆ — 触觉赛题与基线入口 [95] |\n| **VITaL Pretraining** [96] | 2024 | 视触觉预训练，同时服务触觉与非触觉操作策略 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★☆ [96] |\n| **Robot Synesthesia** [97] | 2023 | 视触觉感知下的手内操作 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 中–高；推荐度 ★★★★☆ [97] |\n| **3D-ViTac** [110] | 2024 | 视触觉精细操作 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★☆ [110] |\n| **Learning In-Hand Translation Using Tactile Skin with Shear and Normal Force Sensing** [106] | 2024 | 触觉皮肤同时感知剪切力与法向力，用于手内平移 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★☆ [106] |\n| **Tac2Motion** [109] | 2025 | 接触感知 RL + 触觉反馈用于机械手操作 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★☆ [109] |\n| **TransDex** [8] | 2026 | 面向透明物体的视触觉融合策略 + 点云重建预训练，针对自遮挡、深度噪声与透明物深度丢失 | 热度 `> 待核实`；权威 arXiv 预印本 cs.RO；关注度 中（透明物难题）；推荐度 ★★★★☆ [8] |\n\n### 4.2 触觉仿真与 sim2real\n\n- **Generation of GelSight Tactile Images for Sim2Real Learning** [103]：为 sim2real 学习生成 GelSight 触觉图像。\n  - 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★☆ — 触觉 sim2real 的早期关键条 [103]\n- **Beyond Flat GelSight Sensors** [105]：指出平面 GelSight 的局限，仿真复杂形貌光学触觉传感器以支持 sim2real。\n  - 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★☆ [105]\n- **关键判断**：**\"触觉是否已被主流 VLA/扩散策略真正用于真机闭环\"在本轮证据中无法证实** `> 待核实`。现有证据只能说明触觉在独立子生态（基准 [100]、挑战赛 [95]、预训练 [96]、RL [109]）中活跃，缺少\"触觉 × 主流 VLA 真机闭环\"的一手证据。\n\n### 4.3 接触丰富操作的经典线\n\n- **Learning Contact-Rich Manipulation Skills with Guided Policy Search** [101]（2015）：接触丰富操作技能学习的早期代表。\n  - 热度 `> 待核实`；权威 arXiv 预印本（该工作历史地位显著，但本轮未取得 venue/引用字段）；关注度 中（历史奠基意义）；推荐度 ★★★★★ — 接触丰富操作的方法论源头之一 [101]\n\n---\n\n## 五、双臂协同与 sim2real\n\n### 5.1 双臂协同\n\n| 工作 | 年份 | 关键点 | 四类证据 |\n|---|---|---|---|\n| **ALOHA 2** [17] | 2024 | 低成本双臂遥操作硬件增强版 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 中–高（ALOHA 生态延续）；推荐度 ★★★★☆ [17] |\n| **Mobile ALOHA** [18] | 2024 | 低成本全身遥操作实现双臂移动操作 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 高 — 依据为\"低成本全身遥操作\"成为社区广泛复刻的范式；推荐度 ★★★★★ [18] |\n| **InterACT** [65] | 2024 | 依赖关系感知的层级注意力 Transformer 动作分块，面向双臂操作 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★☆ — 动作分块在双臂上的直接延伸 [65] |\n| **DAIR** [67] | 2021 | 解耦注意力内在正则，实现安全高效双臂操作 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★☆ [67] |\n| **Stabilize to Act** [69] | 2023 | 学习双臂协同中的\"先稳定后动作\"协调 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★★ — 对\"协调\"这一双臂核心难题给出显式机制 [69] |\n| **VoxAct-B** [71] | 2024 | 体素表示的双臂动作与稳定策略 | 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★☆ [71] |\n| **RoboTwin 双臂协作挑战赛** [66] | 2025 | 泛化双臂操作的基准化评测 | 热度 `> 待核实`；权威 arXiv 预印本 + CVPR 2025 Workshop；关注度 中；推荐度 ★★★★☆ [66] |\n\n### 5.2 sim2real\n\n- **Bridging the Sim2Real Gap: Vision Encoder Pre-Training for Visuomotor Policy Transfer** [47]：以视觉编码器预训练缩小 sim2real 差距。\n  - 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★★ — 直接对应 sim2real 主线，是本报告该章最相关的可核查条目 [47]\n- **The Importance and the Limitations of Sim2Real for Robotic Manipulation in Precision Agriculture** [48]：**标题即表明讨论 sim2real 的局限性**，是\"负结果/边界条件\"类证据的少数候选。\n  - 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★★ — 明确以\"局限\"为论述对象，对平衡报道有价值 [48]\n- **Benchmarking Simulated Robotic Manipulation through a Real World Dataset** [32]：用真机数据集校验仿真操作评测，直接指向\"仿真 SOTA ≠ 真机 SOTA\"的口径问题。\n  - 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★★★ [32]\n- **ManiWAV** [34]：从野外音视频数据学习机器人操作，属跨模态数据来源扩展。\n  - 热度 `> 待核实`；权威 arXiv 预印本；关注度 中；推荐度 ★★★☆☆ [34]\n- **缺口声明**：结构化发现 q6 明确记录，本轮候选证据**没有任何一条直接讨论 sim2real 差距、数据规模律（scaling law）或跨本体泛化**，这三项在本轮证据下无法给出结论 `> 待核实`（该缺口判断由 [45][46][52][53][54][1] 的构成分析得出）。\n\n---\n\n## 六、经典与奠基性工作\n\n> 说明：下表中的热度与权威字段，凡本轮检索未取回可核查数据者一律标 `> 待核实`；种子资源条目的同行评审状态 **本轮未实时检索核实**，仅转述种子元数据。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| **Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware (ALOHA / ACT)** [93] | 2023 | 学术团队（RSS） | citations=2564（Semantic Scholar）[93] | RSS 同行评审顶会 [93] | 高 — 2564 次引用，本方向被引最高奠基成果之一 [93] | ★★★★★ 低成本双臂精细操作与动作分块必读源头 | https://arxiv.org/abs/2304.13705 |\n| **Diffusion Policy: Visuomotor Policy Learning via Action Diffusion**（种子资源） | 2023 | 种子标注 RSS | `> 待核实` | `> 待核实`（本轮未取回一手页面） | 高 — 依据为扩散策略已成为本方向主流范式命名（见 [63]） | ★★★★★ 扩散策略方法论起点 | https://arxiv.org/abs/2303.04137 |\n| **QT-Opt: Scalable Deep RL for Vision-Based Robotic Manipulation**（种子资源） | 2018 | 种子标注 CoRL | `> 待核实` | `> 待核实`（本轮未取回一手页面） | 中 — 依据为视觉抓取 RL 的早期规模化代表（本报告未取得引用数据） | ★★★★☆ 视觉抓取 RL 经典入口 | https://arxiv.org/abs/1806.10293 |\n| **Learning Dexterous In-Hand Manipulation** [2] | 2018 | OpenAI（据标题与来源） | `> 待核实` | arXiv 预印本 | 高 — 依据为 in-hand manipulation RL 的命名性里程碑 | ★★★★★ 手内操作 RL 必读 | http://arxiv.org/abs/1808.00177v5 |\n| **Learning Complex Dexterous Manipulation with Deep RL and Demonstrations** [3] | 2017 | 学术团队 | `> 待核实` | arXiv 预印本 | 中–高 — 依据为\"RL + 演示\"用于灵巧手的历史奠基 | ★★★★★ 演示增强 RL 灵巧操作源头 | http://arxiv.org/abs/1709.10087v2 |\n| **DEFT: Dexterous Fine-Tuning for Real-World Hand Policies** [4] | 2023 | 学术团队 | `> 待核实` | arXiv 预印本 | 中 — 依据为\"真机手部策略微调\"路线 | ★★★★☆ 真机灵巧策略微调 | http://arxiv.org/abs/2310.19797v2 |\n| **Learning Contact-Rich Manipulation Skills with Guided Policy Search** [101] | 2015 | 学术团队 | `> 待核实` | arXiv 预印本 | 中 — 接触丰富操作方法论源头 | ★★★★★ 接触丰富操作经典 | http://arxiv.org/abs/1501.05611v2 |\n| **A System for General In-Hand Object Re-Orientation** [81] | 2021 | 学术团队 | `> 待核实` | arXiv 预印本 | 中–高 — 通用物体重定向代表系统 | ★★★★★ 手内重定向经典 | http://arxiv.org/abs/2111.03043v1 |\n| **DexArt: Benchmarking Generalizable Dexterous Manipulation with Articulated Objects** [43] | 2023 | 学术团队 | `> 待核实` | arXiv 预印本 | 中 — 依据为铰接物体灵巧操作基准 | ★★★★★ 灵巧操作泛化基准经典 | http://arxiv.org/abs/2305.05706v1 |\n| **Open X-Embodiment: Robotic Learning Datasets and RT-X Models** [31] | 2023 | 多机构协作 | `> 待核实` | arXiv 预印本（v9 持续修订） | 高 — 依据为跨本体数据聚合与 RT-X 模型成为跨本体研究基准起点 | ★★★★★ 跨本体泛化必读 | http://arxiv.org/abs/2310.08864v9 |\n\n---\n\n## 七、数据集、基准与开放问题\n\n### 7.1 数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| **Open X-Embodiment（RT-X）** [31] | 2023 | 多机构协作 | `> 待核实` | arXiv 预印本，v9 持续修订 [31] | 高 — 跨本体数据聚合的参照点 | ★★★★★ 跨本体泛化主线入口 | http://arxiv.org/abs/2310.08864v9 |\n| **DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset** [33] | 2024 | 学术团队 | `> 待核实` | arXiv 预印本 [33] | 中–高 — 依据为\"in-the-wild 大规模操作数据\"定位 | ★★★★★ 大规模真机数据候选首选 | http://arxiv.org/abs/2403.12945v2 |\n| **DexArt** [43] | 2023 | 学术团队 | `> 待核实` | arXiv 预印本 [43] | 中 | ★★★★★ 铰接物体灵巧操作基准 | http://arxiv.org/abs/2305.05706v1 |\n| **RoboMimic**（种子资源） | — | 种子 | `> 待核实` | `> 待核实` | 中–高 — 依据为模仿学习基准的通行地位 | ★★★★★ 模仿学习基准入口 | https://robomimic.github.io/ |\n| **DexGraspNet / DexArt 数据**（种子资源） | — | PKU-EPIC | `> 待核实` | `> 待核实` | 中 | ★★★★☆ 灵巧抓取数据入口 | https://github.com/PKU-EPIC/DexGraspNet |\n| **BridgeData V2**（种子资源） | — | RAIL Berkeley | `> 待核实` | `> 待核实` | 中–高 — 依据为大规模操作数据常用来源 | ★★★★☆ 大规模操作数据入口 | https://rail-berkeley.github.io/bridgedata/ |\n| **LIBERO-Para** [35] | 2026 | Chanyoung Kim 等（非官方 LIBERO 维护方） | `> 待核实` | arXiv 预印本 cs.LG，未经同行评审 [35] | 低 — 无引用/star/榜单信号 | ★★★☆☆ 语言泛化诊断，支撑\"基准可比性存疑\" | http://arxiv.org/abs/2603.28301v3 |\n| **LIBERO-VPro** [36] | 2026 | Huiqiong Li, Zhiting Mei, Anirudha Majumdar, Jingjing Chen, Yu-Gang Jiang, Bin Zhu | `> 待核实` | arXiv 预印本 cs.RO，未经同行评审 [36] | 低 — 仅 v1 一次提交，无引用数据 | ★★★☆☆ 闭环视觉鲁棒性诊断 | http://arxiv.org/abs/2609.24350v1 |\n| **ManiSkill-ViTac 2025** [95] | 2024 | 学术团队 | `> 待核实` | arXiv 预印本（challenge 综述）[95] | 中–高 — 触觉赛题形式 | ★★★★☆ 视触觉赛题与基线 | http://arxiv.org/abs/2411.12503v1 |\n| **ManiFeel** [100] | 2025 | 学术团队 | `> 待核实` | arXiv 预印本 cs.RO [100] | 中–高 — 视触觉策略专用基准 | ★★★★★ 触觉策略评测核心 | http://arxiv.org/abs/2505.18472v2 |\n| **LabDex** [11] | 2026 | 学术团队 | `> 待核实` | arXiv 预印本 cs.RO [11] | 中 | ★★★★☆ 实验室场景分层灵巧基准 | http://arxiv.org/abs/2608.18618v1 |\n| **ManipBench** [54] | 2025 | 学术团队 | `> 待核实` | arXiv 预印本 cs.RO（v2 修订）[54] | 中 — 命中\"低层 VLM 推理缺少统一基准\"痛点 | ★★★★☆ 评测缺口的一手证据 | http://arxiv.org/abs/2505.09698v2 |\n\n### 7.2 评测协议的可比性问题（本轮最值得注意的发现）\n\n1. **LIBERO 衍生诊断基准揭示标准评测的口径缺陷**：\n   - **LIBERO-Para** 在 7 个 VLA 配置（0.6B–7.5B）上观察到指令改写条件下 **22–52 个百分点**的一致性能下降，且下降主要由物体层级词汇变化驱动，简单同义词替换即可触发 [35]。\n   - **LIBERO-VPro** 覆盖 4 个维度（Visual Evidence Degradation、Camera Staleness、Visual Source Consistency、Task-Relevant Scene Variation）、12 类挑战、96 个实验设置、3296 个 task-condition 用例，评测 3 个 VLA 模型与 3 个 world-action 模型，约 19.6 万个仿真 episode，另加 200 次真机 rollout [36]。\n   - 四类证据（两者合并）：热度 `> 待核实`；权威：均为 arXiv 预印本，未经同行评审、非官方基准主页 [35][36]；关注度 低（无引用/star/榜单信号）；推荐度 ★★★☆☆ — 主题相关性强但证据等级为 B，宜作线索而非定论 [35][36]。\n2. **仿真规模与真机验证严重不均衡**：LIBERO-VPro 的仿真侧约 196,000 episode，真机侧仅 200 次 rollout，相差三个数量级，真机结论的统计效力 `> 待核实` [36]。\n3. **基准横向对比存在硬缺口**：Open X-Embodiment、DROID、RoboMimic、SimplerEnv、RoboArena、Adroit/DexArt/Meta-World 各自的任务数、本体数量、仿真/真机口径与榜单刷新状态，**在本轮证据下无法完成横向对比**，各项均 `> 待核实`（结构化发现 q4 明确记录，并指出 [28][26][27][29] 等候选为无关领域的医疗影像/语义分割/语音/选举 Discourse 数据集）[26][27][28][29]。\n4. **评测协议细节缺失**：episode 数、随机种子数、成功判定阈值、是否允许重置等字段本轮均未取回，因此\"基准之间可比性\"只能给出方法论层面的怀疑，**无法量化** `> 待核实`。\n\n### 7.3 开放问题与争议（逐项标注证据状态）\n\n| 开放问题 | 本轮证据状态 |\n|---|---|\n| 抓取检测与抓取合成（GraspNet / AnyGrasp、接触点表示） | **完全未覆盖** `> 待核实` — 需补充 arXiv/GitHub 一手检索 |\n| in-hand RL 里程碑（OpenAI Dactyl、DextrAH、Visual Dexterity）的任务/硬件/指标 | **未覆盖细节** `> 待核实` — 可引用入口仅 [2][3][81][84] |\n| 精细操作模仿学习的累积误差、多模态融合、传感器空间感知 | 仅由 [94] 提出，缺高等级证据支撑其严重程度 `> 待核实` |\n| [83] 的三任务、零样本迁移结果 | 单一预印本宣称，无第三方复现或榜单验证 `> 待核实` |\n| 低层 VLM 推理的统一评测基准缺失 | 有 [54] 摘要级一手证据，任务规模与第三方采用度待核实 [54] |\n| 可变形物体（线缆）灵巧操作欠探索 | 有 [1][99] 支撑；真机实验规模与成本数据 `> 待核实` [1][99] |\n| sim2real 差距 | **本轮候选无直接证据** `> 待核实`；仅 [47][48][32] 为可核查入口 [32][47][48] |\n| 数据规模律（scaling law）是否在机器人学习成立 | **未覆盖** `> 待核实` |\n| 跨本体（cross-embodiment）泛化是否成立 | **未覆盖结论** `> 待核实`；仅 [31] 为入口 [31] |\n| 硬件耐久与成本 | 仅有 [1] 指出多指手设计与可变形物体挑战，无耐久/成本量化 `> 待核实` [1] |\n| 公开失败案例与负结果 | **本轮候选无任何负结果/失败复盘** `> 待核实`；[48] 讨论 sim2real 局限，是唯一接近该维度的条目 [48] |\n| HRI 信任与人机协作 | 有 [52]（RO-MAN 2025 workshop 论文集，7 篇，无 PDF）；与 sim2real/硬件主线相关度有限 [52] |\n\n---\n\n## 八、建议关注清单（Watchlist）\n\n| 优先级 | 条目 | 类型 | 为什么关注 | 四类证据摘要 |\n|---|---|---|---|---|\n| P0 | **Action chunking 基线体系（ACT 及其改进）** [93][94] | 方法/基线 | 本方向使用最广的基线与被改进对象 | 热度 citations=2564 [93]；权威 RSS [93]；关注度 高 [93]；推荐度 ★★★★★ [93] |\n| P0 | **LIBERO 衍生诊断基准（语言泛化 / 闭环视觉鲁棒性）** [35][36] | 评测 | 直接挑战\"标准基准分数可比\"的默认假设，改写导致 22–52 pp 下降 | 热度 `> 待核实`；权威 arXiv 预印本未评审 [35][36]；关注度 低；推荐度 ★★★☆☆ [35][36] |\n| P0 | **触觉策略基准 ManiFeel + ManiSkill-ViTac 2025** [95][100] | 基准/赛题 | 判断触觉是否真正进入策略评测主线的关键坐标 | 热度 `> 待核实`；权威 arXiv 预印本 [95][100]；关注度 中–高；推荐度 ★★★★★/★★★★☆ |\n| P0 | **跨本体数据与模型（Open X-Embodiment / RT-X）** [31] | 数据/模型 | 跨本体泛化是否成立的基础设施 | 热度 `> 待核实`；权威 arXiv 预印本 v9 [31]；关注度 高；推荐度 ★★★★★ |\n| P1 | **单手内两刚体装配** [83] | 方法 | in-hand 任务复杂度跃升的代表；零样本仿真→真机 | 热度 `> 待核实`；权威预印本 [83]；关注度 中；推荐度 ★★★☆☆ |\n| P1 | **VLA × 灵巧手统一框架 UniHM** [73] | 方法 | VLA 与灵巧手结合的开放词汇指令路线 | 热度 `> 待核实`；权威预印本 [73]；关注度 中；推荐度 ★★★☆☆ |\n| P1 | **ContactWorld（视觉-触觉隐世界模型表示）** [102] | 方法/基准 | 回答\"触觉该以什么表示进入世界模型\" | 热度 `> 待核实`；权威预印本 [102]；关注度 中；推荐度 ★★★★☆ |\n| P1 | **TransDex（透明物视触觉策略）** [8] | 方法 | 透明物自遮挡与深度丢失是硬场景 | 热度 `> 待核实`；权威预印本 [8]；关注度 中；推荐度 ★★★★☆ |\n| P1 | **sim2real 局限与方法** [47][48][32] | 方法/评测 | 补充本轮最大证据缺口（sim2real 直接证据） | 热度 `> 待核实`；权威预印本 [32][47][48]；关注度 中；推荐度 ★★★★★ |\n| P2 | **低成本双臂硬件与全身遥操作** [17][18] | 硬件/系统 | 真机可复现性的成本前提 | 热度 `> 待核实`；权威预印本 [17][18]；关注度 高（[18]）；推荐度 ★★★★☆/★★★★★ |\n| P2 | **双臂协同结构与基准** [65][66][67][69][71] | 方法/基准 | 双臂\"协调\"机制的工程化选项集合 | 热度 `> 待核实`；权威预印本 [65][66][67][69][71]；关注度 中；推荐度 ★★★★☆ 起 |\n| P2 | **触觉 sim2real 仿真链条** [103][105] | 仿真 | 触觉 sim2real 的可实现性证据 | 热度 `> 待核实`；权威预印本 [103][105]；关注度 中；推荐度 ★★★★☆ |\n| P2 | **可变形线性物体（DLO）安全操作** [1][99] | 任务/安全 | 欠探索方向 + 接触力/张力约束 | 热度 `> 待核实`；权威预印本 [1][99]；关注度 中；推荐度 ★★★★☆ |\n| P3 | **开源栈与工程平台** [6][10][13][16][104] | 工程 | 真机复现与仿真吞吐的基础设施 | 热度 `> 待核实`；权威 arXiv 预印本 [6][10][13][16][104]；关注度 中；推荐度 ★★★★☆ |\n\n**必须补齐的检索动作（建议下一步）**：\n1. GraspNet / AnyGrasp / 接触点表示 / 抓取合成的一手论文与官方仓库（本轮完全未覆盖）。\n2. AnyGrasp SDK、MuJoCo Menagerie、Open-TeleVision、RoboSuite 的维护状态（最近提交、依赖、真机可复现性）——**本轮均未覆盖** `> 待核实`。\n3. Open X-Embodiment / DROID / RoboMimic / SimplerEnv / RoboArena / Adroit / DexArt / Meta-World 的任务数、本体数、仿真 vs 真机口径与 leaderboard 刷新记录。\n4. sim2real、scaling law、cross-embodiment 的专项检索（本轮**无直接证据**）。\n5. 负结果与复现报告（本轮**无任何候选**）。\n\n---\n\n## 参考来源\n\n[1] Dexterous Cable Manipulation: Taxonomy, Multi-Fingered Hand Design, and Long-Horizon Manipulation — http://arxiv.org/abs/2502.00396v2\n[2] Learning Dexterous In-Hand Manipulation — http://arxiv.org/abs/1808.00177v5\n[3] Learning Complex Dexterous Manipulation with Deep Reinforcement Learning and Demonstrations — http://arxiv.org/abs/1709.10087v2\n[4] DEFT: Dexterous Fine-Tuning for Real-World Hand Policies — http://arxiv.org/abs/2310.19797v2\n[5] Aerial Mobile Manipulator System to Enable Dexterous Manipulations with Increased Precision — http://arxiv.org/abs/2010.09618v1\n[6] LeRobot: An Open-Source Library for End-to-End Robot Learning — http://arxiv.org/abs/2602.22818v1\n[7] HANDO: Hierarchical Autonomous Navigation and Dexterous Omni-loco-manipulation — http://arxiv.org/abs/2510.09221v1\n[8] TransDex: Pre-training Visuo-Tactile Policy with Point Cloud Reconstruction for Dexterous Manipulation of Transparent Objects — http://arxiv.org/abs/2603.13869v2\n[9] The Synthesis of Optimal Control Laws Using Isaacs' Method for the Solution of Differential Games — http://arxiv.org/abs/2112.10849v2\n[10] Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning — http://arxiv.org/abs/2511.04831v1\n[11] LabDex: A Hierarchical Benchmark for Dexterous Manipulation in Laboratories — http://arxiv.org/abs/2608.18618v1\n[12] Fiatlux: A Long-Horizon Benchmark for Humanoid Ladder Climbing and Light-Bulb Replacement — https://arxiv.org/abs/2609.38216\n[13] LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot Learning — http://arxiv.org/abs/2309.06440v1\n[14] Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation — http://arxiv.org/abs/2609.11775v1\n[15] Open Source Software Development Challenges: A Systematic Literature Review on GitHub — http://arxiv.org/abs/2003.10750v3\n[16] Aero Hand Open: A Simulation-Ready Tendon-Driven Hand for Dexterous Manipulation Learning — http://arxiv.org/abs/2608.28578v2\n[17] ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1\n[18] Mobile ALOHA: Learning Bimanual Mobile Manipulation with Low-Cost Whole-Body Teleoperation — http://arxiv.org/abs/2401.02117v1\n[19] RePO: Replay-Enhanced Policy Optimization — http://arxiv.org/abs/2506.09340v1\n[20] Gap Risk KVA and Repo Pricing: An Economic Capital Approach in the Black-Scholes-Merton Framework — http://arxiv.org/abs/1604.05406v3\n[21] ARMrayan Multimedia Mobile CMS: a Simplified Approach towards Content-Oriented Mobile Application Designing — http://arxiv.org/abs/1009.5347v1\n[22] LEAP: TrustZone Based Developer-Friendly TEE for Intelligent Mobile Apps — http://arxiv.org/abs/2102.02465v3\n[23] Enhancing Contention Resolution ALOHA using Combining Techniques — http://arxiv.org/abs/1602.07636v3\n[24] A Low-Energy Fast Cyber Foraging Mechanism for Mobile Devices — http://arxiv.org/abs/1111.4499v1\n[25] The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset — http://arxiv.org/abs/2405.19595v1\n[26] Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation — http://arxiv.org/abs/2407.15282v1\n[27] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1\n[28] The RSNA Intracranial Aneurysm (RSNA-ICA) Dataset — http://arxiv.org/abs/2610.01135v2\n[29] Unfiltered Conversations: A Dataset of 2024 U.S. Presidential Election Discourse on Truth Social — http://arxiv.org/abs/2411.01330v1\n[30] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1\n[31] Open X-Embodiment: Robotic Learning Datasets and RT-X Models — http://arxiv.org/abs/2310.08864v9\n[32] Benchmarking Simulated Robotic Manipulation through a Real World Dataset — http://arxiv.org/abs/1911.01557v2\n[33] DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset — http://arxiv.org/abs/2403.12945v2\n[34] ManiWAV: Learning Robot Manipulation from In-the-Wild Audio-Visual Data — http://arxiv.org/abs/2406.19464v2\n[35] LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models — http://arxiv.org/abs/2603.28301v3\n[36] LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models — http://arxiv.org/abs/2609.24350v1\n[37] A Simulation and Modeling of Access Points with Definition Language — http://arxiv.org/abs/1304.1836v2\n[38] Superconductivity as a consequence of an ordering of the electron gas zero-point oscillations — http://arxiv.org/abs/1005.0280v6\n[39] Intutionistic Fuzzy Ideals in Γ-semiring — http://arxiv.org/abs/1011.5746v2\n[40] Internal Location Based System For Mobile Devices Using Passive RFID And Wireless Technology — http://arxiv.org/abs/1001.2258v2\n[41] The meaning of systematic errors, a comment to \"Reply to On the Systematic Errors in the Detection of the Lense-Thirring Effect with a Mars Orbiter\", by Lorenzo Iorio — http://arxiv.org/abs/gr-qc/0703020v3\n[42] Explicit estimates on prime numbers — http://arxiv.org/abs/1407.7158v2\n[43] DexArt: Benchmarking Generalizable Dexterous Manipulation with Articulated Objects — http://arxiv.org/abs/2305.05706v1\n[44] Pneumatic Modelling for Adroit Manipulation Platform — http://arxiv.org/abs/1703.01653v1\n[45] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[46] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1\n[47] Bridging the Sim2Real Gap: Vision Encoder Pre-Training for Visuomotor Policy Transfer — http://arxiv.org/abs/2501.16389v2\n[48] The Importance and the Limitations of Sim2Real for Robotic Manipulation in Precision Agriculture — http://arxiv.org/abs/2008.03983v1\n[49] LLM-based ambiguity detection in natural language instructions for collaborative surgical robots — http://arxiv.org/abs/2507.11525v1\n[50] Human-Robot collaboration in surgery: Advances and challenges towards autonomous surgical assistants — http://arxiv.org/abs/2507.11460v1\n[51] A Case for a \"Refutations and Critiques\" Track in Statistics Journals — http://arxiv.org/abs/2509.03702v3\n[52] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1\n[53] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[54] ManipBench: Benchmarking Vision-Language Models for Low-Level Robot Manipulation — http://arxiv.org/abs/2505.09698v2\n[55] Coarse-to-Fine Imitation Learning: Robot Manipulation from a Single Demonstration — http://arxiv.org/abs/2105.06411v2\n[56] On-Policy Robot Imitation Learning from a Converging Supervisor — http://arxiv.org/abs/1907.03423v7\n[57] One-Shot Visual Imitation Learning via Meta-Learning — http://arxiv.org/abs/1709.04905v1\n[58] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2\n[59] From One Hand to Multiple Hands: Imitation Learning for Dexterous Manipulation from Single-Camera Teleoperation — http://arxiv.org/abs/2204.12490v2\n[60] SPIRE: Synergistic Planning, Imitation, and Reinforcement Learning for Long-Horizon Manipulation — http://arxiv.org/abs/2410.18065v1\n[61] Learning to Discern: Imitating Heterogeneous Human Demonstrations with Preference and Representation Learning — http://arxiv.org/abs/2310.14196v1\n[62] Learning and Retrieval from Prior Data for Skill-based Imitation Learning — http://arxiv.org/abs/2210.11435v2\n[63] Dexterous Functional Pre-Grasp Manipulation with Diffusion Policy — http://arxiv.org/abs/2403.12421v2\n[64] Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge — http://arxiv.org/abs/2101.02842v1\n[65] InterACT: Inter-dependency Aware Action Chunking with Hierarchical Attention Transformers for Bimanual Manipulation — http://arxiv.org/abs/2409.07914v3\n[66] Benchmarking Generalizable Bimanual Manipulation: RoboTwin Dual-Arm Collaboration Challenge at CVPR 2025 MEIS Workshop — http://arxiv.org/abs/2506.23351v2\n[67] DAIR: Disentangled Attention Intrinsic Regularization for Safe and Efficient Bimanual Manipulation — http://arxiv.org/abs/2106.05907v4\n[68] Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025 — http://arxiv.org/abs/2506.02550v2\n[69] Stabilize to Act: Learning to Coordinate for Bimanual Manipulation — http://arxiv.org/abs/2309.01087v2\n[70] Generalist Robot Manipulation beyond Action Labeled Data — http://arxiv.org/abs/2509.19958v1\n[71] VoxAct-B: Voxel-Based Acting and Stabilizing Policy for Bimanual Manipulation — http://arxiv.org/abs/2407.04152v2\n[72] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1\n[73] UniHM: Unified Dexterous Hand Manipulation with Vision Language Model — http://arxiv.org/abs/2603.00732v1\n[74] Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge — http://arxiv.org/abs/2512.06951v2\n[75] Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos — http://arxiv.org/abs/2607.10797v1\n[76] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[77] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1\n[78] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1\n[79] MAGIC and MWL monitoring of the blazar TXS 0506+056 in the 2018/2019 season — http://arxiv.org/abs/1909.04938v1\n[80] The 2018 PIRM Challenge on Perceptual Image Super-resolution — http://arxiv.org/abs/1809.07517v3\n[81] A System for General In-Hand Object Re-Orientation — http://arxiv.org/abs/2111.03043v1\n[82] QCD and High Energy Interactions: Moriond 2018 Theory Summary — http://arxiv.org/abs/1806.04982v2\n[83] Assembling Two Parts in One Hand — http://arxiv.org/abs/2609.10137v1\n[84] Stable In-hand Manipulation with Finger Specific Multi-agent Shadow Reward — http://arxiv.org/abs/2309.07349v1\n[85] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1\n[86] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1\n[87] Causal-Paced Deep Reinforcement Learning — http://arxiv.org/abs/2507.02910v1\n[88] Constrained Reinforcement Learning for Dexterous Manipulation — http://arxiv.org/abs/2301.09766v1\n[89] Exploring Hierarchy-Aware Inverse Reinforcement Learning — http://arxiv.org/abs/1807.05037v1\n[90] Knowledge-Embedded Representation Learning for Fine-Grained Image Recognition — http://arxiv.org/abs/1807.00505v1\n[91] Overview of AuTexTification at IberLEF 2023\n\n---\n\n*Generated by research-bot · topic=`embodied-manipulation` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=110 · duration=297s · 2026-10-05T22:36:04+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Dexterous Cable Manipulation: Taxonomy, Multi-Fingered Hand Design, and Long-Horizon Manipulation",
+      "url": "http://arxiv.org/abs/2502.00396v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-02-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Learning Dexterous In-Hand Manipulation",
+      "url": "http://arxiv.org/abs/1808.00177v5",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-08-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Learning Complex Dexterous Manipulation with Deep Reinforcement Learning and Demonstrations",
+      "url": "http://arxiv.org/abs/1709.10087v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2017-09-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "DEFT: Dexterous Fine-Tuning for Real-World Hand Policies",
+      "url": "http://arxiv.org/abs/2310.19797v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Aerial Mobile Manipulator System to Enable Dexterous Manipulations with Increased Precision",
+      "url": "http://arxiv.org/abs/2010.09618v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-10-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "LeRobot: An Open-Source Library for End-to-End Robot Learning",
+      "url": "http://arxiv.org/abs/2602.22818v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-02-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "HANDO: Hierarchical Autonomous Navigation and Dexterous Omni-loco-manipulation",
+      "url": "http://arxiv.org/abs/2510.09221v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "TransDex: Pre-training Visuo-Tactile Policy with Point Cloud Reconstruction for Dexterous Manipulation of Transparent Objects",
+      "url": "http://arxiv.org/abs/2603.13869v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-03-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "The Synthesis of Optimal Control Laws Using Isaacs' Method for the Solution of Differential Games",
+      "url": "http://arxiv.org/abs/2112.10849v2",
+      "kind": "paper",
+      "venue": "math.OC",
+      "published": "2021-12-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning",
+      "url": "http://arxiv.org/abs/2511.04831v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "LabDex: A Hierarchical Benchmark for Dexterous Manipulation in Laboratories",
+      "url": "http://arxiv.org/abs/2608.18618v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-08-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Fiatlux: A Long-Horizon Benchmark for Humanoid Ladder Climbing and Light-Bulb Replacement",
+      "url": "https://arxiv.org/abs/2609.38216",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-09-27",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot Learning",
+      "url": "http://arxiv.org/abs/2309.06440v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-09-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation",
+      "url": "http://arxiv.org/abs/2609.11775v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Open Source Software Development Challenges: A Systematic Literature Review on GitHub",
+      "url": "http://arxiv.org/abs/2003.10750v3",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2020-03-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Aero Hand Open: A Simulation-Ready Tendon-Driven Hand for Dexterous Manipulation Learning",
+      "url": "http://arxiv.org/abs/2608.28578v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-08-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation",
+      "url": "http://arxiv.org/abs/2405.02292v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Mobile ALOHA: Learning Bimanual Mobile Manipulation with Low-Cost Whole-Body Teleoperation",
+      "url": "http://arxiv.org/abs/2401.02117v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-01-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "RePO: Replay-Enhanced Policy Optimization",
+      "url": "http://arxiv.org/abs/2506.09340v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Gap Risk KVA and Repo Pricing: An Economic Capital Approach in the Black-Scholes-Merton Framework",
+      "url": "http://arxiv.org/abs/1604.05406v3",
+      "kind": "paper",
+      "venue": "q-fin.PR",
+      "published": "2016-04-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "ARMrayan Multimedia Mobile CMS: a Simplified Approach towards Content-Oriented Mobile Application Designing",
+      "url": "http://arxiv.org/abs/1009.5347v1",
+      "kind": "paper",
+      "venue": "cs.OH",
+      "published": "2010-09-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "LEAP: TrustZone Based Developer-Friendly TEE for Intelligent Mobile Apps",
+      "url": "http://arxiv.org/abs/2102.02465v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2021-02-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Enhancing Contention Resolution ALOHA using Combining Techniques",
+      "url": "http://arxiv.org/abs/1602.07636v3",
+      "kind": "paper",
+      "venue": "cs.IT",
+      "published": "2016-02-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "A Low-Energy Fast Cyber Foraging Mechanism for Mobile Devices",
+      "url": "http://arxiv.org/abs/1111.4499v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2011-11-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset",
+      "url": "http://arxiv.org/abs/2405.19595v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation",
+      "url": "http://arxiv.org/abs/2407.15282v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "The RSNA Intracranial Aneurysm (RSNA-ICA) Dataset",
+      "url": "http://arxiv.org/abs/2610.01135v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-10-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Unfiltered Conversations: A Dataset of 2024 U.S. Presidential Election Discourse on Truth Social",
+      "url": "http://arxiv.org/abs/2411.01330v1",
+      "kind": "paper",
+      "venue": "cs.SI",
+      "published": "2024-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+      "url": "http://arxiv.org/abs/2310.08864v9",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-10-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Benchmarking Simulated Robotic Manipulation through a Real World Dataset",
+      "url": "http://arxiv.org/abs/1911.01557v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-11-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset",
+      "url": "http://arxiv.org/abs/2403.12945v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-03-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "ManiWAV: Learning Robot Manipulation from In-the-Wild Audio-Visual Data",
+      "url": "http://arxiv.org/abs/2406.19464v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-06-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models",
+      "url": "http://arxiv.org/abs/2603.28301v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-03-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+      "url": "http://arxiv.org/abs/2609.24350v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 37,
+      "title": "A Simulation and Modeling of Access Points with Definition Language",
+      "url": "http://arxiv.org/abs/1304.1836v2",
+      "kind": "paper",
+      "venue": "cs.OH",
+      "published": "2013-04-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 38,
+      "title": "Superconductivity as a consequence of an ordering of the electron gas zero-point oscillations",
+      "url": "http://arxiv.org/abs/1005.0280v6",
+      "kind": "paper",
+      "venue": "physics.gen-ph",
+      "published": "2010-05-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 39,
+      "title": "Intutionistic Fuzzy Ideals in Γ-semiring",
+      "url": "http://arxiv.org/abs/1011.5746v2",
+      "kind": "paper",
+      "venue": "math.LO",
+      "published": "2010-11-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 40,
+      "title": "Internal Location Based System For Mobile Devices Using Passive RFID And Wireless Technology",
+      "url": "http://arxiv.org/abs/1001.2258v2",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2010-01-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 41,
+      "title": "The meaning of systematic errors, a comment to \"Reply to On the Systematic Errors in the Detection of the Lense-Thirring Effect with a Mars Orbiter\", by Lorenzo Iorio",
+      "url": "http://arxiv.org/abs/gr-qc/0703020v3",
+      "kind": "paper",
+      "venue": "gr-qc",
+      "published": "2007-03-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 42,
+      "title": "Explicit estimates on prime numbers",
+      "url": "http://arxiv.org/abs/1407.7158v2",
+      "kind": "paper",
+      "venue": "math.NT",
+      "published": "2014-07-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 43,
+      "title": "DexArt: Benchmarking Generalizable Dexterous Manipulation with Articulated Objects",
+      "url": "http://arxiv.org/abs/2305.05706v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-05-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 44,
+      "title": "Pneumatic Modelling for Adroit Manipulation Platform",
+      "url": "http://arxiv.org/abs/1703.01653v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2017-03-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 45,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 46,
+      "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+      "url": "http://arxiv.org/abs/2508.18904v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 47,
+      "title": "Bridging the Sim2Real Gap: Vision Encoder Pre-Training for Visuomotor Policy Transfer",
+      "url": "http://arxiv.org/abs/2501.16389v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-01-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 48,
+      "title": "The Importance and the Limitations of Sim2Real for Robotic Manipulation in Precision Agriculture",
+      "url": "http://arxiv.org/abs/2008.03983v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-08-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 49,
+      "title": "LLM-based ambiguity detection in natural language instructions for collaborative surgical robots",
+      "url": "http://arxiv.org/abs/2507.11525v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-07-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 50,
+      "title": "Human-Robot collaboration in surgery: Advances and challenges towards autonomous surgical assistants",
+      "url": "http://arxiv.org/abs/2507.11460v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-07-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 51,
+      "title": "A Case for a \"Refutations and Critiques\" Track in Statistics Journals",
+      "url": "http://arxiv.org/abs/2509.03702v3",
+      "kind": "paper",
+      "venue": "stat.ME",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 52,
+      "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+      "url": "http://arxiv.org/abs/2509.11402v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 53,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 54,
+      "title": "ManipBench: Benchmarking Vision-Language Models for Low-Level Robot Manipulation",
+      "url": "http://arxiv.org/abs/2505.09698v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 55,
+      "title": "Coarse-to-Fine Imitation Learning: Robot Manipulation from a Single Demonstration",
+      "url": "http://arxiv.org/abs/2105.06411v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-05-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 56,
+      "title": "On-Policy Robot Imitation Learning from a Converging Supervisor",
+      "url": "http://arxiv.org/abs/1907.03423v7",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2019-07-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 57,
+      "title": "One-Shot Visual Imitation Learning via Meta-Learning",
+      "url": "http://arxiv.org/abs/1709.04905v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2017-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 58,
+      "title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+      "url": "http://arxiv.org/abs/1711.10137v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2017-11-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 59,
+      "title": "From One Hand to Multiple Hands: Imitation Learning for Dexterous Manipulation from Single-Camera Teleoperation",
+      "url": "http://arxiv.org/abs/2204.12490v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-04-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 60,
+      "title": "SPIRE: Synergistic Planning, Imitation, and Reinforcement Learning for Long-Horizon Manipulation",
+      "url": "http://arxiv.org/abs/2410.18065v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 61,
+      "title": "Learning to Discern: Imitating Heterogeneous Human Demonstrations with Preference and Representation Learning",
+      "url": "http://arxiv.org/abs/2310.14196v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-10-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 62,
+      "title": "Learning and Retrieval from Prior Data for Skill-based Imitation Learning",
+      "url": "http://arxiv.org/abs/2210.11435v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2022-10-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 63,
+      "title": "Dexterous Functional Pre-Grasp Manipulation with Diffusion Policy",
+      "url": "http://arxiv.org/abs/2403.12421v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-03-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 64,
+      "title": "Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge",
+      "url": "http://arxiv.org/abs/2101.02842v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-01-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 65,
+      "title": "InterACT: Inter-dependency Aware Action Chunking with Hierarchical Attention Transformers for Bimanual Manipulation",
+      "url": "http://arxiv.org/abs/2409.07914v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-09-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 66,
+      "title": "Benchmarking Generalizable Bimanual Manipulation: RoboTwin Dual-Arm Collaboration Challenge at CVPR 2025 MEIS Workshop",
+      "url": "http://arxiv.org/abs/2506.23351v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-06-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 67,
+      "title": "DAIR: Disentangled Attention Intrinsic Regularization for Safe and Efficient Bimanual Manipulation",
+      "url": "http://arxiv.org/abs/2106.05907v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2021-06-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 68,
+      "title": "Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025",
+      "url": "http://arxiv.org/abs/2506.02550v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 69,
+      "title": "Stabilize to Act: Learning to Coordinate for Bimanual Manipulation",
+      "url": "http://arxiv.org/abs/2309.01087v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 70,
+      "title": "Generalist Robot Manipulation beyond Action Labeled Data",
+      "url": "http://arxiv.org/abs/2509.19958v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 71,
+      "title": "VoxAct-B: Voxel-Based Acting and Stabilizing Policy for Bimanual Manipulation",
+      "url": "http://arxiv.org/abs/2407.04152v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-07-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 72,
+      "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+      "url": "http://arxiv.org/abs/2608.17095v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-08-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 73,
+      "title": "UniHM: Unified Dexterous Hand Manipulation with Vision Language Model",
+      "url": "http://arxiv.org/abs/2603.00732v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-02-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 74,
+      "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+      "url": "http://arxiv.org/abs/2512.06951v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 75,
+      "title": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+      "url": "http://arxiv.org/abs/2607.10797v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-07-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 76,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 77,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 78,
+      "title": "The AudioMOS Challenge 2025",
+      "url": "http://arxiv.org/abs/2509.01336v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 79,
+      "title": "MAGIC and MWL monitoring of the blazar TXS 0506+056 in the 2018/2019 season",
+      "url": "http://arxiv.org/abs/1909.04938v1",
+      "kind": "paper",
+      "venue": "astro-ph.HE",
+      "published": "2019-09-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 80,
+      "title": "The 2018 PIRM Challenge on Perceptual Image Super-resolution",
+      "url": "http://arxiv.org/abs/1809.07517v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2018-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 81,
+      "title": "A System for General In-Hand Object Re-Orientation",
+      "url": "http://arxiv.org/abs/2111.03043v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-11-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 82,
+      "title": "QCD and High Energy Interactions: Moriond 2018 Theory Summary",
+      "url": "http://arxiv.org/abs/1806.04982v2",
+      "kind": "paper",
+      "venue": "hep-ph",
+      "published": "2018-06-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 83,
+      "title": "Assembling Two Parts in One Hand",
+      "url": "http://arxiv.org/abs/2609.10137v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 84,
+      "title": "Stable In-hand Manipulation with Finger Specific Multi-agent Shadow Reward",
+      "url": "http://arxiv.org/abs/2309.07349v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 85,
+      "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+      "url": "http://arxiv.org/abs/2607.18488v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 86,
+      "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2602.12375v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-02-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 87,
+      "title": "Causal-Paced Deep Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2507.02910v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-06-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 88,
+      "title": "Constrained Reinforcement Learning for Dexterous Manipulation",
+      "url": "http://arxiv.org/abs/2301.09766v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-01-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 89,
+      "title": "Exploring Hierarchy-Aware Inverse Reinforcement Learning",
+      "url": "http://arxiv.org/abs/1807.05037v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2018-07-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 90,
+      "title": "Knowledge-Embedded Representation Learning for Fine-Grained Image Recognition",
+      "url": "http://arxiv.org/abs/1807.00505v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2018-07-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 91,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 92,
+      "title": "Multi-entity Video Transformers for Fine-Grained Video Representation Learning",
+      "url": "http://arxiv.org/abs/2311.10873v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2023-11-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 93,
+      "title": "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware",
+      "url": "https://arxiv.org/abs/2304.13705",
+      "kind": "paper",
+      "venue": "Robotics: Science and Systems Conference",
+      "published": "2023-04-23",
+      "citations": 2564,
+      "stars": null
+    },
+    {
+      "n": 94,
+      "title": "Enhancement of Position Accuracy via DPB-Embedded ACT Model for Fine-Grained Manipulation",
+      "url": "https://doi.org/10.54254/2755-2721/2025.22913",
+      "kind": "paper",
+      "venue": "Applied and Computational Engineering",
+      "published": "2025-05-15",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 95,
+      "title": "ManiSkill-ViTac 2025: Challenge on Manipulation Skill Learning With Vision and Tactile Sensing",
+      "url": "http://arxiv.org/abs/2411.12503v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-11-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 96,
+      "title": "VITaL Pretraining: Visuo-Tactile Pretraining for Tactile and Non-Tactile Manipulation Policies",
+      "url": "http://arxiv.org/abs/2403.11898v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-03-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 97,
+      "title": "Robot Synesthesia: In-Hand Manipulation with Visuotactile Sensing",
+      "url": "http://arxiv.org/abs/2312.01853v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-12-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 98,
+      "title": "Visuotactile Affordances for Cloth Manipulation with Local Control",
+      "url": "http://arxiv.org/abs/2212.05108v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-12-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 99,
+      "title": "Certifiably Safe Manipulation of Deformable Linear Objects via Joint Shape and Tension Prediction",
+      "url": "http://arxiv.org/abs/2505.13889v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 100,
+      "title": "ManiFeel: Benchmarking and Understanding Visuotactile Manipulation Policy Learning",
+      "url": "http://arxiv.org/abs/2505.18472v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 101,
+      "title": "Learning Contact-Rich Manipulation Skills with Guided Policy Search",
+      "url": "http://arxiv.org/abs/1501.05611v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2015-01-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 102,
+      "title": "ContactWorld: What Representations Matter for Vision-Tactile Latent World Models in Contact-Rich Manipulation",
+      "url": "http://arxiv.org/abs/2606.13877v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-06-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 103,
+      "title": "Generation of GelSight Tactile Images for Sim2Real Learning",
+      "url": "http://arxiv.org/abs/2101.07169v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-01-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 104,
+      "title": "GelSight Svelte Hand: A Three-finger, Two-DoF, Tactile-rich, Low-cost Robot Hand for Dexterous Manipulation",
+      "url": "http://arxiv.org/abs/2309.10886v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-09-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 105,
+      "title": "Beyond Flat GelSight Sensors: Simulation of Optical Tactile Sensors of Complex Morphologies for Sim2Real Learning",
+      "url": "http://arxiv.org/abs/2305.12605v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-05-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 106,
+      "title": "Learning In-Hand Translation Using Tactile Skin With Shear and Normal Force Sensing",
+      "url": "http://arxiv.org/abs/2407.07885v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-07-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 107,
+      "title": "Sim2Real Transfer for Audio-Visual Navigation with Frequency-Adaptive Acoustic Field Prediction",
+      "url": "http://arxiv.org/abs/2405.02821v2",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2024-05-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 108,
+      "title": "TDCOSMO 2025: Cosmological constraints from strong lensing time delays",
+      "url": "http://arxiv.org/abs/2506.03023v4",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 109,
+      "title": "Tac2Motion: Contact-Aware Reinforcement Learning with Tactile Feedback for Robotic Hand Manipulation",
+      "url": "http://arxiv.org/abs/2509.17812v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 110,
+      "title": "3D-ViTac: Learning Fine-Grained Manipulation with Visuo-Tactile Sensing",
+      "url": "http://arxiv.org/abs/2410.24091v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-10-31",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-05-embodied-manipulation.md",
+    "json": "report/2026/10/2026-10-05-embodied-manipulation.json"
+  }
+}

@@ -1,0 +1,2878 @@
+{
+  "topic": "cybersecurity",
+  "title": "网络安全攻防前沿深度调研：漏洞挖掘、供应链与 LLM/Agent 安全（2024–2026）",
+  "query": "",
+  "depth": "standard",
+  "language": "bilingual",
+  "started_at": "2026-10-05T22:13:47+00:00",
+  "finished_at": "2026-10-05T22:18:53+00:00",
+  "duration_s": 306.0,
+  "rounds": 1,
+  "plan": {
+    "title": "网络安全攻防前沿深度调研：漏洞挖掘、供应链与 LLM/Agent 安全（2024–2026）",
+    "summary": "系统梳理近两年漏洞与利用、模糊测试与程序分析、软件供应链与 SBOM、后量子密码迁移以及大模型/Agent 安全（提示注入、越狱、数据外泄）的攻防前沿，同时标注经典奠基工作、开源工具链、评测基准与开放争议。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024–2026 年大模型与 Agent 安全的前沿进展是什么：直接/间接提示注入、越狱攻击与护栏防御的关键论文、攻击面与防护范式有哪些？",
+        "rationale": "这是用户主题中增长最快、术语尚未统一的方向。「前沿进展」需要按会议与年份锁定一手论文，区分「论文宣称的防御」与「第三方复现后被绕过」的结论，避免把演示视频当作有效防御证据。",
+        "queries": [
+          "indirect prompt injection LLM agent defense 2025 USENIX Security NDSS",
+          "prompt injection attack benchmark agent tool-use 2025 arXiv",
+          "LLM jailbreak guardrail defense survey 2025 arXiv cs.CR",
+          "大模型 Agent 提示注入 越狱 防御 2025 综述"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "近两年漏洞发现与利用的前沿：覆盖率引导模糊测试、定向/内核灰盒 fuzzing、LLM 辅助漏洞检测与自动利用生成，相较上一代方法提升了什么？",
+        "rationale": "fuzzing 与程序分析是本主题技术密度最高的子领域，需要区分「新调度/新反馈机制」与「纯算力堆叠」，并核实实验是在真实内核/二进制还是合成 benchmark 上完成的。",
+        "queries": [
+          "coverage-guided fuzzing 2025 USENIX Security NDSS new scheduling",
+          "directed greybox fuzzing Linux kernel 2024 2025",
+          "large language model vulnerability detection 2025 empirical study",
+          "静态分析 漏洞检测 大模型 2025 二进制 逆向"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref",
+          "github"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "本领域的经典/奠基工作有哪些：AFL 与覆盖率引导 fuzzing、KLEE/符号执行、二进制分析与反混淆、SolarWinds 供应链事件与 SBOM 政策、NIST 后量子密码标准化，各自奠定了什么？",
+        "rationale": "梳理「承上启下」脉络需要可靠的一手出处（会议论文、NIST 官方标准、政策原文），并明确标注预印本与已中稿论文，避免把二手综述转述当原始贡献。",
+        "queries": [
+          "AFL American Fuzzy Lop coverage-guided fuzzing USENIX Security 2016",
+          "KLEE symbolic execution OSDI 2008 unassisted automatic test generation",
+          "NIST post-quantum cryptography standardization FIPS 203 204 205 2024",
+          "SolarWinds supply chain attack SBOM executive order 14028 analysis"
+        ],
+        "prefer": [
+          "semantic_scholar",
+          "crossref",
+          "openalex",
+          "bing"
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "开源项目与工程实践：模糊测试工具链（AFL++、libFuzzer、OSS-Fuzz）、二进制分析框架（angr、Ghidra、IDA 生态）、SBOM 与漏洞管理工具（Syft/Grype、CycloneDX、SPDX）、LLM 护栏与红队工具，成熟度与可复现性如何？",
+        "rationale": "工程落地选型必须看 GitHub 活跃度（star、最近提交、issue 响应）而非论文宣称；同时要核查工具的许可证与维护机构，判断是「社区标准」还是「单一厂商绑定」。",
+        "queries": [
+          "AFLplusplus libFuzzer OSS-Fuzz github continuous fuzzing",
+          "angr binary analysis framework github symbolic execution",
+          "SBOM tooling Syft Grype CycloneDX SPDX github comparison",
+          "LLM guardrail open source Llama Guard NeMo Guardrails prompt injection detection github"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv"
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "数据集与基准：CVE/补丁类数据集（CVEfixes、BigVul、PrimeVul）、自动化攻防竞赛基准（DARPA AIxCC、CyberGym、Cybench）、Agent 提示注入与越狱基准（AgentDojo、JailbreakBench、HarmBench）分别评测什么、口径如何？",
+        "rationale": "用户主题中 SOTA 与结论高度依赖 benchmark 口径（仿真靶场 vs 真实系统、任务数与本体）。必须区分「竞赛官方结果」与「论文自建评测」，并警惕数据泄漏导致的指标虚高。",
+        "queries": [
+          "CyberGym benchmark LLM vulnerability discovery 2025 arXiv",
+          "DARPA AIxCC AI Cyber Challenge final results 2025 cyber reasoning system",
+          "AgentDojo prompt injection agent benchmark 2024 2025",
+          "PrimeVul vulnerability dataset data leakage benchmark 2024"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "bing",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q6",
+        "question": "开放问题与争议：自动化攻防（LLM 自主发现与利用漏洞）的能力边界与失控风险、后量子密码迁移的真实成本、内存安全（Rust/C++）与政府监管路线之争、以及漏洞检测评测的可复现性与负结果有哪些？",
+        "rationale": "缺口检查要求覆盖争议与失败案例：本方向上「demo 强于实验」「benchmark 泄漏」「迁移成本被低估」等批评广泛存在，需要一手论文与官方报告交叉验证，避免只呈现厂商叙事。",
+        "queries": [
+          "autonomous LLM cyber reasoning system limitations critique 2025",
+          "post-quantum cryptography migration cost challenges 2025 government report",
+          "memory safety Rust C++ CISA guidance 2024 2025 criticism",
+          "vulnerability detection reproducibility negative results fuzzing evaluation 2024 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "bing",
+          "semantic_scholar",
+          "openalex"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024–2026 年大模型与 Agent 安全的前沿进展是什么：直接/间接提示注入、越狱攻击与护栏防御的关键论文、攻击面与防护范式有哪些？",
+      "queries": [
+        "indirect prompt injection LLM agent defense 2025 USENIX Security NDSS",
+        "prompt injection attack benchmark agent tool-use 2025 arXiv",
+        "LLM jailbreak guardrail defense survey 2025 arXiv cs.CR",
+        "大模型 Agent 提示注入 越狱 防御 2025 综述"
+      ],
+      "rationale": "这是用户主题中增长最快、术语尚未统一的方向。「前沿进展」需要按会议与年份锁定一手论文，区分「论文宣称的防御」与「第三方复现后被绕过」的结论，避免把演示视频当作有效防御证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "WebInject: Prompt Injection Attack to Web Agents",
+          "url": "http://arxiv.org/abs/2505.11717v4",
+          "snippet": "Multi-modal large language model (MLLM)-based web agents interact with webpage environments by generating actions based on screenshots of the webpages. In this work, we propose WebInject, a prompt injection attack that manipulates the webpage environment to induce a web agent to perform an attacker-specified action. Our attack adds a perturbation to the raw pixel values of the rendered webpage. After these perturbed pixels are mapped into a screenshot, the perturbation induces the web agent to perform the attacker-specified action. We formulate the task of finding the perturbation as an optim…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-16",
+          "authors": [
+            "Xilong Wang",
+            "John Bloch",
+            "Zedian Shao",
+            "Yuepeng Hu",
+            "Shuyan Zhou",
+            "Neil Zhenqiang Gong"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.11717v4",
+            "rrf_score": 0.044466,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "IPIGuard: A Novel Tool Dependency Graph-Based Defense Against Indirect Prompt Injection in LLM Agents",
+          "url": "http://arxiv.org/abs/2508.15310v1",
+          "snippet": "Large language model (LLM) agents are widely deployed in real-world applications, where they leverage tools to retrieve and manipulate external data for complex tasks. However, when interacting with untrusted data sources (e.g., fetching information from public websites), tool responses may contain injected instructions that covertly influence agent behaviors and lead to malicious outcomes, a threat referred to as Indirect Prompt Injection (IPI). Existing defenses typically rely on advanced prompting strategies or auxiliary detection models. While these methods have demonstrated some effectiv…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-21",
+          "authors": [
+            "Hengyu An",
+            "Jinghuai Zhang",
+            "Tianyu Du",
+            "Chunyi Zhou",
+            "Qingming Li",
+            "Tao Lin",
+            "Shouling Ji"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.15310v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Architecting Secure AI Agents: Perspectives on System-Level Defenses Against Indirect Prompt Injection Attacks",
+          "url": "http://arxiv.org/abs/2603.30016v1",
+          "snippet": "AI agents, predominantly powered by large language models (LLMs), are vulnerable to indirect prompt injection, in which malicious instructions embedded in untrusted data can trigger dangerous agent actions. This position paper discusses our vision for system-level defenses against indirect prompt injection attacks. We articulate three positions: (1) dynamic replanning and security policy updates are often necessary for dynamic tasks and realistic environments; (2) certain context-dependent security decisions would still require LLMs (or other learned models), but should only be made within sy…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-31",
+          "authors": [
+            "Chong Xiang",
+            "Drew Zagieboylo",
+            "Shaona Ghosh",
+            "Sanjay Kariyappa",
+            "Kai Greshake",
+            "Hanshen Xiao",
+            "Chaowei Xiao",
+            "G. Edward Suh"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.30016v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "ACE: A Security Architecture for LLM-Integrated App Systems",
+          "url": "http://arxiv.org/abs/2504.20984v3",
+          "snippet": "LLM-integrated app systems extend the utility of Large Language Models (LLMs) with third-party apps that are invoked by a system LLM using interleaved planning and execution phases to answer user queries. These systems introduce new attack vectors where malicious apps can cause integrity violation of planning or execution, availability breakdown, or privacy compromise during execution.\n  In this work, we identify new attacks impacting the integrity of planning, as well as the integrity and availability of execution in LLM-integrated apps, and demonstrate them against IsolateGPT, a recent solu…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-29",
+          "authors": [
+            "Evan Li",
+            "Tushin Mallick",
+            "Evan Rose",
+            "William Robertson",
+            "Alina Oprea",
+            "Cristina Nita-Rotaru"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.20984v3",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "AttriGuard: Defeating Indirect Prompt Injection in LLM Agents via Causal Attribution of Tool Invocations",
+          "url": "http://arxiv.org/abs/2603.10749v2",
+          "snippet": "LLM agents are highly vulnerable to Indirect Prompt Injection (IPI), where adversaries embed malicious directives in untrusted tool outputs to hijack execution. Most existing defenses treat IPI as an input-level semantic discrimination problem, which often fails to generalize to unseen payloads. We propose a new paradigm, action-level causal attribution, which secures agents by asking why a particular tool call is produced. The central goal is to distinguish tool calls supported by the user's intent from those causally driven by untrusted observations. We instantiate this paradigm with AttriG…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-11",
+          "authors": [
+            "Yu He",
+            "Haozhe Zhu",
+            "Yiming Li",
+            "Shuo Shao",
+            "Hongwei Yao",
+            "Zhihao Liu",
+            "Zhan Qin"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.10749v2",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+          "url": "http://arxiv.org/abs/2512.12583v1",
+          "snippet": "Prompt injection attacks can compromise the security and stability of critical systems, from infrastructure to large web applications. This work curates and augments a prompt injection dataset based on the HackAPrompt Playground Submissions corpus and trains several classifiers, including LSTM, feed forward neural networks, Random Forest, and Naive Bayes, to detect malicious prompts in LLM integrated web applications. The proposed approach improves prompt injection detection and mitigation, helping protect targeted applications and systems.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-14",
+          "authors": [
+            "Safwan Shaheer",
+            "G. M. Refatul Islam",
+            "Mohammad Rafid Hamid",
+            "Md. Abrar Faiaz Khan",
+            "Md. Omar Faruk",
+            "Yaseen Nur"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.12583v1",
+            "rrf_score": 0.020833
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "WebInject: Prompt Injection Attack to Web Agents",
+            "evidence": "Multi-modal large language model (MLLM)-based web agents interact with webpage environments by generating actions based on screenshots of the webpages. In this work, we propose WebInject, a prompt injection attack that manipulates the webpage environment to induce a web agent to perform an attacker…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "IPIGuard: A Novel Tool Dependency Graph-Based Defense Against Indirect Prompt Injection in LLM Agents",
+            "evidence": "Large language model (LLM) agents are widely deployed in real-world applications, where they leverage tools to retrieve and manipulate external data for complex tasks. However, when interacting with untrusted data sources (e.g., fetching information from public websites), tool responses may contain…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "Architecting Secure AI Agents: Perspectives on System-Level Defenses Against Indirect Prompt Injection Attacks",
+            "evidence": "AI agents, predominantly powered by large language models (LLMs), are vulnerable to indirect prompt injection, in which malicious instructions embedded in untrusted data can trigger dangerous agent actions. This position paper discusses our vision for system-level defenses against indirect prompt i…",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "ACE: A Security Architecture for LLM-Integrated App Systems",
+            "evidence": "LLM-integrated app systems extend the utility of Large Language Models (LLMs) with third-party apps that are invoked by a system LLM using interleaved planning and execution phases to answer user queries. These systems introduce new attack vectors where malicious apps can cause integrity violation…",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "AttriGuard: Defeating Indirect Prompt Injection in LLM Agents via Causal Attribution of Tool Invocations",
+            "evidence": "LLM agents are highly vulnerable to Indirect Prompt Injection (IPI), where adversaries embed malicious directives in untrusted tool outputs to hijack execution. Most existing defenses treat IPI as an input-level semantic discrimination problem, which often fails to generalize to unseen payloads. We…",
+            "sources": [
+              9
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+            "evidence": "Prompt injection attacks can compromise the security and stability of critical systems, from infrastructure to large web applications. This work curates and augments a prompt injection dataset based on the HackAPrompt Playground Submissions corpus and trains several classifiers, including LSTM, fee…",
+            "sources": [
+              12
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "近两年漏洞发现与利用的前沿：覆盖率引导模糊测试、定向/内核灰盒 fuzzing、LLM 辅助漏洞检测与自动利用生成，相较上一代方法提升了什么？",
+      "queries": [
+        "coverage-guided fuzzing 2025 USENIX Security NDSS new scheduling",
+        "directed greybox fuzzing Linux kernel 2024 2025",
+        "large language model vulnerability detection 2025 empirical study",
+        "静态分析 漏洞检测 大模型 2025 二进制 逆向"
+      ],
+      "rationale": "fuzzing 与程序分析是本主题技术密度最高的子领域，需要区分「新调度/新反馈机制」与「纯算力堆叠」，并核实实验是在真实内核/二进制还是合成 benchmark 上完成的。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Towards a Formal Verification of Secure Vehicle Software Updates",
+          "url": "http://arxiv.org/abs/2511.15479v1",
+          "snippet": "With the rise of software-defined vehicles (SDVs), where software governs most vehicle functions alongside enhanced connectivity, the need for secure software updates has become increasingly critical. Software vulnerabilities can severely impact safety, the economy, and society. In response to this challenge, Strandberg et al. [escar Europe, 2021] introduced the Unified Software Update Framework (UniSUF), designed to provide a secure update framework that integrates seamlessly with existing vehicular infrastructures.\n  Although UniSUF has previously been evaluated regarding cybersecurity, the…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-19",
+          "authors": [
+            "Martin Slind Hagen",
+            "Emil Lundqvist",
+            "Alex Phu",
+            "Yenan Wang",
+            "Kim Strandberg",
+            "Elad Michael Schiller"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.15479v1",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "Hallucination Detection and Mitigation in Scientific Text Simplification using Ensemble Approaches: DS@GT at CLEF 2025 SimpleText",
+          "url": "http://arxiv.org/abs/2508.11823v1",
+          "snippet": "In this paper, we describe our methodology for the CLEF 2025 SimpleText Task 2, which focuses on detecting and evaluating creative generation and information distortion in scientific text simplification. Our solution integrates multiple strategies: we construct an ensemble framework that leverages BERT-based classifier, semantic similarity measure, natural language inference model, and large language model (LLM) reasoning. These diverse signals are combined using meta-classifiers to enhance the robustness of spurious and distortion detection. Additionally, for grounded generation, we employ a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-15",
+          "authors": [
+            "Krishna Chaitanya Marturi",
+            "Heba H. Elwazzan"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.11823v1",
+            "rrf_score": 0.019481
+          }
+        },
+        {
+          "title": "Soft Inductive Bias Approach via Explicit Reasoning Perspectives in Inappropriate Utterance Detection Using Large Language Models",
+          "url": "http://arxiv.org/abs/2512.08480v1",
+          "snippet": "Recent incidents in certain online games and communities, where anonymity is guaranteed, show that unchecked inappropriate remarks frequently escalate into verbal abuse and even criminal behavior, raising significant social concerns. Consequently, there is a growing need for research on techniques that can detect inappropriate utterances within conversational texts to help build a safer communication environment. Although large-scale language models trained on Korean corpora and chain-of-thought reasoning have recently gained attention, research applying these approaches to inappropriate utte…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-09",
+          "authors": [
+            "Ju-Young Kim",
+            "Ji-Hong Park",
+            "Se-Yeon Lee",
+            "Sujin Park",
+            "Gun-Woo Kim"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.08480v1",
+            "rrf_score": 0.019231
+          }
+        },
+        {
+          "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+          "url": "http://arxiv.org/abs/2509.19861v1",
+          "snippet": "This paper describes the participation of the SINAI-UJA team in the eRisk@CLEF 2025 lab. Specifically, we addressed two of the proposed tasks: (i) Task 2: Contextualized Early Detection of Depression, and (ii) Pilot Task: Conversational Depression Detection via LLMs. Our approach for Task 2 combines an extensive preprocessing pipeline with the use of several transformer-based models, such as RoBERTa Base or MentalRoBERTA Large, to capture the contextual and sequential nature of multi-user conversations. For the Pilot Task, we designed a set of conversational strategies to interact with LLM-po…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-24",
+          "authors": [
+            "Alba Maria Marmol-Romero",
+            "Manuel Garcia-Vega",
+            "Miguel Angel Garcia-Cumbreras",
+            "Arturo Montejo-Raez"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.19861v1",
+            "rrf_score": 0.018987
+          }
+        },
+        {
+          "title": "Coling-UniA at SciVQA 2025: Few-Shot Example Retrieval and Confidence-Informed Ensembling for Multimodal Large Language Models",
+          "url": "http://arxiv.org/abs/2507.02357v1",
+          "snippet": "This paper describes our system for the SciVQA 2025 Shared Task on Scientific Visual Question Answering. Our system employs an ensemble of two Multimodal Large Language Models and various few-shot example retrieval strategies. The model and few-shot setting are selected based on the figure and question type. We also select answers based on the models' confidence levels. On the blind test data, our system ranks third out of seven with an average F1 score of 85.12 across ROUGE-1, ROUGE-L, and BERTS. Our code is publicly available.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-03",
+          "authors": [
+            "Christian Jaumann",
+            "Annemarie Friedrich",
+            "Rainer Lienhart"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.02357v1",
+            "rrf_score": 0.018519
+          }
+        },
+        {
+          "title": "Object Detection with Multimodal Large Vision-Language Models: An In-depth Review",
+          "url": "http://arxiv.org/abs/2508.19294v2",
+          "snippet": "The fusion of language and vision in large vision-language models (LVLMs) has revolutionized deep learning-based object detection by enhancing adaptability, contextual reasoning, and generalization beyond traditional architectures. This in-depth review presents a structured exploration of the state-of-the-art in LVLMs, systematically organized through a three-step research review process. First, we discuss the functioning of vision language models (VLMs) for object detection, describing how these models harness natural language processing (NLP) and computer vision (CV) techniques to revolutio…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-25",
+          "authors": [
+            "Ranjan Sapkota",
+            "Manoj Karkee"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.19294v2",
+            "rrf_score": 0.018293
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "候选证据中唯一涉及软件漏洞与安全分析的是车载软件更新框架 UniSUF 的形式化验证工作，其技术路线是 ProVerif 形式化建模与安全分析，而非模糊测试或 LLM 辅助漏洞检测；对「覆盖率引导 fuzzing / 内核灰盒 fuzzing / 自动利用生成」这一子问题只提供极间接的旁证。",
+            "evidence": "论文针对 Strandberg et al. (escar Europe 2021) 提出的 Unified Software Update Framework (UniSUF) 做形式化安全分析：建模 UniSUF 架构与假设以反映真实汽车系统，并开发基于 ProVerif 的框架（原文：we perform a formal security analysis of UniSUF ... develop a ProVerif-based fra…）。此前 UniSUF 仅做过非形式化的网络安全评估。",
+            "sources": [
+              71
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（arXiv:2511.15479v1, cs.CR，2025-11-19），候选块未给出会议/期刊收录信息与引用数",
+            "attention": "低 + 候选证据未提供引用数、star 或榜单排名等热度信号；主题为汽车软件更新安全的形式化验证，与漏洞发现/利用前沿（fuzzing、自动利用）社区关注点重叠很小",
+            "recommendation": "★☆☆☆☆ + 仅可作为「安全分析方法谱系中的形式化验证对照项」参考，与子问题核心（fuzzing/LLM 辅助漏洞检测）几乎不相关"
+          },
+          {
+            "point": "候选证据中的 LLM 检测类工作均属自然语言处理领域（幻觉检测、不当言论检测、抑郁检测、科学视觉问答），其「集成分类器 + LLM 推理」范式与 LLM 辅助漏洞检测在方法上可类比，但没有任何代码/漏洞数据集上的实验证据，不能作为本子问题的支撑。",
+            "evidence": "[80] 用 BERT 分类器 + 语义相似度 + NLI + LLM 推理，经 meta-classifier 组合以检测科学文本简化中的信息失真；[81] 通过显式推理视角的软归纳偏置在 LLM 上做不当言论检测；[82] 用 RoBERTa/MentalRoBERTa 做抑郁早期检测，对话式 LLM 策略任务中系统排名 8/12。均为文本分类/检测任务，无漏洞数据、无代码、无补丁或崩溃相关指标。",
+            "sources": [
+              80,
+              81,
+              82
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "均为 arXiv 预印本（cs.CL，2025），[80][82] 为 CLEF 2025 系统描述类工作，候选块未给出引用数；非安全领域同行评审论文",
+            "attention": "低 + 候选块无引用数/榜单信号，且领域为 NLP 检测任务，与漏洞发现与利用的社区关注点不重合",
+            "recommendation": "★☆☆☆☆ + 仅具方法论类比价值（LLM 推理 + 集成式检测），对回答本子问题的技术增益无法评估"
+          },
+          {
+            "point": "在本批候选证据中，没有检索到任何直接覆盖「覆盖率引导模糊测试（如 AFL/libFuzzer 谱系）」「定向/内核灰盒 fuzzing（如 syzkaller 类）」「LLM 辅助漏洞检测与自动利用生成（如 PoC/exploit 生成）」的一手论文、项目或基准，因此无法据此判断这些方向「相较上一代提升了什么」。",
+            "evidence": "候选 6 条（[71][80][81][82][84][85]）的主题分别为：车载软件更新形式化验证、科学文本简化幻觉检测、不当言论检测、抑郁检测、科学视觉问答、多模态大模型目标检测综述；无一条包含 fuzzing、覆盖率引导、内核灰盒测试、漏洞检测基准或利用生成相关的方法与指标。",
+            "sources": [
+              71,
+              80,
+              81,
+              82,
+              84,
+              85
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "基于候选证据集合的覆盖度判断，非独立来源结论",
+            "attention": "低 + 该判断仅说明本批候选证据的缺口，不代表该方向在社区中热度低；需补充 cs.CR/cs.SE 方向的检索",
+            "recommendation": "★☆☆☆☆ + 作为证据缺口提示使用，不可作为技术结论引用"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Towards a Formal Verification of Secure Vehicle Software Updates",
+            "url": "http://arxiv.org/abs/2511.15479v1",
+            "why": "候选集中唯一与软件漏洞安全分析相关的工作，采用 ProVerif 形式化方法验证车载软件更新框架 UniSUF，可作为「漏洞与安全分析」中非 fuzzing 路线（形式化验证）的对照，但与子问题核心方向关联很弱。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本 arXiv:2511.15479v1（cs.CR），未标注同行评审 venue",
+            "attention": "低 + 无引用数/社区热度信号，主题偏离 fuzzing 与自动利用",
+            "recommendation": "★☆☆☆☆ + 与本子问题相关性低，仅在需要对比形式化验证 vs. 动态模糊测试路线时引用"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "本批候选证据完全缺失覆盖率引导模糊测试（AFL/AFL++/libFuzzer 谱系）的近期进展证据，无法判断其在插桩粒度、调度策略、状态/约束求解上的代际提升。",
+          "缺失定向模糊测试与内核灰盒 fuzzing（如系统调用序列、内核态覆盖率与沙箱/虚拟机快照恢复）的一手论文或项目证据，无法评估相较上一代的效率与漏洞产出对比。",
+          "缺失 LLM 辅助漏洞检测与自动利用生成（PoC/exploit synthesis）的论文、基准与数据，无法核验其在真实漏洞数据集上的检测率、误报率与可复现性。",
+          "缺少可直接比较的跨代指标口径（漏洞发现数量、时间到崩溃、覆盖率、真实 CVE 复现率），因此在现有候选证据下无法给出「提升了什么」的量化结论。",
+          "候选证据中有大量 NLP/CV 检测类论文（[80][81][82][84][85]），存在把「LLM+集成检测」范式误迁移解读为 LLM 辅助漏洞检测的风险，需明确区分领域与评测口径。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "本领域的经典/奠基工作有哪些：AFL 与覆盖率引导 fuzzing、KLEE/符号执行、二进制分析与反混淆、SolarWinds 供应链事件与 SBOM 政策、NIST 后量子密码标准化，各自奠定了什么？",
+      "queries": [
+        "AFL American Fuzzy Lop coverage-guided fuzzing USENIX Security 2016",
+        "KLEE symbolic execution OSDI 2008 unassisted automatic test generation",
+        "NIST post-quantum cryptography standardization FIPS 203 204 205 2024",
+        "SolarWinds supply chain attack SBOM executive order 14028 analysis"
+      ],
+      "rationale": "梳理「承上启下」脉络需要可靠的一手出处（会议论文、NIST 官方标准、政策原文），并明确标注预印本与已中稿论文，避免把二手综述转述当原始贡献。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Symbolic Execution in Practice: A Survey of Applications in Vulnerability, Malware, Firmware, and Protocol Analysis",
+          "url": "http://arxiv.org/abs/2508.06643v1",
+          "snippet": "Symbolic execution is a powerful program analysis technique that allows for the systematic exploration of all program paths. Path explosion, where the number of states to track becomes unwieldy, is one of the biggest challenges hindering symbolic execution's practical application. To combat this, researchers have employed various strategies to enable symbolic execution on complex software systems. This paper introduces a systematic taxonomy of these strategies, categorizing them into two primary approaches: Scope Reduction, which aims to reduce the scope of symbolic execution to manageable po…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-08",
+          "authors": [
+            "Joshua Bailey",
+            "Charles Nicholas"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.06643v1",
+            "rrf_score": 0.021739
+          }
+        },
+        {
+          "title": "Can Large Language Models Simulate Symbolic Execution Output Like KLEE?",
+          "url": "http://arxiv.org/abs/2511.08530v1",
+          "snippet": "Symbolic execution helps check programs by exploring different paths based on symbolic inputs. Tools like KLEE are commonly used because they can automatically detect bugs and create test cases. But one of KLEE's biggest issues is how slow it can get when programs have lots of branching paths-it often becomes too resource-heavy to run on large or complex code. In this project, we wanted to see if a large language model like GPT-4o could simulate the kinds of outputs that KLEE generates. The idea was to explore whether LLMs could one day replace parts of symbolic execution to save time and res…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-11",
+          "authors": [
+            "Rong Feng",
+            "Vanisha Gupta",
+            "Vivek Patel",
+            "Viroopaksh Reddy Ernampati",
+            "Suman Saha"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.08530v1",
+            "rrf_score": 0.021127
+          }
+        },
+        {
+          "title": "Directed Symbolic Execution for Vulnerability Discovery: An LLM-Guided Approach in KLEE",
+          "url": "http://arxiv.org/abs/2607.21676v1",
+          "snippet": "Symbolic execution effectively discovers security violations but suffers from path explosion. Engines like KLEE therefore use path prioritization heuristics to order state exploration, typically optimizing code coverage. However, path prioritization can become trapped in cyclic control-flow regions, where repeated branching consumes the exploration budget before exploration reaches vulnerable code beyond these cyclic regions. We propose KLEECopilot, a Large Language Model (LLM)-guided directed symbolic execution approach built on KLEE. KLEECopilot uses LLMs to mark potentially vulnerable code…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-23",
+          "authors": [
+            "Lingfeng Chen",
+            "Tao Xiao",
+            "Masanari Kondo",
+            "Yasutaka Kamei"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.21676v1",
+            "rrf_score": 0.019737
+          }
+        },
+        {
+          "title": "Quantum-Safe Code Auditing: LLM-Assisted Static Analysis and Quantum-Aware Risk Scoring for Post-Quantum Cryptography Migration",
+          "url": "http://arxiv.org/abs/2604.00560v1",
+          "snippet": "The impending arrival of cryptographically relevant quantum computers (CRQCs) threatens the security foundations of modern software: Shor's algorithm breaks RSA, ECDSA, ECDH, and Diffie-Hellman, while Grover's algorithm reduces the effective security of symmetric and hash-based schemes. Despite NIST standardising post-quantum cryptography (PQC) in 2024 (FIPS 203 ML-KEM, FIPS 204 ML-DSA, FIPS 205 SLH-DSA), most codebases lack automated tooling to inventory classical cryptographic usage and prioritise migration based on quantum risk. We present Quantum-Safe Code Auditor, a quantum-aware static…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-04-01",
+          "authors": [
+            "Animesh Shaw"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2604.00560v1",
+            "rrf_score": 0.018987
+          }
+        },
+        {
+          "title": "NIST Post-Quantum Cryptography Standard Algorithms Based on Quantum Random Number Generators",
+          "url": "http://arxiv.org/abs/2507.21151v1",
+          "snippet": "In recent years, the advancement of quantum computing technology has posed potential security threats to RSA cryptography and elliptic curve cryptography. In response, the National Institute of Standards and Technology (NIST) published several Federal Information Processing Standards (FIPS) of post-quantum cryptography (PQC) in August 2024, including the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM), Module-Lattice-Based Digital Signature Algorithm (ML-DSA), and Stateless Hash-Based Digital Signature Algorithm (SLH-DSA). Although these PQC algorithms are designed to resist quantum…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-24",
+          "authors": [
+            "Abel C. H. Chen"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.21151v1",
+            "rrf_score": 0.01875
+          }
+        },
+        {
+          "title": "CL-UZH submission to the NIST SRE 2024 Speaker Recognition Evaluation",
+          "url": "http://arxiv.org/abs/2510.00952v2",
+          "snippet": "The CL-UZH team submitted one system each for the fixed and open conditions of the NIST SRE 2024 challenge. For the closed-set condition, results for the audio-only trials were achieved using the X-vector system developed with Kaldi. For the audio-visual results we used only models developed for the visual modality. Two sets of results were submitted for the open-set and closed-set conditions, one based on a pretrained model using the VoxBlink2 and VoxCeleb2 datasets. An Xvector-based model was trained from scratch using the CTS superset dataset for the closed set. In addition to the submissi…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-01",
+          "authors": [
+            "Aref Farhadipour",
+            "Shiran Liu",
+            "Masoumeh Chapariniya",
+            "Valeriia Vyshnevetska",
+            "Srikanth Madikeri",
+            "Teodora Vukovic",
+            "Volker Dellwo"
+          ],
+          "venue": "eess.AS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.00952v2",
+            "rrf_score": 0.018293
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "Symbolic Execution in Practice: A Survey of Applications in Vulnerability, Malware, Firmware, and Protocol Analysis",
+            "evidence": "Symbolic execution is a powerful program analysis technique that allows for the systematic exploration of all program paths. Path explosion, where the number of states to track becomes unwieldy, is one of the biggest challenges hindering symbolic execution's practical application. To combat this, r…",
+            "sources": [
+              33
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "Can Large Language Models Simulate Symbolic Execution Output Like KLEE?",
+            "evidence": "Symbolic execution helps check programs by exploring different paths based on symbolic inputs. Tools like KLEE are commonly used because they can automatically detect bugs and create test cases. But one of KLEE's biggest issues is how slow it can get when programs have lots of branching paths-it of…",
+            "sources": [
+              35
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "Directed Symbolic Execution for Vulnerability Discovery: An LLM-Guided Approach in KLEE",
+            "evidence": "Symbolic execution effectively discovers security violations but suffers from path explosion. Engines like KLEE therefore use path prioritization heuristics to order state exploration, typically optimizing code coverage. However, path prioritization can become trapped in cyclic control-flow regions…",
+            "sources": [
+              40
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "Quantum-Safe Code Auditing: LLM-Assisted Static Analysis and Quantum-Aware Risk Scoring for Post-Quantum Cryptography Migration",
+            "evidence": "The impending arrival of cryptographically relevant quantum computers (CRQCs) threatens the security foundations of modern software: Shor's algorithm breaks RSA, ECDSA, ECDH, and Diffie-Hellman, while Grover's algorithm reduces the effective security of symmetric and hash-based schemes. Despite NIS…",
+            "sources": [
+              43
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "NIST Post-Quantum Cryptography Standard Algorithms Based on Quantum Random Number Generators",
+            "evidence": "In recent years, the advancement of quantum computing technology has posed potential security threats to RSA cryptography and elliptic curve cryptography. In response, the National Institute of Standards and Technology (NIST) published several Federal Information Processing Standards (FIPS) of post…",
+            "sources": [
+              44
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "CL-UZH submission to the NIST SRE 2024 Speaker Recognition Evaluation",
+            "evidence": "The CL-UZH team submitted one system each for the fixed and open conditions of the NIST SRE 2024 challenge. For the closed-set condition, results for the audio-only trials were achieved using the X-vector system developed with Kaldi. For the audio-visual results we used only models developed for th…",
+            "sources": [
+              46
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "eess.AS",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=eess.AS）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q4",
+      "question": "开源项目与工程实践：模糊测试工具链（AFL++、libFuzzer、OSS-Fuzz）、二进制分析框架（angr、Ghidra、IDA 生态）、SBOM 与漏洞管理工具（Syft/Grype、CycloneDX、SPDX）、LLM 护栏与红队工具，成熟度与可复现性如何？",
+      "queries": [
+        "AFLplusplus libFuzzer OSS-Fuzz github continuous fuzzing",
+        "angr binary analysis framework github symbolic execution",
+        "SBOM tooling Syft Grype CycloneDX SPDX github comparison",
+        "LLM guardrail open source Llama Guard NeMo Guardrails prompt injection detection github"
+      ],
+      "rationale": "工程落地选型必须看 GitHub 活跃度（star、最近提交、issue 响应）而非论文宣称；同时要核查工具的许可证与维护机构，判断是「社区标准」还是「单一厂商绑定」。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Large-Scale Empirical Analysis of Continuous Fuzzing: Insights from 1 Million Fuzzing Sessions",
+          "url": "http://arxiv.org/abs/2510.16433v1",
+          "snippet": "Software vulnerabilities are constantly being reported and exploited in software products, causing significant impacts on society. In recent years, the main approach to vulnerability detection, fuzzing, has been integrated into the continuous integration process to run in short and frequent cycles. This continuous fuzzing allows for fast identification and remediation of vulnerabilities during the development process. Despite adoption by thousands of projects, however, it is unclear how continuous fuzzing contributes to vulnerability detection. This study aims to elucidate the role of continu…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-18",
+          "authors": [
+            "Tatsuya Shirai",
+            "Olivier Nourry",
+            "Yutaro Kashiwa",
+            "Kenji Fujiwara",
+            "Yasutaka Kamei",
+            "Hajimu Iida"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.16433v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Coverage-Guided Multi-Agent Harness Generation for Java Library Fuzzing",
+          "url": "http://arxiv.org/abs/2603.08616v1",
+          "snippet": "Coverage-guided fuzzing has proven effective for software testing, but targeting library code requires specialized fuzz harnesses that translate fuzzer-generated inputs into valid API invocations. Manual harness creation is time-consuming and requires deep understanding of API semantics, initialization sequences, and exception handling contracts. We present a multi-agent architecture that automates fuzz harness generation for Java libraries through specialized LLM-powered agents. Five ReAct agents decompose the workflow into research, synthesis, compilation repair, coverage analysis, and refi…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-09",
+          "authors": [
+            "Nils Loose",
+            "Nico Winkel",
+            "Kristoffer Hempel",
+            "Felix Mächtle",
+            "Julian Hans",
+            "Thomas Eisenbarth"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.08616v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "An Empirical Study of Fuzz Harness Degradation",
+          "url": "http://arxiv.org/abs/2505.06177v2",
+          "snippet": "The purpose of continuous fuzzing platforms is to enable fuzzing for software projects via fuzz harnesses -- but as the projects continue to evolve, are these harnesses updated in lockstep, or do they run out of date? If these harnesses remain unmaintained, will they degrade over time in terms of coverage achieved or number of bugs found? This is the subject of our study.\n  We study Google's OSS-Fuzz continuous fuzzing platform containing harnesses for 510 open-source C/C++ projects, many of which are security-critical. A harness is the glue code between the fuzzer and the project, so it need…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-09",
+          "authors": [
+            "Philipp Görz",
+            "Joschua Schilling",
+            "Nicolai Bissantz",
+            "Thorsten Holz"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.06177v2",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "FalseCrashReducer: Mitigating False Positive Crashes in OSS-Fuzz-Gen Using Agentic AI",
+          "url": "http://arxiv.org/abs/2510.02185v1",
+          "snippet": "Fuzz testing has become a cornerstone technique for identifying software bugs and security vulnerabilities, with broad adoption in both industry and open-source communities. Directly fuzzing a function requires fuzz drivers, which translate random fuzzer inputs into valid arguments for the target function. Given the cost and expertise required to manually develop fuzz drivers, methods exist that leverage program analysis and Large Language Models to automatically generate these drivers. However, the generated fuzz drivers frequently lead to false positive crashes, especially in functions high…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-02",
+          "authors": [
+            "Paschal C. Amusuo",
+            "Dongge Liu",
+            "Ricardo Andres Calvo Mendez",
+            "Jonathan Metzman",
+            "Oliver Chang",
+            "James C. Davis"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.02185v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Symbolic Execution in Practice: A Survey of Applications in Vulnerability, Malware, Firmware, and Protocol Analysis",
+          "url": "http://arxiv.org/abs/2508.06643v1",
+          "snippet": "Symbolic execution is a powerful program analysis technique that allows for the systematic exploration of all program paths. Path explosion, where the number of states to track becomes unwieldy, is one of the biggest challenges hindering symbolic execution's practical application. To combat this, researchers have employed various strategies to enable symbolic execution on complex software systems. This paper introduces a systematic taxonomy of these strategies, categorizing them into two primary approaches: Scope Reduction, which aims to reduce the scope of symbolic execution to manageable po…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-08",
+          "authors": [
+            "Joshua Bailey",
+            "Charles Nicholas"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.06643v1",
+            "rrf_score": 0.021429
+          }
+        },
+        {
+          "title": "The State of the SBOM Tool Ecosystems: A Comparative Analysis of SPDX and CycloneDX",
+          "url": "http://arxiv.org/abs/2512.21781v2",
+          "snippet": "Software Bills of Materials (SBOMs) improve software release transparency by documenting components and dependencies, but their practical value depends on the tools that generate, analyze, and manage them. This paper compares the tool ecosystems of the two dominant SBOM formats: SPDX and CycloneDX. We analyze 108 open-source and 62 proprietary SBOM tools, compare ecosystem-level health metrics across 470 SPDX and 171 CycloneDX tools, examine 36,990 issue reports from open-source tools, and study the top 250 open-source projects using each format. Our results show that CycloneDX-using projects…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-25",
+          "authors": [
+            "Zhimin Zhao",
+            "Abdul Ali Bangash",
+            "Tongxu Ge",
+            "Arshdeep Singh",
+            "Zitao Wang",
+            "Bram Adams"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.21781v2",
+            "rrf_score": 0.019481
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q4",
+        "findings": [
+          {
+            "point": "Large-Scale Empirical Analysis of Continuous Fuzzing: Insights from 1 Million Fuzzing Sessions",
+            "evidence": "Software vulnerabilities are constantly being reported and exploited in software products, causing significant impacts on society. In recent years, the main approach to vulnerability detection, fuzzing, has been integrated into the continuous integration process to run in short and frequent cycles.…",
+            "sources": [
+              89
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "Coverage-Guided Multi-Agent Harness Generation for Java Library Fuzzing",
+            "evidence": "Coverage-guided fuzzing has proven effective for software testing, but targeting library code requires specialized fuzz harnesses that translate fuzzer-generated inputs into valid API invocations. Manual harness creation is time-consuming and requires deep understanding of API semantics, initializa…",
+            "sources": [
+              90
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "An Empirical Study of Fuzz Harness Degradation",
+            "evidence": "The purpose of continuous fuzzing platforms is to enable fuzzing for software projects via fuzz harnesses -- but as the projects continue to evolve, are these harnesses updated in lockstep, or do they run out of date? If these harnesses remain unmaintained, will they degrade over time in terms of c…",
+            "sources": [
+              94
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "FalseCrashReducer: Mitigating False Positive Crashes in OSS-Fuzz-Gen Using Agentic AI",
+            "evidence": "Fuzz testing has become a cornerstone technique for identifying software bugs and security vulnerabilities, with broad adoption in both industry and open-source communities. Directly fuzzing a function requires fuzz drivers, which translate random fuzzer inputs into valid arguments for the target f…",
+            "sources": [
+              95
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "Symbolic Execution in Practice: A Survey of Applications in Vulnerability, Malware, Firmware, and Protocol Analysis",
+            "evidence": "Symbolic execution is a powerful program analysis technique that allows for the systematic exploration of all program paths. Path explosion, where the number of states to track becomes unwieldy, is one of the biggest challenges hindering symbolic execution's practical application. To combat this, r…",
+            "sources": [
+              33
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "The State of the SBOM Tool Ecosystems: A Comparative Analysis of SPDX and CycloneDX",
+            "evidence": "Software Bills of Materials (SBOMs) improve software release transparency by documenting components and dependencies, but their practical value depends on the tools that generate, analyze, and manage them. This paper compares the tool ecosystems of the two dominant SBOM formats: SPDX and CycloneDX.…",
+            "sources": [
+              101
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q5",
+      "question": "数据集与基准：CVE/补丁类数据集（CVEfixes、BigVul、PrimeVul）、自动化攻防竞赛基准（DARPA AIxCC、CyberGym、Cybench）、Agent 提示注入与越狱基准（AgentDojo、JailbreakBench、HarmBench）分别评测什么、口径如何？",
+      "queries": [
+        "CyberGym benchmark LLM vulnerability discovery 2025 arXiv",
+        "DARPA AIxCC AI Cyber Challenge final results 2025 cyber reasoning system",
+        "AgentDojo prompt injection agent benchmark 2024 2025",
+        "PrimeVul vulnerability dataset data leakage benchmark 2024"
+      ],
+      "rationale": "用户主题中 SOTA 与结论高度依赖 benchmark 口径（仿真靶场 vs 真实系统、任务数与本体）。必须区分「竞赛官方结果」与「论文自建评测」，并警惕数据泄漏导致的指标虚高。",
+      "round": 1,
+      "results": [
+        {
+          "title": "From LLM Reasoning to Autonomous AI Agents: A Comprehensive Review",
+          "url": "https://arxiv.org/abs/2504.19678",
+          "snippet": "Large language models and autonomous AI agents have evolved rapidly, resulting in a diverse array of evaluation benchmarks, frameworks, and collaboration protocols. Driven by the growing need for standardized evaluation and integration, we systematically consolidate these fragmented efforts into a unified framework. However, the landscape remains fragmented and lacks a unified taxonomy or comprehensive survey. Therefore, we present a side-by-side comparison of benchmarks developed between 2019 and 2025 that evaluate these models and agents across multiple domains. In addition, we propose a ta…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2025-04-28",
+          "authors": [
+            "M. Ferrag",
+            "Norbert Tihanyi",
+            "Mérouane Debbah"
+          ],
+          "venue": "IEEE Access",
+          "citations": 236,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.02
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.040677,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "LLM-SRBench: A New Benchmark for Scientific Equation Discovery with Large Language Models",
+          "url": "http://arxiv.org/abs/2504.10415v2",
+          "snippet": "Scientific equation discovery is a fundamental task in the history of scientific progress, enabling the derivation of laws governing natural phenomena. Recently, Large Language Models (LLMs) have gained interest for this task due to their potential to leverage embedded scientific knowledge for hypothesis generation. However, evaluating the true discovery capabilities of these methods remains challenging, as existing benchmarks often rely on common equations that are susceptible to memorization by LLMs, leading to inflated performance metrics that do not reflect discovery. In this paper, we in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-14",
+          "authors": [
+            "Parshin Shojaee",
+            "Ngoc-Hieu Nguyen",
+            "Kazem Meidani",
+            "Amir Barati Farimani",
+            "Khoa D Doan",
+            "Chandan K Reddy"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.10415v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+          "url": "http://arxiv.org/abs/2504.19675v2",
+          "snippet": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our approach combines traditional natural language processing and machine learning techniques implemented in the Annif toolkit with innovative LLM-based methods for translation and synthetic data generation, and merging predictions from monolingual models. The system ranked first in the all-subjects category…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-28",
+          "authors": [
+            "Osma Suominen",
+            "Juho Inkinen",
+            "Mona Lehtinen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.19675v2",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Overview of SCIDOCA 2025 Shared Task on Citation Prediction, Discovery, and Placement",
+          "url": "http://arxiv.org/abs/2509.24283v1",
+          "snippet": "We present an overview of the SCIDOCA 2025 Shared Task, which focuses on citation discovery and prediction in scientific documents. The task is divided into three subtasks: (1) Citation Discovery, where systems must identify relevant references for a given paragraph; (2) Masked Citation Prediction, which requires selecting the correct citation for masked citation slots; and (3) Citation Sentence Prediction, where systems must determine the correct reference for each cited sentence. We release a large-scale dataset constructed from the Semantic Scholar Open Research Corpus (S2ORC), containing…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-29",
+          "authors": [
+            "An Dao",
+            "Vu Tran",
+            "Le-Minh Nguyen",
+            "Yuji Matsumoto"
+          ],
+          "venue": "cs.DL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.24283v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Team LA at SCIDOCA shared task 2025: Citation Discovery via relation-based zero-shot retrieval",
+          "url": "http://arxiv.org/abs/2506.18316v1",
+          "snippet": "The Citation Discovery Shared Task focuses on predicting the correct citation from a given candidate pool for a given paragraph. The main challenges stem from the length of the abstract paragraphs and the high similarity among candidate abstracts, making it difficult to determine the exact paper to cite. To address this, we develop a system that first retrieves the top-k most similar abstracts based on extracted relational features from the given paragraph. From this subset, we leverage a Large Language Model (LLM) to accurately identify the most relevant citation. We evaluate our framework o…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-23",
+          "authors": [
+            "Trieu An",
+            "Long Nguyen",
+            "Minh Le Nguyen"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.18316v1",
+            "rrf_score": 0.023077
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q5",
+        "findings": [
+          {
+            "point": "候选证据中唯一与『数据集与基准』子问题相关的来源是一篇 2025 年 AI Agent 评测综述，它对 2019–2025 年间约 60 个基准做了横向对比与分类（覆盖通用/学术知识推理、数学解题、代码生成与软件工程、事实溯源与检索、领域专用评测、多模态等）。",
+            "evidence": "摘要原文：'we present a side-by-side comparison of benchmarks developed between 2019 and 2025 that evaluate these models and agents across multiple domains'；'we propose a taxonomy of approximately 60 benchmarks that cover general and academic knowledge reasoning, mathematical problem-solving, code generation and software engineering, factual grounding and retrieval, domain-specific evaluations, multimodal…'",
+            "sources": [
+              58
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "citations=236（候选块 Semantic Scholar 字段）",
+            "authority": "IEEE Access（候选块标注 venue=IEEE Access，同行评审期刊）；arXiv:2504.19678 v2（2026-03-06 修订）",
+            "attention": "高 —— 依据候选块 citations=236，且综述定位为跨 60 个 benchmark 的统一分类骨架，属高被引背景文献",
+            "recommendation": "★★★★☆ —— 可用于建立『评测基准分类骨架』，但需注意它只给出全局 taxonomy，未提供 CVE/补丁、自动化攻防竞赛、提示注入三类基准的细粒度口径"
+          },
+          {
+            "point": "候选证据中没有任何条目涉及 CVE/补丁类数据集（CVEfixes、BigVul、PrimeVul），因此无法从现有材料抽取其评测目标、标签粒度与统计口径。",
+            "evidence": "候选块共 6 条：[58] AI Agent 评测综述、[4] VQualA 短视频参与度预测、[50] LLM-SRBench 科学方程发现、[51] Annif SemEval-2025 主题标引、[52][53] SCIDOCA 2025 引文预测；均无 CVEfixes / BigVul / PrimeVul 相关内容。",
+            "sources": [],
+            "type": "dataset",
+            "confidence": "low",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 —— 候选证据中无任何 CVE/补丁数据集条目，无引用、star 或榜单信号可依据",
+            "recommendation": "★☆☆☆☆ —— 无证据支撑，需另行检索（待核实：三者分别的漏洞样本量、去重策略、时间切分与标签口径）"
+          },
+          {
+            "point": "候选证据中没有任何条目涉及自动化攻防竞赛基准（DARPA AIxCC、CyberGym、Cybench），其赛制、评分口径（如漏洞发现/修补得分、CP/VR 分项）与任务规模均无法从现有材料确认。",
+            "evidence": "6 条候选块中无任何一条提及 AIxCC、CyberGym 或 Cybench；[58] 虽为 agent 评测综述，但摘要列出的覆盖域为知识推理、数学、代码生成与软件工程、检索、领域评测、多模态，未点名上述攻防基准。",
+            "sources": [],
+            "type": "benchmark",
+            "confidence": "low",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 —— 候选证据中无相关条目，缺少引用/榜单/官方文档信号",
+            "recommendation": "★☆☆☆☆ —— 无证据支撑，需另行检索官方赛事页面与基准仓库（待核实）"
+          },
+          {
+            "point": "候选证据中没有任何条目涉及 Agent 提示注入与越狱基准（AgentDojo、JailbreakBench、HarmBench），三者分别测什么（工具调用场景下的注入鲁棒性 vs 通用有害请求拒答 vs 红队攻击成功率）无法从现有材料确认。",
+            "evidence": "候选块 [58] 摘要仅概括性提及 'a diverse array of evaluation benchmarks, frameworks, and collaboration protocols'，但列出域中不含安全/越狱专项；其余 5 条（[4][50][51][52][53]）主题为视频参与度、科学方程发现、主题标引、引文预测，与安全基准无关。",
+            "sources": [],
+            "type": "benchmark",
+            "confidence": "low",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 —— 候选证据中无相关条目，无引用或榜单信号可依据",
+            "recommendation": "★☆☆☆☆ —— 无证据支撑，需另行检索各基准官方仓库与论文（待核实）"
+          },
+          {
+            "point": "候选证据整体存在严重的主题漂移：6 条中 5 条（[4][50][51][52][53]）属于短视频参与度、科学方程发现、主题标引、学术引文预测等无关方向，对本子问题不提供任何可用证据，应在后续调研中替换为 CVE 数据集、攻防竞赛与注入/越狱基准的一手来源。",
+            "evidence": "[4] VQualA 2025 短视频参与度预测（ICCV 2025 workshop）；[50] LLM-SRBench 科学方程发现，239 个问题 4 个科学域；[51] Annif at SemEval-2025 Task 5 主题标引；[52][53] SCIDOCA 2025 引文发现与预测共享任务。均与 CVE/补丁、攻防竞赛、Agent 安全基准无关。",
+            "sources": [
+              4,
+              50,
+              51,
+              52,
+              53
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "citations 未在候选块中提供（仅 [58] 给出 citations=236）",
+            "authority": "均为 arXiv 预印本或共享任务综述（[4] 关联 ICCV 2025 challenge）",
+            "attention": "低 —— 与 q5 主题不相关，不构成该子问题的社区关注信号",
+            "recommendation": "★☆☆☆☆ —— 作为本子问题的证据不可用，建议在下一轮检索中整体替换"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "From LLM Reasoning to Autonomous AI Agents: A Comprehensive Review",
+            "url": "https://arxiv.org/abs/2504.19678",
+            "why": "候选证据中唯一与『Agent/LLM 评测基准』相关的来源，提供 2019–2025 年约 60 个基准的横向对比与分类 taxonomy，可作为整理 CVE/攻防/注入三类基准时的分类骨架；但不含这三类基准的具体口径细节。",
+            "year": "2025",
+            "heat": "citations=236（Semantic Scholar，候选块标注）",
+            "authority": "IEEE Access（候选块标注），arXiv:2504.19678 v2",
+            "attention": "高 —— 依据 236 次引用与跨 60 基准的综述定位",
+            "recommendation": "★★★★☆ —— 权威性与热度均较高，相关性中等（提供框架而非具体基准口径）"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据完全缺失 CVE/补丁类数据集（CVEfixes、BigVul、PrimeVul），无法判断三者的样本量、漏洞类型分布、函数级 vs 提交级标签粒度、去重与时间切分口径是否可横向比较（待核实）。",
+          "候选证据完全缺失自动化攻防竞赛基准（DARPA AIxCC、CyberGym、Cybench），赛制、评分公式（如漏洞发现/修补计分、部分得分规则）、任务规模与是否真机/真实二进制环境均无法确认（待核实）。",
+          "候选证据完全缺失 Agent 注入与越狱基准（AgentDojo、JailbreakBench、HarmBench），无法区分其评测口径差异：AgentDojo 侧重工具调用场景下的注入攻击成功率与任务效用权衡，HarmBench/JailbreakBench 侧重有害请求的拒答率/攻击成功率与裁判模型一致性（待核实）。",
+          "三类基准的『口径可比性』问题在现有材料中无任何证据：CVE 数据集的静态检测指标（如 F1/VulD）、攻防竞赛的端到端解题得分、注入基准的 ASR/效用指标属于不同度量体系，是否可统一为同一 Agent 能力评估框架尚需一手来源验证（待核实）。",
+          "检索策略缺口：本轮候选块主题漂移严重（6 条中 5 条无关），需以精确查询重新召回：'CVEfixes dataset'、'PrimeVul benchmark'、'AIxCC final results scoring'、'Cybench benchmark'、'AgentDojo prompt injection benchmark'、'HarmBench evaluation'（待核实）。"
+        ]
+      }
+    },
+    {
+      "id": "q6",
+      "question": "开放问题与争议：自动化攻防（LLM 自主发现与利用漏洞）的能力边界与失控风险、后量子密码迁移的真实成本、内存安全（Rust/C++）与政府监管路线之争、以及漏洞检测评测的可复现性与负结果有哪些？",
+      "queries": [
+        "autonomous LLM cyber reasoning system limitations critique 2025",
+        "post-quantum cryptography migration cost challenges 2025 government report",
+        "memory safety Rust C++ CISA guidance 2024 2025 criticism",
+        "vulnerability detection reproducibility negative results fuzzing evaluation 2024 2025"
+      ],
+      "rationale": "缺口检查要求覆盖争议与失败案例：本方向上「demo 强于实验」「benchmark 泄漏」「迁移成本被低估」等批评广泛存在，需要一手论文与官方报告交叉验证，避免只呈现厂商叙事。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.035534,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+          "url": "http://arxiv.org/abs/2510.22631v1",
+          "snippet": "This paper presents our submission to the MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets. The objective of the shared task is to create manually-annotated evaluation data in the physical commonsense reasoning domain, for languages other than English, following a format similar to PIQA. Our contribution, FormaMentis, is a novel benchmark for physical commonsense reasoning that is grounded in Italian language and culture. The data samples in FormaMentis are created by expert annotators who are native Italian speakers and are familiar with local customs and norms. The samples a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-26",
+          "authors": [
+            "Marco De Santis",
+            "Lisa Alazraki"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.22631v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Large Language Models are Autonomous Cyber Defenders",
+          "url": "http://arxiv.org/abs/2505.04843v2",
+          "snippet": "Fast and effective incident response is essential to prevent adversarial cyberattacks. Autonomous Cyber Defense (ACD) aims to automate incident response through Artificial Intelligence (AI) agents that plan and execute actions. Most ACD approaches focus on single-agent scenarios and leverage Reinforcement Learning (RL). However, ACD RL-trained agents depend on costly training, and their reasoning is not always explainable or transferable. Large Language Models (LLMs) can address these concerns by providing explainable actions in general security contexts. Researchers have explored LLM agents…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-07",
+          "authors": [
+            "Sebastián R. Castro",
+            "Roberto Campbell",
+            "Nancy Lau",
+            "Octavio Villalobos",
+            "Jiaqi Duan",
+            "Alvaro A. Cardenas"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.04843v2",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+          "url": "http://arxiv.org/abs/2504.19675v2",
+          "snippet": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our approach combines traditional natural language processing and machine learning techniques implemented in the Annif toolkit with innovative LLM-based methods for translation and synthetic data generation, and merging predictions from monolingual models. The system ranked first in the all-subjects category…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-28",
+          "authors": [
+            "Osma Suominen",
+            "Juho Inkinen",
+            "Mona Lehtinen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.19675v2",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "MLLP-VRAIN UPV system for the IWSLT 2025 Simultaneous Speech Translation Translation task",
+          "url": "http://arxiv.org/abs/2506.18828v1",
+          "snippet": "This work describes the participation of the MLLP-VRAIN research group in the shared task of the IWSLT 2025 Simultaneous Speech Translation track. Our submission addresses the unique challenges of real-time translation of long-form speech by developing a modular cascade system that adapts strong pre-trained models to streaming scenarios. We combine Whisper Large-V3-Turbo for ASR with the multilingual NLLB-3.3B model for MT, implementing lightweight adaptation techniques rather than training new end-to-end models from scratch. Our approach employs document-level adaptation with prefix training…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-23",
+          "authors": [
+            "Jorge Iranzo-Sánchez",
+            "Javier Iranzo-Sánchez",
+            "Adrià Giménez",
+            "Jorge Civera",
+            "Alfons Juan"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.18828v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Can Coding Agents Migrate to Post-Quantum Cryptography?",
+          "url": "http://arxiv.org/abs/2512.12989v3",
+          "snippet": "A program migrated to post-quantum cryptography can verify its own signatures while producing keys or signatures that another implementation rejects. We introduce a contract-based task for migrating a Go file signer from RSA to ML-DSA-44, and compare coding agents with and without structured checker feedback. Both conditions receive the contract, compiler, documentation, and OpenSSL. Across 160 attempts in four local-agent configurations, twelve final patches pass local verification but fail external requirements. Checker access does not increase the observed completion rate in any comparison…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-15",
+          "authors": [
+            "Abdulmalik Alquwayfili"
+          ],
+          "venue": "cs.MA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.12989v3",
+            "rrf_score": 0.021429
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q6",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+            "evidence": "This paper presents our submission to the MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets. The objective of the shared task is to create manually-annotated evaluation data in the physical commonsense reasoning domain, for languages other than English, following a format similar to…",
+            "sources": [
+              109
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Large Language Models are Autonomous Cyber Defenders",
+            "evidence": "Fast and effective incident response is essential to prevent adversarial cyberattacks. Autonomous Cyber Defense (ACD) aims to automate incident response through Artificial Intelligence (AI) agents that plan and execute actions. Most ACD approaches focus on single-agent scenarios and leverage Reinfo…",
+            "sources": [
+              110
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+            "evidence": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our appro…",
+            "sources": [
+              51
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "MLLP-VRAIN UPV system for the IWSLT 2025 Simultaneous Speech Translation Translation task",
+            "evidence": "This work describes the participation of the MLLP-VRAIN research group in the shared task of the IWSLT 2025 Simultaneous Speech Translation track. Our submission addresses the unique challenges of real-time translation of long-form speech by developing a modular cascade system that adapts strong pr…",
+            "sources": [
+              112
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Can Coding Agents Migrate to Post-Quantum Cryptography?",
+            "evidence": "A program migrated to post-quantum cryptography can verify its own signatures while producing keys or signatures that another implementation rejects. We introduce a contract-based task for migrating a Go file signer from RSA to ML-DSA-44, and compare coding agents with and without structured checke…",
+            "sources": [
+              113
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.MA",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.MA）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [
+    {
+      "coverage": "",
+      "gaps": [],
+      "additional_queries": [],
+      "additional_subquestions": []
+    }
+  ],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 33,
+    "prompt_tokens": 205203,
+    "completion_tokens": 133200,
+    "generated_at": "2026-10-05T22:18:53.729965+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 网络安全攻防前沿调研报告（2024–2026）\n\n**日期**：2026-10-05（UTC）\n**领域**：Cybersecurity（漏洞与利用 / 模糊测试与程序分析 / 软件供应链与 SBOM / 后量子密码迁移 / 大模型与 Agent 安全）\n**检索源规模**：124 条候选引用（[1]–[124]）+ 3 类领域种子资源（论文 / 开源项目 / 数据集）\n**证据说明**：本批候选块**未提供**引用数、GitHub star、下载量或榜单排名字段（唯一例外为 [58] 标注 `citations=236`）。因此除 [58] 外，所有「热度证据」一律记 `> 待核实`；**本报告不编造任何热度数字**。多数条目为 arXiv 预印本（含 `cs.CR`/`cs.SE`/`cs.LG` 分类），同行评审状态需逐条核实。本批候选证据在「CVE 补丁数据集」「注入/越狱基准」「自动化攻防竞赛基准」三处存在明显召回缺口，已在第六、七章显式标注。\n\n---\n\n## 摘要（Executive Summary）\n\n1. **LLM/Agent 安全是本轮证据最密集、迭代最快的前沿**，已形成「注入攻击 → 系统级防御 → 自适应攻击破防」的军备竞赛闭环：攻击侧有 WebInject 对网页 Agent 的环境投毒 [2]、通用自动注入 [11]；防御侧有结构化查询 StruQ [3]、偏好优化 SecAlign [1]、工具依赖图 IPIGuard [5]、可证明防御 MELON [13]、因果归因 AttriGuard [9]、系统级架构 ACE [8] 与多 Agent 防御流水线 [14]；而 [7] 用自适应攻击证明多数防御可被绕过——这是本领域最值得警惕的结论。\n2. **越狱（jailbreak）研究已从文本单模态扩展到 MLLM 与 Agent 生态**，出现人格化提示攻击 [16]、主动式防御 [17]、生成对抗式统一攻防 [19]、护栏规避实证分析 [18]，并有面向 MLLM/Agent 的系统综述 [21] 与聊天机器人越狱综述 [64]。\n3. **模糊测试的前沿重心在「定向灰盒 fuzzing（DGF）」与「持续 fuzzing 的工程实证」两端**：前者有 `MC²` [72]、多目标 DGF [73]、步进式约束聚焦 [77]、时序逻辑引导 [79] 与 DGF 进展综述 [74]；后者有百万级 session 的连续 fuzzing 实证 [89]、fuzz harness 退化研究 [94]、OSS-Fuzz 假崩溃消减 [95]。内核侧的关键视角是 SyzScope——回答「fuzzer 发现的 bug 真实危害有多大」[26]。\n4. **程序分析路线出现「LLM 与符号执行融合」的新范式**：LLM 引导 KLEE 的定向符号执行 [40]、LLM 模拟 KLEE 输出 [35]，与符号执行应用综述 [33]、二进制符号执行 [96][98] 构成「经典 + 新范式」的双层结构。\n5. **软件供应链：SBOM 已从「合规交付物」被实证研究证伪为「合规 ≠ 安全」**。78K 真实 SBOM 的依赖图研究 [107]、GitHub SBOM 完整性与一致性的大规模审计 [102]、标准与工具之间的「遵循度鸿沟」[106]、SPDX vs CycloneDX 工具生态对比 [101] 共同指向：SBOM 的数据质量与消费端可用性仍是开放问题。\n6. **后量子密码（PQC）重心已从「算法标准化」转向「迁移工程」**：迁移挑战与密码敏捷性 [117]、密码库 PQC 支持现状 [116]、WAN 迁移风险评估框架 [114]、Agent 辅助 RSA→ML-DSA 代码迁移 [113]、LLM 辅助静态审计与量子风险评分 [43]，以及移动端能耗约束 [41]。\n7. **内存安全路线之争已进入「可验证迁移」阶段**：C→Rust 用户研究 [119]、LLM 驱动且带静态分析与 FFI 验证的迁移工具 SACTOR [120]、经形式化验证的 Rust 编译器子集 RustCompCert [121]，但同时出现直接反论 **[124]「自动重构 ≠ 内存安全」**——这是本章最有价值的分歧点。\n8. **检索缺口（必须显式承认）**：本批候选证据**未召回**任何关于 CVEfixes/BigVul/PrimeVul 数据集口径、AgentDojo/JailbreakBench/HarmBench 基准、CyberGym/Cybench 竞赛基准的一手来源；相关结论一律标 `> 待核实`（见第六、七章）。\n9. **最大的开放性争议**：自动化攻防（LLM 自主发现与利用漏洞）的能力边界与失控风险。AIxCC 的 SoK 复盘 [59]、可复用于真实开源仓库的 CRS 框架 OSS-CRS [61]、agentic 内存安全漏洞检测 Revelio [62]、LLM 自主网络防御者 [110] 与自改进安全 Agent [66] 分别提供了设计侧、能力侧与防御侧的三种证据，但**尚无独立第三方的统一能力评测口径**。\n\n---\n\n## 一、关键前沿进展（近 1–2 年）\n\n> 本节只收录 2024 年及以后发表的条目；经典奠基工作见第二至六章各表的「经典」分区。\n\n### 1.1 LLM/Agent 安全（2024–2026，最活跃）\n\n| 名称 | 年份 | 方向 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|\n| WebInject [2] | 2025 | 网页 Agent 提示注入攻击 | `> 待核实`（候选块无引用数/star） | arXiv 预印本（候选块标 `cs.LG`），未见同行评审信息 | 中 —— 首个针对 MLLM 网页 Agent 的\"环境侧投毒\"攻击面，与 Web Agent 落地同步升温 | ★★★★（攻击面新、与 Agent 部署强相关；但热度与中稿状态待核实） |\n| StruQ [3] | 2024 | 结构化查询防御 | `> 待核实` | arXiv 预印本（`arXiv:2402.06363v2`），未见 venue 字段 | 高 —— 属提示注入防御的早期范式性工作，被后续工作反复对照 [1][7] | ★★★★（范式清晰、被后续文献引用为基线） |\n| SecAlign [1] | 2024 | 偏好优化防御 | `> 待核实` | arXiv 预印本（`arXiv:2410.05451v3`） | 中 —— 将偏好优化引入注入防御，方法新颖 | ★★★★（与 StruQ 同源团队思路，方法可迁移） |\n| MELON [13] | 2025 | 可证明防御（间接注入） | `> 待核实` | arXiv 预印本（`arXiv:2502.05174v4`） | 中 —— \"可证明\"定位在经验防御泛滥中稀缺 | ★★★★（理论保证是稀缺卖点；实际开销待核实） |\n| AttriGuard [9] | 2026 | 工具调用因果归因防御 | `> 待核实` | arXiv 预印本（`arXiv:2603.10749v2`），候选块标 `cs.CR` | 中 —— 从\"输入语义判别\"转向\"执行因果归因\"，视角新 | ★★★★（问题重构有启发性） |\n| ACE [8] | 2025 | LLM 集成应用安全架构 | `> 待核实` | arXiv 预印本（`arXiv:2504.20984v3`），`cs.CR` | 中 —— 针对第三方 app 的完整性违规 | ★★★★（系统级视角，适合工程落地参考） |\n| 自适应攻击破防 [7] | 2025 | 防御失效分析 | `> 待核实` | arXiv 预印本（`arXiv:2503.00061v2`） | 高 —— 直接质疑既有防御的有效性，属\"泼冷水\"型关键文献 | ★★★★★（做注入防御前必读的负结果类工作） |\n\n**要点**：提示注入已从「输入文本层」扩展到「环境层」（网页渲染 [2]）与「执行层」（工具调用 [9]、第三方 app [8]）。防御范式可归为四类：① 输入结构化隔离 [3]；② 训练侧偏好对齐 [1]；③ 执行图/数据流约束 [5][9]；④ 系统性架构隔离 [6][8]。**但 [7][18] 表明：在自适应攻击者面前，经验性防御普遍存在被绕过风险**，这是本方向当前最大共识性风险。\n\n### 1.2 越狱（jailbreak）与护栏规避\n\n| 名称 | 年份 | 方向 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|\n| Persona Prompts 越狱 [16] | 2025 | 人格化越狱攻击 | `> 待核实` | arXiv 预印本（`arXiv:2507.22171v3`） | 中 —— 人格设定是低成本高成功率的攻击向量 | ★★★★（攻击面易复现） |\n| Proactive defense [17] | 2025 | 主动式越狱防御 | `> 待核实` | arXiv 预印本（`arXiv:2510.05052v2`） | 中 | ★★★（需核实其威胁模型是否覆盖自适应攻击） |\n| CAVGAN [19] | 2025 | 生成对抗式统一攻防 | `> 待核实` | arXiv 预印本（`arXiv:2507.06043v2`） | 中 —— 攻防同框架，视角统一 | ★★★★（方法学上有整合价值） |\n| 护栏规避实证 [18] | 2025 | 检测系统规避 | `> 待核实` | arXiv 预印本（`arXiv:2504.11168v3`） | 高 —— 直接测评商用护栏的鲁棒性 | ★★★★★（部署护栏前必读） |\n| LLM→MLLM→Agent 越狱综述 [21] | 2025 | 综述 | `> 待核实` | arXiv 预印本（`arXiv:2506.15170v3`） | 中 —— 生态级分类骨架 | ★★★★（适合作为分类骨架） |\n| Prompt Jailbreaking 综述 [64] | 2026 | 综述 | `> 待核实` | DOI 指向 IEEE TAI（`10.1109/TAI.2026.3665656`），**期刊级** | 中高 —— 期刊综述通常较预印本更稳 | ★★★★（权威性相对更高，但需核实刊期） |\n\n### 1.3 攻防自动化与 Agent 化\n\n- **AIxCC 的 SoK 复盘** [59]（`arXiv:2602.07666v5`）：系统梳理竞赛设计、系统架构与经验教训；热度 `> 待核实`；关注度中高（DARPA 项目自带公共关注度）；推荐度 ★★★★（了解自动攻防现状的最佳单点入口）。\n- **OSS-CRS** [61]（`arXiv:2603.08566v2`）：将 AIxCC 的 Cyber Reasoning Systems 释放到真实开源安全场景；关注度中；推荐度 ★★★★（\"竞赛 → 生产\"的关键桥梁）。\n- **Revelio** [62]（`arXiv:2606.22263`）：面向仓库级代码库的 agentic 内存安全漏洞检测，强调成本效率；推荐度 ★★★★（与内存安全主线呼应）。\n- **LLM-HyPZ** [57]（`arXiv:2509.00647`）：LLM 辅助硬件漏洞发现；推荐度 ★★★（硬件方向旁支）。\n- **SelfOp** [66]（`arXiv:2609.22792`）：自改进安全 Agent 优化算法；推荐度 ★★★（能力增强与安全风险的张力未充分展开）。\n- **LLM 作为自主网络防御者** [110]（`arXiv:2505.04843v2`）：ACD 场景下 LLM 规划与执行；推荐度 ★★★★（与进攻侧 [59][61] 形成对照）。\n- **LLM 在网络安全中的 PRISMA-ScR 范围综述** [68]（DOI `10.1109/ACCESS.2026.3719163`，IEEE Access）：可作为全局分类骨架；推荐度 ★★★★。\n- **PrompTrend** [55]（`arXiv:2507.19185`）：LLM 漏洞的社区驱动持续发现与评估；推荐度 ★★★（连续监测视角有价值）。\n\n> **数据外泄（data exfiltration）专项证据不足**：本批候选中，数据外泄主要以「间接注入导致越权工具调用 / 完整性违规」的间接形式出现 [6][8][9]，缺少专门的「外泄通道建模 + 量化防护评测」研究，**> 待核实**。\n\n---\n\n## 二、Web / 系统 / 供应链攻防\n\n### 2.1 Web 与系统层\n\n- **Web Agent 新攻击面**：WebInject 通过在网页环境中植入内容，诱导基于 MLLM 的网页 Agent 执行攻击者意图的动作 [2]。与 Web 应用侧的传统清单（OWASP Top 10，含 LLM 应用版）形成互补：**OWASP 提供风险条目基线，而 [2][11] 提供具体可执行攻击构造**。\n- **LLM 集成应用系统**：ACE 指出第三方 app 可造成完整性违规，并提出安全架构 [8]；系统级防御立场文 [6] 主张把注入防御从「模型内」上移到「系统架构层」。两者共同指向一个判断：**仅靠 Prompt 工程无法解决注入，需在系统层做能力隔离与数据流控制**。\n- **硬件与微架构侧信道**：本批候选覆盖了硬件防御 SoK（对抗推测执行攻击）[39]，属经典系统安全战线；具体新进展 `> 待核实`。\n- **IoT 与关键基础设施**：种子资源含运营商与个人对 IoT 安全的动因/障碍研究 [30]、CPS 防御机制从功能需求推导 [69]、网络靶场自动化设计 [63]；均与\"攻防工程化\"相关，但与本报告主线相关性中等。\n\n### 2.2 软件供应链与 SBOM\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| SBOM 工具生态对比（SPDX vs CycloneDX）[101] | 2025 | 候选块标 `cs.SE` | `> 待核实` | arXiv 预印本（`arXiv:2512.21781v2`） | 中 —— 两大主流格式的工具生态是落地必答题 | ★★★★（格式选型第一参考） | http://arxiv.org/abs/2512.21781v2 | 对比主流 SBOM 格式的生成/分析/管理工具 |\n| GitHub SBOM 完整性与一致性大规模研究 [102] | 2026 | 候选块标 `cs.SE` | `> 待核实` | arXiv 预印本（`arXiv:2607.04614v1`） | 中高 —— \"平台自动生成 SBOM 是否可信\"是产业刚需 | ★★★★★（直接挑战\"平台已合规\"的假设） | http://arxiv.org/abs/2607.04614v1 | 标题即结论：Beyond Compliance |\n| 78K 真实 SBOM 的依赖图实证 [107] | 2026 | 候选块标 `cs.SE` | `> 待核实` | arXiv 预印本（`arXiv:2607.22140v2`） | 中高 —— \"No Edges, No Verdict\"直击依赖图缺失导致无法判定影响面 | ★★★★★（供应链影响面分析的核心痛点） | http://arxiv.org/abs/2607.22140v2 | 大规模野外观测 |\n| 标准与工具的遵循度鸿沟 [106] | 2026 | 候选块标 `cs.SE` | `> 待核实` | arXiv 预印本（`arXiv:2601.05622v1`） | 中 | ★★★★ | http://arxiv.org/abs/2601.05622v1 | 标准合规 ≠ 工具正确实现 |\n| SBOM 消费工具评测数据集 [103] | 2025 | 候选块标 `cs.SE` | `> 待核实` | arXiv 预印本（`arXiv:2504.06880v1`） | 中 —— 消费端（而非生成端）评测数据稀缺 | ★★★★（可直接用作评测集，需核实版本） | http://arxiv.org/abs/2504.06880v1 | 面向 SBOM 消费工具的评测数据集 |\n| Python 生态 SBOM 生成工具剖析 [104] | 2024 | 候选块标 `cs.SE` | `> 待核实` | arXiv 预印本（`arXiv:2409.01214v1`） | 中 | ★★★ | http://arxiv.org/abs/2409.01214v1 | 语言生态特化分析 |\n| sbom-unifier [105] | 2026 | 候选块标 `cs.SE` | `> 待核实` | arXiv 预印本（`arXiv:2608.30708v1`） | 中 —— 异构 SBOM 整合是工程痛点 | ★★★ | http://arxiv.org/abs/2608.30708v1 | 集成框架 |\n| UniBOM [108] | 2025 | 候选块标 `cs.SE` | `> 待核实` | arXiv 预印本（`arXiv:2511.22359v1`） | 中 | ★★★ | http://arxiv.org/abs/2511.22359v1 | IoT 等场景的统一分析与可视化 |\n\n**供应链经典事件与政策**：SolarWinds 事件本身、以及其后的 SBOM 行政要求，在本批候选证据中**没有一手学术复盘或政策原文来源**，故其详细史实与条款 **> 待核实**；本报告仅以 SBOM 工具生态与数据质量的实证研究 [101][102][106][107] 作为「供应链可见性未达预期」的间接证据。签名与制品可信链方向，领域种子资源指向 Sigstore（https://github.com/sigstore/sigstore），热度与版本状态 **> 待核实**。\n\n**结论性判断**：SBOM 方向已形成一条清晰的实证批判链——**生成工具生态分裂 [101] → 平台生成物不完整/不一致 [102] → 标准与实现存在鸿沟 [106] → 依赖图缺失导致无法定责 [107]**。热度证据全为 `> 待核实`，但**多方独立实证指向同一结论，构成高一致性证据**。\n\n---\n\n## 三、模糊测试与程序分析\n\n### 3.1 定向灰盒 fuzzing（DGF）：本方向方法论主线\n\n| 名称 | 年份 | 热度 | 权威 | 关注度 | 推荐度 | 引用 |\n|---|---|---|---|---|---|---|\n| `MC²`: Rigorous and Efficient Directed Greybox Fuzzing | 2022 | `> 待核实` | arXiv 预印本（`2208.14530v1`） | 中高 —— DGF 的严格化与效率改进代表工作 | ★★★★ | [72] |\n| Multiple Targets Directed Greybox Fuzzing | 2022 | `> 待核实` | arXiv 预印本（`2206.14977v1`） | 中 —— 多目标场景 | ★★★ | [73] |\n| The Progress, Challenges, and Perspectives of DGF | 2020/后续修订 | `> 待核实` | arXiv 预印本（`2005.11907v5`，v5 表明持续维护） | 中高 —— DGF 方向的分类骨架 | ★★★★ | [74] |\n| Greybox fuzzing time-intensive programs | 2023 | `> 待核实` | arXiv 预印本（`2311.17200v1`） | 中 —— 长耗时程序的调度问题 | ★★★ | [76] |\n| DGF with Stepwise Constraint Focusing | 2023 | `> 待核实` | arXiv 预印本（`2303.14895v1`） | 中 —— 约束聚焦策略 | ★★★ | [77] |\n| Efficient Greybox Fuzzing to Detect Memory Errors | 2022 | `> 待核实` | arXiv 预印本（`2204.02773v2`） | 中 —— 与内存安全主线呼应 | ★★★ | [78] |\n| LTL-guided Greybox Fuzzing | 2021 | `> 待核实` | arXiv 预印本（`2109.02312v3`） | 中 —— 时序性质引导，属\"性质定向\"路线 | ★★★★ | [79] |\n\n### 3.2 覆盖率引导与执行开销优化（经典→近年的延续）\n\n- **覆盖率引导的评估与加速**：Fork-Awareness 评估 [25]、二进制 fuzzing 的覆盖率保持型追踪加速 [27]、Full-speed Fuzzing [31]、把 fuzzing 建模为在线随机控制的 FOX [29]。这组工作共同主题是**「如何在保持覆盖率信号质量的前提下降低插桩/追踪开销」**——这是该方向十年不变的核心矛盾。\n- **经典参照**：KLEE 的 Sonar-Search 策略在灰盒 fuzzing 语境下的再评估 [34]（2018）；`AFL`/`libFuzzer` 本身无编号来源，其状态见第五章开源项目表。\n- **内核漏洞危害量化（关键视角）**：SyzScope 提出揭示 fuzzer 暴露 bug 的\"高风险安全影响\"，挑战\"崩溃 ≠ 可利用\"的默认假设 [26]。这是把 fuzzing 输出与真实风险对齐的关键一环。\n- **OSS/持续 fuzzing 的大规模实证（近年重心）**：\n  - 百万级 session 的连续 fuzzing 实证分析 [89]（`2510.16433v1`，2025）——**关注度高**，是目前规模最大的连续 fuzzing 观测之一；推荐度 ★★★★。\n  - fuzz harness 退化研究 [94]（`2505.06177v2`，2025）——揭示持续 fuzzing 平台中 harness 随项目演进失维，导致覆盖率/有效性衰退；**这是被长期忽视的工程负结果**；推荐度 ★★★★。\n  - OSS-Fuzz-Gen 假崩溃消减（FalseCrashReducer）[95]（`2510.02185v1`，2025）——用 agentic AI 降误报；推荐度 ★★★★。\n  - AI 修复 OSS-Fuzz 中的安全漏洞 [92]（`2411.03346v2`）——从\"发现\"到\"修复\"的延伸；推荐度 ★★★★。\n  - OSS-Fuzz bug 历史研究 [88][91]；推荐度 ★★★。\n  - Java 库 fuzzing 的覆盖率引导多 Agent harness 生成 [90]（`2603.08616v1`，2026）——harness 自动化生成的代表；推荐度 ★★★★。\n  - 混合 fuzzing 与动态分析工程链 Sydr-Fuzz [93]；推荐度 ★★★。\n\n### 3.3 符号执行与二进制分析（经典 + LLM 新范式）\n\n| 名称 | 年份 | 定位 | 热度 | 权威 | 关注度 | 推荐度 | 引用 |\n|---|---|---|---|---|---|---|---|\n| Symbolic Execution in Practice: A Survey | 2025 | 应用综述（漏洞/恶意软件/固件/协议） | `> 待核实` | arXiv 预印本（`2508.06643v1`），候选块标 `cs.CR` | 中高 —— 覆盖四大应用域的近期综述 | ★★★★ | [33] |\n| Can LLMs Simulate Symbolic Execution Output Like KLEE? | 2025 | LLM 替代/近似符号执行 | `> 待核实` | arXiv 预印本（`2511.08530v1`），`cs.SE` | 中 —— 直击 KLEE 路径爆炸痛点 | ★★★★ | [35] |\n| Directed Symbolic Execution (LLM-Guided in KLEE) | 2026 | LLM 引导定向符号执行 | `> 待核实` | arXiv 预印本（`2607.21676v1`），`cs.SE` | 中高 —— 把 LLM 用作路径优先级启发式 | ★★★★ | [40] |\n| cozy: Comparative Symbolic Execution for Binary Programs | 2025 | 二进制符号执行对比分析 | `> 待核实` | arXiv 预印本（`2504.00151v1`） | 中 | ★★★ | [96] |\n| Symbolic Execution based on Formal ISA Semantics | 2024 | 二进制符号执行的 ISA 语义基础 | `> 待核实` | arXiv 预印本（`2404.04132v2`） | 中 —— 正确性根基 | ★★★★ | [98] |\n| **经典**：Higher-order symbolic execution | 2015 | 高阶符号执行（合约验证与反证） | `> 待核实` | arXiv 预印本（`1507.04817v3`） | 低中 —— 理论奠基类 | ★★★ | [37] |\n| **经典**：KLEE Sonar-Search 再评估 | 2018 | 符号执行 vs 灰盒 fuzzing | `> 待核实` | arXiv 预印本（`1803.04881v1`） | 中 —— 两条路线对照的经典参照 | ★★★★ | [34] |\n| **经典**：自动生成安全关键软件测试用例 | 2022 | 符号执行工程化 | `> 待核实` | arXiv 预印本（`2209.11138v1`） | 低中 | ★★★ | [38] |\n\n**代际提升的可核查表述**：现有候选证据支持如下定性判断——**LLM 的引入被定位为对\"路径爆炸\"这一符号执行/定向 fuzzing 长期瓶颈的启发式改进手段**（[35] 针对 KLEE 慢、[40] 针对路径优先级陷入循环控制流区域、[90] 针对 harness 手工编写耗时）。但**缺少统一的跨代量化口径**（覆盖率、time-to-crash、真实 CVE 复现率），因此「相比上一代提升多少」在本批证据下 **无法量化，> 待核实**。\n\n> **检索缺口**：本批证据中**没有**直接覆盖「内核灰盒 fuzzing（syzkaller 谱系）新进展」「LLM 自动生成 PoC/exploit（自动利用生成）」的一手来源。q2 的候选块中多篇为 NLP/CV 检测类论文 [80][81][82][84][85]，**不可**作为 LLM 辅助漏洞检测的证据使用（存在范式误迁移风险）。\n\n---\n\n## 四、大模型与 Agent 安全（提示注入 / 越狱 / 数据外泄）\n\n### 4.1 攻击面分类（基于本批证据归纳）\n\n| 攻击类型 | 代表工作 | 关键结论 | 引用 |\n|---|---|---|---|\n| 直接提示注入 | 通用自动注入攻击 | 可自动、通用地构造有效注入 | [11] |\n| 间接提示注入（数据侧） | IPIGuard 的问题设定 | 工具返回的非可信数据可携带恶意指令 | [5] |\n| 间接提示注入（环境侧） | WebInject | 通过操纵网页环境诱导 MLLM Web Agent 执行攻击者动作 | [2] |\n| 多步/应用集成 | ACE | 第三方 app 在规划-执行交错中造成完整性违规 | [8] |\n| 工具调用劫持 | AttriGuard | 把 IPI 建模为工具调用的因果归因问题 | [9] |\n| 越狱（人格化） | Persona Prompts | 人格设定提升越狱成功率 | [16] |\n| 护栏规避 | Evasion against guardrails | 实证提示注入/越狱检测系统可被规避 | [18] |\n| 自适应攻击 | Adaptive Attacks Break Defenses | **多数现有防御在自适应攻击下失效** | [7] |\n\n### 4.2 防御范式与有效性\n\n- **训练/对齐类**：SecAlign 用偏好优化让模型倾向忽略注入指令 [1]。\n- **输入隔离类**：StruQ 用结构化查询把指令与数据在通道上分离 [3]。\n- **可证明类**：MELON 提出针对间接注入的可证明防御 [13]（**热度待核实，但\"可证明\"在经验防御泛滥下具有稀缺价值**）。\n- **执行图类**：IPIGuard 用工具依赖图做防御 [5]；AttriGuard 用因果归因判定工具调用是否被注入驱动 [9]。\n- **架构隔离类**：ACE 给出 LLM 集成应用的安全架构 [8]；立场文 [6] 主张系统级防御路线；多 Agent 防御流水线 [14] 用多角色协同做检测/裁决。\n- **统一检测类**：UniGuardian 尝试用统一框架同时检测提示注入、后门与对抗攻击 [10]；分类器路线（含 LSTM、前馈等）在 HackAPrompt 语料上做检测 [12]。\n- **模型自防御**：视点文主张 LLM 可实用地自我防御越狱 [15]；主动式防御 [17] 与生成对抗式 CAVGAN [19] 提供不同实现路径。\n\n**核心结论（有争议但证据一致）**：**防御有效性的证据强度低于攻击有效性的证据强度**。[7] 的自适应攻击结果与 [18] 的护栏规避结果为这一判断提供了两个独立支撑；而 [13] 的\"可证明\"路线是当前唯一可能跳出该困境的方向，但其实际部署开销与威胁模型完整性 **> 待核实**。\n\n### 4.3 数据外泄\n\n本批候选证据中，**没有**专门研究「Agent 数据外泄通道（如外发请求、日志、工具副作用）建模与防护」的论文。相关风险仅以「危险 Agent 动作」[6]、「完整性违规」[8]、「工具调用被劫持」[9] 的形式间接出现。因此：\n\n> **数据外泄的量化攻击成功率、外泄检测基准、防护有效性均 `> 待核实`**，建议下一轮以 `data exfiltration LLM agent`、`agent side-channel leakage`、`tool-call exfiltration benchmark` 定向召回。\n\n---\n\n## 五、密码学与后量子迁移\n\n### 5.1 标准化与算法层（经典/依据）\n\n- **NIST PQC 标准算法**：有工作讨论基于量子随机数发生器的 NIST PQC 标准算法实现 [44]（`2507.21151v1`）。NIST 已发布多项 FIPS 后量子标准（文中提及）；**具体 FIPS 编号与算法集（ML-KEM/ML-DSA/SLH-DSA 等）应以 NIST 官方文档为准，本报告不据记忆断言，> 待核实**。\n- **历史与理论背景**：量子密码学的替代路线讨论 [42]；面向量子抗性的区块链密码综述 [45]；阈值签名综合综述（覆盖 NIST 标准与 PQC）[48]。\n- **性能约束（被低估的落地障碍）**：移动端对即将到来的 NIST PQC 标准的能耗需求分析 [41]（`1912.00916v4`，多版本修订表明长期维护）——**这是\"算法可标准化 ≠ 设备可承载\"的关键证据**；推荐度 ★★★★。\n\n### 5.2 迁移工程（近两年重心）\n\n| 名称 | 年份 | 方向 | 热度 | 权威 | 关注度 | 推荐度 | 引用 |\n|---|---|---|---|---|---|---|---|\n| Identifying Research Challenges in PQC Migration and Cryptographic Agility | 2019 | 迁移挑战与密码敏捷性（奠基性） | `> 待核实` | arXiv 预印本（`1909.07353v1`） | 中高 —— 密码敏捷性概念的早期系统论述 | ★★★★★ | [117] |\n| A Survey of PQC Support in Cryptographic Libraries | 2025 | 密码库支持现状 | `> 待核实` | arXiv 预印本（`2508.16078v1`） | 中高 —— 回答\"现在能换吗\" | ★★★★★ | [116] |\n| Quantum-Ready Secure WAN: Risk Assessment and Migration Framework | 2026 | 网络侧迁移框架 | `> 待核实` | arXiv 预印本（`2609.26225v1`） | 中 —— 从算法到网络工程的落地 | ★★★★ | [114] |\n| Can Coding Agents Migrate to Post-Quantum Cryptography? | 2025 | Agent 辅助代码迁移 | `> 待核实` | arXiv 预印本（`2512.12989v3`），候选块标 `cs.MA` | 中高 —— 提出基于契约的 RSA→ML-DSA-44 迁移任务，并对比有无结构化检查的 coding agent | ★★★★★（把 PQC 迁移与 Agent 能力测评结合，方法学新颖） | [113] |\n| Quantum-Safe Code Auditing | 2026 | LLM 辅助静态分析 + 量子风险评分 | `> 待核实` | arXiv 预印本（`2604.00560v1`），`cs.CR` | 中 —— 给出\"量子感知风险评分\"的审计思路 | ★★★★ | [43] |\n| Quantum-Resistant Networks Using PQC | 2025 | 网络实现 | `> 待核实` | arXiv 预印本（`2510.24534v1`） | 中 | ★★★ | [118] |\n| Enhancing Quantum Security over Federated Learning via PQC | 2024 | 联邦学习 + PQC | `> 待核实` | arXiv 预印本（`2409.04637v1`） | 中 | ★★★ | [47] |\n\n**关键判断**：PQC 迁移的真实成本由三层构成——**① 密码库与协议栈支持度 [116]；② 设备/网络侧性能与能耗约束 [41][114]；③ 存量代码审计与改造工作量 [43][113]**。其中 [113] 特别指出一个工程陷阱：**迁移后的程序可能\"自验通过但他方实现拒绝\"**（自洽但互操作性失败），这正是密码迁移与普通重构的本质区别。**总体迁移成本的具体数字（人月、性能损耗百分比）本批证据未提供，> 待核实**。\n\n---\n\n## 六、数据集、基准与红蓝对抗\n\n### 6.1 有证据支撑的条目\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| AIxCC SoK [59] | 2026 | 候选块标 `cs.CR` | `> 待核实` | arXiv 预印本（`2602.07666v5`，v5 表明持续更新） | 中高 —— DARPA 自动攻防竞赛的权威复盘（SoK 体裁） | ★★★★★ | http://arxiv.org/abs/2602.07666v5 | 竞赛设计、CRS 架构、经验教训 |\n| OSS-CRS [61] | 2026 | 候选块标 `cs.CR` | `> 待核实` | arXiv 预印本（`2603.08566v2`） | 中 —— AIxCC 技术向真实开源迁移 | ★★★★ | http://arxiv.org/abs/2603.08566v2 | 把 CRS 用于真实 OSS 安全 |\n| Revelio [62] | 2026 | 候选块标 `cs.CR` | `> 待核实` | arXiv 预印本（`2606.22263`） | 中 —— 仓库级内存安全漏洞检测 | ★★★★ | http://arxiv.org/abs/2606.22263 | 成本高效的 agentic 检测 |\n| Agent/LLM 评测综述 [58] | 2025 | IEEE Access（候选块标注） | **citations=236**（候选块 Semantic Scholar 字段） | IEEE Access（同行评审期刊）+ arXiv `2504.19678v2` | **高 —— 依据 citations=236 与跨约 60 个 benchmark 的综述定位** | ★★★★ | https://arxiv.org/abs/2504.19678 | 提供 2019–2025 基准分类骨架；**不含** CVE/攻防竞赛/注入基准细粒度口径 |\n| SBOM 消费工具评测数据集 [103] | 2025 | 候选块标 `cs.SE` | `> 待核实` | arXiv 预印本（`2504.06880v1`） | 中 —— 消费端评测数据稀缺 | ★★★★ | http://arxiv.org/abs/2504.06880v1 | 面向 SBOM 消费工具评测 |\n| NVD / CVE | ongoing | NIST | `> 待核实` | 官方数据库（领域种子资源） | 高 —— 漏洞标识与评分的事实标准 | ★★★★★ | https://nvd.nist.gov/ | 漏洞数据库；本报告未实时检索其当前条目数 |\n| CWE / CWE Top 25 | ongoing | MITRE | `> 待核实` | 官方标准（领域种子资源） | 高 —— 弱点分类事实标准 | ★★★★★ | https://cwe.mitre.org/ ; https://cwe.mitre.org/top25/ | 弱点分类与排行 |\n| Big-Vul / CVEfixes | 2021 起 | secureIT-project | `> 待核实` | 官方数据集仓库（领域种子资源） | 中高 —— 漏洞修复数据集常用基线 | ★★★★ | https://github.com/secureIT-project/CVEfixes | 漏洞修复数据集；样本量/去重/时间切分 **> 待核实** |\n| OWASP Top 10 | 2021/2025 | OWASP | `> 待核实` | 社区权威清单（领域种子资源） | 高 —— Web/LLM 应用风险通用基线 | ★★★★★ | https://owasp.org/www-project-top-ten/ | 含 LLM 应用版本 |\n\n### 6.2 明确缺失的基准（本批证据未覆盖）\n\n| 缺口项 | 应有内容 | 状态 |\n|---|---|---|\n| CVEfixes / BigVul / PrimeVul 口径 | 样本量、漏洞类型分布、函数级 vs 提交级标签、去重与时间切分 | **> 待核实**（本批候选块无任何相关条目；仅种子资源给出 CVEfixes 链接） |\n| DARPA AIxCC 评分与最终结果 | 赛制、漏洞发现/修补计分、任务规模、真实二进制环境 | 部分覆盖：[59][61] 提供设计与架构，**具体分数与结果 > 待核实** |\n| CyberGym / Cybench | 评测任务集、评分口径 | **> 待核实**（本批候选块无相关条目） |\n| AgentDojo | 工具调用场景下的注入 ASR 与任务效用权衡 | **> 待核实**（本批候选块无相关条目） |\n| JailbreakBench / HarmBench | 有害请求拒答率 / 攻击成功率 / 裁判模型一致性 | **> 待核实**（本批候选块无相关条目；越狱方向仅有综述 [21][64] 与攻击/防御方法 [16][17][19]） |\n\n> **口径可比性提醒**：CVE 数据集的静态检测指标（如 F1/VulD，等级 B/C）、攻防竞赛的端到端解题得分（等级 B）、注入基准的 ASR/效用指标（等级 B/C）属于**三种不同度量体系**，本批证据中**没有任何来源**尝试将其统一为同一 Agent 能力评估框架，**> 待核实**。\n\n### 6.3 红蓝对抗工具与靶场\n\n- 网络靶场自动化设计（需求—供给匹配）[63]；`> 待核实`（无热度信号）。\n- 自动化网络防御者（ACD）以 LLM 替换/增强 RL 策略 [110]；关注度中。\n- **红队工具链（如 LLM 护栏红队专用工具）在本批候选中无具体开源项目来源，> 待核实**。\n\n---\n\n## 七、争议与开放问题\n\n1. **注入防御是否真的有效？** 争议核心在「静态防御评测」与「自适应攻击」的差距。[7] 显示自适应攻击可击破多数针对间接注入的防御；[18] 显示护栏检测器可被规避。**反方立场**是 [13] 的可证明防御与 [6][8] 的系统级架构路线，主张把问题从\"分类正确率\"转向\"能力隔离\"。本批证据**尚不足以裁定**哪条路线最终胜出，**> 待核实**。\n2. **SBOM 的「合规 ≠ 安全」**：[102][106][107] 从完整性、标准遵循度、依赖图三个独立角度给出负面证据，是证据一致性较高的结论（等级 B，多方独立）。但**是否应强制包含依赖边（edges）**、以及强制化对生态的副作用，仍无定论 **> 待核实**。\n3. **PQC 迁移的真实成本与优先级**：算法已标准化 [44]，但库支持 [116]、设备能耗 [41]、网络改造 [114]、存量代码审计 [43] 与互操作性陷阱 [113] 共同构成成本的\"长尾\"。**\"先迁移什么\"的排序方法学尚无统一结论**，[117] 在 2019 年已提出密码敏捷性框架，近两年工作（[114][116][113]）可视为对其的具体化，但**成本量化数据缺失**。\n4. **内存安全路线：Rust 迁移是不是银弹？** 支持侧：C→Rust 用户研究揭示迁移中的实际痛点 [119]、SACTOR 用 LLM + 静态分析 + FFI 验证做正确且地道的迁移 [120]、RustCompCert 为 Rust 顺序子集提供经验证的编译器 [121]、航天安全关键系统的 Rust 可行性 [122]。**反方**：`C-to-Rust Fallacy: Automatic Refactoring != Memory Security` [124] 直接主张自动重构**不产生**内存安全保证。**这是本报告中最值得追踪的技术分歧**，双方均为 arXiv 预印本（`> 待核实` 同行评审状态）。\n5. **自动化攻防的能力边界与失控风险**：AIxCC 的 SoK [59] 与 OSS-CRS [61] 证明\"竞赛环境可行\"，但对**真实仓库规模、真实漏洞可利用性、误报成本**的外推仍有争议；Revelio [62] 的\"成本高效\"主张需要独立复现。**是否存在失控风险（自主利用生成、能力外溢）在本批证据中无直接研究，> 待核实**。\n6. **漏洞检测评测的可复现性与负结果**：这是本方向最被低估的系统性问题。已有证据包括 harness 退化 [94]、假崩溃 [95]、OSS-Fuzz bug 历史 [88][91]、连续 fuzzing 百万 session 实证 [89]。**共同指向：以\"崩溃数\"为 KPI 的持续 fuzzing 会系统性高估有效性**。但**跨工具的统一可复现性基准仍缺失，> 待核实**。\n7. **政府监管路线之争（内存安全强制、SBOM 强制）**：本批候选证据**未覆盖**政策原文与监管效果评估，**> 待核实**。\n\n---\n\n## 八、建议关注清单（Watchlist）\n\n**第一优先级（高相关 + 有方法学新意）**\n\n1. **[7] Adaptive Attacks Break Defenses Against Indirect Prompt Injection** —— 任何注入防御工作的必读负结果基线。\n2. **[124] C-to-Rust Fallacy** vs. **[120] SACTOR** / **[121] RustCompCert** —— 内存安全迁移的核心分歧对，建议成对跟踪。\n3. **[59] AIxCC SoK** + **[61] OSS-CRS** —— 自动攻防从竞赛走向生产的唯一可见路径。\n4. **[107] No Edges, No Verdict** + **[102] Beyond Compliance** —— SBOM 实证批判链的两端，供应链可见性问题的硬证据。\n5. **[113] Can Coding Agents Migrate to Post-Quantum Cryptography?** —— 首次把 PQC 迁移做成可评测的 Agent 契约任务。\n\n**第二优先级（方向代表或分类骨架）**\n\n6. **[33] Symbolic Execution in Practice（2025 综述）** + **[40] LLM-Guided Directed Symbolic Execution** —— 程序分析「经典 + LLM 新范式」组合。\n7. **[89] 1 Million Fuzzing Sessions** + **[94] Fuzz Harness Degradation** —— 持续 fuzzing 的规模化实证与工程负结果。\n8. **[21] Jailbreak Survey (LLM→MLLM→Agent)** + **[64] IEEE TAI Jailbreak Survey** —— 越狱方向的生态级骨架（后者为期刊级，权威性更高，刊期需核实）。\n9. **[116] PQC Support in Cryptographic Libraries** + **[117] PQC Migration & Cryptographic Agility** —— 迁移工程\"现状 + 框架\"组合。\n10. **[58] From LLM Reasoning to Autonomous AI Agents**（citations=236）—— 建立评测基准分类骨架的入口，但需注意其**不含**安全专项基准口径。\n\n**待补齐的检索任务（下一轮必做）**\n\n- `CVEfixes dataset`、`PrimeVul benchmark`、`BigVul label noise` —— 补齐数据集口径（**> 待核实**）。\n- `AgentDojo prompt injection benchmark`、`HarmBench evaluation`、`JailbreakBench judge agreement` —— 补齐注入/越狱基准（**> 待核实**）。\n- `AIxCC final results scoring`、`CyberGym benchmark`、`Cybench` —— 补齐攻防竞赛基准（**> 待核实**）。\n- `LLM exploit generation`、`automatic PoC synthesis benchmark`、`kernel fuzzing syzkaller 2025` —— 补齐 q2 的空白（**> 待核实**）。\n- `data exfiltration LLM agent`、`agent tool-call leakage` —— 补齐第四章的外泄缺口（**> 待核实**）。\n\n---\n\n## 参考来源\n\n- [1] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3\n- [2] WebInject: Prompt Injection Attack to Web Agents — http://arxiv.org/abs/2505.11717v4\n- [3] StruQ: Defending Against Prompt Injection with Structured Queries — http://arxiv.org/abs/2402.06363v2\n- [4] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n- [5] IPIGuard: A Novel Tool Dependency Graph-Based Defense Against Indirect Prompt Injection in LLM Agents — http://arxiv.org/abs/2508.15310v1\n- [6] Architecting Secure AI Agents: Perspectives on System-Level Defenses Against Indirect Prompt Injection Attacks — http://arxiv.org/abs/2603.30016v1\n- [7] Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents — http://arxiv.org/abs/2503.00061v2\n- [8] ACE: A Security Architecture for LLM-Integrated App Systems — http://arxiv.org/abs/2504.20984v3\n- [9] AttriGuard: Defeating Indirect Prompt Injection in LLM Agents via Causal Attribution of Tool Invocations — http://arxiv.org/abs/2603.10749v2\n- [10] UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models — http://arxiv.org/abs/2502.13141v2\n- [11] Automatic and Universal Prompt Injection Attacks against Large Language Models — http://arxiv.org/abs/2403.04957v1\n- [12] Detecting Prompt Injection Attacks Against Application Using Classifiers — http://arxiv.org/abs/2512.12583v1\n- [13] MELON: Provable Defense Against Indirect Prompt Injection Attacks in AI Agents — http://arxiv.org/abs/2502.05174v4\n- [14] A Multi-Agent LLM Defense Pipeline Against Prompt Injection Attacks — http://arxiv.org/abs/2509.14285v4\n- [15] LLMs Can Defend Themselves Against Jailbreaking in a Practical Manner: A Vision Paper — http://arxiv.org/abs/2402.15727v2\n- [16] Enhancing Jailbreak Attacks on LLMs via Persona Prompts — http://arxiv.org/abs/2507.22171v3\n- [17] Proactive defense against LLM Jailbreak — http://arxiv.org/abs/2510.05052v2\n- [18] Bypassing LLM Guardrails: An Empirical Analysis of Evasion Attacks against Prompt Injection and Jailbreak Detection Systems — http://arxiv.org/abs/2504.11168v3\n- [19] CAVGAN: Unifying Jailbreak and Defense of LLMs via Generative Adversarial Attacks on their Internal Representations — http://arxiv.org/abs/2507.06043v2\n- [20] AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3\n- [21] From LLMs to MLL\n\n---\n\n*Generated by research-bot · topic=`cybersecurity` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=124 · duration=306s · 2026-10-05T22:18:53+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "SecAlign: Defending Against Prompt Injection with Preference Optimization",
+      "url": "http://arxiv.org/abs/2410.05451v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-10-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "WebInject: Prompt Injection Attack to Web Agents",
+      "url": "http://arxiv.org/abs/2505.11717v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-05-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "StruQ: Defending Against Prompt Injection with Structured Queries",
+      "url": "http://arxiv.org/abs/2402.06363v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-02-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "IPIGuard: A Novel Tool Dependency Graph-Based Defense Against Indirect Prompt Injection in LLM Agents",
+      "url": "http://arxiv.org/abs/2508.15310v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-08-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Architecting Secure AI Agents: Perspectives on System-Level Defenses Against Indirect Prompt Injection Attacks",
+      "url": "http://arxiv.org/abs/2603.30016v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-03-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents",
+      "url": "http://arxiv.org/abs/2503.00061v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-02-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "ACE: A Security Architecture for LLM-Integrated App Systems",
+      "url": "http://arxiv.org/abs/2504.20984v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-04-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "AttriGuard: Defeating Indirect Prompt Injection in LLM Agents via Causal Attribution of Tool Invocations",
+      "url": "http://arxiv.org/abs/2603.10749v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-03-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models",
+      "url": "http://arxiv.org/abs/2502.13141v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-02-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Automatic and Universal Prompt Injection Attacks against Large Language Models",
+      "url": "http://arxiv.org/abs/2403.04957v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-03-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+      "url": "http://arxiv.org/abs/2512.12583v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-12-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "MELON: Provable Defense Against Indirect Prompt Injection Attacks in AI Agents",
+      "url": "http://arxiv.org/abs/2502.05174v4",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "A Multi-Agent LLM Defense Pipeline Against Prompt Injection Attacks",
+      "url": "http://arxiv.org/abs/2509.14285v4",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-09-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "LLMs Can Defend Themselves Against Jailbreaking in a Practical Manner: A Vision Paper",
+      "url": "http://arxiv.org/abs/2402.15727v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-02-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Enhancing Jailbreak Attacks on LLMs via Persona Prompts",
+      "url": "http://arxiv.org/abs/2507.22171v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-07-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Proactive defense against LLM Jailbreak",
+      "url": "http://arxiv.org/abs/2510.05052v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-10-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Bypassing LLM Guardrails: An Empirical Analysis of Evasion Attacks against Prompt Injection and Jailbreak Detection Systems",
+      "url": "http://arxiv.org/abs/2504.11168v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-04-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "CAVGAN: Unifying Jailbreak and Defense of LLMs via Generative Adversarial Attacks on their Internal Representations",
+      "url": "http://arxiv.org/abs/2507.06043v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-07-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+      "url": "http://arxiv.org/abs/2506.14634v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "From LLMs to MLLMs to Agents: A Survey of Emerging Paradigms in Jailbreak Attacks and Defenses within LLM Ecosystem",
+      "url": "http://arxiv.org/abs/2506.15170v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-06-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Evaluating the Fork-Awareness of Coverage-Guided Fuzzers",
+      "url": "http://arxiv.org/abs/2301.05060v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2023-01-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "SyzScope: Revealing High-Risk Security Impacts of Fuzzer-Exposed Bugs in Linux kernel",
+      "url": "http://arxiv.org/abs/2111.06002v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2021-11-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Same Coverage, Less Bloat: Accelerating Binary-only Fuzzing with Coverage-preserving Coverage-guided Tracing",
+      "url": "http://arxiv.org/abs/2209.03441v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2022-09-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "The Reactive Synthesis Competition: SYNTCOMP 2016 and Beyond",
+      "url": "http://arxiv.org/abs/1611.07626v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2016-11-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "FOX: Coverage-guided Fuzzing as Online Stochastic Control",
+      "url": "http://arxiv.org/abs/2406.04517v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-06-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Internet Service Providers' and Individuals' Attitudes, Barriers, and Incentives to Secure IoT",
+      "url": "http://arxiv.org/abs/2210.02137v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2022-10-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Full-speed Fuzzing: Reducing Fuzzing Overhead through Coverage-guided Tracing",
+      "url": "http://arxiv.org/abs/1812.11875v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2018-12-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Multi-Factor Key Derivation Function (MFKDF) for Fast, Flexible, Secure, & Practical Key Management",
+      "url": "http://arxiv.org/abs/2208.05586v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2022-08-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Symbolic Execution in Practice: A Survey of Applications in Vulnerability, Malware, Firmware, and Protocol Analysis",
+      "url": "http://arxiv.org/abs/2508.06643v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-08-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "Reviewing KLEE's Sonar-Search Strategy in Context of Greybox Fuzzing",
+      "url": "http://arxiv.org/abs/1803.04881v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2018-03-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "Can Large Language Models Simulate Symbolic Execution Output Like KLEE?",
+      "url": "http://arxiv.org/abs/2511.08530v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-11-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "An Automatic Method for Generating Symbolic Expressions of Zernike Circular Polynomials",
+      "url": "http://arxiv.org/abs/2301.01859v3",
+      "kind": "paper",
+      "venue": "cs.SC",
+      "published": "2023-01-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 37,
+      "title": "Higher-order symbolic execution for contract verification and refutation",
+      "url": "http://arxiv.org/abs/1507.04817v3",
+      "kind": "paper",
+      "venue": "cs.PL",
+      "published": "2015-07-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 38,
+      "title": "Automatically Generating Test Cases for Safety-Critical Software via Symbolic Execution",
+      "url": "http://arxiv.org/abs/2209.11138v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2022-09-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 39,
+      "title": "SoK: Hardware Defenses Against Speculative Execution Attacks",
+      "url": "http://arxiv.org/abs/2301.03724v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2023-01-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 40,
+      "title": "Directed Symbolic Execution for Vulnerability Discovery: An LLM-Guided Approach in KLEE",
+      "url": "http://arxiv.org/abs/2607.21676v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-07-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 41,
+      "title": "Mobile Energy Requirements of the Upcoming NIST Post-Quantum Cryptography Standards",
+      "url": "http://arxiv.org/abs/1912.00916v4",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2019-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 42,
+      "title": "A new spin on quantum cryptography: Avoiding trapdoors and embracing public keys",
+      "url": "http://arxiv.org/abs/1109.3235v1",
+      "kind": "paper",
+      "venue": "quant-ph",
+      "published": "2011-09-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 43,
+      "title": "Quantum-Safe Code Auditing: LLM-Assisted Static Analysis and Quantum-Aware Risk Scoring for Post-Quantum Cryptography Migration",
+      "url": "http://arxiv.org/abs/2604.00560v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-04-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 44,
+      "title": "NIST Post-Quantum Cryptography Standard Algorithms Based on Quantum Random Number Generators",
+      "url": "http://arxiv.org/abs/2507.21151v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-07-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 45,
+      "title": "Towards post-quantum blockchain: A review on blockchain cryptography resistant to quantum computing attacks",
+      "url": "http://arxiv.org/abs/2402.00922v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-02-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 46,
+      "title": "CL-UZH submission to the NIST SRE 2024 Speaker Recognition Evaluation",
+      "url": "http://arxiv.org/abs/2510.00952v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2025-10-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 47,
+      "title": "Enhancing Quantum Security over Federated Learning via Post-Quantum Cryptography",
+      "url": "http://arxiv.org/abs/2409.04637v1",
+      "kind": "paper",
+      "venue": "quant-ph",
+      "published": "2024-09-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 48,
+      "title": "A Comprehensive Survey of Threshold Signatures: NIST Standards, Post-Quantum Cryptography, Exotic Techniques, and Real-World Applications",
+      "url": "http://arxiv.org/abs/2311.05514v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2023-11-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 49,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 50,
+      "title": "LLM-SRBench: A New Benchmark for Scientific Equation Discovery with Large Language Models",
+      "url": "http://arxiv.org/abs/2504.10415v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 51,
+      "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+      "url": "http://arxiv.org/abs/2504.19675v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 52,
+      "title": "Overview of SCIDOCA 2025 Shared Task on Citation Prediction, Discovery, and Placement",
+      "url": "http://arxiv.org/abs/2509.24283v1",
+      "kind": "paper",
+      "venue": "cs.DL",
+      "published": "2025-09-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 53,
+      "title": "Team LA at SCIDOCA shared task 2025: Citation Discovery via relation-based zero-shot retrieval",
+      "url": "http://arxiv.org/abs/2506.18316v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-06-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 54,
+      "title": "CEA-LIST at CheckThat! 2025: Evaluating LLMs as Detectors of Bias and Opinion in Text",
+      "url": "http://arxiv.org/abs/2507.07539v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 55,
+      "title": "PrompTrend: Continuous Community-Driven Vulnerability Discovery and Assessment for Large Language Models",
+      "url": "https://arxiv.org/abs/2507.19185",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2025-07-25",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 56,
+      "title": "A Simulation and Modeling of Access Points with Definition Language",
+      "url": "http://arxiv.org/abs/1304.1836v2",
+      "kind": "paper",
+      "venue": "cs.OH",
+      "published": "2013-04-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 57,
+      "title": "LLM-HyPZ: Hardware Vulnerability Discovery Using an LLM-Assisted Hybrid Platform for Zero-Shot Knowledge Extraction and Refinement",
+      "url": "https://arxiv.org/abs/2509.00647",
+      "kind": "paper",
+      "venue": "2025 IEEE International Conference on Data Mining Workshops (ICDMW)",
+      "published": "2025-08-31",
+      "citations": 6,
+      "stars": null
+    },
+    {
+      "n": 58,
+      "title": "From LLM Reasoning to Autonomous AI Agents: A Comprehensive Review",
+      "url": "https://arxiv.org/abs/2504.19678",
+      "kind": "paper",
+      "venue": "IEEE Access",
+      "published": "2025-04-28",
+      "citations": 236,
+      "stars": null
+    },
+    {
+      "n": 59,
+      "title": "SoK: DARPA's AI Cyber Challenge (AIxCC): Competition Design, Architectures, and Lessons Learned",
+      "url": "http://arxiv.org/abs/2602.07666v5",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 60,
+      "title": "Leveraging Large Language Models in the Software Development Lifecycle: Opportunities and Challenges",
+      "url": "https://doi.org/10.14569/ijacsa.2025.0161105",
+      "kind": "paper",
+      "venue": "International Journal of Advanced Computer Science and Applications",
+      "published": "2025",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 61,
+      "title": "OSS-CRS: Liberating AIxCC Cyber Reasoning Systems for Real-World Open-Source Security",
+      "url": "http://arxiv.org/abs/2603.08566v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-03-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 62,
+      "title": "Revelio: Cost-Efficient Agentic Memory Safety Vulnerability Detection For Repository-Scale Codebases",
+      "url": "https://arxiv.org/abs/2606.22263",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2026-06-20",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 63,
+      "title": "Towards Automated Cyber Range Design: Characterizing and Matching Demands to Supplies",
+      "url": "http://arxiv.org/abs/2307.04416v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2023-07-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 64,
+      "title": "Prompt-Based Jailbreaking of Leading LLM Chatbots: A Survey of Attacks and Defenses",
+      "url": "https://doi.org/10.1109/TAI.2026.3665656",
+      "kind": "paper",
+      "venue": "IEEE Transactions on Artificial Intelligence",
+      "published": "2026-08-01",
+      "citations": 6,
+      "stars": null
+    },
+    {
+      "n": 65,
+      "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+      "url": "http://arxiv.org/abs/2504.16021v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2025-04-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 66,
+      "title": "SelfOp: An Optimization Algorithm for Self-Improving Security Agents",
+      "url": "https://arxiv.org/abs/2609.22792",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-09-19",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 67,
+      "title": "Challenges in Digital Twin Development for Cyber-Physical Production Systems",
+      "url": "http://arxiv.org/abs/2102.03341v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2021-02-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 68,
+      "title": "Large Language Models in Cybersecurity: A PRISMA-ScR-Guided Scoping Review of Threats, Defenses, and Emerging Applications",
+      "url": "https://doi.org/10.1109/ACCESS.2026.3719163",
+      "kind": "paper",
+      "venue": "IEEE Access",
+      "published": "2026",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 69,
+      "title": "Towards Systematically Deriving Defence Mechanisms from Functional Requirements of Cyber-Physical Systems",
+      "url": "http://arxiv.org/abs/2007.03651v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2020-07-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 70,
+      "title": "Event and Activity Recognition in Video Surveillance for Cyber-Physical Systems",
+      "url": "http://arxiv.org/abs/2111.02064v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2021-11-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 71,
+      "title": "Towards a Formal Verification of Secure Vehicle Software Updates",
+      "url": "http://arxiv.org/abs/2511.15479v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-11-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 72,
+      "title": "$MC^2$: Rigorous and Efficient Directed Greybox Fuzzing",
+      "url": "http://arxiv.org/abs/2208.14530v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2022-08-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 73,
+      "title": "Multiple Targets Directed Greybox Fuzzing",
+      "url": "http://arxiv.org/abs/2206.14977v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2022-06-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 74,
+      "title": "The Progress, Challenges, and Perspectives of Directed Greybox Fuzzing",
+      "url": "http://arxiv.org/abs/2005.11907v5",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2020-05-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 75,
+      "title": "Learning Inputs in Greybox Fuzzing",
+      "url": "http://arxiv.org/abs/1807.07875v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2018-07-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 76,
+      "title": "Greybox fuzzing time-intensive programs",
+      "url": "http://arxiv.org/abs/2311.17200v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2023-11-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 77,
+      "title": "Directed Greybox Fuzzing with Stepwise Constraint Focusing",
+      "url": "http://arxiv.org/abs/2303.14895v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2023-03-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 78,
+      "title": "Efficient Greybox Fuzzing to Detect Memory Errors",
+      "url": "http://arxiv.org/abs/2204.02773v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2022-04-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 79,
+      "title": "Linear-time Temporal Logic guided Greybox Fuzzing",
+      "url": "http://arxiv.org/abs/2109.02312v3",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2021-09-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 80,
+      "title": "Hallucination Detection and Mitigation in Scientific Text Simplification using Ensemble Approaches: DS@GT at CLEF 2025 SimpleText",
+      "url": "http://arxiv.org/abs/2508.11823v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-08-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 81,
+      "title": "Soft Inductive Bias Approach via Explicit Reasoning Perspectives in Inappropriate Utterance Detection Using Large Language Models",
+      "url": "http://arxiv.org/abs/2512.08480v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-12-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 82,
+      "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+      "url": "http://arxiv.org/abs/2509.19861v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 83,
+      "title": "Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025)",
+      "url": "http://arxiv.org/abs/2412.16365v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-12-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 84,
+      "title": "Coling-UniA at SciVQA 2025: Few-Shot Example Retrieval and Confidence-Informed Ensembling for Multimodal Large Language Models",
+      "url": "http://arxiv.org/abs/2507.02357v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 85,
+      "title": "Object Detection with Multimodal Large Vision-Language Models: An In-depth Review",
+      "url": "http://arxiv.org/abs/2508.19294v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 86,
+      "title": "How do language models learn facts? Dynamics, curricula and hallucinations",
+      "url": "http://arxiv.org/abs/2503.21676v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-03-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 87,
+      "title": "Overview of the Plagiarism Detection Task at PAN 2025",
+      "url": "http://arxiv.org/abs/2510.06805v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 88,
+      "title": "An Empirical Study of OSS-Fuzz Bugs",
+      "url": "http://arxiv.org/abs/2103.11518v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2021-03-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 89,
+      "title": "Large-Scale Empirical Analysis of Continuous Fuzzing: Insights from 1 Million Fuzzing Sessions",
+      "url": "http://arxiv.org/abs/2510.16433v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-10-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 90,
+      "title": "Coverage-Guided Multi-Agent Harness Generation for Java Library Fuzzing",
+      "url": "http://arxiv.org/abs/2603.08616v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-03-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 91,
+      "title": "What Happens When We Fuzz? Investigating OSS-Fuzz Bug History",
+      "url": "http://arxiv.org/abs/2305.11433v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2023-05-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 92,
+      "title": "Fixing Security Vulnerabilities with AI in OSS-Fuzz",
+      "url": "http://arxiv.org/abs/2411.03346v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-11-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 93,
+      "title": "Sydr-Fuzz: Continuous Hybrid Fuzzing and Dynamic Analysis for Security Development Lifecycle",
+      "url": "http://arxiv.org/abs/2211.11595v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2022-11-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 94,
+      "title": "An Empirical Study of Fuzz Harness Degradation",
+      "url": "http://arxiv.org/abs/2505.06177v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-05-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 95,
+      "title": "FalseCrashReducer: Mitigating False Positive Crashes in OSS-Fuzz-Gen Using Agentic AI",
+      "url": "http://arxiv.org/abs/2510.02185v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-10-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 96,
+      "title": "cozy: Comparative Symbolic Execution for Binary Programs",
+      "url": "http://arxiv.org/abs/2504.00151v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-03-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 97,
+      "title": "Symbolic Execution and Debugging Synchronization",
+      "url": "http://arxiv.org/abs/2006.16601v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2020-06-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 98,
+      "title": "Accurate and Extensible Symbolic Execution of Binary Code based on Formal ISA Semantics",
+      "url": "http://arxiv.org/abs/2404.04132v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2024-04-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 99,
+      "title": "Jacobi Stability Analysis for Systems of ODEs Using Symbolic Computation",
+      "url": "http://arxiv.org/abs/2405.10578v3",
+      "kind": "paper",
+      "venue": "cs.SC",
+      "published": "2024-05-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 100,
+      "title": "Exhaustive Symbolic Integration: Integration by Differentiation and the Landscape of Symbolic Integrability",
+      "url": "http://arxiv.org/abs/2605.04978v1",
+      "kind": "paper",
+      "venue": "cs.SC",
+      "published": "2026-05-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 101,
+      "title": "The State of the SBOM Tool Ecosystems: A Comparative Analysis of SPDX and CycloneDX",
+      "url": "http://arxiv.org/abs/2512.21781v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-12-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 102,
+      "title": "Beyond Compliance: A Large Scale Study on the Completeness and Consistency of the GitHub SBOMs",
+      "url": "http://arxiv.org/abs/2607.04614v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-07-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 103,
+      "title": "A Dataset of Software Bill of Materials for Evaluating SBOM Consumption Tools",
+      "url": "http://arxiv.org/abs/2504.06880v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-04-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 104,
+      "title": "SBOM Generation Tools in the Python Ecosystem: an In-Detail Analysis",
+      "url": "http://arxiv.org/abs/2409.01214v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-09-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 105,
+      "title": "sbom-unifier: Integration Framework for Heterogeneous SBOMs",
+      "url": "http://arxiv.org/abs/2608.30708v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-08-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 106,
+      "title": "A Large Scale Empirical Analysis on the Adherence Gap between Standards and Tools in SBOM",
+      "url": "http://arxiv.org/abs/2601.05622v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-01-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 107,
+      "title": "No Edges, No Verdict: A Large-Scale Empirical Study of Declared Dependency Graphs in 78K SBOMs in the Wild",
+      "url": "http://arxiv.org/abs/2607.22140v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-07-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 108,
+      "title": "UniBOM -- A Unified SBOM Analysis and Visualisation Tool for IoT Systems and Beyond",
+      "url": "http://arxiv.org/abs/2511.22359v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-11-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 109,
+      "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+      "url": "http://arxiv.org/abs/2510.22631v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 110,
+      "title": "Large Language Models are Autonomous Cyber Defenders",
+      "url": "http://arxiv.org/abs/2505.04843v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-05-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 111,
+      "title": "CMU's IWSLT 2025 Simultaneous Speech Translation System",
+      "url": "http://arxiv.org/abs/2506.13143v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 112,
+      "title": "MLLP-VRAIN UPV system for the IWSLT 2025 Simultaneous Speech Translation Translation task",
+      "url": "http://arxiv.org/abs/2506.18828v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 113,
+      "title": "Can Coding Agents Migrate to Post-Quantum Cryptography?",
+      "url": "http://arxiv.org/abs/2512.12989v3",
+      "kind": "paper",
+      "venue": "cs.MA",
+      "published": "2025-12-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 114,
+      "title": "Quantum-Ready Secure WAN: A Risk Assessment and Migration Framework",
+      "url": "http://arxiv.org/abs/2609.26225v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-08-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 115,
+      "title": "AIM 2025 Rip Current Segmentation (RipSeg) Challenge Report",
+      "url": "http://arxiv.org/abs/2508.13401v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 116,
+      "title": "A Survey of Post-Quantum Cryptography Support in Cryptographic Libraries",
+      "url": "http://arxiv.org/abs/2508.16078v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-08-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 117,
+      "title": "Identifying Research Challenges in Post Quantum Cryptography Migration and Cryptographic Agility",
+      "url": "http://arxiv.org/abs/1909.07353v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2019-09-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 118,
+      "title": "Quantum-Resistant Networks Using Post-Quantum Cryptography",
+      "url": "http://arxiv.org/abs/2510.24534v1",
+      "kind": "paper",
+      "venue": "quant-ph",
+      "published": "2025-10-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 119,
+      "title": "Translating C To Rust: Lessons from a User Study",
+      "url": "http://arxiv.org/abs/2411.14174v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2024-11-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 120,
+      "title": "SACTOR: LLM-Driven Correct and Idiomatic C to Rust Translation with Static Analysis and FFI-Based Verification",
+      "url": "http://arxiv.org/abs/2503.12511v3",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-03-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 121,
+      "title": "RustCompCert: A Verified and Verifying Compiler for a Sequential Subset of Rust",
+      "url": "http://arxiv.org/abs/2602.07455v1",
+      "kind": "paper",
+      "venue": "cs.PL",
+      "published": "2026-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 122,
+      "title": "Bringing Rust to Safety-Critical Systems in Space",
+      "url": "http://arxiv.org/abs/2405.18135v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-05-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 123,
+      "title": "OSGNet @ Ego4D Episodic Memory Challenge 2025",
+      "url": "http://arxiv.org/abs/2506.03710v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-06-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 124,
+      "title": "C-to-Rust Fallacy: Automatic Refactoring != Memory Security",
+      "url": "http://arxiv.org/abs/2609.25682v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-09-22",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-05-cybersecurity.md",
+    "json": "report/2026/10/2026-10-05-cybersecurity.json"
+  }
+}

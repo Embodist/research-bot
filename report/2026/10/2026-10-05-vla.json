@@ -1,0 +1,3047 @@
+{
+  "topic": "vla",
+  "title": "Vision-Language-Action (VLA) 基础模型深度调研计划",
+  "query": "",
+  "depth": "standard",
+  "language": "bilingual",
+  "started_at": "2026-10-05T22:57:06+00:00",
+  "finished_at": "2026-10-05T23:03:53+00:00",
+  "duration_s": 407.1,
+  "rounds": 1,
+  "plan": {
+    "title": "Vision-Language-Action (VLA) 基础模型深度调研计划",
+    "summary": "系统梳理 VLA 基础模型的经典奠基工作与 2024-2026 前沿进展，覆盖开源项目、数据集基准、动作表征范式与跨本体泛化/真机部署的开放争议，产出带证据分级的可核查调研报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024-2026 年 VLA 基础模型的前沿进展：有哪些新一代模型（如 π0/π0.5、GR00T N1、Gemini Robotics、OpenVLA 系列、RDT、UniVLA/CoT-VLA 等）发布，分别在架构、训练数据与真机验证上带来什么实质变化？",
+        "rationale": "用户要求聚焦最近 1-2 年前沿；需区分「刚发布」与「已被验证」，按年份-季度建立时间线并标注证据强度（官方论文/技术报告/仅有演示）。",
+        "queries": [
+          "vision-language-action model survey 2025 arXiv cs.RO",
+          "π0.5 GR00T N1 Gemini Robotics 2025 vision-language-action foundation model",
+          "VLA 大模型 2025 最新进展 跨本体 泛化",
+          "CoRL 2025 vision-language-action policy real robot"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "VLA 的经典奠基工作有哪些：RT-1/RT-2、Open X-Embodiment 与 RT-X、Diffusion Policy、ALOHA/ACT 等如何定义了「VLA 范式」与后续技术路线？",
+        "rationale": "需建立方法演进脉络（模块化→端到端→基础模型→统一动作空间），经典工作是理解当前 SOTA 提升归因（数据/架构/算力）的基线。",
+        "queries": [
+          "RT-2 vision-language-action model 2023 CoRL arXiv",
+          "Diffusion Policy visuomotor policy learning 2023 RSS",
+          "Open X-Embodiment dataset RT-X robot learning 2023",
+          "ALOHA ACT learning fine-grained bimanual manipulation 2023"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "开源项目与工程实践现状：OpenVLA、Octo、openpi/π0、GR00T N1、LeRobot 等开源模型的代码/权重可得性、微调流程、仿真与真机部署成本如何？",
+        "rationale": "用户关注开源项目与工程落地；需核查 GitHub stars/最近提交、HuggingFace 权重、许可证与复现难度，避免把仅有演示视频当作可用工程栈。",
+        "queries": [
+          "OpenVLA open-source vision-language-action model fine-tuning LoRA",
+          "openpi pi0 LeRobot GitHub open source VLA deployment",
+          "GR00T N1 NVIDIA Isaac open source robot foundation model",
+          "VLA 开源 模型 微调 真机部署 工程实践 2025"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing"
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "数据集与基准生态：Open X-Embodiment、DROID、BridgeData V2、LIBERO、CALVIN、SimplerEnv、RoboTwin、RoboArena 等分别训练/评测什么，真机与仿真 SOTA 的口径是否可比？",
+        "rationale": "评测口径（任务数、本体数、仿真 or 真机、成功率定义）是判断「SOTA 宣称」可信度的关键，也是交叉验证的核心抓手。",
+        "queries": [
+          "DROID dataset robot manipulation in the wild 2024 arXiv",
+          "LIBERO benchmark lifelong robot learning evaluation",
+          "SimplerEnv simulated manipulation policy evaluation real robot",
+          "RoboArena distributed real-robot evaluation 2025 VLA"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "github"
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "动作表征与策略学习范式之争：action tokenization（离散自回归）vs diffusion policy vs flow matching policy，各自在 VLA 中的适用场景、推理延迟与成功率表现如何？",
+        "rationale": "这是最活跃的方法学分歧之一，直接决定模型架构与真机实时性；需以一手实验表格为准对比，区分仿真与真机结果。",
+        "queries": [
+          "action tokenization vision-language-action discrete action tokens autoregressive",
+          "FAST efficient action tokenization robot 2024",
+          "flow matching policy robot manipulation vs diffusion policy",
+          "动作离散化 连续动作头 VLA 对比 推理延迟"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q6",
+        "question": "开放问题与争议：跨本体泛化是否被高估、真机成功率评测的可复现性、数据规模瓶颈、实时推理与安全性，学界与工业界存在哪些分歧与失败案例？",
+        "rationale": "用户明确要求覆盖开放问题与争议；按方法论要求须纳入 negative results 与复现困难，避免只呈现正面 demo 结论。",
+        "queries": [
+          "VLA cross-embodiment generalization failure analysis limitations",
+          "robot foundation model data scaling bottleneck open problems 2025",
+          "reproducibility real robot success rate VLA evaluation criticism",
+          "VLA 真机 泛化能力 争议 复现困难 失败案例"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024-2026 年 VLA 基础模型的前沿进展：有哪些新一代模型（如 π0/π0.5、GR00T N1、Gemini Robotics、OpenVLA 系列、RDT、UniVLA/CoT-VLA 等）发布，分别在架构、训练数据与真机验证上带来什么实质变化？",
+      "queries": [
+        "vision-language-action model survey 2025 arXiv cs.RO",
+        "π0.5 GR00T N1 Gemini Robotics 2025 vision-language-action foundation model",
+        "VLA 大模型 2025 最新进展 跨本体 泛化",
+        "CoRL 2025 vision-language-action policy real robot"
+      ],
+      "rationale": "用户要求聚焦最近 1-2 年前沿；需区分「刚发布」与「已被验证」，按年份-季度建立时间线并标注证据强度（官方论文/技术报告/仅有演示）。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+          "url": "http://arxiv.org/abs/2608.17095v1",
+          "snippet": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visual tokens of detector localized traffic actors on Alpamayo-R1's Qwen3-VL backbone. It is applied as a fail open forward pre-hook with no weight changes. On 50 lane-change scenarios from the Physical AI World Model Synthetic dataset. The trajectory decoder shows a monotonic dose response in the bias…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-17",
+          "authors": [
+            "Darshan Nagendra Prasad",
+            "Lars Ullrich",
+            "Knut Graichen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.17095v1",
+            "rrf_score": 0.062507,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.061112,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.042557,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+          "url": "http://arxiv.org/abs/2512.06951v2",
+          "snippet": "We present a vision-action policy that won 1st place in the 2025 BEHAVIOR Challenge - a large-scale benchmark featuring 50 diverse long-horizon household tasks in photo-realistic simulation, requiring bimanual manipulation, navigation, and context-aware decision making. Building on the Pi0.5 architecture, we introduce several innovations. Our primary contribution is correlated noise for flow matching, which improves training efficiency and enables correlation-aware inpainting for smooth action sequences. We also apply learnable mixed-layer attention and System 2 stage tracking for ambiguity r…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-07",
+          "authors": [
+            "Ilia Larchenko",
+            "Gleb Zarin",
+            "Akash Karnatak"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.06951v2",
+            "rrf_score": 0.040663,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+          "url": "http://arxiv.org/abs/2607.10797v1",
+          "snippet": "Assembly action understanding is a key enabler for effective human-robot collaborative assembly, yet it remains challenging due to subtle motions and fine-grained hand-object interactions. We adapt vision-language models (VLMs) to this challenging domain with Compositional Context Fine-Tuning (CCFT), a method that decomposes assembly actions into semantic elements (Verb, Object, Tool) and fine-tunes VLMs to recognize each action element using templated question-answering pairs. This approach ensures near-deterministic outputs. To enable efficient and effective multi-task learning under limite…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-12",
+          "authors": [
+            "Hao Zheng",
+            "Jinyi Huang",
+            "Tiantian Zheng",
+            "Xun Xu",
+            "Tuka Alhanai"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.10797v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Models",
+          "url": "http://arxiv.org/abs/2512.11769v1",
+          "snippet": "Vision-language-action (VLA) models enable impressive zero shot manipulation, but their inference stacks are often too heavy for responsive web demos or high frequency robot control on commodity GPUs. We present BLURR, a lightweight inference wrapper that can be plugged into existing VLA controllers without retraining or changing model checkpoints. Instantiated on the pi-zero VLA controller, BLURR keeps the original observation interfaces and accelerates control by combining an instruction prefix key value cache, mixed precision execution, and a single step rollout schedule that reduces per s…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-12",
+          "authors": [
+            "Xiaoyu Ma",
+            "Zhengqing Yuan",
+            "Zheyuan Zhang",
+            "Kaiwen Shi",
+            "Lichao Sun",
+            "Yanfang Ye"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.11769v1",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Pi0.5（π0.5）已被下游长程任务当作基座架构直接复用：2025 BEHAVIOR Challenge 冠军方案构建在 Pi0.5 之上，并对架构/训练/推理三层做了实质改动。",
+            "evidence": "该方案获 2025 BEHAVIOR Challenge 第 1 名；基准含 50 个多样化长程家居任务，要求双臂操作、导航与上下文感知决策；主要贡献为 flow matching 的 correlated noise（提升训练效率，并支持 correlation-aware inpainting 以生成平滑动作序列）；另引入 learnable mixed-layer attention 与 System 2 stage tracking 处理歧义；训练用 multi-sample flow matching 降低方差，推理用动作压缩与挑战特定纠错规则。验证环境为 photo-realistic 仿真，非真机。",
+            "sources": [
+              49
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.RO, 2025-12-07 v1 / 2025-12-21 v2)，候选块未显示同行评审 venue；冠军名次为作者自述",
+            "attention": "中 —— 竞赛第 1 名且基于 Pi0.5 适配，属社区关注点；候选块无引用数/star 等量化信号",
+            "recommendation": "★★★★☆ —— 候选证据中唯一直接给出 π0.5 系架构与训练细节的来源，与本子问题架构/训练轴最相关；扣分项为仅仿真验证、单来源自述"
+          },
+          {
+            "point": "VLA 部署侧出现“不改权重、不改 checkpoint”的轻量推理封装路线，并在 pi-zero（π0 系）控制器上实例化，目标是商品级 GPU 上的高频控制。",
+            "evidence": "BLURR 被描述为一个 lightweight inference wrapper，可插入既有 VLA 控制器而无需重训练或更换模型 checkpoint；以 pi-zero VLA controller 作为实例化对象；动机是现有 VLA 推理栈对响应式 web demo 或商品 GPU 上的高频机器人控制而言过重。",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.RO, 2025-12-12)，候选块未显示同行评审 venue；无官方开源仓库信息",
+            "attention": "中 —— 直指 π0/pi-zero 系模型的落地瓶颈，属工程热点；候选块未提供延迟/吞吐数据、star 数或采用度",
+            "recommendation": "★★★☆☆ —— 只覆盖推理效率这一侧的变化，缺少量化指标与开源证据，宜作为部署趋势线索而非架构结论"
+          },
+          {
+            "point": "VLA 范式已外溢到自动驾驶：架构被描述为“推理阶段 + 基于扩散的轨迹解码器”，并可在推理期通过注意力偏置把注意力导向安全关键目标，无需重训练。",
+            "evidence": "在 Alpamayo-R1 的 Qwen3-VL backbone 上，对检测器定位到的交通参与者对应的视觉 token 施加有界加性 pre-softmax 注意力偏置，以 fail-open forward pre-hook 实现、不改变权重；在 Physical AI World Model Synthetic 数据集的 50 个变道场景上，轨迹解码器对偏置幅度呈单调剂量响应，且每个测试幅度都与配对的零偏置对照可分；达到约 17 cm 平均位移，clamp 处横向偏移可达约 140 cm；层消融显示动作相关信号位于较晚的层。",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CV, 2026-08-17)，候选块未显示同行评审 venue；验证仅用合成数据集",
+            "attention": "中 —— 面向 VLA 驾驶模型的可控性与安全干预，是 2026 年新方向；候选块无引用数等量化信号",
+            "recommendation": "★★★☆☆ —— 提供了“推理期转向 + 剂量响应”的可核查机制描述，但任务域（驾驶）与操作类 VLA 相关性有限，且为合成数据单来源"
+          },
+          {
+            "point": "候选证据中未出现 GR00T N1、Gemini Robotics、OpenVLA 系列、RDT、UniVLA/CoT-VLA 等用户点名模型的任何一手发布信息。",
+            "evidence": "候选块涉及的主题为：VLA 驾驶模型推理期注意力引导 [2]、基础模型透明度指数 [47]、短视频参与度预测挑战 [48]、BEHAVIOR Challenge VLA 方案 [49]、VLM 装配动作理解微调 [3]、VLA 低资源推理 [27]；均未包含上述模型在架构、训练数据或真机验证上的发布细节。",
+            "sources": [
+              2,
+              3,
+              27,
+              47,
+              48,
+              49
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "基于给定候选证据集合的覆盖性判断，非外部检索结论",
+            "attention": "低 —— 这是对候选证据缺口的陈述，本身不构成热点信号",
+            "recommendation": "★★☆☆☆ —— 作为缺口提示有价值，用于说明结论适用范围；不构成任何模型的事实论断"
+          },
+          {
+            "point": "现有候选证据中的 VLA 相关工作普遍缺少真机验证，主要落在合成数据或照片级真实感仿真上，“真机验证”这一维度无法由本批证据支撑。",
+            "evidence": "BEHAVIOR 冠军方案在 photo-realistic 仿真中评测 [49]；注意力引导实验在 Physical AI World Model Synthetic 数据集上进行 [2]；BLURR 在 pi-zero 控制器上实例化但候选块未报告真机实验结果 [27]。",
+            "sources": [
+              2,
+              27,
+              49
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "",
+            "heat": "",
+            "authority": "基于三类来源（arXiv 预印本）的共性观察，无同行评审或官方基准报告交叉验证",
+            "attention": "中 —— 仿真 SOTA 与真机 SOTA 的区分是该领域公认的方法论要点，候选块证据共同指向该缺口",
+            "recommendation": "★★★☆☆ —— 对解读本批证据的适用范围有实际价值，提醒不要把仿真名次当真实部署结论"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+            "url": "http://arxiv.org/abs/2512.06951v2",
+            "why": "候选证据中唯一给出 π0.5 系架构改动与训练策略细节的来源（correlated noise flow matching、learnable mixed-layer attention、System 2 stage tracking），并附 50 项长程家居任务竞赛第 1 名的结果。",
+            "year": "2025",
+            "heat": "候选块无引用数",
+            "authority": "arXiv 预印本 (cs.RO)，v2 最新修订 2025-12-21；未见同行评审 venue",
+            "attention": "中 —— 竞赛冠军 + Pi0.5 基座复用，属社区讨论热点，但无引用/star 量化信号",
+            "recommendation": "★★★★☆ —— 与本子问题最相关，可核查细节多；仅仿真验证、单来源自述需注意"
+          },
+          {
+            "title": "BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Models",
+            "url": "http://arxiv.org/abs/2512.11769v1",
+            "why": "给出 VLA（pi-zero）部署侧的实质变化：无需重训练或更换 checkpoint 的轻量推理封装，用于商品 GPU 上的高频机器人控制。",
+            "year": "2025",
+            "heat": "候选块无引用数/star",
+            "authority": "arXiv 预印本 (cs.RO, 2025-12-12)",
+            "attention": "中 —— 面向推理效率与落地，属工程关注点",
+            "recommendation": "★★★☆☆ —— 覆盖部署维度，但缺少量化收益与开源证据，作为线索使用"
+          },
+          {
+            "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+            "url": "http://arxiv.org/abs/2608.17095v1",
+            "why": "展示 VLA 驾驶模型的推理期可控干预机制（有界加性 pre-softmax 注意力偏置、fail-open pre-hook、单调剂量响应），无需重训练。",
+            "year": "2026",
+            "heat": "候选块无引用数",
+            "authority": "arXiv 预印本 (cs.CV, 2026-08-17)",
+            "attention": "中 —— 2026 年新工作，涉及 VLA 安全干预",
+            "recommendation": "★★★☆☆ —— 机制与数字描述具体，但域为驾驶且仅用合成数据集"
+          },
+          {
+            "title": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+            "url": "http://arxiv.org/abs/2607.10797v1",
+            "why": "候选块中唯一涉及 VLM 面向装配动作理解的分解式微调（Verb/Object/Tool 语义元素分解），与人机协作装配相关。",
+            "year": "2026",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本 (cs.CV, 2026-07-12)",
+            "attention": "低 —— 与 VLA 基础模型主线相关性偏弱，候选块仅给摘要片段",
+            "recommendation": "★★☆☆☆ —— 仅在需要 VLM 微调做动作理解的旁证时参考；候选块信息不足以支撑更强推荐"
+          },
+          {
+            "title": "The 2025 Foundation Model Transparency Index",
+            "url": "http://arxiv.org/abs/2512.10169v1",
+            "why": "为评估 VLA/基础模型的数据与训练透明度提供年度量化指标：平均分从 2024 年 58 分降至 2025 年 40 分，训练数据与训练算力最不透明。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本 (cs.AI, 2025-12-11)，作者含 Percy Liang、Rishi Bommasani 等；未见同行评审 venue",
+            "attention": "中 —— 透明度议题受关注，但候选块无榜单热度量化",
+            "recommendation": "★★★☆☆ —— 不能说明任何具体 VLA 模型的架构，但可用于评估“训练数据是否公开”这一轴的外部依据"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [
+          {
+            "name": "Physical AI World Model Synthetic",
+            "url": "",
+            "why": "被用于 VLA 驾驶模型注意力引导研究中的 50 个变道场景评测，是该实验的可复现数据基础。",
+            "heat": "候选块未提供下载量/引用数",
+            "authority": "候选块未说明发布方，仅提及为合成数据集",
+            "attention": "低 —— 仅在单篇预印本中被引用，候选块无社区采用度信号",
+            "recommendation": "★★☆☆☆ —— 作为该实验的条件说明有用，但来源与许可信息缺失，待核实"
+          },
+          {
+            "name": "2025 BEHAVIOR Challenge (50 项长程家居任务，photo-realistic 仿真)",
+            "url": "",
+            "why": "提供双臂操作、导航与上下文感知决策的长程基准，冠军方案基于 Pi0.5，可用于观察 VLA 基座在长程任务上的适配方式。",
+            "heat": "候选块无参赛规模/引用数",
+            "authority": "候选块描述为 large-scale benchmark，但未给出官方主页或组织方",
+            "attention": "中 —— 竞赛冠军方案引发对 π0.5 架构改动的讨论",
+            "recommendation": "★★★☆☆ —— 与 VLA 任务适配主线相关，可作为基准线索；官方链接缺失，待核实"
+          }
+        ],
+        "open_problems": [
+          "候选证据完全缺失 GR00T N1、Gemini Robotics、OpenVLA 系列、RDT、UniVLA/CoT-VLA 等点名模型的一手发布信息，其架构、训练数据与真机验证结论无法在本批证据内成立，需另行检索官方论文/技术报告。",
+          "π0/π0.5 的原始架构与训练数据构成未被候选块直接给出一手来源，本批证据只能通过下游复用（BEHAVIOR 冠军方案）与部署封装（BLURR）间接推断其影响。",
+          "候选证据中的 VLA 工作普遍缺少真机验证（集中于合成数据集或照片级真实感仿真），仿真名次与真实机器人成功率之间的差距无法评估。",
+          "BLURR 的推理加速收益（延迟、吞吐、显存）在候选块中无量化数据，且无开源仓库信息，可复现性待核实。",
+          "BEHAVIOR Challenge 冠军方案使用“挑战特定纠错规则”等推理期人工规则，其增益中多少来自架构改进、多少来自竞赛定制，候选块不足以归因。",
+          "基础模型透明度下降（2025 FMTI 平均分 58→40）意味着 VLA 类模型的训练数据与训练算力信息更难独立核查，第三方复现与基准对比的可信度受限。"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "VLA 的经典奠基工作有哪些：RT-1/RT-2、Open X-Embodiment 与 RT-X、Diffusion Policy、ALOHA/ACT 等如何定义了「VLA 范式」与后续技术路线？",
+      "queries": [
+        "RT-2 vision-language-action model 2023 CoRL arXiv",
+        "Diffusion Policy visuomotor policy learning 2023 RSS",
+        "Open X-Embodiment dataset RT-X robot learning 2023",
+        "ALOHA ACT learning fine-grained bimanual manipulation 2023"
+      ],
+      "rationale": "需建立方法演进脉络（模块化→端到端→基础模型→统一动作空间），经典工作是理解当前 SOTA 提升归因（数据/架构/算力）的基线。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+          "url": "http://arxiv.org/abs/2608.17095v1",
+          "snippet": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visual tokens of detector localized traffic actors on Alpamayo-R1's Qwen3-VL backbone. It is applied as a fail open forward pre-hook with no weight changes. On 50 lane-change scenarios from the Physical AI World Model Synthetic dataset. The trajectory decoder shows a monotonic dose response in the bias…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-17",
+          "authors": [
+            "Darshan Nagendra Prasad",
+            "Lars Ullrich",
+            "Knut Graichen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.17095v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+          "url": "http://arxiv.org/abs/2607.10797v1",
+          "snippet": "Assembly action understanding is a key enabler for effective human-robot collaborative assembly, yet it remains challenging due to subtle motions and fine-grained hand-object interactions. We adapt vision-language models (VLMs) to this challenging domain with Compositional Context Fine-Tuning (CCFT), a method that decomposes assembly actions into semantic elements (Verb, Object, Tool) and fine-tunes VLMs to recognize each action element using templated question-answering pairs. This approach ensures near-deterministic outputs. To enable efficient and effective multi-task learning under limite…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-12",
+          "authors": [
+            "Hao Zheng",
+            "Jinyi Huang",
+            "Tiantian Zheng",
+            "Xun Xu",
+            "Tuka Alhanai"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.10797v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Models",
+          "url": "http://arxiv.org/abs/2512.11769v1",
+          "snippet": "Vision-language-action (VLA) models enable impressive zero shot manipulation, but their inference stacks are often too heavy for responsive web demos or high frequency robot control on commodity GPUs. We present BLURR, a lightweight inference wrapper that can be plugged into existing VLA controllers without retraining or changing model checkpoints. Instantiated on the pi-zero VLA controller, BLURR keeps the original observation interfaces and accelerates control by combining an instruction prefix key value cache, mixed precision execution, and a single step rollout schedule that reduces per s…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-12",
+          "authors": [
+            "Xiaoyu Ma",
+            "Zhengqing Yuan",
+            "Zheyuan Zhang",
+            "Kaiwen Shi",
+            "Lichao Sun",
+            "Yanfang Ye"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.11769v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection",
+          "url": "http://arxiv.org/abs/2603.13782v1",
+          "snippet": "Vision-Language-Action (VLA) models have demonstrated strong potential for predicting semantic actions in navigation tasks, demonstrating the ability to reason over complex linguistic instructions and visual contexts. However, they are fundamentally hindered by visual-reasoning hallucinations that lead to trajectory deviations. Addressing this issue has conventionally required training external critic modules or relying on complex uncertainty heuristics. In this work, we discover that monitoring a few attention heads within a frozen VLA model can accurately detect path deviations without incu…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-14",
+          "authors": [
+            "Jaehwan Jeong",
+            "Evelyn Zhu",
+            "Jinying Lin",
+            "Emmanuel Jaimes",
+            "Tuan-Anh Vu",
+            "Jungseock Joo",
+            "Sangpil Kim",
+            "M. Khalid Jawed"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.13782v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "Factorizing Diffusion Policies for Observation Modality Prioritization",
+          "url": "http://arxiv.org/abs/2509.16830v1",
+          "snippet": "Diffusion models have been extensively leveraged for learning robot skills from demonstrations. These policies are conditioned on several observational modalities such as proprioception, vision and tactile. However, observational modalities have varying levels of influence for different tasks that diffusion polices fail to capture. In this work, we propose 'Factorized Diffusion Policies' abbreviated as FDP, a novel policy formulation that enables observational modalities to have differing influence on the action diffusion process by design. This results in learning policies where certain obse…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-20",
+          "authors": [
+            "Omkar Patil",
+            "Prabin Rath",
+            "Kartikay Pangaonkar",
+            "Eric Rosen",
+            "Nakul Gopalan"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.16830v1",
+            "rrf_score": 0.02
+          }
+        },
+        {
+          "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models : Open X-Embodiment Collaboration0",
+          "url": "https://arxiv.org/abs/2310.08864",
+          "snippet": "Large, high-capacity models trained on diverse datasets have shown remarkable successes on efficiently tackling downstream applications. In domains from NLP to Computer Vision, this has led to a consolidation of pretrained models, with general pretrained backbones serving as a starting point for many applications. Can such a consolidation happen in robotics? Conventionally, robotic learning methods train a separate model for every application, every robot, and even every environment. Can we instead train \"generalist\" X-robot policy that can be adapted efficiently to new robots, tasks, and env…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2023-10-13",
+          "authors": [
+            "A. Padalkar",
+            "A. Pooley",
+            "Ajinkya Jain",
+            "Alex Bewley",
+            "Alex Herzog",
+            "A. Irpan",
+            "Alexander Khazatsky",
+            "Anant Rai",
+            "Anikait Singh",
+            "Anthony Brohan",
+            "A. Raffin",
+            "Ayzaan Wahid"
+          ],
+          "venue": "IEEE International Conference on Robotics and Automation",
+          "citations": 1211,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.016279
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "候选证据中唯一直接命中「VLA 奠基工作」的是 Open X-Embodiment / RT-X：它把问题设定为「机器人领域能否像 NLP/CV 那样通过大规模多本体数据集预训练实现模型整合，让通用预训练骨干成为下游应用的起点」。",
+            "evidence": "标题『Open X-Embodiment: Robotic Learning Datasets and RT-X Models : Open X-Embodiment Collaboration』，Semantic Scholar 元数据给出 venue=IEEE International Conference on Robotics and Automation (ICRA)、citations=1211；摘要指出「从 NLP 到 CV，大容量模型在多样数据集上训练带来预训练模型整合……机器人学习中这种整合是否可能」为核心问题。",
+            "sources": [
+              46
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2023",
+            "heat": "citations=1211（Semantic Scholar）",
+            "authority": "IEEE International Conference on Robotics and Automation (ICRA)；同行评审会议论文；署名 Open X-Embodiment Collaboration",
+            "attention": "高 — 引用数 1211 且被 ICRA 收录，是本批候选中唯一同时具备高引用与顶会 venue 的条目",
+            "recommendation": "★★★★★ — 本批候选中权威性与热度最高，且直接对应子问题中「Open X-Embodiment 与 RT-X 如何定义跨本体数据/模型整合路线」"
+          },
+          {
+            "point": "候选证据不包含 RT-1、RT-2、原始 Diffusion Policy（Chi et al.）、ALOHA/ACT 的任何一手来源，因此这些工作如何定义「VLA 范式」的具体主张（架构细节、动作 token 化、数据集规模、真机任务数、成功率）在本批证据下无法核实，不应据此下结论。",
+            "evidence": "候选 6 条中：[46] 为 Open X-Embodiment/RT-X；[37] 为 Factorizing Diffusion Policies（2025，扩散策略的观测模态扩展，非原始 Diffusion Policy）；[2][3][28] 分别涉及 VLA 驾驶模型的注意力干预、装配动作理解的 VLM 微调、导航 VLA 的注意力头用于路径偏差检测；[27] 为 π0 上的轻量推理包装 BLURR。均无 RT-1/RT-2/ALOHA/ACT 的标题、摘要或元数据条目。",
+            "sources": [
+              2,
+              3,
+              27,
+              28,
+              37,
+              46
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 — 该判断基于候选集覆盖缺口（负向证据），不涉及任何来源的社区热度信号",
+            "recommendation": "★★★☆☆ — 缺口信息对调研有价值（提示需另行检索 2022–2024 原始论文），但无外部证据支撑 RT-1/RT-2/ACT 的具体贡献，只能作为检索线索"
+          },
+          {
+            "point": "扩散式动作生成仍是 VLA 前史与并行的核心技术支柱之一：候选证据显示扩散策略被持续继承，并沿「多观测模态条件化与模态优先级」方向扩展。",
+            "evidence": "[37] Factorizing Diffusion Policies（2025-09-20, cs.RO）摘要：『Diffusion models have been extensively leveraged for learning robot skills from demonstrations. These policies are conditioned on several observational modalities such as proprioception, vision and tactile. However, observational modalities have varying levels of influence for different tasks that diffusion polices fail to capture』，故提出 Factorized Diffusion Policies 对模态进行优先化。",
+            "sources": [
+              37
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "候选块未提供 citations/stars",
+            "authority": "arXiv 预印本（cs.RO），非同行评审，投稿状态待核实",
+            "attention": "低 — 仅有 arXiv 预印本条目，无引用数、star 或榜单信号可依",
+            "recommendation": "★★★☆☆ — 可作为「扩散策略路线仍在演进」的证据，但既非原始 Diffusion Policy 一手来源，也无权威 venue 与热度支撑"
+          },
+          {
+            "point": "VLA 概念在候选证据中已被拓展到机器人操作之外的两个新领域：自动驾驶（推理阶段 + 扩散轨迹解码器）与导航（语义动作预测），说明「VLA」在 2025–2026 年已成为跨领域通用术语而非单指机械臂操作模型。",
+            "evidence": "[2] 摘要：『Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder』，在 Alpamayo-R1 的 Qwen3-VL 骨干上做推理时注意力偏置，在 Physical AI World Model Synthetic 数据集的 50 个变道场景上测到约 17 cm 平均位移、最大侧向约 140 cm；[28] 摘要：『Vision-Language-Action (VLA) models have demonstrated strong potential for predicting semantic actions in navigation tasks』，发现冻结 VLA 中少量注意力头可检测路径偏差。",
+            "sources": [
+              2,
+              28
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "候选块未提供 citations/stars",
+            "authority": "均为 arXiv 预印本（[2] cs.CV 2026-08-17；[28] cs.RO 2026-03-14），非同行评审",
+            "attention": "低 — 两条均为新近预印本，候选块无引用数、star 或榜单排名信号",
+            "recommendation": "★★★☆☆ — 有助于说明 VLA 术语的领域外溢趋势，但两篇均为未评审预印本，且与「经典奠基工作」子问题的相关性为间接"
+          },
+          {
+            "point": "工程侧已出现针对具体 VLA 控制器（π0）的推理加速与低资源部署工作，表明 VLA 技术路线已进入「部署/推理效率」阶段，而非仅停留在模型规模扩张。",
+            "evidence": "[27] BLURR（2025-12-12, cs.RO）摘要：作为可插入现有 VLA 控制器的轻量推理包装，无需重训练或改 checkpoint，实例化于 π0 VLA 控制器，结合指令前缀 KV cache、混合精度、单步 rollout，在 SimplerEnv 评测中保持与原控制器相当的任务成功率，同时显著降低有效 FLOPs 与墙钟延迟，并提供可切换的交互式 web demo。",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "候选块未提供 citations/stars",
+            "authority": "arXiv 预印本（cs.RO），非同行评审；提及 π0 与 SimplerEnv 为既有公开控制器/基准",
+            "attention": "低 — 仅预印本条目，候选块无引用数或 star 等热度信号",
+            "recommendation": "★★★☆☆ — 对「VLA 后续技术路线含部署效率」的判断有直接支撑，但属于应用层工作，非范式奠基，且证据等级为预印本"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+            "url": "https://arxiv.org/abs/2310.08864",
+            "why": "本批候选中唯一直接对应子问题的奠基级工作，提出跨机构、跨本体机器人数据整合与 RT-X 模型，是「通用机器人策略/通用骨干」路线与 VLA 数据基础的代表性来源。",
+            "year": "2023",
+            "heat": "citations=1211（Semantic Scholar）",
+            "authority": "IEEE International Conference on Robotics and Automation (ICRA)，同行评审会议",
+            "attention": "高 — 1211 次引用且被 ICRA 收录，候选集中权威与热度最高",
+            "recommendation": "★★★★★ — 与子问题直接相关、peer-reviewed、高引用，是本批最值得精读的一手来源"
+          },
+          {
+            "title": "Factorizing Diffusion Policies for Observation Modality Prioritization",
+            "url": "http://arxiv.org/abs/2509.16830v1",
+            "why": "体现扩散策略作为机器人技能学习主流范式仍被继承扩展（多观测模态优先级），可用于说明 Diffusion Policy 路线在 VLA 之前/并行阶段的持续影响。",
+            "year": "2025",
+            "heat": "候选块未提供 citations",
+            "authority": "arXiv 预印本（cs.RO），非同行评审",
+            "attention": "低 — 无引用数/star 等信号",
+            "recommendation": "★★★☆☆ — 只作为扩散策略路线延续的间接证据，非原始 Diffusion Policy 一手来源"
+          },
+          {
+            "title": "BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Models",
+            "url": "http://arxiv.org/abs/2512.11769v1",
+            "why": "说明 VLA 技术路线已延伸到推理效率与低资源部署（以 π0 与 SimplerEnv 为依托），是「后续技术路线」在工程侧的一个节点。",
+            "year": "2025",
+            "heat": "候选块未提供 citations",
+            "authority": "arXiv 预印本（cs.RO），非同行评审",
+            "attention": "低 — 无引用数/star 等信号",
+            "recommendation": "★★★☆☆ — 对工程路线演进有参考价值，但非范式奠基，且证据等级为预印本"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [
+          {
+            "name": "Open X-Embodiment",
+            "url": "https://arxiv.org/abs/2310.08864",
+            "why": "作为 RT-X 模型训练的跨机构、跨本体机器人学习数据集集合，是「机器人数据整合/通用策略」路线的基础数据资产，与子问题中「Open X-Embodiment 与 RT-X」直接对应。",
+            "heat": "citations=1211（Semantic Scholar，与论文条目同一引用计数）",
+            "authority": "Open X-Embodiment Collaboration 发布，配套论文发表于 ICRA",
+            "attention": "高 — 高引用且为顶会配套数据集，属于本批候选中唯一的数据集级条目",
+            "recommendation": "★★★★★ — 与子问题直接相关，是本批唯一可核查的基准级数据资源"
+          }
+        ],
+        "open_problems": [
+          "候选证据缺失 RT-1、RT-2、ALOHA/ACT 的一手来源，无法核实它们对「VLA 范式」的具体定义（如 RT-2 的视觉-语言-动作联合 token 化、ACT 的动作分块与主从遥操作数据采集），需补充检索。",
+          "候选证据缺失原始 Diffusion Policy 论文，无法核实其作为独立奠基工作的方法细节与真机评测口径，仅能通过后续工作[37]间接推断其影响。",
+          "Open X-Embodiment/RT-X 的实际下游泛化收益、跨本体迁移成功率的具体数字在本批候选摘要中未给出，需回原文表格核实。",
+          "VLA 在自动驾驶[2]与导航[28]中的扩展是否共享同一「VLA 范式」定义，还是术语借用，候选证据不足以判断。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "开源项目与工程实践现状：OpenVLA、Octo、openpi/π0、GR00T N1、LeRobot 等开源模型的代码/权重可得性、微调流程、仿真与真机部署成本如何？",
+      "queries": [
+        "OpenVLA open-source vision-language-action model fine-tuning LoRA",
+        "openpi pi0 LeRobot GitHub open source VLA deployment",
+        "GR00T N1 NVIDIA Isaac open source robot foundation model",
+        "VLA 开源 模型 微调 真机部署 工程实践 2025"
+      ],
+      "rationale": "用户关注开源项目与工程落地；需核查 GitHub stars/最近提交、HuggingFace 权重、许可证与复现难度，避免把仅有演示视频当作可用工程栈。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+          "url": "http://arxiv.org/abs/2608.17095v1",
+          "snippet": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visual tokens of detector localized traffic actors on Alpamayo-R1's Qwen3-VL backbone. It is applied as a fail open forward pre-hook with no weight changes. On 50 lane-change scenarios from the Physical AI World Model Synthetic dataset. The trajectory decoder shows a monotonic dose response in the bias…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-17",
+          "authors": [
+            "Darshan Nagendra Prasad",
+            "Lars Ullrich",
+            "Knut Graichen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.17095v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+          "url": "http://arxiv.org/abs/2607.10797v1",
+          "snippet": "Assembly action understanding is a key enabler for effective human-robot collaborative assembly, yet it remains challenging due to subtle motions and fine-grained hand-object interactions. We adapt vision-language models (VLMs) to this challenging domain with Compositional Context Fine-Tuning (CCFT), a method that decomposes assembly actions into semantic elements (Verb, Object, Tool) and fine-tunes VLMs to recognize each action element using templated question-answering pairs. This approach ensures near-deterministic outputs. To enable efficient and effective multi-task learning under limite…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-12",
+          "authors": [
+            "Hao Zheng",
+            "Jinyi Huang",
+            "Tiantian Zheng",
+            "Xun Xu",
+            "Tuka Alhanai"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.10797v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Fine-Tuning Open Video Generators for Cinematic Scene Synthesis: A Small-Data Pipeline with LoRA and Wan2.1 I2V",
+          "url": "http://arxiv.org/abs/2510.27364v1",
+          "snippet": "We present a practical pipeline for fine-tuning open-source video diffusion transformers to synthesize cinematic scenes for television and film production from small datasets. The proposed two-stage process decouples visual style learning from motion generation. In the first stage, Low-Rank Adaptation (LoRA) modules are integrated into the cross-attention layers of the Wan2.1 I2V-14B model to adapt its visual representations using a compact dataset of short clips from Ay Yapim's historical television film El Turco. This enables efficient domain transfer within hours on a single GPU. In the se…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-31",
+          "authors": [
+            "Meftun Akarsu",
+            "Kerem Catay",
+            "Sedat Bin Vedat",
+            "Enes Kutay Yarkan",
+            "Ilke Senturk",
+            "Arda Sar",
+            "Dafne Eksioglu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.27364v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "On the Efficiency of LoRA Fine-Tuning for Vision-Language-Action Models in Industrial Robotic Manipulation",
+          "url": "http://arxiv.org/abs/2607.10172v1",
+          "snippet": "Deploying billion-parameter Vision-Language-Action (VLA) models on industrial hardware requires fine-tuning to bridge the embodiment gap. Full Fine-Tuning (FFT) provides maximal plasticity but requires data centre-grade GPUs. We present a systematic study of Low-Rank Adaptation (LoRA) for $π_0$, a flow-matching VLA, evaluated on four precision assembly tasks with a UR5e robotic manipulator. Across a sweep of LoRA ranks (r=8 to 256), allocation strategies, and component-freezing ablations, we find no statistically significant advantage of FFT over certain LoRA configurations. Performance satur…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-11",
+          "authors": [
+            "Finn Ferchau",
+            "Daniel Pommer",
+            "Cristian Axenie"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.10172v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "LeRobot: An Open-Source Library for End-to-End Robot Learning",
+          "url": "http://arxiv.org/abs/2602.22818v1",
+          "snippet": "Robotics is undergoing a significant transformation powered by advances in high-level control techniques based on machine learning, giving rise to the field of robot learning. Recent progress in robot learning has been accelerated by the increasing availability of affordable teleoperation systems, large-scale openly available datasets, and scalable learning-based methods. However, development in the field of robot learning is often slowed by fragmented, closed-source tools designed to only address specific sub-components within the robotics stack. In this paper, we present \\texttt{lerobot}, a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-26",
+          "authors": [
+            "Remi Cadene",
+            "Simon Aliberts",
+            "Francesco Capuano",
+            "Michel Aractingi",
+            "Adil Zouitine",
+            "Pepijn Kooijmans",
+            "Jade Choghari",
+            "Martino Russi",
+            "Caroline Pascal",
+            "Steven Palma",
+            "Mustafa Shukor",
+            "Jess Moss",
+            "Alexander Soare",
+            "Dana Aubakirova",
+            "Quentin Lhoest",
+            "Quentin Gallouédec",
+            "Thomas Wolf"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.22818v1",
+            "rrf_score": 0.021739
+          }
+        },
+        {
+          "title": "Impromptu VLA: Open Weights and Open Data for Driving Vision-Language-Action Models",
+          "url": "http://arxiv.org/abs/2505.23757v1",
+          "snippet": "Vision-Language-Action (VLA) models for autonomous driving show promise but falter in unstructured corner case scenarios, largely due to a scarcity of targeted benchmarks. To address this, we introduce Impromptu VLA. Our core contribution is the Impromptu VLA Dataset: over 80,000 meticulously curated video clips, distilled from over 2M source clips sourced from 8 open-source large-scale datasets. This dataset is built upon our novel taxonomy of four challenging unstructured categories and features rich, planning-oriented question-answering annotations and action trajectories. Crucially, exper…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-29",
+          "authors": [
+            "Haohan Chi",
+            "Huan-ang Gao",
+            "Ziming Liu",
+            "Jianing Liu",
+            "Chenyu Liu",
+            "Jinwei Li",
+            "Kaisen Yang",
+            "Yangcheng Yu",
+            "Zeda Wang",
+            "Wenyi Li",
+            "Leichen Wang",
+            "Xingtao Hu",
+            "Hao Sun",
+            "Hang Zhao",
+            "Hao Zhao"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.23757v1",
+            "rrf_score": 0.021127
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+            "evidence": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visu…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+            "evidence": "Assembly action understanding is a key enabler for effective human-robot collaborative assembly, yet it remains challenging due to subtle motions and fine-grained hand-object interactions. We adapt vision-language models (VLMs) to this challenging domain with Compositional Context Fine-Tuning (CCFT…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Fine-Tuning Open Video Generators for Cinematic Scene Synthesis: A Small-Data Pipeline with LoRA and Wan2.1 I2V",
+            "evidence": "We present a practical pipeline for fine-tuning open-source video diffusion transformers to synthesize cinematic scenes for television and film production from small datasets. The proposed two-stage process decouples visual style learning from motion generation. In the first stage, Low-Rank Adaptat…",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "On the Efficiency of LoRA Fine-Tuning for Vision-Language-Action Models in Industrial Robotic Manipulation",
+            "evidence": "Deploying billion-parameter Vision-Language-Action (VLA) models on industrial hardware requires fine-tuning to bridge the embodiment gap. Full Fine-Tuning (FFT) provides maximal plasticity but requires data centre-grade GPUs. We present a systematic study of Low-Rank Adaptation (LoRA) for $π_0$, a…",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "LeRobot: An Open-Source Library for End-to-End Robot Learning",
+            "evidence": "Robotics is undergoing a significant transformation powered by advances in high-level control techniques based on machine learning, giving rise to the field of robot learning. Recent progress in robot learning has been accelerated by the increasing availability of affordable teleoperation systems,…",
+            "sources": [
+              9
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Impromptu VLA: Open Weights and Open Data for Driving Vision-Language-Action Models",
+            "evidence": "Vision-Language-Action (VLA) models for autonomous driving show promise but falter in unstructured corner case scenarios, largely due to a scarcity of targeted benchmarks. To address this, we introduce Impromptu VLA. Our core contribution is the Impromptu VLA Dataset: over 80,000 meticulously curat…",
+            "sources": [
+              11
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q4",
+      "question": "数据集与基准生态：Open X-Embodiment、DROID、BridgeData V2、LIBERO、CALVIN、SimplerEnv、RoboTwin、RoboArena 等分别训练/评测什么，真机与仿真 SOTA 的口径是否可比？",
+      "queries": [
+        "DROID dataset robot manipulation in the wild 2024 arXiv",
+        "LIBERO benchmark lifelong robot learning evaluation",
+        "SimplerEnv simulated manipulation policy evaluation real robot",
+        "RoboArena distributed real-robot evaluation 2025 VLA"
+      ],
+      "rationale": "评测口径（任务数、本体数、仿真 or 真机、成功率定义）是判断「SOTA 宣称」可信度的关键，也是交叉验证的核心抓手。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+          "url": "http://arxiv.org/abs/2508.11117v1",
+          "snippet": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenges and desiderata in designing benchmarks for generalist robotic manipulation policies for the goal of sim-to-real policy transfer. We propose 1) utilizing high visual-fidelity simulation for improved sim-to-real transfer, 2) evaluating policies by systematically increasing task complexity and scenar…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-14",
+          "authors": [
+            "Xuning Yang",
+            "Clemens Eppner",
+            "Jonathan Tremblay",
+            "Dieter Fox",
+            "Stan Birchfield",
+            "Fabio Ramos"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.11117v1",
+            "rrf_score": 0.037128,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The RSNA Intracranial Aneurysm (RSNA-ICA) Dataset",
+          "url": "http://arxiv.org/abs/2610.01135v2",
+          "snippet": "Intracranial aneurysm rupture is associated with substantial morbidity and mortality, yet aneurysm detection remains challenging, particularly for small lesions and on routine non-angiographic imaging examinations. To support the development and evaluation of artificial intelligence (AI) algorithms for intracranial aneurysm detection and localization, the Radiological Society of North America (RSNA), in collaboration with the American Society of Neuroradiology (ASNR), the Society of Neurointerventional Surgery (SNIS), and the European Society of Neuroradiology (ESNR), curated the RSNA Intracr…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-10-01",
+          "authors": [
+            "Maria Correia de Verdier",
+            "Rachit Saluja",
+            "Jason Sho",
+            "Maryam Vabarizad",
+            "Rennie Yung-Chieh Chen",
+            "Uyen N. T. Nguyen",
+            "Mona Alrehaili",
+            "Layal Aweidah",
+            "Deniz Bulja",
+            "Wesley C. Chan",
+            "Hernan Chaves",
+            "Madhavi Duvvuri",
+            "Huseyin Ekin Ergin",
+            "Undrakh-Erdene Erdenebold",
+            "Ekim Gumeler",
+            "Mohamed Sobhi Jabal",
+            "Chin-Chi Kuo",
+            "Fatima Mubarak",
+            "Sevde Nur Emir",
+            "Scott Riley K. Ong",
+            "Johanna Ortiz",
+            "Almudena Pérez-Lara",
+            "Andreas M. Rauschecker",
+            "Shayan Sirat Maheen Anwar",
+            "Charit Tippareddy",
+            "Tam Tran",
+            "Sorawis Visrutaratna",
+            "John Mongan",
+            "Adam E. Flanders",
+            "Robyn Ball",
+            "Greg Zaharchuk",
+            "Peter D. Chang",
+            "Felipe Kitamura",
+            "Errol Colak",
+            "Luciano Prevedello",
+            "Tyler Richards",
+            "Data Contributor Group",
+            "Dataset Annotator Group",
+            "Evan Calabrese",
+            "Jeffrey D. Rudie"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2610.01135v2",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+          "url": "http://arxiv.org/abs/2609.24350v1",
+          "snippet": "Robotic foundation models achieve impressive performance on standard manipulation benchmarks, yet these evaluations typically assume clean, timely, and consistent visual observations throughout execution. We introduce LIBERO-VPro, a benchmark for systematically evaluating the closed-loop visual robustness of robotic foundation models by perturbing the visual evidence available during execution. LIBERO-VPro covers four complementary dimensions, including Visual Evidence Degradation, Camera Staleness, Visual Source Consistency, and Task-Relevant Scene Variation, spanning 12 challenge categories…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-21",
+          "authors": [
+            "Huiqiong Li",
+            "Zhiting Mei",
+            "Anirudha Majumdar",
+            "Jingjing Chen",
+            "Yu-Gang Jiang",
+            "Bin Zhu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.24350v1",
+            "rrf_score": 0.019737
+          }
+        },
+        {
+          "title": "HybridFlow: A 2-NFE Generative Policy for Real-Time Robotic Manipulation",
+          "url": "http://arxiv.org/abs/2602.13718v2",
+          "snippet": "Generative policies for robotic manipulation must balance action accuracy with inference latency. We present HybridFlow, a three-stage policy inference procedure requiring two network function evaluations (2-NFE). A Global Jump uses the MeanFlow average velocity to generate a coarse action trajectory; a parameter-free ReNoise interpolation constructs a state at a nonzero refinement time; and a Local Refine queries the instantaneous-velocity limit of the same network at that time. This construction reuses a unified model without distillation. Our analysis characterizes interval-composition err…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-14",
+          "authors": [
+            "Zhenchen Dong",
+            "Fulin Chen",
+            "Jinna Fu",
+            "Jiaming Wu",
+            "Qingran Wu",
+            "Shengyuan Yu",
+            "Hongyu Yu",
+            "Yide Liu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.13718v2",
+            "rrf_score": 0.01875
+          }
+        },
+        {
+          "title": "JENGA: Exploiting Counter-Based RowHammer Countermeasures to Break Real-Time Predictability",
+          "url": "http://arxiv.org/abs/2609.01077v1",
+          "snippet": "Safety-critical real-time systems must satisfy multiple dependability requirements, notably time predictability and security. In such systems, tasks must complete within bounded and known execution times, typically characterised through Worst-Case Execution Time (WCET) analysis. At the same time, DRAM-based platforms are increasingly sensitive to the RowHammer read-disturbance security vulnerability, which has motivated the development of numerous hardware and software countermeasures in both academia and industry. However, the impact of these defences is generally evaluated in terms of avera…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-01",
+          "authors": [
+            "Valentin Abgrall",
+            "Marcello Traiola",
+            "Ruben Salvador",
+            "Maria Méndez Real",
+            "Alessandro Palumbo",
+            "Angeliki Kritikakou"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.01077v1",
+            "rrf_score": 0.018519
+          }
+        },
+        {
+          "title": "RealD$^2$iff: Bridging Real-World Gap in Robot Manipulation via Depth Diffusion",
+          "url": "http://arxiv.org/abs/2511.22505v2",
+          "snippet": "Robot manipulation in the real world is fundamentally constrained by the visual sim2real gap, where depth observations collected in simulation fail to reflect the complex noise patterns inherent to real sensors. In this work, inspired by the denoising capability of diffusion models, we invert the conventional perspective and propose a clean-to-noisy paradigm that learns to synthesize noisy depth, thereby bridging the visual sim2real gap through purely simulation-driven robotic learning. Building on this idea, we introduce RealD$^2$iff, a hierarchical coarse-to-fine diffusion framework that de…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-27",
+          "authors": [
+            "Xiujian Liang",
+            "Jiacheng Liu",
+            "Mingyang Sun",
+            "Qichen He",
+            "Cewu Lu",
+            "Jianhua Sun"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.22505v2",
+            "rrf_score": 0.017857
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q4",
+        "findings": [
+          {
+            "point": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+            "evidence": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenge…",
+            "sources": [
+              63
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "The RSNA Intracranial Aneurysm (RSNA-ICA) Dataset",
+            "evidence": "Intracranial aneurysm rupture is associated with substantial morbidity and mortality, yet aneurysm detection remains challenging, particularly for small lesions and on routine non-angiographic imaging examinations. To support the development and evaluation of artificial intelligence (AI) algorithms…",
+            "sources": [
+              69
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+            "evidence": "Robotic foundation models achieve impressive performance on standard manipulation benchmarks, yet these evaluations typically assume clean, timely, and consistent visual observations throughout execution. We introduce LIBERO-VPro, a benchmark for systematically evaluating the closed-loop visual rob…",
+            "sources": [
+              79
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "HybridFlow: A 2-NFE Generative Policy for Real-Time Robotic Manipulation",
+            "evidence": "Generative policies for robotic manipulation must balance action accuracy with inference latency. We present HybridFlow, a three-stage policy inference procedure requiring two network function evaluations (2-NFE). A Global Jump uses the MeanFlow average velocity to generate a coarse action trajecto…",
+            "sources": [
+              81
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "JENGA: Exploiting Counter-Based RowHammer Countermeasures to Break Real-Time Predictability",
+            "evidence": "Safety-critical real-time systems must satisfy multiple dependability requirements, notably time predictability and security. In such systems, tasks must complete within bounded and known execution times, typically characterised through Worst-Case Execution Time (WCET) analysis. At the same time, D…",
+            "sources": [
+              82
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "RealD$^2$iff: Bridging Real-World Gap in Robot Manipulation via Depth Diffusion",
+            "evidence": "Robot manipulation in the real world is fundamentally constrained by the visual sim2real gap, where depth observations collected in simulation fail to reflect the complex noise patterns inherent to real sensors. In this work, inspired by the denoising capability of diffusion models, we invert the c…",
+            "sources": [
+              84
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q5",
+      "question": "动作表征与策略学习范式之争：action tokenization（离散自回归）vs diffusion policy vs flow matching policy，各自在 VLA 中的适用场景、推理延迟与成功率表现如何？",
+      "queries": [
+        "action tokenization vision-language-action discrete action tokens autoregressive",
+        "FAST efficient action tokenization robot 2024",
+        "flow matching policy robot manipulation vs diffusion policy",
+        "动作离散化 连续动作头 VLA 对比 推理延迟"
+      ],
+      "rationale": "这是最活跃的方法学分歧之一，直接决定模型架构与真机实时性；需以一手实验表格为准对比，区分仿真与真机结果。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+          "url": "http://arxiv.org/abs/2608.17095v1",
+          "snippet": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visual tokens of detector localized traffic actors on Alpamayo-R1's Qwen3-VL backbone. It is applied as a fail open forward pre-hook with no weight changes. On 50 lane-change scenarios from the Physical AI World Model Synthetic dataset. The trajectory decoder shows a monotonic dose response in the bias…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-17",
+          "authors": [
+            "Darshan Nagendra Prasad",
+            "Lars Ullrich",
+            "Knut Graichen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.17095v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "TOAST: Stochastic Robot Action Tokenization for Autoregressive Vision-Language-Action Models",
+          "url": "http://arxiv.org/abs/2610.00899v1",
+          "snippet": "Autoregressive Vision-Language-Action models often represent continuous robot actions as discrete token sequences, enabling action prediction with standard next-token objectives. FAST has substantially improved this representation by compactly encoding action containing diverse temporal frequencies into relatively few tokens. However, while such compression reduces the number of action tokens required for autoregressive prediction, it does not necessarily improve the efficiency of policy learning from limited demonstrations. In particular, FAST typically assigns a single deterministic tokeniz…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-10-01",
+          "authors": [
+            "Keisuke Shirai",
+            "Tomohiro Motoda",
+            "Hanbit Oh",
+            "Ryoichi Nakajo",
+            "Roman Mykhailyshyn",
+            "Ryo Hanai",
+            "Shotaro Miwa",
+            "Yukiyasu Domae"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2610.00899v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "ActionPiece: Rethinking Action Tokenization for Autoregressive Vision-Language-Action Models",
+          "url": "http://arxiv.org/abs/2609.18487v1",
+          "snippet": "Action tokenizers play a central role in autoregressive vision-language-action (VLA) models, determining both the targets for policy training and the executable commands recovered from predicted tokens. Their fidelity is commonly evaluated using pointwise reconstruction metrics such as mean squared error (MSE), yet small individual errors do not fully characterize how faithfully action adjustments across demonstrations are preserved. After compression, similar actions may still cluster around a representative motion, while the adjustments needed for different contexts are diminished, distorte…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-16",
+          "authors": [
+            "Shijie Lian",
+            "Bin Yu",
+            "Zhaolong Shen",
+            "Xiaopeng Lin",
+            "Yichao Du",
+            "Zhirui Zhang",
+            "Laurence T. Yang",
+            "Kai Chen"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.18487v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "X-Tokenizer: A Multimodal Action Tokenizer for Vision-Language-Action Pretraining",
+          "url": "http://arxiv.org/abs/2606.14752v2",
+          "snippet": "Modern Vision-Language-Action (VLA) models must bridge pretrained vision-language reasoning and precise continuous robot control. Existing action tokenizers discretize actions primarily for reconstruction, producing codes that preserve motion geometry but provide only weak semantic supervision to the backbone. We therefore formulate action tokenization not as mere compression, but as semantic interface learning between multimodal reasoning and executable control. To this end, we introduce X-Tokenizer, a lightweight encoder-Semantic Residual Quantization (SRQ)-decoder architecture that provide…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-06-07",
+          "authors": [
+            "Miracle Kang",
+            "Lights Shi",
+            "Lucy Liang",
+            "Roy Gan",
+            "Dongxiu Liu",
+            "Pushi Zhang",
+            "Sylas Chen",
+            "Shawn Qin",
+            "Yinan Zheng",
+            "Jinliang Zheng",
+            "Hao Wang",
+            "Xianyuan Zhan",
+            "Hang Su"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.14752v2",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+          "url": "http://arxiv.org/abs/2607.10797v1",
+          "snippet": "Assembly action understanding is a key enabler for effective human-robot collaborative assembly, yet it remains challenging due to subtle motions and fine-grained hand-object interactions. We adapt vision-language models (VLMs) to this challenging domain with Compositional Context Fine-Tuning (CCFT), a method that decomposes assembly actions into semantic elements (Verb, Object, Tool) and fine-tunes VLMs to recognize each action element using templated question-answering pairs. This approach ensures near-deterministic outputs. To enable efficient and effective multi-task learning under limite…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-12",
+          "authors": [
+            "Hao Zheng",
+            "Jinyi Huang",
+            "Tiantian Zheng",
+            "Xun Xu",
+            "Tuka Alhanai"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.10797v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "M2Tok: Multi-head Multi-codebook Discrete Action Tokenization for Vision-Language-Action Models",
+          "url": "http://arxiv.org/abs/2609.18259v2",
+          "snippet": "Recent advancements have successfully adapted autoregressive language models to process multimodal signals, such as images and actions. Since raw action signals are continuous, effective tokenization is essential to map high-dimensional inputs into compact discrete tokens for autoregressive processing. However, existing discrete action tokenizers often suffer from high reconstruction loss, failing to preserve the fine-grained dynamics required for precise control. This \"discretization bottleneck\" significantly limits the performance ceiling of downstream Vision-Language-Action (VLA) models. T…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-16",
+          "authors": [
+            "Chunpu Xu",
+            "Zhixuan Liang",
+            "Yuhao Zhang",
+            "Chi-Min Chan",
+            "Jessie Wang",
+            "Yang Xiao",
+            "Mengkang Hu",
+            "Xiaokang Yang",
+            "Yao Mu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.18259v2",
+            "rrf_score": 0.022727
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q5",
+        "findings": [
+          {
+            "point": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+            "evidence": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visu…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "TOAST: Stochastic Robot Action Tokenization for Autoregressive Vision-Language-Action Models",
+            "evidence": "Autoregressive Vision-Language-Action models often represent continuous robot actions as discrete token sequences, enabling action prediction with standard next-token objectives. FAST has substantially improved this representation by compactly encoding action containing diverse temporal frequencies…",
+            "sources": [
+              102
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "ActionPiece: Rethinking Action Tokenization for Autoregressive Vision-Language-Action Models",
+            "evidence": "Action tokenizers play a central role in autoregressive vision-language-action (VLA) models, determining both the targets for policy training and the executable commands recovered from predicted tokens. Their fidelity is commonly evaluated using pointwise reconstruction metrics such as mean squared…",
+            "sources": [
+              103
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "X-Tokenizer: A Multimodal Action Tokenizer for Vision-Language-Action Pretraining",
+            "evidence": "Modern Vision-Language-Action (VLA) models must bridge pretrained vision-language reasoning and precise continuous robot control. Existing action tokenizers discretize actions primarily for reconstruction, producing codes that preserve motion geometry but provide only weak semantic supervision to t…",
+            "sources": [
+              104
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+            "evidence": "Assembly action understanding is a key enabler for effective human-robot collaborative assembly, yet it remains challenging due to subtle motions and fine-grained hand-object interactions. We adapt vision-language models (VLMs) to this challenging domain with Compositional Context Fine-Tuning (CCFT…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "M2Tok: Multi-head Multi-codebook Discrete Action Tokenization for Vision-Language-Action Models",
+            "evidence": "Recent advancements have successfully adapted autoregressive language models to process multimodal signals, such as images and actions. Since raw action signals are continuous, effective tokenization is essential to map high-dimensional inputs into compact discrete tokens for autoregressive process…",
+            "sources": [
+              105
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q6",
+      "question": "开放问题与争议：跨本体泛化是否被高估、真机成功率评测的可复现性、数据规模瓶颈、实时推理与安全性，学界与工业界存在哪些分歧与失败案例？",
+      "queries": [
+        "VLA cross-embodiment generalization failure analysis limitations",
+        "robot foundation model data scaling bottleneck open problems 2025",
+        "reproducibility real robot success rate VLA evaluation criticism",
+        "VLA 真机 泛化能力 争议 复现困难 失败案例"
+      ],
+      "rationale": "用户明确要求覆盖开放问题与争议；按方法论要求须纳入 negative results 与复现困难，避免只呈现正面 demo 结论。",
+      "round": 1,
+      "results": [
+        {
+          "title": "When Vision Overrides Language: Evaluating and Mitigating Counterfactual Failures in VLAs",
+          "url": "http://arxiv.org/abs/2602.17659v2",
+          "snippet": "Vision-Language-Action models (VLAs) promise to ground language instructions in robot control, yet in practice often fail to faithfully follow language. When presented with instructions that lack strong scene-specific supervision, VLAs suffer from counterfactual failures: they act based on vision shortcuts induced by dataset biases, repeatedly executing well-learned behaviors and selecting objects frequently seen during training regardless of language intent. To systematically study it, we introduce LIBERO-CF, the first counterfactual benchmark for VLAs that evaluates language following capab…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-19",
+          "authors": [
+            "Yu Fang",
+            "Yuchun Feng",
+            "Dong Jing",
+            "Jiaqi Liu",
+            "Yue Yang",
+            "Zhenyu Wei",
+            "Daniel Szafir",
+            "Mingyu Ding"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.17659v2",
+            "rrf_score": 0.057862,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Robotic VLA Benefits from Joint Learning with Motion Image Diffusion",
+          "url": "http://arxiv.org/abs/2512.18007v1",
+          "snippet": "Vision-Language-Action (VLA) models have achieved remarkable progress in robotic manipulation by mapping multimodal observations and instructions directly to actions. However, they typically mimic expert trajectories without predictive motion reasoning, which limits their ability to reason about what actions to take. To address this limitation, we propose joint learning with motion image diffusion, a novel strategy that enhances VLA models with motion reasoning capabilities. Our method extends the VLA architecture with a dual-head design: while the action head predicts action chunks as in van…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-19",
+          "authors": [
+            "Yu Fang",
+            "Kanchana Ranasinghe",
+            "Le Xue",
+            "Honglu Zhou",
+            "Juntao Tan",
+            "Ran Xu",
+            "Shelby Heinecke",
+            "Caiming Xiong",
+            "Silvio Savarese",
+            "Daniel Szafir",
+            "Mingyu Ding",
+            "Michael S. Ryoo",
+            "Juan Carlos Niebles"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.18007v1",
+            "rrf_score": 0.056089,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "AeroManip-VLA: Scalable Vision-Language-Action Learning for Aerial Manipulation with RL-Generated Demonstrations",
+          "url": "http://arxiv.org/abs/2609.36915v1",
+          "snippet": "Aerial manipulators extend robotic manipulation into 3D workspaces that are difficult for ground-based robots to access, creating new opportunities for general-purpose manipulation. However, extending Vision-Language-Action (VLA) models to aerial robots introduces distinct challenges due to the tight coupling between manipulation and flight, continuously changing observations, and safety-critical physical interactions. These challenges demand diverse training data and systematic policy evaluation, yet collecting demonstrations and evaluating policies directly on physical aerial platforms are…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-29",
+          "authors": [
+            "Rui Huang",
+            "Yanlin Mu",
+            "Lidong Li",
+            "Yucong Wang",
+            "Zichen Yan",
+            "Lin Zhao"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.36915v1",
+            "rrf_score": 0.039657,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "From Foundation to Application: Improving VLA Models in Practice",
+          "url": "http://arxiv.org/abs/2607.06403v1",
+          "snippet": "Despite recent progress of VLA foundation models, the disparity between laboratory conditions and real-world applications continues to impede their practical implementation. To bridge this gap, we present LingBot-VLA 2.0, which advances LingBot-VLA through improvements in three functional domains. (1) Generalization across tasks and embodiments. Compared to the previous version, we revamp the data processing pipeline and curate around 60,000 hours of data for pretraining, including 50,000 hours of robot trajectories spanning 20 robot configurations and 10,000 hours of egocentric human videos.…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-07",
+          "authors": [
+            "Wei Wu",
+            "Fangjing Wang",
+            "Fan Lu",
+            "He Sun",
+            "Shi Liu",
+            "Yunnan Wang",
+            "Yibin Yan",
+            "Yong Wang",
+            "Shuailei Ma",
+            "Xinyang Wang",
+            "Yibin Liu",
+            "Shuai Yang",
+            "Tianxiang Zhou",
+            "Kejia Zhang",
+            "Lei Zhou",
+            "Cheng Su",
+            "Nan Xue",
+            "Bin Tan",
+            "Han Zhang",
+            "Youchao Zhang",
+            "Fei Liao",
+            "Xing Zhu",
+            "Yujun Shen",
+            "Kecheng Zheng"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.06403v1",
+            "rrf_score": 0.038744,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Running VLAs at Real-time Speed",
+          "url": "http://arxiv.org/abs/2510.26742v1",
+          "snippet": "In this paper, we show how to run pi0-level multi-view VLA at 30Hz frame rate and at most 480Hz trajectory frequency using a single consumer GPU. This enables dynamic and real-time tasks that were previously believed to be unattainable by large VLA models. To achieve it, we introduce a bag of strategies to eliminate the overheads in model inference. The real-world experiment shows that the pi0 policy with our strategy achieves a 100% success rate in grasping a falling pen task. Based on the results, we further propose a full streaming inference framework for real-time robot control of VLA. Co…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-30",
+          "authors": [
+            "Yunchao Ma",
+            "Yizhuang Zhou",
+            "Yunhuan Yang",
+            "Tiancai Wang",
+            "Haoqiang Fan"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.26742v1",
+            "rrf_score": 0.035116,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "DyPES-VLA: Learning Shared Dynamics Priors and Embodiment-Specific Control for Cross-Embodiment Manipulation",
+          "url": "http://arxiv.org/abs/2608.06374v1",
+          "snippet": "Vision-Language-Action (VLA) models have become a powerful paradigm for robot manipulation, but training a single generalist policy for heterogeneous robot embodiments remains an open problem. Existing methods have two main limitations. First, they underuse dynamics priors shared across diverse visual and interaction data, limiting cross-embodiment transfer. Second, they require extensive manual preprocessing to convert embodiment-specific actions into a common format. To overcome these limitations, we propose DyPES-VLA, a cross-embodiment VLA that learns shared Dynamics Priors and Embodiment…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-06",
+          "authors": [
+            "Junfeng Li",
+            "Junjie He",
+            "Zhide Zhong",
+            "Yangyang Zheng",
+            "Pingyue Sheng",
+            "Jiayu Dong",
+            "Ruixin Li",
+            "Haodong Yan",
+            "Jiaguan Zhu",
+            "Tianran Zhang",
+            "Runze Yu",
+            "Wen Chen",
+            "Liuqing Yang",
+            "Yuxiang Gao",
+            "Haoang Li"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.06374v1",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q6",
+        "findings": [
+          {
+            "point": "When Vision Overrides Language: Evaluating and Mitigating Counterfactual Failures in VLAs",
+            "evidence": "Vision-Language-Action models (VLAs) promise to ground language instructions in robot control, yet in practice often fail to faithfully follow language. When presented with instructions that lack strong scene-specific supervision, VLAs suffer from counterfactual failures: they act based on vision s…",
+            "sources": [
+              86
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Robotic VLA Benefits from Joint Learning with Motion Image Diffusion",
+            "evidence": "Vision-Language-Action (VLA) models have achieved remarkable progress in robotic manipulation by mapping multimodal observations and instructions directly to actions. However, they typically mimic expert trajectories without predictive motion reasoning, which limits their ability to reason about wh…",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "AeroManip-VLA: Scalable Vision-Language-Action Learning for Aerial Manipulation with RL-Generated Demonstrations",
+            "evidence": "Aerial manipulators extend robotic manipulation into 3D workspaces that are difficult for ground-based robots to access, creating new opportunities for general-purpose manipulation. However, extending Vision-Language-Action (VLA) models to aerial robots introduces distinct challenges due to the tig…",
+            "sources": [
+              87
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "From Foundation to Application: Improving VLA Models in Practice",
+            "evidence": "Despite recent progress of VLA foundation models, the disparity between laboratory conditions and real-world applications continues to impede their practical implementation. To bridge this gap, we present LingBot-VLA 2.0, which advances LingBot-VLA through improvements in three functional domains.…",
+            "sources": [
+              88
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Running VLAs at Real-time Speed",
+            "evidence": "In this paper, we show how to run pi0-level multi-view VLA at 30Hz frame rate and at most 480Hz trajectory frequency using a single consumer GPU. This enables dynamic and real-time tasks that were previously believed to be unattainable by large VLA models. To achieve it, we introduce a bag of strat…",
+            "sources": [
+              12
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "DyPES-VLA: Learning Shared Dynamics Priors and Embodiment-Specific Control for Cross-Embodiment Manipulation",
+            "evidence": "Vision-Language-Action (VLA) models have become a powerful paradigm for robot manipulation, but training a single generalist policy for heterogeneous robot embodiments remains an open problem. Existing methods have two main limitations. First, they underuse dynamics priors shared across diverse vis…",
+            "sources": [
+              89
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [
+    {
+      "coverage": "",
+      "gaps": [],
+      "additional_queries": [],
+      "additional_subquestions": []
+    }
+  ],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 136,
+    "prompt_tokens": 833509,
+    "completion_tokens": 527738,
+    "generated_at": "2026-10-05T23:03:53.141893+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# Vision-Language-Action (VLA) 基础模型调研报告\n\n**日期**：2026-10-05（UTC） ｜ **领域**：具身智能 / Vision-Language-Action (VLA) / 机器人学习 ｜ **检索源数量**：117 条候选来源（引用编号 [1]–[117]），覆盖 6 个结构化子问题（q1–q6）\n\n> **证据可用性声明**：本报告严格基于给定的 6 组结构化发现（q1–q6）与 [1]–[117] 候选来源列表撰写。凡候选块仅提供标题/元数据、未提供摘要正文者，仅作\"存在性 + 标题级\"陈述，具体架构、数据规模、真机成功率一律标注 `> 待核实`。报告中**不含任何编造的引用数、star 数、榜单排名或 URL**。原文明确指出的覆盖缺口（如 RT-1/RT-2/ACT/原始 Diffusion Policy 无一手来源）在正文中如实保留。\n\n---\n\n## 摘要（Executive Summary）\n\n1. **\"基座复用\"成为最新前沿的标志性形态**：2025 BEHAVIOR Challenge 冠军方案直接构建在 Pi0.5（π0.5）之上，并在 flow matching 的 correlated noise、可学习 mixed-layer attention 与 System 2 stage tracking 三层做实质改动；验证环境为 photo-realistic 仿真，**非真机** [49]。\n\n2. **技术重心从\"扩规模\"部分转向\"降本增效与可控性\"**：部署侧出现不改权重、不换 checkpoint 的轻量推理封装（BLURR，实例化于 π0 控制器）[27]；实时推理方面有工作宣称在单张消费级 GPU 上以 30 Hz 帧率 / 最高 480 Hz 轨迹频率运行 pi0 级多视角 VLA [12]。\n\n3. **动作表征（action tokenization）成为 2026 年一个独立且活跃的子战场**：TOAST [102]、ActionPiece [103]、X-Tokenizer [104]、M2Tok [105]、FASTer [106]、Beyond Reconstruction Error [107] 与更早的 FAST [108] 均围绕\"连续动作 → 离散 token\"的保真度与语义监督展开。这直接关系到问题 q5 中\"离散自回归 vs 扩散 vs flow matching\"的范式之争。\n\n4. **跨本体泛化被系统性重审**：候选来源中出现 X-VLA（soft-prompted 跨本体）[92]、DyPES-VLA（共享动力学先验 + 本体特定控制）[89]、Cloak（从 VLA 中屏蔽末端执行器实现零样本跨本体）[90]，说明\"单一通用策略覆盖异构本体\"仍被明确表述为 open problem [89]。\n\n5. **评测方法论正在从仿真 SOTA 转向真机与鲁棒性口径**：RoboArena（分布式真机评测）[85]、PhAIL（真机 VLA 基准与分布方法论）[100]、R2S-Eval（real-to-sim 校准）[101]、LIBERO-VPro（闭环视觉鲁棒性）[79] 与 sim-to-real 评测视角文章 [63] 共同构成本轮新基准群。\n\n6. **失败模式与安全成为一等公民**：有工作专门刻画 VLA 的 counterfactual failures（视觉压过语言）[86]，另有工作用黑盒动作监控区分不同架构的失败签名 [91]。\n\n7. **本批证据的最大缺口**：RT-1、原始 Diffusion Policy、ALOHA/ACT 的一手来源缺失 [q2]；GR00T N1 [17]、Gemini Robotics [52][55]、OpenVLA [4] 等点名模型**仅以标题级信息在来源列表中出现**，其架构、训练数据与真机验证结论在本批证据内**无法成立** [q1]。凡涉及这些内容的论断在本报告中均保守处理。\n\n8. **透明度下降是可引用的外部约束**：2025 Foundation Model Transparency Index 报告平均分由 2024 年 58 分降至 2025 年 40 分，训练数据与训练算力最不透明 [47]，这为\"训练数据是否公开\"这一证据轴提供了外部依据。\n\n---\n\n## 一、关键前沿进展（近 12-24 个月）\n\n### 1.1 基座复用与长程任务适配（2025）\n\n- **Pi0.5 作为下游基座**：BEHAVIOR Challenge 冠军方案（2025，arXiv v2 修订 2025-12-21）在 Pi0.5 上做三层改动：flow matching 的 **correlated noise**（提升训练效率，并支持 correlation-aware inpainting 生成平滑动作序列）、**learnable mixed-layer attention**、**System 2 stage tracking**；训练侧用 multi-sample flow matching 降低方差，推理侧用动作压缩与挑战特定纠错规则。基准含 50 个长程家居任务（双臂操作 + 导航 + 上下文感知决策），**评测为 photo-realistic 仿真** [49]。\n  - 热度：`> 待核实`（候选块无引用数）[49]\n  - 权威：arXiv 预印本（cs.RO），候选块未显示同行评审 venue；\"第 1 名\"为作者自述 [49]\n  - 关注度：**中** —— 竞赛冠军 + 基座复用属社区关注点，但无量化热度信号 [49]\n  - 推荐度：**★★★★☆** —— 本批候选中唯一直接给出 π0.5 系架构与训练细节的来源；扣分项为仅仿真验证、单来源自述 [49]\n  - **归因风险**：其增益中多少来自架构改进、多少来自\"挑战特定纠错规则\"，本批证据不足以拆分 [49]\n\n### 1.2 真机规模数据与通用基础模型发布（2025–2026，标题级证据）\n\n- **Xiaomi-Robotics-1**：标题为 \"Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories\"（arXiv v2, 2026）[53]。标题级证据表明其主张 10 万小时量级真实世界轨迹；**其数据构成、模型规模与真机成功率 `> 待核实`** [53]。\n- **GR00T N1**：标题 \"An Open Foundation Model for Generalist Humanoid Robots\"（arXiv v2, 2025）[17]。仅可确认其为面向通用人形机器人的开放基础模型；架构与验证细节 `> 待核实` [17]。\n- **Gemini Robotics**：来源列表中同时存在 \"Gemini Robotics: Bringing AI into the Physical World\"（2025）[52] 与 \"Gemini Robotics 1.5: Pushing the Frontier of Generalist Robots with Advanced Embodied Reasoning, Thinking, and Motion Transfer\"（v3, 2025）[55]；另有第三方视角的 \"Evaluating Gemini Robotics Policies in a Veo World Simulator\"（v2, 2025）[54]。**架构、训练数据、真机任务数与成功率一律 `> 待核实`** [52][54][55]。\n- **OpenVLA**：来源列表含 \"OpenVLA: An Open-Source Vision-Language-Action Model\"（v3）[4]，其开源属性可从标题确认；具体微调流程与评测口径 `> 待核实` [4]。\n\n### 1.3 部署效率与实时推理（2025–2026）\n\n- **BLURR**：被描述为 lightweight inference wrapper，可插入既有 VLA 控制器而**无需重训练或更换 checkpoint**，以 pi-zero（π0 系）控制器实例化；q2 抽取块进一步给出其技术组合（指令前缀 KV cache、混合精度、单步 rollout），并称在 SimplerEnv 上保持与原控制器相当的任务成功率、显著降低有效 FLOPs 与墙钟延迟，且提供可切换的交互式 web demo [27]。\n  - 热度：`> 待核实` [27]\n  - 权威：arXiv 预印本（cs.RO, 2025-12-12），非同行评审；无官方开源仓库信息 [27]\n  - 关注度：**中** —— 直指 π0 系模型落地瓶颈，属工程热点 [27]\n  - 推荐度：**★★★☆☆** —— 覆盖部署维度，但**加速收益的具体数字与开源可复现性在本批证据中仍待核实** [27]\n  - 注：q1 与 q2 两处抽取块对 BLURR 的细节颗粒度不同（q1 称无量化数据，q2 摘要称其报告了 FLOPs/延迟收益），本报告按\"作者自述收益、缺独立量化核验\"处理 `> 待核实` [27]\n- **Running VLAs at Real-time Speed**：摘要称在**单张消费级 GPU** 上以 30 Hz 帧率、最高 480 Hz 轨迹频率运行 pi0 级多视角 VLA，从而支撑此前被认为不可达的动态实时任务 [12]。热度 `> 待核实`；权威为 arXiv 预印本（cs.RO, 2025）[12]。\n- **HybridFlow**：提出三阶段、仅需 **2-NFE**（two network function evaluations）的生成式策略推理流程，Global Jump 用 MeanFlow 平均速度生成粗动作轨迹 [81]。标题与摘要级证据支持\"生成式策略的延迟—精度权衡\"这一命题 [81]；量化对照 `> 待核实`。\n- **微调效率**：存在针对 π0 的 LoRA 系统性研究，指出全量微调（FFT）需数据中心级 GPU，LoRA 用于弥合 embodiment gap [8]；另有 \"Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success\" [1] 与 \"VLA-Adapter: An Effective Paradigm for Tiny-Scale Vision-Language-Action Model\" [15]。三者具体加速倍数与成功率提升 `> 待核实` [1][8][15]。\n\n### 1.4 动作表征的前沿活跃度（见第二章展开）\n\n2026 年集中出现一批 action tokenization 工作：TOAST（随机动作 tokenization）[102]、ActionPiece（重审 token 保真度，指出点式重建指标 MSE 的局限）[103]、X-Tokenizer（多模态动作 tokenizer，强调语义监督弱的问题）[104]、M2Tok（multi-head multi-codebook）[105]、FASTer（神经动作 tokenization）[106]、Beyond Reconstruction Error（解析与数据驱动 tokenization）[107]，以及更早的 FAST [108]。这一簇工作的存在本身即为\"离散自回归路线仍在被工程化推进\"的证据 [102][103][104][105][106][107][108]。\n\n### 1.5 评测向真机与鲁棒性迁移\n\n- **RoboArena**：标题为 \"Distributed Real-World Evaluation of Generalist Robot Policies\"（v2, 2025）[85]。\n- **PhAIL**：标题为 \"A Real-Robot VLA Benchmark and Distributional Methodology\"（2026）[100]。\n- **R2S-Eval**：标题为 \"Robot Evaluation with Real-to-Sim Calibration via Vision-Language Models\"（2026）[101]。\n- **LIBERO-VPro**：面向机器人基础模型的**闭环视觉鲁棒性**评测；摘要指出标准基准通常假设执行全程观测干净、及时且一致 [79]。\n- **sim-to-real 评测视角**：有文章专门讨论仿真基准与真实世界通用策略评测之间的落差 [63]；更早的 \"Evaluating Real-World Robot Manipulation Policies in Simulation\" [80] 是该口径的先行来源。\n- 热度/引用数：上述条目候选块均未提供 `> 待核实` [63][79][80][85][100][101]；权威均为 arXiv 预印本（cs.RO，除 [85] 未在抽取块中标明分类）[63][79][85][100][101]。\n\n### 1.6 失败模式、安全与可控性\n\n- **语言跟随失败**：有工作定义 VLA 的 **counterfactual failures** —— 当指令缺少强场景特定监督时，模型基于视觉而非语言行动 [86]。\n- **架构相关失败签名**：有工作用黑盒动作监控区分不同 VLA 架构的失败模式 [91]。\n- **推理期干预**：在驾驶域 VLA（Qwen3-VL backbone + 扩散轨迹解码器，Alpamayo-R1）上，对检测器定位的交通参与者视觉 token 施加**有界加性 pre-softmax 注意力偏置**，以 fail-open forward pre-hook 实现、不改变权重；在 Physical AI World Model Synthetic 数据集的 50 个变道场景上观察到对偏置幅度的**单调剂量响应**，达到约 17 cm 平均位移、clamp 处横向偏移可达约 140 cm；层消融显示动作相关信号位于较晚层 [2]。\n  - 权威：arXiv 预印本（cs.CV, 2026-08-17），非同行评审；**仅合成数据集** [2]\n  - 推荐度：**★★★☆☆** —— 机制与数字描述具体，但任务域（驾驶）与操作类 VLA 相关性有限 [2]\n- **导航域注意力头复用**：有工作发现冻结 VLA 中少量注意力头即可检测路径偏差 [28]。\n\n### 1.7 领域外溢与综述\n\n- VLA 术语已外溢至**空中操作**（AeroManip-VLA，用 RL 生成示范）[87]、**导航**[28]、**自动驾驶**[2][11]，说明\"VLA\"在 2025–2026 年已成为跨领域通用术语而非单指机械臂操作模型 [q2]。\n- 综述层面存在 \"Survey of Vision-Language-Action Models for Embodied Manipulation\"（v2, 2025）[50] 与面向移动服务机器人的系统性综述 [56]，可作为本主题的分类骨架起点；**其 taxonomy 细节 `> 待核实`** [50][56]。\n- **透明度约束**：Foundation Model Transparency Index 2025 显示平均分从 2024 年 58 分降至 40 分，训练数据与训练算力最不透明 [47]。这为\"训练数据是否公开\"这一轴提供外部依据，但**不能说明任何具体 VLA 模型的架构** [47]。\n\n---\n\n## 二、方法范式对比（离散动作 / 扩散 / Flow Matching / 双系统）\n\n> **口径提示**：本章各范式的\"成功率/延迟\"数字在本批证据中**普遍缺失**，仅能对比机制。凡无一手表格支撑的性能比较，一律标注 `> 待核实`。\n\n| 范式 | 代表工作 | 机制要点 | 被宣称的优势 | 局限 / 待核实项 | 引用 |\n|---|---|---|---|---|---|\n| 离散自回归（action tokenization） | FAST [108]；TOAST [102]；ActionPiece [103]；X-Tokenizer [104]；M2Tok [105]；FASTer [106]；Beyond Reconstruction Error [107] | 将连续动作压缩为离散 token 序列，用标准 next-token 目标预测 | FAST 被描述为通过紧凑编码含多样时间频率的动作，\"substantially improved\"该表征 [102]；多 codebook / 多头设计提升容量 [105]；X-Tokenizer 指出以语义监督为目标的 token 设计动机 [104] | ActionPiece 明确指出现有 tokenizer 保真度常用**点式重建指标（如 MSE）**评估，而该指标不足 [103]；X-Tokenizer 指出既有 tokenizer 主要面向重建、对下游**语义监督弱** [104]；各方法的真机成功率与推理延迟 `> 待核实` [102][103][104][105][106][107][108] | [102][103][104][105][106][107][108] |\n| 扩散策略（Diffusion Policy） | 原始 Diffusion Policy [38]；Factorizing Diffusion Policies [37]；RealD²iff（深度扩散桥接 sim2real）[84]；Diffusion Policy Policy Optimization [116] | 用扩散过程建模动作分布（可多模态）；RealD²iff 反向利用扩散去噪能力修正仿真深度噪声 [84] | 多模态动作分布建模；扩散可用于补足真实传感器噪声模式 [84] | **原始 Diffusion Policy 一手来源在本批候选块中缺失**，其方法细节与真机评测口径 `> 待核实` [38][q2]；[37] 指出不同观测模态（本体感知/视觉/触觉）影响力随任务变化、扩散策略未能刻画，故做模态优先化 [37] | [37][38][84][116] |\n| Flow Matching 策略 | π0 系（经 [27][8][1] 间接引用）；Streaming Flow Policy [117]；HybridFlow（2-NFE）[81]；BEHAVIOR 冠军方案的 correlated noise flow matching [49] | 将动作轨迹视为流轨迹，学习速度场做少步积分 [117][81]；[49] 在 flow matching 上引入 **correlated noise** 与 correlation-aware inpainting | [49] 称 correlated noise 提升训练效率并支持生成平滑动作序列；[81] 称三阶段流程仅需 2 次网络函数评估；[117] 标题即主张\"把动作轨迹当作流轨迹\"以简化 diffusion/flow-matching 策略 | [49] 的收益为作者自述且仅仿真 [49]；[81][117] 的延迟与成功率量化对照 `> 待核实` | [1][8][27][49][81][117] |\n| 双系统 / 分层（System 1–2） | [49] 的 System 2 stage tracking；Gemini Robotics 1.5 标题中的 \"Advanced Embodied Reasoning, Thinking, and Motion Transfer\" [55]；分层实时推理 [12] | 高层语义/阶段推理与低层动作生成解耦 | [49] 称 System 2 stage tracking 用于处理歧义 [49]；[55] 标题级表明其强调 embodied reasoning 与 thinking [55] | [55] 仅标题级证据，具体 thinking 机制 `> 待核实` [55]；[49] 的 System 2 与\"挑战特定纠错规则\"耦合，归因不清 [49] | [12][49][55] |\n\n**范式判断上的三点纪律**：\n\n1. **不要把仿真 SOTA 当范式胜负的证据**。BEHAVIOR 冠军方案在 photo-realistic 仿真中评测 [49]，注意力引导实验在合成数据集上评测 [2]，二者都不构成真机口径下的范式比较。\n2. **离散 vs 连续的争论在 2026 年已细化到\"tokenizer 质量\"层面**：ActionPiece 指出重建指标不足 [103]、X-Tokenizer 指出语义监督弱 [104]，说明该路线的瓶颈被定位在 tokenization 设计而非自回归框架本身。\n3. **flow matching 已被当作可复用的基座组件**：π0.5 被下游在保持基座的前提下改造 [49]，而 π0 也被部署侧封装直接复用 [27]，这比\"某范式在单榜上领先\"更能说明其工程生命力。\n\n---\n\n## 三、经典与奠基性工作\n\n> **重要限定**：本批候选证据**只包含 Open X-Embodiment / RT-X 的一手条目** [39][46]；RT-1、RT-2、原始 Diffusion Policy、ALOHA/ACT、Octo、π0 的原始论文均**未在本批抽取块中出现正文级信息** [q2]。下列表格中这些行仅依据\"领域已知种子资源清单\"给出存在性与链接，热度/权威/关注度/推荐度凡无本批证据支撑者一律标注 `> 待核实`，请勿将本表数值化字段当作已核实结论。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Open X-Embodiment: Robotic Learning Datasets and RT-X Models | 2023 | Open X-Embodiment Collaboration | citations=1211（Semantic Scholar）[46] | IEEE ICRA，同行评审会议 [46] | **高** —— 1211 次引用 + 顶会收录，本批候选中唯一同时具备高引用与顶会 venue 的条目 [46] | **★★★★★** —— 直接对应\"跨本体数据整合 + 通用骨干\"路线，本批最值得精读的一手来源 [46] | https://arxiv.org/abs/2310.08864 [39][46] | 把问题设定为\"机器人领域能否像 NLP/CV 那样通过大规模多本体数据预训练实现模型整合\"；另一条目 [39] 为同论文的不同版本索引 |\n| RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control | 2023 | Google DeepMind（种子清单） | `> 待核实`（本批抽取块未提供引用数）[26] | arXiv v1 [26]；是否同行评审 `> 待核实` | `> 待核实` —— 仅有标题级条目，无引用/star/榜单信号 [26] | **★★★☆☆** —— VLA 范式定义的公认起点之一，但本批证据仅到标题级，\"动作 token 化/涌现泛化\"等具体主张须回原文核实 [26] | http://arxiv.org/abs/2307.15818v1 [26] | 种子清单记为\"VLM 直接输出动作 token，涌现泛化\"；本报告不对该描述的真实性做证据背书 `> 待核实` |\n| RT-1: Robotics Transformer for Real-World Control at Scale | 2022 | Google Research（种子清单） | `> 待核实` | `> 待核实`（**本批来源列表无对应编号**） | `> 待核实` | **★★★☆☆** —— 大规模真机 Transformer 模仿学习的起点，但**本批证据完全未覆盖**，仅作检索线索 | https://arxiv.org/abs/2212.06817（种子资源） | 种子清单记为\"大规模真机 Transformer 模仿学习\"；**需另行检索方可引用其任何数字** |\n| Diffusion Policy: Visuomotor Policy Learning via Action Diffusion | 2023 | Columbia / Toyota（种子清单） | `> 待核实`（q2 明确：原始 Diffusion Policy 一手来源在候选块中缺失）[38][q2] | arXiv v5 [38]；venue `> 待核实` | `> 待核实` [38] | **★★★★☆** —— 扩散式动作生成范式的奠基来源，与本主题的动作表征章直接相关；但本批仅有版本化条目、无正文细节 [38] | http://arxiv.org/abs/2303.04137v5 [38] | 影响可由后续工作间接佐证：[37] 在其基础上做观测模态优先化 [37] |\n| ALOHA / ACT: Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware | 2023 | Stanford（种子清单） | `> 待核实` | `> 待核实`（**本批来源列表无对应编号**） | `> 待核实` | **★★★☆☆** —— 低成本双臂遥操作 + action chunking 的代表，但本批证据未覆盖 | https://arxiv.org/abs/2304.13705（种子资源） | 需补检以核实\"动作分块\"与数据采集范式的具体主张 |\n| Octo: An Open-Source Generalist Robot Policy | 2024 | UC Berkeley（种子清单） | `> 待核实` | `> 待核实`（**本批来源列表无对应编号**） | `> 待核实` | **★★★☆☆** —— 开源通用策略的经典基线，本批证据未覆盖 | https://arxiv.org/abs/2405.12213（种子资源） | 与第四章开源生态相关，需补检 |\n| OpenVLA: An Open-Source Vision-Language-Action Model | 2024 | Stanford et al.（种子清单） | `> 待核实` [4] | arXiv v3 [4]；venue `> 待核实` | `> 待核实` [4] | **★★★★☆** —— 7B 开源 VLA、被广泛用作基线，是本主题开源轴的核心条目；但本批仅有标题级证据 [4] | http://arxiv.org/abs/2406.09246v3 [4] | 种子清单记为\"7B 开源 VLA，广泛用作基线\" |\n| π0: A Vision-Language-Action Flow Model for General Robot Control | 2024 | Physical Intelligence（种子清单） | `> 待核实` | `> 待核实`（**本批来源列表无 π0 原始论文编号**） | **中** —— 其影响可通过下游复用间接观察：[49] 复用 π0.5、[27] 在 π0 控制器上做推理封装、[8] 对 π0 做 LoRA 研究 | **★★★★☆** —— 本主题 flow matching 路线的关键基座，多篇候选工作以其为依托；原始论文细节须补检 | https://arxiv.org/abs/2410.24164（种子资源） | 本批证据只能**间接**推断其影响，不能引用其原始指标 [1][8][27][49] |\n| Factorizing Diffusion Policies for Observation Modality Prioritization | 2025 | —（候选块未给作者） | `> 待核实` [37] | arXiv 预印本（cs.RO），非同行评审 [37] | **低** —— 无引用数/star 信号 [37] | **★★★☆☆** —— 仅作为\"扩散策略路线仍在演进\"的旁证，非原始 Diffusion Policy 一手来源 [37] | http://arxiv.org/abs/2509.16830v1 [37] | 摘要指出本体感知/视觉/触觉等模态影响力随任务变化而扩散策略未能刻画，故做模态优先化 [37] |\n\n**经典章节的结论**：在本批可核查证据范围内，**只有 Open X-Embodiment / RT-X 同时具备\"高引用 + 同行评审 + 与主题直接相关\"三重属性** [46]。其余经典工作的存在性可确认（种子清单/来源列表），但其方法细节与数字**一律待核实**——这正是子问题 q2 的核心缺口。\n\n---\n\n## 四、开源项目与工程实践\n\n> **口径**：本批证据中**没有**任何条目提供 GitHub star 数、fork 数或最近提交时间 `> 待核实`。下表的\"热度\"列因此普遍为空值，请勿据此判断项目活跃度。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| openvla/openvla | 2024 | Stanford et al.（种子清单） | `> 待核实` | 官方 GitHub 仓库（种子清单），配套论文 arXiv v3 [4] | **中** —— 被广泛用作 VLA 基线的开源实现；但本批无 star/采用度数据 `> 待核实` [4] | **★★★★☆** —— 本主题最常用的开源 VLA 基线之一，工程入门首选 | https://github.com/openvla/openvla（种子资源）[4] | OpenVLA 论文见 [4] |\n| Physical-Intelligence/openpi | 2024– | Physical Intelligence（种子清单） | `> 待核实` | 官方仓库（种子清单） | **中** —— π0 系被多处候选工作作为基座/控制器复用 [8][27][49] | **★★★★☆** —— 若要复现 flow matching 路线与 π0 系微调，这是唯一指定入口 | https://github.com/Physical-Intelligence/openpi（种子资源）[8][27][49] | LoRA 微调 π0 的系统研究见 [8] |\n| octo-models/octo | 2024 | UC Berkeley（种子清单） | `> 待核实` | 官方仓库（种子清单）；**论文未在本批来源列表中** | `> 待核实` | **★★★☆☆** —— 开源通用策略经典实现，本批证据未覆盖，需补检 | https://github.com/octo-models/octo（种子资源） | 与第三章 Octo 条目同源 |\n| tonyzhaozh/aloha | 2023 | Stanford（种子清单） | `> 待核实` | 官方仓库（种子清单）；**论文未在本批来源列表中** | `> 待核实` | **★★★☆☆** —— 低成本双臂硬件 + ACT 的软硬件一体参考 | https://github.com/tonyzhaozh/aloha（种子资源） | 需补检以核实硬件 BOM 与复现成本 |\n| real-stanford/diffusion_policy | 2023 | Columbia / Toyota（种子清单） | `> 待核实` | 官方仓库（种子清单）；论文见 arXiv v5 [38] | `> 待核实` [38] | **★★★★☆** —— 扩散策略范式的官方实现，动作表征章的直接落地入口 | https://github.com/real-stanford/diffusion_policy（种子资源）[38] | — |\n| LeRobot: An Open-Source Library for End-to-End Robot Learning | 2026 | —（候选块未给作者） | `> 待核实` [9] | arXiv 预印本（cs.RO, 2026）[9] | **中** —— 端到端 robot learning 的开源库，属生态型项目；无 star/下载量数据 `> 待核实` [9] | **★★★★☆** —— 摘要提及\"affordable teleoperation systems\"与数据可得性推进该领域，是工程实践轴的关键条目 [9] | http://arxiv.org/abs/2602.22818v1 [9] | 摘要级证据，具体支持的模型/硬件清单 `> 待核实` [9] |\n| On the Efficiency of LoRA Fine-Tuning for VLA in Industrial Robotic Manipulation | 2026 | —（候选块未给作者） | `> 待核实` [8] | arXiv 预印本（cs.RO, 2026）[8] | **中** —— 直指工业硬件上的微调成本问题，是部署侧的实操关注点 [8] | **★★★★☆** —— 面向 π0 给出 LoRA 的系统性研究，对\"用消费级/工业级 GPU 微调 VLA\"有直接参考价值；具体效率数字 `> 待核实` [8] | http://arxiv.org/abs/2607.10172v1 [8] | 摘要指出 FFT 需数据中心级 GPU 以弥合 embodiment gap [8] |\n| Isaac Lab / Isaac Gym | 2025 / 2021 | NVIDIA（标题级） | `> 待核实` [19][20] | arXiv 预印本 [19][20] | **中** —— GPU 加速机器人仿真与学习的行业标配工具链 [19][20] | **★★★☆☆** —— VLA 大规模数据合成与并行训练的常见依赖，虽非 VLA 本体但影响数据与训练成本 [19][20] | http://arxiv.org/abs/2511.04831v1 [19]；http://arxiv.org/abs/2108.10470v2 [20] | NVIDIA Isaac Sim 相关条目见 [24] |\n| Impromptu VLA（开放权重与开放数据） | 2025 | —（候选块未给作者） | `> 待核实` [11] | arXiv 预印本（cs.CV, 2025）[11] | **中** —— 面向驾驶 VLA 的非结构化 corner case，主打 open weights + open data [11] | **★★★☆☆** —— 与\"开源可得性\"轴相关，但域为驾驶；数据集规模\"over 80,000\"为摘要自述，需回原文核实 [11] | http://arxiv.org/abs/2505.23757v1 [11] | 开源项目的可复现性验证 `> 待核实` |\n\n**工程实践的四点观察**：\n\n1. **部署侧出现\"零重训封装\"路线**，试图在不改权重、不换 checkpoint 的前提下提升 π0 系控制器的推理效率 [27] —— 这意味着工程优化开始与模型迭代解耦。\n2. **微调成本被明确问题化**：LoRA vs FFT 的取舍被作为工业落地瓶颈讨论 [8]，并有专门针对\"速度与成功率\"权衡的微调研究 [1] 与 tiny-scale 方案 [15]。\n3. **仿真工具链（Isaac Lab / Isaac Gym / Isaac Sim）**是数据与训练成本侧的隐性基础设施 [19][20][24]。\n4. **开源可复现性仍是缺口**：BLURR 无开源仓库信息 [27]，LeRobot 支持的模型清单待核实 [9]，多个\"open weights/open data\"宣称未在本批证据中附可访问链接 [11] `> 待核实`。\n\n---\n\n## 五、数据集与评测基准\n\n> **口径纪律**：本表严格区分「训练数据集」与「评测基准」，并对\"真机 vs 仿真\"标注。任何未在候选块中出现的数字均标注 `> 待核实`。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明（训练/评测 · 真机/仿真） |\n|---|---|---|---|---|---|---|---|---|\n| Open X-Embodiment (OXE) / RT-X | 2023 | Open X-Embodiment Collaboration | citations=1211（Semantic Scholar）[46] | ICRA 同行评审配套数据集 [46]；官方主页见种子资源 | **高** —— 本批唯一同时具备高引用与顶会 venue 的数据集级条目 [46] | **★★★★★** —— 跨本体预训练的数据基石，q2 与 q4 的交汇点 [46] | https://robotics-transformer-x.github.io/（种子资源）[39][46] | **训练**数据集（跨机构、跨本体）；种子清单记为\"22 种本体、100 万+ episodes\"，**该数字须回官方主页核实** `> 待核实` |\n| DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset | 2024 | —（候选块未给作者） | `> 待核实` [66] | arXiv v2 [66] | **中** —— 大规模真实场景操作数据的代表 [66] | **★★★★☆** —— 真机数据多样性的关键资产，与\"数据规模瓶颈\"章直接相关 [66] | 官方主页 https://droid-dataset.github.io/（种子资源）；论文 http://arxiv.org/abs/2403.12945v2 [66] | **训练**数据集（真机、in-the-wild）；规模与采集机构数 `> 待核实` |\n| BridgeData V2 | — | RAIL Berkeley（种子清单） | `> 待核实` | `> 待核实`（**本批来源列表无对应编号**） | `> 待核实` | **★★★☆☆** —— 多场景桌面操作的经典数据集，本批证据未覆盖 | https://rail-berkeley.github.io/bridgedata/（种子资源） | **训练**数据集（真机、桌面操作） |\n| LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning | 2023 | —（候选块未给作者） | `> 待核实` [74] | arXiv v2 [74] | **中** —— 终身学习操作基准的常用评测入口 [74] | **★★★★☆** —— 观察 VLA 在知识迁移/终身学习轴表现的常用基准；任务数与指标 `> 待核实` [74] | https://libero-project.github.io/（种子资源）；论文 http://arxiv.org/abs/2306.03310v2 [74] | **评测**基准（多为仿真）；终身学习导向 [74] |\n| LIBERO-VPro | 2026 | —（候选块未给作者） | `> 待核实` [79] | arXiv 预印本（cs.RO, 2026）[79] | **中** —— 直指\"标准基准假设观测干净及时一致\"这一被忽视前提 [79] | **★★★★☆** —— 若关心 VLA 在真实视觉扰动下的鲁棒性，这是本批最贴合的新基准 [79] | http://arxiv.org/abs/2609.24350v1 [79] | **评测**基准（闭环视觉鲁棒性）；扰动种类与通过阈值 `> 待核实` [79] |\n| SimplerEnv | 2024 | —（候选块未给作者） | `> 待核实` [80] | arXiv（2024）[80] | **中** —— 被 [27] 用作 π0 系控制器效果的评测环境，说明其被社区实际使用 [27][80] | **★★★★☆** —— \"在仿真里复现真机策略评测\"这一方法论的先行基准，对 sim-real 口径可比性问题至关重要 [80] | https://simpler-env.github.io/（种子资源）；论文 http://arxiv.org/abs/2405.05941v1 [80] | **评测**基准（仿真）；[27] 报告称在该环境上保持与原控制器相当的成功率 `> 待核实` [27] |\n| RoboArena | 2025 | —（候选块未给作者） | `> 待核实` [85] | arXiv v2 [85] | **中** —— 标题即主张\"分布式真机评测\"，回应可复现性争议 [85] | **★★★★☆** —— 与第六章\"真机成功率可复现性\"直接对应，是本批最重要的评测方法论条目之一 [85] | http://arxiv.org/abs/2506.18123v2 [85] | **评测**基准（真机、分布式）；参与机构规模与协议 `> 待核实` |\n| PhAIL: A Real-Robot VLA Benchmark and Distributional Methodology | 2026 | —（候选块未给作者） | `> 待核实` [100] | arXiv（2026）[100] | **中** —— 真机 VLA 基准 + 分布方法论，属评测方法论新条目 [100] | **★★★★☆** —— 若关注\"真机口径如何统计上站得住\"，本条目最相关 [100] | https://arxiv.org/abs/2605.29710 [100] | **评测**基准（真机）；\"distributional methodology\"具体设计 `> 待核实` |\n| R2S-Eval | 2026 | —（候选块未给作者） | `> 待核实` [101] | arXiv（2026）[101] | **中** —— 用 VLM 做 real-to-sim 校准，属桥接真机与仿真的评测思路 [101] | **★★★☆☆** —— 对 sim-real 可比性问题有方法论价值，但需核实校准精度 [101] | https://arxiv.org/abs/2609.03276 [101] | **评测**方法/基准；是否为闭环真机评测 `> 待核实` |\n| 2025 BEHAVIOR Challenge（50 项长程家居任务，photo-realistic 仿真） | 2025 | —（候选块未给组织方） | `> 待核实`（候选块无参赛规模/引用数）[49] | 候选块描述为 large-scale benchmark，但**未给出官方主页或组织方** `> 待核实` [49] | **中** —— 冠军方案基于 Pi0.5，引发对该基座适配方式的讨论 [49] | **★★★☆☆** —— 长程双臂 + 导航 + 上下文决策的评测场景有价值，但**官方链接缺失，引用前置条件为补检** [49] | `> 待核实`（候选块未提供）[49] | **评测**基准（photo-realistic 仿真，非真机）[49] |\n| Impromptu VLA Dataset | 2025 | —（候选块未给作者） | `> 待核实` [11] | arXiv（cs.CV, 2025）[11] | **中** —— 面向驾驶 VLA 非结构化 corner case 的定向数据 [11] | **★★★☆☆** —— 摘要称 \"over 80,000 meticulously curated\"，为作者自述，须核实 [11] | http://arxiv.org/abs/2505.23757v1 [11] | **训练**数据（驾驶域）；许可与下载方式 `> 待核实` |\n| Physical AI World Model Synthetic | — | 候选块未说明发布方 | `> 待核实` [2] | 候选块仅提及为合成数据集，**无发布方信息** [2] | **低** —— 仅在单篇预印本中被使用，无社区采用度信号 [2] | **★★☆☆☆** —— 仅作该实验的条件说明；来源与许可信息缺失 `> 待核实` [2] | `> 待核实`（候选块未提供）[2] | **评测**数据（合成，50 个变道场景）[2] |\n| Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective | 2025 | —（候选块未给作者） | `> 待核实` [63] | arXiv 预印本（cs.RO, 2025）[63] | **中** —— 直接讨论仿真基准领先于真实世界通用策略评测这一失衡 [63] | **★★★★☆** —— 第五章\"口径是否可比\"这一问题的直接论述来源，建议精读 [63] | http://arxiv.org/abs/2508.11117v1 [63] | **方法论/观点**（非数据集）；具体挑战清单 `> 待核实` [63] |\n| 无关条目剔除说明 | — | — | — | — | — | — | — | 候选来源中 [69] 为医学影像数据集、[70] Waymo 语义分割、[71] 选举话语数据集等，与 VLA 主题无关，已剔除 [69][70][71] |\n\n**口径可比性的三点结论**：\n\n1. **仿真与真机 SOTA 不可直接比较**：本批证据中的\"最好成绩\"分别来自 photo-realistic 仿真（BEHAVIOR [49]）与合成数据集（驾驶注意力引导 [2]），二者与真机成功率之间不存在可比桥接 [63][80]。\n2. **评测正在被\"专业化\"**：从追求单一榜单分数，转向闭环视觉鲁棒性 [79]、分布式真机 [85]、真机 + 分布方法论 [100]、real-to-sim 校准 [101] 等多口径并行。\n3. **数据集数字不可跨源引用**：OXE 的\"22 种本体 / 100 万+ episodes\"来自种子清单口径 [39][46]，Impromptu 的 \"80,000+\" 来自作者摘要 [11]，两者均须回官方主页核实 `> 待核实`。\n\n---\n\n## 六、跨本体泛化与真机部署的开放问题\n\n### 6.1 跨本体泛化是否被高估？\n\n- **学界仍将其列为 open problem**：有工作明确表述\"为异构机器人本体训练单一通用策略仍是开放问题\"，并指出既有两个局限——未充分利用跨本体的共享动力学先验、以及本体特定控制未被分离建模 [89]。同一方向还有 soft-prompted 的跨本体可扩展方案 [92] 与\"屏蔽末端执行器实现零样本跨本体\"的方案 [90]。\n  - 权威：均为 arXiv 预印本，非同行评审 [89][90][92]；热度 `> 待核实`。\n  - 推荐度：**★★★☆☆** —— 可作为\"泛化被高估\"命题的**问题陈述证据**，但本批证据**没有任何跨本体迁移成功率数字**，无法量化\"高估\"程度 [89][90][92]。\n- **Hot 警告**：不要把\"存在跨本体论文\"当作\"泛化已解决\"；也不要把\"存在质疑论文\"当作\"泛化被证伪\"。本批证据只能支持\"该问题仍被活跃研究\" [89][90][92]。\n\n### 6.2 真机成功率评测的可复现性\n\n- **有明确的评测方法论回应**：RoboArena 主张分布式真机评测 [85]，PhAIL 提出真机基准 + 分布方法论 [100]，R2S-Eval 用 VLM 做 real-to-sim 校准 [101]，另有综述性文章指出真实世界通用策略评测落后于仿真 [63]。\n- **失败模式被独立刻画**：VLA 存在 counterfactual failures（视觉压过语言，不忠实跟随指令）[86]；不同架构呈现不同失败签名，可用黑盒动作监控区分 [91]。\n  - 权威：[86][91] 均为 arXiv 预印本，非同行评审；热度 `> 待核实`。\n  - 推荐度：**★★★★☆** —— 这两篇是\"评测不只报成功率、还要报失败类型\"的直接支撑 [86][91]。\n- `> 待核实`：本批证据**未提供任何真机成功率数字**，也未提供跨实验室复现一致性数据。\n\n### 6.3 数据规模瓶颈\n\n- 一侧是**规模扩张**：标题级证据显示存在 10 万小时量级真实世界轨迹的 VLA 数据宣称 [53]，以及面向 corner case 的定向数据构建 [11]。\n- 另一侧是**透明度约束**：Foundation Model Transparency Index 2025 显示平均分由 58 降至 40，训练数据与训练算力最不透明 [47]。这意味着\"数据规模宣称\"**难以被第三方核验** [47][53]。\n- 热度/权威：[47] 为 arXiv 预印本（cs.AI, 2025），作者含 Percy Liang、Rishi Bommasani 等，未见同行评审 venue；引用数 `> 待核实` [47]。\n- 推荐度：**★★★☆☆** —— 不能说明任何具体 VLA 模型架构，但是\"训练数据是否公开\"这一证据轴的最强外部依据 [47]。\n\n### 6.4 实时推理与安全性\n\n- **实时性**：有工作宣称单张消费级 GPU 上 30 Hz 帧率 / 最高 480 Hz 轨迹频率运行 pi0 级多视角 VLA [12]；有 2-NFE 生成式策略 [81]；有零重训推理封装 [27]。三者均为作者自述，**缺少独立第三方复现** `> 待核实`。\n- **安全/可控**：驾驶域 VLA 的推理期注意力偏置提供了\"不重训即可引导注意力\"的机制 [2]；但该实验仅在 50 个合成变道场景上验证，剂量响应的方向性结论**不能外推到其他域** `> 待核实` [2]。\n- **安全与实时性的交叉风险**（本报告判断）：[82] 讨论实时系统的时间可预测性与安全，虽非 VLA 论文，但可作为\"实时 VLA 部署需同时满足 WCET 与安全约束\"的外部参照 [82] `> 待核实`（主题相关性为间接）。\n\n### 6.5 值得保留的负面/失败证据\n\n- **仿真 SOTA 不等于真机可用**：本批候选中 VLA 相关工作的最强成绩均出现在仿真或合成数据上 [2][49]，而 BLURR 在 π0 上的效率收益缺乏真机实验报告 [27]。\n- **归因不清**：BEHAVIOR 冠军方案的增益混杂了架构改动（correlated noise、mixed-layer attention、System 2）与\"挑战特定纠错规则\"，本批证据不足以拆分二者贡献 [49]。\n- **范式对比缺表**：q5 关心的三类范式在推理延迟与成功率上的**同口径对照表在本批证据中完全缺失** `> 待核实` [102][103][104][105][106][107][108][117][81]。\n\n---\n\n## 七、建议关注清单（Watchlist）\n\n| 优先级 | 条目 | 类型 | 引用 | 一句话理由 |\n|---|---|---|---|---|\n| P0 | Task adaptation of VLA: 1st Place Solution for the 2025 BEHAVIOR Challenge | 长程适配 / 基座复用 | [49] | 本批唯一给出 π0.5 系 flow matching 改造细节的来源；注意仅仿真、单来源自述 |\n| P0 | Open X-Embodiment / RT-X | 数据集 + 模型 | [39][46] | 唯一同时具备 1211 引用 + ICRA 同行评审的条目，是跨本体路线的锚点 |\n| P0 | 动作 tokenization 簇：TOAST / ActionPiece / X-Tokenizer / M2Tok / FASTer / Beyond Reconstruction Error / FAST | 动作表征 | [102][103][104][105][106][107][108] | 2026 年最活跃的独立子战场，直接影响 q5 的范式之争；建议按\"重建指标 vs 语义监督\"两条线对读 |\n| P1 | RoboArena / PhAIL / R2S-Eval / LIBERO-VPro | 评测方法论 | [79][85][100][101] | 真机口径、分布统计与视觉鲁棒性的新一代评测群，回应\"可复现性\"争议 |\n| P1 | When Vision Overrides Language / How VLAs Fail Differently | 失败模式 | [86][91] | 把\"语言跟随失败\"与\"架构特定失败签名\"变成可评测对象 |\n| P1 | Running VLAs at Real-time Speed / BLURR / HybridFlow / Streaming Flow Policy | 推理效率 | [12][27][81][117] | 实时性是真机部署的硬门槛；四个方案路线不同，可横向对比但需自建量化实验 |\n| P1 | X-VLA / DyPES-VLA / Cloak | 跨本体泛化 | [89][90][92] | 代表\"共享先验 + 本体特定控制\"\"零样本跨本体\"等新假设，是检验\"泛化是否被高估\"的实验入口 |\n| P2 | Gemini Robotics / Gemini Robotics 1.5 / Evaluating Gemini Robotics in a Veo World Simulator | 产业级基础模型 | [52][54][55] | 标题级证据显示其强调 embodied reasoning/thinking 与 motion transfer；**正文细节须补检后方可引用** |\n| P2 | GR00T N1 / Xiaomi-Robotics-1 / OpenVLA / π0 | 基础模型 | [4][17][53] + 种子资源 | 生态核心节点，但本批证据仅到标题/种子级；是本报告最大的信息缺口 |\n| P2 | On the Efficiency of LoRA FT for VLA / Fine-Tuning VLA: Optimizing Speed and Success / VLA-Adapter / LeRobot | 工程落地 | [1][8][9][15] | 直接决定\"用多少卡、多久、在哪种硬件上能微调出可用策略\" |\n| P2 | Survey of VLA for Embodied Manipulation / Embodied AI with Foundation Models for Mobile Service Robots | 综述 | [50][56] | 可作为分类骨架起点，但需先用本批高等级证据校验其 taxonomy 的时效性 |\n| P3 | The 2025 Foundation Model Transparency Index | 外部约束 | [47] | 用于判断\"训练数据是否公开\"，为任何\"数据规模宣称\"提供核验背景 |\n| P3 | Impromptu VLA | 开放权重/数据（驾驶域） | [11] | 域外但提供 open weights + open data 的对照案例 |\n\n**建议的补检清单（本批证据的明确缺口）**：\n\n1. RT-1（arXiv 2212.06817）、RT-2 [26]、原始 Diffusion Policy [38]、ALOHA/ACT（arXiv 2304.13705）的**正文级核实**：动作 token 化、action chunking、真机任务数与成功率 [q2]。\n2. π0 原始论文（arXiv 2410.24164）与 π0.5 的**一手来源**：本批只能通过 [49] 的下游复用与 [27] 的部署封装间接推断其影响 [q1]。\n3. GR00T N1 [17]、Gemini Robotics [52][54][55]、Xiaomi-Robotics-1 [53] 的**架构与真机验证细节** [q1]。\n4. BLURR [27] 的量化加速收益与时延/吞吐/显存数据，以及是否存在开源仓库 [q1]。\n5. 2025 BEHAVIOR Challenge 官方主页与组织方 [49]，以及 Physical AI World Model Synthetic 数据集的发布方与许可 [2]。\n6. 三类动作表征范式的**同口径延迟—成功率对照表**（[81][102][103][104][105][106][107][108][117] 均未提供可比口径）[q5]。\n\n---\n\n## 参考来源\n\n[1] Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success — http://arxiv.org/abs/2502.19645v2\n[2] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1\n[3] Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos — http://arxiv.org/abs/2607.10797v1\n[4] OpenVLA: An Open-Source Vision-Language-Action Model — http://arxiv.org/abs/2406.09246v3\n[5] Federated Sketching LoRA: A Flexible Framework for Heterogeneous Collaborative Fine-Tuning of LLMs — http://arxiv.org/abs/2501.19389v4\n[6] Fine-Tuning Open Video Generators for Cinematic Scene Synthesis: A Small-Data Pipeline with LoRA and Wan2.1 I2V — http://arxiv.org/abs/2510.27364v1\n[7] LoRA-FAIR: Federated LoRA Fine-Tuning with Aggregation and Initialization Refinement — http://arxiv.org/abs/2411.14961v3\n[8] On the Efficiency of LoRA Fine-Tuning for Vision-Language-Action Models in Industrial Robotic Manipulation — http://arxiv.org/abs/2607.10172v1\n[9] LeRobot: An Open-Source Library for End-to-End Robot Learning — http://arxiv.org/abs/2602.22818v1\n[10] Open Source Software Development Challenges: A Systematic Literature Review on GitHub — http://arxiv.org/abs/2003.10750v3\n[11] Impromptu VLA: Open Weights and Open Data for Driving Vision-Language-Action Models — http://arxiv.org/abs/2505.23757v1\n[12] Running VLAs at Real-time Speed — http://arxiv.org/abs/2510.26742v1\n[13] OSS PESTO: An Open Source Software Project Evaluation and Selection TOol — http://arxiv.org/abs/2102.12267v1\n[14] Robotic VLA Benefits from Joint Learning with Motion Image Diffusion — http://arxiv.org/abs/2512.18007v1\n[15] VLA-Adapter: An Effective Paradigm for Tiny-Scale Vision-Language-Action Model — http://arxiv.org/abs/2509.09372v2\n[16] CoReCon: an open, community-powered collection of Reionization constraints — http://arxiv.org/abs/2309.06480v1\n[17] GR00T N1: An Open Foundation Model for Generalist Humanoid Robots — http://arxiv.org/abs/2503.14734v2\n[18] The Synthesis of Optimal Control Laws Using Isaacs' Method for the Solution of Differential Games — http://arxiv.org/abs/2112.10849v2\n[19] Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning — http://arxiv.org/abs/2511.04831v1\n[20] Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning — http://arxiv.org/abs/2108.10470v2\n[21] Open-Sourcing Highly Capable Foundation Models: An evaluation of risks, benefits, and alternative methods for pursuing open-source objectives — http://arxiv.org/abs/2311.09227v1\n[22] Towards Interpretable Foundation Models of Robot Behavior: A Task Specific Policy Generation Approach — http://arxiv.org/abs/2407.08065v1\n[23] Intent at a Glance: Gaze-Guided Robotic Manipulation via Foundation Models — http://arxiv.org/abs/2601.05336v1\n[24] NVIDIA Isaac Sim: Enabling Scalable, GPU-Accelerated Simulation for Robotics — http://arxiv.org/abs/2606.03551v1\n[25] Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains — http://arxiv.org/abs/2309.11285v1\n[26] RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control — http://arxiv.org/abs/2307.15818v1\n[27] BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Models — http://arxiv.org/abs/2512.11769v1\n[28] Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection — http://arxiv.org/abs/2603.13782v1\n[29\n\n---\n\n*Generated by research-bot · topic=`vla` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=117 · duration=407s · 2026-10-05T23:03:53+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success",
+      "url": "http://arxiv.org/abs/2502.19645v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-02-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+      "url": "http://arxiv.org/abs/2608.17095v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-08-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+      "url": "http://arxiv.org/abs/2607.10797v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-07-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "OpenVLA: An Open-Source Vision-Language-Action Model",
+      "url": "http://arxiv.org/abs/2406.09246v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-06-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Federated Sketching LoRA: A Flexible Framework for Heterogeneous Collaborative Fine-Tuning of LLMs",
+      "url": "http://arxiv.org/abs/2501.19389v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-01-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Fine-Tuning Open Video Generators for Cinematic Scene Synthesis: A Small-Data Pipeline with LoRA and Wan2.1 I2V",
+      "url": "http://arxiv.org/abs/2510.27364v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-10-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "LoRA-FAIR: Federated LoRA Fine-Tuning with Aggregation and Initialization Refinement",
+      "url": "http://arxiv.org/abs/2411.14961v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-11-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "On the Efficiency of LoRA Fine-Tuning for Vision-Language-Action Models in Industrial Robotic Manipulation",
+      "url": "http://arxiv.org/abs/2607.10172v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "LeRobot: An Open-Source Library for End-to-End Robot Learning",
+      "url": "http://arxiv.org/abs/2602.22818v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-02-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Open Source Software Development Challenges: A Systematic Literature Review on GitHub",
+      "url": "http://arxiv.org/abs/2003.10750v3",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2020-03-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Impromptu VLA: Open Weights and Open Data for Driving Vision-Language-Action Models",
+      "url": "http://arxiv.org/abs/2505.23757v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Running VLAs at Real-time Speed",
+      "url": "http://arxiv.org/abs/2510.26742v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "OSS PESTO: An Open Source Software Project Evaluation and Selection TOol",
+      "url": "http://arxiv.org/abs/2102.12267v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2021-02-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Robotic VLA Benefits from Joint Learning with Motion Image Diffusion",
+      "url": "http://arxiv.org/abs/2512.18007v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "VLA-Adapter: An Effective Paradigm for Tiny-Scale Vision-Language-Action Model",
+      "url": "http://arxiv.org/abs/2509.09372v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "CoReCon: an open, community-powered collection of Reionization constraints",
+      "url": "http://arxiv.org/abs/2309.06480v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2023-09-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "GR00T N1: An Open Foundation Model for Generalist Humanoid Robots",
+      "url": "http://arxiv.org/abs/2503.14734v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-03-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "The Synthesis of Optimal Control Laws Using Isaacs' Method for the Solution of Differential Games",
+      "url": "http://arxiv.org/abs/2112.10849v2",
+      "kind": "paper",
+      "venue": "math.OC",
+      "published": "2021-12-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning",
+      "url": "http://arxiv.org/abs/2511.04831v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning",
+      "url": "http://arxiv.org/abs/2108.10470v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-08-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Open-Sourcing Highly Capable Foundation Models: An evaluation of risks, benefits, and alternative methods for pursuing open-source objectives",
+      "url": "http://arxiv.org/abs/2311.09227v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2023-09-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Towards Interpretable Foundation Models of Robot Behavior: A Task Specific Policy Generation Approach",
+      "url": "http://arxiv.org/abs/2407.08065v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-07-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Intent at a Glance: Gaze-Guided Robotic Manipulation via Foundation Models",
+      "url": "http://arxiv.org/abs/2601.05336v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-01-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "NVIDIA Isaac Sim: Enabling Scalable, GPU-Accelerated Simulation for Robotics",
+      "url": "http://arxiv.org/abs/2606.03551v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-06-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control",
+      "url": "http://arxiv.org/abs/2307.15818v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-07-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "BLURR: A Boosted Low-Resource Inference for Vision-Language-Action Models",
+      "url": "http://arxiv.org/abs/2512.11769v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection",
+      "url": "http://arxiv.org/abs/2603.13782v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-03-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "CORL: Research-oriented Deep Offline Reinforcement Learning Library",
+      "url": "http://arxiv.org/abs/2210.07105v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2022-10-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "A Simulation and Modeling of Access Points with Definition Language",
+      "url": "http://arxiv.org/abs/1304.1836v2",
+      "kind": "paper",
+      "venue": "cs.OH",
+      "published": "2013-04-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Explainable Machine Learning for Public Policy: Use Cases, Gaps, and Research Directions",
+      "url": "http://arxiv.org/abs/2010.14374v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2020-10-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Self-Supervised Correspondence in Visuomotor Policy Learning",
+      "url": "http://arxiv.org/abs/1909.06933v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-09-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Conformal Policy Learning for Sensorimotor Control Under Distribution Shifts",
+      "url": "http://arxiv.org/abs/2311.01457v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "Policy Learning with Observational Data",
+      "url": "http://arxiv.org/abs/1702.02896v6",
+      "kind": "paper",
+      "venue": "math.ST",
+      "published": "2017-02-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "OnlineCache: Learning Dynamic Caching Policies with Error Correction for Efficient Diffusion Inference",
+      "url": "http://arxiv.org/abs/2607.29398v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-07-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "Policy Implications of Statistical Estimates: A General Bayesian Decision-Theoretic Model for Binary Outcomes",
+      "url": "http://arxiv.org/abs/2008.10903v4",
+      "kind": "paper",
+      "venue": "stat.ME",
+      "published": "2020-08-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 37,
+      "title": "Factorizing Diffusion Policies for Observation Modality Prioritization",
+      "url": "http://arxiv.org/abs/2509.16830v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 38,
+      "title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+      "url": "http://arxiv.org/abs/2303.04137v5",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-03-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 39,
+      "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+      "url": "http://arxiv.org/abs/2310.08864v9",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-10-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 40,
+      "title": "Proceedings of the Dialogue Robot Competition 2023",
+      "url": "http://arxiv.org/abs/2312.14430v5",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-12-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 41,
+      "title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+      "url": "http://arxiv.org/abs/1711.10137v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2017-11-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 42,
+      "title": "Open-Ended Learning Leads to Generally Capable Agents",
+      "url": "http://arxiv.org/abs/2107.12808v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2021-07-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 43,
+      "title": "The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset",
+      "url": "http://arxiv.org/abs/2405.19595v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 44,
+      "title": "Learning to Discern: Imitating Heterogeneous Human Demonstrations with Preference and Representation Learning",
+      "url": "http://arxiv.org/abs/2310.14196v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-10-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 45,
+      "title": "Deception Game: Closing the Safety-Learning Loop in Interactive Robot Autonomy",
+      "url": "http://arxiv.org/abs/2309.01267v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 46,
+      "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models : Open X-Embodiment Collaboration0",
+      "url": "https://arxiv.org/abs/2310.08864",
+      "kind": "paper",
+      "venue": "IEEE International Conference on Robotics and Automation",
+      "published": "2023-10-13",
+      "citations": 1211,
+      "stars": null
+    },
+    {
+      "n": 47,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 48,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 49,
+      "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+      "url": "http://arxiv.org/abs/2512.06951v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 50,
+      "title": "Survey of Vision-Language-Action Models for Embodied Manipulation",
+      "url": "http://arxiv.org/abs/2508.15201v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 51,
+      "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+      "url": "http://arxiv.org/abs/2506.14634v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 52,
+      "title": "Gemini Robotics: Bringing AI into the Physical World",
+      "url": "http://arxiv.org/abs/2503.20020v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-03-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 53,
+      "title": "Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories",
+      "url": "http://arxiv.org/abs/2607.15330v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 54,
+      "title": "Evaluating Gemini Robotics Policies in a Veo World Simulator",
+      "url": "http://arxiv.org/abs/2512.10675v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 55,
+      "title": "Gemini Robotics 1.5: Pushing the Frontier of Generalist Robots with Advanced Embodied Reasoning, Thinking, and Motion Transfer",
+      "url": "http://arxiv.org/abs/2510.03342v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 56,
+      "title": "Embodied AI with Foundation Models for Mobile Service Robots: A Systematic Review",
+      "url": "http://arxiv.org/abs/2505.20503v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 57,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 58,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 59,
+      "title": "The AudioMOS Challenge 2025",
+      "url": "http://arxiv.org/abs/2509.01336v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 60,
+      "title": "TDCOSMO 2025: Cosmological constraints from strong lensing time delays",
+      "url": "http://arxiv.org/abs/2506.03023v4",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 61,
+      "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+      "url": "http://arxiv.org/abs/2509.11402v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 62,
+      "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+      "url": "http://arxiv.org/abs/2508.18904v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 63,
+      "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+      "url": "http://arxiv.org/abs/2508.11117v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 64,
+      "title": "Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge",
+      "url": "http://arxiv.org/abs/2101.02842v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-01-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 65,
+      "title": "Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids",
+      "url": "http://arxiv.org/abs/2508.12252v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 66,
+      "title": "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset",
+      "url": "http://arxiv.org/abs/2403.12945v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-03-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 67,
+      "title": "ManiWAV: Learning Robot Manipulation from In-the-Wild Audio-Visual Data",
+      "url": "http://arxiv.org/abs/2406.19464v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-06-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 68,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 69,
+      "title": "The RSNA Intracranial Aneurysm (RSNA-ICA) Dataset",
+      "url": "http://arxiv.org/abs/2610.01135v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-10-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 70,
+      "title": "Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation",
+      "url": "http://arxiv.org/abs/2407.15282v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 71,
+      "title": "Unfiltered Conversations: A Dataset of 2024 U.S. Presidential Election Discourse on Truth Social",
+      "url": "http://arxiv.org/abs/2411.01330v1",
+      "kind": "paper",
+      "venue": "cs.SI",
+      "published": "2024-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 72,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 73,
+      "title": "An Introduction to Lifelong Supervised Learning",
+      "url": "http://arxiv.org/abs/2207.04354v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2022-07-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 74,
+      "title": "LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning",
+      "url": "http://arxiv.org/abs/2306.03310v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2023-06-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 75,
+      "title": "Latent Properties of Lifelong Learning Systems",
+      "url": "http://arxiv.org/abs/2207.14378v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2022-07-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 76,
+      "title": "Lifelong Learning using Eigentasks: Task Separation, Skill Acquisition, and Selective Transfer",
+      "url": "http://arxiv.org/abs/2007.06918v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2020-07-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 77,
+      "title": "Forgetting and Imbalance in Robot Lifelong Learning with Off-policy Data",
+      "url": "http://arxiv.org/abs/2204.05893v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-04-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 78,
+      "title": "TAG: Task-based Accumulated Gradients for Lifelong learning",
+      "url": "http://arxiv.org/abs/2105.05155v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2021-05-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 79,
+      "title": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+      "url": "http://arxiv.org/abs/2609.24350v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 80,
+      "title": "Evaluating Real-World Robot Manipulation Policies in Simulation",
+      "url": "http://arxiv.org/abs/2405.05941v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-05-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 81,
+      "title": "HybridFlow: A 2-NFE Generative Policy for Real-Time Robotic Manipulation",
+      "url": "http://arxiv.org/abs/2602.13718v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-02-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 82,
+      "title": "JENGA: Exploiting Counter-Based RowHammer Countermeasures to Break Real-Time Predictability",
+      "url": "http://arxiv.org/abs/2609.01077v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 83,
+      "title": "Benchmarking Simulated Robotic Manipulation through a Real World Dataset",
+      "url": "http://arxiv.org/abs/1911.01557v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-11-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 84,
+      "title": "RealD$^2$iff: Bridging Real-World Gap in Robot Manipulation via Depth Diffusion",
+      "url": "http://arxiv.org/abs/2511.22505v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 85,
+      "title": "RoboArena: Distributed Real-World Evaluation of Generalist Robot Policies",
+      "url": "http://arxiv.org/abs/2506.18123v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-06-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 86,
+      "title": "When Vision Overrides Language: Evaluating and Mitigating Counterfactual Failures in VLAs",
+      "url": "http://arxiv.org/abs/2602.17659v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-02-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 87,
+      "title": "AeroManip-VLA: Scalable Vision-Language-Action Learning for Aerial Manipulation with RL-Generated Demonstrations",
+      "url": "http://arxiv.org/abs/2609.36915v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 88,
+      "title": "From Foundation to Application: Improving VLA Models in Practice",
+      "url": "http://arxiv.org/abs/2607.06403v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 89,
+      "title": "DyPES-VLA: Learning Shared Dynamics Priors and Embodiment-Specific Control for Cross-Embodiment Manipulation",
+      "url": "http://arxiv.org/abs/2608.06374v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-08-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 90,
+      "title": "Cloak: Zero-Shot Cross-Embodiment Manipulation by Masking the End-Effector from the VLA",
+      "url": "http://arxiv.org/abs/2606.22836v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-06-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 91,
+      "title": "How VLAs Fail Differently: Black-Box Action Monitoring Reveals Architecture-Specific Failure Signatures",
+      "url": "http://arxiv.org/abs/2605.28726v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-05-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 92,
+      "title": "X-VLA: Soft-Prompted Transformer as Scalable Cross-Embodiment Vision-Language-Action Model",
+      "url": "http://arxiv.org/abs/2510.10274v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 93,
+      "title": "IVOA Recommendation: Spectrum Data Model 1.1",
+      "url": "http://arxiv.org/abs/1204.3055v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2012-04-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 94,
+      "title": "Robust Tabular Foundation Models",
+      "url": "http://arxiv.org/abs/2512.03307v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 95,
+      "title": "Data Encoding for Byzantine-Resilient Distributed Optimization",
+      "url": "http://arxiv.org/abs/1907.02664v2",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2019-07-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 96,
+      "title": "Byzantine-Resilient SGD in High Dimensions on Heterogeneous Data",
+      "url": "http://arxiv.org/abs/2005.07866v1",
+      "kind": "paper",
+      "venue": "stat.ML",
+      "published": "2020-05-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 97,
+      "title": "Constraints on dark energy from H II starburst galaxy apparent magnitude versus redshift data",
+      "url": "http://arxiv.org/abs/1110.5626v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2011-10-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 98,
+      "title": "DeepSeq: High-Throughput Single-Cell RNA Sequencing Data Labeling via Web Search-Augmented Agentic Generative AI Foundation Models",
+      "url": "http://arxiv.org/abs/2506.13817v1",
+      "kind": "paper",
+      "venue": "q-bio.GN",
+      "published": "2025-06-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 99,
+      "title": "Human-Robot Collaboration via Deep Reinforcement Learning of Real-World Interactions",
+      "url": "http://arxiv.org/abs/1912.01715v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 100,
+      "title": "PhAIL: A Real-Robot VLA Benchmark and Distributional Methodology",
+      "url": "https://arxiv.org/abs/2605.29710",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2026-05-28",
+      "citations": 3,
+      "stars": null
+    },
+    {
+      "n": 101,
+      "title": "R2S-Eval: Robot Evaluation with Real-to-Sim Calibration via Vision-Language Models",
+      "url": "https://arxiv.org/abs/2609.03276",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-09-03",
+      "citations": 2,
+      "stars": null
+    },
+    {
+      "n": 102,
+      "title": "TOAST: Stochastic Robot Action Tokenization for Autoregressive Vision-Language-Action Models",
+      "url": "http://arxiv.org/abs/2610.00899v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-10-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 103,
+      "title": "ActionPiece: Rethinking Action Tokenization for Autoregressive Vision-Language-Action Models",
+      "url": "http://arxiv.org/abs/2609.18487v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 104,
+      "title": "X-Tokenizer: A Multimodal Action Tokenizer for Vision-Language-Action Pretraining",
+      "url": "http://arxiv.org/abs/2606.14752v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-06-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 105,
+      "title": "M2Tok: Multi-head Multi-codebook Discrete Action Tokenization for Vision-Language-Action Models",
+      "url": "http://arxiv.org/abs/2609.18259v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 106,
+      "title": "FASTer: Toward Efficient Autoregressive Vision Language Action Modeling via Neural Action Tokenization",
+      "url": "http://arxiv.org/abs/2512.04952v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-12-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 107,
+      "title": "Beyond Reconstruction Error: Analytical and Data-Driven Action Tokenization for Autoregressive Vision-Language-Action Models",
+      "url": "http://arxiv.org/abs/2609.25820v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 108,
+      "title": "FAST: Efficient Action Tokenization for Vision-Language-Action Models",
+      "url": "http://arxiv.org/abs/2501.09747v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-01-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 109,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 110,
+      "title": "Users' Perception on Appropriateness of Robotic Coaching Assistant's Disclosure Behaviors",
+      "url": "http://arxiv.org/abs/2410.10550v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2024-10-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 111,
+      "title": "ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024",
+      "url": "http://arxiv.org/abs/2407.12038v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 112,
+      "title": "Fast ungated five-dimensional cardiac MRI on a 1.5 T MR-linac for MRI-guided radiotherapy",
+      "url": "http://arxiv.org/abs/2607.16033v1",
+      "kind": "paper",
+      "venue": "physics.med-ph",
+      "published": "2026-07-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 113,
+      "title": "What Am I? Evaluating the Effect of Language Fluency and Task Competency on the Perception of a Social Robot",
+      "url": "http://arxiv.org/abs/2410.11085v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-10-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 114,
+      "title": "Diffusion Co-Policy for Synergistic Human-Robot Collaborative Tasks",
+      "url": "http://arxiv.org/abs/2305.12171v4",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 115,
+      "title": "Toward a New Policy for Scientific and Technical Communication: the Case of Kyrgyz Republic",
+      "url": "http://arxiv.org/abs/cs/0405001v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2004-05-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 116,
+      "title": "Diffusion Policy Policy Optimization",
+      "url": "http://arxiv.org/abs/2409.00588v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 117,
+      "title": "Streaming Flow Policy: Simplifying diffusion/flow-matching policies by treating action trajectories as flow trajectories",
+      "url": "http://arxiv.org/abs/2505.21851v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-28",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-05-vla.md",
+    "json": "report/2026/10/2026-10-05-vla.json"
+  }
+}
