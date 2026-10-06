@@ -91,7 +91,7 @@ Dockerfile            base 镜像定义（`python:3.12-slim`，只烤环境不�
 docker-compose.yml    即用即起地跑 HTTP 服务（挂载仓库 + 装 editable + 起 `rb serve`）
 .github/workflows/    daily-research.yml（每日，容器内跑）、image.yml（发布 base 镜像）、ci.yml（lint+test）
 scripts/              bootstrap.sh、run_daily.sh、import_skill.sh、set_github_secrets.py
-docs/                 architecture / deep-research / service / knowledge-framework / knowledge-base / email / github-actions / scheduling / skills-and-sources / HANDOVER
+docs/                 architecture / deep-research / service / knowledge-framework / knowledge-base / email / github-actions / scheduling / skills-and-sources / intelligence_governance_final_report（长期研究蓝图：World→Value→Decision→Governance 闭环，指导 watch 领域收敛）/ HANDOVER
 ```
 
 ## 6. 配置与密钥（**不要提交任何密钥**）
@@ -128,8 +128,9 @@ docs/                 architecture / deep-research / service / knowledge-framewo
   `POST /research` 传 `query`/`topic`（+ `mode=knowledge|watch`），轮询 `GET /research/{id}`；可选 `RESEARCH_BOT_API_TOKEN` 鉴权。
   详见 [`docs/service.md`](service.md)。
 - **Makefile**：`make run TOPIC=vla DEPTH=quick` / `make run-all` / `make serve` / `make doctor` / `make test` / `make lint`
-- **GitHub Actions（`Daily Watch`）**：**定时 `0 22 * * *` UTC 只跑增量 watch**——对收敛后的核心领域
-  （默认具身智能/VLA/机器人，作为工作流默认值提交在 git，可用仓库 Variable `WATCH_QUERIES` 覆盖）逐条
+- **GitHub Actions（`Daily Watch`）**：**定时 `0 22 * * *` UTC 只跑增量 watch**——对收敛后的快变前沿
+  （默认 6 条：具身智能/VLA/机器人 + 价值对齐 / Agent 评测与安全 / AI 治理；作为工作流默认值提交在 git，
+  可用仓库 Variable `WATCH_QUERIES` 覆盖）逐条
   `rb run --watch --query ... --kb --email`，回提交报告。**调研（research/topic）与初始（knowledge 建知识地图）
   不进流水线**，改为按需手动：Actions → Daily Watch → Run workflow（`mode=research|knowledge|watch` 配
   `topic` / `query`，加 `depth` / `send_email`）。手动触发只跑所请求的 mode；`Run watch increments`

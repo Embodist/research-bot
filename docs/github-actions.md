@@ -81,11 +81,11 @@ docker run --rm -v "$PWD":/app -w /app \
 | `LLM_MODEL` | `deepseek-v4-flash` | override the model id |
 | `LLM_BASE_URL` | `https://api.deepseek.com/v1` | OpenAI-compatible base URL (this repo is set to the whnetsea gateway) |
 | `SEARXNG_URL` | `http://43.155.145.78:58881` | your SearXNG (JSON or HTML) |
-| `WATCH_QUERIES` | *(workflow default — the converged core domains)* | 增量追踪的领域：逗号/换行分隔。**不设**则用工作流里已提交的默认清单（具身智能/VLA/机器人）；条目不要含 ASCII 逗号（查询里的顿号 `、` 安全） |
+| `WATCH_QUERIES` | *(workflow default — the converged frontiers)* | 增量追踪的领域：逗号/换行分隔。**不设**则用工作流里已提交的默认清单（具身智能/VLA/机器人 + 价值对齐 / Agent 评测与安全 / AI 治理）；条目不要含 ASCII 逗号（查询里的顿号 `、` 安全） |
 | `WATCH_DEPTH` | `quick` | watch 步骤的深度 |
 
 > **每日增量（watch）**：`Run watch increments` 步骤**只在 schedule 事件**运行，对 `WATCH_QUERIES` 的每条查询跑
-> `rb run --watch --query ... --kb --email`。领域清单**收敛到项目核心**并作为工作流默认值提交在 git 里
+> `rb run --watch --query ... --kb --email`。领域清单**收敛到快变前沿**并作为工作流默认值提交在 git 里
 > （可用同名仓库 Variable 覆盖）。`--kb` 让每次增量入库；若本次既无新增也无变化，邮件被**去重跳过**
 > （见 [`docs/knowledge-base.md`](knowledge-base.md)）。知识库 `report/knowledge.db` 由 `actions/cache`
 > 跨天持久化（不提交进 git）。**首个领域的首次 watch** 即建立基线（都是 "new"），之后才是真增量——

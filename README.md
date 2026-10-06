@@ -322,10 +322,11 @@ Required repository secrets (**Settings → Secrets and variables → Actions**)
 | `GITHUB_TOKEN` | provided automatically; used for higher GitHub API rate limits |
 
 The schedule is `cron: '0 22 * * *'` (22:00 UTC = 06:00 Asia/Shanghai) and runs **only the incremental
-watch**. The tracked domains are committed as the `WATCH_QUERIES` default in the workflow (currently the
-project's core — Embodied AI · VLA · robotics) and can be overridden with a repo Variable of the same
-name. One-off runs (research / knowledge) are triggered on demand from the Actions tab: `mode`
-(`research`/`knowledge`/`watch`), `topic` or `query`, `depth`, `send_email`.
+watch**. The tracked domains are committed as the `WATCH_QUERIES` default in the workflow — six fast-moving
+frontiers: the Embodied AI · VLA · robotics core plus value alignment, agent evaluation & safety, and AI
+governance — and can be overridden with a repo Variable of the same name. One-off runs (research / knowledge)
+are triggered on demand from the Actions tab: `mode` (`research`/`knowledge`/`watch`), `topic` or `query`,
+`depth`, `send_email`.
 
 ## Email setup
 
