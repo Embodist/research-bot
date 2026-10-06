@@ -1,15 +1,24 @@
 # Daily automation with GitHub Actions
 
-The workflow is [`.github/workflows/daily-research.yml`](../.github/workflows/daily-research.yml). It:
+The workflow is [`.github/workflows/daily-research.yml`](../.github/workflows/daily-research.yml) (`Daily
+Watch`). It:
 
 1. runs **inside the prebuilt base image** `ghcr.io/embodist/research-bot-base:py3.12`
    (see [Docker base image](#docker-base-image)) — Python and every dependency are already present,
 2. checks out the repo (**without** the submodule — the engine works without it),
 3. does an offline editable install of the checked-out code (`pip install -e . --no-deps --no-build-isolation`),
 4. runs `rb doctor` (non-fatal preflight, logged),
-5. runs `rb run --topic <topic> --depth <depth> [--email]`,
+5. on the **daily schedule** runs **only the incremental watch** — one `rb run --watch --query <domain>
+   --kb --email` per converged domain in `WATCH_QUERIES`; on a **manual dispatch** runs the requested mode
+   (`research` / `knowledge` / `watch`),
 6. commits `report/` back to the repo,
 7. uploads the Markdown/JSON reports + `push-log.jsonl` as a build artifact.
+
+> **What runs when — 调研 / 初始 / 增量.** The daily cron is reserved for **increments** (`watch`: track how
+> a domain changed). One-off **research** (`research`: survey a topic) and **knowledge** (`knowledge`: build
+> a domain's knowledge map — the "initial") are **not scheduled**; trigger them on demand with
+> `workflow_dispatch`. The first watch run for a domain establishes its baseline (everything reads as
+> "new"); later runs email only the delta, so an "initial" snapshot never needs to live in the pipeline.
 
 ## Docker base image
 
@@ -72,13 +81,15 @@ docker run --rm -v "$PWD":/app -w /app \
 | `LLM_MODEL` | `deepseek-v4-flash` | override the model id |
 | `LLM_BASE_URL` | `https://api.deepseek.com/v1` | OpenAI-compatible base URL (this repo is set to the whnetsea gateway) |
 | `SEARXNG_URL` | `http://43.155.145.78:58881` | your SearXNG (JSON or HTML) |
-| `WATCH_QUERIES` | *(empty)* | path2 增量：逗号/换行分隔的 watch 查询；空则**跳过** watch 步骤 |
+| `WATCH_QUERIES` | *(workflow default — the converged core domains)* | 增量追踪的领域：逗号/换行分隔。**不设**则用工作流里已提交的默认清单（具身智能/VLA/机器人）；条目不要含 ASCII 逗号（查询里的顿号 `、` 安全） |
 | `WATCH_DEPTH` | `quick` | watch 步骤的深度 |
 
-> **path2（每日增量）**：`Run watch increments` 步骤会对 `WATCH_QUERIES` 里的每条查询跑
-> `rb run --watch --query ... --kb --email`。`--kb` 让每次增量入库；若本次既无新增也无变化，
-> 邮件会被**去重跳过**（见 [`docs/knowledge-base.md`](knowledge-base.md)）。
-> 知识库 `report/knowledge.db` 由 `actions/cache` 跨天持久化（不提交进 git）。
+> **每日增量（watch）**：`Run watch increments` 步骤**只在 schedule 事件**运行，对 `WATCH_QUERIES` 的每条查询跑
+> `rb run --watch --query ... --kb --email`。领域清单**收敛到项目核心**并作为工作流默认值提交在 git 里
+> （可用同名仓库 Variable 覆盖）。`--kb` 让每次增量入库；若本次既无新增也无变化，邮件被**去重跳过**
+> （见 [`docs/knowledge-base.md`](knowledge-base.md)）。知识库 `report/knowledge.db` 由 `actions/cache`
+> 跨天持久化（不提交进 git）。**首个领域的首次 watch** 即建立基线（都是 "new"），之后才是真增量——
+> 所以"初始"不必进流水线，按需手动触发即可。
 
 ## Schedule
 
@@ -88,9 +99,10 @@ on:
     - cron: "0 22 * * *"   # 22:00 UTC = 06:00 Asia/Shanghai
 ```
 
-GitHub cron is always UTC. Also runnable on demand from the **Actions → Daily Research → Run workflow**
-button, with inputs `mode` (`research` | `knowledge` | `watch`), `topic` (mode=research), `query`
-(mode=knowledge|watch), `depth` and `send_email`.
+GitHub cron is always UTC. The schedule runs **only the incremental watch**. One-off research / knowledge
+runs are triggered on demand from the **Actions → Daily Watch → Run workflow** button (or `gh`), with
+inputs `mode` (`research` | `knowledge` | `watch`), `topic` (mode=research), `query` (mode=knowledge|watch),
+`depth` and `send_email`.
 
 ## Commit-back permissions
 

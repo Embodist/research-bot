@@ -1,8 +1,11 @@
-name: Daily Research
+name: Daily Watch
 
-# Runs the headless deep-research pipeline, commits the new reports back to the
-# repo and (optionally) emails the digest. Configure the LLM + SMTP secrets in
-# Settings -> Secrets and variables -> Actions. See docs/github-actions.md.
+# The daily schedule runs ONLY the incremental watch (path2): one `rb run --watch`
+# per configured domain, which emails just the new/changed items (KB dedup).
+# One-off runs — `research` (survey a topic) and `knowledge` (build a domain map,
+# i.e. the "initial") — are NOT scheduled; trigger them on demand via
+# workflow_dispatch. Configure the LLM + SMTP secrets in Settings -> Secrets and
+# variables -> Actions. See docs/github-actions.md.
 
 on:
   schedule:
@@ -79,9 +82,11 @@ jobs:
       MAIL_TO: ${{ secrets.MAIL_TO }}
       # Merge all topics of a scheduled run into a single email.
       EMAIL_DIGEST: "true"
-      # --- Watch (path2: daily increment emails) ---
-      # Newline- or comma-separated watch queries. Empty => skip the watch step.
-      WATCH_QUERIES: ${{ vars.WATCH_QUERIES }}
+      # --- Watch (daily increments; the ONLY scheduled work) ---
+      # Converged to the project's core domains (Embodied AI · VLA · robotics).
+      # Newline- or comma-separated; keep entries free of ASCII commas. The repo
+      # Variable `WATCH_QUERIES` overrides this committed default.
+      WATCH_QUERIES: ${{ vars.WATCH_QUERIES || '具身智能与视觉-语言-动作（VLA）前沿,机器人操作与世界模型,机器人运动学、控制与 ROS 2' }}
       WATCH_DEPTH: ${{ vars.WATCH_DEPTH || 'quick' }}
     steps:
       - name: Checkout
@@ -113,7 +118,10 @@ jobs:
         continue-on-error: true
         run: rb doctor
 
-      - name: Run deep research
+      # On-demand runs (research / knowledge / watch) are dispatch-only; the
+      # daily schedule is reserved for the incremental watch step below.
+      - name: Run on-demand pipeline
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           set -eu
           if [ "${MODE}" = "research" ]; then
@@ -158,7 +166,12 @@ jobs:
           if git diff --cached --quiet; then
             echo "no report changes to commit"
           else
-            git commit -m "chore(report): daily research $(date -u +%F)"
+            if [ "${GITHUB_EVENT_NAME}" = "schedule" ]; then
+              msg="chore(report): daily watch $(date -u +%F)"
+            else
+              msg="chore(report): manual ${MODE} $(date -u +%F)"
+            fi
+            git commit -m "$msg"
             # The job runs for minutes; main may have moved (a manual push, or a
             # concurrent run). Rebase our report commit onto the latest before pushing.
             git pull --rebase origin "${GITHUB_REF_NAME:-main}"

@@ -160,3 +160,8 @@ curl -s -XPOST localhost:8080/research -H 'content-type: application/json' \
 
 新增领域无需写 YAML：`mode=knowledge|watch` 会用 `<query> + 每维 probe` 作为种子检索式驱动 planner，
 `sections` 即该 frame 的七个 facet，对应 skill（`knowledge-framework` / `frontier-watch`）强制结构与纪律。
+
+> **调度：只跑增量。** 每日 CI 流水线**只跑 `watch`（方向2 增量）**；`knowledge`（方向1，即"初始"建图/学习）
+> 与 `research`（按 topic 调研）都**不进流水线**，按需手动触发——见 [`docs/github-actions.md`](github-actions.md)。
+> 追踪的**领域已收敛到项目核心**（具身智能 / VLA / 机器人），作为 `daily-research.yml` 里 `WATCH_QUERIES`
+> 的默认值提交在 git。某领域的**首次 watch 即建立基线**（都是 "new"），之后才靠 KB 去重只报增量。

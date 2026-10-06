@@ -288,9 +288,12 @@ report/
 
 Workflows:
 
-- **`.github/workflows/daily-research.yml`** — schedules the daily run, commits new reports back to the repo,
-  emails the digest, uploads artifacts, and supports manual `workflow_dispatch`. It runs **inside the
-  prebuilt base image** below, so no Python/dependency setup happens per run.
+- **`.github/workflows/daily-research.yml`** (`Daily Watch`) — the daily schedule runs the **incremental
+  watch only**: one `rb run --watch` per converged core domain, emailing just the new/changed items (KB
+  dedup), committing reports back and uploading artifacts. One-off **research** (survey a topic) and
+  **knowledge** (build a domain map) runs are **not scheduled** — trigger them on demand via
+  `workflow_dispatch`. Runs **inside the prebuilt base image** below, so no Python/dependency setup happens
+  per run.
 - **`.github/workflows/image.yml`** — builds and publishes the base image to GHCR (rebuilds only when
   `Dockerfile`/`pyproject.toml` change).
 - **`.github/workflows/ci.yml`** — lint + tests on push/PR.
@@ -318,9 +321,11 @@ Required repository secrets (**Settings → Secrets and variables → Actions**)
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, `MAIL_TO` | email delivery |
 | `GITHUB_TOKEN` | provided automatically; used for higher GitHub API rate limits |
 
-The schedule is `cron: '0 22 * * *'` (22:00 UTC = 06:00 Asia/Shanghai). Edit the cron and the `MAIL_TO`
-secret to taste. Trigger manually from the Actions tab with `mode` (`research`/`knowledge`/`watch`),
-`topic` or `query`, `depth` and `send_email` inputs.
+The schedule is `cron: '0 22 * * *'` (22:00 UTC = 06:00 Asia/Shanghai) and runs **only the incremental
+watch**. The tracked domains are committed as the `WATCH_QUERIES` default in the workflow (currently the
+project's core — Embodied AI · VLA · robotics) and can be overridden with a repo Variable of the same
+name. One-off runs (research / knowledge) are triggered on demand from the Actions tab: `mode`
+(`research`/`knowledge`/`watch`), `topic` or `query`, `depth`, `send_email`.
 
 ## Email setup
 

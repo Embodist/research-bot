@@ -24,9 +24,9 @@ ROS 2** 的前沿进展、经典论文、开源项目与数据集。它基于 [`
 | CLI / 引擎 / **11 个 topic** / 13 个 skill | ✅ 完成 |
 | 离线测试 | ✅ 78 项通过（`pytest`） |
 | lint（`src tests`） | ✅ 通过（`deer-flow/` 子模块不在范围内） |
-| GitHub Actions 每日工作流 | ✅ 已配置（`0 22 * * *` UTC = 06:00 Asia/Shanghai） |
+| GitHub Actions 每日工作流 | ✅ 已配置（`0 22 * * *` UTC = 06:00 Asia/Shanghai）——**定时只跑增量 watch**；调研/初始改为按需手动 |
 | 邮件（本地） | ✅ 已配置并**实测发送成功**（163 → outlook） |
-| 邮件（CI） | ✅ 7 个 Secrets + 3 个 Variables 已写入仓库，链路实测成功 |
+| 邮件（CI） | ✅ 7 个 Secrets + 2 个 Variables 已写入仓库；`--email` 强制发信修复后实测 `sent=True`（见 §10.11） |
 | 报告质量 | ✅ 检索域漂移已修复（统一相关性门控，见 §10） |
 | 证据要求 | ✅ 每条结论四轴证据：热度 / 权威 / 关注度 / 推荐度（见 §10） |
 | **HTTP 服务** | ✅ `rb serve`（stdlib `http.server`，异步任务 API）；离线测试覆盖，见 `docs/service.md` |
@@ -128,10 +128,12 @@ docs/                 architecture / deep-research / service / knowledge-framewo
   `POST /research` 传 `query`/`topic`（+ `mode=knowledge|watch`），轮询 `GET /research/{id}`；可选 `RESEARCH_BOT_API_TOKEN` 鉴权。
   详见 [`docs/service.md`](service.md)。
 - **Makefile**：`make run TOPIC=vla DEPTH=quick` / `make run-all` / `make serve` / `make doctor` / `make test` / `make lint`
-- **GitHub Actions**：每日 `0 22 * * *` UTC 自动跑并回提交 + 发摘要邮件；也可 Actions → Daily Research →
-  Run workflow 手动触发（`mode=research|knowledge|watch` 配 `topic` / `query`，加 `depth` / `send_email`）。
-  手动触发只跑所请求的 mode；`Run watch increments`（走 `WATCH_QUERIES`）**只在 schedule 事件**执行，避免重复。
-  **需设仓库 Variable `WATCH_QUERIES`**（逗号/换行分隔），否则定时跑也不会做 path2 增量。
+- **GitHub Actions（`Daily Watch`）**：**定时 `0 22 * * *` UTC 只跑增量 watch**——对收敛后的核心领域
+  （默认具身智能/VLA/机器人，作为工作流默认值提交在 git，可用仓库 Variable `WATCH_QUERIES` 覆盖）逐条
+  `rb run --watch --query ... --kb --email`，回提交报告。**调研（research/topic）与初始（knowledge 建知识地图）
+  不进流水线**，改为按需手动：Actions → Daily Watch → Run workflow（`mode=research|knowledge|watch` 配
+  `topic` / `query`，加 `depth` / `send_email`）。手动触发只跑所请求的 mode；`Run watch increments`
+  **只在 schedule 事件**执行，避免重复。**首个领域的首次 watch 即基线**，之后靠 KB 去重只报增量。
 - **容器（可复现，无需本地装 Python）**：
   `docker run --rm -v "$PWD":/app -w /app -e LLM_API_KEY=... ghcr.io/embodist/research-bot-base:py3.12 sh -c 'pip install -e . --no-deps --no-build-isolation && rb run --topic vla --depth quick'`
 - **本地 cron/systemd**：见 [`docs/scheduling.md`](scheduling.md)
