@@ -1,0 +1,2615 @@
+{
+  "topic": "embodied-humanoid",
+  "title": "具身智能·人形与腿足运动（Humanoid & Legged Locomotion）深度调研计划",
+  "query": "",
+  "depth": "standard",
+  "language": "bilingual",
+  "started_at": "2026-10-06T22:24:36+00:00",
+  "finished_at": "2026-10-06T22:30:15+00:00",
+  "duration_s": 338.8,
+  "rounds": 1,
+  "plan": {
+    "title": "具身智能·人形与腿足运动（Humanoid & Legged Locomotion）深度调研计划",
+    "summary": "系统梳理近1-2年人形与腿足机器人运动控制的前沿进展、奠基工作、开源工程栈、数据集与基准及开放争议，形成可核查的技术图谱与选型参考。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近1-2年（2024-2026）人形与腿足运动控制的前沿进展有哪些：学习式locomotion、跑跳/帕库尔、地形适应的代表性成果与SOTA？",
+        "rationale": "回答『最近12-24个月发生了什么真正重要的变化』，是整份报告的核心前沿节；需按时间线与证据强度（顶会论文/技术报告/仅演示视频）梳理，并追问验证本体数量与是否真机。",
+        "queries": [
+          "humanoid whole-body control learning 2025 Unitree G1",
+          "humanoid parkour agile locomotion 2024..2026",
+          "legged robot locomotion reinforcement learning sim2real 2025 survey",
+          "extreme terrain adaptation legged robot learning 2025 proprioceptive"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该方向的经典/奠基工作有哪些：从模型预测控制（MPC）到学习式locomotion的范式转变、sim2real与domain randomization的源头论文？",
+        "rationale": "缺少经典脉络会导致把已有工作误判为『首创』；需用综述的taxonomy作为骨架，梳理监督信号（MPC/RL/模仿学习）与本体的演进，并注意>2年综述的时效局限。",
+        "queries": [
+          "learning quadrupedal locomotion over challenging terrain Science Robotics 2020",
+          "sim-to-real deep reinforcement learning legged robots domain randomization",
+          "ANYmal parkour learning 2023 RSS",
+          "model predictive control versus reinforcement learning legged locomotion review"
+        ],
+        "prefer": [
+          "openalex",
+          "crossref",
+          "arxiv",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "开源项目与工程实践现状：Unitree G1/H1、IsaacLab/legged_gym、HOVER、OmniH2O 等代码与权重的可获得性、复现难度与工程栈？",
+        "rationale": "判断『是否开源、是否可复现』是区分真前沿与演示视频的关键；需核查GitHub最近提交、star、依赖版本与仿真-真机迁移路径，评估落地可行性。",
+        "queries": [
+          "Unitree G1 H1 reinforcement learning locomotion github",
+          "legged_gym IsaacLab humanoid locomotion open source",
+          "HOVER humanoid versatile controller github nvidia",
+          "OmniH2O whole-body humanoid teleoperation github code"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing"
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "有哪些数据集与基准可用于人形/腿足locomotion的公平对比（HumanoidBench、运动捕捉数据、Open X-Embodiment、地形测试台）？",
+        "rationale": "SOTA结论必须绑定benchmark、硬件与任务数口径；需找出可复现的评测协议，避免混淆仿真SOTA与真机SOTA，并识别第三方榜单与复现报告。",
+        "queries": [
+          "humanoid locomotion benchmark HumanoidBench 2024",
+          "legged robot sim2real benchmark evaluation protocol",
+          "humanoid motion capture dataset retargeting locomotion",
+          "Open X-Embodiment humanoid legged locomotion data"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "全身控制（WBC）与遥操作/动作模仿的最新路线：神经WBC、统一控制器、human-to-humanoid遥操作如何实现？",
+        "rationale": "WBC与遥操作是人形落地的核心接口，且与VLA/运动模仿高度耦合；需精读HOVER、OmniH2O、HumanPlus等代表作全文，区分论文宣称与第三方复现。",
+        "queries": [
+          "neural whole-body controller humanoid teleoperation 2025",
+          "HOVER humanoid unified controller 2024",
+          "OmniH2O human-to-humanoid whole-body teleoperation",
+          "humanoid motion imitation whole-body tracking learning 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "bing"
+        ]
+      },
+      {
+        "id": "q6",
+        "question": "开放问题与争议：sim2real gap、鲁棒性与跌倒恢复、安全性、评测不可复现、硬件成本与负面结果有哪些？",
+        "rationale": "技能方法论要求覆盖争议与失败案例；需收集跌倒恢复、扰动鲁棒性、复现困难与安全规范等negative results，避免把demo视频当实验证据。",
+        "queries": [
+          "humanoid fall recovery reinforcement learning 2025",
+          "sim2real gap legged locomotion limitations failure cases",
+          "humanoid robot safety robustness push recovery disturbance",
+          "reinforcement learning locomotion reproducibility negative results"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近1-2年（2024-2026）人形与腿足运动控制的前沿进展有哪些：学习式locomotion、跑跳/帕库尔、地形适应的代表性成果与SOTA？",
+      "queries": [
+        "humanoid whole-body control learning 2025 Unitree G1",
+        "humanoid parkour agile locomotion 2024..2026",
+        "legged robot locomotion reinforcement learning sim2real 2025 survey",
+        "extreme terrain adaptation legged robot learning 2025 proprioceptive"
+      ],
+      "rationale": "回答『最近12-24个月发生了什么真正重要的变化』，是整份报告的核心前沿节；需按时间线与证据强度（顶会论文/技术报告/仅演示视频）梳理，并追问验证本体数量与是否真机。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes",
+          "url": "http://arxiv.org/abs/2512.01996v1",
+          "snippet": "Massively parallel simulation has reduced reinforcement learning (RL) training time for robots from days to minutes. However, achieving fast and reliable sim-to-real RL for humanoid control remains difficult due to the challenges introduced by factors such as high dimensionality and domain randomization. In this work, we introduce a simple and practical recipe based on off-policy RL algorithms, i.e., FastSAC and FastTD3, that enables rapid training of humanoid locomotion policies in just 15 minutes with a single RTX 4090 GPU. Our simple recipe stabilizes off-policy RL algorithms at massive sc…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-01",
+          "authors": [
+            "Younggyo Seo",
+            "Carmelo Sferrazza",
+            "Juyue Chen",
+            "Guanya Shi",
+            "Rocky Duan",
+            "Pieter Abbeel"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.01996v1",
+            "rrf_score": 0.043186,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "ATRos: Learning Energy-Efficient Agile Locomotion for Wheeled-legged Robots",
+          "url": "http://arxiv.org/abs/2510.09980v1",
+          "snippet": "Hybrid locomotion of wheeled-legged robots has recently attracted increasing attention due to their advantages of combining the agility of legged locomotion and the efficiency of wheeled motion. But along with expanded performance, the whole-body control of wheeled-legged robots remains challenging for hybrid locomotion. In this paper, we present ATRos, a reinforcement learning (RL)-based hybrid locomotion framework to achieve hybrid walking-driving motions on the wheeled-legged robot. Without giving predefined gait patterns, our planner aims to intelligently coordinate simultaneous wheel and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-11",
+          "authors": [
+            "Jingyuan Sun",
+            "Hongyu Ji",
+            "Zihan Qu",
+            "Chaoran Wang",
+            "Mingyu Zhang"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.09980v1",
+            "rrf_score": 0.036429,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+          "url": "http://arxiv.org/abs/2511.11218v4",
+          "snippet": "Humanoid robots have demonstrated strong capabilities for interacting with static scenes across locomotion and manipulation, yet dynamic real-world interactions remain challenging. As a step toward fast-moving object interactions, we present an RL training pipeline that yields a unified whole-body controller for humanoid badminton, coordinating footwork and striking without motion priors or expert demonstrations. In badminton, locomotion and striking are tightly coupled, making the final hitting objective difficult to optimize directly due to sparse rewards and conflicting gradients. We addre…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-14",
+          "authors": [
+            "Chenhao Liu",
+            "Leyun Jiang",
+            "Ningyuan Tian",
+            "Yibo Wang",
+            "Kairan Yao",
+            "Jinchen Fu",
+            "Xiaoyu Ren"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.11218v4",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+          "url": "http://arxiv.org/abs/2508.00162v2",
+          "snippet": "Recent advances in teleoperation have demonstrated robots performing complex manipulation tasks. However, existing works rarely support whole-body joint-level teleoperation for humanoid robots, limiting the diversity of tasks that can be accomplished. This work presents Controller for Humanoid Imitation and Live Demonstration (CHILD), a compact reconfigurable teleoperation system that enables joint level control over humanoid robots. CHILD fits within a standard baby carrier, allowing the operator control over all four limbs, and supports both direct joint mapping for full-body control and lo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-31",
+          "authors": [
+            "Noboru Myers",
+            "Obin Kwon",
+            "Sankalp Yamsani",
+            "Joohyung Kim"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.00162v2",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations",
+          "url": "http://arxiv.org/abs/2602.06643v2",
+          "snippet": "Current approaches for humanoid whole-body manipulation, primarily relying on teleoperation or visual sim-to-real reinforcement learning, are hindered by hardware logistics and complex reward engineering. Consequently, demonstrated autonomous skills remain limited and are typically restricted to controlled environments. In this paper, we present the Humanoid Manipulation Interface (HuMI), a portable and efficient framework for learning diverse whole-body manipulation tasks across various environments. HuMI enables robot-free data collection by capturing rich whole-body motion using portable h…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-06",
+          "authors": [
+            "Ruiqian Nai",
+            "Boyuan Zheng",
+            "Junming Zhao",
+            "Haodong Zhu",
+            "Sicong Dai",
+            "Zunhao Chen",
+            "Yihang Hu",
+            "Yingdong Hu",
+            "Tong Zhang",
+            "Chuan Wen",
+            "Yang Gao"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.06643v2",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "UniTracker: Learning Universal Whole-Body Motion Tracker for Humanoid Robots",
+          "url": "http://arxiv.org/abs/2507.07356v3",
+          "snippet": "Achieving expressive and generalizable whole-body motion control is essential for deploying humanoid robots in real-world environments. In this work, we propose UniTracker, a three-stage training framework that enables robust and scalable motion tracking across a wide range of human behaviors. In the first stage, we train a teacher policy with privileged observations to generate high-quality actions. In the second stage, we introduce a Conditional Variational Autoencoder (CVAE) to model a universal student policy that can be deployed directly on real hardware. The CVAE structure allows the po…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-10",
+          "authors": [
+            "Kangning Yin",
+            "Weishuai Zeng",
+            "Ke Fan",
+            "Minyue Dai",
+            "Zirui Wang",
+            "Qiang Zhang",
+            "Zheng Tian",
+            "Jingbo Wang",
+            "Jiangmiao Pang",
+            "Weinan Zhang"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.07356v3",
+            "rrf_score": 0.022727
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes",
+            "evidence": "Massively parallel simulation has reduced reinforcement learning (RL) training time for robots from days to minutes. However, achieving fast and reliable sim-to-real RL for humanoid control remains difficult due to the challenges introduced by factors such as high dimensionality and domain randomiz…",
+            "sources": [
+              12
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "ATRos: Learning Energy-Efficient Agile Locomotion for Wheeled-legged Robots",
+            "evidence": "Hybrid locomotion of wheeled-legged robots has recently attracted increasing attention due to their advantages of combining the agility of legged locomotion and the efficiency of wheeled motion. But along with expanded performance, the whole-body control of wheeled-legged robots remains challenging…",
+            "sources": [
+              52
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+            "evidence": "Humanoid robots have demonstrated strong capabilities for interacting with static scenes across locomotion and manipulation, yet dynamic real-world interactions remain challenging. As a step toward fast-moving object interactions, we present an RL training pipeline that yields a unified whole-body…",
+            "sources": [
+              48
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+            "evidence": "Recent advances in teleoperation have demonstrated robots performing complex manipulation tasks. However, existing works rarely support whole-body joint-level teleoperation for humanoid robots, limiting the diversity of tasks that can be accomplished. This work presents Controller for Humanoid Imit…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations",
+            "evidence": "Current approaches for humanoid whole-body manipulation, primarily relying on teleoperation or visual sim-to-real reinforcement learning, are hindered by hardware logistics and complex reward engineering. Consequently, demonstrated autonomous skills remain limited and are typically restricted to co…",
+            "sources": [
+              64
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "UniTracker: Learning Universal Whole-Body Motion Tracker for Humanoid Robots",
+            "evidence": "Achieving expressive and generalizable whole-body motion control is essential for deploying humanoid robots in real-world environments. In this work, we propose UniTracker, a three-stage training framework that enables robust and scalable motion tracking across a wide range of human behaviors. In t…",
+            "sources": [
+              65
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该方向的经典/奠基工作有哪些：从模型预测控制（MPC）到学习式locomotion的范式转变、sim2real与domain randomization的源头论文？",
+      "queries": [
+        "learning quadrupedal locomotion over challenging terrain Science Robotics 2020",
+        "sim-to-real deep reinforcement learning legged robots domain randomization",
+        "ANYmal parkour learning 2023 RSS",
+        "model predictive control versus reinforcement learning legged locomotion review"
+      ],
+      "rationale": "缺少经典脉络会导致把已有工作误判为『首创』；需用综述的taxonomy作为骨架，梳理监督信号（MPC/RL/模仿学习）与本体的演进，并注意>2年综述的时效局限。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+          "url": "http://arxiv.org/abs/2607.18488v1",
+          "snippet": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We propose a physical platform that is designed to simplify the transition. In this paper, we present the Open Ant: a physical variant of the commonly used Gymnasium Ant environment, along with a simulation. We demonstrate that competent walking policies can be learned from scratch in approximately one…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-20",
+          "authors": [
+            "Elena Sorina Lupu",
+            "Patrick Spieler",
+            "Khurram Javed",
+            "Kris De Asis",
+            "John D. Martin",
+            "Martha Steenstrup",
+            "Joseph Modayil"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.18488v1",
+            "rrf_score": 0.038785,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2602.12375v1",
+          "snippet": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propagating local uncertainties around rewards. However, this approach only increases the value bonus for an action retroactively, after seeing a higher reward bonus from that state and action. Such an approach does not encourage the agent to visit a state and action for the first time. In this work, we in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-12",
+          "authors": [
+            "Abdul Wahab",
+            "Raksha Kumaraswamy",
+            "Martha White"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.12375v1",
+            "rrf_score": 0.037402,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Learning Locomotion on Complex Terrain for Quadrupedal Robots with Foot Position Maps and Stability Rewards",
+          "url": "http://arxiv.org/abs/2604.02744v1",
+          "snippet": "Quadrupedal locomotion over complex terrain has been a long-standing research topic in robotics. While recent reinforcement learning-based locomotion methods improve generalizability and foot-placement precision, they rely on implicit inference of foot positions from joint angles, lacking the explicit precision and stability guarantees of optimization-based approaches. To address this, we introduce a foot position map integrated into the heightmap, and a dynamic locomotion-stability reward within an attention-based framework to achieve locomotion on complex terrain. We validate our method ext…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-04-03",
+          "authors": [
+            "Matthew Hwang",
+            "Yubin Liu",
+            "Ryo Hakoda",
+            "Takeshi Oishi"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2604.02744v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "FR-Net: Learning Robust Quadrupedal Fall Recovery on Challenging Terrains through Mass-Contact Prediction",
+          "url": "http://arxiv.org/abs/2509.11504v1",
+          "snippet": "Fall recovery for legged robots remains challenging, particularly on complex terrains where traditional controllers fail due to incomplete terrain perception and uncertain interactions. We present \\textbf{FR-Net}, a learning-based framework that enables quadrupedal robots to recover from arbitrary fall poses across diverse environments. Central to our approach is a Mass-Contact Predictor network that estimates the robot's mass distribution and contact states from limited sensory inputs, facilitating effective recovery strategies. Our carefully designed reward functions ensure safe recovery ev…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-15",
+          "authors": [
+            "Yidan Lu",
+            "Yinzhao Dong",
+            "Jiahui Zhang",
+            "Ji Ma",
+            "Peng Lu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.11504v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "Domain-randomized deep learning for neuroimage analysis",
+          "url": "http://arxiv.org/abs/2507.13458v1",
+          "snippet": "Deep learning has revolutionized neuroimage analysis by delivering unprecedented speed and accuracy. However, the narrow scope of many training datasets constrains model robustness and generalizability. This challenge is particularly acute in magnetic resonance imaging (MRI), where image appearance varies widely across pulse sequences and scanner hardware. A recent domain-randomization strategy addresses the generalization problem by training deep neural networks on synthetic images with randomized intensities and anatomical content. By generating diverse data from anatomical segmentation map…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-17",
+          "authors": [
+            "Malte Hoffmann"
+          ],
+          "venue": "eess.IV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.13458v1",
+            "rrf_score": 0.020833
+          }
+        },
+        {
+          "title": "Sim-to-Real Transfer in Deep Reinforcement Learning for Bipedal Locomotion",
+          "url": "http://arxiv.org/abs/2511.06465v1",
+          "snippet": "This chapter addresses the critical challenge of simulation-to-reality (sim-to-real) transfer for deep reinforcement learning (DRL) in bipedal locomotion. After contextualizing the problem within various control architectures, we dissect the ``curse of simulation'' by analyzing the primary sources of sim-to-real gap: robot dynamics, contact modeling, state estimation, and numerical solvers. Building on this diagnosis, we structure the solutions around two complementary philosophies. The first is to shrink the gap through model-centric strategies that systematically improve the simulator's phy…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-09",
+          "authors": [
+            "Lingfan Bao",
+            "Tianhu Peng",
+            "Chengxu Zhou"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.06465v1",
+            "rrf_score": 0.019231
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+            "evidence": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+            "evidence": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propaga…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "Learning Locomotion on Complex Terrain for Quadrupedal Robots with Foot Position Maps and Stability Rewards",
+            "evidence": "Quadrupedal locomotion over complex terrain has been a long-standing research topic in robotics. While recent reinforcement learning-based locomotion methods improve generalizability and foot-placement precision, they rely on implicit inference of foot positions from joint angles, lacking the expli…",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "FR-Net: Learning Robust Quadrupedal Fall Recovery on Challenging Terrains through Mass-Contact Prediction",
+            "evidence": "Fall recovery for legged robots remains challenging, particularly on complex terrains where traditional controllers fail due to incomplete terrain perception and uncertain interactions. We present \\textbf{FR-Net}, a learning-based framework that enables quadrupedal robots to recover from arbitrary…",
+            "sources": [
+              28
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Domain-randomized deep learning for neuroimage analysis",
+            "evidence": "Deep learning has revolutionized neuroimage analysis by delivering unprecedented speed and accuracy. However, the narrow scope of many training datasets constrains model robustness and generalizability. This challenge is particularly acute in magnetic resonance imaging (MRI), where image appearance…",
+            "sources": [
+              34
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "eess.IV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=eess.IV）"
+          },
+          {
+            "point": "Sim-to-Real Transfer in Deep Reinforcement Learning for Bipedal Locomotion",
+            "evidence": "This chapter addresses the critical challenge of simulation-to-reality (sim-to-real) transfer for deep reinforcement learning (DRL) in bipedal locomotion. After contextualizing the problem within various control architectures, we dissect the ``curse of simulation'' by analyzing the primary sources…",
+            "sources": [
+              37
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "开源项目与工程实践现状：Unitree G1/H1、IsaacLab/legged_gym、HOVER、OmniH2O 等代码与权重的可获得性、复现难度与工程栈？",
+      "queries": [
+        "Unitree G1 H1 reinforcement learning locomotion github",
+        "legged_gym IsaacLab humanoid locomotion open source",
+        "HOVER humanoid versatile controller github nvidia",
+        "OmniH2O whole-body humanoid teleoperation github code"
+      ],
+      "rationale": "判断『是否开源、是否可复现』是区分真前沿与演示视频的关键；需核查GitHub最近提交、star、依赖版本与仿真-真机迁移路径，评估落地可行性。",
+      "round": 1,
+      "results": [
+        {
+          "title": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+          "url": "http://arxiv.org/abs/2508.00162v2",
+          "snippet": "Recent advances in teleoperation have demonstrated robots performing complex manipulation tasks. However, existing works rarely support whole-body joint-level teleoperation for humanoid robots, limiting the diversity of tasks that can be accomplished. This work presents Controller for Humanoid Imitation and Live Demonstration (CHILD), a compact reconfigurable teleoperation system that enables joint level control over humanoid robots. CHILD fits within a standard baby carrier, allowing the operator control over all four limbs, and supports both direct joint mapping for full-body control and lo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-31",
+          "authors": [
+            "Noboru Myers",
+            "Obin Kwon",
+            "Sankalp Yamsani",
+            "Joohyung Kim"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.00162v2",
+            "rrf_score": 0.032811,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+          "url": "http://arxiv.org/abs/2607.18488v1",
+          "snippet": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We propose a physical platform that is designed to simplify the transition. In this paper, we present the Open Ant: a physical variant of the commonly used Gymnasium Ant environment, along with a simulation. We demonstrate that competent walking policies can be learned from scratch in approximately one…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-20",
+          "authors": [
+            "Elena Sorina Lupu",
+            "Patrick Spieler",
+            "Khurram Javed",
+            "Kris De Asis",
+            "John D. Martin",
+            "Martha Steenstrup",
+            "Joseph Modayil"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.18488v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "G1: Bootstrapping Perception and Reasoning Abilities of Vision-Language Model via Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2505.13426v1",
+          "snippet": "Vision-Language Models (VLMs) excel in many direct multimodal tasks but struggle to translate this prowess into effective decision-making within interactive, visually rich environments like games. This ``knowing-doing'' gap significantly limits their potential as autonomous agents, as leading VLMs often performing badly in simple games. To address this, we introduce VLM-Gym, a curated reinforcement learning (RL) environment featuring diverse visual games with unified interfaces and adjustable, compositional difficulty, specifically designed for scalable multi-game parallel training. Leveragin…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-19",
+          "authors": [
+            "Liang Chen",
+            "Hongcheng Gao",
+            "Tianyu Liu",
+            "Zhiqi Huang",
+            "Flood Sung",
+            "Xinyu Zhou",
+            "Yuxin Wu",
+            "Baobao Chang"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.13426v1",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes",
+          "url": "http://arxiv.org/abs/2512.01996v1",
+          "snippet": "Massively parallel simulation has reduced reinforcement learning (RL) training time for robots from days to minutes. However, achieving fast and reliable sim-to-real RL for humanoid control remains difficult due to the challenges introduced by factors such as high dimensionality and domain randomization. In this work, we introduce a simple and practical recipe based on off-policy RL algorithms, i.e., FastSAC and FastTD3, that enables rapid training of humanoid locomotion policies in just 15 minutes with a single RTX 4090 GPU. Our simple recipe stabilizes off-policy RL algorithms at massive sc…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-01",
+          "authors": [
+            "Younggyo Seo",
+            "Carmelo Sferrazza",
+            "Juyue Chen",
+            "Guanya Shi",
+            "Rocky Duan",
+            "Pieter Abbeel"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.01996v1",
+            "rrf_score": 0.021127
+          }
+        },
+        {
+          "title": "Hierarchical Reduced-Order Model Predictive Control for Robust Locomotion on Humanoid Robots",
+          "url": "http://arxiv.org/abs/2509.04722v1",
+          "snippet": "As humanoid robots enter real-world environments, ensuring robust locomotion across diverse environments is crucial. This paper presents a computationally efficient hierarchical control framework for humanoid robot locomotion based on reduced-order models -- enabling versatile step planning and incorporating arm and torso dynamics to better stabilize the walking. At the high level, we use the step-to-step dynamics of the ALIP model to simultaneously optimize over step periods, step lengths, and ankle torques via nonlinear MPC. The ALIP trajectories are used as references to a linear MPC frame…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-05",
+          "authors": [
+            "Adrian B. Ghansah",
+            "Sergio A. Esteban",
+            "Aaron D. Ames"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.04722v1",
+            "rrf_score": 0.02
+          }
+        },
+        {
+          "title": "A Framework for Scalable Heterogeneous Multi-Agent Adversarial Reinforcement Learning in IsaacLab",
+          "url": "http://arxiv.org/abs/2510.01264v1",
+          "snippet": "Multi-Agent Reinforcement Learning (MARL) is central to robotic systems cooperating in dynamic environments. While prior work has focused on these collaborative settings, adversarial interactions are equally critical for real-world applications such as pursuit-evasion, security, and competitive manipulation. In this work, we extend the IsaacLab framework to support scalable training of adversarial policies in high-fidelity physics simulations. We introduce a suite of adversarial MARL environments featuring heterogeneous agents with asymmetric goals and capabilities. Our platform integrates a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-26",
+          "authors": [
+            "Isaac Peterson",
+            "Christopher Allred",
+            "Jacob Morrey",
+            "Mario Harper"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.01264v1",
+            "rrf_score": 0.019481
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+            "evidence": "Recent advances in teleoperation have demonstrated robots performing complex manipulation tasks. However, existing works rarely support whole-body joint-level teleoperation for humanoid robots, limiting the diversity of tasks that can be accomplished. This work presents Controller for Humanoid Imit…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+            "evidence": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "G1: Bootstrapping Perception and Reasoning Abilities of Vision-Language Model via Reinforcement Learning",
+            "evidence": "Vision-Language Models (VLMs) excel in many direct multimodal tasks but struggle to translate this prowess into effective decision-making within interactive, visually rich environments like games. This ``knowing-doing'' gap significantly limits their potential as autonomous agents, as leading VLMs…",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes",
+            "evidence": "Massively parallel simulation has reduced reinforcement learning (RL) training time for robots from days to minutes. However, achieving fast and reliable sim-to-real RL for humanoid control remains difficult due to the challenges introduced by factors such as high dimensionality and domain randomiz…",
+            "sources": [
+              12
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Hierarchical Reduced-Order Model Predictive Control for Robust Locomotion on Humanoid Robots",
+            "evidence": "As humanoid robots enter real-world environments, ensuring robust locomotion across diverse environments is crucial. This paper presents a computationally efficient hierarchical control framework for humanoid robot locomotion based on reduced-order models -- enabling versatile step planning and inc…",
+            "sources": [
+              15
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "A Framework for Scalable Heterogeneous Multi-Agent Adversarial Reinforcement Learning in IsaacLab",
+            "evidence": "Multi-Agent Reinforcement Learning (MARL) is central to robotic systems cooperating in dynamic environments. While prior work has focused on these collaborative settings, adversarial interactions are equally critical for real-world applications such as pursuit-evasion, security, and competitive man…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q4",
+      "question": "有哪些数据集与基准可用于人形/腿足locomotion的公平对比（HumanoidBench、运动捕捉数据、Open X-Embodiment、地形测试台）？",
+      "queries": [
+        "humanoid locomotion benchmark HumanoidBench 2024",
+        "legged robot sim2real benchmark evaluation protocol",
+        "humanoid motion capture dataset retargeting locomotion",
+        "Open X-Embodiment humanoid legged locomotion data"
+      ],
+      "rationale": "SOTA结论必须绑定benchmark、硬件与任务数口径；需找出可复现的评测协议，避免混淆仿真SOTA与真机SOTA，并识别第三方榜单与复现报告。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes",
+          "url": "http://arxiv.org/abs/2512.01996v1",
+          "snippet": "Massively parallel simulation has reduced reinforcement learning (RL) training time for robots from days to minutes. However, achieving fast and reliable sim-to-real RL for humanoid control remains difficult due to the challenges introduced by factors such as high dimensionality and domain randomization. In this work, we introduce a simple and practical recipe based on off-policy RL algorithms, i.e., FastSAC and FastTD3, that enables rapid training of humanoid locomotion policies in just 15 minutes with a single RTX 4090 GPU. Our simple recipe stabilizes off-policy RL algorithms at massive sc…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-01",
+          "authors": [
+            "Younggyo Seo",
+            "Carmelo Sferrazza",
+            "Juyue Chen",
+            "Guanya Shi",
+            "Rocky Duan",
+            "Pieter Abbeel"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.01996v1",
+            "rrf_score": 0.039599,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Hierarchical Reduced-Order Model Predictive Control for Robust Locomotion on Humanoid Robots",
+          "url": "http://arxiv.org/abs/2509.04722v1",
+          "snippet": "As humanoid robots enter real-world environments, ensuring robust locomotion across diverse environments is crucial. This paper presents a computationally efficient hierarchical control framework for humanoid robot locomotion based on reduced-order models -- enabling versatile step planning and incorporating arm and torso dynamics to better stabilize the walking. At the high level, we use the step-to-step dynamics of the ALIP model to simultaneously optimize over step periods, step lengths, and ankle torques via nonlinear MPC. The ALIP trajectories are used as references to a linear MPC frame…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-05",
+          "authors": [
+            "Adrian B. Ghansah",
+            "Sergio A. Esteban",
+            "Aaron D. Ames"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.04722v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Robot Manipulation with GPT-6-Astra: Body Knowledge, Experience Reuse, Emergent Skills, and Sim2Real Transfer",
+          "url": "http://arxiv.org/abs/2609.31770v1",
+          "snippet": "General-purpose multimodal agents can write robot-control programs, but repeated exploration and model-mediated action selection can make execution slow. We study how external body knowledge, successful experience, and executable skills improve an XLeRobot controlled by GPT-6-Astra in a simulated and a physical elevator-button task. In 30 fixed-start simulation trials, complete robot geometry and camera information reduce mean completion time by 57.4% relative to a baseline with only the common control interface and no prior experience; images with synchronized action and state records reduce…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-24",
+          "authors": [
+            "Sida He",
+            "Lingxi Xie",
+            "Yunning Cao",
+            "Pengfei Chen",
+            "Kaiwen Duan",
+            "Jiannan Ge",
+            "Xinyue Huo",
+            "Jiacheng Shao",
+            "Qi Tian"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.31770v1",
+            "rrf_score": 0.020833
+          }
+        },
+        {
+          "title": "PHUMA: Physically Reliable Humanoid Locomotion Dataset",
+          "url": "https://arxiv.org/abs/2510.26236",
+          "snippet": "Motion imitation is a promising approach for humanoid locomotion, enabling agents to acquire humanlike behaviors. Existing methods typically rely on high-quality motion capture datasets such as AMASS, but these are scarce and expensive, limiting scalability and diversity. Recent studies attempt to scale data collection by converting large-scale internet videos, exemplified by Humanoid-X. However, they often suffer from physical artifacts such as floating, penetration, and foot skating, which hinder stable imitation. To address this, we introduce PHUMA, a Physically Reliable HUMAnoid locomotio…",
+          "engine": "semantic_scholar",
+          "kind": "paper",
+          "published": "2025-10-30",
+          "authors": [
+            "Kyungmin Lee",
+            "Sibeen Kim",
+            "Youngdon Lee",
+            "Minho Park",
+            "Hyunseung Kim",
+            "Dongyoon Hwang",
+            "Donghu Kim",
+            "Hojoon Lee",
+            "Jaegul Choo"
+          ],
+          "venue": null,
+          "citations": 12,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.017073
+          }
+        },
+        {
+          "title": "Dense Temporal Motion Retargeting for Legged Robots",
+          "url": "http://arxiv.org/abs/2609.38617v1",
+          "snippet": "Legged robots can learn expressive whole-body skills from the motions of humans and animals. Due to the morphology gap between the source and the robot, however, the motion must be tailored to the dynamic properties of the robot. In particular, dynamic motions such as a jump require careful adjustment, since their timing and control are interdependent. We propose dense temporal motion retargeting (DTMR), which jointly optimizes timing and control within a single optimization, where dense means that the timing is adjusted for every control step. This dense formulation enables DTMR to deform on…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-29",
+          "authors": [
+            "Jaeryeong Kim",
+            "Taerim Yoon",
+            "Jin Cheng",
+            "Sungjoon Choi",
+            "Stelian Coros"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.38617v1",
+            "rrf_score": 0.019481
+          }
+        },
+        {
+          "title": "Simulating Infant First-Person Sensorimotor Experience via Motion Retargeting from Babies to Humanoids",
+          "url": "http://arxiv.org/abs/2604.27583v2",
+          "snippet": "Motion retargeting from humans to human-like artificial agents is becoming increasingly important as humanoid robots grow more capable. However, most existing approaches focus only on reproducing kinematics and ignore the rich sensorimotor experience associated with human movement. In this work, we present a framework for simulating the multimodal sensorimotor experiences of infants using physical and virtual humanoids. From a single video, our method reconstructs the infant's body configuration by extracting its skeletal structure and estimating the full 3D pose from each frame. Then we map…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-04-30",
+          "authors": [
+            "Francisco M. López",
+            "Hoshinori Kanazawa",
+            "Ondrej Fiala",
+            "Yakov Balashov",
+            "Valentin Marcel",
+            "Lukas Rustler",
+            "Miles Lenz",
+            "Dongmin Kim",
+            "Yasuo Kuniyoshi",
+            "Jochen Triesch",
+            "Matej Hoffmann"
+          ],
+          "venue": "q-bio.NC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2604.27583v2",
+            "rrf_score": 0.018987
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q4",
+        "findings": [
+          {
+            "point": "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes",
+            "evidence": "Massively parallel simulation has reduced reinforcement learning (RL) training time for robots from days to minutes. However, achieving fast and reliable sim-to-real RL for humanoid control remains difficult due to the challenges introduced by factors such as high dimensionality and domain randomiz…",
+            "sources": [
+              12
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Hierarchical Reduced-Order Model Predictive Control for Robust Locomotion on Humanoid Robots",
+            "evidence": "As humanoid robots enter real-world environments, ensuring robust locomotion across diverse environments is crucial. This paper presents a computationally efficient hierarchical control framework for humanoid robot locomotion based on reduced-order models -- enabling versatile step planning and inc…",
+            "sources": [
+              15
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Robot Manipulation with GPT-6-Astra: Body Knowledge, Experience Reuse, Emergent Skills, and Sim2Real Transfer",
+            "evidence": "General-purpose multimodal agents can write robot-control programs, but repeated exploration and model-mediated action selection can make execution slow. We study how external body knowledge, successful experience, and executable skills improve an XLeRobot controlled by GPT-6-Astra in a simulated a…",
+            "sources": [
+              77
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "PHUMA: Physically Reliable Humanoid Locomotion Dataset",
+            "evidence": "Motion imitation is a promising approach for humanoid locomotion, enabling agents to acquire humanlike behaviors. Existing methods typically rely on high-quality motion capture datasets such as AMASS, but these are scarce and expensive, limiting scalability and diversity. Recent studies attempt to…",
+            "sources": [
+              85
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "citations=12",
+            "authority": "",
+            "attention": "中（citations=12）",
+            "recommendation": "★★★☆☆"
+          },
+          {
+            "point": "Dense Temporal Motion Retargeting for Legged Robots",
+            "evidence": "Legged robots can learn expressive whole-body skills from the motions of humans and animals. Due to the morphology gap between the source and the robot, however, the motion must be tailored to the dynamic properties of the robot. In particular, dynamic motions such as a jump require careful adjustm…",
+            "sources": [
+              78
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Simulating Infant First-Person Sensorimotor Experience via Motion Retargeting from Babies to Humanoids",
+            "evidence": "Motion retargeting from humans to human-like artificial agents is becoming increasingly important as humanoid robots grow more capable. However, most existing approaches focus only on reproducing kinematics and ignore the rich sensorimotor experience associated with human movement. In this work, we…",
+            "sources": [
+              80
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "q-bio.NC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=q-bio.NC）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q5",
+      "question": "全身控制（WBC）与遥操作/动作模仿的最新路线：神经WBC、统一控制器、human-to-humanoid遥操作如何实现？",
+      "queries": [
+        "neural whole-body controller humanoid teleoperation 2025",
+        "HOVER humanoid unified controller 2024",
+        "OmniH2O human-to-humanoid whole-body teleoperation",
+        "humanoid motion imitation whole-body tracking learning 2025"
+      ],
+      "rationale": "WBC与遥操作是人形落地的核心接口，且与VLA/运动模仿高度耦合；需精读HOVER、OmniH2O、HumanPlus等代表作全文，区分论文宣称与第三方复现。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+          "url": "http://arxiv.org/abs/2511.11218v4",
+          "snippet": "Humanoid robots have demonstrated strong capabilities for interacting with static scenes across locomotion and manipulation, yet dynamic real-world interactions remain challenging. As a step toward fast-moving object interactions, we present an RL training pipeline that yields a unified whole-body controller for humanoid badminton, coordinating footwork and striking without motion priors or expert demonstrations. In badminton, locomotion and striking are tightly coupled, making the final hitting objective difficult to optimize directly due to sparse rewards and conflicting gradients. We addre…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-14",
+          "authors": [
+            "Chenhao Liu",
+            "Leyun Jiang",
+            "Ningyuan Tian",
+            "Yibo Wang",
+            "Kairan Yao",
+            "Jinchen Fu",
+            "Xiaoyu Ren"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.11218v4",
+            "rrf_score": 0.060623,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations",
+          "url": "http://arxiv.org/abs/2602.06643v2",
+          "snippet": "Current approaches for humanoid whole-body manipulation, primarily relying on teleoperation or visual sim-to-real reinforcement learning, are hindered by hardware logistics and complex reward engineering. Consequently, demonstrated autonomous skills remain limited and are typically restricted to controlled environments. In this paper, we present the Humanoid Manipulation Interface (HuMI), a portable and efficient framework for learning diverse whole-body manipulation tasks across various environments. HuMI enables robot-free data collection by capturing rich whole-body motion using portable h…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-06",
+          "authors": [
+            "Ruiqian Nai",
+            "Boyuan Zheng",
+            "Junming Zhao",
+            "Haodong Zhu",
+            "Sicong Dai",
+            "Zunhao Chen",
+            "Yihang Hu",
+            "Yingdong Hu",
+            "Tong Zhang",
+            "Chuan Wen",
+            "Yang Gao"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.06643v2",
+            "rrf_score": 0.058521,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "TWIST: Teleoperated Whole-Body Imitation System",
+          "url": "http://arxiv.org/abs/2505.02833v1",
+          "snippet": "Teleoperating humanoid robots in a whole-body manner marks a fundamental step toward developing general-purpose robotic intelligence, with human motion providing an ideal interface for controlling all degrees of freedom. Yet, most current humanoid teleoperation systems fall short of enabling coordinated whole-body behavior, typically limiting themselves to isolated locomotion or manipulation tasks. We present the Teleoperated Whole-Body Imitation System (TWIST), a system for humanoid teleoperation through whole-body motion imitation. We first generate reference motion clips by retargeting hum…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-05",
+          "authors": [
+            "Yanjie Ze",
+            "Zixuan Chen",
+            "João Pedro Araújo",
+            "Zi-ang Cao",
+            "Xue Bin Peng",
+            "Jiajun Wu",
+            "C. Karen Liu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.02833v1",
+            "rrf_score": 0.05844,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+          "url": "http://arxiv.org/abs/2508.00162v2",
+          "snippet": "Recent advances in teleoperation have demonstrated robots performing complex manipulation tasks. However, existing works rarely support whole-body joint-level teleoperation for humanoid robots, limiting the diversity of tasks that can be accomplished. This work presents Controller for Humanoid Imitation and Live Demonstration (CHILD), a compact reconfigurable teleoperation system that enables joint level control over humanoid robots. CHILD fits within a standard baby carrier, allowing the operator control over all four limbs, and supports both direct joint mapping for full-body control and lo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-31",
+          "authors": [
+            "Noboru Myers",
+            "Obin Kwon",
+            "Sankalp Yamsani",
+            "Joohyung Kim"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.00162v2",
+            "rrf_score": 0.041636,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum",
+          "url": "http://arxiv.org/abs/2605.21133v2",
+          "snippet": "In this paper, we explore spatial-aware humanoid whole-body manipulation task. Compared with tabletop settings, this task poses two key challenges: 1) Spatial understanding is challenging in complex 3D environments with diverse spatial relations. 2) Action generation is difficult to generalize, as limited and costly real-robot data restricts data-driven models generalization. To address these challenges, we propose a generalizable humanoid loco-manipulation framework that leverages the spatial perception and action generation capabilities of multi-agent large models. Specifically, our framewo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Zhizhao Liang",
+            "Yi-Lin Wei",
+            "Xuhang Chen",
+            "Mu Lin",
+            "Yi-Xiang He",
+            "Zhexi Luo",
+            "Jun-Hui Liu",
+            "Kun-Yu Lin",
+            "Wei-Shi Zheng"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21133v2",
+            "rrf_score": 0.038856,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2607.20399v1",
+          "snippet": "Full-sized humanoid robot capabilities have grown exponentially in recent years, aiming towards general-purpose deployment in human environments. A popular control method used by manufacturers utilizes Virtual Reality for upper-body teleoperation and Reinforcement Learning for lower-body balance and locomotion control. As a result, a single remote operator can see, manipulate, and navigate about a real, distant physical environment. This powerful control stack is often relegated to expensive full-sized robots, many of which are inaccessible to the research community. Miniature humanoids are m…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-22",
+          "authors": [
+            "Nicolas Kosanovic",
+            "Jordan Dowdy",
+            "Jean Chagas Vaz"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.20399v1",
+            "rrf_score": 0.019737
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q5",
+        "findings": [
+          {
+            "point": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+            "evidence": "Humanoid robots have demonstrated strong capabilities for interacting with static scenes across locomotion and manipulation, yet dynamic real-world interactions remain challenging. As a step toward fast-moving object interactions, we present an RL training pipeline that yields a unified whole-body…",
+            "sources": [
+              48
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations",
+            "evidence": "Current approaches for humanoid whole-body manipulation, primarily relying on teleoperation or visual sim-to-real reinforcement learning, are hindered by hardware logistics and complex reward engineering. Consequently, demonstrated autonomous skills remain limited and are typically restricted to co…",
+            "sources": [
+              64
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "TWIST: Teleoperated Whole-Body Imitation System",
+            "evidence": "Teleoperating humanoid robots in a whole-body manner marks a fundamental step toward developing general-purpose robotic intelligence, with human motion providing an ideal interface for controlling all degrees of freedom. Yet, most current humanoid teleoperation systems fall short of enabling coordi…",
+            "sources": [
+              86
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+            "evidence": "Recent advances in teleoperation have demonstrated robots performing complex manipulation tasks. However, existing works rarely support whole-body joint-level teleoperation for humanoid robots, limiting the diversity of tasks that can be accomplished. This work presents Controller for Humanoid Imit…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum",
+            "evidence": "In this paper, we explore spatial-aware humanoid whole-body manipulation task. Compared with tabletop settings, this task poses two key challenges: 1) Spatial understanding is challenging in complex 3D environments with diverse spatial relations. 2) Action generation is difficult to generalize, as…",
+            "sources": [
+              66
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning",
+            "evidence": "Full-sized humanoid robot capabilities have grown exponentially in recent years, aiming towards general-purpose deployment in human environments. A popular control method used by manufacturers utilizes Virtual Reality for upper-body teleoperation and Reinforcement Learning for lower-body balance an…",
+            "sources": [
+              46
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q6",
+      "question": "开放问题与争议：sim2real gap、鲁棒性与跌倒恢复、安全性、评测不可复现、硬件成本与负面结果有哪些？",
+      "queries": [
+        "humanoid fall recovery reinforcement learning 2025",
+        "sim2real gap legged locomotion limitations failure cases",
+        "humanoid robot safety robustness push recovery disturbance",
+        "reinforcement learning locomotion reproducibility negative results"
+      ],
+      "rationale": "技能方法论要求覆盖争议与失败案例；需收集跌倒恢复、扰动鲁棒性、复现困难与安全规范等negative results，避免把demo视频当实验证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+          "url": "http://arxiv.org/abs/2607.18488v1",
+          "snippet": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We propose a physical platform that is designed to simplify the transition. In this paper, we present the Open Ant: a physical variant of the commonly used Gymnasium Ant environment, along with a simulation. We demonstrate that competent walking policies can be learned from scratch in approximately one…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-20",
+          "authors": [
+            "Elena Sorina Lupu",
+            "Patrick Spieler",
+            "Khurram Javed",
+            "Kris De Asis",
+            "John D. Martin",
+            "Martha Steenstrup",
+            "Joseph Modayil"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.18488v1",
+            "rrf_score": 0.041841,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2607.20399v1",
+          "snippet": "Full-sized humanoid robot capabilities have grown exponentially in recent years, aiming towards general-purpose deployment in human environments. A popular control method used by manufacturers utilizes Virtual Reality for upper-body teleoperation and Reinforcement Learning for lower-body balance and locomotion control. As a result, a single remote operator can see, manipulate, and navigate about a real, distant physical environment. This powerful control stack is often relegated to expensive full-sized robots, many of which are inaccessible to the research community. Miniature humanoids are m…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-22",
+          "authors": [
+            "Nicolas Kosanovic",
+            "Jordan Dowdy",
+            "Jean Chagas Vaz"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.20399v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+          "url": "http://arxiv.org/abs/2511.11218v4",
+          "snippet": "Humanoid robots have demonstrated strong capabilities for interacting with static scenes across locomotion and manipulation, yet dynamic real-world interactions remain challenging. As a step toward fast-moving object interactions, we present an RL training pipeline that yields a unified whole-body controller for humanoid badminton, coordinating footwork and striking without motion priors or expert demonstrations. In badminton, locomotion and striking are tightly coupled, making the final hitting objective difficult to optimize directly due to sparse rewards and conflicting gradients. We addre…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-14",
+          "authors": [
+            "Chenhao Liu",
+            "Leyun Jiang",
+            "Ningyuan Tian",
+            "Yibo Wang",
+            "Kairan Yao",
+            "Jinchen Fu",
+            "Xiaoyu Ren"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.11218v4",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "ATRos: Learning Energy-Efficient Agile Locomotion for Wheeled-legged Robots",
+          "url": "http://arxiv.org/abs/2510.09980v1",
+          "snippet": "Hybrid locomotion of wheeled-legged robots has recently attracted increasing attention due to their advantages of combining the agility of legged locomotion and the efficiency of wheeled motion. But along with expanded performance, the whole-body control of wheeled-legged robots remains challenging for hybrid locomotion. In this paper, we present ATRos, a reinforcement learning (RL)-based hybrid locomotion framework to achieve hybrid walking-driving motions on the wheeled-legged robot. Without giving predefined gait patterns, our planner aims to intelligently coordinate simultaneous wheel and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-11",
+          "authors": [
+            "Jingyuan Sun",
+            "Hongyu Ji",
+            "Zihan Qu",
+            "Chaoran Wang",
+            "Mingyu Zhang"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.09980v1",
+            "rrf_score": 0.020833
+          }
+        },
+        {
+          "title": "Locomotion Beyond Feet",
+          "url": "http://arxiv.org/abs/2601.03607v1",
+          "snippet": "Most locomotion methods for humanoid robots focus on leg-based gaits, yet natural bipeds frequently rely on hands, knees, and elbows to establish additional contacts for stability and support in complex environments. This paper introduces Locomotion Beyond Feet, a comprehensive system for whole-body humanoid locomotion across extremely challenging terrains, including low-clearance spaces under chairs, knee-high walls, knee-high platforms, and steep ascending and descending stairs. Our approach addresses two key challenges: contact-rich motion planning and generalization across diverse terrain…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-01-07",
+          "authors": [
+            "Tae Hoon Yang",
+            "Haochen Shi",
+            "Jiacheng Hu",
+            "Zhicong Zhang",
+            "Daniel Jiang",
+            "Weizhuo Wang",
+            "Yao He",
+            "Zhen Wu",
+            "Yuming Chen",
+            "Yifan Hou",
+            "Monroe Kennedy",
+            "Shuran Song",
+            "C. Karen Liu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2601.03607v1",
+            "rrf_score": 0.02027
+          }
+        },
+        {
+          "title": "Failure Mechanisms and Risk Estimation for Legged Robot Locomotion on Granular Slopes",
+          "url": "http://arxiv.org/abs/2603.06928v2",
+          "snippet": "Locomotion on granular slopes such as sand dunes remains a fundamental challenge for legged robots due to reduced shear strength and gravity-induced anisotropic yielding of granular media. Using a hexapedal robot on a tiltable granular bed, we systematically measure locomotion speed together with slope-dependent normal and shear granular resistive forces. While normal penetration resistance remains nearly unchanged with inclination, shear resistance decreases substantially as slope angle increases. Guided by these measurements, we develop a simple robot-terrain interaction model that predicts…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-06",
+          "authors": [
+            "Xingjue Liao",
+            "Feifei Qian"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.06928v2",
+            "rrf_score": 0.02
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q6",
+        "findings": [
+          {
+            "point": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+            "evidence": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning",
+            "evidence": "Full-sized humanoid robot capabilities have grown exponentially in recent years, aiming towards general-purpose deployment in human environments. A popular control method used by manufacturers utilizes Virtual Reality for upper-body teleoperation and Reinforcement Learning for lower-body balance an…",
+            "sources": [
+              46
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+            "evidence": "Humanoid robots have demonstrated strong capabilities for interacting with static scenes across locomotion and manipulation, yet dynamic real-world interactions remain challenging. As a step toward fast-moving object interactions, we present an RL training pipeline that yields a unified whole-body…",
+            "sources": [
+              48
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "ATRos: Learning Energy-Efficient Agile Locomotion for Wheeled-legged Robots",
+            "evidence": "Hybrid locomotion of wheeled-legged robots has recently attracted increasing attention due to their advantages of combining the agility of legged locomotion and the efficiency of wheeled motion. But along with expanded performance, the whole-body control of wheeled-legged robots remains challenging…",
+            "sources": [
+              52
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Locomotion Beyond Feet",
+            "evidence": "Most locomotion methods for humanoid robots focus on leg-based gaits, yet natural bipeds frequently rely on hands, knees, and elbows to establish additional contacts for stability and support in complex environments. This paper introduces Locomotion Beyond Feet, a comprehensive system for whole-bod…",
+            "sources": [
+              54
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Failure Mechanisms and Risk Estimation for Legged Robot Locomotion on Granular Slopes",
+            "evidence": "Locomotion on granular slopes such as sand dunes remains a fundamental challenge for legged robots due to reduced shear strength and gravity-induced anisotropic yielding of granular media. Using a hexapedal robot on a tiltable granular bed, we systematically measure locomotion speed together with s…",
+            "sources": [
+              55
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [
+    {
+      "coverage": "",
+      "gaps": [],
+      "additional_queries": [],
+      "additional_subquestions": []
+    }
+  ],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 65,
+    "prompt_tokens": 395305,
+    "completion_tokens": 255090,
+    "generated_at": "2026-10-06T22:30:15.065844+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 具身智能 · 人形与腿足运动控制（Humanoid & Legged Locomotion）技术图谱调研报告\n\n> **日期**：2026-10-06（UTC）\n> **领域**：具身智能 / 人形机器人（Humanoid）/ 腿足运动控制（Legged Locomotion）/ 全身控制（WBC）\n> **检索源**：97 条编号来源（含噪声召回）+ 7 项领域种子资源；经主题相关性筛选后可用来源约 60 条，另约 30 条为跨领域误召回（见 §8.3）\n> **证据纪律**：本报告所有关键论断均标注编号引用 [n]。结构化抽取块中 `heat`／`citations`／`stars` 字段大面积为空，凡无法取到热度数字者一律写 `> 待核实`，**不编造任何引用数、star 数、成功率或榜单排名**。\n\n---\n\n## 摘要（Executive Summary）\n\n近 1–2 年（2024–2026）人形与腿足运动控制的核心变化可归纳为五条主线：\n\n1. **训练成本塌缩**：大规模并行仿真把 RL 训练从「数天」压缩到「分钟级」，「Learning Sim-to-Real Humanoid Locomotion in 15 Minutes」是这一趋势最直接的标题级宣言 [12][19]。这改变了 sim2real 的工程经济学——迭代速度本身成为竞争力。\n2. **从「会走」到「全身体技」**：研究重心转向稀疏落脚点行走（BeamDojo [69]）、人形跑酷（Humanoid Parkour Learning [67]）、全身羽毛球（Humanoid Whole-Body Badminton [48]）、用膝/肘/手建立额外接触点的超足式运动（Locomotion Beyond Feet [54]）。\n3. **统一全身控制器（unified WBC）取代模块化堆叠**：HOVER [21]、UniTracker [65]、TWIST [86] 代表「单一策略覆盖多形态、多任务」的路线，与经典的分层 MPC 形成对照。\n4. **人体动作成为核心监督信号**：遥操作与动作模仿（H2O [87]、OmniH2O [92]、CHILD [3]）与动作重定向（retargeting）研究（Retargeting Matters [83]、Dense Temporal Motion Retargeting [78]）同步爆发，AMASS / LAFAN1 等动捕数据成为基础设施。\n5. **评测仍是最薄弱环节**：HumanoidBench [22][74] 是少数被第三方复用的基准（见 MuJoCo MPC on HumanoidBench [75]），但真机可复现评测体系仍未建立 [76]。\n\n> **总体判断**：方法层面已高度「学习化」，**瓶颈从算法的表达能力转移到评测可信度、硬件可获得性与安全/恢复鲁棒性**。当前绝大多数条目仍为 arXiv 预印本（confidence 低），跨论文的数字比较基本不可行。\n\n---\n\n## 一、关键前沿进展（近 1–2 年）\n\n### 1.1 分钟级 sim-to-real 人形 RL 训练\n\n- **要点**：在 massively parallel simulation 上把 humanoid RL 训练从数天压到分钟级，同时维持 sim-to-real 可靠性；难点被明确归因于高维状态与域随机化（domain randomization）带来的成本 [12][19]。\n- **热度证据**：`> 待核实`（抽取块 `heat` 字段为空，无引用数/star 可查）\n- **权威证据**：arXiv cs.RO 预印本 [12][19]（同一工作两个链接），**未见同行评审 venue 标注**\n- **关注度**：中 —— 依据：「训练时间」是该领域被反复引用的工程瓶颈指标，且该工作同时出现在 q1 与 q3 两个子问题的召回结果中 [12][19]\n- **推荐度**：★★★★☆ —— 理由：若结果成立，它直接改写 sim2real 的工程流程（快速迭代 + 快速重训），对选型决策影响最大；但需等独立复现。\n\n### 1.2 稀疏落脚点上的敏捷人形行走\n\n- **要点**：BeamDojo 面向稀疏落脚点（sparse footholds）的敏捷人形 locomotion [69]；与 Humanoid Parkour Learning [67]、Robot Parkour Learning [41] 构成「跑酷—落脚点」序列。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv cs.RO 预印本 [67][69]；`Robot Parkour Learning` [41] 为同系列早期工作\n- **关注度**：高 —— 依据：稀疏落脚点是四足→人形迁移中最常被引用的「能力分水岭」任务，跨 q1/q4 被多次召回 [69]\n- **推荐度**：★★★★☆（[69]）—— 理由：稀疏落脚同时考验感知、规划与全身动力学，是当前人形敏捷性的代表题型。\n\n### 1.3 动态交互类全身技能（非静止场景）\n\n- **要点**：Humanoid Whole-Body Badminton 提出退火式（annealed）RL 课程，训练统一全身策略应对高速运动物体，明确指出动态真实世界交互仍是短板 [48]。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv cs.RO 预印本 [48]（v4，说明经多轮修订）\n- **关注度**：中 —— 依据：动态物体交互是人形从「locomotion」迈向「loco-manipulation」的标志性任务类型 [48]\n- **推荐度**：★★★☆☆ —— 理由：任务新颖度高，但与 locomotion 主线（行走/地形）相关度中等。\n\n### 1.4 无机器人演示的全身操作接口\n\n- **要点**：Humanoid Manipulation Interface 主张绕过遥操作与视觉 sim2real RL 的硬件与奖励工程负担，用「robot-free demonstrations」获取人形全身操作技能 [64]。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv cs.RO 预印本 [64]（2026）\n- **关注度**：中 —— 依据：直指遥操作硬件成本与 reward engineering 两大公认痛点 [64]\n- **推荐度**：★★★★☆ —— 理由：若成立，可显著降低真机数据采集门槛；属方法论级贡献。\n\n### 1.5 轮椅—腿混合与超足式运动\n\n- **要点**：ATRos 针对轮腿机器人（wheeled-legged）学习节能敏捷 locomotion [52]；Locomotion Beyond Feet 明确打破「腿式步态」假设，用手、膝、肘建立额外接触 [54]。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv cs.RO 预印本 [52][54]\n- **关注度**：中 —— 依据：轮腿混合在效率上有明确物理动机 [52]；超足式接触属新命题 [54]\n- **推荐度**：★★★☆☆ —— 理由：与主流双足人形路线相关但不等同，适合作为扩展方向参考。\n\n---\n\n## 二、学习式 locomotion 与全身控制\n\n### 2.1 路线分野\n\n| 路线 | 代表工作 | 核心机制 | 证据 |\n|---|---|---|---|\n| **端到端 RL 单策略** | [14] Real-World Humanoid Locomotion with RL；[12][19] 15 Minutes | 单一神经网络直接输出关节动作，靠域随机化覆盖不确定性 | [12][14][19] |\n| **分层 / 降阶模型 MPC** | [15] Hierarchical Reduced-Order MPC；[24] RoMoCo；[17] Bracing for Impact | 降阶模型（reduced-order model）做步态规划 + 全身跟踪，计算高效、可解释 | [15][17][24] |\n| **统一神经全身控制器** | [21] HOVER；[65] UniTracker | 一个策略覆盖多任务/多形态，替代「每任务一策略」 | [21][65] |\n| **模仿 / 动作跟踪器** | [86] TWIST；[87] H2O；[92] OmniH2O；[65] UniTracker | 以人体动作为跟踪目标，得到类人自然步态 | [65][86][87][92] |\n\n### 2.2 「神经 WBC 统一化」是否已胜出？\n\n- **要点**：HOVER 定位为 versatile neural whole-body controller [21]，UniTracker 用三阶段训练实现跨人类行为的鲁棒 motion tracking [65]；两者共同主张「统一」优于「模块化堆叠」。\n- **热度证据**：`> 待核实`（无引用数/star 字段）；间接信号：LeCAR-Lab/human2humanoid 为该方向的公开仓库 [97]\n- **权威证据**：arXiv cs.RO 预印本 [21][65][97]\n- **关注度**：高 —— 依据：HOVER 同时出现在 q3（开源工程栈）与 q5（WBC 路线）的召回中，说明其被当作该路线的锚点工作 [21]\n- **推荐度**：★★★★★（[21]）—— 理由：统一 WBC 是当前人形全身控制最集中的竞争赛道，阅读优先级最高。\n- **反证与谨慎**：分层降阶 MPC 并未退场——[15][24] 仍在 2025 年发表并强调计算效率与鲁棒性 [15][24]，说明「学习式已全面取代模型式」是**过度简化**。`> 待核实`：两者的定量对比（同一硬件、同一任务的成功率/能耗）在本次来源中缺失。\n\n### 2.3 开源工程栈\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| isaac-sim/IsaacLab | — | NVIDIA（种子资源） | `> 待核实` | 官方仓库（B 级） | 高（GPU 并行仿真的事实标准，[16] 亦在其上构建 MARL 框架） | ★★★★★ | https://github.com/isaac-sim/IsaacLab | GPU 仿真训练基座 |\n| leggedrobotics/legged_gym | — | ETH Zurich（种子资源） | `> 待核实` | 官方仓库（B 级） | 高（腿足 RL 训练框架的经典起点） | ★★★★☆ | https://github.com/leggedrobotics/legged_gym | 腿足 RL 训练框架 |\n| unitreerobotics/unitree_rl_gym | — | Unitree（种子资源） | `> 待核实` | 官方仓库（B 级） | 高（Unitree 硬件用户基数大） | ★★★★☆ | https://github.com/unitreerobotics/unitree_rl_gym | Unitree 强化学习训练环境 |\n| LeCAR-Lab/human2humanoid | — | LeCAR-Lab（来源 [97]） | `> 待核实` | 官方仓库（B 级） | 中（H2O/OmniH2O 系列配套代码） | ★★★★☆ | https://github.com/LeCAR-Lab/human2humanoid | 人形真人到人形遥操作与学习 |\n| NVlabs/ProtoMotions | — | NVIDIA（种子资源） | `> 待核实` | 官方仓库（B 级） | 中（人形物理仿真运动） | ★★★☆☆ | https://github.com/NVlabs/ProtoMotions | 人形物理仿真运动 |\n| ARTEMIS | 2025 | 来源 [18]（Humanoids 2025） | `> 待核实` | **同行评审（A 级）** | 中（全尺寸开源人形硬件平台） | ★★★★☆ | https://doi.org/10.1109/Humanoids65713.2025.11203020 | 全尺寸开源动态 locomotion 平台 |\n| Berkeley Humanoid Lite | 2025 | 来源 [20] | `> 待核实` | arXiv 预印本（B 级） | 中（3D 打印低成本路线） | ★★★★☆ | https://arxiv.org/abs/2504.17249 | 可定制 3D 打印人形 |\n| NimbRo-OP / OP2 | 2018 | 来源 [1][2] | `> 待核实` | arXiv 预印本（B 级） | 低（已属早期开源平台） | ★★☆☆☆ | http://arxiv.org/abs/1809.11051v1 ; http://arxiv.org/abs/1809.11144v1 | 早期 ROS 人形开源平台 |\n\n- **复现难度判断**：`> 待核实`——本次来源未提供各仓库的安装文档质量、权重是否放出、硬件依赖清单等可核查信息；**不建议**在未实际核查仓库 README / release / license 的情况下判断「开箱可用」。\n- **硬件可获得性是隐性门槛**：ARTEMIS [18]、Berkeley Humanoid Lite [20] 的存在本身说明「没有硬件就无法验证」已成为社区共识问题；HECTOR 提供 loco-manipulation 开源研究平台 [23]。\n\n---\n\n## 三、sim2real 与地形适应\n\n### 3.1 域随机化（domain randomization）：从技巧到正规对象\n\n- **要点**：The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control 把 DR 本身作为研究对象，专门考察其对全身人形策略的影响 [63]；Sim-to-Real Transfer in DRL for Bipedal Locomotion 则系统剖析「仿真诅咒」（curse of simulation）的来源 [37]。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv cs.RO 预印本 [37][63]；DR 概念在机器人领域的早期共识性文档见 R:SS 2020 workshop 总结 [29]\n- **关注度**：高 —— 依据：DR 被 [12][63] 等多篇工作同时指认为 sim2real 的核心成本项与失败来源\n- **推荐度**：★★★★☆（[37]）—— 理由：把「为什么 sim2real 会失败」讲清楚，比又一个 SOTA 更有方法论价值。\n- **注意**：来源 [34] 的标题虽含 \"Domain-randomized\"，但属神经影像（neuroimage, eess.IV）领域 [34]，**不构成本主题证据**，仅说明该术语已跨领域扩散。\n\n### 3.2 地形适应：显式几何表征回归\n\n- **要点**：Foot Position Maps 论文指出，先前 RL locomotion 方法依赖从关节角**隐式推断**落脚点，缺乏显式表达，因而提出以 foot position map + 稳定性奖励提升复杂地形表现 [27]。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv cs.RO 预印本 [27]（2026）\n- **关注度**：中 —— 依据：该文以「隐式推断 vs 显式表征」作为核心论点，属于对既有范式的方法论批评 [27]\n- **推荐度**：★★★★☆ —— 理由：为「感知到底该以何种形式进入策略」提供了具体答案。\n- **相关支撑**：视觉地形感知路线另有 ViTAL [26]、AI-Based Terrain Adaptation Algorithms for Walking Robots [42]；课程学习路线见 Guided Curriculum Learning for Walking Over Complex Terrain [31]。\n\n### 3.3 真实世界持续学习\n\n- **要点**：Legged Robots that Keep on Learning 提出在真实世界对 locomotion 策略做在线微调，直面 sim2real 之后的分布漂移 [53]。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv 预印本 [53]\n- **关注度**：中 —— 依据：2021 年工作，在 2024–2026 的召回中仍被检索到 [53]，说明问题未被解决\n- **推荐度**：★★★☆☆ —— 理由：属奠基性思路，但需结合最新方法重新评估。\n\n### 3.4 状态估计与感知缺口\n\n- **要点**：Learning Inertial Odometry for Dynamic Legged Robot State Estimation 处理动态运动下的状态估计 [72]，是 sim2real 落地中常被忽视的一环。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv 预印本 [72]\n- **关注度**：中 —— 依据：[72] 在本次「经典/奠基」语境下被召回\n- **推荐度**：★★★☆☆ —— 理由：工程必需，但非当前研究热点中心。\n- **批评性证据**：Bridging the Sim2Real Gap: Vision Encoder Pre-Training 主张用视觉编码器预训练缓解差距 [49]；而 Sim2Real 局限性的早期批评（含 precision agriculture 场景）指出 sim2real 在精细操作上存在根本限制 [51]。\n\n---\n\n## 四、敏捷动作、跑跳与恢复\n\n### 4.1 跑酷与超足式运动\n\n| 工作 | 年份 | 类型 | 关键贡献 | 证据 |\n|---|---|---|---|---|\n| Robot Parkour Learning | 2023 | 预印本 | 跑酷任务的学习式解法，四足敏捷性代表 | [41] |\n| Humanoid Parkour Learning | 2024 | 预印本 | 将跑酷范式迁移到人形 | [67] |\n| BeamDojo | 2025 | 预印本 | 稀疏落脚点上的敏捷人形 locomotion | [69] |\n| Locomotion Beyond Feet | 2026 | 预印本 | 用膝/肘/手建立额外接触，突破「仅靠脚」的范式 | [54] |\n| Agile But Safe | 2024 | 预印本 | 高速腿足运动中的无碰撞安全约束 | [68] |\n\n- **四类证据（以 [69] 为例）**：热度 `> 待核实`｜权威：arXiv cs.RO 预印本 [69]｜关注度：高（稀疏落脚是对比 SOTA 的常见题型）｜推荐度：★★★★☆（敏捷人形最直接的能力检验）。\n\n### 4.2 跌倒恢复与站立\n\n- **要点**：FR-Net 针对复杂地形上四足机器人从任意姿态恢复，核心机制为 mass-contact prediction，指出传统控制器在感知不完整与交互不确定下失效 [28]；Learning Humanoid Standing-up Control across Diverse Postures 则处理人形从多种姿态站起 [47]。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv cs.RO 预印本 [28][47]\n- **关注度**：中 —— 依据：恢复能力被多篇工作（[47][48][54]）作为「真实部署前提」提及\n- **推荐度**：★★★★☆（[47]）—— 理由：站起/恢复是人形走出实验室的必经关卡，且与安全议题直接耦合。\n\n### 4.3 推力恢复（push recovery）：模型式传统的持续存在\n\n- **要点**：Bracing for Impact 用降阶模型处理人形推力恢复与 locomotion [17]；更早的 DCM 轨迹生成 [57]、capture point 反馈 [58]、滚动时域策略（iCub）[59]、在线平衡运动生成 [60] 构成一条完整的经典脉络。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv 预印本 [17][57][58][59][60]\n- **关注度**：中 —— 依据：2025 年的 [17] 仍在该主题下发表，说明模型式方法未被替代 [17]\n- **推荐度**：★★★☆☆（[17]）—— 理由：抗扰动的可解释性与可证明性，是学习式方法短期内难以给出的。\n\n### 4.4 安全性\n\n- **要点**：Safe Reinforcement Learning for Legged Locomotion 明确将约束满足纳入 locomotion 训练 [71]；Agile But Safe 在高速场景下处理碰撞规避 [68]。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv 预印本 [68][71]\n- **关注度**：中 —— 依据：安全约束在本次召回中出现频次低于性能类工作，可能反映社区关注度不足 `> 待核实`\n- **推荐度**：★★★☆☆ —— 理由：安全是人形进入人类环境的前置条件，但目前证据显示投入相对偏少。\n\n---\n\n## 五、遥操作与动作先验\n\n### 5.1 human-to-humanoid 遥操作主线\n\n| 工作 | 年份 | 关键贡献 | 证据 |\n|---|---|---|---|\n| H2O（Learning Human-to-Humanoid Real-Time Whole-Body Teleoperation） | 2024 | 人形全身实时遥操作，该方向的锚点工作 | [87] |\n| OmniH2O | 2024 | 通用且灵巧的人到人形全身遥操作与学习 | [92] |\n| TWIST（Teleoperated Whole-Body Imitation System） | 2025 | 面向全身模仿的遥操作系统 | [86] |\n| CHILD | 2025 | 强调**关节级**全身遥操作，指出现有系统很少支持 | [3] |\n| CLOT | 2026 | 闭环全局运动跟踪用于全身遥操作 | [94] |\n| Miniature Humanoid Tele-Loco-Manipulation | 2026 | VR 上半身遥操作 + RL 下半身平衡的厂商常见组合 | [46] |\n| HMI（Humanoid Manipulation Interface） | 2026 | 用无机器人演示替代遥操作采数据 | [64] |\n\n- **四类证据（以 [87] 为例）**：热度 `> 待核实`（配套仓库 LeCAR-Lab/human2humanoid [97] 的 star 数未在本次来源中给出）｜权威：arXiv 预印本，且为种子资源标注为 IROS 2024 方向工作 [87]｜关注度：高（H2O/OmniH2O/TWIST 三条线共享同一代码生态 [97]，是当前人形数据采集的主流范式）｜推荐度：★★★★★ —— 理由：遥操作既是数据来源也是部署接口，是当前投入产出比最高的方向之一。\n\n### 5.2 动作重定向（retargeting）：被低估的关键环节\n\n- **要点**：Retargeting Matters 直接质疑重定向环节常被当作实现细节，主张其对 humanoid motion tracking 结果有决定性影响 [83]；Dense Temporal Motion Retargeting 针对跳跃等**动态动作**指出形态差异（morphology gap）需要精细的时序适配 [78]；Spatio-Temporal Motion Retargeting 面向四足 [79]；Kinodynamic Motion Retargeting 用多接触全身轨迹优化处理动力学可行性 [84]；From Language to Locomotion 更进一步提出免重定向（retargeting-free）路线 [81]。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv 预印本 [78][79][81][83][84]；早期几何重定向工作见 [82]\n- **关注度**：高 —— 依据：2025–2026 年密集出现同主题论文 [78][81][83][84]，且 [83] 以「Matters」为题主张该环节被系统性忽视，属典型范式争议信号\n- **推荐度**：★★★★★（[83]）—— 理由：若重定向质量主导下游指标，则此前大量「策略改进」的对比可能被混淆变量污染——这对复现与评测的影响极大。\n\n### 5.3 动作先验与传感器运动经验\n\n- **要点**：Simulating Infant First-Person Sensorimotor Experience 指出多数重定向只复现运动学而忽略伴随的感觉运动经验，尝试从婴儿动作重定向到人形以生成第一人称经验数据 [80]。\n- **热度证据**：`> 待核实`\n- **权威证据**：arXiv **q-bio.NC** 预印本 [80]（跨领域提交，非 cs.RO 主通道）\n- **关注度**：低 —— 依据：来源分类为 q-bio.NC [80]，与机器人主社区交集有限 `> 待核实`\n- **推荐度**：★★☆☆☆ —— 理由：概念新颖（认知科学视角），但技术可迁移性与实验证据在本次来源中无法确认。\n\n---\n\n## 六、经典与奠基性工作\n\n> 说明：以下「经典」判定以**是否被后续工作反复用作基线/出发点**及**是否构成范式转折**为依据；热度字段因本次来源未提供引用数而多为 `> 待核实`。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Learning Agile and Dynamic Motor Skills for Legged Robots（ANYmal） | 2019 | Science Robotics（种子资源标注 ETH） | `> 待核实` | **同行评审期刊（A 级）** | 高（sim2real RL 腿足的起点性工作） | ★★★★★ | https://www.science.org/doi/10.1126/scirobotics.aau5872 | sim2real 强化学习奠基 |\n| Learning Quadrupedal Locomotion over Challenging Terrain | 2020 | Science Robotics（种子资源标注 ETH） | `> 待核实` | **同行评审期刊（A 级）** | 高（学习式腿足运动奠基） | ★★★★★ | https://www.science.org/doi/10.1126/scirobotics.abc5986 ; http://arxiv.org/abs/2010.11251v1 | 学习式腿足运动奠基 [25] |\n| RMA: Rapid Motor Adaptation for Legged Robots | 2021 | 来源 [73] | `> 待核实` | arXiv 预印本（B 级） | 高（在线自适应范式的锚点） | ★★★★★ | http://arxiv.org/abs/2107.04034v1 | 快速电机自适应 |\n| Real-World Humanoid Locomotion with Reinforcement Learning | 2023 | 来源 [14] | `> 待核实` | arXiv 预印本（B 级） | 高（真机人形 RL 的代表性早期工作） | ★★★★★ | http://arxiv.org/abs/2303.03381v2 | 真机人形 RL locomotion |\n| Learning Human-to-Humanoid Real-Time Whole-Body Teleoperation（H2O） | 2024 | 种子资源标注 IROS | `> 待核实` | 预印本 + 会议标注（B/A 级待核） | 高 | ★★★★★ | https://arxiv.org/abs/2403.04436 ; http://arxiv.org/abs/2403.04436v1 | 人形全身实时遥操作 [87] |\n| OmniH2O | 2024 | 来源 [92] | `> 待核实` | arXiv 预印本（B 级） | 高 | ★★★★★ | http://arxiv.org/abs/2406.08858v1 | 通用灵巧人到人形遥操作与学习 |\n| Learning Humanoid Locomotion over Challenging Terrain | 2024 | 来源 [13] | `> 待核实` | arXiv 预印本（B 级） | 中高 | ★★★★☆ | http://arxiv.org/abs/2410.03654v1 | 复杂地形人形 locomotion |\n| HOVER | 2024 | 来源 [21] | `> 待核实` | arXiv 预印本（B 级） | 高 | ★★★★★ | http://arxiv.org/abs/2410.21229v2 | 通用神经全身控制器 |\n| Online DCM Trajectory Generation for Push Recovery | 2019 | 来源 [57] | `> 待核实` | arXiv 预印本（B 级） | 中 | ★★★☆☆ | http://arxiv.org/abs/1909.10403v2 | 力矩控制人形推力恢复 |\n| Push Recovery via Capture Point Feedback | 2017 | 来源 [58] | `> 待核实` | arXiv 预印本（B 级） | 中 | ★★★☆☆ | http://arxiv.org/abs/1710.10598v1 | 位置控制人形推力恢复 |\n| A Receding Horizon Push Recovery Strategy（iCub） | 2017 | 来源 [59] | `> 待核实` | arXiv 预印本（B 级） | 中 | ★★★☆☆ | http://arxiv.org/abs/1705.10638v1 | 滚动时域恢复策略 |\n| Online Balanced Motion Generation for Humanoid Robots | 2018 | 来源 [60] | `> 待核实` | arXiv 预印本（B 级） | 中 | ★★★☆☆ | http://arxiv.org/abs/1810.08388v1 | 在线平衡运动生成 |\n| Whole-Body Geometric Retargeting for Humanoid Robots | 2019 | 来源 [82] | `> 待核实` | arXiv 预印本（B 级） | 中 | ★★★☆☆ | http://arxiv.org/abs/1909.10080v1 | 全身几何重定向 |\n| Keep Rollin' — Whole-Body Motion Control and Planning for Wheeled Quadrupedal | 2018 | 来源 [30] | `> 待核实` | arXiv 预印本（B 级） | 中 | ★★★☆☆ | http://arxiv.org/abs/1809.03557v2 | 轮腿全身运动控制与规划 |\n| Legged Robots that Keep on Learning | 2021 | 来源 [53] | `> 待核实` | arXiv 预印本（B 级） | 中 | ★★★☆☆ | http://arxiv.org/abs/2110.05457v1 | 真机在线微调 |\n| Perspectives on Sim2Real Transfer for Robotics（R:SS 2020 Workshop 总结） | 2020 | 来源 [29] | `> 待核实` | 研讨会总结报告（B 级） | 中 | ★★★★☆ | http://arxiv.org/abs/2012.03806v1 | sim2real 共识性问题清单 |\n| Reproducibility of Benchmarked DRL Tasks for Continuous Control | 2017 | 来源 [61] | `> 待核实` | arXiv 预印本（B 级） | 中 | ★★★★☆ | http://arxiv.org/abs/1708.04133v1 | 连续控制可复现性警示（负面结果价值高） |\n\n**范式转变小结**：2019–2021 年的奠基工作确立了「大规模并行仿真 + 域随机化 + 策略蒸馏」的 sim2real 路线 [25][73]；2023 年该路线在人形上完成真机验证 [14]；2024 年后重心转向统一全身控制器与动作接口 [21][87]。与此同时，模型式（MPC / 降阶模型）路线并未消亡，2025 年仍有 [15][17][24] 发表。\n\n---\n\n## 七、数据集、基准与开放问题\n\n### 7.1 数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| HumanoidBench | 2024 | 来源 [22][74] | `> 待核实` | arXiv 预印本（B 级） | 高（**被第三方复用于评测**，见 [75]） | ★★★★★ | https://arxiv.org/abs/2403.10506 | 人形全身 locomotion+manipulation 仿真基准 |\n| MuJoCo MPC for Humanoid Control: Evaluation on HumanoidBench | 2024 | 来源 [75] | `> 待核实` | arXiv 预印本（B 级） | 中高（作为 HumanoidBench 的第三方使用证据） | ★★★★☆ | http://arxiv.org/abs/2408.00342v1 | 在 HumanoidBench 上评测模型式 MPC |\n| Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective | 2025 | 来源 [76] | `> 待核实` | arXiv 预印本（B 级） | 中（直指评测方法论缺失） | ★★★★★ | http://arxiv.org/abs/2508.11117v1 | sim2real 评测基准化的方法论 |\n| PHUMA: Physically Reliable Humanoid Locomotion Dataset | 2025 | 来源 [85] | citations=12 [85] | arXiv 预印本（B 级） | 中（citations=12）[85] | ★★★☆☆ | https://arxiv.org/abs/2510.26236 | 物理可靠的人形 locomotion 数据 |\n| Motion-X | 2023 | 来源 [95] | `> 待核实` | arXiv 预印本（B 级） | 中高（大规模 3D 全身动作数据） | ★★★★☆ | http://arxiv.org/abs/2307.00818v2 | 大规模表达性全身人体动作数据 |\n| AMASS（mocap） | — | 种子资源 | `> 待核实` | 官方数据集主页（B 级） | 高（多篇工作以其为动作来源，如 [85] 指出其稀缺昂贵） | ★★★★★ | https://amass.is.tue.mpg.de/ | 人体动捕聚合数据（未被本次编号来源收录，来自种子清单） |\n| LAFAN1 / LAFAN1 retargeted | — | Ubisoft（种子资源） | `> 待核实` | 官方数据集仓库（B 级） | 高 | ★★★★★ | https://github.com/ubisoft/ubisoft-laforge-animation-dataset | 人形动作先验 |\n| The Open Ant | 2026 | 来源 [4] | `> 待核实` | arXiv 预印本（B 级） | 中（主张仿真主导导致真机迁移不确定） | ★★★☆☆ | http://arxiv.org/abs/2607.18488v1 | RL 研究的实体机器人平台 |\n\n- **关键结构性缺口（可核查）**：PHUMA 明确指出既有方法依赖 AMASS 等高质量动捕数据，而这类数据**稀缺且昂贵**，限制可扩展性与多样性 [85]。这是数据集层面最明确的瓶颈陈述。\n- **对比不可行性**：HumanoidBench 是目前唯一在本次来源中可确认「有第三方在其上评测」的人形基准（[75] 的标题即为 Evaluation on HumanoidBench）[22][75]。除此之外，**本次来源未提供任何人形 locomotion 的可比榜单**，因此任何「SOTA」表述都应视为论文自述。\n\n### 7.2 开放问题与争议\n\n1. **sim2real gap 仍未闭合**：既有系统剖析 [37]，也有对 sim2real 在精细任务上根本局限的质疑 [51]，以及强调「仿真主导使真机迁移对算法与研究者都不确定」的立场 [4]。\n2. **评测不可复现**：可复现性警示早在 2017 年已提出 [61]，2025 年仍有专文主张 sim2real 策略评测需要基准化视角 [76]，说明问题长期未解。**争议点**：论文宣称的成功率缺乏统一口径（任务数、硬件、仿真/真机）——本次抽取块中**无任何一篇提供可横向比较的定量表格**。\n3. **恢复与安全被低估**：跌倒恢复 [28]、站立 [47]、安全约束 RL [71] 均存在，但在地形/敏捷类工作中的整合程度 `> 待核实`。\n4. **失效机理研究稀缺**：Failure Mechanisms and Risk Estimation for Legged Robot Locomotion on Granular Slopes 通过可倾斜颗粒床系统测量速度与失效，属**少见的负面/失效导向研究** [55]。\n5. **硬件成本与可获得性**：3D 打印低成本路线 [20]、全尺寸开源平台 [18]、开源 loco-manipulation 平台 [23] 的出现本身反映了硬件瓶颈。\n6. **术语歧义污染检索**：见 §8.3。\n\n---\n\n## 八、建议关注清单（Watchlist）\n\n### 8.1 技术路线（按优先级）\n\n| 优先级 | 关注对象 | 理由 | 证据 |\n|---|---|---|---|\n| P0 | 统一神经全身控制器：HOVER / UniTracker / TWIST | 决定人形「一个策略还是多个策略」的架构选择 | [21][65][86] |\n| P0 | 分钟级 sim2real 训练 | 直接改变迭代速度与实验设计空间 | [12][19] |\n| P0 | 动作重定向质量：Retargeting Matters | 可能是下游指标的主要混淆变量，影响所有模仿式结论 | [83] |\n| P1 | 分层降阶 MPC：Hierarchical Reduced-Order MPC / RoMoCo | 学习式并未取代模型式，混合路线可能最优 | [15][24] |\n| P1 | human-to-humanoid 遥操作数据栈：H2O / OmniH2O / CHILD | 数据来源与部署接口双重价值 | [3][87][92] |\n| P1 | 稀疏落脚与跑酷：BeamDojo / Humanoid Parkour Learning | 敏捷性能力分水岭 | [67][69] |\n| P2 | 恢复与安全：FR-Net / standing-up / Safe RL | 真实部署前置条件，当前投入相对不足 | [28][47][71] |\n| P2 | 无机器人演示数据采集：HMI | 若成立可大幅降低数据成本 | [64] |\n\n### 8.2 基础设施（需实际核查后再采信）\n\n- **仿真与训练**：IsaacLab、legged_gym、unitree_rl_gym `> 待核实`（star/活跃度/文档质量未经核查）\n- **基准**：HumanoidBench [22][74] —— 当前唯一可确认有第三方使用的可复现基准\n- **数据**：AMASS、LAFAN1、Motion-X [95]、PHUMA [85]\n- **批判性阅读必读**：[37]（sim2real 失败来源）、[51]（sim2real 局限）、[61]（可复现性）、[76]（评测基准化）、[83]（重定向的重要性）\n\n### 8.3 检索噪声与污染警示（重要方法论提示）\n\n本次来源列表中存在**明显跨领域误召回**，直接暴露了该主题的检索脆弱性：\n\n- **\"H1\" 歧义**：来源 [6][7][8] 均为 H1 粒子物理/量能器与 HERA 实验论文，与 Unitree H1 无任何关系。\n- **\"G1\" 歧义**：来源 [10] 的 \"G1\" 指视觉语言模型在游戏环境中的 RL 训练，与 Unitree G1 机器人无关 [10]。\n- **\"Domain randomization\" 跨领域**：来源 [34] 属神经影像分析（eess.IV）[34]。\n- **其他无关条目**：NLP/评测类 [38][40][43][45]、天体物理 [88][90][91]、音频隐私 [89]、对话系统 [32]、情感 RL 综述 [70]、GPT-6-Astra 机器人操作 [77]（属操作而非腿足运动）等。\n\n> **结论**：任何「按关键词统计前沿趋势」的做法在本领域都会因机器人型号命名（H1/G1）与通用术语（domain randomization）的歧义而严重失真。建议后续检索强制加入 `cs.RO` 分类限定与硬件型号消歧。\n\n---\n\n## 参考来源\n\n**引用编号与链接（本报告实际引用）**\n\n[3] CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System — http://arxiv.org/abs/2508.00162v2\n[4] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1\n[6] The Electronics of the H1 Lead/Scintillating-Fibre Calorimeters — http://arxiv.org/abs/physics/9812042v1\n[7] Measurement of the Charm and Beauty Structure Functions using the H1 Vertex Detector at HERA — http://arxiv.org/abs/0907.2643v2\n[8] Measurement of F_2^ccbar and F_2^bbbar at High Q^2 using the H1 Vertex Detector at HERA — http://arxiv.org/abs/hep-ex/0411046v1\n[10] G1: Bootstrapping Perception and Reasoning Abilities of Vision-Language Model via Reinforcement Learning — http://arxiv.org/abs/2505.13426v1\n[12] Learning Sim-to-Real Humanoid Locomotion in 15 Minutes — http://arxiv.org/abs/2512.01996v1\n[13] Learning Humanoid Locomotion over Challenging Terrain — http://arxiv.org/abs/2410.03654v1\n[14] Real-World Humanoid Locomotion with Reinforcement Learning — http://arxiv.org/abs/2303.03381v2\n[15] Hierarchical Reduced-Order Model Predictive Control for Robust Locomotion on Humanoid Robots — http://arxiv.org/abs/2509.04722v1\n[16] A Framework for Scalable Heterogeneous Multi-Agent Adversarial Reinforcement Learning in IsaacLab — http://arxiv.org/abs/2510.01264v1\n[17] Bracing for Impact: Robust Humanoid Push Recovery and Locomotion with Reduced Order Models — http://arxiv.org/abs/2505.11495v2\n[18] ARTEMIS: An Open-Source, Full-Sized Humanoid Robot for Dynamic Locomotion — https://doi.org/10.1109/Humanoids65713.2025.11203020\n[19] Learning Sim-to-Real Humanoid Locomotion in 15 Minutes — https://arxiv.org/abs/2512.01996\n[20] Demonstrating Berkeley Humanoid Lite: An Open-source, Accessible, and Customizable 3D-printed Humanoid Robot — https://arxiv.org/abs/2504.17249\n[21] HOVER: Versatile Neural Whole-Body Controller for Humanoid Robots — http://arxiv.org/abs/2410.21229v2\n[22] HumanoidBench: Simulated Humanoid Benchmark for Whole-Body Locomotion and Manipulation — https://arxiv.org/abs/2403.10506\n[23] Dynamic Loco-manipulation on HECTOR: Humanoid for Enhanced ConTrol and Open-source Research — https://arxiv.org/abs/2312.11868\n[24] RoMoCo: Robotic Motion Control Toolbox for Reduced-Order Model-Based Locomotion on Bipedal and Humanoid Robots — https://arxiv.org/abs/2509.19545\n[25] Learning Quadrupedal Locomotion over Challenging Terrain — http://arxiv.org/abs/2010.11251v1\n[26] ViTAL: Vision-Based Terrain-Aware Locomotion for Legged Robots — http://arxiv.org/abs/2212.01246v1\n[27] Learning Locomotion on Complex Terrain for Quadrupedal Robots with Foot Position Maps and Stability Rewards — http://arxiv.org/abs/2604.02744v1\n[28] FR-Net: Learning Robust Quadrupedal Fall Recovery on Challenging Terrains through Mass-Contact Prediction — http://arxiv.org/abs/2509.11504v1\n[29] Perspectives on Sim2Real Transfer for Robotics: A Summary of the R:SS 2020 Workshop — http://arxiv.org/abs/2012.03806v1\n[30] Keep Rollin' - Whole-Body Motion Control and Planning for Wheeled Quadrupedal Robots — http://arxiv.org/abs/1809.03557v2\n[31] Guided Curriculum Learning for Walking Over Complex Terrain — http://arxiv.org/abs/2010.03848v2\n[32] Deep Reinforcement Learning for Multi-Domain Dialogue Systems — http://arxiv.org/abs/1611.08675v1\n[34] Domain-randomized deep learning for neuroimage analysis — http://arxiv.org/abs/2507.13458v1\n[37] Sim-to-Real Transfer in Deep Reinforcement Learning for Bipedal Locomotion — http://arxiv.org/abs/2511.06465v1\n[38] Overview of AuTexTification at IberLEF 2023 — http://arxiv.org/abs/2309.11285v1\n[40] UZH_CLyp at SemEval-2023 Task 9 — http://arxiv.org/abs/2303.01194v2\n[41] Robot Parkour Learning — http://arxiv.org/abs/2309.05665v2\n[42] AI-Based Terrain Adaptation Algorithms for Walking Robots — https://openalex.org/W7217170495\n[43] MarsEclipse at SemEval-2023 Task 3 — http://arxiv.org/abs/2304.14339v1\n[45] Strategies to Harness the Transformers' Potential: UNSL at eRisk 2023 — http://arxiv.org/abs/2310.19970v1\n[46] Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning — http://arxiv.org/abs/2607.20399v1\n[47] Learning Humanoid Standing-up Control across Diverse Postures — http://arxiv.org/abs/2502.08378v2\n[48] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4\n[49] Bridging the Sim2Real Gap: Vision Encoder Pre-Training for Visuomotor Policy Transfer — http://arxiv.org/abs/2501.16389v2\n[51] The Importance and the Limitations of Sim2Real for Robotic Manipulation in Precision Agriculture — http://arxiv.org/abs/2008.03983v1\n[52] ATRos: Learning Energy-Efficient Agile Locomotion for Wheeled-legged Robots — http://arxiv.org/abs/2510.09980v1\n[53] Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World — http://arxiv.org/abs/2110.05457v1\n[54] Locomotion Beyond Feet — http://arxiv.org/abs/2601.03607v1\n[55] Failure Mechanisms and Risk Estimation for Legged Robot Locomotion on Granular Slopes — http://arxiv.org/abs/2603.06928v2\n[57] Online DCM Trajectory Generation for Push Recovery of Torque-Controlled Humanoid Robots — http://arxiv.org/abs/1909.10403v2\n[58] Push Recovery of a Position-Controlled Humanoid Robot Based on Capture Point Feedback Control — http://arxiv.org/abs/1710.10598v1\n[59] A Receding Horizon Push Recovery Strategy for Balancing the iCub Humanoid Robot — http://arxiv.org/abs/1705.10638v1\n[60] Online Balanced Motion Generation for Humanoid Robots — http://arxiv.org/abs/1810.08388v1\n[61] Reproducibility of Benchmarked Deep Reinforcement Learning Tasks for Continuous Control — http://arxiv.org/abs/1708.04133v1\n[63] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1\n[64] Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations — http://arxiv.org/abs/2602.06643v2\n[65] UniTracker: Learning Universal Whole-Body Motion Tracker for Humanoid Robots — http://arxiv.org/abs/2507.07356v3\n[66] Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum — http://arxiv.org/abs/2605.21133v2\n[67] Humanoid Parkour Learning — http://arxiv.org/abs/2406.10759v2\n[68] Agile But Safe: Learning Collision-Free High-Speed Legged Locomotion — http://arxiv.org/abs/2401.17583v3\n[69] BeamDojo: Learning Agile Humanoid Locomotion on Sparse Footholds — http://arxiv.org/abs/2502.10363v3\n[70] Emotion in Reinforcement Learning Agents and Robots: A Survey — http://arxiv.org/abs/1705.05172v1\n[71] Safe Reinforcement Learning for Legged Locomotion — http://arxiv.org/abs/2203.02638v1\n[72] Learning Inertial Odometry for Dynamic Legged Robot State Estimation — http://arxiv.org/abs/2111.00789v1\n[73] RMA: Rapid Motor Adaptation for Legged Robots — http://arxiv.org/abs/2107.04034v1\n[74] HumanoidBench: Simulated Humanoid Benchmark for Whole-Body Locomotion and Manipulation — http://arxiv.org/abs/2403.10506v2\n[75] MuJoCo MPC for Humanoid Control: Evaluation on HumanoidBench — http://arxiv.org/abs/2408.00342v1\n[76] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1\n[77] Robot Manipulation with GPT-6-Astra: Body Knowledge, Experience Reuse, Emergent Skills, and Sim2Real Transfer — http://arxiv.org/abs/2609.31770v1\n[78] Dense Temporal Motion Retargeting for Legged Robots — http://arxiv.org/abs/2609.38617v1\n[79] Spatio-Temporal Motion Retargeting for Quadruped Robots — http://arxiv.org/abs/2404.11557v3\n[80] Simulating Infant First-Person Sensorimotor Experience via Motion Retargeting from Babies to Humanoids — http://arxiv.org/abs/2604.27583v2\n[81] From Language to Locomotion: Retargeting-free Humanoid Control via Motion Latent Guidance — http://arxiv.org/abs/2510.14952v2\n[82] Whole-Body Geometric Retargeting for Humanoid Robots — http://arxiv.org/abs/1909.10080v1\n[83] Retargeting Matters: General Motion Retargeting for Humanoid Motion Tracking — http://arxiv.org/abs/2510.02252v1\n[84] Kinodynamic Motion Retargeting for Humanoid Locomotion via Multi-Contact Whole-Body Trajectory Optimization — http://arxiv.org/abs/2603.09956v2\n[85] PHUMA: Physically Reliable Humanoid Locomotion Dataset — https://arxiv.org/abs/2510.26236\n[86] TWIST: Teleoperated Whole-Body Imitation System — http://arxiv.org/abs/2505.02833v1\n[87] Learning Human-to-Humanoid Real-Time Whole-Body Teleoperation — http://arxiv.org/abs/2403.04436v1\n[88] Experimental Summary of the Moriond 2024 conference — http://arxiv.org/abs/2409.07120v1\n[89] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1\n[90] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1\n[91] Atmospheric entry and fragmentation of small asteroid 2024 BX1 — http://arxiv.org/abs/2403.00634v2\n[92] OmniH2O: Universal and Dexterous Human-to-Humanoid Whole-Body Teleoperation and Learning — http://arxiv.org/abs/2406.08858v1\n[94] CLOT: Closed-Loop Global Motion Tracking for Whole-Body Humanoid Teleoperation — http://arxiv.org/abs/2602.15060v2\n[95] Motion-X: A Large-scale 3D Expressive Whole-body Human Motion Dataset — http://arxiv.org/abs/2307.00818v2\n[97] LeCAR-Lab/human2humanoid — https://github.com/LeCAR-Lab/human2humanoid\n\n**领域种子资源（未被编号来源收录，来自人工维护清单，需另行核查）**\n\n- leggedrobotics/legged_gym — https://github.com/leggedrobotics/legged_gym\n- unitreerobotics/unitree_rl_gym — https://github.com/unitreerobotics/unitree_rl_gym\n- NVlabs/ProtoMotions — https://github.com/NVlabs/ProtoMotions\n- isaac-sim/IsaacLab — https://github.com/isaac-sim/IsaacLab\n- AMASS — https://amass.is.tue.mpg.de/\n- LAFAN1 — https://github.com/ubisoft/ubisoft-laforge-animation-dataset\n- Learning Human-to-Humanoid Real-Time Whole-Body Teleoperation (H2O) — https://arxiv.org/abs/2403.04436\n- Learning Quadrupedal Locomotion over Challenging Terrain — https://www.science.org/doi/10.1126/scirobotics.abc5986\n- Learning Agile and Dynamic Motor Skills for Legged Robots (ANYmal) — https://www.science.org/doi/10.1126/scirobotics.aau5872\n\n---\n\n> **报告局限声明**：本次结构化抽取块中 `heat`（引用数、star、下载量、榜单排名）字段大面积为空，因此**本报告不具备任何跨论文的定量比较能力**，所有「SOTA」「最强」类表述均被有意规避。四类证据中的「热度证据」在绝大多数条目上只能标注 `> 待核实`。若需形成可用于选型决策的结论，必须先补做以下核查：(1) 各预印本是否已中稿及 venue 等级；(2) 各开源仓库的 star 数、最近提交时间、权重/数据许可；(3) HumanoidBench 榜单的实际参与与排名情况。\n\n---\n\n*Generated by research-bot · topic=`embodied-humanoid` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=97 · duration=339s · 2026-10-06T22:30:15+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "A ROS-based Software Framework for the NimbRo-OP Humanoid Open Platform",
+      "url": "http://arxiv.org/abs/1809.11051v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2018-09-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "NimbRo-OP2: Grown-up 3D Printed Open Humanoid Platform for Research",
+      "url": "http://arxiv.org/abs/1809.11144v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2018-09-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+      "url": "http://arxiv.org/abs/2508.00162v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-07-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+      "url": "http://arxiv.org/abs/2607.18488v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2602.12375v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-02-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "The Electronics of the H1 Lead/Scintillating-Fibre Calorimeters",
+      "url": "http://arxiv.org/abs/physics/9812042v1",
+      "kind": "paper",
+      "venue": "physics.ins-det",
+      "published": "1998-12-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Measurement of the Charm and Beauty Structure Functions using the H1 Vertex Detector at HERA",
+      "url": "http://arxiv.org/abs/0907.2643v2",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2009-07-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Measurement of F_2^ccbar and F_2^bbbar at High Q^2 using the H1 Vertex Detector at HERA",
+      "url": "http://arxiv.org/abs/hep-ex/0411046v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2004-11-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Causal-Paced Deep Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2507.02910v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-06-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "G1: Bootstrapping Perception and Reasoning Abilities of Vision-Language Model via Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2505.13426v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-05-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Exploring Hierarchy-Aware Inverse Reinforcement Learning",
+      "url": "http://arxiv.org/abs/1807.05037v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2018-07-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes",
+      "url": "http://arxiv.org/abs/2512.01996v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Learning Humanoid Locomotion over Challenging Terrain",
+      "url": "http://arxiv.org/abs/2410.03654v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-10-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Real-World Humanoid Locomotion with Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2303.03381v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-03-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Hierarchical Reduced-Order Model Predictive Control for Robust Locomotion on Humanoid Robots",
+      "url": "http://arxiv.org/abs/2509.04722v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "A Framework for Scalable Heterogeneous Multi-Agent Adversarial Reinforcement Learning in IsaacLab",
+      "url": "http://arxiv.org/abs/2510.01264v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-09-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Bracing for Impact: Robust Humanoid Push Recovery and Locomotion with Reduced Order Models",
+      "url": "http://arxiv.org/abs/2505.11495v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "ARTEMIS: An Open-Source, Full-Sized Humanoid Robot for Dynamic Locomotion",
+      "url": "https://doi.org/10.1109/Humanoids65713.2025.11203020",
+      "kind": "paper",
+      "venue": "IEEE-RAS International Conference on Humanoid Robots",
+      "published": "2025-09-30",
+      "citations": 7,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes",
+      "url": "https://arxiv.org/abs/2512.01996",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2025-12-01",
+      "citations": 20,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Demonstrating Berkeley Humanoid Lite: An Open-source, Accessible, and Customizable 3D-printed Humanoid Robot",
+      "url": "https://arxiv.org/abs/2504.17249",
+      "kind": "paper",
+      "venue": "Robotics",
+      "published": "2025-04-24",
+      "citations": 16,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "HOVER: Versatile Neural Whole-Body Controller for Humanoid Robots",
+      "url": "http://arxiv.org/abs/2410.21229v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-10-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "HumanoidBench: Simulated Humanoid Benchmark for Whole-Body Locomotion and Manipulation",
+      "url": "https://arxiv.org/abs/2403.10506",
+      "kind": "paper",
+      "venue": "Robotics: Science and Systems Conference",
+      "published": "2024-03-15",
+      "citations": 165,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Dynamic Loco-manipulation on HECTOR: Humanoid for Enhanced ConTrol and Open-source Research",
+      "url": "https://arxiv.org/abs/2312.11868",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2023-12-19",
+      "citations": 31,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "RoMoCo: Robotic Motion Control Toolbox for Reduced-Order Model-Based Locomotion on Bipedal and Humanoid Robots",
+      "url": "https://arxiv.org/abs/2509.19545",
+      "kind": "paper",
+      "venue": "arXiv.org",
+      "published": "2025-09-23",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Learning Quadrupedal Locomotion over Challenging Terrain",
+      "url": "http://arxiv.org/abs/2010.11251v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-10-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "ViTAL: Vision-Based Terrain-Aware Locomotion for Legged Robots",
+      "url": "http://arxiv.org/abs/2212.01246v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Learning Locomotion on Complex Terrain for Quadrupedal Robots with Foot Position Maps and Stability Rewards",
+      "url": "http://arxiv.org/abs/2604.02744v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-04-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "FR-Net: Learning Robust Quadrupedal Fall Recovery on Challenging Terrains through Mass-Contact Prediction",
+      "url": "http://arxiv.org/abs/2509.11504v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Perspectives on Sim2Real Transfer for Robotics: A Summary of the R:SS 2020 Workshop",
+      "url": "http://arxiv.org/abs/2012.03806v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-12-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Keep Rollin' - Whole-Body Motion Control and Planning for Wheeled Quadrupedal Robots",
+      "url": "http://arxiv.org/abs/1809.03557v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2018-09-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Guided Curriculum Learning for Walking Over Complex Terrain",
+      "url": "http://arxiv.org/abs/2010.03848v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-10-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Deep Reinforcement Learning for Multi-Domain Dialogue Systems",
+      "url": "http://arxiv.org/abs/1611.08675v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2016-11-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Comparing Deep Reinforcement Learning and Evolutionary Methods in Continuous Control",
+      "url": "http://arxiv.org/abs/1712.00006v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2017-11-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "Domain-randomized deep learning for neuroimage analysis",
+      "url": "http://arxiv.org/abs/2507.13458v1",
+      "kind": "paper",
+      "venue": "eess.IV",
+      "published": "2025-07-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "Deep Reinforcement Learning: An Overview",
+      "url": "http://arxiv.org/abs/1701.07274v6",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2017-01-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "Deploying COTS Legged Robot Platforms into a Heterogeneous Robot Team",
+      "url": "http://arxiv.org/abs/2106.07182v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-06-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 37,
+      "title": "Sim-to-Real Transfer in Deep Reinforcement Learning for Bipedal Locomotion",
+      "url": "http://arxiv.org/abs/2511.06465v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 38,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 39,
+      "title": "Task-Consistent Bayesian Domain Inference via Performance Distributions for Deep Reinforcement Learning Policy Deployment",
+      "url": "https://doi.org/10.65102/is20261261",
+      "kind": "paper",
+      "venue": "Ingegneria Sismica",
+      "published": "2026-06-10",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 40,
+      "title": "UZH_CLyp at SemEval-2023 Task 9: Head-First Fine-Tuning and ChatGPT Data Generation for Cross-Lingual Learning in Tweet Intimacy Prediction",
+      "url": "http://arxiv.org/abs/2303.01194v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-03-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 41,
+      "title": "Robot Parkour Learning",
+      "url": "http://arxiv.org/abs/2309.05665v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-09-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 42,
+      "title": "AI-Based Terrain Adaptation Algorithms for Walking Robots",
+      "url": "https://openalex.org/W7217170495",
+      "kind": "paper",
+      "venue": "World Journal of Future Technologies in Computer Science and Engineering",
+      "published": "2025-08-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 43,
+      "title": "MarsEclipse at SemEval-2023 Task 3: Multi-Lingual and Multi-Label Framing Detection with Contrastive Learning",
+      "url": "http://arxiv.org/abs/2304.14339v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 44,
+      "title": "Active learning for data streams: a survey",
+      "url": "http://arxiv.org/abs/2302.08893v4",
+      "kind": "paper",
+      "venue": "stat.ML",
+      "published": "2023-02-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 45,
+      "title": "Strategies to Harness the Transformers' Potential: UNSL at eRisk 2023",
+      "url": "http://arxiv.org/abs/2310.19970v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 46,
+      "title": "Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2607.20399v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 47,
+      "title": "Learning Humanoid Standing-up Control across Diverse Postures",
+      "url": "http://arxiv.org/abs/2502.08378v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-02-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 48,
+      "title": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+      "url": "http://arxiv.org/abs/2511.11218v4",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 49,
+      "title": "Bridging the Sim2Real Gap: Vision Encoder Pre-Training for Visuomotor Policy Transfer",
+      "url": "http://arxiv.org/abs/2501.16389v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-01-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 50,
+      "title": "Learning Robust, Agile, Natural Legged Locomotion Skills in the Wild",
+      "url": "http://arxiv.org/abs/2304.10888v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-04-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 51,
+      "title": "The Importance and the Limitations of Sim2Real for Robotic Manipulation in Precision Agriculture",
+      "url": "http://arxiv.org/abs/2008.03983v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-08-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 52,
+      "title": "ATRos: Learning Energy-Efficient Agile Locomotion for Wheeled-legged Robots",
+      "url": "http://arxiv.org/abs/2510.09980v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 53,
+      "title": "Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World",
+      "url": "http://arxiv.org/abs/2110.05457v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-10-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 54,
+      "title": "Locomotion Beyond Feet",
+      "url": "http://arxiv.org/abs/2601.03607v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-01-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 55,
+      "title": "Failure Mechanisms and Risk Estimation for Legged Robot Locomotion on Granular Slopes",
+      "url": "http://arxiv.org/abs/2603.06928v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-03-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 56,
+      "title": "Sim2Real Transfer for Audio-Visual Navigation with Frequency-Adaptive Acoustic Field Prediction",
+      "url": "http://arxiv.org/abs/2405.02821v2",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2024-05-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 57,
+      "title": "Online DCM Trajectory Generation for Push Recovery of Torque-Controlled Humanoid Robots",
+      "url": "http://arxiv.org/abs/1909.10403v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-09-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 58,
+      "title": "Push Recovery of a Position-Controlled Humanoid Robot Based on Capture Point Feedback Control",
+      "url": "http://arxiv.org/abs/1710.10598v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2017-10-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 59,
+      "title": "A Receding Horizon Push Recovery Strategy for Balancing the iCub Humanoid Robot",
+      "url": "http://arxiv.org/abs/1705.10638v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2017-05-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 60,
+      "title": "Online Balanced Motion Generation for Humanoid Robots",
+      "url": "http://arxiv.org/abs/1810.08388v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2018-10-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 61,
+      "title": "Reproducibility of Benchmarked Deep Reinforcement Learning Tasks for Continuous Control",
+      "url": "http://arxiv.org/abs/1708.04133v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2017-08-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 62,
+      "title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+      "url": "http://arxiv.org/abs/1711.10137v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2017-11-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 63,
+      "title": "The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control",
+      "url": "http://arxiv.org/abs/2411.01349v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 64,
+      "title": "Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations",
+      "url": "http://arxiv.org/abs/2602.06643v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-02-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 65,
+      "title": "UniTracker: Learning Universal Whole-Body Motion Tracker for Humanoid Robots",
+      "url": "http://arxiv.org/abs/2507.07356v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-07-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 66,
+      "title": "Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum",
+      "url": "http://arxiv.org/abs/2605.21133v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 67,
+      "title": "Humanoid Parkour Learning",
+      "url": "http://arxiv.org/abs/2406.10759v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-06-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 68,
+      "title": "Agile But Safe: Learning Collision-Free High-Speed Legged Locomotion",
+      "url": "http://arxiv.org/abs/2401.17583v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-01-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 69,
+      "title": "BeamDojo: Learning Agile Humanoid Locomotion on Sparse Footholds",
+      "url": "http://arxiv.org/abs/2502.10363v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-02-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 70,
+      "title": "Emotion in Reinforcement Learning Agents and Robots: A Survey",
+      "url": "http://arxiv.org/abs/1705.05172v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2017-05-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 71,
+      "title": "Safe Reinforcement Learning for Legged Locomotion",
+      "url": "http://arxiv.org/abs/2203.02638v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-03-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 72,
+      "title": "Learning Inertial Odometry for Dynamic Legged Robot State Estimation",
+      "url": "http://arxiv.org/abs/2111.00789v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-11-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 73,
+      "title": "RMA: Rapid Motor Adaptation for Legged Robots",
+      "url": "http://arxiv.org/abs/2107.04034v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2021-07-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 74,
+      "title": "HumanoidBench: Simulated Humanoid Benchmark for Whole-Body Locomotion and Manipulation",
+      "url": "http://arxiv.org/abs/2403.10506v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-03-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 75,
+      "title": "MuJoCo MPC for Humanoid Control: Evaluation on HumanoidBench",
+      "url": "http://arxiv.org/abs/2408.00342v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-08-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 76,
+      "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+      "url": "http://arxiv.org/abs/2508.11117v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 77,
+      "title": "Robot Manipulation with GPT-6-Astra: Body Knowledge, Experience Reuse, Emergent Skills, and Sim2Real Transfer",
+      "url": "http://arxiv.org/abs/2609.31770v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 78,
+      "title": "Dense Temporal Motion Retargeting for Legged Robots",
+      "url": "http://arxiv.org/abs/2609.38617v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 79,
+      "title": "Spatio-Temporal Motion Retargeting for Quadruped Robots",
+      "url": "http://arxiv.org/abs/2404.11557v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-04-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 80,
+      "title": "Simulating Infant First-Person Sensorimotor Experience via Motion Retargeting from Babies to Humanoids",
+      "url": "http://arxiv.org/abs/2604.27583v2",
+      "kind": "paper",
+      "venue": "q-bio.NC",
+      "published": "2026-04-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 81,
+      "title": "From Language to Locomotion: Retargeting-free Humanoid Control via Motion Latent Guidance",
+      "url": "http://arxiv.org/abs/2510.14952v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 82,
+      "title": "Whole-Body Geometric Retargeting for Humanoid Robots",
+      "url": "http://arxiv.org/abs/1909.10080v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-09-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 83,
+      "title": "Retargeting Matters: General Motion Retargeting for Humanoid Motion Tracking",
+      "url": "http://arxiv.org/abs/2510.02252v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 84,
+      "title": "Kinodynamic Motion Retargeting for Humanoid Locomotion via Multi-Contact Whole-Body Trajectory Optimization",
+      "url": "http://arxiv.org/abs/2603.09956v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-03-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 85,
+      "title": "PHUMA: Physically Reliable Humanoid Locomotion Dataset",
+      "url": "https://arxiv.org/abs/2510.26236",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-10-30",
+      "citations": 12,
+      "stars": null
+    },
+    {
+      "n": 86,
+      "title": "TWIST: Teleoperated Whole-Body Imitation System",
+      "url": "http://arxiv.org/abs/2505.02833v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 87,
+      "title": "Learning Human-to-Humanoid Real-Time Whole-Body Teleoperation",
+      "url": "http://arxiv.org/abs/2403.04436v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-03-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 88,
+      "title": "Experimental Summary of the Moriond 2024 conference -- Electroweak Interaction & Unified Theories",
+      "url": "http://arxiv.org/abs/2409.07120v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2024-09-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 89,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 90,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 91,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 92,
+      "title": "OmniH2O: Universal and Dexterous Human-to-Humanoid Whole-Body Teleoperation and Learning",
+      "url": "http://arxiv.org/abs/2406.08858v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-06-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 93,
+      "title": "Dynamic Locomotion Teleoperation of a Wheeled Humanoid Robot Reduced Model with a Whole-Body Human-Machine Interface",
+      "url": "http://arxiv.org/abs/2109.03906v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-09-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 94,
+      "title": "CLOT: Closed-Loop Global Motion Tracking for Whole-Body Humanoid Teleoperation",
+      "url": "http://arxiv.org/abs/2602.15060v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-02-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 95,
+      "title": "Motion-X: A Large-scale 3D Expressive Whole-body Human Motion Dataset",
+      "url": "http://arxiv.org/abs/2307.00818v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2023-07-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 96,
+      "title": "A Whole-Body Motion Imitation Framework from Human Data for Full-Size Humanoid Robot",
+      "url": "http://arxiv.org/abs/2508.00362v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 97,
+      "title": "LeCAR-Lab/human2humanoid",
+      "url": "https://github.com/LeCAR-Lab/human2humanoid",
+      "kind": "project",
+      "venue": null,
+      "published": "2025-02-21",
+      "citations": null,
+      "stars": 1074
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-06-embodied-humanoid.md",
+    "json": "report/2026/10/2026-10-06-embodied-humanoid.json"
+  }
+}

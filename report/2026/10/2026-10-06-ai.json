@@ -1,0 +1,3233 @@
+{
+  "topic": "ai",
+  "title": "大模型与基础模型前沿深度调研计划（2024–2026）：推理、后训练、Agent、多模态与效率",
+  "query": "",
+  "depth": "standard",
+  "language": "bilingual",
+  "started_at": "2026-10-06T22:01:26+00:00",
+  "finished_at": "2026-10-06T22:08:05+00:00",
+  "duration_s": 399.6,
+  "rounds": 1,
+  "plan": {
+    "title": "大模型与基础模型前沿深度调研计划（2024–2026）：推理、后训练、Agent、多模态与效率",
+    "summary": "系统梳理近1–2年大模型/基础模型在推理与测试时计算、后训练（RLHF/RLVR）、Agent 与工具使用、多模态、MoE 与扩展律、长上下文与推理效率六个方向的前沿进展、经典奠基、开源工程、数据集基准与开放争议，并给出可核查证据分级。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近1–2年（2024–2026）大模型的推理能力与测试时计算（test-time compute / inference-time scaling）取得了哪些真正重要的进展？代表性模型/方法与其实验口径（benchmark、pass@k、是否开源）分别是什么？",
+        "rationale": "这是用户主题的第一关键词域，也是2024年以来范式变化最剧烈处：从'预训练规模'转向'推理时算力分配'。需要区分论文宣称与第三方复现，明确各方法在 MATH/AIME/GPQA/SWE-bench 等基准上的真实设置与提升归因（数据/架构/算力）。",
+        "queries": [
+          "large language model reasoning test-time compute survey 2025 arxiv",
+          "inference-time scaling chain-of-thought self-consistency 2025",
+          "OpenAI o1 o3 reasoning test-time compute technical report",
+          "deepseek-r1 reinforcement learning reasoning 2025 arxiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "后训练（post-training）范式如何演进：从 RLHF/RLAIF/DPO 到 RLVR（可验证奖励强化学习）与'推理型 RL'？其算法、训练数据、算力开销与失败模式（reward hacking、长度偏置、泛化性）有哪些一手证据？",
+        "rationale": "后训练是当前模型能力跃迁的关键环节，也是争议集中区（RLVR 是否只是提升采样效率、是否损害通用能力）。需以 NeurIPS/ICML/ICLR 论文与官方技术报告（A/B级）为主，交叉验证 RLHF 与 RLVR 的差异。",
+        "queries": [
+          "reinforcement learning from verifiable rewards RLVR 2025 arxiv",
+          "RLHF DPO post-training survey 2025 large language model",
+          "reward hacking reasoning RLVR length bias 2025",
+          "DeepSeek-R1 GRPO reinforcement learning verifiable reward technical report"
+        ],
+        "prefer": [
+          "arxiv",
+          "openreview",
+          "semantic_scholar",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "LLM Agent 与工具使用（tool use / function calling / computer use）近两年有哪些代表性系统、评测基准与真实可复现的开源实现？在长程任务上其成功率与失败模式如何？",
+        "rationale": "Agent 是2024–2026最热的落地方向，但同时是demo视频与营销内容最泛滥的区域。需要严格区分'论文宣称'与'第三方榜单/复现'，覆盖 web、GUI、代码、科研等不同任务域的 agent benchmark。",
+        "queries": [
+          "LLM agent tool use benchmark 2025 survey arxiv",
+          "GAIA SWE-bench WebArena agent evaluation 2025",
+          "computer use agent OSWorld benchmark 2025",
+          "LLM agent function calling open source framework 2025 github"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q4",
+        "question": "多模态基础模型（原生多模态 / 统一理解与生成 / 视觉-语言-动作）近两年有哪些关键模型与训练范式进展？在视频、长文档、GUI、具身等场景的评测结论是否稳健？",
+        "rationale": "多模态是基础模型能力扩展的主线之一，也是与用户所在具身/VLA领域衔接的桥梁。需要覆盖CVPR/NeurIPS一手论文、官方技术报告与开源权重（HuggingFace）三类证据。",
+        "queries": [
+          "multimodal foundation model 2025 arxiv survey",
+          "native multimodal unified understanding generation 2025 arxiv",
+          "GPT-4o Gemini Qwen-VL technical report multimodal 2025",
+          "vision-language-action model VLA 2025 survey arxiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "github"
+        ]
+      },
+      {
+        "id": "q5",
+        "question": "MoE 架构与扩展律（scaling laws）在2024–2026有哪些新结论？稀疏化、路由、负载均衡与'推理成本-性能'权衡的一手证据是什么？数据受限情形下的扩展律还成立吗？",
+        "rationale": "MoE 与 scaling law 决定了大模型的成本结构与路线选择，且近年出现'数据墙''推理算力扩展律'等新论点，需要一手论文与官方报告区分'实验室结论'与'厂商叙事'。",
+        "queries": [
+          "mixture of experts scaling law 2025 arxiv",
+          "sparse MoE routing load balancing large language model 2025",
+          "scaling laws data-constrained pretraining 2025 arxiv",
+          "DeepSeek-V3 Mixtral MoE architecture technical report efficiency"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q6",
+        "question": "长上下文与推理效率（long context、KV cache、注意力替代、量化与投机解码）有哪些可落地进展与开源工程实践？各方案在真实显存/延迟/吞吐指标上的证据强度如何？以及本方向仍存在哪些开放问题与争议？",
+        "rationale": "效率是工程落地的硬约束，也是论文数字最容易失真的区域（口径不同：显存/延迟/吞吐/批量）。同时该子问题承载'开放问题与争议'的收口：可复现性、评测污染、基准饱和、闭源可验证性、Agent 安全与对齐。",
+        "queries": [
+          "long context transformer efficiency 2025 survey arxiv",
+          "KV cache compression attention alternative 2025 arxiv",
+          "LLM inference optimization vLLM speculative decoding quantization 2025 github",
+          "benchmark contamination reproducibility LLM evaluation criticism 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近1–2年（2024–2026）大模型的推理能力与测试时计算（test-time compute / inference-time scaling）取得了哪些真正重要的进展？代表性模型/方法与其实验口径（benchmark、pass@k、是否开源）分别是什么？",
+      "queries": [
+        "large language model reasoning test-time compute survey 2025 arxiv",
+        "inference-time scaling chain-of-thought self-consistency 2025",
+        "OpenAI o1 o3 reasoning test-time compute technical report",
+        "deepseek-r1 reinforcement learning reasoning 2025 arxiv"
+      ],
+      "rationale": "这是用户主题的第一关键词域，也是2024年以来范式变化最剧烈处：从'预训练规模'转向'推理时算力分配'。需要区分论文宣称与第三方复现，明确各方法在 MATH/AIME/GPQA/SWE-bench 等基准上的真实设置与提升归因（数据/架构/算力）。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+          "url": "http://arxiv.org/abs/2504.16021v1",
+          "snippet": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making. This paper proposes a context-aware cognitive augmentation framework that adapts interventions based on three key contextual factors: type, timing, and scale. By leveraging multimodal behavioral cues (e.g., gaze behavior, typing hesitation, interaction speed), AI can dynamically adjust cognitive su…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-22",
+          "authors": [
+            "Dinithi Dissanayake",
+            "Suranga Nanayakkara"
+          ],
+          "venue": "cs.HC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.16021v1",
+            "rrf_score": 0.053203,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+          "url": "http://arxiv.org/abs/2510.22631v1",
+          "snippet": "This paper presents our submission to the MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets. The objective of the shared task is to create manually-annotated evaluation data in the physical commonsense reasoning domain, for languages other than English, following a format similar to PIQA. Our contribution, FormaMentis, is a novel benchmark for physical commonsense reasoning that is grounded in Italian language and culture. The data samples in FormaMentis are created by expert annotators who are native Italian speakers and are familiar with local customs and norms. The samples a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-26",
+          "authors": [
+            "Marco De Santis",
+            "Lisa Alazraki"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.22631v1",
+            "rrf_score": 0.036951,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "ACM COMPUTE 2025 Best Practices Track Proceedings",
+          "url": "http://arxiv.org/abs/2512.02349v2",
+          "snippet": "COMPUTE is an annual Indian conference supported by ACM India and iSIGCSE. The focus of COMPUTE is to improve the quality of computing education in the country by providing a platform for academicians and researchers to interact and share best practices in teaching, learning, and education in general.\n  The Best Practices Track of COMPUTE 2025 invited Computer Science Educators across the country to submit an experience report for the best practices under multiple categories: 1) Novel classroom activities, 2) Imaginative assignments that promote creativity and problem-solving, 3) Diverse peda…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-02",
+          "authors": [
+            "Ritwik Murali",
+            "Mrityunjay Kumar"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.02349v2",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Large Language Models Reasoning Abilities Under Non-Ideal Conditions After RL-Fine-Tuning",
+          "url": "http://arxiv.org/abs/2508.04848v1",
+          "snippet": "Reinforcement learning (RL) has become a key technique for enhancing the reasoning abilities of large language models (LLMs), with policy-gradient algorithms dominating the post-training stage because of their efficiency and effectiveness. However, most existing benchmarks evaluate large-language-model reasoning under idealized settings, overlooking performance in realistic, non-ideal scenarios. We identify three representative non-ideal scenarios with practical relevance: summary inference, fine-grained noise suppression, and contextual filtering. We introduce a new research direction guided…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-06",
+          "authors": [
+            "Chang Tian",
+            "Matthew B. Blaschko",
+            "Mingzhe Xing",
+            "Xiuxing Li",
+            "Yinliang Yue",
+            "Marie-Francine Moens"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.04848v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "Reinforcement Learning Meets Large Language Models: A Survey of Advancements and Applications Across the LLM Lifecycle",
+          "url": "http://arxiv.org/abs/2509.16679v1",
+          "snippet": "In recent years, training methods centered on Reinforcement Learning (RL) have markedly enhanced the reasoning and alignment performance of Large Language Models (LLMs), particularly in understanding human intents, following user instructions, and bolstering inferential strength. Although existing surveys offer overviews of RL augmented LLMs, their scope is often limited, failing to provide a comprehensive summary of how RL operates across the full lifecycle of LLMs. We systematically review the theoretical and practical advancements whereby RL empowers LLMs, especially Reinforcement Learning…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-20",
+          "authors": [
+            "Keliang Liu",
+            "Dingkang Yang",
+            "Ziyun Qian",
+            "Weijie Yin",
+            "Yuchi Wang",
+            "Hongsheng Li",
+            "Jun Liu",
+            "Peng Zhai",
+            "Yang Liu",
+            "Lihua Zhang"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.16679v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+          "url": "http://arxiv.org/abs/2506.14634v3",
+          "snippet": "The recent development and wider accessibility of LLMs have spurred discussions about how they can be used in survey research, including classifying open-ended survey responses. Due to their linguistic capacities, it is possible that LLMs are an efficient alternative to time-consuming manual coding and the pre-training of supervised machine learning models. As most existing research on this topic has focused on English-language responses relating to non-complex topics or on single LLMs, it is unclear whether its findings generalize and how the quality of these classifications compares to esta…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-17",
+          "authors": [
+            "Leah von der Heyde",
+            "Anna-Carolina Haensch",
+            "Bernd Weiß",
+            "Jessica Daikeler"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.14634v3",
+            "rrf_score": 0.022388
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+            "evidence": "Flow theory describes an optimal cognitive state where individuals experience deep focus and intrinsic motivation when a task's difficulty aligns with their skill level. In AI-augmented reasoning, interventions that disrupt the state of cognitive flow can hinder rather than enhance decision-making.…",
+            "sources": [
+              91
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.HC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.HC）"
+          },
+          {
+            "point": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+            "evidence": "This paper presents our submission to the MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets. The objective of the shared task is to create manually-annotated evaluation data in the physical commonsense reasoning domain, for languages other than English, following a format similar to…",
+            "sources": [
+              92
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "ACM COMPUTE 2025 Best Practices Track Proceedings",
+            "evidence": "COMPUTE is an annual Indian conference supported by ACM India and iSIGCSE. The focus of COMPUTE is to improve the quality of computing education in the country by providing a platform for academicians and researchers to interact and share best practices in teaching, learning, and education in gener…",
+            "sources": [
+              93
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CY",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CY）"
+          },
+          {
+            "point": "Large Language Models Reasoning Abilities Under Non-Ideal Conditions After RL-Fine-Tuning",
+            "evidence": "Reinforcement learning (RL) has become a key technique for enhancing the reasoning abilities of large language models (LLMs), with policy-gradient algorithms dominating the post-training stage because of their efficiency and effectiveness. However, most existing benchmarks evaluate large-language-m…",
+            "sources": [
+              95
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Reinforcement Learning Meets Large Language Models: A Survey of Advancements and Applications Across the LLM Lifecycle",
+            "evidence": "In recent years, training methods centered on Reinforcement Learning (RL) have markedly enhanced the reasoning and alignment performance of Large Language Models (LLMs), particularly in understanding human intents, following user instructions, and bolstering inferential strength. Although existing…",
+            "sources": [
+              65
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+            "evidence": "The recent development and wider accessibility of LLMs have spurred discussions about how they can be used in survey research, including classifying open-ended survey responses. Due to their linguistic capacities, it is possible that LLMs are an efficient alternative to time-consuming manual coding…",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "后训练（post-training）范式如何演进：从 RLHF/RLAIF/DPO 到 RLVR（可验证奖励强化学习）与'推理型 RL'？其算法、训练数据、算力开销与失败模式（reward hacking、长度偏置、泛化性）有哪些一手证据？",
+      "queries": [
+        "reinforcement learning from verifiable rewards RLVR 2025 arxiv",
+        "RLHF DPO post-training survey 2025 large language model",
+        "reward hacking reasoning RLVR length bias 2025",
+        "DeepSeek-R1 GRPO reinforcement learning verifiable reward technical report"
+      ],
+      "rationale": "后训练是当前模型能力跃迁的关键环节，也是争议集中区（RLVR 是否只是提升采样效率、是否损害通用能力）。需以 NeurIPS/ICML/ICLR 论文与官方技术报告（A/B级）为主，交叉验证 RLHF 与 RLVR 的差异。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2602.12375v1",
+          "snippet": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propagating local uncertainties around rewards. However, this approach only increases the value bonus for an action retroactively, after seeing a higher reward bonus from that state and action. Such an approach does not encourage the agent to visit a state and action for the first time. In this work, we in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-12",
+          "authors": [
+            "Abdul Wahab",
+            "Raksha Kumaraswamy",
+            "Martha White"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.12375v1",
+            "rrf_score": 0.035954,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "RLVR-World: Training World Models with Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2505.13934v2",
+          "snippet": "World models predict state transitions in response to actions and are increasingly developed across diverse modalities. However, standard training objectives such as maximum likelihood estimation (MLE) often misalign with task-specific goals of world models, i.e., transition prediction metrics like accuracy or perceptual quality. In this paper, we present RLVR-World, a unified framework that leverages reinforcement learning with verifiable rewards (RLVR) to directly optimize world models for such metrics. Despite formulating world modeling as autoregressive prediction of tokenized sequences,…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-20",
+          "authors": [
+            "Jialong Wu",
+            "Shaofeng Yin",
+            "Ningya Feng",
+            "Mingsheng Long"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.13934v2",
+            "rrf_score": 0.035644,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+          "url": "http://arxiv.org/abs/2607.18488v1",
+          "snippet": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We propose a physical platform that is designed to simplify the transition. In this paper, we present the Open Ant: a physical variant of the commonly used Gymnasium Ant environment, along with a simulation. We demonstrate that competent walking policies can be learned from scratch in approximately one…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-20",
+          "authors": [
+            "Elena Sorina Lupu",
+            "Patrick Spieler",
+            "Khurram Javed",
+            "Kris De Asis",
+            "John D. Martin",
+            "Martha Steenstrup",
+            "Joseph Modayil"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.18488v1",
+            "rrf_score": 0.035004,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Causal-Paced Deep Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2507.02910v1",
+          "snippet": "Designing effective task sequences is crucial for curriculum reinforcement learning (CRL), where agents must gradually acquire skills by training on intermediate tasks. A key challenge in CRL is to identify tasks that promote exploration, yet are similar enough to support effective transfer. While recent approach suggests comparing tasks via their Structural Causal Models (SCMs), the method requires access to ground-truth causal structures, an unrealistic assumption in most RL settings. In this work, we propose Causal-Paced Deep Reinforcement Learning (CP-DRL), a curriculum learning framework…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-24",
+          "authors": [
+            "Geonwoo Cho",
+            "Jaegyun Im",
+            "Doyoon Kim",
+            "Sundong Kim"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.02910v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "MedEyes: Learning Dynamic Visual Focus for Medical Progressive Diagnosis",
+          "url": "http://arxiv.org/abs/2511.22018v2",
+          "snippet": "Accurate medical diagnosis often involves progressive visual focusing and iterative reasoning, characteristics commonly observed in clinical workflows. While recent vision-language models demonstrate promising chain-of-thought (CoT) reasoning capabilities via reinforcement learning with verifiable rewards (RLVR), their purely on-policy learning paradigm tends to reinforce superficially coherent but clinically inaccurate reasoning paths. We propose MedEyes, a novel reinforcement learning framework that dynamically models clinician-style diagnostic reasoning by progressively attending to and in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-27",
+          "authors": [
+            "Chunzheng Zhu",
+            "Yangfang Lin",
+            "Shen Chen",
+            "Yijun Wang",
+            "Jianxin Lin"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.22018v2",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "PAC Apprenticeship Learning with Bayesian Active Inverse Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2508.03693v2",
+          "snippet": "As AI systems become increasingly autonomous, reliably aligning their decision-making with human preferences is essential. Inverse reinforcement learning (IRL) offers a promising approach to infer preferences from demonstrations. These preferences can then be used to produce an apprentice policy that performs well on the demonstrated task. However, in domains like autonomous driving or robotics, where errors can have serious consequences, we need not just good average performance but reliable policies with formal guarantees -- yet obtaining sufficient human demonstrations for reliability guar…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-05",
+          "authors": [
+            "Ondrej Bajgar",
+            "Dewi S. W. Gould",
+            "Jonathon Liu",
+            "Alessandro Abate",
+            "Konstantinos Gatsis",
+            "Michael A. Osborne"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.03693v2",
+            "rrf_score": 0.021739
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+            "evidence": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propaga…",
+            "sources": [
+              47
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "RLVR-World: Training World Models with Reinforcement Learning",
+            "evidence": "World models predict state transitions in response to actions and are increasingly developed across diverse modalities. However, standard training objectives such as maximum likelihood estimation (MLE) often misalign with task-specific goals of world models, i.e., transition prediction metrics like…",
+            "sources": [
+              48
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+            "evidence": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We…",
+            "sources": [
+              49
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Causal-Paced Deep Reinforcement Learning",
+            "evidence": "Designing effective task sequences is crucial for curriculum reinforcement learning (CRL), where agents must gradually acquire skills by training on intermediate tasks. A key challenge in CRL is to identify tasks that promote exploration, yet are similar enough to support effective transfer. While…",
+            "sources": [
+              51
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "MedEyes: Learning Dynamic Visual Focus for Medical Progressive Diagnosis",
+            "evidence": "Accurate medical diagnosis often involves progressive visual focusing and iterative reasoning, characteristics commonly observed in clinical workflows. While recent vision-language models demonstrate promising chain-of-thought (CoT) reasoning capabilities via reinforcement learning with verifiable…",
+            "sources": [
+              54
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "PAC Apprenticeship Learning with Bayesian Active Inverse Reinforcement Learning",
+            "evidence": "As AI systems become increasingly autonomous, reliably aligning their decision-making with human preferences is essential. Inverse reinforcement learning (IRL) offers a promising approach to infer preferences from demonstrations. These preferences can then be used to produce an apprentice policy th…",
+            "sources": [
+              55
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "LLM Agent 与工具使用（tool use / function calling / computer use）近两年有哪些代表性系统、评测基准与真实可复现的开源实现？在长程任务上其成功率与失败模式如何？",
+      "queries": [
+        "LLM agent tool use benchmark 2025 survey arxiv",
+        "GAIA SWE-bench WebArena agent evaluation 2025",
+        "computer use agent OSWorld benchmark 2025",
+        "LLM agent function calling open source framework 2025 github"
+      ],
+      "rationale": "Agent 是2024–2026最热的落地方向，但同时是demo视频与营销内容最泛滥的区域。需要严格区分'论文宣称'与'第三方榜单/复现'，覆盖 web、GUI、代码、科研等不同任务域的 agent benchmark。",
+      "round": 1,
+      "results": [
+        {
+          "title": "When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents",
+          "url": "http://arxiv.org/abs/2606.20023v2",
+          "snippet": "As LLM agents increasingly select tools autonomously, their choices among tools with different privileges become safety-relevant. However, prior tool-selection studies focus on safety-agnostic metadata preferences, leaving privilege-sensitive choices underexplored. To address this gap, we study over-privileged tool selection, in which an agent selects or escalates to a higher-privilege tool despite a sufficient lower-privilege alternative. We introduce ToolPrivBench to evaluate whether agents choose higher-privilege tools despite sufficient lower-privilege alternatives, measuring both initial…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-06-18",
+          "authors": [
+            "Kaiyue Yang",
+            "Yuyan Bu",
+            "Jingwei Yi",
+            "Yuchi Wang",
+            "Biyu Zhou",
+            "Juntao Dai",
+            "Songlin Hu",
+            "Yaodong Yang"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.20023v2",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+          "url": "http://arxiv.org/abs/2605.21404v1",
+          "snippet": "We read twelve well-known LLM agent benchmark papers and recorded, dimension by dimension, what each paper actually says about how its evaluation was run. The motivation came from a familiar frustration: two papers will report results on the same benchmark with the same model name and disagree, and you cannot tell why -- the scaffold, the sampling settings, the subset, or the evaluator version. In many cases the published artifact does not let you answer. This paper is an implementation report on the attempt. We designed a small audit schema (five fields: benchmark identity, harness specifica…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Mahdi Naser Moghadasi",
+            "Faezeh Ghaderi"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21404v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "SWE-bench Goes Live!",
+          "url": "http://arxiv.org/abs/2505.23419v2",
+          "snippet": "The issue-resolving task, where a model generates patches to fix real-world bugs, has emerged as a critical benchmark for evaluating the capabilities of large language models (LLMs). While SWE-bench and its variants have become standard in this domain, they suffer from key limitations: they have not been updated since their initial releases, cover a narrow set of repositories, and depend heavily on manual effort for instance construction and environment setup. These factors hinder scalability and introduce risks of overfitting and data contamination. In this work, we present SWE-bench-Live, a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-29",
+          "authors": [
+            "Linghao Zhang",
+            "Shilin He",
+            "Chaoyun Zhang",
+            "Yu Kang",
+            "Bowen Li",
+            "Chengxing Xie",
+            "Junhao Wang",
+            "Maoquan Wang",
+            "Yufan Huang",
+            "Shengyu Fu",
+            "Elsie Nallipogu",
+            "Qingwei Lin",
+            "Yingnong Dang",
+            "Saravan Rajmohan",
+            "Dongmei Zhang"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.23419v2",
+            "rrf_score": 0.015957
+          }
+        },
+        {
+          "title": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark",
+          "url": "http://arxiv.org/abs/2603.00520v1",
+          "snippet": "The SWE-Bench Verified leaderboard is approaching saturation, with the top system achieving 78.80%. However, we show that this performance is inflated. Our re-evaluation reveals that one in five \"solved\" patches from the top-30 agents are semantically incorrect, passing only because weak test suites fail to expose their errors. We present SWE-ABS, an adversarial framework that strengthens test suites through a two-stage pipeline: (1) coverage-driven augmentation using program slicing to target untested code regions, and (2) mutation-driven adversarial testing that synthesizes plausible but in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-28",
+          "authors": [
+            "Boxi Yu",
+            "Yang Cao",
+            "Yuzhong Zhang",
+            "Liting Lin",
+            "Junjielong Xu",
+            "Zhiqing Zhong",
+            "Qinghua Xu",
+            "Guancheng Wang",
+            "Jialun Cao",
+            "Shing-Chi Cheung",
+            "Pinjia He",
+            "Lionel Briand"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.00520v1",
+            "rrf_score": 0.014851
+          }
+        },
+        {
+          "title": "ASIC-Agent: An Autonomous Multi-Agent System for ASIC Design with Benchmark Evaluation",
+          "url": "https://doi.org/10.1109/iclad65226.2025.00033",
+          "snippet": "",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2025-06-26",
+          "authors": [
+            "Ahmed Allam",
+            "Youssef Mansour",
+            "Mohamed Shalan"
+          ],
+          "venue": "2025 IEEE International Conference on LLM-Aided Design (ICLAD)",
+          "citations": 5,
+          "stars": null,
+          "extra": {
+            "doi": "10.1109/iclad65226.2025.00033",
+            "type": "proceedings-article",
+            "rrf_score": 0.016901
+          }
+        },
+        {
+          "title": "AI-driven Academic Assistance Tool to Fine-Tune LLM for ArXiv",
+          "url": "https://doi.org/10.1109/icriset64803.2025.11252364",
+          "snippet": "",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2025-08-01",
+          "authors": [
+            "Vishal S",
+            "Vaibhav V B",
+            "Meenakshi Malhotra",
+            "Pihu Mittal"
+          ],
+          "venue": "2025 International Conference on Recent Innovation in Science Engineering and Technology (ICRISET)",
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "doi": "10.1109/icriset64803.2025.11252364",
+            "type": "proceedings-article",
+            "rrf_score": 0.017143
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents",
+            "evidence": "As LLM agents increasingly select tools autonomously, their choices among tools with different privileges become safety-relevant. However, prior tool-selection studies focus on safety-agnostic metadata preferences, leaving privilege-sensitive choices underexplored. To address this gap, we study ove…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+            "evidence": "We read twelve well-known LLM agent benchmark papers and recorded, dimension by dimension, what each paper actually says about how its evaluation was run. The motivation came from a familiar frustration: two papers will report results on the same benchmark with the same model name and disagree, and…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "SWE-bench Goes Live!",
+            "evidence": "The issue-resolving task, where a model generates patches to fix real-world bugs, has emerged as a critical benchmark for evaluating the capabilities of large language models (LLMs). While SWE-bench and its variants have become standard in this domain, they suffer from key limitations: they have no…",
+            "sources": [
+              17
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark",
+            "evidence": "The SWE-Bench Verified leaderboard is approaching saturation, with the top system achieving 78.80%. However, we show that this performance is inflated. Our re-evaluation reveals that one in five \"solved\" patches from the top-30 agents are semantically incorrect, passing only because weak test suite…",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "ASIC-Agent: An Autonomous Multi-Agent System for ASIC Design with Benchmark Evaluation",
+            "evidence": "",
+            "sources": [
+              11
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "citations=5",
+            "authority": "2025 IEEE International Conference on LLM-Aided Design (ICLAD)",
+            "attention": "中（citations=5）",
+            "recommendation": "★★★★☆（venue=2025 IEEE International Conference on LLM-Aided Design (ICLAD)）"
+          },
+          {
+            "point": "AI-driven Academic Assistance Tool to Fine-Tune LLM for ArXiv",
+            "evidence": "",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "citations=0",
+            "authority": "2025 International Conference on Recent Innovation in Science Engineering and Technology (ICRISET)",
+            "attention": "低（citations=0）",
+            "recommendation": "★★★★☆（venue=2025 International Conference on Recent Innovation in Science Engineering and Technology (ICRISET)）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q4",
+      "question": "多模态基础模型（原生多模态 / 统一理解与生成 / 视觉-语言-动作）近两年有哪些关键模型与训练范式进展？在视频、长文档、GUI、具身等场景的评测结论是否稳健？",
+      "queries": [
+        "multimodal foundation model 2025 arxiv survey",
+        "native multimodal unified understanding generation 2025 arxiv",
+        "GPT-4o Gemini Qwen-VL technical report multimodal 2025",
+        "vision-language-action model VLA 2025 survey arxiv"
+      ],
+      "rationale": "多模态是基础模型能力扩展的主线之一，也是与用户所在具身/VLA领域衔接的桥梁。需要覆盖CVPR/NeurIPS一手论文、官方技术报告与开源权重（HuggingFace）三类证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "1$^{st}$ Place Solution of WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge",
+          "url": "http://arxiv.org/abs/2505.03543v1",
+          "snippet": "The WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge focuses on effectively applying multimodal embedding features to improve click-through rate (CTR) prediction in recommender systems. This technical report presents our 1$^{st}$ place winning solution for Task 2, combining sequential modeling and feature interaction learning to effectively capture user-item interactions. For multimodal information integration, we simply append the frozen multimodal embeddings to each item embedding. Experiments on the challenge dataset demonstrate the effectiveness of our method, achieving supe…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-06",
+          "authors": [
+            "Junwei Xu",
+            "Zehao Zhao",
+            "Xiaoyu Hu",
+            "Zhenjie Song"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.03543v1",
+            "rrf_score": 0.058223,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+          "url": "http://arxiv.org/abs/2510.20381v1",
+          "snippet": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal legal text processing and to provide a benchmark dataset for building and evaluating intelligent systems in multimodal legal domains, with a focus on traffic sign regulation in Vietnam. The best-reported results on VLSP 2025 MLQA-TSR are an F2 score of 64.55% for multimodal legal retrieval and an a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Son T. Luu",
+            "Trung Vo",
+            "Hiep Nguyen",
+            "Khanh Quoc Tran",
+            "Kiet Van Nguyen",
+            "Vu Tran",
+            "Ngan Luu-Thuy Nguyen",
+            "Le-Minh Nguyen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20381v1",
+            "rrf_score": 0.057566,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.039181,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook",
+          "url": "http://arxiv.org/abs/2509.14142v1",
+          "snippet": "This paper reviews the MARS2 2025 Challenge on Multimodal Reasoning. We aim to bring together different approaches in multimodal machine learning and LLMs via a large benchmark. We hope it better allows researchers to follow the state-of-the-art in this very dynamic area. Meanwhile, a growing number of testbeds have boosted the evolution of general-purpose large language models. Thus, this year's MARS2 focuses on real-world and specialized scenarios to broaden the multimodal reasoning applications of MLLMs. Our organizing team released two tailored datasets Lens and AdsQA as test sets, which…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-17",
+          "authors": [
+            "Peng Xu",
+            "Shengwu Xiong",
+            "Jiajun Zhang",
+            "Yaxiong Chen",
+            "Bowen Zhou",
+            "Chen Change Loy",
+            "David A. Clifton",
+            "Kyoung Mu Lee",
+            "Luc Van Gool",
+            "Ruiming He",
+            "Ruilin Yao",
+            "Xinwei Long",
+            "Jirui Huang",
+            "Kai Tian",
+            "Sa Yang",
+            "Yihua Shao",
+            "Jin Feng",
+            "Yue Zhong",
+            "Jiakai Zhou",
+            "Cheng Tang",
+            "Tianyu Zou",
+            "Yifang Zhang",
+            "Junming Liang",
+            "Guoyou Li",
+            "Zhaoxiang Wang",
+            "Qiang Zhou",
+            "Yichen Zhao",
+            "Shili Xiong",
+            "Hyeongjin Nam",
+            "Jaerin Lee",
+            "Jaeyoung Chung",
+            "JoonKyu Park",
+            "Junghun Oh",
+            "Kanggeon Lee",
+            "Wooseok Lee",
+            "Juneyoung Ro",
+            "Turghun Osman",
+            "Can Hu",
+            "Chaoyang Liao",
+            "Cheng Chen",
+            "Chengcheng Han",
+            "Chenhao Qiu",
+            "Chong Peng",
+            "Cong Xu",
+            "Dailin Li",
+            "Feiyu Wang",
+            "Feng Gao",
+            "Guibo Zhu",
+            "Guopeng Tang",
+            "Haibo Lu",
+            "Han Fang",
+            "Han Qi",
+            "Hanxiao Wu",
+            "Haobo Cheng",
+            "Hongbo Sun",
+            "Hongyao Chen",
+            "Huayong Hu",
+            "Hui Li",
+            "Jiaheng Ma",
+            "Jiang Yu",
+            "Jianing Wang",
+            "Jie Yang",
+            "Jing He",
+            "Jinglin Zhou",
+            "Jingxuan Li",
+            "Josef Kittler",
+            "Lihao Zheng",
+            "Linnan Zhao",
+            "Mengxi Jia",
+            "Muyang Yan",
+            "Nguyen Thanh Thien",
+            "Pu Luo",
+            "Qi Li",
+            "Shien Song",
+            "Shijie Dong",
+            "Shuai Shao",
+            "Shutao Li",
+            "Taofeng Xue",
+            "Tianyang Xu",
+            "Tianyi Gao",
+            "Tingting Li",
+            "Wei Zhang",
+            "Weiyang Su",
+            "Xiaodong Dong",
+            "Xiao-Jun Wu",
+            "Xiaopeng Zhou",
+            "Xin Chen",
+            "Xin Wei",
+            "Xinyi You",
+            "Xudong Kang",
+            "Xujie Zhou",
+            "Xusheng Liu",
+            "Yanan Wang",
+            "Yanbin Huang",
+            "Yang Liu",
+            "Yang Yang",
+            "Yanglin Deng",
+            "Yashu Kang",
+            "Ye Yuan",
+            "Yi Wen",
+            "Yicen Tian",
+            "Yilin Tao",
+            "Yin Tang",
+            "Yipeng Lin",
+            "Yiqing Wang",
+            "Yiting Xi",
+            "Yongkang Yu",
+            "Yumei Li",
+            "Yuxin Qin",
+            "Yuying Chen",
+            "Yuzhe Cen",
+            "Zhaofan Zou",
+            "Zhaohong Liu",
+            "Zhehao Shen",
+            "Zhenglin Du",
+            "Zhengyang Li",
+            "Zhenni Huang",
+            "Zhenwei Shao",
+            "Zhilong Song",
+            "Zhiyong Feng",
+            "Zhiyu Wang",
+            "Zhou Yu",
+            "Ziang Li",
+            "Zihan Zhai",
+            "Zijian Zhang",
+            "Ziyang Peng",
+            "Ziyun Xiao",
+            "Zongshu Li"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.14142v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "Multimodal AI for Gastrointestinal Diagnostics: Tackling VQA in MEDVQA-GI 2025",
+          "url": "http://arxiv.org/abs/2507.14544v1",
+          "snippet": "This paper describes our approach to Subtask 1 of the ImageCLEFmed MEDVQA 2025 Challenge, which targets visual question answering (VQA) for gastrointestinal endoscopy. We adopt the Florence model-a large-scale multimodal foundation model-as the backbone of our VQA pipeline, pairing a powerful vision encoder with a text encoder to interpret endoscopic images and produce clinically relevant answers. To improve generalization, we apply domain-specific augmentations that preserve medical features while increasing training diversity. Experiments on the KASVIR dataset show that fine-tuning Florence…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-19",
+          "authors": [
+            "Sujata Gaihre",
+            "Amir Thapa Magar",
+            "Prasuna Pokharel",
+            "Laxmi Tiwari"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.14544v1",
+            "rrf_score": 0.022388
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q4",
+        "findings": [
+          {
+            "point": "1$^{st}$ Place Solution of WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge",
+            "evidence": "The WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge focuses on effectively applying multimodal embedding features to improve click-through rate (CTR) prediction in recommender systems. This technical report presents our 1$^{st}$ place winning solution for Task 2, combining sequential…",
+            "sources": [
+              110
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.IR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.IR）"
+          },
+          {
+            "point": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+            "evidence": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal…",
+            "sources": [
+              99
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              90
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook",
+            "evidence": "This paper reviews the MARS2 2025 Challenge on Multimodal Reasoning. We aim to bring together different approaches in multimodal machine learning and LLMs via a large benchmark. We hope it better allows researchers to follow the state-of-the-art in this very dynamic area. Meanwhile, a growing numbe…",
+            "sources": [
+              112
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Multimodal AI for Gastrointestinal Diagnostics: Tackling VQA in MEDVQA-GI 2025",
+            "evidence": "This paper describes our approach to Subtask 1 of the ImageCLEFmed MEDVQA 2025 Challenge, which targets visual question answering (VQA) for gastrointestinal endoscopy. We adopt the Florence model-a large-scale multimodal foundation model-as the backbone of our VQA pipeline, pairing a powerful visio…",
+            "sources": [
+              113
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q5",
+      "question": "MoE 架构与扩展律（scaling laws）在2024–2026有哪些新结论？稀疏化、路由、负载均衡与'推理成本-性能'权衡的一手证据是什么？数据受限情形下的扩展律还成立吗？",
+      "queries": [
+        "mixture of experts scaling law 2025 arxiv",
+        "sparse MoE routing load balancing large language model 2025",
+        "scaling laws data-constrained pretraining 2025 arxiv",
+        "DeepSeek-V3 Mixtral MoE architecture technical report efficiency"
+      ],
+      "rationale": "MoE 与 scaling law 决定了大模型的成本结构与路线选择，且近年出现'数据墙''推理算力扩展律'等新论点，需要一手论文与官方报告区分'实验室结论'与'厂商叙事'。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.042064,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+          "url": "http://arxiv.org/abs/2504.14582v3",
+          "snippet": "This paper presents the NTIRE 2025 image super-resolution ($\\times$4) challenge, one of the associated competitions of the 10th NTIRE Workshop at CVPR 2025. The challenge aims to recover high-resolution (HR) images from low-resolution (LR) counterparts generated through bicubic downsampling with a $\\times$4 scaling factor. The objective is to develop effective network designs or solutions that achieve state-of-the-art SR performance. To reflect the dual objectives of image SR research, the challenge includes two sub-tracks: (1) a restoration track, emphasizes pixel-wise accuracy and ranks sub…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-20",
+          "authors": [
+            "Zheng Chen",
+            "Kai Liu",
+            "Jue Gong",
+            "Jingkai Wang",
+            "Lei Sun",
+            "Zongwei Wu",
+            "Radu Timofte",
+            "Yulun Zhang",
+            "Xiangyu Kong",
+            "Xiaoxuan Yu",
+            "Hyunhee Park",
+            "Suejin Han",
+            "Hakjae Jeon",
+            "Dafeng Zhang",
+            "Hyung-Ju Chun",
+            "Donghun Ryou",
+            "Inju Ha",
+            "Bohyung Han",
+            "Lu Zhao",
+            "Yuyi Zhang",
+            "Pengyu Yan",
+            "Jiawei Hu",
+            "Pengwei Liu",
+            "Fengjun Guo",
+            "Hongyuan Yu",
+            "Pufan Xu",
+            "Zhijuan Huang",
+            "Shuyuan Cui",
+            "Peng Guo",
+            "Jiahui Liu",
+            "Dongkai Zhang",
+            "Heng Zhang",
+            "Huiyuan Fu",
+            "Huadong Ma",
+            "Yanhui Guo",
+            "Sisi Tian",
+            "Xin Liu",
+            "Jinwen Liang",
+            "Jie Liu",
+            "Jie Tang",
+            "Gangshan Wu",
+            "Zeyu Xiao",
+            "Zhuoyuan Li",
+            "Yinxiang Zhang",
+            "Wenxuan Cai",
+            "Vijayalaxmi Ashok Aralikatti",
+            "Nikhil Akalwadi",
+            "G Gyaneshwar Rao",
+            "Chaitra Desai",
+            "Ramesh Ashok Tabib",
+            "Uma Mudenagudi",
+            "Marcos V. Conde",
+            "Alejandro Merino",
+            "Bruno Longarela",
+            "Javier Abad",
+            "Weijun Yuan",
+            "Zhan Li",
+            "Zhanglu Chen",
+            "Boyang Yao",
+            "Aagam Jain",
+            "Milan Kumar Singh",
+            "Ankit Kumar",
+            "Shubh Kawa",
+            "Divyavardhan Singh",
+            "Anjali Sarvaiya",
+            "Kishor Upla",
+            "Raghavendra Ramachandra",
+            "Chia-Ming Lee",
+            "Yu-Fan Lin",
+            "Chih-Chung Hsu",
+            "Risheek V Hiremath",
+            "Yashaswini Palani",
+            "Yuxuan Jiang",
+            "Qiang Zhu",
+            "Siyue Teng",
+            "Fan Zhang",
+            "Shuyuan Zhu",
+            "Bing Zeng",
+            "David Bull",
+            "Jingwei Liao",
+            "Yuqing Yang",
+            "Wenda Shao",
+            "Junyi Zhao",
+            "Qisheng Xu",
+            "Kele Xu",
+            "Sunder Ali Khowaja",
+            "Ik Hyun Lee",
+            "Snehal Singh Tomar",
+            "Rajarshi Ray",
+            "Klaus Mueller",
+            "Sachin Chaudhary",
+            "Surya Vashisth",
+            "Akshay Dudhane",
+            "Praful Hambarde",
+            "Satya Naryan Tazi",
+            "Prashant Patil",
+            "Santosh Kumar Vipparthi",
+            "Subrahmanyam Murala",
+            "Bilel Benjdira",
+            "Anas M. Ali",
+            "Wadii Boulila",
+            "Zahra Moammeri",
+            "Ahmad Mahmoudi-Aznaveh",
+            "Ali Karbasi",
+            "Hossein Motamednia",
+            "Liangyan Li",
+            "Guanhua Zhao",
+            "Kevin Le",
+            "Yimo Ning",
+            "Haoxuan Huang",
+            "Jun Chen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.14582v3",
+            "rrf_score": 0.040577,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "FlexMoE: One-for-All Nested Intra-Expert Pruning for MoE Language Models",
+          "url": "http://arxiv.org/abs/2606.27866v1",
+          "snippet": "Mixture-of-Experts (MoE) language models scale model ability with sparsely activated experts, making this architecture a standard recipe for modern large models. However, sparse activation does not remove the deployment burden of storing and serving all experts, and the available deployment budget can vary substantially across devices, users, and workloads. Existing MoE compression methods are still largely fixed-budget, typically optimizing one compressed endpoint at each chosen target budget. We study a different setting: converting a large pretrained MoE LLM into a nested family of deploya…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-06-26",
+          "authors": [
+            "Fan Mo",
+            "Yuxuan Han",
+            "Geng Zhang",
+            "Wangbo Zhao",
+            "Yang You"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.27866v1",
+            "rrf_score": 0.037045,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "When Does Sparse MoE Help in Vision? The Role of Backbone Compute Leverage in Sparse Routing",
+          "url": "http://arxiv.org/abs/2605.15484v1",
+          "snippet": "Mixture-of-Experts (MoE) networks promise favorable accuracy-compute trade-offs, yet practical vision deployments are hindered by expert collapse and limited end-to-end efficiency gains. We study when sparse top-$k$ routing with hard capacity constraints helps in vision classification, evaluated under multi-seed protocols on four benchmarks (CIFAR-10/100, Tiny-ImageNet, ImageNet-1K). We observe a \\emph{compute-leverage pattern}: positive accuracy gaps require a substantial fraction $ρ$ of total FLOPs to be routed; at ImageNet scale this is necessary but not sufficient, as multi-expert routing…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-15",
+          "authors": [
+            "Libo Sun",
+            "Po-wei Harn",
+            "Peixiong He",
+            "Xiao Qin"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.15484v1",
+            "rrf_score": 0.021127
+          }
+        },
+        {
+          "title": "Task-Conditioned Routing Signatures in Sparse Mixture-of-Experts Transformers",
+          "url": "http://arxiv.org/abs/2603.11114v1",
+          "snippet": "Sparse Mixture-of-Experts (MoE) architectures enable efficient scaling of large language models through conditional computation, yet the routing mechanisms responsible for expert selection remain poorly understood. In this work, we introduce routing signatures, a vector representation summarizing expert activation patterns across layers for a given prompt, and use them to study whether MoE routing exhibits task-conditioned structure. Using OLMoE-1B-7B-0125-Instruct as an empirical testbed, we show that prompts from the same task category induce highly similar routing signatures, while prompts…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-11",
+          "authors": [
+            "Mynampati Sri Ranganadha Avinash"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.11114v1",
+            "rrf_score": 0.020833
+          }
+        },
+        {
+          "title": "FLAME-MoE: A Transparent End-to-End Research Platform for Mixture-of-Experts Language Models",
+          "url": "http://arxiv.org/abs/2505.20225v1",
+          "snippet": "Recent large language models such as Gemini-1.5, DeepSeek-V3, and Llama-4 increasingly adopt Mixture-of-Experts (MoE) architectures, which offer strong efficiency-performance trade-offs by activating only a fraction of the model per token. Yet academic researchers still lack a fully open, end-to-end MoE platform for investigating scaling, routing, and expert behavior. We release FLAME-MoE, a completely open-source research suite composed of seven decoder-only models, ranging from 38M to 1.7B active parameters, whose architecture--64 experts with top-8 gating and 2 shared experts--closely refl…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-26",
+          "authors": [
+            "Hao Kang",
+            "Zichun Yu",
+            "Chenyan Xiong"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.20225v1",
+            "rrf_score": 0.020548
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q5",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+            "evidence": "This paper presents the NTIRE 2025 image super-resolution ($\\times$4) challenge, one of the associated competitions of the 10th NTIRE Workshop at CVPR 2025. The challenge aims to recover high-resolution (HR) images from low-resolution (LR) counterparts generated through bicubic downsampling with a…",
+            "sources": [
+              70
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "FlexMoE: One-for-All Nested Intra-Expert Pruning for MoE Language Models",
+            "evidence": "Mixture-of-Experts (MoE) language models scale model ability with sparsely activated experts, making this architecture a standard recipe for modern large models. However, sparse activation does not remove the deployment burden of storing and serving all experts, and the available deployment budget…",
+            "sources": [
+              71
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "When Does Sparse MoE Help in Vision? The Role of Backbone Compute Leverage in Sparse Routing",
+            "evidence": "Mixture-of-Experts (MoE) networks promise favorable accuracy-compute trade-offs, yet practical vision deployments are hindered by expert collapse and limited end-to-end efficiency gains. We study when sparse top-$k$ routing with hard capacity constraints helps in vision classification, evaluated un…",
+            "sources": [
+              79
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Task-Conditioned Routing Signatures in Sparse Mixture-of-Experts Transformers",
+            "evidence": "Sparse Mixture-of-Experts (MoE) architectures enable efficient scaling of large language models through conditional computation, yet the routing mechanisms responsible for expert selection remain poorly understood. In this work, we introduce routing signatures, a vector representation summarizing e…",
+            "sources": [
+              80
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "FLAME-MoE: A Transparent End-to-End Research Platform for Mixture-of-Experts Language Models",
+            "evidence": "Recent large language models such as Gemini-1.5, DeepSeek-V3, and Llama-4 increasingly adopt Mixture-of-Experts (MoE) architectures, which offer strong efficiency-performance trade-offs by activating only a fraction of the model per token. Yet academic researchers still lack a fully open, end-to-en…",
+            "sources": [
+              81
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q6",
+      "question": "长上下文与推理效率（long context、KV cache、注意力替代、量化与投机解码）有哪些可落地进展与开源工程实践？各方案在真实显存/延迟/吞吐指标上的证据强度如何？以及本方向仍存在哪些开放问题与争议？",
+      "queries": [
+        "long context transformer efficiency 2025 survey arxiv",
+        "KV cache compression attention alternative 2025 arxiv",
+        "LLM inference optimization vLLM speculative decoding quantization 2025 github",
+        "benchmark contamination reproducibility LLM evaluation criticism 2025"
+      ],
+      "rationale": "效率是工程落地的硬约束，也是论文数字最容易失真的区域（口径不同：显存/延迟/吞吐/批量）。同时该子问题承载'开放问题与争议'的收口：可复现性、评测污染、基准饱和、闭源可验证性、Agent 安全与对齐。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025",
+          "url": "http://arxiv.org/abs/2506.02550v2",
+          "snippet": "In this report, we present a novel three-stage framework developed for the Ego4D Long-Term Action Anticipation (LTA) task. Inspired by recent advances in foundation models, our method consists of three stages: feature extraction, action recognition, and long-term action anticipation. First, visual features are extracted using a high-performance visual encoder. The features are then fed into a Transformer to predict verbs and nouns, with a verb-noun co-occurrence matrix incorporated to enhance recognition accuracy. Finally, the predicted verb-noun pairs are formatted as textual prompts and inp…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-03",
+          "authors": [
+            "Qiaohui Chu",
+            "Haoyu Zhang",
+            "Yisen Feng",
+            "Meng Liu",
+            "Weili Guan",
+            "Yaowei Wang",
+            "Liqiang Nie"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.02550v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Bridging LLMs and Symbolic Reasoning in Educational QA Systems: Insights from the XAI Challenge at IJCNN 2025",
+          "url": "http://arxiv.org/abs/2508.01263v1",
+          "snippet": "The growing integration of Artificial Intelligence (AI) into education has intensified the need for transparency and interpretability. While hackathons have long served as agile environments for rapid AI prototyping, few have directly addressed eXplainable AI (XAI) in real-world educational contexts. This paper presents a comprehensive analysis of the XAI Challenge 2025, a hackathon-style competition jointly organized by Ho Chi Minh City University of Technology (HCMUT) and the International Workshop on Trustworthiness and Reliability in Neurosymbolic AI (TRNS-AI), held as part of the Interna…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-02",
+          "authors": [
+            "Long S. T. Nguyen",
+            "Khang H. N. Vo",
+            "Thu H. A. Nguyen",
+            "Tuan C. Bui",
+            "Duc Q. Nguyen",
+            "Thanh-Tung Tran",
+            "Anh D. Nguyen",
+            "Minh L. Nguyen",
+            "Fabien Baldacci",
+            "Thang H. Bui",
+            "Emanuel Di Nardo",
+            "Angelo Ciaramella",
+            "Son H. Le",
+            "Ihsan Ullah",
+            "Lorenzo Di Rocco",
+            "Tho T. Quan"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.01263v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+          "url": "http://arxiv.org/abs/2509.19861v1",
+          "snippet": "This paper describes the participation of the SINAI-UJA team in the eRisk@CLEF 2025 lab. Specifically, we addressed two of the proposed tasks: (i) Task 2: Contextualized Early Detection of Depression, and (ii) Pilot Task: Conversational Depression Detection via LLMs. Our approach for Task 2 combines an extensive preprocessing pipeline with the use of several transformer-based models, such as RoBERTa Base or MentalRoBERTA Large, to capture the contextual and sequential nature of multi-user conversations. For the Pilot Task, we designed a set of conversational strategies to interact with LLM-po…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-24",
+          "authors": [
+            "Alba Maria Marmol-Romero",
+            "Manuel Garcia-Vega",
+            "Miguel Angel Garcia-Cumbreras",
+            "Arturo Montejo-Raez"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.19861v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "LTG at SemEval-2025 Task 10: Optimizing Context for Classification of Narrative Roles",
+          "url": "http://arxiv.org/abs/2506.05976v1",
+          "snippet": "Our contribution to the SemEval 2025 shared task 10, subtask 1 on entity framing, tackles the challenge of providing the necessary segments from longer documents as context for classification with a masked language model. We show that a simple entity-oriented heuristics for context selection can enable text classification using models with limited context window. Our context selection approach and the XLM-RoBERTa language model is on par with, or outperforms, Supervised Fine-Tuning with larger generative language models.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-06",
+          "authors": [
+            "Egil Rønningstad",
+            "Gaurav Negi"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.05976v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "Focus-dLLM: Accelerating Long-Context Diffusion LLM Inference via Confidence-Guided Context Focusing",
+          "url": "http://arxiv.org/abs/2602.02159v1",
+          "snippet": "Diffusion Large Language Models (dLLMs) deliver strong long-context processing capability in a non-autoregressive decoding paradigm. However, the considerable computational cost of bidirectional full attention limits the inference efficiency. Although sparse attention is promising, existing methods remain ineffective. This stems from the need to estimate attention importance for tokens yet to be decoded, while the unmasked token positions are unknown during diffusion. In this paper, we present Focus-dLLM, a novel training-free attention sparsification framework tailored for accurate and effic…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-02",
+          "authors": [
+            "Lingkun Long",
+            "Yushi Huang",
+            "Shihao Bai",
+            "Ruihao Gong",
+            "Jun Zhang",
+            "Ao Zhou",
+            "Jianlei Yang"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.02159v1",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "PolyKV: A Shared Asymmetrically-Compressed KV Cache Pool for Multi-Agent LLM Inference",
+          "url": "http://arxiv.org/abs/2604.24971v1",
+          "snippet": "We present PolyKV, a system in which multiple concurrent inference agents share a single, asymmetrically compressed KV cache pool. Rather than allocating a separate KV cache per agent -- the standard paradigm -- PolyKV writes a compressed cache once and injects it into N independent agent contexts via HuggingFace DynamicCache objects. Compression is asymmetric: Keys are quantized at int8 (q8_0) to preserve softmax stability, while Values are compressed using TurboQuant MSE -- a Fast Walsh-Hadamard Transform (FWHT) rotation followed by 3-bit Lloyd-Max quantization with centroids tuned to N(0,1…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-04-27",
+          "authors": [
+            "Ishan Patel",
+            "Ishan Joshi"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2604.24971v1",
+            "rrf_score": 0.021739
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q6",
+        "findings": [
+          {
+            "point": "针对长上下文扩散大语言模型（dLLM）推理，已有工作尝试用「置信度引导的上下文聚焦 + 稀疏注意力」替代双向全注意力以降低推理开销",
+            "evidence": "Focus-dLLM 论文摘要指出：dLLM 采用非自回归解码，长上下文处理能力强，但双向全注意力带来可观计算开销、限制推理效率；现有稀疏注意力方法效果不佳，原因在于需要为「尚未解码的 token」估计注意力重要性，并提出置信度引导的上下文聚焦（Confidence-Guided Context Focusing）。摘要未给出显存/延迟/吞吐量化数字。",
+            "sources": [
+              29
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（arXiv:2602.02159v1，cs.CL），候选块未标注会议/期刊或同行评审信息",
+            "attention": "低 + 仅有摘要级信息，候选块未提供引用数、star、榜单或社区讨论热度信号",
+            "recommendation": "★★★☆☆ + 与本子问题（长上下文推理效率、注意力替代）直接相关，但目前只有摘要级证据，缺少可核查的加速比/显存指标，适合作为线索进一步精读全文"
+          },
+          {
+            "point": "多智能体并发推理场景下，可通过「共享一份非对称压缩 KV cache 池」替代「每个 agent 各持一份 KV cache」的默认范式",
+            "evidence": "PolyKV 论文摘要：多个并发推理 agent 共享单一非对称压缩 KV cache 池；压缩写一次后通过 HuggingFace DynamicCache 对象注入 N 个独立 agent 上下文；压缩是非对称的——Keys 按 int8（q8_0）量化（Values 的压缩方式摘要中未说明）。摘要未给出显存占用、吞吐或延迟数字。",
+            "sources": [
+              31
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（arXiv:2604.24971v1，cs.LG），候选块未标注会议/期刊或同行评审信息；文中提到基于 HuggingFace DynamicCache，属工程实现层线索",
+            "attention": "低 + 候选块无引用数/star/榜单信号，仅摘要可读",
+            "recommendation": "★★★☆☆ + KV cache 共享与量化是本子问题的核心议题之一，且给出了具体量化格式（int8/q8_0）与集成点（HuggingFace DynamicCache），但缺量化损失与吞吐实测，需读全文核实"
+          },
+          {
+            "point": "在上下文窗口受限的模型上，通过面向实体的启发式「上下文片段选择」可以替代直接扩大上下文窗口，效果可媲美甚至超过更大生成式模型的监督微调",
+            "evidence": "LTG 在 SemEval-2025 Task 10 子任务 1（实体 framing）中的做法：用简单的、面向实体的启发式做上下文选择，使仅有有限上下文窗口的模型（XLM-RoBERTa）也能完成长文档分类；作者称其上下文选择方法 + XLM-RoBERTa 与「更大生成式语言模型的监督微调」持平或更优。该文被 SemEval 2025 接收。",
+            "sources": [
+              28
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "被 SemEval 2025（第 19 届 International Workshop on Semantic Evaluation）接收，Workshop 论文，具备一定同行评审属性",
+            "attention": "低 + 候选块无引用数或讨论热度信号，属小规模评测任务论文",
+            "recommendation": "★★★☆☆ + 提供了「不靠长上下文、靠上下文选择」的降本路线与可核查的对比口径，虽任务域（叙事角色分类）与具身智能距离较远，但方法迁移价值中等"
+          },
+          {
+            "point": "本次候选证据中，关于量化与投机解码（speculative decoding）的可落地进展证据缺失，无法支撑任何相关结论",
+            "evidence": "全部候选条目 [25][26][27][28][29][31] 中，未出现以量化（除 PolyKV 的 int8 Keys 提及）、投机解码、draft model、吞吐/延迟基准测试为主题的论文或工程项目；[25][26][27] 与长上下文/推理效率主题无实质关联。",
+            "sources": [
+              25,
+              26,
+              27,
+              28,
+              29,
+              31
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "",
+            "heat": "",
+            "authority": "无（基于候选集覆盖度的归纳，非外部权威来源）",
+            "attention": "低 + 属检索覆盖度缺口提示，不构成社区关注度判断",
+            "recommendation": "★★☆☆☆ + 作为证据缺口记录有用，提示需补充检索量化（GPTQ/AWQ/FP8）与投机解码方向的独立证据"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Focus-dLLM: Accelerating Long-Context Diffusion LLM Inference via Confidence-Guided Context Focusing",
+            "url": "http://arxiv.org/abs/2602.02159v1",
+            "why": "直接针对长上下文 dLLM 的推理效率瓶颈，用置信度引导 + 稀疏注意力替代双向全注意力，是本子问题「注意力替代」方向的可用线索",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.CL），候选块未标注同行评审 venue",
+            "attention": "低 + 候选块无引用数/榜单/社区热度信号",
+            "recommendation": "★★★☆☆ + 主题高度相关，但需读全文核验其加速比与显存实测"
+          },
+          {
+            "title": "PolyKV: A Shared Asymmetrically-Compressed KV Cache Pool for Multi-Agent LLM Inference",
+            "url": "http://arxiv.org/abs/2604.24971v1",
+            "why": "给出 KV cache 共享 + 非对称量化（Keys int8/q8_0）的具体工程方案，并说明通过 HuggingFace DynamicCache 注入多 agent 上下文，属可落地工程实践线索",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.LG），候选块未标注同行评审 venue",
+            "attention": "低 + 候选块无引用数/star/榜单信号",
+            "recommendation": "★★★☆☆ + KV cache 压缩与共享是本子问题核心，但摘要缺显存/吞吐量化结果"
+          },
+          {
+            "title": "LTG at SemEval-2025 Task 10: Optimizing Context for Classification of Narrative Roles",
+            "url": "http://arxiv.org/abs/2506.05976v1",
+            "why": "展示「上下文选择」作为长窗口替代方案的可行性，并声称可与更大生成式模型 SFT 持平或更优，提供一种低成本路线",
+            "year": "2025",
+            "heat": "",
+            "authority": "SemEval 2025 Workshop 接收论文（Comments 标注 Accepted for SemEval 2025）",
+            "attention": "低 + 小型共享任务论文，候选块无引用/讨论热度信号",
+            "recommendation": "★★★☆☆ + 与本子问题「长上下文替代策略」相关，但任务域偏 NLP 分类，迁移性待验证"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据中的两篇效率类论文（Focus-dLLM、PolyKV）摘要均未给出真实显存占用、延迟、吞吐等量化指标，本子问题所需的「指标级证据强度」目前无法从候选块判定，需抓取全文表格核实",
+          "扩散 LLM 的稀疏注意力仍难以为尚未解码的 token 估计注意力重要性，是 Focus-dLLM 明确指出的未解难点",
+          "KV cache 共享（多 agent 场景）在压缩（如 Keys int8 不对称量化）后的精度损失、agent 间上下文隔离与安全性问题，候选证据未见任何评估",
+          "缺少统一的 KV cache 压缩/长上下文加速评测基准与第三方复现报告，各方案之间（注意力替代 vs 量化 vs 共享池）难以横向比较",
+          "候选集中量化与投机解码方向几乎无覆盖（仅 PolyKV 提及 int8 Keys），该方向的工程实践证据存在明显检索缺口"
+        ]
+      }
+    }
+  ],
+  "critiques": [
+    {
+      "coverage": "",
+      "gaps": [],
+      "additional_queries": [],
+      "additional_subquestions": []
+    }
+  ],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading"
+  ],
+  "llm_stats": {
+    "calls": 14,
+    "prompt_tokens": 89258,
+    "completion_tokens": 58106,
+    "generated_at": "2026-10-06T22:08:05.921118+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 基础模型（Foundation Models）前沿调研报告：推理与测试时计算、后训练、Agent、多模态、MoE 与长上下文效率\n\n**元信息**\n- 生成日期（UTC）：2026-10-06\n- 研究领域：人工智能 / 基础模型（Large Language Models、Multimodal Foundation Models、LLM Agent、推理效率）\n- 检索源数量：候选引用池 129 条编号来源，本报告实际引用 85+ 条；另纳入领域种子资源（论文 3 / 项目 4 / 数据集 3）\n- 证据纪律：本报告所有关键论断均带 [n] 引用；引用编号严格对应文末「参考来源」列表；热度类数字（引用数、star、榜位）缺失时统一标注 `> 待核实`，不做任何推测性填充\n- **重要元声明**：本次候选证据集存在明显的**主题漂移（topical drift）**，多个子问题的自动抽取结果包含与主题无关的条目（例如与 Gaia 天体测量、超导零点振荡、云负载均衡、德国开放式问卷编码 [6] 等相关的条目被混入）。本报告已对这些条目做剔除处理，并在第七节「争议与开放问题」中以「元级证据缺口」形式显式记录。**建议不要将本报告视为对六个方向的一次穷尽式普查，而应视为一份带有明确证据缺口的基线（baseline）+ 待补检索清单。**\n\n---\n\n## 摘要（Executive Summary）\n\n1. **后训练范式已经完成从「RLHF/DPO 偏好对齐」到「RLVR + 推理型 RL」的叙事迁移**，多篇 2025 年综述与生命周期研究将其作为主线 [63][65][105]。但 2025–2026 年出现了来自独立研究的**系统性反证**：一项关于 pass@k 反转（Pass@k Inversion）的工作指出 RLVR 争议中有五个未被言明的前提，crossover 本身并不承载论文常宣称的结论 [56]；另一项预注册干预研究直接论证 RLVR 的增益**不可分解**（Does Not Decompose）[62]。也就是说，「RL 显著提升推理」这一命题的**效应拆解**仍处于未定论状态。\n2. **Agent 评测的可信度危机已经是一手证据级的事实，而非社区传言**：静态 SWE-bench 家族被指出存在关键局限并催生 live 版本 [17]；SWE-ABS 通过对抗式加难证明 SWE-Bench Verified 榜首系统 78.80% 的成绩被高估，top-30 agent 中约**五分之一**「已解决」补丁在语义上是错误的，仅因测试套件太弱而通过 [24]；另有审计研究逐维度阅读 12 篇知名 agent benchmark 论文，指出「同 benchmark、同模型名、结果互相矛盾」是可复现性披露不足导致的常态 [5]。\n3. **MoE 已经从「架构选择」变成「默认配方」**（Gemini-1.5、DeepSeek-V3、Llama-4 被同一篇论文作为采用 MoE 的代表 [81]），研究重心相应从「如何稀疏化」转向**部署侧效率**（专家剪枝 [71][73]、预测式专家缓存 [72]）与**适用条件分析**（视觉 MoE 何时才真正受益 [79]、路由的任务条件化签名 [80]）。数据受限预训练与 MoE upcycling 的扩展律也已有新结论 [85][88]。\n4. **长上下文与推理效率已形成独立且拥挤的赛道**：KV cache 压缩/驱逐 [33][34][35][36][37][38]、扩散 LLM 的 KV 注意力改造 [32]、投机解码的工程化与场景化 [39][43][44][45]、多 agent 共享压缩 KV 池 [31]、dLLM 稀疏注意力 [29]。**但候选证据绝大多数只有摘要级信息，缺少真实的显存/延迟/吞吐实测数字**，因此本节的量化结论一律标注 `> 待核实`。\n5. **多模态正走向「统一理解与生成（unified understanding & generation）」**，并同期出现综述骨架 [120] 与统一评测尝试 [119]，代表系统包括 Pisces [121]、Show-o2 [122]、PixelBytes [118]；同时基础模型的**透明度治理**已有年度量化报告 [90]。\n6. **基础模型能力正在外溢到具身/驾驶**：VLA-Thinker 试图用「以图像思考（thinking-with-image）」增强 VLA [128]，驾驶 VLA 上出现推理时注意力引导 [129]——这属于本主题与具身智能的直接接口，但均为预印本级证据。\n\n---\n\n## 一、关键前沿进展（近 1–2 年）\n\n> 组织方式：按时间线排序，每条标注**证据强度**（同行评审 / 预印本 / 平台报告 / 仅有摘要）。\n\n| 时间 | 进展 | 类型 | 证据强度 | 来源 |\n|---|---|---|---|---|\n| 2024–2025 | 后训练主线从 RLHF/RLAIF/DPO 转向 RLVR 与「推理型 RL」，出现覆盖全生命周期的 RL 综述 | 综述 | 预印本（arXiv cs.CL） | [63][65][105] |\n| 2025 | RLVR 被扩展到**非语言/非数学**域：在**化学环境**上以可验证奖励做 RL benchmark [57]、流程建模 [58][60]、多买方市场谈判 [59]、世界模型训练 RLVR-World [48] | 方法 + 数据集 | 部分为预印本/仓储预印，1 篇为期刊/会议投稿 | [48][57][58][59][60] |\n| 2025-05 | SWE-bench Goes Live：针对静态 issue-resolving benchmark 的关键局限提出 live 版本 | 基准 | 预印本（cs.SE） | [17] |\n| 2025 | 小模型作为工具使用者能力不足，被以 multi-LLM agent 架构作为补救路径 | 方法 | 预印本（cs.CL/cs.AI） | [4] |\n| 2025–2026 | KV cache 压缩成为独立子领域：驱逐 [33][36]、按 head 变率分页压缩 [35]、注意力加权值投影 [34]、时序模式预测 [37]、基于未来 query 分布估计注意力 [38] | 方法族 | 均预印本 | [33][34][35][36][37][38] |\n| 2025–2026 | 投机解码从通用加速走向**场景化**：教程级综述 [39]、安全感知投机解码 [40]、混合模型自投机 [43]、量化+投机耦合 [44]、agent 批推理专用投机 [45] | 方法族 | 均预印本 | [39][40][43][44][45] |\n| 2025–2026 | 统一多模态理解与生成成为明确范式：综述 [120]、统一评测 UniEval [119]、Pisces [121]、Show-o2 [122] | 架构 + 评测 | 预印本 | [118][119][120][121][122] |\n| 2025-12 | 《2025 Foundation Model Transparency Index》发布，对基础模型开发者的透明度做第三年度量化 | 治理报告 | 预印本（cs.AI） | [90] |\n| 2026-03 | SWE-ABS：以对抗式基准加难**推翻** SWE-Bench Verified 榜首成绩的可信度（78.80% 虚高，约 1/5 补丁语义错误） | 评测反证 | 预印本（cs.SE） | [24] |\n| 2026 | 多 agent 系统的**污染传播（contamination percolation）**被形式化为可测量框架与基准 | 测量框架 | 预印本 | [12] |\n| 2026 | dLLM（扩散 LLM）长上下文推理：以置信度引导上下文聚焦 + 稀疏注意力替代双向全注意力 | 方法 | 预印本（cs.CL） | [29] |\n| 2026 | 多 agent 并发推理中「共享一份非对称压缩 KV cache 池」替代「每 agent 一份 KV」 | 方法 + 工程 | 预印本（cs.LG） | [31] |\n| 2026-03 | VLA-Thinker：用 thinking-with-image 推理增强 VLA（具身接口） | 方法 | 预印本 | [128] |\n| 2026-09 | 服务栈形态演进：从推理引擎（inference engine）到推理控制平面（inference control plane），连接 vLLM 与 llm-d | 工程平台报告 | 预印本 | [41] |\n\n**四轴证据（本章整体判断）**\n\n| 结论 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|\n| RLVR/推理型 RL 是 2025–2026 主线 | `> 待核实`（候选块未返回引用数/star/榜位） | 均为 arXiv 预印本或仓储预印本，未见顶会接收标注 [63][65][105] | 中——由综述密度推断社区关注，但缺硬信号 [63][65][105] | ★★★★☆ 综述可作为骨架快速建立 taxonomy |\n| SWE-bench 系列存在系统性虚高 | `> 待核实` | 两篇均为 arXiv 预印本（cs.SE），作者方自建对抗基准 [17][24] | 高——直接冲击被广泛引用的 SWE-bench Verified 榜首成绩 [24] | ★★★★★ 作为「评测可信度」必读反证 |\n| MoE 成为默认配方 | `> 待核实` | [81] 明确点名 Gemini-1.5 / DeepSeek-V3 / Llama-4 采用 MoE | 中——产业采用度高，学术效率证据仍弱 [81][79] | ★★★★☆ 需结合第五节条件性结论一起读 |\n| KV cache 压缩赛道拥挤但缺统一对比 | `> 待核实` | 6+ 篇均为预印本，无同行评审标注 [33]–[38] | 中——方法数量密集但无榜单信号 | ★★★☆☆ 建议等第三方复现或统一基准出现 |\n\n---\n\n## 二、推理与测试时计算（Reasoning & Test-Time Compute）\n\n### 2.1 主要进展\n\n- **测试时计算被提升为「方法论变量」而非调参旋钮**：医学 LLM 研究领域已有独立论文论证 test-time compute 与 budget（即所谓 \"Reasoning Effort\"）是被低估的方法学变量，会实质影响结论可比性 [101]。这是把 TTS 从「工程技巧」上升到「实验设计合规性」层面的信号。\n- **可证明的测试时计算扩展律**：已有工作尝试为 LLM 的 test-time compute 给出**可证明的 scaling laws** [103]，属于从经验曲线到理论刻画的一步。\n- **RL 与测试时推理的贯通视角**：一篇 2025 综述以「从数据生成到测试时推理」为主线组织 LLM 中的 RL [105]，说明 TTS 与后训练在后验视角下被视为同一优化问题的两端。\n- **TTS 外溢到生成模型**：面向 flow models 的推理时扩展（随机生成 + rollover budget forcing）出现 [97]，表明 test-time scaling 已不局限于自回归 LLM。\n- **负面/边界证据（重要）**：RL 微调后，LLM 在**非理想条件下的推理能力**会被重新检验，该工作显示多数现有 benchmark 对非理想条件覆盖不足，RL 微调后的表现并非单调提升 [95]。\n- **安全—技能权衡**：已有工作专门评估测试时计算约束对「安全性」与「技能」的双重影响 [106]，提示 TTS 并非纯收益。\n- **争议核心**：pass@k 反转问题被系统化提出，作者认为 RLVR 辩论中存在五个未被言明的前提，**crossover 本身不足以承载常见结论** [56]。\n\n### 2.2 四轴证据表\n\n| 结论 | 证据类型 / 等级 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|\n| TTS/budget 是未受重视的方法学变量，影响医学 LLM 研究可比性 [101] | 期刊论文（B 级） | `> 待核实` | Korean Journal of Radiology（DOI: 10.3348/kjr.2026.0643），同行评审 | 中——来自临床 AI 方法学社群，非 LLM 主流社群 | ★★★★☆ 跨域提醒「TTS 是实验设计变量」 |\n| 存在可证明的 test-time compute 扩展律 [103] | 会议/仓储论文（B 级） | `> 待核实` | DOI 指向会议/仓储（10.52202/085713-5570），同行评审状态 `> 待核实` | 低——候选集无引用/讨论信号 | ★★★★☆ 若需为 TTS 预算设定提供理论依据，优先级高 |\n| RL 微调后推理在非理想条件下退化 [95] | 预印本（B 级） | `> 待核实` | arXiv:2508.04848（cs.AI/cs.CL），未见接收标注 | 低——无热度信号 | ★★★★☆ 关键的负面证据，建议精读其实验条件 |\n| pass@k 反转使 RLVR 常见结论不成立 [56] | 预印本/仓储（B 级） | `> 待核实` | Zenodo 预印（10.5281/zenodo.22063128），非同行评审 | 中——直击 2025 最热争议 | ★★★★★ 本报告关于 RLVR 的最重要批判性来源 |\n| TTS 约束影响安全与技能 [106] | 会议论文（B 级） | `> 待核实` | ACM DOI（10.1145/3731599.3767406），同行评审 | 低 | ★★★☆☆ 安全维度补充 |\n| Flow models 上的推理时扩展 [97] | 预印本（B 级） | `> 待核实` | arXiv:2503.19385v5，未见接收标注 | 低 | ★★★☆☆ 证明 TTS 的跨范式外溢 |\n\n### 2.3 本节证据缺口\n- **缺少 o 系列 / R1 系列 / Qwen 系列等一手模型技术报告**：无法核实任何具体的 pass@k、AIME/MATH 分数与采样预算口径（如 majority-vote@k、best-of-n）。`> 待核实`\n- **缺少 TTS 的成本侧证据**：token 成本、延迟、吞吐与精度提升的权衡曲线在候选集中完全缺失。`> 待核实`\n- 候选池中 Q1 的自动抽取结果包含 4 条与推理/TTS 无关的条目（认知流理论、意大利语物理常识、ACM COMPUTE 会议论文集、德语问卷编码 [6]），**本节不采信这些条目作为推理进展证据**。\n\n---\n\n## 三、后训练：RLHF / RLVR / 偏好优化\n\n### 3.1 范式演进\n\n- **骨架性综述**：《LLM Post-Training: A Deep Dive into Reasoning Large Language Models》提供了从 SFT → 偏好优化 → RL 的完整后训练地图 [63]；另有覆盖 LLM 全生命周期的 RL 综述 [65] 与「从数据生成到测试时推理」的 RL 综述 [105]。三篇可互为交叉验证，但**均为预印本级**。\n- **RLHF 的理论化**：KL 约束下的迭代偏好学习（Iterative Preference Learning from Human Feedback）为 RLHF 提供理论—实践桥梁 [61]，属于本方向少数有形式化分析的条目。\n- **算法层新增**：GVPO++（Group Variance Policy Optimization）面向后训练与 on-policy 蒸馏，尝试对组方差做策略优化改造 [67]。\n- **RLVR 的域扩张**（2025–2026 的显著趋势）：可验证奖励机制被搬离数学/代码，进入\n  - 化学环境基准（Molecular Pinball，确定性化学环境用于 RLVR benchmarking）[57]；\n  - 流程建模（RLVR + universal rewards）[58][60]（注意：同一工作的两个不同仓储版本）；\n  - 谈判（多买方市场中的 RLVR 谈判）[59]；\n  - 世界模型（RLVR-World，用 RL 而非 MLE 训练世界模型以对齐任务目标）[48]；\n  - 医学多模态幻觉（MC-R1，基于字符串匹配的可验证奖励缓解模态冲突幻觉）[50]。\n- **不可验证数据上的 RL 扩展**：Beyond Verifiable Rewards 尝试把 RL 从可验证数据扩展到**不可验证数据** [64]，以及「从可验证奖励到自主演化」的路线论述 [66]。\n- **失败模式与争议（关键）**：\n  - **pass@k 反转**：`crossover` 现象不足以支撑 RLVR 的常见论断，作者列出五个未言明前提 [56]。\n  - **增益不可分解**：一项**预注册干预研究**论证 RLVR 的收益无法被干净地分解归因 [62]——预注册设计使其方法学强度高于一般预印本。\n  - 后训练—非理想条件的泛化退化 [95]（见第二节）。\n- **长度偏置、reward hacking**：候选证据中**未检索到**针对长度偏置（length bias）或 reward hacking 的专门一手实验论文。`> 待核实`\n\n### 3.2 四轴证据表\n\n| 结论 | 证据类型 / 等级 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|\n| 后训练范式地图（SFT→偏好→RL）[63] | 预印本（B 级） | `> 待核实` | arXiv:2502.21321v2，未见接收标注 | 中——被多篇同主题工作作为背景引用（间接） | ★★★★☆ 建立术语与分类的最快入口 |\n| RLHF 的 KL 约束理论化 [61] | 预印本 v4（B 级） | `> 待核实` | arXiv:2312.11456v4 | 中——理论类工作，候选集无引用数 | ★★★★☆ 若需 RLHF 形式化基础，优先 |\n| RLVR 跨域扩张（化学/流程/谈判/世界模型/医学）[48][50][57][58][59][60] | 混合：预印本 + 期刊/仓储预印（B/C 级） | `> 待核实` | 多平台异构（ChemRxiv、TechRxiv、SSRN、ResearchSquare、IEEE TMM） | 中——域广度本身即是趋势信号 | ★★★☆☆ 用于论证「RLVR 已成为通用配方」，但不适合作为方法对照 |\n| RLVR 增益不可分解（预注册干预）[62] | 预注册研究（B+ 级） | `> 待核实` | SSRN 预印（10.2139/ssrn.7346356），非同行评审 | 中——预注册设计提升可信度 | ★★★★★ 与 [56] 一起构成本主题最强反证组合 |\n| pass@k 反转 [56] | 预印本（B 级） | `> 待核实` | Zenodo（10.5281/zenodo.22063128） | 中 | ★★★★★ |\n| RL 扩展至不可验证数据 [64] | 会议/论文集（B 级） | `> 待核实` | DOI 10.52202/085713-2499 | 低 | ★★★★☆ 指向 RLVR 的根本边界 |\n\n### 3.3 本节证据缺口\n- **DPO / GRPO / PPO 原论文未在候选池内**，本报告无法给出这些基础算法的权威引用。`> 待核实`\n- **算力开销（GPU-hours、rollout 成本）的一手数字在候选集中完全缺失**。`> 待核实`\n- **reward hacking 与长度偏置的专门实验证据缺失**。`> 待核实`\n- 候选池 Q2 的自动抽取结果混入了与 LLM 后训练无关的经典 RL 条目（ensemble value bonus [47]、Open Ant 机器人平台 [49]、因果课程 RL [51]、贝叶斯主动 IRL [55]、离线 RL 半监督奖励 [52] — 后两条未在本报告引用），**已剔除**。\n\n---\n\n## 四、Agent、工具使用与评测\n\n### 4.1 工具使用与工具检索\n\n- **工具检索是一个被低估的瓶颈**：Retrieval Models Aren't Tool-Savvy 专门为 LLM 工具检索建立 benchmark，指出通用检索模型在工具检索上能力不足 [2]。\n- **小模型是弱工具学习者**：该工作以 multi-LLM agent 架构作为改进路径，说明「单一小模型直接学工具调用」的能力上限有限 [4]。\n- **工具选择的权限安全**：Over-Privileged Tool Selection 研究 agent 在**不同权限等级的工具**之间的选择偏差，填补了此前只关注安全无关元数据的空白 [3]。\n- **工具/agent 检索的图结构化**：Agent-as-a-Graph 以知识图谱做工具与 agent 检索 [21]；企业级编排框架 Z-SPACE 提供工具编排的工程范式 [13]。\n\n### 4.2 评测可信度（本主题最强的一手证据簇）\n\n- **披露不足导致不可复现**：一项审计逐维度阅读 12 篇知名 LLM agent benchmark 论文，动机正是「两篇论文在同一 benchmark、同一模型名下给出互相矛盾的结果」[5]。\n- **静态 → 动态**：SWE-bench Goes Live 指出 SWE-bench 及其变体的关键局限并提出 live 版本 [17]（摘要截断，具体局限条目 `> 待核实`）。\n- **对抗式加难揭示虚高**：SWE-ABS 报告 SWE-Bench Verified 榜首 78.80%，但 top-30 agent 的「已解决」补丁中约**五分之一在语义上错误**，仅因测试套件弱而通过 [24]。这是对**整个 test-based benchmark 范式**的普适性警告。\n\n### 4.3 多 agent 系统与应用\n\n- **污染传播**：多 agent LLM 系统中的错误/污染传播被形式化为可测量框架与基准 [12]。\n- **协调能力基准**：LLM 驱动的多 agent 控制有专门框架与 benchmark [18]。\n- **应用落地证据（含热度数字）**：ASIC-Agent 是带 benchmark 评估的 ASIC 设计多 agent 系统（citations=5，会议 ICLAD 2025）[11]；面向 arXiv 的 LLM 微调学术助手（citations=0，会议 ICRISET 2025）[10]。\n- **领域化多 agent 综述**：LLM-based Multi-Agent AI Hospital 有两个版本 [14][16]（同一工作，OpenAlex/OSF 双版本），提示该方向综述已开始分化。\n- **竞赛级评测**：AAMAS 2025 的 MOASEI 竞赛技术报告 [125]；ATLAS Challenge 2025 安全技术报告 [126]（后者属安全对齐评测，可跨节引用）。\n\n### 4.4 四轴证据表\n\n| 结论 | 证据类型 / 等级 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|\n| SWE-Bench Verified 榜首成绩被对抗式加难推翻（约 1/5 补丁语义错误）[24] | 预印本（B 级） | `> 待核实`；文中给出 78.80% 榜位与「1/5」量化 | arXiv:2603.00520v1（cs.SE），未见接收标注 | 高——直接质疑被广泛采用的榜首榜位 | ★★★★★ 本报告 agent 章节第一优先级 |\n| agent benchmark 论文披露不足致结果不可比 [5] | 预印本（B 级） | `> 待核实` | arXiv:2605.21404v1（cs.LG） | 中——提出开放评分 schema | ★★★★★ 评测方法学必读 |\n| 工具检索是独立瓶颈 [2] | 预印本 v2（B 级） | `> 待核实` | arXiv:2503.01763v2 | 中 | ★★★★☆ 若构建 agent 工具层，直接影响架构选型 |\n| 权限敏感的工具选择存在安全隐患 [3] | 预印本 v2（B 级） | `> 待核实` | arXiv:2606.20023v2（cs.SE） | 中——安全与 agent 交叉点 | ★★★★☆ |\n| 小模型是弱工具学习者，需多 LLM agent 架构 [4] | 预印本 v3（B 级） | `> 待核实` | arXiv:2401.07324v3 | 中 | ★★★☆☆ |\n| 多 agent 污染传播可测量 [12] | 预印本/仓储（C 级） | `> 待核实` | Authorea 预印（10.22541/au.177499048.88707055/v1），非同行评审 | 低 | ★★★☆☆ 概念有用，证据强度弱 |\n| ASIC-Agent 多 agent ASIC 设计系统 [11] | 会议论文（A/B 级） | citations=5（候选块给出） | 2025 IEEE ICLAD，同行评审 | 低（citations=5） | ★★★☆☆ 域太窄 |\n| 学术助手 LLM 微调 [10] | 会议论文（B 级） | citations=0（候选块给出） | 2025 ICRISET，同行评审 | 低（citations=0） | ★★☆☆☆ 仅作生态示例 |\n\n### 4.5 本节证据缺口\n- **长程任务成功率的一手数字**（如任务数、步数、成功率的绝对值与方差）在候选集中**仅以「榜位被高估」的反证形式出现**，缺少可信的正向 baseline。`> 待核实`\n- **computer-use / GUI agent 的专门基准与真实可复现开源实现**在候选池中未出现。`> 待核实`\n- 候选池 Q3 中混入了 5 条 Gaia 天体测量条目（[15][19][20][22][23]，本报告未引用），属于显著的主题漂移，已剔除。\n\n---\n\n## 五、多模态与架构（MoE / 长上下文 / 效率）\n\n### 5.1 多模态：统一理解与生成\n\n- **范式综述**：Unified Multimodal Understanding and Generation Models: Advances, Challenges, and Opportunities [120] 提供统一多模态的分类骨架（已更新至 v6，说明活跃维护）。\n- **统一评测**：UniEval 提出面向「统一多模态理解与生成」的整体式评测 [119]。\n- **代表系统**：Pisces（自回归图像理解+生成基础模型）[121]、Show-o2（改进的原生统一多模态模型）[122]、PixelBytes（统一 embedding 用于多模态生成）[118]。\n- **视觉编码与 VLM 基础**：Qwen-VL 作为「理解 / 定位 / 文本阅读」多功能 VLM 的早期代表 [123]；图像分割在基础模型时代的综述 [111]。\n- **评测与竞赛证据**：MARS2 2025 多模态推理挑战赛总报告 [112]；VQualA 2025「大型多模态模型视觉质量比较」[115]；VQualA 2025 短视频参与度预测 [1]（属推荐/质量评分，与本主题相关度低）；MEDVQA-GI 2025 胃肠内镜 VQA [113]；越南语多模态法律 QA [99]（未引用）；开源 VLM 多模态讽刺检测评测 [127]。\n- **具身接口**：VLA-Thinker 以 thinking-with-image 推理增强 Vision-Language-Action [128]；驾驶 VLA 的推理时注意力引导 [129]。\n\n**关键判断：多模态评测结论是否稳健？** 候选证据**不足以支持稳健性结论**：一方面统一评测（UniEval）[119] 与挑战赛报告 [112][115] 显示评测体系正在建立，另一方面挑战赛多为**小规模、单域、单语**（如 [113][1]），且**普遍缺少第三方复现**。`> 待核实`\n\n**四轴（多模态）**\n\n| 结论 | 证据类型 / 等级 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|\n| 统一理解-生成成为明确范式 [120] | 综述预印本 v6（B 级） | `> 待核实` | arXiv:2505.02567v6 | 中——版本迭代频繁，说明活跃 | ★★★★★ 本方向最佳入口 |\n| 统一评测需求已出现 [119] | 预印本（B 级） | `> 待核实` | arXiv:2505.10483v1 | 中 | ★★★★☆ 解决「理解与生成如何同尺度评」 |\n| 代表系统：Pisces [121] / Show-o2 [122] / PixelBytes [118] | 预印本（B 级） | `> 待核实` | arXiv:2506.10395v2 / 2506.15564v3 / 2409.15512v2 | 中 | ★★★★☆ 统一架构的可对照实现线索 |\n| 多模态推理已进入竞赛化评测 [112][115] | 挑战赛报告（C 级） | `> 待核实`（候选块未给榜单数字） | arXiv:2509.14142v1 / 2509.09190v1，会议 workshop 关联 | 中 | ★★★☆☆ 适合定位 SOTA 但需回原文核榜 |\n| VLA 与基础模型推理交叉 [128][129] | 预印本（B 级） | `> 待核实` | arXiv:2603.14523v1 / 2608.17095v1 | 中——具身智能社群高度关注 | ★★★★★ 对具身智能读者，本节最相关 |\n\n### 5.2 MoE 架构\n\n- **架构与训练综述**：MoE in LLMs: A Survey of Architecture, Training, and Efficient Inference 有两个仓储登记版本 [84][86]（同一工作），可作为骨架。\n- **产业采用事实**：MoE 已被 Gemini-1.5、DeepSeek-V3、Llama-4 采用，但学术研究者**仍缺乏完全开放、端到端可研究的 MoE 平台**，FLAME-MoE 即为此缺口提出 [81]。\n- **部署效率**：FlexMoE 提出「一对一嵌套的专家内部剪枝」，针对稀疏激活**不能消除全部专家存储与服务负担**的现实 [71]；Not All Experts are Equal 做专家剪枝与跳过的早期系统化工作 [73]；ExpertFlow 以**预测式专家缓存 + token 调度**优化 MoE 推理 [72]。\n- **条件性结论（重要）**：视觉 MoE 的收益并非无条件——该工作在硬容量约束下研究 top-k 稀疏路由，指出实践部署受**专家坍缩（expert collapse）**与端到端效率增益有限所阻碍 [79]。这是对「MoE = 免费效率」的明确修正。\n- **机制理解**：Task-Conditioned Routing Signatures 提出用「路由签名」向量刻画专家选择，指出路由机制此前理解不足 [80]。\n- **理论**：Softmax Gating MoE 的收敛率分析 [76]；MoE 的历史性综述 [75]（2018，经典）；GraphMETRO 以对齐专家混合处理图分布偏移 [74]（与本主题相关度较低）。\n\n**四轴（MoE）**\n\n| 结论 | 证据类型 / 等级 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|\n| MoE 已是现代大模型标准配方 [81] | 预印本（B 级） | `> 待核实` | arXiv:2505.20225v1（cs.CL），未见接收标注 | 中——点名 Gemini-1.5/DeepSeek-V3/Llama-4 | ★★★★★ 开源 MoE 研究平台，适合复现研究 |\n| 专家剪枝是部署刚需 [71][73] | 预印本（B 级） | `> 待核实` | arXiv:2606.27866v1 / 2402.14800v2 | 中 | ★★★★☆ 部署预算受限时的直接参考 |\n| 预测式专家缓存 + token 调度 [72] | 预印本 v2（B 级） | `> 待核实` | arXiv:2410.17954v2 | 低 | ★★★★☆ 工程落地相关 |\n| 视觉 MoE 的收益有条件，受专家坍缩制约 [79] | 预印本（B 级） | `> 待核实` | arXiv:2605.15484v1（cs.CV） | 中——修正性结论 | ★★★★★ 反「MoE 万能」的关键证据 |\n| 路由机制可被签名化刻画 [80] | 预印本（B 级） | `> 待核实` | arXiv:2603.11114v1（cs.LG） | 低 | ★★★★☆ 可解释性方向 |\n\n### 5.3 缩放律（Scaling Laws）\n\n- **数据受限情形**：Data-Constrained Language Model Pretraining 提出改进的正则化与扩展律，直接应对「数据不够时扩展律是否成立」的问题 [85]。\n- **MoE upcycling**：Scaling Laws for Upcycling Mixture-of-Experts Language Models [88] 为「稠密模型转 MoE」提供扩展律形式。\n- **下游任务性能扩展律**：Scaling Laws for Downstream Task Performance of Large Language Models [89] 把扩展律从预训练损失推向**下游任务表现**，更贴近决策用途。\n\n**四轴（缩放律）**\n\n| 结论 | 证据类型 / 等级 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|\n| 数据受限下的扩展律需修正（正则化）[85] | 预印本 v2（B 级） | `> 待核实` | arXiv:2606.06888v2 | 中——「数据墙」是产业核心焦虑 | ★★★★★ |\n| MoE upcycling 有扩展律形式 [88] | 预印本 v2（B 级） | `> 待核实` | arXiv:2502.03009v2 | 中 | ★★★★☆ |\n| 下游任务性能的扩展律 [89] | 预印本 v3（B 级） | `> 待核实` | arXiv:2402.04177v3 | 低 | ★★★★☆ |\n\n### 5.4 长上下文与推理效率\n\n**KV cache 压缩/驱逐**\n- 驱逐类：Make Each Token Count [33]、ReST-KV（逐层输出重建 + 时空平滑）[36]。\n- 压缩率维度：KV-Compress（按 attention head 变压缩率的分页压缩）[35]、Attention-Weighted Value Projection [34]。\n- 预测类：AttentionPredictor（时序模式）[37]、Expected Attention（从未来 query 分布估计注意力）[38]。\n- 扩散 LLM 专用：Attention Is All You Need for KV Cache in Diffusion LLMs [32]。\n- **多 agent 场景**：PolyKV 用**非对称压缩**的共享 KV 池（Keys 按 int8/q8_0 量化）替代每 agent 独立 KV，并通过 HuggingFace DynamicCache 注入 N 个上下文 [31]。**摘要在 Values 压缩方式与显存/吞吐数字上均未给出。`> 待核实`**\n\n**注意力替代（长上下文）**\n- dLLM 长上下文推理：Focus-dLLM 以**置信度引导上下文聚焦** + 稀疏注意力替代双向全注意力；作者明确指出难点在于**为尚未解码的 token 估计注意力重要性** [29]。摘要**未给出加速比/显存数字** `> 待核实`。\n- **上下文选择作为长窗口替代**：LTG 在 SemEval-2025 Task 10 子任务 1 中用简单的实体启发式做上下文选择，使有限窗口模型（XLM-RoBERTa）达到与**更大生成式模型 SFT 持平或更优**的效果 [28]。这是「不扩窗、改选料」的低成本路线。\n\n**投机解码与量化**\n\n## 六、经典与奠基性工作\n\n> 说明：本节区分「种子资源（领域已知经典，未出现在本次检索的引用编号列表内）」与「本次检索命中、可作为脉络节点的早期/奠基性一手来源」。种子资源按任务要求保留其原始链接；其热度数字（引用数、star）本次未实测，一律标注 `> 待核实`，不做编造。\n\n### 6.1 奠基性论文\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Attention Is All You Need（Transformer） | 2017 | NeurIPS（种子资源标注，作者 > 待核实） | > 待核实（种子资源未提供引用数） | 同行评审，NeurIPS；被种子资源标注为「Transformer 奠基」 | 高——种子资源将其列为领域奠基条目，且后续几乎所有条目均以其为架构前提（[32][71][80] 等） | ★★★★★ 读基础模型必读的架构原点 | https://arxiv.org/abs/1706.03762 | Transformer 奠基 |\n| Training language models to follow instructions with human feedback（InstructGPT） | 2022 | NeurIPS（种子资源标注，OpenAI） | > 待核实（种子资源未提供引用数） | 同行评审，NeurIPS；种子资源标注为「RLHF 奠基」 | 高——RLHF 路线的起点，本报告第三章所有后训练条目（[61][63][65]）均在此范式内展开 | ★★★★★ 理解 RLHF 对齐范式的起点 | https://arxiv.org/abs/2203.02155 | RLHF 奠基 |\n| Chain-of-Thought Prompting Elicits Reasoning in Large Language Models | 2022 | NeurIPS（种子资源标注，Google） | > 待核实（种子资源未提供引用数） | 同行评审，NeurIPS；种子资源标注为「思维链」 | 高——测试时推理与 RLVR 讨论的语义前提（[56][103][106] 均围绕「显式推理链」展开） | ★★★★★ 测试时推理的语义起点 | https://arxiv.org/abs/2201.11903 | 思维链（CoT） |\n| Mixtures of Experts Models | 2018（v1 提交时间，候选块） | 作者 > 待核实 | > 待核实 | arXiv 预印本（arXiv:1806.08200v1），非同行评审信息 | 中——MoE 综述性起点，被当代 MoE 工程条目（[71][79][81]）在概念上继承 | ★★★☆☆ MoE 历史脉络的入口，但时效性已过 | http://arxiv.org/abs/1806.08200v1 | MoE 模型综述性早期文献 [75] |\n| Speculative Decoding: Exploiting Speculative Execution for Accelerating Seq2seq Generation | 2022（v6 后续更新） | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2203.16487v6） | 中——投机解码的早期代表作之一，与 [39][43][44][45][46] 构成该技术线 | ★★★★☆ 投机解码技术线的奠基之一 | http://arxiv.org/abs/2203.16487v6 | 投机解码早期工作 [42] |\n| Accelerating LLM Inference with Staged Speculative Decoding | 2023 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2308.04623v1） | 中——投机解码工程化的早期节点 | ★★★☆☆ 与 [42] 并读可看清投机解码演进 | http://arxiv.org/abs/2308.04623v1 | 分阶段投机解码 [46] |\n| Iterative Preference Learning from Human Feedback: Bridging Theory and Practice for RLHF under KL-Constraint | 2023（v4 后续更新） | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2312.11456v4）；候选块未标注会议 | 中——偏好优化/KL 约束的理论化文献，与 [63][67] 形成后训练理论线 | ★★★★☆ 理解偏好优化理论约束的关键参考 | http://arxiv.org/abs/2312.11456v4 | RLHF 的 KL 约束偏好学习 [61] |\n| Making Large Language Models Better Reasoners with Alignment | 2023 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2309.02144v1） | 低—中——候选块无热度信号 | ★★★☆☆ 早期「对齐提升推理」思路，可对比当代 RLVR（[63][65]） | http://arxiv.org/abs/2309.02144v1 | 对齐→推理的早期连接 [94] |\n| Qwen-VL: A Versatile Vision-Language Model for Understanding, Localization, Text Reading, and Beyond | 2023（v3 后续更新） | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2308.12966v3） | 中——VLM 系列早期代表，与当代统一多模态综述（[120]）形成对照 | ★★★★☆ 理解「专用 VLM → 原生统一多模态」演进的参照点 | http://arxiv.org/abs/2308.12966v3 | 视觉语言模型代表工作 [123] |\n| Not All Experts are Equal: Efficient Expert Pruning and Skipping for Mixture-of-Experts Large Language Models | 2024 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2402.14800v2） | 中——MoE 剪枝/跳过的早期代表作，被 [71][72] 延续 | ★★★★☆ MoE 部署降本线的起点之一 | http://arxiv.org/abs/2402.14800v2 | 专家剪枝与跳过 [73] |\n| KV-Compress: Paged KV-Cache Compression with Variable Compression Rates per Attention Head | 2024 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2410.00161v2） | 中——KV cache 压缩线的早期工程方案，与 [33][34][36][37][38] 同族 | ★★★★☆ KV cache 压缩演进的早期锚点 | http://arxiv.org/abs/2410.00161v2 | 页式 KV cache 压缩 [35] |\n| ExpertFlow: Efficient Mixture-of-Experts Inference via Predictive Expert Caching and Token Scheduling | 2024 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2410.17954v2） | 中——MoE 推理侧缓存与调度 | ★★★☆☆ MoE 推理系统工程实践参考 | http://arxiv.org/abs/2410.17954v2 | MoE 推理优化 [72] |\n| A Survey of Reinforcement Learning in Large Language Models: From Data Generation to Test-Time Inference | 时间 > 待核实 | 作者/机构 > 待核实 | > 待核实 | SSRN 预印本（DOI 指向学术预印平台），同行评审状态 > 待核实 | 低—中——候选块无引用/讨论信号 | ★★★☆☆ 覆盖「数据生成→测试时」全链路的综述线索 | https://doi.org/10.2139/ssrn.5128927 | RL+LLM 综述 [105] |\n\n**四轴要点（本章关键判断）**：本章条目的**热度证据**普遍 `> 待核实`（种子资源与候选块均未给出引用数/star/下载量，仅 [10] citations=0、[11] citations=5 两个个例出现在前文，不属本章）[75][42][46][61][94][123][73][35][72][105]；**权威证据**以「同行评审（种子资源标注的 NeurIPS）」与「arXiv 预印本」两类为主，后者明确非同行评审 [75][42][46][61][94][123][73][35][72][105]；**关注度**判断依据为种子资源标注的奠基定位与后续条目的继承关系（高：Transformer/InstructGPT/CoT；中：MoE、投机解码、KV 压缩、VLM）[75][42][35][123]；**推荐度**按「是否为后续条目的前提」给分，其中三篇种子经典给 ★★★★★，其余给 ★★★☆☆–★★★★☆。\n\n### 6.2 开源项目（工程栈）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| huggingface/transformers | 种子资源，年份 > 待核实 | Hugging Face（种子资源标注） | > 待核实（未实测 star/下载量） | 官方开源仓库（种子资源标注为「模型与训练主线库」），非同行评审 | 高——种子资源定位为模型与训练主线库；本报告多数推理/压缩方案均以其缓存接口为集成点（如 [31] 提及 HuggingFace DynamicCache） | ★★★★★ 大模型工程默认底座 | https://github.com/huggingface/transformers | 模型与训练主线库（种子资源） |\n| vllm-project/vllm | 种子资源，年份 > 待核实 | vLLM 社区（种子资源标注） | > 待核实 | 官方开源仓库，非同行评审；与 [41] 所述 vLLM/llm-d serving 控制面演进相关 | 高——种子资源标注为「高吞吐推理」，且 [41] 以 vLLM 为推理引擎演进讨论对象 | ★★★★★ 服务端吞吐与调度的事实标准候选 | https://github.com/vllm-project/vllm | 高吞吐推理（种子资源） |\n| ggml-org/llama.cpp | 种子资源，年份 > 待核实 | ggml 社区（种子资源标注） | > 待核实 | 官方开源仓库，非同行评审 | 高——种子资源标注为本地 CPU/GPU 推理；[31] 中出现的 q8_0 量化格式属同一量化生态线索 | ★★★★★ 端侧/本地部署首选 | https://github.com/ggml-org/llama.cpp | 本地 CPU/GPU 推理（种子资源） |\n| meta-llama/llama-models | 种子资源，年份 > 待核实 | Meta（种子资源标注） | > 待核实 | 官方开源仓库/权重，非同行评审 | 高——种子资源标注为「开源权重系列」，[81] 亦以 Llama-4 为 MoE 采纳例证 | ★★★★★ 开源权重生态基线 | https://github.com/meta-llama/llama-models | 开源权重系列（种子资源） |\n| FLAME-MoE | 2025 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2505.20225v1），候选块未标注会议；自述为「完全开放、端到端」研究平台 | 中——候选块强调其解决「学术界缺少全开放 MoE 平台」的空白 | ★★★★☆ 学术侧可复现 MoE 研究的少数候选平台（开源状态需以仓库实际为准） | http://arxiv.org/abs/2505.20225v1 | 透明端到端 MoE 研究平台 [81] |\n\n**四轴要点**：四个种子工程条目**热度证据**均为 `> 待核实`（未实测 star/下载量），**权威证据**为「官方开源仓库/组织（种子资源标注）」而非同行评审，**关注度**依据种子资源的功能定位（主线库/高吞吐/本地推理/开源权重）判为高，**推荐度** ★★★★★；[81] 的热度为 `> 待核实`、权威为 arXiv 预印本、关注度中、推荐度 ★★★★☆，其「开源」属性需以仓库实况核实 `> 待核实`。\n\n### 6.3 数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| MMLU / MMLU-Pro | 种子资源，年份 > 待核实 | TIGER-AI-Lab（种子资源链接指向） | > 待核实 | 官方数据集仓库（种子资源标注为「知识与推理评测」），非同行评审 | 高——种子资源列为知识推理评测基准 | ★★★★★ 知识类评测的事实基线 | https://github.com/TIGER-AI-Lab/MMLU-Pro | 知识与推理评测（种子资源） |\n| GPQA / AIME / MATH | 种子资源，年份 > 待核实 | 作者 > 待核实（种子资源链接为 GPQA 论文页面） | > 待核实 | 种子资源链接指向 arXiv 论文页面（arXiv:2311.12022），同行评审状态 > 待核实 | 高——种子资源列为「高难推理评测」，是 RLVR/测试时计算讨论的常用难度梯 | ★★★★★ 高难推理评测首选 | https://arxiv.org/abs/2311.12022 | 高难推理评测（种子资源） |\n| SWE-bench | 种子资源，年份 > 待核实 | SWE-bench 团队（种子资源链接指向） | > 待核实 | 官方基准仓库（种子资源标注「代码/Agent 评测」），非同行评审 | 高——种子资源列为代码/Agent 评测基准，且 [17][24] 显示其衍生版本仍在被激烈讨论 | ★★★★★ 代码 Agent 评测基线 | https://github.com/SWE-bench/SWE-bench | 代码/Agent 评测（种子资源） |\n| SWE-bench Goes Live!（SWE-bench-Live） | 2025 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2505.23419v2） | 中—高——针对原基准「无实时更新、易被污染」缺陷提出持续更新版本 | ★★★★☆ 缓解基准饱和与污染的关键改良 | http://arxiv.org/abs/2505.23419v2 | 实时更新的 issue 解决基准 [17] |\n| SWE-ABS（对抗性基准加固） | 2026 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2603.00520v1） | 中—高——报告 top-30 agent 中「五分之一已解决补丁语义错误」，直指榜单膨胀 | ★★★★★ 读 SWE-bench 榜单结论前必读的反证 | http://arxiv.org/abs/2603.00520v1 | 揭示测试套件薄弱导致的成功率虚高 [24] |\n| Agent benchmark 审计与开放评分 schema | 2026 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2605.21404v1） | 中——对 12 篇知名 agent 基准论文逐维记录其「实际披露了什么」 | ★★★★☆ 判断 agent 基准可复现性的元评测工具 | http://arxiv.org/abs/2605.21404v1 | 解决「同基准同模型结果互相矛盾」的披露维度 [5] |\n| MARS2 2025 多模态推理挑战赛基准 | 2025 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2509.14142v1），竞赛总结报告 | 中——竞赛类基准，汇总当年度多模态推理方法与结果 | ★★★☆☆ 多模态推理横向对比的年度快照 | http://arxiv.org/abs/2509.14142v1 | 多模态推理数据集/方法/结果综述 [112] |\n| UniEval：统一多模态理解与生成的整体评测 | 2025 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2505.10483v1） | 中——针对「统一理解+生成」模型缺少统一评测的口径问题 | ★★★★☆ 评估原生统一多模态模型时的口径参考 | http://arxiv.org/abs/2505.10483v1 | 统一理解-生成评测 [119] |\n| VQualA 2025 LMM 视觉质量比较 | 2025 | 作者/机构 > 待核实 | > 待核实 | arXiv 预印本（arXiv:2509.09190v1），ICCV 2025 关联竞赛总结 | 中——大型多模态模型视觉质量比较的竞赛口径 | ★★★☆☆ 多模态质量评测的补充维度 | http://arxiv.org/abs/2509.09190v1 | LMM 视觉质量对比基准 [115] |\n| Molecular Pinball（可验证奖励化学环境） | 时间 > 待核实 | 作者/机构 > 待核实 | > 待核实 | ChemRxiv 预印本（非同行评审） | 低—中——面向 RLVR 的确定性环境，属小众但方向性明确 | ★★★☆☆ 研究「可验证奖励」环境设计的参考 | https://doi.org/10.26434/chemrxiv.15001669/v1 | 确定性化学环境用于 RLVR 基准 [57] |\n\n**四轴要点**：数据集类条目**热度证据**全部 `> 待核实`（种子资源与候选块均未提供引用数/榜单排名/下载量）[MMLU-Pro][GPQA][SWE-bench][17][24][5][112][119][115][57]；**权威证据**分两档——种子资源指向的官方仓库/论文页面为工程权威但非同行评审，[17][24][5][112][119][115] 为 arXiv 预印本其中部分为竞赛官方总结报告，[57] 为 ChemRxiv 预印本；**关注度**判断依据：种子资源定位（高）与「是否被后续条目直接引用为反证/口径」[24][5]（中—高）；**推荐度**上，反证类基准（[24]）与口径类基准（[5][119]）应优先于单一榜单数字。\n\n---\n\n## 七、争议与开放问题\n\n### 7.1 RLVR 的收益是否可归因、是否可分解\n- **争议点**：RLVR（可验证奖励强化学习）在数学/代码上的增益被广泛宣传，但 [56] 指出 pass@k 存在「反转（inversion）」现象，并列出 RLVR 讨论中常被略去的五个前提；[62] 以预注册干预研究（pre-registered intervention study）直接论证「RLVR 的增益不可分解」。\n- **四轴**：热度 `> 待核实`（候选块无引用数/榜单信号）[56][62]；权威为 Zenodo 预印本与 SSRN 预印本，同行评审状态 `> 待核实` [56][62]；关注度中（属对既有 SOTA 叙事的直接反驳，是当前评测争议的核心之一）[56][62]；推荐度 ★★★★☆——在引用任何 RLVR 提升数字前应先读这两条反证 [56][62]。\n- **配套证据**：[95] 显示 RL 微调后模型在**非理想条件**（噪声/干扰）下的推理能力表现受限，提示标准基准可能高估稳健性；热度 `> 待核实`，权威为 arXiv 预印本（cs.AI），关注度低—中（候选块无引用信号），推荐度 ★★★★☆ [95]。\n- **开放问题**：RLVR 增益究竟来自「推理链合法性的可验证性」还是「输出分布收窄/长度变化」，候选证据尚未给出统一归因框架 `> 待核实` [56][62][63]。\n\n### 7.2 长度偏置、reward hacking 与不可验证域的扩展\n- [64] 明确指向「把 RL 从可验证域扩展到不可验证数据」这一瓶颈，标题本身即为对「可验证奖励」必要性的挑战；热度 `> 待核实`，权威为会议/论文集 DOI 指向的出版物（同行评审状态 `> 待核实`），关注度中，推荐度 ★★★★☆ [64]。\n- [63] 作为后训练深潜综述覆盖「推理型 LLM 的后训练」全貌，可用于核对长度偏置与失败模式是否有系统整理；热度 `> 待核实`，权威为 arXiv 预印本（arXiv:2502.21321v2），关注度中—高（综述类被广泛引用，但具体引用数 `> 待核实`），推荐度 ★★★★☆ [63]。\n- [50] 在**模态冲突**场景下用基于字符串匹配的可验证奖励抑制幻觉（MC-R1），说明「可验证奖励」正被外推到多模态，但此类外推的有效性 `> 待核实`；热度 `> 待核实`，权威为 IEEE TMM 关联材料（DOI 指向），关注度低—中，推荐度 ★★★☆☆ [50]。\n- 尚未见统一的 **reward hacking 度量标准**：候选证据中 [57][58][59][60][66] 分别在不同领域（化学环境、过程建模、谈判）做 RLVR 特化，缺乏横向可比口径，`> 待核实`。\n\n### 7.3 测试时计算作为「被忽视的方法学变量」\n- [101] 直接把「测试时计算与预算（reasoning effort）」定义为医疗 LLM 研究中**被低估的方法学变量**；[106] 则评测测试时计算约束对**安全与技能**的影响。二者共同提示：不同论文报告的推理成绩可能因测试时预算不同而不可比。\n- **四轴**：热度 `> 待核实` [101][106]；权威为期刊论文（[101]，DOI 指向 Korean Journal of Radiology 系刊，同行评审）与 ACM 会议论文（[106]），属本章中权威较高的两条；关注度中（方法学批评类，非高热度话题）；推荐度 ★★★★☆——做跨论文成绩对比时必读 [101][106]。\n- [103] 提出「测试时计算的可证明扩展律」，与经验性 scaling 形成理论与实证的张力；热度 `> 待核实`，权威为论文集 DOI 出版物（同行评审状态 `> 待核实`），关注度中，推荐度 ★★★★☆ [103]。\n- [97] 把推理时扩展（随机生成 + rollover budget forcing）推广到**流模型**（非自回归生成），说明测试时计算范式正外溢到扩散/流式生成；热度 `> 待核实`，权威为 arXiv 预印本，关注度低—中，推荐度 ★★★☆☆ [97]。\n\n### 7.4 Agent 评测的可信度危机\n- 三条互相印证的争议证据：[24] 报告 SWE-Bench Verified 榜首 78.80% 的成功率被**高估**，top-30 agent 中约五分之一「已解决」补丁语义错误，仅因测试套件太弱而通过；[17] 指出原基准缺少实时更新与抗污染能力；[5] 审计 12 篇知名 agent 基准论文，发现同一基准、同一模型名却结论互相矛盾。\n- **四轴**：热度 `> 待核实` [5][17][24]；权威均为 arXiv 预印本（cs.SE / cs.LG），同行评审状态 `> 待核实`；关注度中—高（直接挑战已被广泛引用的 SWE-bench 数字）；推荐度 ★★★★★（[24]）、★★★★☆（[17][5]）。\n- 工具层的不确定性：[2] 显示检索模型在**工具检索**上能力不足，[3] 发现 agent 在**权限敏感**的工具选择上存在越权倾向，[4] 指出小模型是「弱工具学习者」（需多 LLM 协作）。三条均为 arXiv 预印本（[2] v2、[3] v2、[4] v3），热度 `> 待核实`，关注度低—中，推荐度 ★★★★☆（[2][3]）、★★★☆☆（[4]）。\n- 多智能体系统的新风险：[12] 提出多 agent LLM 系统中「污染渗流（contamination percolation）」的测量框架与基准；热度 `> 待核实`，权威为预印平台 DOI 材料（同行评审状态 `> 待核实`），关注度低—中，推荐度 ★★★☆☆ [12]。\n- 明确的**失败模式缺口**：候选证据中缺少「长程任务失败分类学」的统一口径，各基准（[5][17][24]）披露维度不一致，`> 待核实`。\n\n### 7.5 多模态「统一理解与生成」的评测稳健性\n- [120] 是对统一多模态理解-生成模型的综述，明确列出挑战与机会；[119] 提出整体评测口径；[121]（Pisces，自回归统一基础模型）与 [122]（Show-o2，原生统一模型）代表两条实现路线；[118]（PixelBytes）探索统一嵌入。\n- **四轴**：热度 `> 待核实` [118][119][120][121][122]；权威均为 arXiv 预印本（[120] 为 v6 综述），同行评审状态 `> 待核实`；关注度中（统一多模态是 2025 年热点方向，但候选块未提供任何引用/star/榜单信号，故不给「高」）；推荐度 ★★★★☆（[119][120]）、★★★☆☆（[118][121][122]）。\n- 领域评测的碎片化：[112]（MARS2 多模态推理）、[115]（LMM 视觉质量比较）、[113]（MEDVQA-GI 胃肠 VQA）、[99]（越南语法律多模态 QA）各自定义口径，跨域可比性弱，`> 待核实`。\n- **与具身智能直接相关的争议**：[128]（VLA-Thinker，用 thinking-with-image 增强 VLA 推理）与 [129]（对 VLA 驾驶模型的推理时注意力引导）显示「测试时计算」开始进入 VLA；但二者均为 arXiv 预印本（[128] arXiv:2603.14523v1、[129] arXiv:2608.17095v1），热度 `> 待核实`，是否在真机多本体上验证 `> 待核实`，关注度中，推荐度 ★★★★☆（作为 VLA × 测试时计算的交叉线索）[128][129]。\n\n### 7.6 MoE：稀疏化是否真带来端到端收益\n- [79] 直接发问「视觉 MoE 何时才有帮助」，指出实践中受 **expert collapse** 与端到端效率增益有限困扰，并把关键变量定位为 backbone compute leverage；[80] 指出路由机制仍「理解不足」，提出 routing signatures。\n- **四轴**：热度 `> 待核实` [79][80]；权威为 arXiv 预印本（cs.CV / cs.LG），同行评审状态 `> 待核实`；关注度中（针对 MoE 主流叙事的条件性审视）；推荐度 ★★★★☆ [79][80]。\n- 部署成本与性能的张力：[71]（FlexMoE，嵌套型专家内剪枝）与 [73]（专家剪枝与跳过）说明「稀疏激活 ≠ 免存储/免服务成本」；[72]（ExpertFlow）用预测式专家缓存与 token 调度降本；[84][86] 为 MoE 架构-训练-高效推理综述（Zenodo DOI，同行评审状态 `> 待核实`）。\n- **四轴**：热度 `> 待核实` [71][72][73][84][86]；权威为 arXiv 预印本 + Zenodo 预印本；关注度中；推荐度 ★★★★☆（[71][73]）、★★★☆☆（[72][84][86]）。\n- **扩展律争议**：[88] 提出 MoE 模型 upcycling 的缩放律，[85] 讨论**数据受限**下的预训练正则化与缩放律，[89] 讨论下游任务性能的缩放律。三者共同面对的问题是：在高质量数据接近枯竭的前提下，经典幂律式扩展是否仍然成立——候选证据未给出统一结论，`> 待核实` [85][88][89]。此外 [76] 给出 softmax gating MoE 的收敛速率理论结果，属该争议的理论侧少数硬证据，热度 `> 待核实`，权威为 arXiv 预印本，关注度低，推荐度 ★★★☆☆ [76]。\n\n### 7.7 长上下文与推理效率：缺统一基准与第三方复现\n- **候选证据已明确指出的缺口**：Focus-dLLM [29] 与 PolyKV [31] 的摘要均**未给出显存、延迟、吞吐量化数字**，因此无法判定其加速比是否可信；本子问题要求的「指标级证据强度」在候选集内无法满足，`> 待核实` [29][31]。\n- 方案碎片化：KV cache 压缩/驱逐方向存在 [33]（Make Each Token Count）、[34]（Attention-Weighted Value Projection）、[35]（KV-Compress）、[36]（ReST-KV）、[37]（AttentionPredictor）、[38]（Expected Attention）多条互不相同的技术路线，但缺乏跨方案的统一评测基准与第三方复现，`> 待核实` [33][34][35][36][37][38]。\n- 扩散 LLM 的稀疏注意力难点：[29] 明确指出难以对「尚未解码的 token」估计注意力重要性；[32] 则从「扩散 LLM 的 KV cache 是否也需要注意力」角度切入，两篇构成同一子问题的不同假设，结论尚未收敛，`> 待核实` [29][32]。\n- 投机解码线的争议：[39]（tutorial proposal）、[40]（安全感知投机解码）、[42][43][44][45][46] 覆盖忠实度、量化耦合、agent 批推理等分支，但**安全性与加速的权衡**（[40]）以及「投机解码在 agent 批推理中的实际收益」（[45]）均缺少独立第三方复现，`> 待核实` [39][40][42][43][44][45][46]。\n- 服务层演进的不确定性：[41] 讨论 vLLM、llm-d 与分布式 serving 控制面的演进，属工程趋势判断，未经同行评审，热度 `> 待核实`，关注度中，推荐度 ★★★☆☆ [41]。\n- 端侧/消费级硬件的证据级别偏低：[104][107][109] 三条同题（Apple M2 Ultra 上的 LLM 优化）分别指向不同 Zenodo 记录，存在重复发表/版本混淆风险，`> 待核实`；权威为 Zenodo 预印本，热度 `> 待核实`，关注度低，推荐度 ★★☆☆☆ [104][107][109]。\n\n### 7.8 透明度、安全与治理\n- [90]（2025 Foundation Model Transparency Index，第三版年度量化评估）提供对前沿开发者透明度实践的可核查评分口径；热度 `> 待核实`，权威为 arXiv 预印本（arXiv:2512.10169v1），关注度中—高（治理议题的年度参照物），推荐度 ★★★★☆ [90]。\n- [126]（ATLAS Challenge 2025 安全技术报告）与 [125]（AAMAS 2025 MOASEI 竞赛技术报告）代表安全与开放式具身智能评测的竞赛化尝试；热度 `> 待核实`，权威为 arXiv 预印本（竞赛技术报告），关注度低—中，推荐度 ★★★☆☆ [125][126]。\n- **争议**：透明度指数类工作依赖开发者自披露，其分数与真实可复现性之间的关系在候选证据中未建立，`> 待核实` [90]。\n\n### 7.9 学科与本报告相关性的边界（诚实标注）\n- 候选集中混入若干与本主题相关性弱的条目（如 [91] 认知流与 AI 干预、[92] 意大利语/英语物理常识、[6] 德语开放式问卷编码、[93] COMPUTE 会议论文集、[7][15][19][20][22][23] Gaia 天体测量、[87] 超导理论、[98] 强透镜宇宙学、[30] 接入点建模、[77] 混沌尺度系统、[78][82][83] 云负载均衡）。这些条目的**热度**多为 `> 待核实`，**权威**多为 arXiv 预印本或会议论文集，**关注度**低（多数候选块无引用/讨论信号，个例 [10] citations=0、[11] citations=5 亦属低），**推荐度** ★★☆☆☆ 及以下；本报告不据其得出任何主题结论，仅作为「检索召回噪声」记录 [6][7][10][11][15][19][20][22][23][30][77][78][82][83][87][91][92][93][98]。\n\n---\n\n## 八、建议关注清单（Watchlist）\n\n> 选取标准：与「推理/测试时计算、后训练、Agent、多模态、MoE、长上下文效率」六方向直接相关，且存在可继续深挖的可核查入口。所有热度数字均为 `> 待核实`（未实测引用/star/榜单），不作为推荐依据。\n\n| # | 关注对象 | 方向 | 为何值得跟踪 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 |\n|---|---|---|---|---|---|---|---|---|\n| 1 | SWE-ABS 与 SWE-bench-Live 的对峙 | Agent 评测 | 一方主张榜首成功率虚高（1/5 补丁语义错误），一方主张原基准已过时——这组对峙决定未来一年代码 Agent 数字的可信度 | `> 待核实` [17][24] | arXiv 预印本（cs.SE），同行评审 `> 待核实` [17][24] | 中—高（直接挑战被广泛引用的榜单数字） | ★★★★★ | http://arxiv.org/abs/2603.00520v1 ; http://arxiv.org/abs/2505.23419v2 |\n| 2 | RLVR 归因争论（pass@k 反转 / 增益不可分解） | 后训练 | 若增益不可分解，则「RLVR 提升推理」的产业叙事需要重写 | `> 待核实` [56][62] | Zenodo/SSRN 预印本 [56][62] | 中（评测方法学争议） | ★★★★☆ | https://doi.org/10.5281/zenodo.22063128 ; https://doi.org/10.2139/ssrn.7346356 |\n| 3 | 测试时计算作为方法学变量 | 推理/测试时计算 | 预算不一致会直接导致跨论文成绩不可比，是评审与选型的隐性陷阱 | `> 待核实` [101][106][103] | 期刊论文 [101]、ACM 会议论文 [106]、论文集 DOI [103] | 中 | ★★★★☆ | https://doi.org/10.3348/kjr.2026.0643 ; https://doi.org/10.1145/3731599.3767406 ; https://doi.org/10.52202/085713-5570 |\n| 4 | Agent 基准披露 schema | Agent 评测 | 提供「同基准同模型结果矛盾」的审计维度，可能成为新的报告规范 | `> 待核实` [5] | arXiv 预印本（cs.LG）[5] | 中 | ★★★★☆ | http://arxiv.org/abs/2605.21404v1 |\n| 5 | 工具检索与权限敏感工具选择 | Agent/工具使用 | 工具被检索不到或被越权调用，是长程 agent 的隐性失败源 | `> 待核实` [2][3][4] | arXiv 预印本（[2] v2、[3] v2、[4] v3）[2][3][4] | 低—中 | ★★★★☆ | http://arxiv.org/abs/2503.01763v2 ; http://arxiv.org/abs/2606.20023v2 ; http://arxiv.org/abs/2401.07324v3 |\n| 6 | KV cache 压缩/驱逐方案的可比性 | 长上下文与效率 | 六条以上技术路线并存但缺统一基准，横向选型风险高 | `> 待核实` [33][34][35][36][37][38] | arXiv 预印本 [33][34][35][36][37][38] | 低—中 | ★★★★☆ | http://arxiv.org/abs/2605.09649v1 ; http://arxiv.org/abs/2604.11501v2 ; http://arxiv.org/abs/2410.00161v2 ; http://arxiv.org/abs/2605.08840v1 ; http://arxiv.org/abs/2502.04077v3 ; http://arxiv.org/abs/2510.00636v1 |\n| 7 | 扩散 LLM 的长上下文稀疏注意力 | 长上下文与效率 | 用稀疏注意力替代双向全注意力，但「未解码 token 的重要性估计」仍未解决 | `> 待核实` [29][32] | arXiv 预印本（cs.CL）[29][32] | 低（仅有摘要级信息） | ★★★☆☆ | http://arxiv.org/abs/2602.02159v1 ; http://arxiv.org/abs/2510.14973v2 |\n| 8 | 多 agent 共享 KV cache 池 | 长上下文与效率 | 多 agent 并发场景的显存瓶颈可能由共享+非对称量化缓解，但精度损失无评估 | `> 待核实` [31] | arXiv 预印本（cs.LG），基于 HuggingFace DynamicCache 的工程线索 [31] | 低 | ★★★☆☆ | http://arxiv.org/abs/2604.24971v1 |\n| 9 | 视觉/语言 MoE 的条件有效性 | MoE 与扩展律 | 「稀疏 MoE 何时真的有用」的条件性答案是 MoE 选型的前提 | `> 待核实` [79][80] | arXiv 预印本（cs.CV / cs.LG）[79][80] | 中 | ★★★★☆ | http://arxiv.org/abs/2605.15484v1 ; http://arxiv.org/abs/2603.11114v1 |\n| 10 | 数据受限下的扩展律 | MoE 与扩展律 | 高质量数据接近枯竭时，幂律是否仍成立决定预训练经济性 | `> 待核实` [85][88][89] | arXiv 预印本 [85][88][89] | 中 | ★★★★☆ | http://arxiv.org/abs/2606.06888v2 ; http://arxiv.org/abs/2502.03009v2 ; http://arxiv.org/abs/2402.04177v3 |\n| 11 | 统一多模态理解-生成模型与评测 | 多模态 | 统一架构是 2025 热点，但评测口径尚未收敛 | `> 待核实` [119][120][121][122] | arXiv 预印本（[120] 为 v6 综述）[118][119][120][121][122] | 中 | ★★★★☆ | http://arxiv.org/abs/2505.10483v1 ; http://arxiv.org/abs/2505.02567v6 ; http://arxiv.org/abs/2506.10395v2 ; http://arxiv.org/abs/2506.15564v3 |\n| 12 | VLA × 测试时计算 | 多模态/具身交叉 | 推理时计算与注意力引导是否会成为 VLA 的下一代增益来源 | `> 待核实` [128][129] | arXiv 预印本（[128] v1、[129] v1），是否真机多本体验证 `> 待核实` [128][129] | 中 | ★★★★☆ | http://arxiv.org/abs/2603.14523v1 ; http://arxiv.org/abs/2608.17095v1 |\n| 13 | 可验证奖励向不可验证域的扩展 | 后训练 | 决定 RLVR 能否走出数学/代码的正负边界 | `> 待核实` [64][66][50] | 论文集/期刊关联 DOI 与 arXiv 预印本混合，同行评审状态 `> 待核实` [50][64][66] | 低—中 | ★★★★☆ | https://doi.org/10.52202/085713-2499 ; https://doi.org/10.54097/mzt6hz16 ; https://doi.org/10.1109/tmm.2026.3726309/mm1 |\n| 14 | 后训练全景综述（用于交叉核验） | 后训练 | 用于核对长度偏置、reward hacking 是否有系统整理 | `> 待核实` [63][65] | arXiv 预印本（[63] v2、[65] v1）[63][65] | 中—高 | ★★★★☆ | http://arxiv.org/abs/2502.21321v2 ; http://arxiv.org/abs/2509.16679v1 |\n| 15 | 多智能体污染渗流 | Agent 安全 | 多 agent 系统中错误如何级联扩散，尚无统一测量口径 | `> 待核实` [12] | 预印平台 DOI 材料，同行评审 `> 待核实` [12] | 低—中 | ★★★☆☆ | https://doi.org/10.22541/au.177499048.88707055/v1 |\n| 16 | 基础模型透明度指数（年度） | 治理/透明度 | 提供可逐年对比的开发者透明度量化口径 | `> 待核实` [90] | arXiv 预印本（arXiv:2512.10169v1）[90] | 中—高 | ★★★★☆ | http://arxiv.org/abs/2512.10169v1 |\n| 17 | 推理服务控制面演进（vLLM / llm-d） | 效率工程 | 服务层架构变化直接影响吞吐/成本口径 | `> 待核实` [41] | arXiv 预印本，未经同行评审 [41] | 中 | ★★★☆☆ | http://arxiv.org/abs/2609.23130v1 |\n| 18 | 端侧推理优化（Apple M2 Ultra 系列） | 效率工程 | 消费级硬件部署的可行边界，但三条同题记录存在版本混淆风险 | `> 待核实` [104][107][109] | Zenodo 预印本（三条记录）[104][107][109] | 低 | ★★☆☆☆ | https://doi.org/10.5281/zenodo.21537171 ; https://doi.org/10.5281/zenodo.21537120 ; https://doi.org/10.5281/zenodo.21537172 |\n| 19 | 安全感知投机解码 / 安全约束下的测试时计算 | 效率与安全交叉 | 加速手段是否侵蚀安全对齐，目前证据薄 | `> 待核实` [40][106][126] | arXiv 预印本（[40][126]）与 ACM 会议论文（[106]）[40][106][126] | 低—中 | ★★★☆☆ | http://arxiv.org/abs/2508.17739v2 ; http://arxiv.org/abs/2506.12430v2 |\n| 20 | 学术侧开放 MoE 研究平台 | MoE 工程 | 决定 MoE 结论能否在学术预算下被独立复现 | `> 待核实` [81] | arXiv 预印本，自述端到端开放（仓库实况 `> 待核实`）[81] | 中 | ★★★★☆ | http://arxiv.org/abs/2505.20225v1 |\n\n**Watchlist 四轴总说明**：上表全部条目的**热度证据**（引用数、GitHub star、下载量、榜单排名）在本次候选块中均未提供，故统一标注 `> 待核实`，不得据以推断任何排序；**权威证据**以 arXiv 预印本为主，少数为期刊/会议论文（[101][106]、[50]）与预印平台 DOI 材料（[56][57][62][90]），同行评审状态凡未在候选块中标明者一律标注 `> 待核实`；**关注度**依据「是否直接反驳被广泛引用的数字」（[17][24][56][62] 为中—高）与「是否属当前热点方向但缺热度信号」（[119][120][128][129] 为中）两类判断；**推荐度**综合权威、主题相关性给出，其中评测可信度类（[5][17][24][56][62]）与方法学变量类（[101][106][103]）优先级最高。\n\n**结语性判断（按证据强度分级）**：本章中可直接陈述的结论是「候选证据内部存在明确的自相矛盾与覆盖缺口」（A/B 级内部一致性证据：SWE-ABS 与 SWE-bench Verified 数字冲突 [24]、RLVR 归因争议 [56][62]、KV cache 方案无统一基准 [33]–[38]）；而所有涉及「某方法更快/更强」的量化主张，在候选块均缺少可核查的指标表，应统一标注 `> 待核实` [29][31][79][81][85][88][89]。\n\n## 参考来源\n\n[1] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[2] Retrieval Models Aren't Tool-Savvy: Benchmarking Tool Retrieval for Large Language Models — http://arxiv.org/abs/2503.01763v2\n[3] When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents — http://arxiv.org/abs/2606.20023v2\n[4] Small LLMs Are Weak Tool Learners: A Multi-LLM Agent — http://arxiv.org/abs/2401.07324v3\n[5] What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema — http://arxiv.org/abs/2605.21404v1\n[6] AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3\n[7] AIRCC-Clim: a user-friendly tool for generating regional probabilistic climate change scenarios and risk measures — http://arxiv.org/abs/2111.01762v1\n[8] SBFT Tool Competition 2025 -- Java Test Case Generation Track — http://arxiv.org/abs/2504.09168v1\n[9] Mapping Research Trends of Query Expansion in Information Retrieval: A Bibliometric Analysis — https://doi.org/10.64810/jceit.v2i2.57\n[10] AI-driven Academic Assistance Tool to Fine-Tune LLM for ArXiv — https://doi.org/10.1109/icriset64803.2025.11252364\n[11] ASIC-Agent: An Autonomous Multi-Agent System for ASIC Design with Benchmark Evaluation — https://doi.org/10.1109/iclad65226.2025.00033\n[12] Contamination Percolation in Multi-Agent LLM Systems: A Measurement Framework and Benchmark — https://doi.org/10.22541/au.177499048.88707055/v1\n[13] Z-SPACE: A MULTI-AGENT TOOL ORCHESTRATION FRAMEWORK FOR ENTERPRISE-GRADE LLM AUTOMATION — https://doi.org/10.2139/ssrn.5896270\n[14] A Survey on LLM-based Multi-Agent AI Hospital — https://doi.org/10.31219/osf.io/bv5sg_v1\n[15] The Gaia mission — http://arxiv.org/abs/1609.04153v1\n[16] A Survey on LLM-based Multi-Agent AI Hospital — https://doi.org/10.31219/osf.io/bv5sg_v2\n[17] SWE-bench Goes Live! — http://arxiv.org/abs/2505.23419v2\n[18] Harnessing Language for Coordination: A Framework and Benchmark for LLM-Driven Multi-Agent Control_supp1-3564042.pdf — https://doi.org/10.1109/tg.2025.3564042/mm1\n[19] Gaia Data Release 3: The Galaxy in your preferred colours. Synthetic photometry from Gaia low-resolution spectra — http://arxiv.org/abs/2206.06215v2\n[20] Gaia Data Release 1. Summary of the astrometric, photometric, and survey properties — http://arxiv.org/abs/1609.04172v1\n[21] Agent-as-a-Graph: Knowledge Graph-Based Tool and Agent Retrieval for LLM Multi-Agent Systems — https://doi.org/10.5220/0014473600004052\n[22] Gaia Data Release 2. Summary of the contents and survey properties — http://arxiv.org/abs/1804.09365v2\n[23] Gaia Data Release 3: Exploring and mapping the diffuse interstellar band at 862 nm — http://arxiv.org/abs/2206.05536v1\n[24] SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark — http://arxiv.org/abs/2603.00520v1\n[25] Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025 — http://arxiv.org/abs/2506.02550v2\n[26] Bridging LLMs and Symbolic Reasoning in Educational QA Systems: Insights from the XAI Challenge at IJCNN 2025 — http://arxiv.org/abs/2508.01263v1\n[27] SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection — http://arxiv.org/abs/2509.19861v1\n[28] LTG at SemEval-2025 Task 10: Optimizing Context for Classification of Narrative Roles — http://arxiv.org/abs/2506.05976v1\n[29] Focus-dLLM: Accelerating Long-Context Diffusion LLM Inference via Confidence-Guided Context Focusing — http://arxiv.org/abs/2602.02159v1\n[30] A Simulation and Modeling of Access Points with Definition Language — http://arxiv.org/abs/1304.1836v2\n[31] PolyKV: A Shared Asymmetrically-Compressed KV Cache Pool for Multi-Agent LLM Inference — http://arxiv.org/abs/2604.24971v1\n[32] Attention Is All You Need for KV Cache in Diffusion LLMs — http://arxiv.org/abs/2510.14973v2\n[33] Make Each Token Count: Towards Improving Long-Context Performance with KV Cache Eviction — http://arxiv.org/abs/2605.09649v1\n[34] Attention-Weighted Value Projection for KV-Cache Compression — http://arxiv.org/abs/2604.11501v2\n[35] KV-Compress: Paged KV-Cache Compression with Variable Compression Rates per Attention Head — http://arxiv.org/abs/2410.00161v2\n[36] ReST-KV: Robust KV Cache Eviction with Layer-wise Output Reconstruction and Spatial-Temporal Smoothing — http://arxiv.org/abs/2605.08840v1\n[37] AttentionPredictor: Temporal Patterns Matter for KV Cache Compression — http://arxiv.org/abs/2502.04077v3\n[38] Expected Attention: KV Cache Compression by Estimating Attention from Future Queries Distribution — http://arxiv.org/abs/2510.00636v1\n[39] Tutorial Proposal: Speculative Decoding for Efficient LLM Inference — http://arxiv.org/abs/2503.00491v1\n[40] Speculative Safety-Aware Decoding — http://arxiv.org/abs/2508.17739v2\n[41] From Inference Engine to Inference Control Plane: Connecting vLLM, llm-d, and the Evolution of Efficient Distributed LLM Serving — http://arxiv.org/abs/2609.23130v1\n[42] Speculative Decoding: Exploiting Speculative Execution for Accelerating Seq2seq Generation — http://arxiv.org/abs/2203.16487v6\n[43] Component-Aware Self-Speculative Decoding in Hybrid Language Models — http://arxiv.org/abs/2605.01106v1\n[44] SpecQuant: Speculative Decoding with Multi-Parent Quantization for Adaptive LLM Inference — http://arxiv.org/abs/2609.21704v1\n[45] AgentSpec: Speculative Decoding for Batch Inference of LLM Agents — http://arxiv.org/abs/2608.24004v1\n[46] Accelerating LLM Inference with Staged Speculative Decoding — http://arxiv.org/abs/2308.04623v1\n[47] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1\n[48] RLVR-World: Training World Models with Reinforcement Learning — http://arxiv.org/abs/2505.13934v2\n[49] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1\n[50] MC-R1: Mitigating Hallucinations via Reinforcement Learning with String-Match-Based Verifiable Rewards under Modality Conflicts_supp1-3726309.pdf — https://doi.org/10.1109/tmm.2026.3726309/mm1\n[51] Causal-Paced Deep Reinforcement Learning — http://arxiv.org/abs/2507.02910v1\n[52] Semi-supervised reward learning for offline reinforcement learning — http://arxiv.org/abs/2012.06899v1\n[53] Burning RED: Unlocking Subtask-Driven Reinforcement Learning and Risk-Awareness in Average-Reward Markov Decision Processes — http://arxiv.org/abs/2410.10578v11\n[54] MedEyes: Learning Dynamic Visual Focus for Medical Progressive Diagnosis — http://arxiv.org/abs/2511.22018v2\n[55] PAC Apprenticeship Learning with Bayesian Active Inverse Reinforcement Learning — http://arxiv.org/abs/2508.03693v2\n[56] The Crossover Does Not Carry the Claim: Pass@k Inversion, the Reasoning Boundary, and Five Premises the RLVR Debate Leaves Unstated — https://doi.org/10.5281/zenodo.22063128\n[57] Molecular Pinball: A Deterministic Chemistry Environment for Benchmarking Reinforcement Learning with Verifiable Rewards — https://doi.org/10.26434/chemrxiv.15001669/v1\n[58] Specializing Large Language Models for Process Modeling via Reinforcement Learning with Verifiable and Universal Rewards — https://doi.org/10.36227/techrxiv.175977593.34948838/v1\n[59] Strategic Bargaining in Multi-Buyer Markets: Reinforcement Learning from Verifiable Rewards for LLM Negotiations — https://doi.org/10.2139/ssrn.7069958\n[60] Specializing Large Language Models for Process Modeling via Reinforcement Learning with Verifiable and Universal Rewards — https://doi.org/10.21203/rs.3.rs-7646566/v1\n[61] Iterative Preference Learning from Human Feedback: Bridging Theory and Practice for RLHF under KL-Constraint — http://arxiv.org/abs/2312.11456v4\n[62] Why the Gain of Reinforcement Learning with Verifiable Rewards Does Not Decompose: A Pre-Registered Intervention Study — https://doi.org/10.2139/ssrn.7346356\n[63] LLM Post-Training: A Deep Dive into Reasoning Large Language Models — http://arxiv.org/abs/2502.21321v2\n[64] Beyond Verifiable Rewards: Scaling Reinforcement Learning in Language Models to Unverifiable Data — https://doi.org/10.52202/085713-2499\n[65] Reinforcement Learning Meets Large Language Models: A Survey of Advancements and Applications Across the LLM Lifecycle — http://arxiv.org/abs/2509.16679v1\n[66] From Verifiable Rewards to Autonomous Evolution: Reinforcement Learning-Driven Large Language Model Reasoning Abilities — https://doi.org/10.54097/mzt6hz16\n[67] GVPO++: Group Variance Policy Optimization for LLM Post-Training and On-Policy Distillation — http://arxiv.org/abs/2609.21432v1\n[68] Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025) — http://arxiv.org/abs/2412.16365v1\n[69] Coling-UniA at SciVQA 2025: Few-Shot Example Retrieval and Confidence-Informed Ensembling for Multimodal Large Language Models — http://arxiv.org/abs/2507.02357v1\n[70] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[71] FlexMoE: One-for-All Nested Intra-Expert Pruning for MoE Language Models — http://arxiv.org/abs/2606.27866v1\n[72] ExpertFlow: Efficient Mixture-of-Experts Inference via Predictive Expert Caching and Token Scheduling — http://arxiv.org/abs/2410.17954v2\n[73] Not All Experts are Equal: Efficient Expert Pruning and Skipping for Mixture-of-Experts Large Language Models — http://arxiv.org/abs/2402.14800v2\n[74] GraphMETRO: Mitigating Complex Graph Distribution Shifts via Mixture of Aligned Experts — http://arxiv.org/abs/2312.04693v3\n[75] Mixtures of Experts Models — http://arxiv.org/abs/1806.08200v1\n[76] Convergence Rates for Softmax Gating Mixture of Experts — http://arxiv.org/abs/2503.03213v1\n[77] A scaling law chaotic system — http://arxiv.org/abs/2111.09816v1\n[78] A Low Cost Two-Tier Architecture Model For High Availability Clusters Application Load Balancing — http://arxiv.org/abs/1406.5761v1\n[79] When Does Sparse MoE Help in Vision? The Role of Backbone Compute Leverage in Sparse Routing — http://arxiv.org/abs/2605.15484v1\n[80] Task-Conditioned Routing Signatures in Sparse Mixture-of-Experts Transformers — http://arxiv.org/abs/2603.11114v1\n[81] FLAME-MoE: A Transparent End-to-End Research Platform for Mixture-of-Experts Language Models — http://arxiv.org/abs/2505.20225v1\n[82] Reinforcement Learning-Based Adaptive Load Balancing for Dynamic Cloud Environments — http://arxiv.org/abs/2409.04896v1\n[83] A Comparative Study of Load Balancing Algorithms in Cloud Computing Environment — http://arxiv.org/abs/1403.6918v1\n[84] Mixture-of-Experts in Large Language Models: A Survey of Architecture, Training, and Efficient Inference — https://doi.org/10.5281/zenodo.21365611\n[85] Data-Constrained Language Model Pretraining: Improved Regularization and Scaling Laws — http://arxiv.org/abs/2606.06888v2\n[86] Mixture-of-Experts in Large Language Models: A Survey of Architecture, Training, and Efficient Inference — https://doi.org/10.5281/zenodo.21365610\n[87] Superconductivity as a consequence of an ordering of the electron gas zero-point oscillations — http://arxiv.org/abs/1005.0280v6\n[88] Scaling Laws for Upcycling Mixture-of-Experts Language Models — http://arxiv.org/abs/2502.03009v2\n[89] Scaling Laws for Downstream Task Performance of Large Language Models — http://arxiv.org/abs/2402.04177v3\n[90] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[91] Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support — http://arxiv.org/abs/2504.16021v1\n[92] Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task — http://arxiv.org/abs/2510.22631v1\n[93] ACM COMPUTE 2025 Best Practices Track Proceedings — http://arxiv.org/abs/2512.02349v2\n[94] Making Large Language Models Better Reasoners with Alignment — http://arxiv.org/abs/2309.02144v1\n[95] Large Language Models Reasoning Abilities Under Non-Ideal Conditions After RL-Fine-Tuning — http://arxiv.org/abs/2508.04848v1\n[96] Soft Inductive Bias Approach via Explicit Reasoning Perspectives in Inappropriate Utterance Detection Using Large Language Models — http://arxiv.org/abs/2512.08480v1\n[97] Inference-Time Scaling for Flow Models via Stochastic Generation and Rollover Budget Forcing — http://arxiv.org/abs/2503.19385v5\n[98] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4\n[99] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1\n[100] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1\n[101] Test-Time Compute and Budget (“Reasoning Effort”): An Underrecognized Methodologic Variable in Medical Large Language Model Research — https://doi.org/10.3348/kjr.2026.0643\n[102] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1\n[103] Provable Scaling Laws for the Test-Time Compute of Large Language Models — https://doi.org/10.52202/085713-5570\n[104] LLM Foundations Applied: Optimizing Large Language Models for Apple M2 Ultra Consumer Hardware — https://doi.org/10.5281/zenodo.21537171\n[105] A Survey of Reinforcement Learning in Large Language Models: From Data Generation to Test-Time Inference — https://doi.org/10.2139/ssrn.5128927\n[106] Evaluation of Test-Time Compute Constraints on Safety and Skill Large Reasoning Models — https://doi.org/10.1145/3731599.3767406\n[107] LLM Foundations Applied: Optimizing Large Language Models for Apple M2 Ultra Consumer Hardware — https://doi.org/10.5281/zenodo.21537120\n[108] A Large Language Model Framework for Causal Reasoning and Performance Prediction in Multimodal Time-Series Data — https://doi.org/10.20944/preprints202511.0001.v1\n[109] LLM Foundations Applied: Optimizing Large Language Models for Apple M2 Ultra Consumer Hardware — https://doi.org/10.5281/zenodo.21537172\n[110] 1$^{st}$ Place Solution of WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge — http://arxiv.org/abs/2505.03543v1\n[111] Image Segmentation in Foundation Model Era: A Survey — http://arxiv.org/abs/2408.12957v3\n[112] MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook — http://arxiv.org/abs/2509.14142v1\n[113] Multimodal AI for Gastrointestinal Diagnostics: Tackling VQA in MEDVQA-GI 2025 — http://arxiv.org/abs/2507.14544v1\n[114] A Critical Analysis of Neurosymbolic Ai Models for Adaptive Multimodal Knowledge Integration in Conversational Chatbots for Inclusive Education — https://doi.org/10.47392/irjaeh.2025.0532\n[115] VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models: Methods and Results — http://arxiv.org/abs/2509.09190v1\n[116] Emotion AI in Mental Health — https://doi.org/10.1007/978-3-032-14778-3_11\n[117] Self-Evolving Autonomous Software Architectures Using Large-Scale Graph Neural Networks and Real-Time Big Data Feedback Loops for Economic Optimization and Cost-Efficient Resource Allocation — https://doi.org/10.63544/jbii.v5i5.188\n[118] PixelBytes: Catching Unified Embedding for Multimodal Generation — http://arxiv.org/abs/2409.15512v2\n[119] UniEval: Unified Holistic Evaluation for Unified Multimodal Understanding and Generation — http://arxiv.org/abs/2505.10483v1\n[120] Unified Multimodal Understanding and Generation Models: Advances, Challenges, and Opportunities — http://arxiv.org/abs/2505.02567v6\n[121] Pisces: An Auto-regressive Foundation Model for Image Understanding and Generation — http://arxiv.org/abs/2506.10395v2\n[122] Show-o2: Improved Native Unified Multimodal Models — http://arxiv.org/abs/2506.15564v3\n[123] Qwen-VL: A Versatile Vision-Language Model for Understanding, Localization, Text Reading, and Beyond — http://arxiv.org/abs/2308.12966v3\n[124] AIM 2025 Rip Current Segmentation (RipSeg) Challenge Report — http://arxiv.org/abs/2508.13401v3\n[125] Inaugural MOASEI Competition at AAMAS'2025: A Technical Report — http://arxiv.org/abs/2507.05469v1\n[126] Pushing the Limits of Safety: A Technical Report on the ATLAS Challenge 2025 — http://arxiv.org/abs/2506.12430v2\n[127] Evaluating Open-Source Vision-Language Models for Multimodal Sarcasm Detection — http://arxiv.org/abs/2510.11852v1\n[128] VLA-Thinker: Boosting Vision-Language-Action Models through Thinking-with-Image Reasoning — http://arxiv.org/abs/2603.14523v1\n[129] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1\n\n\n---\n\n*Generated by research-bot · topic=`ai` · depth=`standard` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading · model=`deepseek-v4-flash` · sources=129 · duration=400s · 2026-10-06T22:08:05+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Retrieval Models Aren't Tool-Savvy: Benchmarking Tool Retrieval for Large Language Models",
+      "url": "http://arxiv.org/abs/2503.01763v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-03-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents",
+      "url": "http://arxiv.org/abs/2606.20023v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-06-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Small LLMs Are Weak Tool Learners: A Multi-LLM Agent",
+      "url": "http://arxiv.org/abs/2401.07324v3",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-01-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+      "url": "http://arxiv.org/abs/2605.21404v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+      "url": "http://arxiv.org/abs/2506.14634v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "AIRCC-Clim: a user-friendly tool for generating regional probabilistic climate change scenarios and risk measures",
+      "url": "http://arxiv.org/abs/2111.01762v1",
+      "kind": "paper",
+      "venue": "physics.ao-ph",
+      "published": "2021-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "SBFT Tool Competition 2025 -- Java Test Case Generation Track",
+      "url": "http://arxiv.org/abs/2504.09168v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-04-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Mapping Research Trends of Query Expansion in Information Retrieval: A Bibliometric Analysis",
+      "url": "https://doi.org/10.64810/jceit.v2i2.57",
+      "kind": "paper",
+      "venue": "JCEIT: Journal of Computer Engineering and Information Technology",
+      "published": "2026-03-26",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "AI-driven Academic Assistance Tool to Fine-Tune LLM for ArXiv",
+      "url": "https://doi.org/10.1109/icriset64803.2025.11252364",
+      "kind": "paper",
+      "venue": "2025 International Conference on Recent Innovation in Science Engineering and Technology (ICRISET)",
+      "published": "2025-08-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "ASIC-Agent: An Autonomous Multi-Agent System for ASIC Design with Benchmark Evaluation",
+      "url": "https://doi.org/10.1109/iclad65226.2025.00033",
+      "kind": "paper",
+      "venue": "2025 IEEE International Conference on LLM-Aided Design (ICLAD)",
+      "published": "2025-06-26",
+      "citations": 5,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Contamination Percolation in Multi-Agent LLM Systems: A Measurement Framework and Benchmark",
+      "url": "https://doi.org/10.22541/au.177499048.88707055/v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-03-31",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Z-SPACE: A MULTI-AGENT TOOL ORCHESTRATION FRAMEWORK FOR ENTERPRISE-GRADE LLM AUTOMATION",
+      "url": "https://doi.org/10.2139/ssrn.5896270",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "A Survey on LLM-based Multi-Agent AI Hospital",
+      "url": "https://doi.org/10.31219/osf.io/bv5sg_v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-03-04",
+      "citations": 8,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "The Gaia mission",
+      "url": "http://arxiv.org/abs/1609.04153v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2016-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "A Survey on LLM-based Multi-Agent AI Hospital",
+      "url": "https://doi.org/10.31219/osf.io/bv5sg_v2",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-12-26",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "SWE-bench Goes Live!",
+      "url": "http://arxiv.org/abs/2505.23419v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Harnessing Language for Coordination: A Framework and Benchmark for LLM-Driven Multi-Agent Control_supp1-3564042.pdf",
+      "url": "https://doi.org/10.1109/tg.2025.3564042/mm1",
+      "kind": "paper",
+      "venue": null,
+      "published": null,
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Gaia Data Release 3: The Galaxy in your preferred colours. Synthetic photometry from Gaia low-resolution spectra",
+      "url": "http://arxiv.org/abs/2206.06215v2",
+      "kind": "paper",
+      "venue": "astro-ph.SR",
+      "published": "2022-06-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Gaia Data Release 1. Summary of the astrometric, photometric, and survey properties",
+      "url": "http://arxiv.org/abs/1609.04172v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2016-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Agent-as-a-Graph: Knowledge Graph-Based Tool and Agent Retrieval for LLM Multi-Agent Systems",
+      "url": "https://doi.org/10.5220/0014473600004052",
+      "kind": "paper",
+      "venue": "Proceedings of the 18th International Conference on Agents and Artificial Intelligence",
+      "published": "2026-01-01",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Gaia Data Release 2. Summary of the contents and survey properties",
+      "url": "http://arxiv.org/abs/1804.09365v2",
+      "kind": "paper",
+      "venue": "astro-ph.GA",
+      "published": "2018-04-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Gaia Data Release 3: Exploring and mapping the diffuse interstellar band at 862 nm",
+      "url": "http://arxiv.org/abs/2206.05536v1",
+      "kind": "paper",
+      "venue": "astro-ph.GA",
+      "published": "2022-06-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark",
+      "url": "http://arxiv.org/abs/2603.00520v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-02-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025",
+      "url": "http://arxiv.org/abs/2506.02550v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Bridging LLMs and Symbolic Reasoning in Educational QA Systems: Insights from the XAI Challenge at IJCNN 2025",
+      "url": "http://arxiv.org/abs/2508.01263v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-08-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+      "url": "http://arxiv.org/abs/2509.19861v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "LTG at SemEval-2025 Task 10: Optimizing Context for Classification of Narrative Roles",
+      "url": "http://arxiv.org/abs/2506.05976v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Focus-dLLM: Accelerating Long-Context Diffusion LLM Inference via Confidence-Guided Context Focusing",
+      "url": "http://arxiv.org/abs/2602.02159v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-02-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "A Simulation and Modeling of Access Points with Definition Language",
+      "url": "http://arxiv.org/abs/1304.1836v2",
+      "kind": "paper",
+      "venue": "cs.OH",
+      "published": "2013-04-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "PolyKV: A Shared Asymmetrically-Compressed KV Cache Pool for Multi-Agent LLM Inference",
+      "url": "http://arxiv.org/abs/2604.24971v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-04-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Attention Is All You Need for KV Cache in Diffusion LLMs",
+      "url": "http://arxiv.org/abs/2510.14973v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Make Each Token Count: Towards Improving Long-Context Performance with KV Cache Eviction",
+      "url": "http://arxiv.org/abs/2605.09649v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-05-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "Attention-Weighted Value Projection for KV-Cache Compression",
+      "url": "http://arxiv.org/abs/2604.11501v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-04-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "KV-Compress: Paged KV-Cache Compression with Variable Compression Rates per Attention Head",
+      "url": "http://arxiv.org/abs/2410.00161v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-09-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "ReST-KV: Robust KV Cache Eviction with Layer-wise Output Reconstruction and Spatial-Temporal Smoothing",
+      "url": "http://arxiv.org/abs/2605.08840v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-05-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 37,
+      "title": "AttentionPredictor: Temporal Patterns Matter for KV Cache Compression",
+      "url": "http://arxiv.org/abs/2502.04077v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-02-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 38,
+      "title": "Expected Attention: KV Cache Compression by Estimating Attention from Future Queries Distribution",
+      "url": "http://arxiv.org/abs/2510.00636v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-10-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 39,
+      "title": "Tutorial Proposal: Speculative Decoding for Efficient LLM Inference",
+      "url": "http://arxiv.org/abs/2503.00491v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 40,
+      "title": "Speculative Safety-Aware Decoding",
+      "url": "http://arxiv.org/abs/2508.17739v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-08-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 41,
+      "title": "From Inference Engine to Inference Control Plane: Connecting vLLM, llm-d, and the Evolution of Efficient Distributed LLM Serving",
+      "url": "http://arxiv.org/abs/2609.23130v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-09-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 42,
+      "title": "Speculative Decoding: Exploiting Speculative Execution for Accelerating Seq2seq Generation",
+      "url": "http://arxiv.org/abs/2203.16487v6",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2022-03-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 43,
+      "title": "Component-Aware Self-Speculative Decoding in Hybrid Language Models",
+      "url": "http://arxiv.org/abs/2605.01106v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-05-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 44,
+      "title": "SpecQuant: Speculative Decoding with Multi-Parent Quantization for Adaptive LLM Inference",
+      "url": "http://arxiv.org/abs/2609.21704v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-09-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 45,
+      "title": "AgentSpec: Speculative Decoding for Batch Inference of LLM Agents",
+      "url": "http://arxiv.org/abs/2608.24004v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-08-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 46,
+      "title": "Accelerating LLM Inference with Staged Speculative Decoding",
+      "url": "http://arxiv.org/abs/2308.04623v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2023-08-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 47,
+      "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2602.12375v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-02-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 48,
+      "title": "RLVR-World: Training World Models with Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2505.13934v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 49,
+      "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+      "url": "http://arxiv.org/abs/2607.18488v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 50,
+      "title": "MC-R1: Mitigating Hallucinations via Reinforcement Learning with String-Match-Based Verifiable Rewards under Modality Conflicts_supp1-3726309.pdf",
+      "url": "https://doi.org/10.1109/tmm.2026.3726309/mm1",
+      "kind": "paper",
+      "venue": null,
+      "published": null,
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 51,
+      "title": "Causal-Paced Deep Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2507.02910v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-06-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 52,
+      "title": "Semi-supervised reward learning for offline reinforcement learning",
+      "url": "http://arxiv.org/abs/2012.06899v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2020-12-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 53,
+      "title": "Burning RED: Unlocking Subtask-Driven Reinforcement Learning and Risk-Awareness in Average-Reward Markov Decision Processes",
+      "url": "http://arxiv.org/abs/2410.10578v11",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-10-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 54,
+      "title": "MedEyes: Learning Dynamic Visual Focus for Medical Progressive Diagnosis",
+      "url": "http://arxiv.org/abs/2511.22018v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-11-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 55,
+      "title": "PAC Apprenticeship Learning with Bayesian Active Inverse Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2508.03693v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-08-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 56,
+      "title": "The Crossover Does Not Carry the Claim: Pass@k Inversion, the Reasoning Boundary, and Five Premises the RLVR Debate Leaves Unstated",
+      "url": "https://doi.org/10.5281/zenodo.22063128",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-08-23",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 57,
+      "title": "Molecular Pinball: A Deterministic Chemistry Environment for Benchmarking Reinforcement Learning with Verifiable Rewards",
+      "url": "https://doi.org/10.26434/chemrxiv.15001669/v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-04-06",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 58,
+      "title": "Specializing Large Language Models for Process Modeling via Reinforcement Learning with Verifiable and Universal Rewards",
+      "url": "https://doi.org/10.36227/techrxiv.175977593.34948838/v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-10-06",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 59,
+      "title": "Strategic Bargaining in Multi-Buyer Markets: Reinforcement Learning from Verifiable Rewards for LLM Negotiations",
+      "url": "https://doi.org/10.2139/ssrn.7069958",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 60,
+      "title": "Specializing Large Language Models for Process Modeling via Reinforcement Learning with Verifiable and Universal Rewards",
+      "url": "https://doi.org/10.21203/rs.3.rs-7646566/v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-10-06",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 61,
+      "title": "Iterative Preference Learning from Human Feedback: Bridging Theory and Practice for RLHF under KL-Constraint",
+      "url": "http://arxiv.org/abs/2312.11456v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-12-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 62,
+      "title": "Why the Gain of Reinforcement Learning with Verifiable Rewards Does Not Decompose: A Pre-Registered Intervention Study",
+      "url": "https://doi.org/10.2139/ssrn.7346356",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 63,
+      "title": "LLM Post-Training: A Deep Dive into Reasoning Large Language Models",
+      "url": "http://arxiv.org/abs/2502.21321v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-02-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 64,
+      "title": "Beyond Verifiable Rewards: Scaling Reinforcement Learning in Language Models to Unverifiable Data",
+      "url": "https://doi.org/10.52202/085713-2499",
+      "kind": "paper",
+      "venue": "Advances in Neural Information Processing Systems 38",
+      "published": "2025-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 65,
+      "title": "Reinforcement Learning Meets Large Language Models: A Survey of Advancements and Applications Across the LLM Lifecycle",
+      "url": "http://arxiv.org/abs/2509.16679v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 66,
+      "title": "From Verifiable Rewards to Autonomous Evolution: Reinforcement Learning-Driven Large Language Model Reasoning Abilities",
+      "url": "https://doi.org/10.54097/mzt6hz16",
+      "kind": "paper",
+      "venue": "Mathematical Modeling and Algorithm Application",
+      "published": "2026-08-04",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 67,
+      "title": "GVPO++: Group Variance Policy Optimization for LLM Post-Training and On-Policy Distillation",
+      "url": "http://arxiv.org/abs/2609.21432v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-09-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 68,
+      "title": "Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025)",
+      "url": "http://arxiv.org/abs/2412.16365v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-12-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 69,
+      "title": "Coling-UniA at SciVQA 2025: Few-Shot Example Retrieval and Confidence-Informed Ensembling for Multimodal Large Language Models",
+      "url": "http://arxiv.org/abs/2507.02357v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 70,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 71,
+      "title": "FlexMoE: One-for-All Nested Intra-Expert Pruning for MoE Language Models",
+      "url": "http://arxiv.org/abs/2606.27866v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-06-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 72,
+      "title": "ExpertFlow: Efficient Mixture-of-Experts Inference via Predictive Expert Caching and Token Scheduling",
+      "url": "http://arxiv.org/abs/2410.17954v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 73,
+      "title": "Not All Experts are Equal: Efficient Expert Pruning and Skipping for Mixture-of-Experts Large Language Models",
+      "url": "http://arxiv.org/abs/2402.14800v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-02-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 74,
+      "title": "GraphMETRO: Mitigating Complex Graph Distribution Shifts via Mixture of Aligned Experts",
+      "url": "http://arxiv.org/abs/2312.04693v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-12-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 75,
+      "title": "Mixtures of Experts Models",
+      "url": "http://arxiv.org/abs/1806.08200v1",
+      "kind": "paper",
+      "venue": "stat.ME",
+      "published": "2018-06-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 76,
+      "title": "Convergence Rates for Softmax Gating Mixture of Experts",
+      "url": "http://arxiv.org/abs/2503.03213v1",
+      "kind": "paper",
+      "venue": "stat.ML",
+      "published": "2025-03-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 77,
+      "title": "A scaling law chaotic system",
+      "url": "http://arxiv.org/abs/2111.09816v1",
+      "kind": "paper",
+      "venue": "math.DS",
+      "published": "2021-11-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 78,
+      "title": "A Low Cost Two-Tier Architecture Model For High Availability Clusters Application Load Balancing",
+      "url": "http://arxiv.org/abs/1406.5761v1",
+      "kind": "paper",
+      "venue": "cs.NI",
+      "published": "2014-06-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 79,
+      "title": "When Does Sparse MoE Help in Vision? The Role of Backbone Compute Leverage in Sparse Routing",
+      "url": "http://arxiv.org/abs/2605.15484v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-05-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 80,
+      "title": "Task-Conditioned Routing Signatures in Sparse Mixture-of-Experts Transformers",
+      "url": "http://arxiv.org/abs/2603.11114v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-03-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 81,
+      "title": "FLAME-MoE: A Transparent End-to-End Research Platform for Mixture-of-Experts Language Models",
+      "url": "http://arxiv.org/abs/2505.20225v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-05-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 82,
+      "title": "Reinforcement Learning-Based Adaptive Load Balancing for Dynamic Cloud Environments",
+      "url": "http://arxiv.org/abs/2409.04896v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2024-09-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 83,
+      "title": "A Comparative Study of Load Balancing Algorithms in Cloud Computing Environment",
+      "url": "http://arxiv.org/abs/1403.6918v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2014-03-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 84,
+      "title": "Mixture-of-Experts in Large Language Models: A Survey of Architecture, Training, and Efficient Inference",
+      "url": "https://doi.org/10.5281/zenodo.21365611",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-07-15",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 85,
+      "title": "Data-Constrained Language Model Pretraining: Improved Regularization and Scaling Laws",
+      "url": "http://arxiv.org/abs/2606.06888v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-06-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 86,
+      "title": "Mixture-of-Experts in Large Language Models: A Survey of Architecture, Training, and Efficient Inference",
+      "url": "https://doi.org/10.5281/zenodo.21365610",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-07-15",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 87,
+      "title": "Superconductivity as a consequence of an ordering of the electron gas zero-point oscillations",
+      "url": "http://arxiv.org/abs/1005.0280v6",
+      "kind": "paper",
+      "venue": "physics.gen-ph",
+      "published": "2010-05-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 88,
+      "title": "Scaling Laws for Upcycling Mixture-of-Experts Language Models",
+      "url": "http://arxiv.org/abs/2502.03009v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-02-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 89,
+      "title": "Scaling Laws for Downstream Task Performance of Large Language Models",
+      "url": "http://arxiv.org/abs/2402.04177v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-02-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 90,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 91,
+      "title": "Navigating the State of Cognitive Flow: Context-Aware AI Interventions for Effective Reasoning Support",
+      "url": "http://arxiv.org/abs/2504.16021v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2025-04-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 92,
+      "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+      "url": "http://arxiv.org/abs/2510.22631v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 93,
+      "title": "ACM COMPUTE 2025 Best Practices Track Proceedings",
+      "url": "http://arxiv.org/abs/2512.02349v2",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 94,
+      "title": "Making Large Language Models Better Reasoners with Alignment",
+      "url": "http://arxiv.org/abs/2309.02144v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 95,
+      "title": "Large Language Models Reasoning Abilities Under Non-Ideal Conditions After RL-Fine-Tuning",
+      "url": "http://arxiv.org/abs/2508.04848v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-08-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 96,
+      "title": "Soft Inductive Bias Approach via Explicit Reasoning Perspectives in Inappropriate Utterance Detection Using Large Language Models",
+      "url": "http://arxiv.org/abs/2512.08480v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-12-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 97,
+      "title": "Inference-Time Scaling for Flow Models via Stochastic Generation and Rollover Budget Forcing",
+      "url": "http://arxiv.org/abs/2503.19385v5",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-03-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 98,
+      "title": "TDCOSMO 2025: Cosmological constraints from strong lensing time delays",
+      "url": "http://arxiv.org/abs/2506.03023v4",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 99,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 100,
+      "title": "The AudioMOS Challenge 2025",
+      "url": "http://arxiv.org/abs/2509.01336v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 101,
+      "title": "Test-Time Compute and Budget (“Reasoning Effort”): An Underrecognized Methodologic Variable in Medical Large Language Model Research",
+      "url": "https://doi.org/10.3348/kjr.2026.0643",
+      "kind": "paper",
+      "venue": "Korean Journal of Radiology",
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 102,
+      "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+      "url": "http://arxiv.org/abs/2508.18904v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 103,
+      "title": "Provable Scaling Laws for the Test-Time Compute of Large Language Models",
+      "url": "https://doi.org/10.52202/085713-5570",
+      "kind": "paper",
+      "venue": "Advances in Neural Information Processing Systems 38",
+      "published": "2025-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 104,
+      "title": "LLM Foundations Applied: Optimizing Large Language Models for Apple M2 Ultra Consumer Hardware",
+      "url": "https://doi.org/10.5281/zenodo.21537171",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-07-24",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 105,
+      "title": "A Survey of Reinforcement Learning in Large Language Models: From Data Generation to Test-Time Inference",
+      "url": "https://doi.org/10.2139/ssrn.5128927",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 106,
+      "title": "Evaluation of Test-Time Compute Constraints on Safety and Skill Large Reasoning Models",
+      "url": "https://doi.org/10.1145/3731599.3767406",
+      "kind": "paper",
+      "venue": "Proceedings of the SC '25 Workshops of the International Conference for High Performance Computing, Networking, Storage and Analysis",
+      "published": "2025-11-15",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 107,
+      "title": "LLM Foundations Applied: Optimizing Large Language Models for Apple M2 Ultra Consumer Hardware",
+      "url": "https://doi.org/10.5281/zenodo.21537120",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-07-24",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 108,
+      "title": "A Large Language Model Framework for Causal Reasoning and Performance Prediction in Multimodal Time-Series Data",
+      "url": "https://doi.org/10.20944/preprints202511.0001.v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-11-03",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 109,
+      "title": "LLM Foundations Applied: Optimizing Large Language Models for Apple M2 Ultra Consumer Hardware",
+      "url": "https://doi.org/10.5281/zenodo.21537172",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-07-24",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 110,
+      "title": "1$^{st}$ Place Solution of WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge",
+      "url": "http://arxiv.org/abs/2505.03543v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-05-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 111,
+      "title": "Image Segmentation in Foundation Model Era: A Survey",
+      "url": "http://arxiv.org/abs/2408.12957v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-08-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 112,
+      "title": "MARS2 2025 Challenge on Multimodal Reasoning: Datasets, Methods, Results, Discussion, and Outlook",
+      "url": "http://arxiv.org/abs/2509.14142v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 113,
+      "title": "Multimodal AI for Gastrointestinal Diagnostics: Tackling VQA in MEDVQA-GI 2025",
+      "url": "http://arxiv.org/abs/2507.14544v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-07-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 114,
+      "title": "A Critical Analysis of Neurosymbolic Ai Models for Adaptive Multimodal Knowledge Integration in Conversational Chatbots for Inclusive Education",
+      "url": "https://doi.org/10.47392/irjaeh.2025.0532",
+      "kind": "paper",
+      "venue": "International Research Journal on Advanced Engineering Hub (IRJAEH)",
+      "published": "2025-09-23",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 115,
+      "title": "VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.09190v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 116,
+      "title": "Emotion AI in Mental Health",
+      "url": "https://doi.org/10.1007/978-3-032-14778-3_11",
+      "kind": "paper",
+      "venue": "Information systems engineering and management",
+      "published": "2026-01-01",
+      "citations": 2,
+      "stars": null
+    },
+    {
+      "n": 117,
+      "title": "Self-Evolving Autonomous Software Architectures Using Large-Scale Graph Neural Networks and Real-Time Big Data Feedback Loops for Economic Optimization and Cost-Efficient Resource Allocation",
+      "url": "https://doi.org/10.63544/jbii.v5i5.188",
+      "kind": "paper",
+      "venue": "Journal of Business Insight and Innovation",
+      "published": "2026-05-26",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 118,
+      "title": "PixelBytes: Catching Unified Embedding for Multimodal Generation",
+      "url": "http://arxiv.org/abs/2409.15512v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 119,
+      "title": "UniEval: Unified Holistic Evaluation for Unified Multimodal Understanding and Generation",
+      "url": "http://arxiv.org/abs/2505.10483v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-05-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 120,
+      "title": "Unified Multimodal Understanding and Generation Models: Advances, Challenges, and Opportunities",
+      "url": "http://arxiv.org/abs/2505.02567v6",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-05-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 121,
+      "title": "Pisces: An Auto-regressive Foundation Model for Image Understanding and Generation",
+      "url": "http://arxiv.org/abs/2506.10395v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-06-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 122,
+      "title": "Show-o2: Improved Native Unified Multimodal Models",
+      "url": "http://arxiv.org/abs/2506.15564v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-06-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 123,
+      "title": "Qwen-VL: A Versatile Vision-Language Model for Understanding, Localization, Text Reading, and Beyond",
+      "url": "http://arxiv.org/abs/2308.12966v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2023-08-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 124,
+      "title": "AIM 2025 Rip Current Segmentation (RipSeg) Challenge Report",
+      "url": "http://arxiv.org/abs/2508.13401v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 125,
+      "title": "Inaugural MOASEI Competition at AAMAS'2025: A Technical Report",
+      "url": "http://arxiv.org/abs/2507.05469v1",
+      "kind": "paper",
+      "venue": "cs.MA",
+      "published": "2025-07-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 126,
+      "title": "Pushing the Limits of Safety: A Technical Report on the ATLAS Challenge 2025",
+      "url": "http://arxiv.org/abs/2506.12430v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-06-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 127,
+      "title": "Evaluating Open-Source Vision-Language Models for Multimodal Sarcasm Detection",
+      "url": "http://arxiv.org/abs/2510.11852v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-10-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 128,
+      "title": "VLA-Thinker: Boosting Vision-Language-Action Models through Thinking-with-Image Reasoning",
+      "url": "http://arxiv.org/abs/2603.14523v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-03-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 129,
+      "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+      "url": "http://arxiv.org/abs/2608.17095v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-08-17",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-06-ai.md",
+    "json": "report/2026/10/2026-10-06-ai.json"
+  }
+}
