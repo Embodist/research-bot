@@ -1,0 +1,959 @@
+{
+  "topic": "机器人运动学控制与-ros-2",
+  "title": "机器人运动学、控制与 ROS 2：领域增量追踪调研计划（增量窗口 2024–2026）",
+  "query": "机器人运动学、控制与 ROS 2",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-07T22:09:34+00:00",
+  "finished_at": "2026-10-07T22:12:36+00:00",
+  "duration_s": 181.9,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人运动学、控制与 ROS 2：领域增量追踪调研计划（增量窗口 2024–2026）",
+    "summary": "以 2024–2026 为增量窗口，沿前沿进展、经典基线、开源工程栈、数据集与基准、开放问题与争议、产业与政策资本六条线索，核查机器人运动学、控制与 ROS 2 相对既有基线的真实变化、蓝海缺口与拐点信号，所有关键论断需带时间与可核查引用。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 1–2 年（2024–2026），机器人运动学与控制的 SOTA 发生了什么变化：人形与四足的全身控制/移动操作（loco-manipulation）、仿真到真机的强化学习策略、以及 VLA/基础模型与底层控制器的接口方式，各自相对 2023 年前以 MPC + iLQR + 模块化规划-控制栈为基线的做法新增了什么？",
+        "rationale": "对应 frontier-watch 第 1 facet（进展与热点）。必须先固定基线才能谈增量，并须区分论文宣称、演示视频、榜单自评与独立复现/真机部署，避免把 demo 当实验证据。",
+        "queries": [
+          "humanoid whole-body control loco-manipulation reinforcement learning 2025 site:arxiv.org",
+          "sim-to-real humanoid locomotion 2024 2025 Isaac Lab MuJoCo Playground benchmark",
+          "vision-language-action policy low-level controller interface 2025 2026 arXiv cs.RO",
+          "real-time whole-body MPC humanoid 2024 2025 CoRL RSS ICRA"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex",
+          "github"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该领域的经典与奠基工作有哪些，构成当前增量判断的对照基线？包括刚体动力学算法（Featherstone 空间向量代数）、操作空间与全身控制理论（Khatib）、轨迹优化与最优控制（DDP/iLQR/MPC）、以及基于旋量与 SE(3) 的运动学数学基础。",
+        "rationale": "增量追踪必须先冻结基线，否则无法回答相对什么变新；这些工作也是判断新方法属于范式更新还是旧框架内工程改进的判据，并为后续条目提供权威证据（authority）来源。",
+        "queries": [
+          "Featherstone rigid body dynamics algorithms spatial vector algebra",
+          "Khatib operational space formulation whole body control manipulator",
+          "differential dynamic programming iLQR trajectory optimization robotics survey",
+          "Modern Robotics screw theory SE(3) kinematics Lynch Park"
+        ],
+        "prefer": [
+          "crossref",
+          "openalex",
+          "semantic_scholar",
+          "arxiv"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "开源项目与工程实践现状如何：ROS 2 发行版（Humble/Iron/Jazzy/Kilted 及后续 LTS）在实时性、中间件（DDS 实现、Zenoh、micro-ROS）与 ros2_control 上的变化，以及 MoveIt 2、Nav2、Pinocchio/Crocoddyl/OCS2、Drake、MuJoCo 等运动学与控制栈的维护与发布状态？",
+        "rationale": "ROS 2 与运动学/控制库是工程落地主干，属于 frontier-watch 第 2、3 facet 的证据来源。需以官方 release note、官方文档与 GitHub 提交/star 活跃度为一手证据，而非二手解读。",
+        "queries": [
+          "ROS 2 Jazzy Kilted release notes ros2_control changes 2025",
+          "ros2_control hardware interface realtime controller manager 2025 site:github.com",
+          "Pinocchio Crocoddyl OCS2 GitHub release 2025 rigid body dynamics",
+          "MoveIt 2 Nav2 GitHub release notes 2025 2026"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 1–2 年（2024–2026），机器人运动学与控制的 SOTA 发生了什么变化：人形与四足的全身控制/移动操作（loco-manipulation）、仿真到真机的强化学习策略、以及 VLA/基础模型与底层控制器的接口方式，各自相对 2023 年前以 MPC + iLQR + 模块化规划-控制栈为基线的做法新增了什么？",
+      "queries": [
+        "humanoid whole-body control loco-manipulation reinforcement learning 2025 site:arxiv.org",
+        "sim-to-real humanoid locomotion 2024 2025 Isaac Lab MuJoCo Playground benchmark",
+        "vision-language-action policy low-level controller interface 2025 2026 arXiv cs.RO",
+        "real-time whole-body MPC humanoid 2024 2025 CoRL RSS ICRA"
+      ],
+      "rationale": "对应 frontier-watch 第 1 facet（进展与热点）。必须先固定基线才能谈增量，并须区分论文宣称、演示视频、榜单自评与独立复现/真机部署，避免把 demo 当实验证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+          "url": "http://arxiv.org/abs/2511.11218v4",
+          "snippet": "Humanoid robots have demonstrated strong capabilities for interacting with static scenes across locomotion and manipulation, yet dynamic real-world interactions remain challenging. As a step toward fast-moving object interactions, we present an RL training pipeline that yields a unified whole-body controller for humanoid badminton, coordinating footwork and striking without motion priors or expert demonstrations. In badminton, locomotion and striking are tightly coupled, making the final hitting objective difficult to optimize directly due to sparse rewards and conflicting gradients. We addre…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-14",
+          "authors": [
+            "Chenhao Liu",
+            "Leyun Jiang",
+            "Ningyuan Tian",
+            "Yibo Wang",
+            "Kairan Yao",
+            "Jinchen Fu",
+            "Xiaoyu Ren"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.11218v4",
+            "rrf_score": 0.035868,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum",
+          "url": "http://arxiv.org/abs/2605.21133v2",
+          "snippet": "In this paper, we explore spatial-aware humanoid whole-body manipulation task. Compared with tabletop settings, this task poses two key challenges: 1) Spatial understanding is challenging in complex 3D environments with diverse spatial relations. 2) Action generation is difficult to generalize, as limited and costly real-robot data restricts data-driven models generalization. To address these challenges, we propose a generalizable humanoid loco-manipulation framework that leverages the spatial perception and action generation capabilities of multi-agent large models. Specifically, our framewo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Zhizhao Liang",
+            "Yi-Lin Wei",
+            "Xuhang Chen",
+            "Mu Lin",
+            "Yi-Xiang He",
+            "Zhexi Luo",
+            "Jun-Hui Liu",
+            "Kun-Yu Lin",
+            "Wei-Shi Zheng"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21133v2",
+            "rrf_score": 0.034839,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+          "url": "http://arxiv.org/abs/2508.00162v2",
+          "snippet": "Recent advances in teleoperation have demonstrated robots performing complex manipulation tasks. However, existing works rarely support whole-body joint-level teleoperation for humanoid robots, limiting the diversity of tasks that can be accomplished. This work presents Controller for Humanoid Imitation and Live Demonstration (CHILD), a compact reconfigurable teleoperation system that enables joint level control over humanoid robots. CHILD fits within a standard baby carrier, allowing the operator control over all four limbs, and supports both direct joint mapping for full-body control and lo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-31",
+          "authors": [
+            "Noboru Myers",
+            "Obin Kwon",
+            "Sankalp Yamsani",
+            "Joohyung Kim"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.00162v2",
+            "rrf_score": 0.034026,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2607.20399v1",
+          "snippet": "Full-sized humanoid robot capabilities have grown exponentially in recent years, aiming towards general-purpose deployment in human environments. A popular control method used by manufacturers utilizes Virtual Reality for upper-body teleoperation and Reinforcement Learning for lower-body balance and locomotion control. As a result, a single remote operator can see, manipulate, and navigate about a real, distant physical environment. This powerful control stack is often relegated to expensive full-sized robots, many of which are inaccessible to the research community. Miniature humanoids are m…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-22",
+          "authors": [
+            "Nicolas Kosanovic",
+            "Jordan Dowdy",
+            "Jean Chagas Vaz"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.20399v1",
+            "rrf_score": 0.024194
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+            "evidence": "Humanoid robots have demonstrated strong capabilities for interacting with static scenes across locomotion and manipulation, yet dynamic real-world interactions remain challenging. As a step toward fast-moving object interactions, we present an RL training pipeline that yields a unified whole-body…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum",
+            "evidence": "In this paper, we explore spatial-aware humanoid whole-body manipulation task. Compared with tabletop settings, this task poses two key challenges: 1) Spatial understanding is challenging in complex 3D environments with diverse spatial relations. 2) Action generation is difficult to generalize, as…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+            "evidence": "Recent advances in teleoperation have demonstrated robots performing complex manipulation tasks. However, existing works rarely support whole-body joint-level teleoperation for humanoid robots, limiting the diversity of tasks that can be accomplished. This work presents Controller for Humanoid Imit…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning",
+            "evidence": "Full-sized humanoid robot capabilities have grown exponentially in recent years, aiming towards general-purpose deployment in human environments. A popular control method used by manufacturers utilizes Virtual Reality for upper-body teleoperation and Reinforcement Learning for lower-body balance an…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该领域的经典与奠基工作有哪些，构成当前增量判断的对照基线？包括刚体动力学算法（Featherstone 空间向量代数）、操作空间与全身控制理论（Khatib）、轨迹优化与最优控制（DDP/iLQR/MPC）、以及基于旋量与 SE(3) 的运动学数学基础。",
+      "queries": [
+        "Featherstone rigid body dynamics algorithms spatial vector algebra",
+        "Khatib operational space formulation whole body control manipulator",
+        "differential dynamic programming iLQR trajectory optimization robotics survey",
+        "Modern Robotics screw theory SE(3) kinematics Lynch Park"
+      ],
+      "rationale": "增量追踪必须先冻结基线，否则无法回答相对什么变新；这些工作也是判断新方法属于范式更新还是旧框架内工程改进的判据，并为后续条目提供权威证据（authority）来源。",
+      "round": 1,
+      "results": [
+        {
+          "title": "A Quantum-Compliant Formulation for Network Epidemic Control",
+          "url": "http://arxiv.org/abs/2509.00337v1",
+          "snippet": "We deal with controlling the spread of an epidemic disease on a network by isolating one or multiple locations by banning people from leaving them. To this aim, we build on the susceptible-infected-susceptible and the susceptible-infected-removed discrete-time network models, encapsulating a control action that captures mobility bans via removing links from the network. Then, we formulate the problem of optimally devising a control policy based on mobility bans that trades-off the burden on the healthcare system and the social and economic costs associated with interventions. The binary natur…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-30",
+          "authors": [
+            "Lorenzo Zino",
+            "Mattia Boggio",
+            "Deborah Volpe",
+            "Giacomo Orlandi",
+            "Giovanna Turvani",
+            "Carlo Novara"
+          ],
+          "venue": "eess.SY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.00337v1",
+            "rrf_score": 0.017442
+          }
+        },
+        {
+          "title": "The Relativistic Elasticity of Rigid Bodies",
+          "url": "http://arxiv.org/abs/physics/0307019v3",
+          "snippet": "In 1909 Born studied the \"relativistic undeformable body\" but made the mistake of calling it \"rigid\". The \"rigid body\" as one can find in Relativity books is, in fact, this Born \"undeformable body\". In Relativity it is necessary to distinguish between \"rigid\" and \"undeformable\". The \"undeformable\" body (in the sense of the most rigid possible) must be the \"deformable\" body where schock waves propagate with maximum speed c. We present in this text the elastic laws for rigid bodies. We think that these laws, which are ignored by the majority of relativists, should be taught in the elementary re…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2003-07-02",
+          "authors": [
+            "A. Brotas",
+            "J. C. Fernandes"
+          ],
+          "venue": "physics.gen-ph",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "0307019v3",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Ancestor ideals of vector spaces of forms, and level algebras",
+          "url": "http://arxiv.org/abs/math/0307281v1",
+          "snippet": "Let R be the polynomial ring in r variables over a field k, with maximal ideal M and let V denote a vector subspace of the space of degree-j homogeneous elements of R. We study three related algebras determined by V. The first is the ``ancestor algebra'' whose defining ideal is the largest graded ideal whose intersection with M^j is the ideal (V).\n  The second is the ``level algebra'', whose defining ideal L(V) is the largest graded ideal of R such that the degree-j component is V; and third is the algebra R/(V).\n  When r=2, we determine the possible Hilbert functions H for each of these alge…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2003-07-21",
+          "authors": [
+            "Anthony Iarrobino"
+          ],
+          "venue": "math.AC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "0307281v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Connection errors in networks of linear features and the application of geometrical reduction in spatial data algorithms",
+          "url": "http://arxiv.org/abs/1101.5410v4",
+          "snippet": "We present a study on connection errors in networks of linear features and methods of error detection. We model networks with special connection specifications as networks with hierarchically connected features and define errors considering the spatial relationships and the functionality of the network elements. A general definition of the problem of the detection of connection errors which takes into account the functionality of the network elements is discussed. Then a series of spatial algorithms that solve different aspects of the problem is presented. We also define and analyze the notio…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2011-01-27",
+          "authors": [
+            "Panteleimon Rodis"
+          ],
+          "venue": "cs.DS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1101.5410v4",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "候选证据集中不存在任何直接覆盖本子问题核心基线（Featherstone 空间向量代数/刚体动力学算法）的工作，唯一关键词命中的 [14] 属于相对论物理领域，而非机器人多体动力学。",
+            "evidence": "[14] 标题为《The Relativistic Elasticity of Rigid Bodies》，摘要讨论 Born 1909 的“relativistic undeformable body”命名问题及相对论弹性定律，明确面向相对论物理教学与概念澄清，未涉及关节体递推算法、空间向量（spatial vector）6D 表示或浮基系统动力学。",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2003",
+            "heat": "",
+            "authority": "arXiv 预印本（physics.gen-ph），页面未给出同行评审 venue",
+            "attention": "低 + 主题错配，仅为“rigid body”关键词召回，无任何机器人学社区热度信号",
+            "recommendation": "★☆☆☆☆ + 与具身智能动力学基线无关，不建议纳入文献综述"
+          },
+          {
+            "point": "候选集中出现“控制/最优控制”类关键词的 [22]，其对象是网络传染病隔离策略，属于复杂网络与量子计算交叉方向，不能作为 DDP/iLQR/MPC 轨迹优化基线的证据。",
+            "evidence": "[22] 摘要说明其基于 SIS/SIR 离散时间网络模型，用“删除网络连边”表示流动性禁令，控制问题因二进制决策而 NP-hard，因而采用 quantum-compliant 形式化；全文未涉及机器人轨迹优化、微分动态规划、非线性最优控制或机械臂/人形系统。",
+            "sources": [
+              22
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（eess.SY），2025-08-30 提交，非机器人学 venue",
+            "attention": "低 + 尽管为 2025 年新论文，但领域错配，无法作为具身智能最优控制基线的对照",
+            "recommendation": "★☆☆☆☆ + 仅可作“控制”关键词误召回的示例，不建议引用"
+          },
+          {
+            "point": "候选集中带有“向量空间/几何/网络”数学关键词的 [15][16] 分别属于交换代数与空间数据算法，不构成 SE(3)/旋量运动学的数学基础证据。",
+            "evidence": "[15] 研究多项式环上的 ancestor algebra 与 level algebra，属 math.AC 交换代数；[16] 研究线状要素网络的连接错误检测与几何归约，属 cs.DS 空间数据算法。二者均无李群/李代数、SE(3)、螺旋理论或刚体变换内容。",
+            "sources": [
+              15,
+              16
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2003",
+            "heat": "",
+            "authority": "arXiv 预印本（math.AC 2003；cs.DS 2011），均非机器人学同行评审 venue",
+            "attention": "低 + 与旋量/SE(3) 仅存在字面“vector space / geometrical”层面的表层相似",
+            "recommendation": "★☆☆☆☆ + 数学分支完全不同，不应作为运动学数学基础引用"
+          },
+          {
+            "point": "本子问题所需的四类经典基线（刚体动力学算法、操作空间与全身控制、DDP/iLQR/MPC 轨迹优化、旋量与 SE(3) 运动学）在当前候选池中覆盖率为 0/4。",
+            "evidence": "候选池共 4 条（[22][14][15][16]），逐条核对标题与摘要后：无任一条讨论关节空间/操作空间动力学、全身控制或零空间投影；无任一条涉及微分动态规划、iLQR、模型预测控制或最优控制 Riccati 递推；无任一条涉及李群/螺旋理论形式的刚体变换。子问题点名的 Featherstone 与 Khatib 相关代表作均未出现在候选集中。",
+            "sources": [
+              22,
+              14,
+              15,
+              16
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "本判断基于候选块自身内容（标题+摘要）核对，不依赖外部来源",
+            "attention": "低 + 候选池与本子问题主题完全不匹配，属检索环节的关键词漂移",
+            "recommendation": "★★★☆☆ + 作为“检索缺口”结论高价值：提示必须重新构造检索式（见 open_problems），而非继续在现有候选上抽取"
+          },
+          {
+            "point": "在现有候选证据下，无法给出该领域经典/奠基工作的增量对照基线，任何具体论文标题、年份或引用数若被列出都将是无来源支撑的编造。",
+            "evidence": "候选块中未出现 citations 或 stars 字段，也未给出任何 robotics（cs.RO）venue 或专著条目；仅 [22] 附带 2025-08-30 提交时间，[14] 为 2003-07-02 提交（v3 于 2003-11-05 修订），其余两条分别为 2003-07-21 与 2011-01-27。",
+            "sources": [
+              22,
+              14,
+              15,
+              16
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "基于候选块元数据（提交日期/分类/venue 字段）核对",
+            "attention": "低 + 无热度信号可提取",
+            "recommendation": "★☆☆☆☆ + 作为“不可下结论”的负面结论记录，避免下游环节误用"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据池与本子问题完全不匹配（0/4 相关），四类基线均无覆盖：需要重新检索 Featherstone 空间向量代数/刚体动力学算法类文献，候选集中无对应条目。",
+          "操作空间与全身控制理论（Khatib 系）在候选集中完全缺失，无法形成对照基线。",
+          "轨迹优化与最优控制（DDP/iLQR/MPC）在候选集中完全缺失；[22] 虽属 eess.SY 控制方向，但对象为网络传染病控制，不可替代。",
+          "基于旋量与 SE(3) 的运动学数学基础在候选集中完全缺失；[15][16] 的代数/几何关键词为表层相似，不构成数学基础证据。",
+          "候选块均未提供 citations / stars / 会议 venue 字段，导致 heat 与 authority 两个证据轴在本轮抽取中不可填充，需在补充检索时同步获取（arXiv 引用数、GitHub star、出版 venue）。",
+          "建议的补充检索式（待执行、未验证）：site:arxiv.org rigid body dynamics algorithms spatial vector algebra；site:arxiv.org operational space control whole-body control Khatib；site:arxiv.org differential dynamic programming iLQR model predictive control robotics；screw theory SE(3) rigid body kinematics robot manipulation。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "开源项目与工程实践现状如何：ROS 2 发行版（Humble/Iron/Jazzy/Kilted 及后续 LTS）在实时性、中间件（DDS 实现、Zenoh、micro-ROS）与 ros2_control 上的变化，以及 MoveIt 2、Nav2、Pinocchio/Crocoddyl/OCS2、Drake、MuJoCo 等运动学与控制栈的维护与发布状态？",
+      "queries": [
+        "ROS 2 Jazzy Kilted release notes ros2_control changes 2025",
+        "ros2_control hardware interface realtime controller manager 2025 site:github.com",
+        "Pinocchio Crocoddyl OCS2 GitHub release 2025 rigid body dynamics",
+        "MoveIt 2 Nav2 GitHub release notes 2025 2026"
+      ],
+      "rationale": "ROS 2 与运动学/控制库是工程落地主干，属于 frontier-watch 第 2、3 facet 的证据来源。需以官方 release note、官方文档与 GitHub 提交/star 活跃度为一手证据，而非二手解读。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Resources — ROS2_Control: Rolling Oct 2026 documentation",
+          "url": "https://control.ros.org/rolling/doc/resources/resources.html",
+          "snippet": "The ros2_control project update returns for another year, many releases and merged pull requests later. Bence will walk you through what shipped since last ...",
+          "engine": "searxng",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.020053,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "PINOCCHIO and the hierarchical build-up of dark matter haloes",
+          "url": "http://arxiv.org/abs/astro-ph/0109324v1",
+          "snippet": "We study the ability of PINOCCHIO (PINpointing Orbit-Crossing Collapsed HIerarchical Objects) to predict the merging histories of dark matter (DM) haloes, comparing the PINOCCHIO predictions with the results of two large N-body simulations run from the same set of initial conditions. We focus our attention on quantities most relevant to galaxy formation and large-scale structure studies. PINOCCHIO is able to predict the statistics of merger trees with a typical accuracy of 20 per cent. Its validity extends to higher-order moments of the distribution of progenitors. The agreement is valid also…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2001-09-19",
+          "authors": [
+            "G. Taffoni",
+            "P. Monaco",
+            "T. Theuns"
+          ],
+          "venue": "astro-ph",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "0109324v1",
+            "rrf_score": 0.016129
+          }
+        },
+        {
+          "title": "The Relativistic Elasticity of Rigid Bodies",
+          "url": "http://arxiv.org/abs/physics/0307019v3",
+          "snippet": "In 1909 Born studied the \"relativistic undeformable body\" but made the mistake of calling it \"rigid\". The \"rigid body\" as one can find in Relativity books is, in fact, this Born \"undeformable body\". In Relativity it is necessary to distinguish between \"rigid\" and \"undeformable\". The \"undeformable\" body (in the sense of the most rigid possible) must be the \"deformable\" body where schock waves propagate with maximum speed c. We present in this text the elastic laws for rigid bodies. We think that these laws, which are ignored by the majority of relativists, should be taught in the elementary re…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2003-07-02",
+          "authors": [
+            "A. Brotas",
+            "J. C. Fernandes"
+          ],
+          "venue": "physics.gen-ph",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "0307019v3",
+            "rrf_score": 0.015957
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "ros2_control 在 ROS 2 Rolling 上持续演进，最新公开方向聚焦「异步硬件驱动」与「RL 推理引擎」的集成",
+            "evidence": "ROS2_Control Rolling 文档的 Resources 页列出 2026-09 ROSCon 2026 Workshop：「Scaling ros2_control: From Async Hardware Drivers to RL Inference Engines」；页面同时列出 2025-10 ROSCon 2025 / 2025-09 ROSCon UK Workshop、2024-10 ROSCon 2024 Workshop: Fun with Controllers、2023-10-18 ROSCon Workshop: ros2_control on Steroids 等历年 workshop，显示该项目逐年有官方更新与社区演进",
+            "sources": [
+              32
+            ],
+            "type": "project",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "control.ros.org 为 ros2_control 项目官方文档站点（ROS 2 官方生态），Rolling 为开发版分支",
+            "attention": "中 + 依据：ROSCon 2026（2026-09）为 ros2_control 设立专题 workshop，且该页显示 2023→2026 连续多年有 ros2_control 专题会议活动；候选块未给出 star/引用数等量化热度",
+            "recommendation": "★★★★☆ + ros2_control 是 ROS 2 官方控制框架，本条目直接命中子问题中「ros2_control 上的变化」，且给出了最新的官方 workshop 议程方向（异步驱动 + RL 推理）"
+          },
+          {
+            "point": "ros2_control 以「Release Notes + Migration Guides」的形式维护跨发行版变更说明，为 Humble/Iron/Jazzy/Kilted 等版本间的迁移提供官方文档路径",
+            "evidence": "该 Resources 页面的目录结构中包含「Release Notes」与「Migration Guides」两个独立章节，以及 API Documentation、Supported Robots、Project Governance 等板块；说明项目对版本发布与迁移有官方文档化流程",
+            "sources": [
+              32
+            ],
+            "type": "project",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "ros2_control 官方文档（Rolling 开发版）章节结构，非第三方转述",
+            "attention": "低 + 依据：仅为文档目录结构信号，候选块未提供各发行版具体变更条目或版本号，无法判断社区讨论热度",
+            "recommendation": "★★★☆☆ + 指出可核实的官方入口（Release Notes / Migration Guides），但要回答「具体哪个发行版改了什么」仍需另行打开该章节，本条仅为线索"
+          },
+          {
+            "point": "社区通过 Google Summer of Code 2026 立项，把「Physical AI 推理」与「轨迹上采样」接入 ros2_control",
+            "evidence": "Resources 页 Google Summer of Code 区块列出：2026: Physical AI Inference and Trajectory Upscaling for ros2_control（GSoC 2026: Physical AI Inference and Trajectory Upscaling）",
+            "sources": [
+              32
+            ],
+            "type": "project",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "ros2_control 官方文档列出的 GSoC 项目条目（社区/官方项目页），非同行评审论文",
+            "attention": "中 + 依据：GSoC 立项意味着有具体的年度工程投入与社区参与名额，且选题（物理 AI 推理）与当前 VLA/具身智能热点一致；候选块无量化热度数据",
+            "recommendation": "★★★☆☆ + 是「控制栈如何接纳学习型策略推理」的可跟踪信号，但当前仅有项目名，价值取决于后续产出，需持续跟踪"
+          },
+          {
+            "point": "候选证据未覆盖 DDS 实现、Zenoh、micro-ROS、MoveIt 2、Nav2、Pinocchio/Crocoddyl/OCS2、Drake、MuJoCo 的维护与发布状态，亦未覆盖 Humble/Iron/Jazzy/Kilted 各发行版实时性细节，本子问题大部分维度无法从现有证据回答",
+            "evidence": "候选块共 3 条：[32] 为 ros2_control Rolling 文档 Resources 页（仅覆盖 ros2_control 项目资源与会议/培训列表）；[34] 为天体物理论文 arXiv:astro-ph/0109324v1《PINOCCHIO and the hierarchical build-up of dark matter haloes》（Submitted on 19 Sep 2001），是射电天文学中的 PINOCCHIO 算法，与机器人学 Pinocchio 刚体动力学库仅同名、内容无关；[14] 为 arXiv:physics/0307019v3《The Relativistic Elasticity of Rigid Bodies》（2003-07-02），属相对论弹性力学，与 ROS 2 控制栈无关。三条候选均未涉及 DDS/Zenoh/micro-ROS/MoveIt 2/Nav2/Drake/MuJoCo 等",
+            "sources": [
+              32,
+              34,
+              14
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "证据可得性陈述（基于候选块内容本身，非第三方论断）",
+            "attention": "低 + 依据：这是一条证据缺口说明，不构成领域热度信号",
+            "recommendation": "★★★☆☆ + 明确标注检索缺口与同名论文误召回（[34] 的 PINOCCHIO 与 Pinocchio 库无关），避免后续把天文学论文误当作机器人库证据引用"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [
+          {
+            "name": "ros2_control（ROS 2 官方控制框架，Rolling 分支文档）",
+            "url": "https://control.ros.org/rolling/doc/resources/resources.html",
+            "why": "子问题直接关注的 ros2_control 项目官方文档入口：提供 Release Notes、Migration Guides、API 文档、仿真器集成（Simulator Integrations）、Supported Robots 等章节，并汇总历年 ROSCon workshop 与 GSoC 项目，是判断该项目维护与演进状态的权威一手来源",
+            "heat": "",
+            "authority": "ROS 2 官方生态项目文档（control.ros.org），维护方为 ros2_control 项目治理组（页面含 Project Governance / Contributing 章节）",
+            "attention": "中 + 依据：2023-2026 连续多年在 ROSCon 设有 ros2_control 专题 workshop（最近一次为 2026-09 ROSCon 2026），项目处于持续更新状态；候选块未提供 star 数等量化指标",
+            "recommendation": "★★★★★ + 与本子问题（ROS 2 控制栈现状）高度相关且为官方一手文档，应作为回答该问题的首要信息来源"
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "Humble / Iron / Jazzy / Kilted 及后续 LTS 各自的实时性改动、支持终止（EOL）日期与内核/SCHED_FIFO 等配置差异，候选证据完全未覆盖，需查 REP 2000 与各发行版官方文档",
+          "DDS 实现选型（Fast DDS / Cyclone DDS / RTI Connext 等）、Zenoh 桥接、micro-ROS 的当前状态与性能数据，候选证据未覆盖",
+          "ros2_control 在 Rolling 上的具体 Release Notes / Migration Guides 条目内容（如异步硬件驱动接口、控制器变更），候选块仅给出章节存在性，未给出条目细节",
+          "MoveIt 2、Nav2 的发行版与维护状态（发布节奏、维护者、与最新 ROS 2 LTS 的兼容性）在候选中无任何证据",
+          "Pinocchio / Crocoddyl / OCS2 / Drake / MuJoCo 的版本与维护状态无候选证据；注意 [34] 是 2001 年天体物理论文的 PINOCCHIO（暗物质晕并合历史），与机器人 Pinocchio 库同名但无关，属于检索误召回，不可引用为技术证据",
+          "本子问题各维度是否存在近一年（2025-10 至 2026-10）的实质变化，因候选证据仅 1 条有效（[32]）且无量化数据，无法判定，需补充 ros2_control 仓库提交/发布记录与各中间件官方仓库的 stars、最近提交、release tag 等可量化信号"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 7,
+    "prompt_tokens": 41480,
+    "completion_tokens": 27989,
+    "generated_at": "2026-10-07T22:12:36.201045+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 机器人运动学、控制与 ROS 2：2024–2026 增量调研报告\n\n**日期**：2026-10-07（UTC）\n**领域**：Robotics Kinematics / Control / ROS 2（含 humanoid whole-body control、loco-manipulation、sim-to-real RL、VLA–低层控制器接口）\n**检索源数量**：34 条候选来源（编号 [1]–[34]）\n**证据基线说明**：本报告严格只引用 [1]–[34]。候选池中存在大量**关键词漂移误召回**（相对论弹性力学 [14]、交换代数 [15][17][20][21]、空间数据算法 [16]、网络传染病控制 [22]、天体物理 PINOCCHIO [34]、以及 2025 年各类 CV/NLP/Audio 挑战赛 [24]–[31]、[33]），这些条目**不可**作为机器人学证据；凡本主题证据缺失处一律标注 `> 待核实`，**不编造引用数、star 数与榜单排名**。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量判断**：相对 2023 年以前「MPC + iLQR + 模块化规划-控制栈」的基线，2024–2026 的真实增量集中在**用 RL/扩散策略统一全身（whole-body）控制与 loco-manipulation**、**视觉–本体感知的多模态策略**、以及**VLA/基础模型作为高层、学习型控制器作为底层的分层接口**；但本批证据中**几乎全部为 arXiv 预印本（B 级）**，缺少独立第三方复现与统一榜单，SOTA 归属 `> 待核实`。\n\n### 1.1 最新进展（近 1–2 年，2024–2026）\n\n| 名称 | 时间 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum | 2025 | 未给出（arXiv cs.RO）[1] | > 待核实（候选块无 citations）[1] | arXiv 预印本，cs.RO，未见同行评审 venue [1] | 中（动态全身交互为当前热点方向）[1] | ★★★★☆ 代表「RL 课程学习 → 快速运动物体全身交互」新范式 [1] | http://arxiv.org/abs/2511.11218v4 | 用退火式 RL 课程训练统一全身策略，面向**运动物体**（羽毛球）交互，超出静态场景操作 [1] |\n| Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum | 2026 | 未给出（arXiv cs.RO）[2] | > 待核实 [2] | arXiv 预印本，cs.RO [2] | 中（\"空间大脑 + 动作小脑\"分层与 VLA 叙事同频）[2] | ★★★★☆ 直接把高层空间理解与低层动作生成**解耦为两个模块**，是本主题「接口方式」的关键样本 [2] | http://arxiv.org/abs/2605.21133v2 | 明确针对 3D 复杂空间关系理解 + 动作泛化两大难点，属分层（brain/cerebellum）架构 [2] |\n| CHILD: Controller for Humanoid Imitation and Live Demonstration | 2025 | 未给出（arXiv cs.RO）[3] | > 待核实 [3] | arXiv 预印本，cs.RO [3] | 中（全身关节级遥操作为人形数据采集刚需）[3] | ★★★★☆ 指出既有遥操作「很少支持全身关节级」，填补真机数据采集缺口 [3] | http://arxiv.org/abs/2508.00162v2 | 全身人形遥操作系统，面向模仿学习/实时示教的控制器 [3] |\n| The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control | 2024 | 未给出（arXiv cs.RO）[4] | > 待核实 [4] | arXiv 预印本，cs.RO [4] | 中（域随机化 × 扩散策略的组合是 sim-to-real 核心疑点）[4] | ★★★★☆ 直接检验\"域随机化对扩散策略是否必要/有效\"，属方法归因类工作 [4] | http://arxiv.org/abs/2411.01349v1 | 主题为 domain randomization 在 diffusion policy 全身人形控制中的作用（据标题）[4] |\n| ULTRA: Unified Multimodal Control for Autonomous Humanoid Whole-Body Loco-Manipulation | 2026 | 未给出（arXiv cs.RO）[6] | > 待核实 [6] | arXiv 预印本，cs.RO [6] | 中（\"统一多模态控制\"直指模块化栈被替代）[6] | ★★★★☆ 与本题「相对 2023 模块化栈新增什么」最直接相关 [6] | http://arxiv.org/abs/2603.03279v2 | 统一多模态控制的自主全身 loco-manipulation（据标题）[6] |\n| ViLoMan: Learning Visual-Proprioceptive Whole-Body Loco-Manipulation Skills | 2026 | 未给出（arXiv cs.RO）[7] | > 待核实 [7] | arXiv 预印本，cs.RO [7] | 中（视觉+本体感知融合为近年主流配方）[7] | ★★★★☆ 代表「视觉–本体感知技能学习」路线 [7] | http://arxiv.org/abs/2609.19340v1 | 视觉-本体感知全身 loco-manipulation 技能学习（据标题）[7] |\n| Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning | 2026 | 未给出（arXiv cs.RO）[5] | > 待核实 [5] | arXiv 预印本，cs.RO [5] | 中（揭示了厂商主流做法：VR 上半身 + RL 下半身）[5] | ★★★★☆ 明确描述「VR 遥操上体 + RL 平衡下体」的工业界现实控制架构 [5] | http://arxiv.org/abs/2607.20399v1 | 摘要指出制造商常用方案为 VR 上半身遥操作 + RL 下半身平衡 [5] |\n| Learning Humanoid Standing-up Control across Diverse Postures | 2025 | 未给出（arXiv cs.RO）[8] | > 待核实 [8] | arXiv 预印本，cs.RO [8] | 中 | ★★★☆☆ 面向跌倒恢复这一\"非结构化长尾能力\"[8] | http://arxiv.org/abs/2502.08378v2 | 多样姿态起身控制（据标题）[8] |\n| Sim-to-Real Transfer in Deep Reinforcement Learning for Bipedal Locomotion | 2025 | 未给出（arXiv cs.RO）[9] | > 待核实 [9] | arXiv 预印本，cs.RO [9] | 中 | ★★★★☆ sim-to-real 迁移是本节所有工作的共同瓶颈 [9] | http://arxiv.org/abs/2511.06465v1 | 双足 locomotion 的深度 RL sim-to-real 迁移（据标题）[9] |\n| Learning Sim-to-Real Humanoid Locomotion in 15 Minutes | 2025 | 未给出（arXiv cs.RO）[10] | > 待核实 [10] | arXiv 预印本，cs.RO [10] | 中（\"15 分钟\"是极强的效率宣称，需第三方复现）[10] | ★★★★☆ 训练效率的数量级宣称，是判断拐点的关键信号（但**未获独立验证**）[10] | http://arxiv.org/abs/2512.01996v1 | 宣称 15 分钟内完成 sim-to-real 人形 locomotion 学习 [10] |\n| Isaac Sim-to-Real: Reinforcement Learning based Locomotion for Quadrupeds | 2026 | 未给出（arXiv cs.RO）[12] | > 待核实 [12] | arXiv 预印本，cs.RO [12] | 中 | ★★★☆☆ 四足 sim-to-real 在 Isaac 生态内的工程化复现样本 [12] | http://arxiv.org/abs/2607.18135v1 | 基于 Isaac 的四足 RL locomotion sim-to-real（据标题）[12] |\n| Robust Visuomotor Control for Humanoid Loco-Manipulation Using Hybrid Reinforcement Learning | 2025 | 未给出（DOI 指向 MDPI *Biomimetics*）[11] | > 待核实 [11] | **同行评审期刊**（MDPI Biomimetics，DOI:10.3390/biomimetics10070469），本批中唯一非预印本 [11] | 中（B 级以上证据，但 MDPI 期刊影响力需另评）[11] | ★★★★☆ 本批证据中**权威等级最高**的一条：混合 RL + 视觉运动控制 [11] | https://doi.org/10.3390/biomimetics10070469 | 混合 RL 的人形 loco-manipulation 视觉运动控制器 [11] |\n\n**相对 2023 基线的三条实质增量**（每条均标注证据强度）：\n\n1. **控制范式：从「模型 → 优化」转向「策略 → 学习」**。2024–2026 的工作普遍以 RL/模仿学习策略承担全身协调，而非在线求解 MPC/iLQR [1][6][7][11]。**证据强度：中**——全部为论文自述，未见与 MPC 基线的同条件 head-to-head 对比 → 具体性能差值 `> 待核实`。\n2. **架构范式：模块化规划-控制栈被「分层/统一多模态」替代**。[2] 明确采用「空间大脑（高层理解）+ 动作小脑（低层泛化动作）」两段式；[6] 直接以 \"Unified Multimodal Control\" 命名。**证据强度：中**，均为 arXiv 预印本 [2][6]。\n3. **交互对象：从静态场景扩展到动态/快速运动物体**。[1] 以羽毛球（badminton）全身交互为任务，明确区别于既有静态场景操作。**证据强度：低**（单篇、无第三方复现）[1]。\n\n### 1.2 与 VLA / 基础模型的接口方式\n\n- **VLA 侧规模跃升信号**：Xiaomi-Robotics-1 宣称以「超过 100K 小时真实世界轨迹」扩展 VLA 模型（2026）[13]。热度：> 待核实（候选块无 citations/stars）[13]；权威：arXiv 预印本 [13]；关注度：**高**（超大规模真机数据 + 厂商参与，属当前具身智能最热叙事）[13]；推荐度 ★★★★★（直接命中\"VLA 与底层控制器接口\"子问题，但**数据规模宣称未获独立审计**）[13]。\n- **接口方式的具体形态**：本批证据显示两条路线——(a) 高层语义/空间理解 + 低层可泛化动作生成的分层接口 [2]；(b) 面向控制器侧的「策略推理引擎」化，即把学习型策略作为控制器管线中的一等公民（见 §2 ros2_control 的 RL inference engine 方向）[32]。\n- **接口的量化评测**：候选池中**无任何**同时覆盖 VLA 高层与底层控制器、并在统一基准上对比的条目 → `> 待核实`。\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量判断**：可核查的工业界证据仅两条——**厂商级 VLA 数据规模化** [13] 与 **ROS 2 官方控制框架 ros2_control 正在主动接纳 RL 推理** [32]；其余产品化、量产、部署数量均 `> 待核实`。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Xiaomi-Robotics-1（100K+ 小时真机轨迹的 VLA） | 2026 | Xiaomi（据标题）[13] | > 待核实 [13] | arXiv 预印本，非同行评审 [13] | 高（大厂 + 100K 小时真机数据，为当前最强叙事之一）[13] | ★★★★★ 判断\"VLA 是否进入数据规模竞赛\"的一手信号 [13] | http://arxiv.org/abs/2607.15330v2 | 以 10 万+ 小时真实轨迹扩展 VLA；**数据口径与真机部署量待核实** [13] |\n| ros2_control（Rolling 文档 / 官方生态） | 2026 | ros2_control 项目治理组（control.ros.org）[32] | > 待核实（无 star/下载数）[32] | **官方文档**（ROS 2 官方生态项目，含 Project Governance / Release Notes / Migration Guides 章节）[32] | 中（2023→2026 连续多年 ROSCon 专题 workshop，最近为 2026-09 ROSCon 2026）[32] | ★★★★★ 回答「ROS 2 控制栈现状」的首要一手来源 [32] | https://control.ros.org/rolling/doc/resources/resources.html | 见 §开源项目表 |\n| 「VR 上半身遥操 + RL 下半身平衡」的制造商主流方案 | 2026 | 未给出 [5] | > 待核实 [5] | arXiv 预印本 [5] | 中 | ★★★★☆ 摘要直接陈述**制造商在用**的控制架构，是本报告少见的\"工业实态\"证据 [5] | http://arxiv.org/abs/2607.20399v1 | 原文：manufacturers 常用 VR 上体遥操作 + RL 下体平衡 [5] |\n| 全身关节级遥操作产品形态 | 2025 | 未给出 [3] | > 待核实 [3] | arXiv 预印本 [3] | 中 | ★★★★☆ 全身遥操作是人形真机数据采集的产业化前置条件 [3] | http://arxiv.org/abs/2508.00162v2 | 指出既有工作很少支持全身关节级遥操 [3] |\n| 训练效率产品化宣称（\"15 分钟\"） | 2025 | 未给出 [10] | > 待核实 [10] | arXiv 预印本（**仅有宣称**）[10] | 中 | ★★★☆☆ 若被复现则显著降低工程成本，当前仅单方宣称 [10] | http://arxiv.org/abs/2512.01996v1 | 见 §4 拐点信号 |\n\n**工业界证据缺口（必须显式声明）**：\n- 无任何候选来源覆盖**人形/四足的出货量、量产计划、客户部署数、商业合同或定价** → `> 待核实`。\n- 无任何候选来源覆盖 **MoveIt 2 / Nav2 的工业采用率** → `> 待核实`。\n- 唯一可确认的\"官方级\"工程信号来自 ros2_control 官方文档 [32]；**厂商官方博客、技术报告、发布会材料在本批候选中为 0 条**。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量判断**：本主题最大的、可由证据直接指认的缺口有三类——**评测/基线的结构性缺失**、**ros2_control 与学习型策略的接口尚未标准化** [32]、以及**经典动力学基线与现代 RL 全身控制的桥接研究近乎空白**（候选池覆盖 0/4）[14][15][16][22]。\n\n### 3.1 经典与奠基性工作（作为增量对照的基线）\n\n> 说明：q2 子问题的候选池（[14][15][16][22]）与四类经典基线**完全错配，覆盖率 0/4** [14][15][16][22]。全批来源中**唯一**真正对应该基线的条目是 [23]（Featherstone 体系的 Spatial Vector Algebra 章节）。因此下表**只能给出一行可信条目，其余为证据缺口**。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Spatial Vector Algebra（刚体动力学算法，空间向量 6D 代数） | > 待核实（Springer 版本，DOI 前缀 1-4899 对应 2014 重印）| Roy Featherstone（据 DOI 所属专著）| > 待核实（候选块未给 citations）[23] | 学术专著章节（Springer），非预印本 [23] | 中（机器人动力学教材级基础，长期被引用语境）[23] | ★★★★★ 本批**唯一**可信的经典动力学基线锚点 [23] | https://doi.org/10.1007/978-1-4899-7560-7_2 | 空间向量代数：关节体递推动力学（RNEA/CRBA）与浮基系统的数学基础 [23] |\n| Khatib 操作空间 / 全身控制（operational space & whole-body control） | — | — | > 待核实 | > 待核实 | — | — | > 待核实 | **候选池 0 条覆盖** [14][15][16][22]，需重新检索 |\n| DDP / iLQR / MPC 轨迹优化与最优控制 | — | — | > 待核实 | > 待核实 | — | — | > 待核实 | 候选池 0 条覆盖；[22] 虽属 eess.SY「控制」但对象为网络传染病隔离，**不可替代** [22] |\n| 旋量 / SE(3) 运动学数学基础 | — | — | > 待核实 | > 待核实 | — | — | > 待核实 | [15][16] 仅为\"vector space / geometrical\"字面相似，属交换代数与空间数据算法，**不构成数学基础证据** [15][16] |\n| 刚体旋转不变量（Euler 角） | 2016 | 未给出 [18] | > 待核实 [18] | arXiv 预印本（非机器人学 venue）[18] | 低 | ★★☆☆☆ 仅与刚体旋转数学相关，**不覆盖**递推动力学与最优控制 [18] | http://arxiv.org/abs/1601.04526v1 | 固定点刚体旋转不变量（欧拉角），可作为数学侧旁证，非控制基线 |\n\n### 3.2 蓝海缺口（可操作的无人区）\n\n1. **RL 全身控制与经典动力学基线的桥接研究缺失**：2024–2026 的全身控制工作 [1][2][6][7][11] 与 Featherstone 空间向量代数 [23] 之间**没有出现在同一候选来源中**；是否存在「以空间向量代数/操作空间控制作为 RL 先验或对照」的工作，本批证据无法回答 → `> 待核实`。这是本报告识别出的**最高杠杆学术空白**。\n2. **ros2_control 的学习型策略接口尚未标准化**：官方侧仅以 GSoC 2026 项目「Physical AI Inference and Trajectory Upscaling for ros2_control」与 2026-09 ROSCon workshop「Scaling ros2_control: From Async Hardware Drivers to RL Inference Engines」给出**方向性信号**，尚无标准接口规范 [32]。关注度：**中**（有明确年度工程投入与会议议程）[32]；推荐度 ★★★★☆（控制栈 × 学习策略的标准化是最接近落地的空白）[32]。\n3. **全身 loco-manipulation 的统一评测缺失**：候选池中**没有任何数据集或基准来源**（见 §数据集与基准表），因此 [1][2][6][7] 之间的能力无法横向比较 → `> 待核实`。\n4. **真机数据采集瓶颈的补位机会**：全身关节级遥操作被明确指认为既有工作的稀缺能力 [3]，而 VLA 侧又在索要 100K 小时量级真机轨迹 [13] → 二者张力构成明确工程空白（本报告判断，依据链见 §7）。\n5. **检索/术语治理缺口（元层面）**：本批候选中，机器人 Pinocchio 库被天体物理 PINOCCHIO 论文 [34] 误召回，且 [24]–[31]、[33] 为 2025 年各类视觉/NLP/音频挑战赛噪声 → 说明主题检索式严重污染，**任何基于本批未精检候选的\"最新进展\"结论都应降级** [24][25][26][29][30][31][33][34]。\n\n### 3.3 数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| > 待核实 | — | — | > 待核实 | > 待核实 | — | — | > 待核实 | **候选池 [1]–[34] 中不存在任何数据集/基准来源**：无 Open X-Embodiment / DROID / LIBERO / SimplerEnv / RoboArena 等条目 |\n| > 待核实 | — | — | > 待核实 | > 待核实 | — | — | > 待核实 | 因此本报告**无法**给出任何仿真 SOTA vs 真机 SOTA 的对比，亦无法判断评测口径（任务数、本体数、成功率）[1][2][6][7][11][13] |\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n**一句话增量判断**：当前瓶颈从\"算法能力\"转移到**评测可信度**与**训练/迁移成本**；拐点信号（\"15 分钟 sim-to-real\" [10]）已出现但**仅有单方宣称，未获独立验证**，故拐点判定为 `推测`。\n\n| # | 瓶颈 | 证据 | 是否临近拐点 | 拐点信号（可观测） |\n|---|---|---|---|---|\n| 1 | **sim-to-real 迁移仍是共同瓶颈** | [9] 专题研究双足 sim-to-real；[12] 四足 Isaac sim-to-real；[4] 检验域随机化对扩散策略的作用 [4][9][12] | 推测 | 若出现「同一策略在 ≥2 种本体上零样本迁移且被第三方复现」→ 判定成立；当前 `> 待核实` |\n| 2 | **训练成本** | [10] 宣称 15 分钟完成 sim-to-real 人形 locomotion [10] | 推测（单方宣称） | 若 2027 年前有独立团队复现同等量级训练时长 → 判定成立 [10] |\n| 3 | **评测与可信度** | 候选池 **无任何基准/榜单来源**；[1][2][6][7] 均为自评 | 未见拐点 | 需出现统一 benchmark 的第三方排名 → `> 待核实` |\n| 4 | **实时性与中间件（DDS / Zenoh / micro-ROS / LTS 实时性）** | 候选池 **0 条覆盖** → [32] 仅提供官方文档入口 | 未知 | 需 REP 2000 与各发行版官方文档证据 → `> 待核实`（**关键缺口**）[32] |\n| 5 | **控制栈与学习策略的集成复杂度** | [32] 以 2026 GSoC「Physical AI Inference and Trajectory Upscaling」与 2026-09 ROSCon workshop「Async Hardware Drivers → RL Inference Engines」为方向 [32] | 中（有官方议程，尚无标准） | 若 ros2_control 发布官方 RL 推理接口规范并进入 LTS → 判定成立 [32] |\n| 6 | **数据采集人力成本** | [3] 指出全身关节级遥操作稀缺；[13] 需求 100K+ 小时真机轨迹 [3][13] | 中 | 若出现可规模化的全身遥操作/自动标注管线 → 判定成立 [3][13] |\n\n**方法论风险（元瓶颈）**：本批候选中 [24]–[31]、[33] 为与主题无关的 2025 年挑战赛/QA 论文，[34] 为 2001 年天体物理 PINOCCHIO 论文（与机器人 Pinocchio **仅同名**）→ 若下游环节不做同名消歧，将产生**系统性误引**。此为本报告明确点出的知识治理瓶颈 [24][25][29][30][31][33][34]。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量判断**：**本周期在本批证据中无显著可核查变化**——候选池 34 条中**没有**任何监管文件、标准（ISO/IEEE/REP 类）、政府政策、出口管制、供应链或劳动影响的一手来源。\n\n- **监管与标准**：`> 待核实`——无候选来源覆盖欧盟 AI Act、ISO 10218/ISO/TS 15066、或任何机器人安全标准更新。\n- **国际/地缘与供应链**：`> 待核实`——无候选来源覆盖芯片/减速器/灵巧手供应链或出口限制。\n- **伦理与人机信任（弱相关线索）**：TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 [28] 属人机交互中的信任/可信度 workshop，可作为**社会接受度研究**的方向性旁证，但与运动学/控制/ROS 2 **不直接相关**。热度：> 待核实 [28]；权威：workshop（RO-MAN 2025 附属），非正式论文 [28]；关注度：低 [28]；推荐度 ★★☆☆☆（仅作社会维度线索）[28]。\n- **劳动影响**：`> 待核实`——无证据。\n- **说明**：按 frontier-watch 纪律，本维度**不凑字数**，明确记录为「本周期无显著变化 / 证据缺失」。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：仅能确认两类生态信号——**大厂以超大规模真机数据投入 VLA** [13] 与 **ROS 2 官方社区通过 ROSCon + GSoC 持续投入控制栈** [32]；融资、并购、人才流动数据**全部缺失**。\n\n| 维度 | 可核查增量 | 时间 | 证据 | 强度 |\n|---|---|---|---|---|\n| 厂商资本投入 | Xiaomi-Robotics-1 以 100K+ 小时真机轨迹扩展 VLA，暗示重资产数据采集投入 [13] | 2026 | arXiv 预印本，厂商署名 [13] | 中（厂商自述，未经审计）[13] |\n| 开源社区人力 | ros2_control 侧 GSoC 2026 立题「Physical AI Inference and Trajectory Upscaling」[32] | 2026 | 官方文档条目 [32] | 中高（官方项目页）[32] |\n| 会议生态 | ros2_control 专题 workshop 连续出现：2023-10-18 (on Steroids) → 2024-10 (Fun with Controllers) → 2025-09 (ROSCon UK) / 2025-10 (ROSCon 2025) → **2026-09 (ROSCon 2026: Async Hardware Drivers → RL Inference Engines)** [32] | 2023–2026 | 官方文档 [32] | 高（官方一手，时间线完整）[32] |\n| 学术方向重心 | 全身 loco-manipulation / sim-to-real 方向在 2024–2026 持续产出（[4]→[1][8][9][11]→[2][5][6][7][12][13]）[1][2][4][5][6][7][8][9][11][12][13] | 2024–2026 | 全部为 arXiv/期刊条目 | 中（数量信号，非质量信号） |\n| 融资/并购/人才流动 | `> 待核实` | — | 候选池 0 条 | 无 |\n| 公司格局变化 | `> 待核实` | — | 候选池 0 条 | 无 |\n\n**注意**：本维度**不得**由论文数量直接推断资本热度；上表\"学术方向重心\"仅为产出行数信号，**不构成投资结论**。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n**一句话增量判断**：可识别的最强早期信号是「**控制栈官方化接纳学习型策略**」（ros2_control [32]）与「**VLA 数据规模竞赛**」[13]；两者在 2026 年同时出现，预示未来 6–18 个月\"分层的、策略内嵌的机器人软件栈\"可能成为主流形态。\n\n### 7.1 早期信号\n\n| 信号 | 时间 | 证据 | 强度 |\n|---|---|---|---|\n| ros2_control 从\"异步硬件驱动\"走向\"RL 推理引擎\" | 2026-09（ROSCon 2026 workshop 议题）[32] | 官方文档 workshop 列表 [32] | 确定（官方议程）[32] |\n| GSoC 2026 立项 Physical AI Inference + Trajectory Upscaling | 2026 [32] | 官方文档 GSoC 条目 [32] | 确定（立项存在），产出未知 [32] |\n| 全身关节级遥操作被明确指认为稀缺能力 | 2025 [3] | arXiv 预印本 [3] | 较大概率 [3] |\n| VLA 真机数据量级跃迁至 100K+ 小时 | 2026 [13] | arXiv 预印本（单方宣称）[13] | 推测（未审计）[13] |\n| 动态快速物体全身交互（羽毛球）从静态任务外扩 | 2025 [1] | arXiv 预印本（无复现）[1] | 推测 [1] |\n\n### 7.2 预测（[P]，均写成可证伪假设）\n\n- **[P1] 控制栈分层标准化**\n  *依据链*：官方 workshop 议题（2026-09）已明确指向 async hardware drivers + RL inference engines [32]；GSoC 2026 已立项 Physical AI Inference [32] → 推演：官方接口规范会在 12–18 个月内成形。\n  *可证伪假设*：**若到 2027-12 之前，ros2_control 官方文档中未出现面向学习型策略推理的接口章节/规范，则本预测不成立**。置信度：**中等** [32]。\n- **[P2] 训练成本数量级下降**\n  *依据链*：[10] 宣称 15 分钟完成 sim-to-real 人形 locomotion [10]，与 [9][12] 所述 sim-to-real 主题形成对照 → 推演：训练时长将不再是主要门槛。\n  *可证伪假设*：**若到 2027-06 之前无任何独立团队在公开材料中复现同等量级的训练时长，则本预测不成立（当前仅有宣称）**。置信度：**低** [10]。\n- **[P3] 动态全身交互成为下一个争夺点**\n  *依据链*：[1] 将任务从静态场景推进到快速运动物体交互 [1]；[6] 以统一多模态控制覆盖自主 loco-manipulation [6] → 推演：2027 年前\"动态物体全身操作\"会出现多团队竞争。\n  *可证伪假设*：**若到 2027-12 之前，该方向（运动物体的全身 loco-manipulation）仍未出现 ≥3 个独立团队的真机演示，则本预测不成立**。置信度：**低–中**（仅 1–2 条直接证据）[1][6]。\n- **[P4] 评测缺口将成为显性争议焦点**\n  *依据链*：本批 [1][2][6][7][11][13] 全部为自评、且候选池 0 条基准来源 → 推演：社区将被迫建立统一基准。\n  *可证伪假设*：**若到 2027-12 之前没有出现被 ≥3 个独立团队报告结果的全身 loco-manipulation 公开基准，则本预测不成立**。置信度：**中等**（缺口由证据直接指认，但基准出现时间不可控）。\n- **[P5] 经典动力学与现代 RL 的桥接研究将出现（本报告最高杠杆预测）**\n  *依据链*：Featherstone 空间向量代数 [23] 作为唯一基线锚点，与 2024–2026 全身 RL 工作 [1][2][6][7] 在候选池中**零交集** → 推演：这是一个无人区。\n  *可证伪假设*：**若到 2027-12 之前，arXiv cs.RO 上仍未出现将空间向量代数/操作空间控制作为 RL 结构化先验或对照基线的全身控制工作，则本预测不成立**。置信度：**中等** [23][1][2][6][7]。\n\n### 7.3 Watchlist（值得持续关注）\n\n| 对象 | 关注理由 | 跟踪指标 | 链接 |\n|---|---|---|---|\n| ros2_control（Rolling → 下一 LTS） | 官方控制栈是否落地 RL 推理接口 [32] | Release Notes / Migration Guides 新条目、ROSCon 2027 议题 [32] | https://control.ros.org/rolling/doc/resources/resources.html |\n| Xiaomi-Robotics-1 | VLA 数据规模的工业级标杆 [13] | 是否公开数据/权重、是否有第三方复现 [13] | http://arxiv.org/abs/2607.15330v2 |\n| Sim-to-real 训练效率 | \"15 分钟\"宣称能否被复现 [10] | 独立复现报告、成本对比 [10] | http://arxiv.org/abs/2512.01996v1 |\n| 动态全身交互（badminton 类） | 是否从单篇扩展到多团队 [1] | 同任务真机演示数量 [1] | http://arxiv.org/abs/2511.11218v4 |\n| 全身遥操作数据采集 | VLA 数据需求的正面瓶颈 [3][13] | 关节级遥操作开源实现与吞吐量 [3] | http://arxiv.org/abs/2508.00162v2 |\n| ROS 2 实时性与中间件（DDS/Zenoh/micro-ROS） | **本报告最大证据缺口** | REP 2000、各发行版官方文档、DDS 基准 → 目前 `> 待核实` [32] | — |\n\n---\n\n## 附：证据强度自检（诚实声明）\n\n| 检查项 | 结论 |\n|---|---|\n| 是否覆盖 2024–2026 最新进展？ | 部分覆盖：全身 RL / loco-manipulation / sim-to-real / VLA 有 [1][2][4]–[13]；**近 1–2 年运动学与经典控制（MPC/iLQR/DDP）本身的新进展为 0 条** |\n| 是否覆盖经典工作？ | **仅 1 条**（[23] Featherstone 空间向量代数）；Khatib 全身控制、DDP/iLQR/MPC、SE(3)/旋量 均为 `> 待核实` [14][15][16][22] |\n| 是否覆盖开源实现？ | **仅 1 条**（[32] ros2_control 官方文档）；MoveIt 2 / Nav2 / Pinocchio / Crocoddyl / OCS2 / Drake / MuJoCo / DDS / Zenoh / micro-ROS **全部缺失** [32][34] |\n| 是否覆盖数据集与基准？ | **0 条** → 全表 `> 待核实` |\n| 是否区分论文宣称 vs 第三方复现？ | 是：全部标注为「仅论文自述/单方宣称」，无第三方复现来源 [1]–[13] |\n| 是否编造数字？ | **否**：所有 citations / star / 下载量字段均写 `> 待核实` [1]–[34] |\n\n---\n\n## 参考来源\n\n[1] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4\n[2] Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum — http://arxiv.org/abs/2605.21133v2\n[3] CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System — http://arxiv.org/abs/2508.00162v2\n[4] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1\n[5] Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning — http://arxiv.org/abs/2607.20399v1\n[6] ULTRA: Unified Multimodal Control for Autonomous Humanoid Whole-Body Loco-Manipulation — http://arxiv.org/abs/2603.03279v2\n[7] ViLoMan: Learning Visual-Proprioceptive Whole-Body Loco-Manipulation Skills for Humanoid Robots — http://arxiv.org/abs/2609.19340v1\n[8] Learning Humanoid Standing-up Control across Diverse Postures — http://arxiv.org/abs/2502.08378v2\n[9] Sim-to-Real Transfer in Deep Reinforcement Learning for Bipedal Locomotion — http://arxiv.org/abs/2511.06465v1\n[10] Learning Sim-to-Real Humanoid Locomotion in 15 Minutes — http://arxiv.org/abs/2512.01996v1\n[11] Robust Visuomotor Control for Humanoid Loco-Manipulation Using Hybrid Reinforcement Learning — https://doi.org/10.3390/biomimetics10070469\n[12] Isaac Sim-to-Real: Reinforcement Learning based Locomotion for Quadrupeds — http://arxiv.org/abs/2607.18135v1\n[13] Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories — http://arxiv.org/abs/2607.15330v2\n[14] The Relativistic Elasticity of Rigid Bodies — http://arxiv.org/abs/physics/0307019v3（**主题误召回，非机器人学**）\n[15] Ancestor ideals of vector spaces of forms, and level algebras — http://arxiv.org/abs/math/0307281v1（**无关**）\n[16] Connection errors in networks of linear features and the application of geometrical reduction in spatial data algorithms — http://arxiv.org/abs/1101.5410v4（**无关**）\n[17] The $h$-vector of a relatively compressed level algebra — http://arxiv.org/abs/math/0503526v2（**无关**）\n[18] On the invariant motions of rigid body rotation over the fixed point, via Euler angles — http://arxiv.org/abs/1601.04526v1（弱相关：刚体旋转数学）\n[19] A Parametric and Feasibility Study for Data Sampling of the Dynamic Mode Decomposition — http://arxiv.org/abs/2110.06573v2（**无关**）\n[20] Invariant theory and coefficient algebras of Lie algebras — http://arxiv.org/abs/2411.11095v3（**无关**）\n[21] Categorical Constructions for Hopf Algebras — http://arxiv.org/abs/0905.2613v3（**无关**）\n[22] A Quantum-Compliant Formulation for Network Epidemic Control — http://arxiv.org/abs/2509.00337v1（**控制关键词误召回，非机器人轨迹优化**）\n[23] Spatial Vector Algebra — https://doi.org/10.1007/978-1-4899-7560-7_2\n[24] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1（**无关**）\n[25] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3（**无关**）\n[26] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1（**无关**）\n[27] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4（**无关**）\n[28] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1（弱相关：人机信任/HRI）\n[29] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1（**无关**）\n[30] The AudioMOS Challenge 2025 — http://arxiv.org/abs/2509.01336v1（**无关**）\n[31] SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection — http://arxiv.org/abs/2509.19861v1（**无关**）\n[32] Resources — ROS2_Control: Rolling Oct 2026 documentation — https://control.ros.org/rolling/doc/resources/resources.html\n[33] RealTime QA: What's the Answer Right Now? — http://arxiv.org/abs/2207.13332v2（**无关**）\n[34] PINOCCHIO and the hierarchical build-up of dark matter haloes — http://arxiv.org/abs/astro-ph/0109324v1（**同名误召回，与机器人 Pinocchio 库无关**）\n\n---\n\n*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=34 · duration=182s · 2026-10-07T22:12:36+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+      "url": "http://arxiv.org/abs/2511.11218v4",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum",
+      "url": "http://arxiv.org/abs/2605.21133v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+      "url": "http://arxiv.org/abs/2508.00162v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-07-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control",
+      "url": "http://arxiv.org/abs/2411.01349v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2607.20399v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "ULTRA: Unified Multimodal Control for Autonomous Humanoid Whole-Body Loco-Manipulation",
+      "url": "http://arxiv.org/abs/2603.03279v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-03-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "ViLoMan: Learning Visual-Proprioceptive Whole-Body Loco-Manipulation Skills for Humanoid Robots",
+      "url": "http://arxiv.org/abs/2609.19340v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Learning Humanoid Standing-up Control across Diverse Postures",
+      "url": "http://arxiv.org/abs/2502.08378v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-02-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Sim-to-Real Transfer in Deep Reinforcement Learning for Bipedal Locomotion",
+      "url": "http://arxiv.org/abs/2511.06465v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes",
+      "url": "http://arxiv.org/abs/2512.01996v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Robust Visuomotor Control for Humanoid Loco-Manipulation Using Hybrid Reinforcement Learning",
+      "url": "https://doi.org/10.3390/biomimetics10070469",
+      "kind": "paper",
+      "venue": "Biomimetics",
+      "published": "2025-07-17",
+      "citations": 4,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Isaac Sim-to-Real: Reinforcement Learning based Locomotion for Quadrupeds",
+      "url": "http://arxiv.org/abs/2607.18135v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories",
+      "url": "http://arxiv.org/abs/2607.15330v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "The Relativistic Elasticity of Rigid Bodies",
+      "url": "http://arxiv.org/abs/physics/0307019v3",
+      "kind": "paper",
+      "venue": "physics.gen-ph",
+      "published": "2003-07-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Ancestor ideals of vector spaces of forms, and level algebras",
+      "url": "http://arxiv.org/abs/math/0307281v1",
+      "kind": "paper",
+      "venue": "math.AC",
+      "published": "2003-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Connection errors in networks of linear features and the application of geometrical reduction in spatial data algorithms",
+      "url": "http://arxiv.org/abs/1101.5410v4",
+      "kind": "paper",
+      "venue": "cs.DS",
+      "published": "2011-01-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "The $h$-vector of a relatively compressed level algebra",
+      "url": "http://arxiv.org/abs/math/0503526v2",
+      "kind": "paper",
+      "venue": "math.AC",
+      "published": "2005-03-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "On the invariant motions of rigid body rotation over the fixed point, via Euler angles",
+      "url": "http://arxiv.org/abs/1601.04526v1",
+      "kind": "paper",
+      "venue": "physics.gen-ph",
+      "published": "2015-12-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "A Parametric and Feasibility Study for Data Sampling of the Dynamic Mode Decomposition--Range, Resolution, and Universal Convergence States",
+      "url": "http://arxiv.org/abs/2110.06573v2",
+      "kind": "paper",
+      "venue": "physics.flu-dyn",
+      "published": "2021-10-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Invariant theory and coefficient algebras of Lie algebras",
+      "url": "http://arxiv.org/abs/2411.11095v3",
+      "kind": "paper",
+      "venue": "math.AC",
+      "published": "2024-11-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Categorical Constructions for Hopf Algebras",
+      "url": "http://arxiv.org/abs/0905.2613v3",
+      "kind": "paper",
+      "venue": "math.QA",
+      "published": "2009-05-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "A Quantum-Compliant Formulation for Network Epidemic Control",
+      "url": "http://arxiv.org/abs/2509.00337v1",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-08-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Spatial Vector Algebra",
+      "url": "https://doi.org/10.1007/978-1-4899-7560-7_2",
+      "kind": "paper",
+      "venue": "Rigid Body Dynamics Algorithms",
+      "published": "2008-01-01",
+      "citations": 6,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "TDCOSMO 2025: Cosmological constraints from strong lensing time delays",
+      "url": "http://arxiv.org/abs/2506.03023v4",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+      "url": "http://arxiv.org/abs/2509.11402v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "The AudioMOS Challenge 2025",
+      "url": "http://arxiv.org/abs/2509.01336v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+      "url": "http://arxiv.org/abs/2509.19861v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Resources — ROS2_Control: Rolling Oct 2026 documentation",
+      "url": "https://control.ros.org/rolling/doc/resources/resources.html",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "RealTime QA: What's the Answer Right Now?",
+      "url": "http://arxiv.org/abs/2207.13332v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2022-07-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "PINOCCHIO and the hierarchical build-up of dark matter haloes",
+      "url": "http://arxiv.org/abs/astro-ph/0109324v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2001-09-19",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-07-机器人运动学控制与-ros-2.md",
+    "json": "report/2026/10/2026-10-07-机器人运动学控制与-ros-2.json"
+  }
+}
