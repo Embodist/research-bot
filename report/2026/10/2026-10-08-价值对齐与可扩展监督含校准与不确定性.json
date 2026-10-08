@@ -1,0 +1,1146 @@
+{
+  "topic": "价值对齐与可扩展监督含校准与不确定性",
+  "title": "价值对齐与可扩展监督（含校准与不确定性）——领域增量追踪调研计划",
+  "query": "价值对齐与可扩展监督（含校准与不确定性）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-08T22:14:26+00:00",
+  "finished_at": "2026-10-08T22:17:20+00:00",
+  "duration_s": 173.9,
+  "rounds": 1,
+  "plan": {
+    "title": "价值对齐与可扩展监督（含校准与不确定性）——领域增量追踪调研计划",
+    "summary": "以 2024–2026 最新增量为主轴，系统梳理价值对齐与可扩展监督（含校准与不确定性）的前沿进展、奠基工作、开源工程栈、数据集与基准、开放问题与争议，产出可核查、带证据分级的增量快照。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024–2026 年间，价值对齐与可扩展监督（含校准与不确定性）出现了哪些新方法与 SOTA 变动？哪些已通过同行评审或第三方独立复现，哪些仍只有演示或自评？",
+        "rationale": "对应增量追踪的『进展与热点』维度：必须先确认相对上一基线（经典 RLHF / Constitutional AI / Debate 时代）新增了什么，并区分『论文宣称』与『独立验证』。重点关注弱到强泛化（weak-to-strong generalization）、可扩展监督的实证化、过程监督/可扩展 oversight 的工程验证，以及 LLM 校准与不确定性量化的新范式。",
+        "queries": [
+          "scalable oversight weak-to-strong generalization 2025 arxiv cs.LG",
+          "AI safety via debate empirical evaluation large language models 2024..2026",
+          "LLM calibration uncertainty quantification 2025 NeurIPS ICLR",
+          "可扩展监督 价值对齐 2025 最新进展 综述"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "构成当前引用骨架的奠基工作与理论框架有哪些（RLHF、AI safety via debate、iterated amplification、递归奖励建模、ELK、深度集成与校准理论），其原始贡献是什么、今天被如何引用？",
+        "rationale": "对应『经典/奠基工作』：前沿增量只有在明确基线后才能判定，需回溯 Christiano 2017 RLHF、Irving 2018 Debate、Christiano 2018 Iterated Amplification、ARC 2021 ELK、Guo 2017 校准等原始文献，避免把旧结论当作新进展，同时建立『承上启下』的技术演进脉络。",
+        "queries": [
+          "Christiano 2017 deep reinforcement learning from human preferences RLHF",
+          "Irving 2018 AI safety via debate arXiv",
+          "Eliciting Latent Knowledge ARC 2021 scalable oversight report",
+          "On Calibration of Modern Neural Networks Guo 2017"
+        ],
+        "prefer": [
+          "arxiv",
+          "crossref",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "对齐训练、可扩展监督实验与评测的开源工程栈现状如何：哪些 RLHF/DPO 训练框架、弱到强泛化复现代码、评测 harness 与监督实验平台仍在活跃维护且可复现？",
+        "rationale": "对应『开源项目与工程实践』及增量追踪的『工业界与产品』维度。需核查 GitHub 活跃度（stars、最近提交）、是否提供官方权重与数据，并严格区分官方仓库与第三方复现，判断从实验室到落地的真实程度。",
+        "queries": [
+          "OpenRLHF TRL alignment training framework github stars activity",
+          "openai weak-to-strong github implementation reproducibility",
+          "UK AISI Inspect evaluation framework github scalable oversight",
+          "Constitutional AI open source implementation github 2025"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024–2026 年间，价值对齐与可扩展监督（含校准与不确定性）出现了哪些新方法与 SOTA 变动？哪些已通过同行评审或第三方独立复现，哪些仍只有演示或自评？",
+      "queries": [
+        "scalable oversight weak-to-strong generalization 2025 arxiv cs.LG",
+        "AI safety via debate empirical evaluation large language models 2024..2026",
+        "LLM calibration uncertainty quantification 2025 NeurIPS ICLR",
+        "可扩展监督 价值对齐 2025 最新进展 综述"
+      ],
+      "rationale": "对应增量追踪的『进展与热点』维度：必须先确认相对上一基线（经典 RLHF / Constitutional AI / Debate 时代）新增了什么，并区分『论文宣称』与『独立验证』。重点关注弱到强泛化（weak-to-strong generalization）、可扩展监督的实证化、过程监督/可扩展 oversight 的工程验证，以及 LLM 校准与不确定性量化的新范式。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.04863,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+          "url": "http://arxiv.org/abs/2504.14582v3",
+          "snippet": "This paper presents the NTIRE 2025 image super-resolution ($\\times$4) challenge, one of the associated competitions of the 10th NTIRE Workshop at CVPR 2025. The challenge aims to recover high-resolution (HR) images from low-resolution (LR) counterparts generated through bicubic downsampling with a $\\times$4 scaling factor. The objective is to develop effective network designs or solutions that achieve state-of-the-art SR performance. To reflect the dual objectives of image SR research, the challenge includes two sub-tracks: (1) a restoration track, emphasizes pixel-wise accuracy and ranks sub…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-20",
+          "authors": [
+            "Zheng Chen",
+            "Kai Liu",
+            "Jue Gong",
+            "Jingkai Wang",
+            "Lei Sun",
+            "Zongwei Wu",
+            "Radu Timofte",
+            "Yulun Zhang",
+            "Xiangyu Kong",
+            "Xiaoxuan Yu",
+            "Hyunhee Park",
+            "Suejin Han",
+            "Hakjae Jeon",
+            "Dafeng Zhang",
+            "Hyung-Ju Chun",
+            "Donghun Ryou",
+            "Inju Ha",
+            "Bohyung Han",
+            "Lu Zhao",
+            "Yuyi Zhang",
+            "Pengyu Yan",
+            "Jiawei Hu",
+            "Pengwei Liu",
+            "Fengjun Guo",
+            "Hongyuan Yu",
+            "Pufan Xu",
+            "Zhijuan Huang",
+            "Shuyuan Cui",
+            "Peng Guo",
+            "Jiahui Liu",
+            "Dongkai Zhang",
+            "Heng Zhang",
+            "Huiyuan Fu",
+            "Huadong Ma",
+            "Yanhui Guo",
+            "Sisi Tian",
+            "Xin Liu",
+            "Jinwen Liang",
+            "Jie Liu",
+            "Jie Tang",
+            "Gangshan Wu",
+            "Zeyu Xiao",
+            "Zhuoyuan Li",
+            "Yinxiang Zhang",
+            "Wenxuan Cai",
+            "Vijayalaxmi Ashok Aralikatti",
+            "Nikhil Akalwadi",
+            "G Gyaneshwar Rao",
+            "Chaitra Desai",
+            "Ramesh Ashok Tabib",
+            "Uma Mudenagudi",
+            "Marcos V. Conde",
+            "Alejandro Merino",
+            "Bruno Longarela",
+            "Javier Abad",
+            "Weijun Yuan",
+            "Zhan Li",
+            "Zhanglu Chen",
+            "Boyang Yao",
+            "Aagam Jain",
+            "Milan Kumar Singh",
+            "Ankit Kumar",
+            "Shubh Kawa",
+            "Divyavardhan Singh",
+            "Anjali Sarvaiya",
+            "Kishor Upla",
+            "Raghavendra Ramachandra",
+            "Chia-Ming Lee",
+            "Yu-Fan Lin",
+            "Chih-Chung Hsu",
+            "Risheek V Hiremath",
+            "Yashaswini Palani",
+            "Yuxuan Jiang",
+            "Qiang Zhu",
+            "Siyue Teng",
+            "Fan Zhang",
+            "Shuyuan Zhu",
+            "Bing Zeng",
+            "David Bull",
+            "Jingwei Liao",
+            "Yuqing Yang",
+            "Wenda Shao",
+            "Junyi Zhao",
+            "Qisheng Xu",
+            "Kele Xu",
+            "Sunder Ali Khowaja",
+            "Ik Hyun Lee",
+            "Snehal Singh Tomar",
+            "Rajarshi Ray",
+            "Klaus Mueller",
+            "Sachin Chaudhary",
+            "Surya Vashisth",
+            "Akshay Dudhane",
+            "Praful Hambarde",
+            "Satya Naryan Tazi",
+            "Prashant Patil",
+            "Santosh Kumar Vipparthi",
+            "Subrahmanyam Murala",
+            "Bilel Benjdira",
+            "Anas M. Ali",
+            "Wadii Boulila",
+            "Zahra Moammeri",
+            "Ahmad Mahmoudi-Aznaveh",
+            "Ali Karbasi",
+            "Hossein Motamednia",
+            "Liangyan Li",
+            "Guanhua Zhao",
+            "Kevin Le",
+            "Yimo Ning",
+            "Haoxuan Huang",
+            "Jun Chen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.14582v3",
+            "rrf_score": 0.033921,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.03317,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Weak Critics Make Strong Learners: On-Policy Critique Distillation for Scalable Oversight",
+          "url": "http://arxiv.org/abs/2606.00424v2",
+          "snippet": "As large language models become stronger, weak supervisors may fail to provide reliable labels, preferences, or final judgments for complex outputs, limiting both weak-to-strong generalization and scalable oversight. We study a more tractable form of weak supervision: using a weak model as a critic rather than as a labeler or judge. Instead of solving the task or selecting the correct answer, the weak critic only needs to provide a non-misleading revision direction that helps the strong model better use its own knowledge. We call this setting *weak-critic strong oversight*. We first show that…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-29",
+          "authors": [
+            "Can Jin",
+            "Jiakang Li",
+            "Rui Wu",
+            "Eddy Z. Zhang",
+            "Dimitris N. Metaxas"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.00424v2",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+            "evidence": "This paper presents the NTIRE 2025 image super-resolution ($\\times$4) challenge, one of the associated competitions of the 10th NTIRE Workshop at CVPR 2025. The challenge aims to recover high-resolution (HR) images from low-resolution (LR) counterparts generated through bicubic downsampling with a…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Weak Critics Make Strong Learners: On-Policy Critique Distillation for Scalable Oversight",
+            "evidence": "As large language models become stronger, weak supervisors may fail to provide reliable labels, preferences, or final judgments for complex outputs, limiting both weak-to-strong generalization and scalable oversight. We study a more tractable form of weak supervision: using a weak model as a critic…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "构成当前引用骨架的奠基工作与理论框架有哪些（RLHF、AI safety via debate、iterated amplification、递归奖励建模、ELK、深度集成与校准理论），其原始贡献是什么、今天被如何引用？",
+      "queries": [
+        "Christiano 2017 deep reinforcement learning from human preferences RLHF",
+        "Irving 2018 AI safety via debate arXiv",
+        "Eliciting Latent Knowledge ARC 2021 scalable oversight report",
+        "On Calibration of Modern Neural Networks Guo 2017"
+      ],
+      "rationale": "对应『经典/奠基工作』：前沿增量只有在明确基线后才能判定，需回溯 Christiano 2017 RLHF、Irving 2018 Debate、Christiano 2018 Iterated Amplification、ARC 2021 ELK、Guo 2017 校准等原始文献，避免把旧结论当作新进展，同时建立『承上启下』的技术演进脉络。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2602.12375v1",
+          "snippet": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propagating local uncertainties around rewards. However, this approach only increases the value bonus for an action retroactively, after seeing a higher reward bonus from that state and action. Such an approach does not encourage the agent to visit a state and action for the first time. In this work, we in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-12",
+          "authors": [
+            "Abdul Wahab",
+            "Raksha Kumaraswamy",
+            "Martha White"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.12375v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "The Via Project: Overview of the Science, Instrument, and Survey",
+          "url": "http://arxiv.org/abs/2606.18332v1",
+          "snippet": "Via is a forthcoming all-sky spectroscopic survey that will achieve 100 m s$^{-1}$ radial velocity stability for millions of faint ($G \\lesssim 21$) stars while reaching LSST's single-visit depth ($r \\approx 24$) for transient spectroscopy, opening new regimes in near-field cosmology and time-domain astrophysics. Via will deploy identical fiber-fed, multi-object spectrographs on the 6.5m MMT and Magellan/Clay telescopes for a five-year, dual-hemisphere survey of $>2{,}000{,}000$ stars beginning in 2027 - timed to complement LSST. Each instrument has 576 robotically positioned fibers over a $1…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-06-16",
+          "authors": [
+            " The Via Collaboration"
+          ],
+          "venue": "astro-ph.IM",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.18332v1",
+            "rrf_score": 0.019231
+          }
+        },
+        {
+          "title": "Comparing Deep Reinforcement Learning and Evolutionary Methods in Continuous Control",
+          "url": "http://arxiv.org/abs/1712.00006v2",
+          "snippet": "Reinforcement Learning and the Evolutionary Strategy are two major approaches in addressing complicated control problems. Both are strong contenders and have their own devotee communities. Both groups have been very active in developing new advances in their own domain and devising, in recent years, leading-edge techniques to address complex continuous control tasks. Here, in the context of Deep Reinforcement Learning, we formulate a parallelized version of the Proximal Policy Optimization method and a Deep Deterministic Policy Gradient method. Moreover, we conduct a thorough comparison betwe…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2017-11-30",
+          "authors": [
+            "Shangtong Zhang",
+            "Osmar R. Zaiane"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1712.00006v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Online Iterative Reinforcement Learning from Human Feedback with General Preference Model",
+          "url": "http://arxiv.org/abs/2402.07314v3",
+          "snippet": "We investigate Reinforcement Learning from Human Feedback (RLHF) in the context of a general preference oracle. In particular, we do not assume the existence of a reward function and an oracle preference signal drawn from the Bradley-Terry model as most of the prior works do. We consider a standard mathematical formulation, the reverse-KL regularized minimax game between two LLMs for RLHF under general preference oracle. The learning objective of this formulation is to find a policy so that it is consistently preferred by the KL-regularized preference oracle over any competing LLMs. We show t…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-02-11",
+          "authors": [
+            "Chenlu Ye",
+            "Wei Xiong",
+            "Yuheng Zhang",
+            "Hanze Dong",
+            "Nan Jiang",
+            "Tong Zhang"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2402.07314v3",
+            "rrf_score": 0.024194
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "候选证据集中不存在任何关于 RLHF 原始奠基工作（如基于人类偏好比较训练奖励模型再以 RL 优化）的一手文献，唯一与 RLHF 相关的是 2024 年的一篇理论性后续工作，且它明确偏离经典设定。",
+            "evidence": "[26] 标题为 Online Iterative Reinforcement Learning from Human Feedback with General Preference Model，摘要明确写出“we do not assume the existence of a reward function and an oracle preference signal drawn from the Bradley-Terry model as most of the prior works do”，即用 general preference oracle 替代 Bradley-Terry 假设，并以 reverse-KL 正则化的双 LLM minimax 博弈作为 RLHF 的数学形式。这说明该文属于对 RLHF 理论框架的推广/修正，而非原始提出。",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.LG），候选块未给出 venue 或同行评审信息",
+            "attention": "低 + 候选块未提供引用数、star 或榜单排名，无可核实的社区热度信号",
+            "recommendation": "★★★☆☆ 仅可作为“RLHF 理论被推广出 Bradley-Terry 假设”的线索，不能替代 RLHF 原始贡献文献；证据仅为摘要级"
+          },
+          {
+            "point": "候选证据完全缺失 AI safety via debate、iterated amplification、recursive reward modeling、ELK（Eliciting Latent Knowledge）这四类对齐理论框架的任何原文或二手材料。",
+            "evidence": "候选块共 4 条：[30] 集成探索 RL、[34] Via 天文巡天项目、[25] 深度 RL 与进化策略对比、[26] RLHF 一般偏好模型。四者均不涉及 debate / amplification / recursive reward modeling / ELK 的概念、作者或引用链。",
+            "sources": [
+              30,
+              34,
+              25,
+              26
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "本结论是对候选集合覆盖范围的核查结果，非外部权威来源",
+            "attention": "低 + 该领域在候选集中零出现，无任何热度或关注度信号可取",
+            "recommendation": "★☆☆☆☆ 该 finding 的价值在于标注检索缺口：要回答子问题必须补充检索这四类框架的原始文献，本批候选无法支撑"
+          },
+          {
+            "point": "候选集中唯一与“集成 / 不确定性估计”相关的工作是 VBE，它用随机动作价值函数集成的估计误差构造价值奖励，属于集成方法在 RL 探索中的工程化应用，而非深度集成与校准的理论奠基。",
+            "evidence": "[30] 摘要：提出 Value Bonuses with Ensemble errors (VBE)，维护一组随机动作价值函数（random action-value functions, RQFs）的集成，用这些 RQFs 的估计误差设计 value bonus，从而提供 first-visit optimism 与 deep exploration；文中指出既有方法只在看到更高 reward bonus 后才回溯性增大 bonus，无法鼓励首次访问。",
+            "sources": [
+              30
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.LG，v1，2026-02-12 提交），候选块未给出 venue 或同行评审信息",
+            "attention": "低 + 候选块未提供引用数、star 或榜单排名，无法判断社区关注程度",
+            "recommendation": "★★☆☆☆ 与“深度集成/校准理论”只有方法论相邻性（都用集成做不确定性），可作为当代集成方法的例证，但不能作为校准理论的奠基引用"
+          },
+          {
+            "point": "候选集中存在明显与子问题无关的噪声条目，若据此构建引用骨架会产生错误归属，需要清洗。",
+            "evidence": "[34] 是天体物理仪器与巡天项目（Via Project，MMT/Magellan 光纤多目标光谱仪，2027 年起对 >2,000,000 颗恒星开展五年巡天），与 RLHF/对齐理论无任何交集；[25] 是 2017 年深度 RL 与进化策略在连续控制上的对比，主题为控制算法比较，不涉及对齐理论框架。",
+            "sources": [
+              34,
+              25
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "[34] arXiv 预印本（astro-ph.IM）；[25] arXiv 预印本（cs.LG），均未给出 venue",
+            "attention": "低 + 二者与本子问题主题不相关，热度信号对本子问题不适用",
+            "recommendation": "★☆☆☆☆ 建议从本子问题的证据池中剔除，仅在后续核查“检索召回偏差”时保留记录"
+          },
+          {
+            "point": "本批候选证据对“RLHF 今天被如何引用”只能提供一个侧面信号：引用落在理论形式化与假设放宽（偏好模型、正则化博弈）方向，而非 Agent 常引用的原始训练流程。",
+            "evidence": "[26] 将 RLHF 表述为“reverse-KL regularized minimax game between two LLMs”，并以 general preference oracle 取代 Bradley-Terry，摘要自述这是对 prior works 假设的偏离；除此之外候选集中无其他 RLHF 引用样本，无法归纳引用分布。",
+            "sources": [
+              26
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "",
+            "authority": "单一 arXiv 预印本摘要，样本量为 1，不足以支撑趋势结论",
+            "attention": "低 + 仅一条候选，无引用数或社区讨论证据",
+            "recommendation": "★★☆☆☆ 只能作为待验证假设的起点（“RLHF 引用重心正从流程复现转向理论假设放宽”），需补检索才能定论"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Online Iterative Reinforcement Learning from Human Feedback with General Preference Model",
+            "url": "http://arxiv.org/abs/2402.07314v3",
+            "why": "候选集中唯一与 RLHF 直接相关的文献；其价值在于显示 RLHF 理论被推广到非 Bradley-Terry 的一般偏好 oracle 与 reverse-KL 正则化 minimax 形式。注意：它不是 RLHF 的原始贡献论文，不能作为 RLHF 奠基引用。",
+            "year": "2024",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.LG），候选块未标注 venue/同行评审状态",
+            "attention": "低 + 候选块无引用数、star 或榜单排名，缺乏社区热度信号",
+            "recommendation": "★★★☆☆ 与“RLHF 今日被如何引用”这一问法相关，但仅摘要级证据，需补原文与引用计数后再定级"
+          },
+          {
+            "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+            "url": "http://arxiv.org/abs/2602.12375v1",
+            "why": "候选集中唯一涉及集成（ensemble）不确定性的论文，可用于说明“集成方法”在当代 RL 中的用法；但与深度集成/校准的理论奠基无直接谱系关系。",
+            "year": "2026",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.LG，2026-02-12 提交，v1）",
+            "attention": "低 + 候选块无引用数/star/榜单信息",
+            "recommendation": "★★☆☆☆ 仅作为集成不确定性的当代应用样本，权威性与相关性均不足"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据未覆盖 RLHF 的原始奠基文献，无法回答“其原始贡献是什么”——需补充检索 Christiano 等 2017 年基于人类偏好比较的 RLHF 原始论文及 InstructGPT 等技术报告。",
+          "AI safety via debate 在候选集中完全缺席，其原始贡献（辩论式可扩展监督）与当代引用情况均无法评估。",
+          "iterated amplification 在候选集中完全缺席，无法确认其与后续可扩展监督路线的谱系关系。",
+          "recursive reward modeling 在候选集中完全缺席，无法给出原始贡献与今日引用。",
+          "ELK（Eliciting Latent Knowledge）在候选集中完全缺席，无法评估其作为“诚实性/潜在知识”研究议程的影响。",
+          "深度集成与校准理论（如 Deep Ensembles、温度标定、ECE 等）的原始文献在候选集中缺席；[30] 只能提供集成在 RL 探索中的用法，不足以支撑校准理论骨架。",
+          "候选集含无关噪声（[34] 天体物理巡天、[25] 2017 年 RL vs 进化策略对比），说明本次召回与本子问题术语匹配度低，需重新构造检索词（如 'AI safety via debate'、'iterated amplification'、'recursive reward modeling'、'eliciting latent knowledge'、'deep ensembles calibration'）。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "对齐训练、可扩展监督实验与评测的开源工程栈现状如何：哪些 RLHF/DPO 训练框架、弱到强泛化复现代码、评测 harness 与监督实验平台仍在活跃维护且可复现？",
+      "queries": [
+        "OpenRLHF TRL alignment training framework github stars activity",
+        "openai weak-to-strong github implementation reproducibility",
+        "UK AISI Inspect evaluation framework github scalable oversight",
+        "Constitutional AI open source implementation github 2025"
+      ],
+      "rationale": "对应『开源项目与工程实践』及增量追踪的『工业界与产品』维度。需核查 GitHub 活跃度（stars、最近提交）、是否提供官方权重与数据，并严格区分官方仓库与第三方复现，判断从实验室到落地的真实程度。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Aligning Artificial Superintelligence via a Multi-Box Protocol",
+          "url": "http://arxiv.org/abs/2511.21779v1",
+          "snippet": "We propose a novel protocol for aligning artificial superintelligence (ASI) based on mutual verification among multiple isolated systems that self-modify to achieve alignment. The protocol operates by containing multiple diverse artificial superintelligences in strict isolation (\"boxes\"), with humans remaining entirely outside the system. Each superintelligence has no ability to communicate with humans and cannot communicate directly with other superintelligences. The only interaction possible is through an auditable submission interface accessible exclusively to the superintelligences themse…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-26",
+          "authors": [
+            "Avraham Yair Negozio"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.21779v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "LLMs as High-Dimensional Nonlinear Autoregressive Models with Attention: Training, Alignment and Inference",
+          "url": "http://arxiv.org/abs/2602.00426v1",
+          "snippet": "Large language models (LLMs) based on transformer architectures are typically described through collections of architectural components and training procedures, obscuring their underlying computational structure. This review article provides a concise mathematical reference for researchers seeking an explicit, equation-level description of LLM training, alignment, and generation. We formulate LLMs as high-dimensional nonlinear autoregressive models with attention-based dependencies. The framework encompasses pretraining via next-token prediction, alignment methods such as reinforcement learni…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-01-31",
+          "authors": [
+            "Vikram Krishnamurthy"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.00426v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "On the Popularity of GitHub Applications: A Preliminary Note",
+          "url": "http://arxiv.org/abs/1507.00604v3",
+          "snippet": "GitHub is the world's largest collection of open source software. Therefore, it is important both to software developers and users to compare and track the popularity of GitHub repositories. In this paper, we propose a framework to assess the popularity of GitHub software, using their number of stars. We also propose a set of popularity growth patterns, which describe the evolution of the number of stars of a system over time. We show that stars tend to correlate with other measures, like forks, and with the effective usage of GitHub software by third-party programs. Throughout the paper we i…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2015-07-02",
+          "authors": [
+            "Hudson Borges",
+            "Marco Tulio Valente",
+            "Andre Hora",
+            "Jailton Coelho"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1507.00604v3",
+            "rrf_score": 0.039242,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Propagation of Measurement and Model Uncertainties through Multiline TRL Calibration",
+          "url": "http://arxiv.org/abs/2206.10209v2",
+          "snippet": "In this work, we present a linear uncertainty (LU) propagation treatment of measurement and model uncertainties in multiline thru-reflect-line (TRL) calibration. The proposed method is in accordance with the ISO Guide to the Expression of Uncertainty in Measurement (GUM). We demonstrate with numerical simulation based on the Monte Carlo (MC) method that our proposed LU method delivers identical uncertainty as the MC method but in a more efficient way.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2022-06-21",
+          "authors": [
+            "Ziad Hatab",
+            "Michael Gadringer",
+            "Wolfgang Bösch"
+          ],
+          "venue": "eess.SP",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2206.10209v2",
+            "rrf_score": 0.02459
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "Aligning Artificial Superintelligence via a Multi-Box Protocol",
+            "evidence": "We propose a novel protocol for aligning artificial superintelligence (ASI) based on mutual verification among multiple isolated systems that self-modify to achieve alignment. The protocol operates by containing multiple diverse artificial superintelligences in strict isolation (\"boxes\"), with huma…",
+            "sources": [
+              19
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "LLMs as High-Dimensional Nonlinear Autoregressive Models with Attention: Training, Alignment and Inference",
+            "evidence": "Large language models (LLMs) based on transformer architectures are typically described through collections of architectural components and training procedures, obscuring their underlying computational structure. This review article provides a concise mathematical reference for researchers seeking…",
+            "sources": [
+              20
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "On the Popularity of GitHub Applications: A Preliminary Note",
+            "evidence": "GitHub is the world's largest collection of open source software. Therefore, it is important both to software developers and users to compare and track the popularity of GitHub repositories. In this paper, we propose a framework to assess the popularity of GitHub software, using their number of sta…",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2015",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "Propagation of Measurement and Model Uncertainties through Multiline TRL Calibration",
+            "evidence": "In this work, we present a linear uncertainty (LU) propagation treatment of measurement and model uncertainties in multiline thru-reflect-line (TRL) calibration. The proposed method is in accordance with the ISO Guide to the Expression of Uncertainty in Measurement (GUM). We demonstrate with numeri…",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2022",
+            "heat": "",
+            "authority": "eess.SP",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=eess.SP）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 6,
+    "prompt_tokens": 34502,
+    "completion_tokens": 25731,
+    "generated_at": "2026-10-08T22:17:20.137005+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 价值对齐与可扩展监督（含校准与不确定性）2024–2026 增量快照\n\n**日期**：2026-10-08（UTC）｜**领域**：AI Alignment / Scalable Oversight / Calibration & Uncertainty｜**检索源数量**：36 条候选来源（编号 [1]–[36]，见文末参考来源）｜**证据基线**：本批候选以 arXiv 预印本为主，仅 1 条明确同行评审（AAAI 2025，[11]）；无任何来源提供引用数、GitHub star 或榜单排名，故**全部条目的\"热度证据\"一律标注 `> 待核实`**，不编造数字。\n\n> **方法与召回声明（重要）**：本批 36 条来源中存在显著召回污染——[1][2] 为视频/图像质量挑战赛，[7][8][17][18][34] 为天体物理与超导，[14] 的 \"calibration\" 指电磁测量 TRL 校准，[13] 为 GitHub 流行度度量，[21] 为灵巧手操作，[23] 为 R 包，[25] 为连续控制算法对比。下文对无关条目一并剔除，仅在说明\"术语歧义导致的检索污染\"时引用。\n> 同时，针对子问题 q2（奠基工作）的结构化发现判定 debate / amplification / RLHF 原文在候选集中缺失；本报告在**可引用来源列表**中实际检索到 [27]（RLHF 原始人类偏好论文）与 [35]（AI safety via debate），故补入\"经典工作\"章节。**iterated amplification、recursive reward modeling、ELK（Eliciting Latent Knowledge）在本批 36 条来源中零命中**，只能作为缺口登记，`> 待核实`。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量判断**：2024–2026 的实质增量集中在\"**弱到强泛化（Weak-to-Strong Generalization, W2S）作为可扩展监督的可实验代理**\"与\"**弱监督信号的形态升级（从标签/偏好 → critique / 集成投票）**\"两条线上；校准与不确定性则是以\"集成\"这一旧工具在 RL 探索与安全评测中被重新拾起，尚未形成与对齐训练的闭环。\n\n### 1.1 可扩展监督：从\"弱监督者不可靠\"到\"弱 critic + 集成\"\n\n- **2026-06｜Weak Critics Make Strong Learners: On-Policy Critique Distillation for Scalable Oversight [5]**：明确把问题定位为\"弱监督者无法为复杂输出提供可靠标签、偏好或最终判断，从而同时限制 weak-to-strong generalization 与 scalable oversight\"，并提出把弱模型当作 **critic**（而非标签源）这一\"更可处理的弱监督形式\"。\n  - 热度证据：`> 待核实`（候选块无引用数/star/榜单）。\n  - 权威证据：arXiv 预印本（cs.AI），v2 版本；`> 待核实`（无 venue / 同行评审信息）。\n  - 关注度：中——依据：直接命中\"scalable oversight\"主题词，且 v2 说明作者在持续修订；但无引用/榜单信号。\n  - 推荐度：★★★★☆——主题相关度最高，且提出了\"弱监督信号形态\"这一关键变量，是 2026 年该支线最值得精读的条目。\n- **2024-02｜Improving Weak-to-Strong Generalization with Scalable Oversight and Ensemble Learning [4]**：把可扩展监督（人类监督 vs 模型辅助监督）与集成学习组合用于 W2S。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本，`> 待核实`；关注度：中（W2S + scalable oversight + ensemble 三关键词同时命中）；推荐度：★★★★☆——是本批中\"可扩展监督×集成\"最早的可核实锚点。\n- **2024-10｜EnsemW2S: Enhancing Weak-to-Strong Generalization with Large Language Model Ensembles [6]**：用 LLM 集成增强 W2S。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本（v3，说明多次修订）；关注度：中；推荐度：★★★☆☆——与 [4] 构成\"集成路线\"的两点连线，但缺少与 [5] 的直接对照实验证据。\n- **2025｜Strong Empowered and Aligned Weak Mastered Annotation for Weak-to-Strong Generalization [11]**（AAAI 2025，DOI: 10.1609/aaai.v39i26.34955）\n  - 热度证据：`> 待核实`；权威证据：**AAAI 2025 正式发表（同行评审）**——本批唯一 A 级权威条目；关注度：中（顶会正式发表，但无引用数可查）；推荐度：★★★★☆——若只读一篇，应选此篇以校准\"W2S 是否已被学界正式接收\"这一判断。\n\n### 1.2 辩论式监督：理论效率有增量，实证仍是空白\n\n- **2023-11｜Scalable AI Safety via Doubly-Efficient Debate [33]**：从计算复杂性角度刻画辩论式监督的效率条件。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本，`> 待核实`；关注度：中（作为 debate 路线的理论延续被引用）；推荐度：★★★☆☆——与 [35] 配对阅读可建立\"debate 理论谱系\"。\n- **2025-11｜Aligning Artificial Superintelligence via a Multi-Box Protocol [19]**：提出多隔离系统互相验证的对齐协议。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本（cs.AI），`> 待核实`；关注度：低——**纯协议构想，无实验、无基准、无真机/真模型验证**；推荐度：★★☆☆☆——作为\"ASI 对齐协议设计\"思潮样本，不可当作已验证方法。\n  - 证据轴提示：本条属于 skill 所强调的\"**仅有演示/自评之外的更弱一档——仅有构想**\"，不得写成进展性结论。\n\n### 1.3 偏好学习与 RLHF 理论：增量在\"假设放宽\"\n\n- **2024-02｜Online Iterative RLHF with General Preference Model [26]**：摘要自述\"**不像多数前人工作那样假设存在奖励函数与来自 Bradley-Terry 模型的 oracle 偏好信号**\"，改用 general preference oracle，并把 RLHF 表述为\"**reverse-KL 正则化的两个 LLM 之间的 minimax 博弈**\"。这是 RLHF 理论形式化的**假设放宽**，而非原始提出。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本（cs.LG，v3），`> 待核实`；关注度：中（RLHF 主线，被后续理论工作引用）；推荐度：★★★☆☆——用于说明\"RLHF 今日被引用偏向理论修正\"，不能替代 RLHF 奠基引用 [27]。\n- **2023-12｜Iterative Preference Learning from Human Feedback: Bridging Theory and Practice for RLHF under KL-Constraint [29]**：KL 约束下 RLHF 的理论-实践桥接。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本（v4），`> 待核实`；关注度：中；推荐度：★★★☆☆——是理解\"KL 约束是 RLHF 核心几何约束\"的入口。\n- **2026-02｜LLMs as High-Dimensional Nonlinear Autoregressive Models with Attention: Training, Alignment and Inference [20]**：为 LLM 训练/对齐/推理提供统一数学参考。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本（cs.LG），`> 待核实`；关注度：低；推荐度：★★☆☆☆——综述性质，可用于数学记号统一，非前沿方法。\n\n### 1.4 校准与不确定性：以\"集成\"形式回归，但**未与对齐闭环**\n\n- **2026-02｜Value Bonuses using Ensemble Errors for Exploration in RL (VBE) [30]**：维护一组随机动作价值函数（RQFs）的集成，用其**估计误差**构造 value bonus，提供 first-visit optimism 与 deep exploration；文中指出既有方法只在观察到更高 reward bonus 后才回溯性增大 bonus，无法鼓励首次访问。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本（cs.LG，2026-02-12，v1），`> 待核实`；关注度：低；推荐度：★★☆☆☆——与\"深度集成/校准理论的奠基\"只有方法论相邻性（都用集成做不确定性），**不可作为校准理论奠基引用**。\n- **2023｜Learn to Accumulate Evidence from All Training Samples: Theory and Practice [31]**：证据累积的理论与实践。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本（v2），`> 待核实`；关注度：低；推荐度：★★☆☆☆——可作为\"不确定性/证据累积\"这一支线的旁证。\n- **术语污染警示**：[14] 标题虽含 \"Uncertainty…Calibration\"，但对象是**多线 TRL 电磁校准的测量与模型不确定度传播（ISO GUM 框架）**，与 AI 置信度校准无任何关系。这提示：以 \"calibration\" 单词检索对齐文献会引入大量同名异义噪声，需强制加限定词（如 `confidence calibration LLM alignment`）。同理 [13] 为 2015 年基于 star 数的 GitHub 流行度度量框架，本报告将其仅作为\"热度指标方法论\"的历史参考，不用于任何对齐结论。\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量判断**：本批证据中能确认的工业侧信号只有两类——**开源 RLHF 训练/反馈采集工具链**（[15][28]）与**厂商自评式系统卡 / 第三方透明度审计**（[22][3]）；真正的\"对齐产品化\"（合规 API、拒答策略、校准化输出）在本批中**无一手证据**，属明确缺口。\n\n| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| OpenRLHF | 2024 | `> 待核实` | `> 待核实`（star 未取到） | arXiv 预印本（cs.LG，v6 多次修订）[15] | 高（依据：候选集中唯一被明确标注为\"easy-to-use, scalable, high-performance RLHF framework\"的工程栈；但无 star 数据） | ★★★★☆ 工程栈章节的核心条目 | http://arxiv.org/abs/2405.11143v6 | 可扩展 RLHF 训练框架，聚焦易用性与性能 [15] |\n| RLHF-Blender | 2023 | `> 待核实` | `> 待核实` | arXiv 预印本 [28] | 中（依据：提供可配置交互界面以采集多元人类反馈，属反馈采集层工具） | ★★★☆☆ 与 OpenRLHF 互补（数据采集 vs 训练） | http://arxiv.org/abs/2308.04332v1 | 面向多样人类反馈的可配置交互界面 [28] |\n| OpenAI o1 System Card | 2024 | OpenAI（机构归属 `> 待核实`，来源未给出） | `> 待核实` | 官方系统卡（arXiv 2412.16720v2）——**厂商自评** | 高（依据：o1 是 2024 年推理模型主线，系统卡为公开安全评测载体） | ★★★☆☆ 作为\"工业界如何披露对齐/安全评测\"的一手样本；注意其为自评而非第三方复现 | http://arxiv.org/abs/2412.16720v2 | 系统卡形式的模型能力与安全披露 [22] |\n| The 2025 Foundation Model Transparency Index（第三版） | 2025 | `> 待核实`（CRFM 类机构归属无来源支撑） | `> 待核实` | arXiv 预印本（cs.AI）[3] | 中高（依据：连续第三年发布，具备年度可比性；无引用/榜单数据） | ★★★★☆ 工业界治理章节唯一可量化对比来源 | http://arxiv.org/abs/2512.10169v1 | 量化基础模型开发者的透明度实践及其年度演变 [3] |\n\n**未获证据的工业侧事项**：闭源对齐产品的校准接口、拒答与不确定性暴露机制、企业级可扩展监督服务、并购与合作——本批**零覆盖**，`> 待核实`。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量判断**：最大的蓝海不是\"再造一个对齐算法\"，而是**可扩展监督缺少统一、可复现的评测协议**，以及**\"校准/不确定性\"与\"价值对齐目标\"之间尚无人搭桥**。\n\n1. **校准 × 对齐的交叉几乎无人区（最高杠杆缺口）**。本批 36 条来源中，与 AI 校准/不确定性直接相关的仅 [30]（RL 探索的集成误差）与 [31]（证据累积），**没有任何一条把 LLM 置信度校准与对齐干预（拒答、澄清提问、监督者可靠性加权）连接起来**。而 [5] 的核心痛点正是\"弱监督者的判断不可靠\"——这本质上是一个**校准问题**，却未被 [5] 显式建模。→ 高杠杆机会：把监督者的置信度校准直接用于可扩展监督的标签/信号加权。\n2. **可扩展监督缺统一基准与可比口径**。[4][6][11] 各自使用不同的 W2S 设置与数据集，本批未出现任何跨工作共用的基准或榜单；[33][35] 的 debate 路线与 W2S 路线之间亦无可比实验。→ 谁先发布统一 harness，谁定义该子领域。\n3. **辩论式监督的实证荒漠**。[35] 与 [33] 提供理论，但本批中**没有一条真实大规模人类/模型辩论实验的复现结果**。[19] 的 Multi-Box 协议更只是构想。→ 空白的实证赛道。\n4. **奠基框架的检索/研究缺口（需在下一轮补齐）**：\n   - **iterated amplification**：本批 36 条来源零命中 → 原始贡献与当代引用无法评估。`> 待核实`\n   - **recursive reward modeling**：零命中。`> 待核实`\n   - **ELK (Eliciting Latent Knowledge)**：零命中。`> 待核实`（这意味着\"诚实性 / 潜在知识\"这一支线在本快照中完全缺失，是**覆盖度风险**而非\"该方向已死\"）。\n5. **多语言/跨文化安全对齐缺口**：[10] 指出 LLM 安全性在多语言之间并不均衡（\"All Languages Matter\"）。→ 价值对齐的\"价值\"本身存在文化与语言分布问题，而本批中**没有一条工作把多语言安全评测与 W2S/可扩展监督结合**。\n6. **系统安全 vs 技术对齐的路线争议**：[36] 直接主张\"AI 安全被困在技术术语里\"，并以系统安全（system safety）视角回应 International AI Safety Report。这是**方法论层面的对立面**，也是本领域最被低估的批评入口。\n7. **欺骗性能力与自我知识一致性作为\"弱监督失效\"的潜在成因**：[9] 研究 LLM 的欺骗性能力，[12] 研究 LLM 人格的自我知识与行动是否一致。二者与\"监督者不可靠\"直接相关，但在本批中**未被任何可扩展监督工作引用** → 跨支线未连接的缺口。\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n**一句话增量判断**：瓶颈已从\"弱模型能力不足\"**转移**到\"弱监督信号的信息密度与可靠性\"；拐点信号是监督信号形态由**二元标签 → 偏好 → critique/集成投票**的升级。\n\n| 维度 | 瓶颈内容 | 可核查依据 |\n|---|---|---|\n| 监督信号质量 | 弱监督者无法给出可靠的标签、偏好或最终判断，同时限制 W2S 与 scalable oversight | [5] 摘要原话 |\n| 评测可比性 | 无统一基准/harness，跨工作不可比 | [4][6][11] 各自设置；无共用榜单（`> 待核实`） |\n| 理论–实证落差 | debate 有复杂性理论刻画，但无大规模复现证据 | [33][35] 理论 vs 本批无实验复现 |\n| 透明度与可复现 | 厂商透明度实践需年度量化跟踪 | [3] 第三版指数 |\n| 协议层空转 | ASI 对齐协议停留在构想层，无验证路径 | [19] 无实验 |\n| 算力/成本 | 本批**无任何算力或成本数据** | `> 待核实` |\n\n**拐点信号与判定**：\n- **已观察到的信号（较大概率）**：2024 年 [4] 用\"人类监督 vs 模型辅助监督 + 集成\"做 W2S → 2024-10 [6] 用 LLM 集成 → 2025 [11] 被 AAAI 正式接收 → 2026 [5] 转向\"弱模型作 critic 的 on-policy 蒸馏\"。**信号链**：弱监督的**信号形态**正在从离散标签升级为**理由/critique**，这是该支线最清晰的拐点迹象。\n- **尚未出现的拐点**：把**校准/不确定性**作为监督者可靠性的显式建模项。本批无证据，判定为\"**拐点未到**\"。\n- **可证伪假设 [P]**：若到 2027-06 之前出现 ≥2 个独立团队在公开基准上报告\"监督者置信度加权的 W2S 优于等权\"，则\"校准 × 可扩展监督\"拐点成立；否则判定该交叉仍处无人区。依据链：[5] 已指出弱监督判断不可靠 → 可靠性即校准问题 → 但当前无工作显式建模 → 存在明确空白。置信度：低–中（受样本规模限制）。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量判断**：本批证据支持两点结构性影响——**透明度正在被制度化为可年度比较的量化对象**（[3]），以及**对齐话语本身正在被挑战**（[36]）；而具体法规条文、出口管制、供应链与劳动影响在本批中**无一手来源**。\n\n- **透明度作为治理基础设施**：2025 Foundation Model Transparency Index 第三版自述为\"年度性努力\"，目标是刻画并**量化**基础模型开发者的透明度实践及其演变 [3]。→ 结构性含义：治理讨论的筹码从\"原则宣言\"转向\"可打分指标\"。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本（cs.AI），非同行评审（`> 待核实` 是否另有机构背书）；关注度：中高（第三版连续发布）；推荐度：★★★★☆。\n- **对齐议程的框架之争**：[36] 以系统安全视角回应 International AI Safety Report，主张\"AI 安全被困在技术术语中\"。→ 这是关于**由谁定义安全问题**的元层面争议，标 `[Debated]`：技术对齐共同体倾向\"技术问题技术解\"，系统安全派主张组织与工程实践优先。\n  - 权威证据：arXiv 预印本 [36]，`> 待核实`；关注度：中（政策报告回应类）；推荐度：★★★☆☆——作为\"对立面必读\"。\n- **多语言公平**：安全对齐在不同语言间不均衡 [10]。→ 社会影响：非英语用户的保护缺口；但 [10] 为 2023 年预印本，是否已被后续工作更新 `> 待核实`。\n- **本批未覆盖项**：EU AI Act 具体条款、美国行政令、出口管制、算力供应链、对齐劳动（数据标注工人）——全部 `> 待核实`，本周期**无证据可写**。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：本批证据只能刻画**开源工程生态**与**学术发表生态**，**资本侧（融资、并购、估值、人才流动）零覆盖**，据实标注为\"本周期无显著可核实变化\"。\n\n- **开源工程生态**：训练侧 [15]（OpenRLHF，v6 版本迭代说明维护活跃），反馈采集侧 [28]（RLHF-Blender）。二者构成\"采集—训练\"最小闭环，是本批唯一可确认的活跃开源栈。\n  - 热度证据：`> 待核实`（无 star/下载数据，本批未提供）；权威证据：均为 arXiv 预印本 + 代码仓（仓库可达性未在来源中给出，`> 待核实`）；关注度：中（RLHF 工程栈需求明确，但无量化信号）；推荐度：★★★★☆（[15]）/★★★☆☆（[28]）。\n- **学术生态**：[11] 发表于 AAAI 2025（DOI 可核），说明 W2S/可扩展监督已进入主流 AI 会议议程；其余相关条目均停留在 arXiv 预印本层（[4][5][6][19][20][26][29][30][31][33][35][36]）。\n- **社区与榜单生态**：本批**无任何榜单、无 benchmark 主页、无 HuggingFace 权重链接** → `> 待核实`。\n- **资本信号**：[3] 的透明度指数间接反映\"开发者已具备足够社会影响力，值得被系统性问责\"，但**指数本身不含融资数据**。融资/并购/人才流动：**本批零证据**，明确写\"本周期无显著变化（证据缺失）\"。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n**一句话增量判断**：本周期该方向处于\"**弱监督信号升级中、评测基础设施缺位、校准桥梁未建**\"的状态；所有预测因样本极小（本批仅约 15 条主题相关来源）而置信度低。\n\n### 7.1 已确证信号（确定性：较大概率）\n- 弱监督的**信号形态升级**：标签 → 偏好 → critique/集成投票。[4]→[6]→[11]→[5] 构成时间链。\n- **peer review 门槛已被跨过**：W2S/可扩展监督已见于 AAAI 2025 [11]，不再是纯 arXiv 话题。\n- **工程侧有稳定开源栈**：[15][28]。\n\n### 7.2 预测（均标 `[P]`，附可证伪条件与置信度）\n1. **[P] 评测基准缺口将在 12–18 个月内被填补**。依据：三条 W2S 线（[4][6][11]）互不可比 + 无统一 harness，构成明显的研究基础设施空白。**可证伪条件**：若到 2027-12 仍无 ≥2 个独立团队公开共用 W2S/oversight 基准，则判定不成立。置信度：中。\n2. **[P] 校准将重新进入对齐主线**（本报告最重要的预测）。依据链：[5] 明确指出弱监督者的判断不可靠 → \"可靠性\"本质是校准/不确定性量化问题 → 但本批 36 条来源中无一条把校准用于监督者加权（仅有 [30][31] 属旁支，[14] 为同名异义噪声）→ 存在高价值空白。**可证伪条件**：若到 2027-06 前未出现任何\"置信度/不确定性加权的监督信号\"工作，则判定该交叉仍为无人区。置信度：低–中。\n3. **[P] debate 路线（[35][33]）将继续\"理论强、实证弱\"**。依据：本批无任何大规模辩论实证复现。**可证伪条件**：若 2027 前出现 ≥1 篇在真实任务上报告辩论式监督相对基线增益的同行评审论文，则判定不成立。置信度：中。\n4. **[P] ASI 对齐协议类工作（[19]）将持续增加但验证性不提升**。依据：[19] 为纯构想、无实验，而 ASI 目标本身不可实验，形成结构性\"不可证伪地带\"。**可证伪条件**：若出现可执行的协议可验证性框架（如形式化安全性质可被证明或攻破），则判定不成立。置信度：中。\n5. **[P] 路线之争（[36] vs 技术对齐共同体）将随监管落地而升温**，标 `[Debated]`。依据：[36] 直接以\"技术术语困住 AI 安全\"为论点回应国际 AI 安全报告 [36]；透明度指数年度化 [3] 提供量化弹药。置信度：中。\n\n### 7.3 不确定性与风险\n- **样本规模风险**：本批仅 ~15 条主题相关来源，且**全部热度数据缺失**，任何趋势判断都可能被一次完整检索推翻。\n- **覆盖度风险（最严重）**：iterated amplification、recursive reward modeling、ELK **在本批零命中**，这意味着本报告对\"可扩展监督的思想史\"覆盖不完整——**不能据此推断这些方向已停滞**。\n- **术语歧义风险**：`calibration` 同时命中电磁测量 [14]、`popularity` 命中 GitHub 度量 [13]，说明召回质量不稳，后续需以领域限定词重检。\n- **自评 vs 独立验证风险**：[22] 为厂商系统卡（自评），[3] 为学术第三方审计；二者证据性质不同，不可混用同一结论。\n\n### 7.4 Watchlist（值得持续关注）\n`[5]`（弱 critic 蒸馏，2026）｜`[4]`、`[6]`（W2S×集成，2024）｜`[11]`（AAAI 2025，W2S 正式发表）｜`[15]`（OpenRLHF 工程栈）｜`[33]`、`[35]`（debate 理论谱系）｜`[22]`（厂商安全披露范式）｜`[3]`（透明度年度指数）｜`[36]`（对齐框架之争）｜`[9]`、`[12]`（监督者不可靠的可能成因）｜`[10]`（多语言安全公平）。\n\n---\n\n## 附：经典与奠基性工作\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Deep reinforcement learning from human preferences | 2017 | `> 待核实`（来源未给出作者/机构） | `> 待核实`（无引用数） | arXiv 预印本（v4），`> 待核实` venue | 中（依据：作为\"用人类偏好比较训练奖励模型再做 RL\"这一 RLHF 原始范式的源头文献被反复引用；具体引用数缺失） | ★★★★★ 本主题**不可跳过的奠基引用**，替代此前误用的 [26] | http://arxiv.org/abs/1706.03741v4 | RLHF 原始人类偏好训练范式 [27] |\n| AI safety via debate | 2018 | `> 待核实` | `> 待核实` | arXiv 预印本（v2） | 中（依据：辩论式可扩展监督的起点文献；无引用数） | ★★★★★ 可扩展监督思想史起点 | http://arxiv.org/abs/1805.00899v2 | 以辩论实现可扩展监督 [35] |\n| Scalable AI Safety via Doubly-Efficient Debate | 2023 | `> 待核实` | `> 待核实` | arXiv 预印本 | 中 | ★★★★☆ debate 的效率理论续作，与 [35] 配套 | http://arxiv.org/abs/2311.14125v1 | 双重高效辩论的可扩展性论证 [33] |\n| Iterative Preference Learning from Human Feedback: Bridging Theory and Practice for RLHF under KL-Constraint | 2023 | `> 待核实` | `> 待核实` | arXiv 预印本（v4） | 中 | ★★★★☆ KL 约束下 RLHF 理论与实践的桥梁 | http://arxiv.org/abs/2312.11456v4 | 迭代偏好学习理论 [29] |\n| Online Iterative RLHF with General Preference Model | 2024 | `> 待核实` | `> 待核实` | arXiv 预印本（v3） | 中 | ★★★★☆ RLHF 假设放宽（去 Bradley-Terry）的代表 | http://arxiv.org/abs/2402.07314v3 | 一般偏好 oracle + reverse-KL minimax [26] |\n| Deliberative Technology for Alignment | 2023 | `> 待核实` | `> 待核实` | arXiv 预印本 | 低–中 | ★★★☆☆ 审议式（deliberative）对齐的框架性文献 | http://arxiv.org/abs/2312.03893v1 | 对齐的审议技术路径 [16] |\n| iterated amplification | — | `> 待核实` | `> 待核实` | `> 待核实` | 未知 | `> 待核实` | `> 待核实` | **本批 36 条来源零命中**，须补检索 |\n| recursive reward modeling | — | `> 待核实` | `> 待核实` | `> 待核实` | 未知 | `> 待核实` | `> 待核实` | **本批零命中**，须补检索 |\n| ELK (Eliciting Latent Knowledge) | — | `> 待核实` | `> 待核实` | `> 待核实` | 未知 | `> 待核实` | `> 待核实` | **本批零命中**，须补检索 |\n\n## 附：开源项目\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| OpenRLHF | 2024 | `> 待核实` | `> 待核实`（star 未取到） | arXiv 预印本（cs.LG，v6） | 中（无量化信号） | ★★★★☆ 可扩展高性能 RLHF 训练框架 | http://arxiv.org/abs/2405.11143v6 | [15] |\n| RLHF-Blender | 2023 | `> 待核实` | `> 待核实` | arXiv 预印本 | 中 | ★★★☆☆ 多样人类反馈的可配置交互界面 | http://arxiv.org/abs/2308.04332v1 | [28] |\n| 弱到强泛化复现代码（[4][6][11] 对应实现） | — | `> 待核实` | `> 待核实` | `> 待核实` | 未知 | `> 待核实` | `> 待核实` | 是否开源在本批来源中**未获证据**，需逐篇核对 |\n| 评测 harness / 监督实验平台 | — | `> 待核实` | `> 待核实` | `> 待核实` | 未知 | `> 待核实` | `> 待核实` | **本批无任何可核实条目**，属最大工程缺口 |\n\n## 附：数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| OpenAI o1 系统卡安全评测 | 2024 | `> 待核实`（OpenAI） | `> 待核实` | 官方系统卡（**厂商自评**） | 高 | ★★★☆☆ 观察\"工业界如何披露安全评测\"的一手样本，非第三方基准 | http://arxiv.org/abs/2412.16720v2 | [22] |\n| o1-Preview 高阶思维教育评测 | 2024 | `> 待核实` | `> 待核实` | arXiv 预印本 | 低 | ★★☆☆☆ 第三方教育场景评估，与对齐目标弱相关 | http://arxiv.org/abs/2410.21287v1 | [24] |\n| W2S / 可扩展监督统一基准 | — | — | `> 待核实` | `> 待核实` | 未知 | `> 待核实` | `> 待核实` | **本批不存在**；[4][6][11] 各自设置不可比 —— 这是本方向最明确的基准缺口 |\n| 多语言安全评测（跨语言安全不均衡） | 2023 | `> 待核实` | `> 待核实` | arXiv 预印本 | 低–中 | ★★★☆☆ 价值对齐的文化/语言分布问题入口 | http://arxiv.org/abs/2310.00905v2 | [10] |\n| 校准/不确定性专用基准（AI 置信度） | — | — | `> 待核实` | `> 待核实` | 未知 | `> 待核实` | `> 待核实` | **本批零命中**；仅有同名异义的电磁 TRL 校准 [14] 与 RL 集成探索 [30] |\n\n---\n\n## 参考来源\n\n[1] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[2] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[3] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[4] Improving Weak-to-Strong Generalization with Scalable Oversight and Ensemble Learning — http://arxiv.org/abs/2402.00667v1\n[5] Weak Critics Make Strong Learners: On-Policy Critique Distillation for Scalable Oversight — http://arxiv.org/abs/2606.00424v2\n[6] EnsemW2S: Enhancing Weak-to-Strong Generalization with Large Language Model Ensembles — http://arxiv.org/abs/2410.04571v3\n[7] A Simulation and Modeling of Access Points with Definition Language — http://arxiv.org/abs/1304.1836v2\n[8] Superconductivity as a consequence of an ordering of the electron gas zero-point oscillations — http://arxiv.org/abs/1005.0280v6\n[9] Unmasking the Shadows of AI: Investigating Deceptive Capabilities in Large Language Models — http://arxiv.org/abs/2403.09676v1\n[10] All Languages Matter: On the Multilingual Safety of Large Language Models — http://arxiv.org/abs/2310.00905v2\n[11] Strong Empowered and Aligned Weak Mastered Annotation for Weak-to-Strong Generalization — https://doi.org/10.1609/aaai.v39i26.34955\n[12] Is Self-knowledge and Action Consistent or Not: Investigating Large Language Model's Personality — http://arxiv.org/abs/2402.14679v2\n[13] On the Popularity of GitHub Applications: A Preliminary Note — http://arxiv.org/abs/1507.00604v3\n[14] Propagation of Measurement and Model Uncertainties through Multiline TRL Calibration — http://arxiv.org/abs/2206.10209v2\n[15] OpenRLHF: An Easy-to-use, Scalable and High-performance RLHF Framework — http://arxiv.org/abs/2405.11143v6\n[16] Deliberative Technology for Alignment — http://arxiv.org/abs/2312.03893v1\n[17] Massive stars with Pollux on LUVOIR — http://arxiv.org/abs/1811.05264v1\n[18] Flexible Variable Star Extractor: new software for detection of variable stars — http://arxiv.org/abs/1812.06955v1\n[19] Aligning Artificial Superintelligence via a Multi-Box Protocol — http://arxiv.org/abs/2511.21779v1\n[20] LLMs as High-Dimensional Nonlinear Autoregressive Models with Attention: Training, Alignment and Inference — http://arxiv.org/abs/2602.00426v1\n[21] Learning Dexterous In-Hand Manipulation — http://arxiv.org/abs/1808.00177v5\n[22] OpenAI o1 System Card — http://arxiv.org/abs/2412.16720v2\n[23] ThankYouStars: Give your Dependencies Stars on GitHub! — https://doi.org/10.32614/cran.package.thankyoustars\n[24] A Systematic Assessment of OpenAI o1-Preview for Higher Order Thinking in Education — http://arxiv.org/abs/2410.21287v1\n[25] Comparing Deep Reinforcement Learning and Evolutionary Methods in Continuous Control — http://arxiv.org/abs/1712.00006v2\n[26] Online Iterative Reinforcement Learning from Human Feedback with General Preference Model — http://arxiv.org/abs/2402.07314v3\n[27] Deep reinforcement learning from human preferences — http://arxiv.org/abs/1706.03741v4\n[28] RLHF-Blender: A Configurable Interactive Interface for Learning from Diverse Human Feedback — http://arxiv.org/abs/2308.04332v1\n[29] Iterative Preference Learning from Human Feedback: Bridging Theory and Practice for RLHF under KL-Constraint — http://arxiv.org/abs/2312.11456v4\n[30] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1\n[31] Learn to Accumulate Evidence from All Training Samples: Theory and Practice — http://arxiv.org/abs/2306.11113v2\n[32] ZPD Teaching Strategies for Deep Reinforcement Learning from Demonstrations — http://arxiv.org/abs/1910.12154v1\n[33] Scalable AI Safety via Doubly-Efficient Debate — http://arxiv.org/abs/2311.14125v1\n[34] The Via Project: Overview of the Science, Instrument, and Survey — http://arxiv.org/abs/2606.18332v1\n[35] AI safety via debate — http://arxiv.org/abs/1805.00899v2\n[36] AI Safety is Stuck in Technical Terms — A System Safety Response to the International AI Safety Report — http://arxiv.org/abs/2503.04743v1\n\n---\n\n*Generated by research-bot · topic=`价值对齐与可扩展监督含校准与不确定性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=36 · duration=174s · 2026-10-08T22:17:20+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Improving Weak-to-Strong Generalization with Scalable Oversight and Ensemble Learning",
+      "url": "http://arxiv.org/abs/2402.00667v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-02-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Weak Critics Make Strong Learners: On-Policy Critique Distillation for Scalable Oversight",
+      "url": "http://arxiv.org/abs/2606.00424v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "EnsemW2S: Enhancing Weak-to-Strong Generalization with Large Language Model Ensembles",
+      "url": "http://arxiv.org/abs/2410.04571v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-10-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "A Simulation and Modeling of Access Points with Definition Language",
+      "url": "http://arxiv.org/abs/1304.1836v2",
+      "kind": "paper",
+      "venue": "cs.OH",
+      "published": "2013-04-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Superconductivity as a consequence of an ordering of the electron gas zero-point oscillations",
+      "url": "http://arxiv.org/abs/1005.0280v6",
+      "kind": "paper",
+      "venue": "physics.gen-ph",
+      "published": "2010-05-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Unmasking the Shadows of AI: Investigating Deceptive Capabilities in Large Language Models",
+      "url": "http://arxiv.org/abs/2403.09676v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "All Languages Matter: On the Multilingual Safety of Large Language Models",
+      "url": "http://arxiv.org/abs/2310.00905v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-10-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Strong Empowered and Aligned Weak Mastered Annotation for Weak-to-Strong Generalization",
+      "url": "https://doi.org/10.1609/aaai.v39i26.34955",
+      "kind": "paper",
+      "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+      "published": "2025-04-11",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Is Self-knowledge and Action Consistent or Not: Investigating Large Language Model's Personality",
+      "url": "http://arxiv.org/abs/2402.14679v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-02-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "On the Popularity of GitHub Applications: A Preliminary Note",
+      "url": "http://arxiv.org/abs/1507.00604v3",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2015-07-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Propagation of Measurement and Model Uncertainties through Multiline TRL Calibration",
+      "url": "http://arxiv.org/abs/2206.10209v2",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2022-06-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "OpenRLHF: An Easy-to-use, Scalable and High-performance RLHF Framework",
+      "url": "http://arxiv.org/abs/2405.11143v6",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Deliberative Technology for Alignment",
+      "url": "http://arxiv.org/abs/2312.03893v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2023-12-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Massive stars with Pollux on LUVOIR",
+      "url": "http://arxiv.org/abs/1811.05264v1",
+      "kind": "paper",
+      "venue": "astro-ph.SR",
+      "published": "2018-11-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Flexible Variable Star Extractor: new software for detection of variable stars",
+      "url": "http://arxiv.org/abs/1812.06955v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2018-12-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Aligning Artificial Superintelligence via a Multi-Box Protocol",
+      "url": "http://arxiv.org/abs/2511.21779v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-11-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "LLMs as High-Dimensional Nonlinear Autoregressive Models with Attention: Training, Alignment and Inference",
+      "url": "http://arxiv.org/abs/2602.00426v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-01-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Learning Dexterous In-Hand Manipulation",
+      "url": "http://arxiv.org/abs/1808.00177v5",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-08-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "OpenAI o1 System Card",
+      "url": "http://arxiv.org/abs/2412.16720v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-12-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "ThankYouStars: Give your Dependencies Stars on GitHub!",
+      "url": "https://doi.org/10.32614/cran.package.thankyoustars",
+      "kind": "paper",
+      "venue": "CRAN: Contributed Packages",
+      "published": "2017-09-17",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "A Systematic Assessment of OpenAI o1-Preview for Higher Order Thinking in Education",
+      "url": "http://arxiv.org/abs/2410.21287v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2024-10-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Comparing Deep Reinforcement Learning and Evolutionary Methods in Continuous Control",
+      "url": "http://arxiv.org/abs/1712.00006v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2017-11-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Online Iterative Reinforcement Learning from Human Feedback with General Preference Model",
+      "url": "http://arxiv.org/abs/2402.07314v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-02-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Deep reinforcement learning from human preferences",
+      "url": "http://arxiv.org/abs/1706.03741v4",
+      "kind": "paper",
+      "venue": "stat.ML",
+      "published": "2017-06-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "RLHF-Blender: A Configurable Interactive Interface for Learning from Diverse Human Feedback",
+      "url": "http://arxiv.org/abs/2308.04332v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-08-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Iterative Preference Learning from Human Feedback: Bridging Theory and Practice for RLHF under KL-Constraint",
+      "url": "http://arxiv.org/abs/2312.11456v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-12-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2602.12375v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-02-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+      "url": "http://arxiv.org/abs/2306.11113v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-06-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "ZPD Teaching Strategies for Deep Reinforcement Learning from Demonstrations",
+      "url": "http://arxiv.org/abs/1910.12154v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2019-10-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Scalable AI Safety via Doubly-Efficient Debate",
+      "url": "http://arxiv.org/abs/2311.14125v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2023-11-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "The Via Project: Overview of the Science, Instrument, and Survey",
+      "url": "http://arxiv.org/abs/2606.18332v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2026-06-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "AI safety via debate",
+      "url": "http://arxiv.org/abs/1805.00899v2",
+      "kind": "paper",
+      "venue": "stat.ML",
+      "published": "2018-05-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "AI Safety is Stuck in Technical Terms -- A System Safety Response to the International AI Safety Report",
+      "url": "http://arxiv.org/abs/2503.04743v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-02-05",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-08-价值对齐与可扩展监督含校准与不确定性.md",
+    "json": "report/2026/10/2026-10-08-价值对齐与可扩展监督含校准与不确定性.json"
+  }
+}

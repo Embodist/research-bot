@@ -1,0 +1,1053 @@
+{
+  "topic": "机器人运动学控制与-ros-2",
+  "title": "机器人运动学、控制与 ROS 2：领域增量追踪报告（2024–2026）",
+  "query": "机器人运动学、控制与 ROS 2",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-08T22:11:07+00:00",
+  "finished_at": "2026-10-08T22:14:22+00:00",
+  "duration_s": 195.1,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人运动学、控制与 ROS 2：领域增量追踪报告（2024–2026）",
+    "summary": "以 2026-10 为基线，追踪机器人运动学/控制与 ROS 2 生态近 12–24 个月的真实变化——包括前沿方法（VLA 与世界模型驱动控制、实时光学/差分运动学、MPC 与全身控制）、奠基与经典工作、开源工程栈（ros2_control、MoveIt 2、Nav2、DDS/zenoh）、数据集与基准（LIBERO、SimplerEnv、DROID、RoboArena 等）以及开放问题与争议，并按 7 facet（进展/产业/蓝海/瓶颈/政策/资本/预测）产出带日期与可核查引用的增量快照。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近 12–24 个月（2024-10 至 2026-10）机器人运动学与控制的方法前沿发生了什么真正的增量变化？包括：(a) VLA/基础模型如何接入底层运动学与控制器（动作分词、动作头、扩散/流匹配策略、实时推理频率）；(b) 全身控制（WBC）、MPC、实时优化与强化学习在真机上的落地状态；(c) 哪些 SOTA 是独立复现/榜单验证，哪些仅有演示视频；同时识别该方向未解问题与争议（如端到端 vs 分层控制、仿真 SOTA 与真机 SOTA 的鸿沟、控制频率与安全约束）。",
+        "rationale": "这是 7 facet 中『进展与热点』『瓶颈与拐点』『信号与预测』的核心证据来源。必须先确认『最新』相对什么基线是新的，并区分论文宣称与第三方验证，否则后续所有产业/资本判断都会失真。",
+        "queries": [
+          "vision-language-action policy real-time control frequency joint space 2025 arxiv survey",
+          "VLA 动作头 扩散策略 流匹配 机器人 控制 2025 综述",
+          "whole-body control humanoid MPC reinforcement learning real robot 2025 CoRL RSS",
+          "sim-to-real gap manipulation control benchmark disputed 2025 arxiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openreview",
+          "github",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该领域的经典/奠基工作与当前可用的数据集、基准有哪些？具体包括：(a) 运动学求解与控制的奠基文献（DH 参数、旋量/李群 SE(3) 表述、Jacobian 伪逆与阻尼最小二乘、阻抗/导纳控制、计算力矩控制、MPC 在机械臂上的经典表述）；(b) ROS/ROS 2 的奠基性设计与论文（ROS 1 架构论文、ROS 2 与 DDS 的设计动因、ros2_control 与 MoveIt 的官方文档谱系）；(c) 当前主流数据集与基准（Open X-Embodiment、DROID、LIBERO、SimplerEnv、RoboArena、RoboMimic 等）的口径：仿真 or 真机、任务数、本体数量、是否可复现。",
+        "rationale": "对应『论文调研要 先从综述与奠基入手』以及『数据集与基准』的要求；只有锚定经典口径与基线数字，才能判断 2024–2026 的新结果到底是数据、架构还是算力带来的提升。",
+        "queries": [
+          "robot kinematics Lie group SE(3) screw theory manipulator control foundation paper",
+          "impedance admittance control computed torque control tutorial survey manipulator arxiv",
+          "ros2_control MoveIt 2 Nav2 documentation design architecture 2025",
+          "Open X-Embodiment DROID LIBERO SimplerEnv RoboArena benchmark real robot tasks 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "crossref",
+          "semantic_scholar",
+          "github"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "开源项目与工程实践、产业落地及生态动态如何变化？具体包括：(a) ROS 2 发行版与中间件演进（Kilted/Jazzy/Rolling 时间线、rmw_zenoh、DDS 选型）、ros2_control 与 MoveIt 2 的重大更新；(b) 运动学/规划/控制相关开源库与工具链（Pinocchio、Drake、MuJoCo/MJX、crocoddyl、OMPL、KDL、Moveit Servo）的维护活跃度与真实部署案例；(c) 工业界产品与量产/开源权重（含人形与协作臂厂商）、资本与人才流动、监管标准（ISO 10218 / ISO/TS 15066、欧盟 AI Act 与机械法规）对控制与安全设计的影响；(d) 生态中的蓝海缺口（实时性、确定性、认证级安全控制、ROS 2 实时内核与功能安全空白）。",
+        "rationale": "覆盖 7 facet 中『工业界与产品』『蓝海与缺口』『社会·政策·国际』『资本与生态』四维，用 GitHub 活跃度、官方发布说明、标准/法规生效日等可观测指标替代主观判断，避免把演示当部署。",
+        "queries": [
+          "ROS 2 release Jazzy Kilted Rolling ros2_control MoveIt 2 changelog 2025 2026",
+          "rmw_zenoh DDS middleware real-time determinism ROS 2 evaluation 2025",
+          "Pinocchio Drake Crocoddyl MuJoCo MJX rigid body dynamics release 2025 github",
+          "humanoid robot product launch mass production 2025 2026 control stack ROS 2"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv",
+          "semantic_scholar",
+          "crossref"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近 12–24 个月（2024-10 至 2026-10）机器人运动学与控制的方法前沿发生了什么真正的增量变化？包括：(a) VLA/基础模型如何接入底层运动学与控制器（动作分词、动作头、扩散/流匹配策略、实时推理频率）；(b) 全身控制（WBC）、MPC、实时优化与强化学习在真机上的落地状态；(c) 哪些 SOTA 是独立复现/榜单验证，哪些仅有演示视频；同时识别该方向未解问题与争议（如端到端 vs 分层控制、仿真 SOTA 与真机 SOTA 的鸿沟、控制频率与安全约束）。",
+      "queries": [
+        "vision-language-action policy real-time control frequency joint space 2025 arxiv survey",
+        "VLA 动作头 扩散策略 流匹配 机器人 控制 2025 综述",
+        "whole-body control humanoid MPC reinforcement learning real robot 2025 CoRL RSS",
+        "sim-to-real gap manipulation control benchmark disputed 2025 arxiv"
+      ],
+      "rationale": "这是 7 facet 中『进展与热点』『瓶颈与拐点』『信号与预测』的核心证据来源。必须先确认『最新』相对什么基线是新的，并区分论文宣称与第三方验证，否则后续所有产业/资本判断都会失真。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.031877,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+          "url": "http://arxiv.org/abs/2608.17095v1",
+          "snippet": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visual tokens of detector localized traffic actors on Alpamayo-R1's Qwen3-VL backbone. It is applied as a fail open forward pre-hook with no weight changes. On 50 lane-change scenarios from the Physical AI World Model Synthetic dataset. The trajectory decoder shows a monotonic dose response in the bias…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-17",
+          "authors": [
+            "Darshan Nagendra Prasad",
+            "Lars Ullrich",
+            "Knut Graichen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.17095v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+          "url": "http://arxiv.org/abs/2512.06951v2",
+          "snippet": "We present a vision-action policy that won 1st place in the 2025 BEHAVIOR Challenge - a large-scale benchmark featuring 50 diverse long-horizon household tasks in photo-realistic simulation, requiring bimanual manipulation, navigation, and context-aware decision making. Building on the Pi0.5 architecture, we introduce several innovations. Our primary contribution is correlated noise for flow matching, which improves training efficiency and enables correlation-aware inpainting for smooth action sequences. We also apply learnable mixed-layer attention and System 2 stage tracking for ambiguity r…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-07",
+          "authors": [
+            "Ilia Larchenko",
+            "Gleb Zarin",
+            "Akash Karnatak"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.06951v2",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "VLA 基础模型 + 流匹配动作头是 2025 年竞赛级验证的一条主流路线：2025 BEHAVIOR Challenge 冠军方案以 Pi0.5 架构为基础，核心创新是对流匹配（flow matching）使用相关噪声（correlated noise），在 50 个长程家务任务、需双臂操作+导航+上下文感知决策的照片级真实仿真基准上取得第一名。",
+            "evidence": "论文自述：won 1st place in the 2025 BEHAVIOR Challenge - a large-scale benchmark featuring 50 diverse long-horizon household tasks in photo-realistic simulation, requiring bimanual manipulation, navigation, and context-aware decision making. Building on the Pi0.5 architecture, we introduce several innovations. Our primary contribution is correlated noise for flow matching。提交时间 2025-12-07，v2 版本。",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.RO, v2)，未标注同行评审；作者自述为 2025 BEHAVIOR Challenge 第一名",
+            "attention": "中——BEHAVIOR 是长程双臂家务操作仿真基准，竞赛冠军具备话题性，但候选块未提供引用数、star 或榜单链接等可量化热度信号",
+            "recommendation": "★★★★☆ —— 与本子问题 (a) 的动作头/流匹配/分层接入高度相关，且是基准竞赛第一名而非单纯演示视频，但属仿真自评、未经同行评审，证据等级为 B"
+          },
+          {
+            "point": "出现『推理期干预 VLA』而非重训练的新控制接入范式：VLA 驾驶模型把推理阶段与基于扩散（diffusion）的轨迹解码器耦合，可在不重训练的情况下，通过对检测器定位的交通参与者视觉 token 施加有界加性 pre-softmax 注意力偏置，把注意力重定向到安全攸关对象上。",
+            "evidence": "摘要：Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visual tokens of detector localized traffic actors on Alpamayo-R1's Qwen3-VL backbone。提交时间 2026-08-17。",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CV)，未标注同行评审；涉及具体模型 Alpamayo-R1 与 Qwen3-VL backbone",
+            "attention": "低——候选块仅提供摘要片段，无引用数、榜单排名或社区讨论等热度信号",
+            "recommendation": "★★★☆☆ —— 直接回应本子问题 (a) 中 VLA 与扩散动作/轨迹头结合及安全干预，但仅有摘要、无实验数字与第三方复现，证据强度不足以支撑强结论"
+          },
+          {
+            "point": "候选证据集存在明显覆盖缺口：没有任何一条证据覆盖全身控制（WBC）、MPC、实时优化或强化学习在真机上的落地状态，也没有任何独立复现、第三方榜单或真机部署证据；同时候选集中混入了与本子问题无关的两条论文（短视频参与度预测、车联网边缘计算任务卸载）。",
+            "evidence": "候选集共 4 条：[2] VQualA 2025 Challenge on Engagement Prediction for Short Videos（短视频 UGC 参与度预测，CS 视觉，与机器人运动学/控制无关）；[3] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing（车联网任务卸载，与机器人控制无关）；[4] 仅 VLA 驾驶模型注意力干预；[6] 仅仿真基准竞赛方案。四条中无一条涉及 WBC/MPC/真机 RL 部署或独立复现。",
+            "sources": [
+              2,
+              3,
+              4,
+              6
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "基于候选集自身的构成统计，非外部权威来源",
+            "attention": "低——该结论来自对候选集内部构成的清点，不涉及社区关注度信号",
+            "recommendation": "★★★☆☆ —— 该缺口结论本身对判断子问题 (b)(c) 的答案边界很关键，但需补检 arXiv cs.RO、CoRL/RSS/ICRA 与真机部署类证据后才能回答 (b) 与 (c)"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+            "url": "http://arxiv.org/abs/2512.06951v2",
+            "why": "给出 VLA 基础模型（Pi0.5）与流匹配动作头结合的竞赛级方案，是回答『VLA 如何接入底层动作生成』的一手证据，且在 50 任务长程双臂仿真基准上经过竞赛检验（非仅演示视频）",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 cs.RO（v2），未标注同行评审",
+            "attention": "中——BEHAVIOR Challenge 冠军自带话题性，但候选块无引用数/榜单链接可量化",
+            "recommendation": "★★★★☆ —— 与子问题 (a) 核心问题（动作头/流匹配/长程任务）直接相关，证据来自官网竞赛结果自述，但缺第三方复现与真机验证"
+          },
+          {
+            "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+            "url": "http://arxiv.org/abs/2608.17095v1",
+            "why": "提出在推理期对 VLA 视觉 token 施加有界注意力偏置以聚焦安全攸关对象，代表『不重训练即可干预 VLA 行为』的新方向，涉及扩散轨迹解码器这一动作头形式",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 cs.CV，未标注同行评审",
+            "attention": "低——仅有摘要片段，无引用、榜单或社区热度信号",
+            "recommendation": "★★★☆☆ —— 主题相关（VLA 与扩散动作头、安全约束），但证据仅限摘要且无量化结果，暂不宜作为强结论引用"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "端到端（单模型 VLA 直接输出动作）与分层控制（推理阶段 + 扩散轨迹解码器/底层控制器）之间孰优孰劣尚无定论——候选证据显示实际系统普遍采用『推理阶段耦合扩散解码器』的混合结构，但缺乏对该结构相对端到端方案的受控对比。",
+          "仿真 SOTA 与真机 SOTA 的鸿沟未在候选证据中得到处理：唯一可核查的 SOTA 类结果来自照片级真实仿真基准（BEHAVIOR，50 个长程家务任务），候选块未提供任何真机部署或真机成功率数字。",
+          "实时推理频率（控制频率）完全缺失：候选块中两条相关论文均未给出 VLA 推理/扩散解码的实时性指标（Hz、延迟），无法判断能否满足真实控制回路要求。",
+          "安全约束的形式化与保证不足：现有证据只显示可用推理期注意力偏置『重定向』模型关注点（[4]），未提供安全约束满足性、失败模式或最坏情况分析。",
+          "独立复现与第三方榜单验证缺失：候选集中没有任何一条证据属于第三方复现、公开榜单成绩或真机部署报告；[6] 的第一名成绩为参赛方案自述。",
+          "全身控制（WBC）、MPC、实时优化、强化学习真机落地等子问题 (b) 的方向在候选证据中完全没有覆盖，属于证据缺口而非已确认的领域空白。"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该领域的经典/奠基工作与当前可用的数据集、基准有哪些？具体包括：(a) 运动学求解与控制的奠基文献（DH 参数、旋量/李群 SE(3) 表述、Jacobian 伪逆与阻尼最小二乘、阻抗/导纳控制、计算力矩控制、MPC 在机械臂上的经典表述）；(b) ROS/ROS 2 的奠基性设计与论文（ROS 1 架构论文、ROS 2 与 DDS 的设计动因、ros2_control 与 MoveIt 的官方文档谱系）；(c) 当前主流数据集与基准（Open X-Embodiment、DROID、LIBERO、SimplerEnv、RoboArena、RoboMimic 等）的口径：仿真 or 真机、任务数、本体数量、是否可复现。",
+      "queries": [
+        "robot kinematics Lie group SE(3) screw theory manipulator control foundation paper",
+        "impedance admittance control computed torque control tutorial survey manipulator arxiv",
+        "ros2_control MoveIt 2 Nav2 documentation design architecture 2025",
+        "Open X-Embodiment DROID LIBERO SimplerEnv RoboArena benchmark real robot tasks 2025"
+      ],
+      "rationale": "对应『论文调研要 先从综述与奠基入手』以及『数据集与基准』的要求；只有锚定经典口径与基线数字，才能判断 2024–2026 的新结果到底是数据、架构还是算力带来的提升。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.024476,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Cohomological Equation for Robotic Screw Motion on the Lie Group SE(3)",
+          "url": "http://arxiv.org/abs/2601.10734v1",
+          "snippet": "We study the cohomological equation associated with screw motions on the Euclidean motion group SE(3). Working on the smooth manifold M = T^3 x SO(3), we combine Fourier analysis in the translational variables with Peter-Weyl theory on SO(3) to reduce the equation to a family of finite-dimensional linear transport systems along frequency orbits induced by the rotational component. In the case of finite-order rotations, solvability is governed by explicit finite-dimensional linear obstructions encoded by monodromy operators. An explicit screw motion along the z-axis illustrates the resulting r…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-01-07",
+          "authors": [
+            "Amanze C. Egere"
+          ],
+          "venue": "math.DS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2601.10734v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "The Geometry and Kinematics of the Matrix Lie Group $SE_K(3)$",
+          "url": "http://arxiv.org/abs/2012.00950v4",
+          "snippet": "Currently state estimation is very important for the robotics, and the uncertainty representation based Lie group is natural for the state estimation problem. It is necessary to exploit the geometry and kinematic of matrix Lie group sufficiently. Therefore, this note gives a detailed derivation of the recently proposed matrix Lie group $SE_K(3)$ for the first time, our results extend the results in Barfoot \\cite{barfoot2017state}. Then we describe the situations where this group is suitable for state representation. We also have developed code based on Matlab framework for quickly implementin…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2020-12-02",
+          "authors": [
+            "Yarong Luo",
+            "Mengyuan Wang",
+            "Chi Guo"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2012.00950v4",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+          "url": "http://arxiv.org/abs/1403.5204v3",
+          "snippet": "In this paper, we investigate the adaptive control problem for robot manipulators with both the uncertain kinematics and dynamics. We propose two adaptive control schemes to realize the objective of task-space trajectory tracking irrespective of the uncertain kinematics and dynamics. The proposed controllers have the desirable separation property, and we also show that the first adaptive controller with appropriate modifications can yield improved performance, without the expense of conservative gain choice. The performance of the proposed controllers is shown by numerical simulations.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2014-03-20",
+          "authors": [
+            "Hanlei Wang"
+          ],
+          "venue": "eess.SY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1403.5204v3",
+            "rrf_score": 0.024194
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Cohomological Equation for Robotic Screw Motion on the Lie Group SE(3)",
+            "evidence": "We study the cohomological equation associated with screw motions on the Euclidean motion group SE(3). Working on the smooth manifold M = T^3 x SO(3), we combine Fourier analysis in the translational variables with Peter-Weyl theory on SO(3) to reduce the equation to a family of finite-dimensional…",
+            "sources": [
+              28
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "math.DS",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=math.DS）"
+          },
+          {
+            "point": "The Geometry and Kinematics of the Matrix Lie Group $SE_K(3)$",
+            "evidence": "Currently state estimation is very important for the robotics, and the uncertainty representation based Lie group is natural for the state estimation problem. It is necessary to exploit the geometry and kinematic of matrix Lie group sufficiently. Therefore, this note gives a detailed derivation of…",
+            "sources": [
+              23
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2020",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+            "evidence": "In this paper, we investigate the adaptive control problem for robot manipulators with both the uncertain kinematics and dynamics. We propose two adaptive control schemes to realize the objective of task-space trajectory tracking irrespective of the uncertain kinematics and dynamics. The proposed c…",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2014",
+            "heat": "",
+            "authority": "eess.SY",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=eess.SY）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "开源项目与工程实践、产业落地及生态动态如何变化？具体包括：(a) ROS 2 发行版与中间件演进（Kilted/Jazzy/Rolling 时间线、rmw_zenoh、DDS 选型）、ros2_control 与 MoveIt 2 的重大更新；(b) 运动学/规划/控制相关开源库与工具链（Pinocchio、Drake、MuJoCo/MJX、crocoddyl、OMPL、KDL、Moveit Servo）的维护活跃度与真实部署案例；(c) 工业界产品与量产/开源权重（含人形与协作臂厂商）、资本与人才流动、监管标准（ISO 10218 / ISO/TS 15066、欧盟 AI Act 与机械法规）对控制与安全设计的影响；(d) 生态中的蓝海缺口（实时性、确定性、认证级安全控制、ROS 2 实时内核与功能安全空白）。",
+      "queries": [
+        "ROS 2 release Jazzy Kilted Rolling ros2_control MoveIt 2 changelog 2025 2026",
+        "rmw_zenoh DDS middleware real-time determinism ROS 2 evaluation 2025",
+        "Pinocchio Drake Crocoddyl MuJoCo MJX rigid body dynamics release 2025 github",
+        "humanoid robot product launch mass production 2025 2026 control stack ROS 2"
+      ],
+      "rationale": "覆盖 7 facet 中『工业界与产品』『蓝海与缺口』『社会·政策·国际』『资本与生态』四维，用 GitHub 活跃度、官方发布说明、标准/法规生效日等可观测指标替代主观判断，避免把演示当部署。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.029997,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.017647
+          }
+        },
+        {
+          "title": "Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems",
+          "url": "http://arxiv.org/abs/2505.06546v1",
+          "snippet": "Real-time scheduling in commoditized component-oriented real-time systems, such as ROS 2 systems on Linux, has been studied under nested scheduling: OS thread scheduling and middleware layer scheduling (e.g., ROS 2 Executor). However, by establishing a persistent one-to-one correspondence between callbacks and OS threads, we can ignore the middleware layer and directly apply OS scheduling parameters (e.g., scheduling policy, priority, and affinity) to individual callbacks. We propose a middleware model that enables this idea and implements CallbackIsolatedExecutor as a novel ROS 2 Executor. W…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-10",
+          "authors": [
+            "Takahiro Ishikawa-Aso",
+            "Atsushi Yano",
+            "Takuya Azumi",
+            "Shinpei Kato"
+          ],
+          "venue": "cs.OS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.06546v1",
+            "rrf_score": 0.017442
+          }
+        },
+        {
+          "title": "Development of a Modular Pick-and-Place Execution Framework in ROS 2 with MoveIt 2",
+          "url": "https://doi.org/10.32920/32288082",
+          "snippet": "<p dir=\"ltr\">Robotic pick-and-place tasks are becoming increasingly relevant in modern industries, ranging from warehouses and farms to fast-food operations. A key requirement across these applications is a reliable execution framework capable of operating in uncertain environments with a defined level of reliability. This thesis presents the design and implementation of a modular pick-and-place framework utilizing ROS 2 and MoveIt 2. The system decomposes the overall task into sequential modular stages to improve clarity, facilitate debugging, and provide a foundation for future fault-tolera…",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2026-05-14",
+          "authors": [
+            "Alexander Wojtkowski"
+          ],
+          "venue": null,
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "doi": "10.32920/32288082",
+            "type": "posted-content",
+            "rrf_score": 0.017391
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+            "evidence": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.DC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.DC）"
+          },
+          {
+            "point": "Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems",
+            "evidence": "Real-time scheduling in commoditized component-oriented real-time systems, such as ROS 2 systems on Linux, has been studied under nested scheduling: OS thread scheduling and middleware layer scheduling (e.g., ROS 2 Executor). However, by establishing a persistent one-to-one correspondence between c…",
+            "sources": [
+              21
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.OS",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.OS）"
+          },
+          {
+            "point": "Development of a Modular Pick-and-Place Execution Framework in ROS 2 with MoveIt 2",
+            "evidence": "<p dir=\"ltr\">Robotic pick-and-place tasks are becoming increasingly relevant in modern industries, ranging from warehouses and farms to fast-food operations. A key requirement across these applications is a reliable execution framework capable of operating in uncertain environments with a defined l…",
+            "sources": [
+              22
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "citations=0",
+            "authority": "",
+            "attention": "低（citations=0）",
+            "recommendation": "★★★☆☆"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 7,
+    "prompt_tokens": 43095,
+    "completion_tokens": 31048,
+    "generated_at": "2026-10-08T22:14:22.477659+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 机器人运动学、控制与 ROS 2 生态增量快照（基线 2026-10）\n\n**日期**：2026-10-08（UTC） | **领域**：机器人运动学 / 控制 / ROS 2 生态（含 VLA 与世界模型驱动控制、实时光学与差分运动学、MPC 与全身控制、中间件与工程栈） | **检索源数量**：本次可引用候选来源 33 条（[1]–[33]）；其中与本主题**直接相关 12 条**（[4][6][8][10][14][21][22][23][24][29][30][33]）、**边缘/理论相关 7 条**（[5][7][25][26][28][31][32]）、**间接治理相关 1 条**（[12]）、**无关或不可用 13 条**（[1][2][3][9][11][13][15]–[20][27]）。\n\n> **证据基线与覆盖完整性声明（务必先读）**\n> 1. 本次候选来源集存在**严重主题漂移**：13/33 条与机器人运动学/控制/ROS 2 无任何关系（如中微子物理 [15]–[20]、量子控制 [9][31]、短视频参与度预测 [2]、车联网任务卸载 [3]、图像超分竞赛 [11]、凝聚态物理 [13]、媒介传播疾病 [1]），另有 [27] 为 \"This paper has been withdrawn\"（E 级，按方法论**丢弃**）。\n> 2. 因此，**本报告不是\"领域全景综述\"，而是一份受证据约束的增量快照**：能证实的写增量，不能证实的按 facet 明确写\"本周期无显著可核查变化\"或 `> 待核实`，**不以记忆补全**。\n> 3. **未在候选集中出现的奠基/生态对象**（ROS 1 架构论文、DDS 设计动因、ros2_control、MoveIt 2 官方文档谱系、Nav2、rmw_zenoh、Pinocchio/Drake/MuJoCo/MJX/crocoddyl/OMPL/KDL、ISO 10218 / ISO/TS 15066 / 欧盟 AI Act 等）**一律不得凭记忆断言**，相关表格单元格均标 `> 待核实`。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量判断**：本批证据中可核查的\"真增量\"只有两处——**VLA 基础模型 + 流匹配动作头在长程双臂仿真竞赛中被验证** [6]，以及**推理期（不重训练）干预 VLA 行为**的新接口范式出现 [4]；**全身控制（WBC）、MPC、实时优化、真机 RL 部署在本批证据中零覆盖**，属重大证据缺口而非\"无进展\"。\n\n### 1.1 最新进展（近 12–24 个月）\n\n- **VLA + 流匹配（flow matching）动作头取得竞赛级验证（2025-12 提交，v2）** [6]：2025 BEHAVIOR Challenge 冠军方案以 Pi0.5 架构为基础，核心创新为对 flow matching 使用**相关噪声（correlated noise）**，在 **50 个长程家务任务**、需双臂操作 + 导航 + 上下文感知决策的照片级真实仿真基准上排名第一。\n  - 热度证据：`> 待核实`（候选块未提供 citations / star / 榜单链接）[6]\n  - 权威证据：arXiv 预印本（cs.RO, v2），**未标注同行评审**；成绩为**参赛方案自述** [6]\n  - 关注度：**中** —— BEHAVIOR 长程双臂家务基准的冠军自带话题性，但无量化热度信号支撑 [6]\n  - 推荐度：**★★★★☆** —— 直接回答\"VLA 如何接入底层动作生成（动作头形态）\"，且经竞赛检验而非纯演示视频；但属仿真自评 [6]\n- **推理期注意力干预成为 VLA 控制的新接入点（2026-08 提交）** [4]：把 VLA 驾驶模型的推理阶段与**基于扩散（diffusion）的轨迹解码器**耦合，在不重训练的前提下，对检测器定位的交通参与者视觉 token 施加**有界加性 pre-softmax 注意力偏置**，把注意力重定向到安全攸关对象。代表\"部署期可控性\"方向。\n  - 热度证据：`> 待核实`（候选块仅有摘要片段，无引用/榜单）[4]\n  - 权威证据：arXiv 预印本（cs.CV），**未标注同行评审**，涉及具体模型 Alpamayo-R1 与 Qwen3-VL backbone [4]\n  - 关注度：**低** —— 无引用、无榜单、无社区讨论证据 [4]\n  - 推荐度：**★★★☆☆** —— 与\"VLA + 扩散动作头 + 安全约束\"高度相关，但仅有摘要、无量化结果与第三方复现，不足以支撑强结论 [4]\n- **VLA 方向的综述性梳理已出现**：《Large VLM-based Vision-Language-Action Models for Robotic ...》（标题在来源列表中**被截断**，`> 全名待核实`）[10]，2025 年 arXiv 版本（2508.13073v3）。可视为\"该子方向已进入体系化综述阶段\"的生态信号。\n  - 热度/权威/关注度：`> 待核实`（候选块未提供引用数、venue 信息）[10]\n  - 推荐度：**★★★★☆** —— 若作为回答\"VLA 如何接入控制\"的入口综述价值高，但需补齐完整标题与 venue 后再引用 [10]\n- **ROS 2 工程层的可核查增量（工程论文级，非官方文档）**：\n  - ROS 2 + MoveIt 2 的**模块化 pick-and-place 执行框架**（2026）[22]：面向仓储/农业/快餐等不确定环境下的可靠执行。\n    - 热度证据：`citations=0`（候选块显式给出）[22]\n    - 权威证据：DOI 出版物（10.32920/32288082），候选块未给出 venue 等级，同行评审状态 `> 待核实` [22]\n    - 关注度：**低** —— 依据 citations=0 [22]\n    - 推荐度：**★★★☆☆** —— 与 ROS 2/MoveIt 2 工程实践直接相关，但尚无学术影响力信号，宜作为实现参考而非结论依据 [22]\n  - **ROS 2 实时调度的中间件层问题被明确标为\"在研\"**：《Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems》（2025）[21] 指出：ROS 2 on Linux 的实时调度实际是**嵌套调度**（OS 线程调度 + 中间件层调度如 ROS 2 Executor），并尝试在回调层做中间件透明的强制约束。\n    - 热度证据：`> 待核实` [21]；权威证据：arXiv cs.OS 预印本，**标题自述 \"Work in Progress\"**，未标注同行评审 [21]\n    - 关注度：**中** —— 作为\"问题尚未解决\"的官方自述信号，对判断 ROS 2 实时性拐点很关键 [21]\n    - 推荐度：**★★★★☆** —— 是判断\"ROS 2 实时/确定性是否已解决\"的关键反证材料 [21]\n- **理论侧的两条新工作（与工程落地距离较远）**：\n  - 李群 SE(3) 上螺旋运动的**上同调方程**研究（2026）[28]，在 M = T³ × SO(3) 上结合平移变量傅里叶分析与 SO(3) 的 Peter–Weyl 理论，把方程约化为有限维族。属**数学化**工作，非工程控制方法。\n    - 热度/权威/关注度：`> 待核实`（math.DS，候选块未给引用数）[28]；推荐度 **★★☆☆☆**（相关性偏理论）[28]\n  - **SE(3) 等变机器人学习与控制教程综述**（2025, v3）[29]：标志\"等变/几何先验 + 学习型控制\"已形成可教学的知识体系。\n    - 热度/权威/关注度：`> 待核实` [29]；推荐度 **★★★★☆** —— 是把经典运动学（李群/SE(3)）与学习方法衔接起来的最相关综述入口 [29]\n\n### 1.2 仅有演示/自评 vs 独立验证（严格区分）\n\n| 结论 | 验证性质 | 依据 |\n|---|---|---|\n| Pi0.5 + correlated noise 流匹配在 50 任务长程双臂家务仿真夺第一 | **自评 + 竞赛名次自述**，非第三方复现；无真机 | [6] |\n| VLA 推理期注意力偏置可重定向安全攸关对象 | **仅有摘要级主张**，无数字、无复现 | [4] |\n| ROS 2 中间件透明回调强制 | **在研（Work in Progress）** | [21] |\n| WBC / MPC / 真机 RL 落地状态 | **本批证据零覆盖**，无法判定 | `> 待核实` |\n\n### 1.3 经典与奠基性工作（表格）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Coordinate Transformations and Manipulator Kinematics | `> 待核实` | `> 待核实`（书章 DOI） | `> 待核实` | 出版社书章（DOI 可核）[33] | 低（无量化信号）[33] | ★★★★☆ 教材级坐标变换—运动学基础表述 [33] | https://doi.org/10.1017/9781139019217.003 | 机械臂运动学的经典坐标变换框架 |\n| Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics | 2014 | `> 待核实` | `> 待核实` | arXiv（eess.SY）预印本 [24] | 低 [24] | ★★★★☆ 运动学+动力学双不确定性下的任务空间轨迹跟踪，经典问题定义 [24] | http://arxiv.org/abs/1403.5204v3 | 两种自适应控制方案 |\n| The Geometry and Kinematics of the Matrix Lie Group SE_K(3) | 2020 | `> 待核实` | `> 待核实` | arXiv（cs.RO）v4 [23] | 低 [23] | ★★★☆☆ 状态估计所需李群几何/运动学详细推导 [23] | http://arxiv.org/abs/2012.00950v4 | 面向基于李群的不确定性表示 |\n| Screw and Lie Group Theory in Multibody Kinematics | 2023 | `> 待核实` | `> 待核实` | arXiv [30] | 低 [30] | ★★★★☆ 旋量/李群多体运动学与树拓扑递归运动学标准表述 [30] | http://arxiv.org/abs/2306.17415v1 | 现代机器人运动学的理论骨架 |\n| SE(3)-Equivariant Robot Learning and Control: A Tutorial Survey | 2025 (v3) | `> 待核实` | `> 待核实` | arXiv 教程综述 [29] | 低 [29] | ★★★★☆ 唯一把几何先验与学习型控制并列梳理的综述 [29] | http://arxiv.org/abs/2503.09829v3 | 连接经典运动学与学习方法 |\n| System Level Synthesis for Affine Control Policies | 2025 (v2) | `> 待核实` | `> 待核实` | arXiv [7] | 低 [7] | ★★★☆☆ 模型/数据驱动两种设定下的系统级综合，属约束控制理论 [7] | http://arxiv.org/abs/2504.01677v2 | 控制器综合范式（非机器人专属） |\n| On ℓ2-performance of weakly-hard real-time control systems | 2023 (v3) | `> 待核实` | `> 待核实` | arXiv [8] | 低 [8] | ★★★★☆ 直接把实时性违约（弱硬实时）与控制性能挂钩，是\"控制-实时\"跨层的少数可引证据 [8] | http://arxiv.org/abs/2305.07875v3 | 支撑第 4 章实时性瓶颈论证 |\n| Ensemble Control on Lie Groups | 2020 | `> 待核实` | `> 待核实` | arXiv [25] | 低 [25] | ★★☆☆☆ 李群上的集合控制，与臂/腿控制工程相关性较弱 [25] | http://arxiv.org/abs/2008.03243v1 | 理论旁支 |\n| Exponential input-to-state stabilization … boundary control systems with delay | 2020 | `> 待核实` | `> 待核实` | arXiv [32] | 低 [32] | ★★☆☆☆ 带时延边界控制系统的 ISS 镇定，偏 PDE 控制 [32] | http://arxiv.org/abs/2003.05711v1 | 时延—稳定性工具，非 ROS 2 实践 |\n| Approximation properties of simple Lie groups made discrete | 2014 | `> 待核实` | `> 待核实` | arXiv [26] | 低 [26] | ★☆☆☆☆ 与机器人控制工程无直接关系 [26] | http://arxiv.org/abs/1408.5238v2 | 仅作理论背景 |\n| Real time state monitoring and fault diagnosis system for motor based on LabVIEW | 2018 | `> 待核实` | `> 待核实` | arXiv [5] | 低 [5] | ★★☆☆☆ 电机实时监测与故障诊断，可作为\"执行器级健康监测\"边缘线索 [5] | http://arxiv.org/abs/1806.09998v1 | 非运动学/控制主流文献 |\n\n> **缺口**：DH 参数法、Jacobian 伪逆/阻尼最小二乘（DLS）、阻抗/导纳控制、计算力矩控制、机械臂 MPC 经典表述的**一手来源均未出现在候选集中**，`> 待核实`，不得凭记忆补引用。\n\n### 1.4 未解问题与争议（本批证据能支撑的）\n\n1. **端到端 vs 分层控制无定论**：可核查系统普遍为\"推理阶段 + 扩散轨迹解码器\"的**混合结构** [4][6]，但候选集**无任何受控对比实验**证明其优于纯端到端 VLA。`> 争议（Debated）` [4][6]\n2. **仿真 SOTA 与真机 SOTA 的鸿沟**：唯一可核查的 SOTA 类结果来自照片级真实**仿真**基准（BEHAVIOR，50 任务）[6]，候选集**无一条真机成功率数字**。`> 待核实`\n3. **实时推理频率（Hz/延迟）完全缺失**：[4][6] 均未给出 VLA 推理或扩散解码的实时性指标，**无法判断能否满足真实控制回路**。`> 待核实`\n4. **安全约束无形式化保证**：[4] 只显示可用推理期注意力偏置\"重定向关注点\"，**未提供约束满足性、失败模式或最坏情况分析**。`> 待核实`\n5. **缺少第三方复现与公开榜单核验**：[6] 的第一名成绩为参赛方自述。`> 待核实`\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量判断**：本周期**可核查的产业/产品侧增量极弱**——候选集中**没有任何厂商官方博客、技术报告、量产公告或开源权重发布**；仅能确认\"开源低成本双臂硬件持续迭代\"[14]、\"ROS 2/MoveIt 2 工程框架仍在被写成论文\"[22]、以及\"基础模型透明度治理年度报告已出 2025 版\"[12]。\n\n- **低成本双臂遥操作硬件**：**ALOHA 2**（An Enhanced Low-Cost Hardware for Bimanual Teleoperation，2024-05）[14]。\n  - 热度证据：`> 待核实`（无 citations/star）[14]；权威证据：arXiv 预印本 [14]\n  - 关注度：**中** —— 作为双臂真机数据采集的硬件范式，被后续 VLA 工作广泛沿用属社区共识，但候选块无量化信号 [14]\n  - 推荐度：**★★★★☆** —— 判断\"真机数据从哪来、成本多低\"的关键硬件证据 [14]\n- **ROS 2 + MoveIt 2 模块化抓放执行框架（2026）**[22]：定位\"不确定环境 + 受限时间\"下的可靠执行。热度 `citations=0` [22]，关注度低，推荐度 ★★★☆☆ [22]。\n- **基础模型透明度年度治理报告**：《The 2025 Foundation Model Transparency Index》（2025-12）[12]，属**间接相关**（治理与披露压力面，非机器人控制技术）。热度/权威/关注度 `> 待核实`（候选块未给分值与评审状态）[12]；推荐度 **★★☆☆☆**（与运动学/控制本体相关性弱，仅作生态背景）[12]\n- **明确不可证实项（不得编造）**：人形与协作臂厂商量产规模、开源权重发布、真机部署量、ISO 10218 / ISO/TS 15066 / 欧盟 AI Act 与机械法规对控制与安全设计的具体影响——`> 待核实`（候选集无任何官方文档或标准来源）。\n\n### 2.1 开源项目与工程栈（表格）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| ALOHA 2（低成本双臂遥操作硬件） | 2024 | `> 待核实` | `> 待核实` | arXiv 预印本 [14] | 中（社区沿用广泛，但无量化信号）[14] | ★★★★☆ 真机双臂数据采集硬件基线 [14] | http://arxiv.org/abs/2405.02292v1 | 硬件/数据采集侧开源资产 |\n| ROS 2 + MoveIt 2 模块化 pick-and-place 框架 | 2026 | `> 待核实` | `citations=0` [22] | DOI 出版物（评审状态待核实）[22] | 低（citations=0）[22] | ★★★☆☆ 工程实现参考 [22] | https://doi.org/10.32920/32288082 | 面向仓储/农业/快餐不确定环境 |\n| ROS 2 中间件透明回调强制（Executor/实时调度） | 2025 | `> 待核实` | `> 待核实` [21] | arXiv cs.OS，自述 Work in Progress [21] | 中（暴露未解问题）[21] | ★★★★☆ 判断 ROS 2 实时缺口的关键证据 [21] | http://arxiv.org/abs/2505.06546v1 | 嵌套调度（OS + 中间件层）问题 |\n| ros2_control / MoveIt 2 / Nav2 官方文档与版本谱系（Kilted/Jazzy/Rolling） | — | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（候选来源列表未提供）` | **本批证据零覆盖**，不得凭记忆写版本号与文档链接 |\n| rmw_zenoh / DDS 选型（Fast DDS / Cyclone DDS） | — | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（候选来源列表未提供）` | 同上，需补检官方仓库与 release notes |\n| Pinocchio / Drake / MuJoCo / MJX / crocoddyl / OMPL / KDL / MoveIt Servo | — | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（候选来源列表未提供）` | 维护活跃度与真机部署案例**均无法用本批来源证实** |\n\n### 2.2 数据集与基准（表格）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| BEHAVIOR Challenge（2025 届） | 2025 | `> 待核实`（冠军方案作者未在候选块给出） | `> 待核实` [6] | 论文自述为准：照片级真实仿真、50 个长程家务任务、需双臂操作+导航+上下文决策 [6] | 中（冠军方案讨论）[6] | ★★★★☆ 判断\"长程双臂仿真评测现状\"的唯一可引基准 [6] | 基准官网链接 `> 待核实`；方案见 http://arxiv.org/abs/2512.06951v2 | **仿真**基准；真机对应榜单未见 |\n| LIBERO | — | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（候选来源列表未提供）` | 任务数/本体数/可复现性**均无来源可证** |\n| SimplerEnv | — | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（候选来源列表未提供）` | 同上 |\n| DROID | — | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（候选来源列表未提供）` | 真机数据规模**无来源可证** |\n| Open X-Embodiment | — | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（候选来源列表未提供）` | 本体数量口径**无来源可证** |\n| RoboArena / RoboMimic | — | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（候选来源列表未提供）` | 榜单/复现口径**无来源可证** |\n\n> **重要**：上表除 BEHAVIOR（来自冠军方案自述 [6]）外，**全部无法用本次可引来源核实**。按证据分级纪律，此处的正确写法是\"未检索到\"，而非补填数字。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量判断**：本批证据最有价值的输出不是\"谁做了什么\"，而是**清晰暴露了三处无人区**：VLA 的**实时性与控制频率**、**仿真→真机**的验证断层、**认证级安全/确定性控制**——其中 ROS 2 实时层连\"是否已解决\"都被作者自述为 work in progress [21]。\n\n1. **VLA 实时性 / 控制频率的空白（高杠杆）**：本批 [4][6] 均未报告推理频率、端到端延迟或抖动，意味着\"VLA 能否进真实控制回路（含 MPC/WBC 频率约束）\"在公开证据上**不可判定**。`> 待核实`\n   - 依据：[6]（仿真竞赛，无实时指标）[6]；[4]（推理期干预，无延迟数字）[4]；[8] 提供\"实时性违约 ↔ ℓ2 性能退化\"的理论工具，可用来量化该缺口 [8]\n2. **仿真 SOTA ↔ 真机 SOTA 之间的\"验证无人区\"**：唯一带排名性质的 SOTA 是 50 任务长程双臂**仿真**基准 [6]，真机侧无对应榜单。`> 待核实`\n3. **ROS 2 的确定性/实时执行器层**：嵌套调度（OS 线程 + ROS 2 Executor）下的回调强制仍处研究阶段 [21]，而实时性与控制性能的耦合已有可借用的理论工具 [8]。**\"中间件透明、可认证的实时回调语义\"是明确空白**。[21][8]\n4. **部署期可控性（inference-time steering）刚刚萌芽**：不重训练即可干预 VLA 行为的思路仅见摘要级证据 [4]，尚无安全性证明，属**早期蓝海**。[4]\n5. **几何先验与学习型控制的接缝**：一侧是成熟的旋量/李群理论 [30][23] 与等变学习综述 [29]，另一侧是工程中大量使用的 VLA；二者之间的**工程化桥梁（可实时、可认证的几何约束学习控制）在候选集中无对应工作**。`> 待核实`（理论侧线索：[28][25]）\n6. **端到端 vs 分层缺\"受控对比实验\"**：所有可核查系统都是混合结构 [4][6]，但缺少同一本体、同一任务上的受控对比 → **低成本、高影响力的可发表空白**。`> 争议（Debated）`\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n**一句话增量判断**：瓶颈集中在**评测与实时性**两处，而本批证据给出的**唯一明确拐点信号**是——长程双臂家务任务已能在照片级真实仿真中做 50 任务级的大规模 VLA 训练-评测闭环 [6]，但**真机侧与实时性侧尚未出现对等信号**。\n\n| 瓶颈 | 证据 | 是否临近拐点 | 判断依据与不确定性 |\n|---|---|---|---|\n| **评测瓶颈**：仿真分数 ≠ 真机能力 | [6]（仿真 50 任务、无真机数字） | 未临近 | 缺少真机榜单/复现报告，`> 待核实` [6] |\n| **实时性/确定性瓶颈**：ROS 2 实时语义未闭合 | [21]（自述 Work in Progress）；[8]（弱硬实时 ↔ ℓ2 性能） | **接近拐点但未越过** | \"问题被正式表述并开始做中间件层强制\"是拐点前兆；但仍为在研，无标准/产品级证据 [21][8] |\n| **推理算力/延迟瓶颈**：VLA + 扩散解码的实时运行 | [4]（diffusion 轨迹解码器）；[6]（flow matching 动作头） | 未知 | **两条来源均无 Hz/延迟数字**，无法判断是否已越线 `> 待核实` [4][6] |\n| **数据瓶颈**：真机双臂数据采集成本 | [14]（ALOHA 2 低成本双臂硬件） | 已在缓解 | 低成本遥操作硬件持续迭代，是数据侧结构性改善信号 [14] |\n| **安全/认证瓶颈**：约束满足性的形式化保证 | [4]（仅有启发式注意力偏置） | 未临近 | 无安全边界、无最坏情况分析、无第三方法规/标准来源 `> 待核实` [4] |\n\n**其他候选来源属于上游检索噪声，不构成瓶颈证据**：[1][2][3][9][11][13][15]–[20] 与运动学/ROS 2 无关；[27] 为已撤稿（E 级，丢弃）。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量判断**：本周期**几乎没有可核查的政策/标准增量**；唯一可用来源是**基础模型透明度治理**的年度化（2025 版）[12]，且它**不覆盖**机器人专用法规与安全标准。\n\n- **基础模型透明度指数 2025**（《The 2025 Foundation Model Transparency Index》，2025-12）[12]：表明\"基础模型披露与治理\"已形成**年度化、可比较**的评估节奏。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本（候选块未标注同行评审）[12]；关注度：`> 待核实`（无分值、无媒体讨论证据）[12]\n  - 推荐度：**★★☆☆☆** —— 与运动学/控制本体相关性弱，仅作\"基础模型受治理压力\"的背景信号 [12]\n- **明确无证据（必须标注，不得编造）**：\n  - ISO 10218 / ISO/TS 15066 的版本变更与生效日期：`> 待核实`\n  - 欧盟 AI Act 与机械法规（Machinery Regulation）对机器人控制/安全设计的具体条款影响：`> 待核实`\n  - 出口管制、供应链、地缘政治对机器人中间件或算力的影响：`> 待核实`\n  - 伦理与劳动影响：`> 待核实`\n- **本 facet 结论**：**本周期无显著可核查变化**（在\"仅使用本次可引来源\"的约束下），需补检标准组织官网、欧盟官方公报与厂商合规文档后才能给出增量判断。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：**本周期无可核查的资本事件证据**（无融资、并购、估值、人才流动来源）；生态侧仅有三条**结构性**信号：[14] 低成本真机硬件、[22] 工程框架层新论文、[12] 治理压力年度化。\n\n- **生态结构性信号（非资本事件）**：\n  - 真机数据采集硬件**低成本化并持续迭代**（ALOHA 2, 2024-05）[14] → 降低 VLA 数据门槛；热度 `> 待核实`，关注度 **中** [14]，推荐度 ★★★★☆ [14]\n  - ROS 2/MoveIt 2 应用层**仍有新进入者写成正式论文**（2026，citations=0）[22] → 说明工程层生态活跃度尚可，但学术影响力极低；关注度 **低** [22]，推荐度 ★★★☆☆ [22]\n  - **治理/披露成为年度化议程**（FMTI 2025）[12] → 对基础模型（含 VLA）形成合规外部性压力，但机器人专有合规链条未在来源中出现 [12]\n- **明确无证据**：投资额、并购、公司格局、人才流动、社区规模（GitHub stars、下载量）——`> 待核实`。\n- **关于候选集噪声的说明**：[2]（短视频参与度）、[3]（车联网任务卸载）、[11]（图像超分竞赛）等**均为上游检索噪声，不构成任何产业或资本信号**，不得解读为\"AI 热点外溢\"。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n**一句话增量判断**：可观测的早期信号只有两个——**\"长程双臂仿真基准已能承载大规模 VLA 竞赛\"**[6] 与 **\"不重训练的推理期行为干预\"**[4]；据此推演出的 6–18 个月预判均以**可证伪假设**形式给出，置信度普遍偏低（受限于证据等级 B 与真机/实时数据缺失）。\n\n### 7.1 早期信号（带日期）\n\n| 信号 | 时间 | 强度 | 依据 |\n|---|---|---|---|\n| VLA + flow matching 动作头在 50 任务长程双臂仿真基准夺魁（自述） | 2025-12 提交 / v2 | 中（竞赛级，但仿真自评） | [6] |\n| VLA 推理期注意力干预（不重训练）出现 | 2026-08 提交 | 低（仅摘要级） | [4] |\n| ROS 2 实时回调强制仍为 \"Work in Progress\"（缺口未闭合） | 2025 | 中（明确的负面/缺口信号） | [21] |\n| 低成本双臂遥操作硬件持续迭代 | 2024-05 | 中 | [14] |\n| 基础模型透明度治理年度化 | 2025-12 | 低（间接相关） | [12] |\n\n### 7.2 可证伪预测 `[P]`\n\n- **H1（仿真→真机迁移链）**：若到 **2027-Q2** 出现\"以长程双臂仿真基准训练、并在**≥2 种真机本体**上公开报告成功率\"的 VLA 工作，则判定\"仿真 SOTA → 真机\"迁移链**开始成立**；否则判定评测仍是主瓶颈。依据链：50 任务仿真基准已能承载竞赛级 VLA 训练评测 [6] → 硬件侧低成本双臂已就绪 [14] → 但当前真机数字为零 [6]。**置信度：中**；**不确定性**：真机成功率可能因本体差异而不可比。\n- **H2（ROS 2 实时层闭合）**：若到 **2027-Q4** 出现 ROS 2 执行器/中间件层的**标准化实时保证**（规范、官方实现或产品级 RT 保证，而非 \"Work in Progress\"），则判定该缺口正在被填补；否则判定实时/确定性仍是 ROS 2 生态的结构性短板。依据链：嵌套调度问题已被正式表述 [21]，且实时违约与控制性能的量化工具已存在 [8] → 但尚无标准/产品证据。**置信度：低–中**。\n- **H3（部署期可控性独立成子方向）**：若 2026–2027 年\"推理期干预/可控性\"类工作进入同行评审并给出**约束满足率与失败模式**，则判定其成为独立子方向；若始终停留在预印本摘要级，则视为短期热点。依据链：不重训练的注意力干预已可操作 [4] → 但无安全性证明、无量化结果 [4]。**置信度：低**。\n- **H4（几何先验 × 学习控制的工程化）**：若到 2027 年出现\"李群/SE(3) 等变约束 + 实时频率（≥100 Hz 级）\"的可复现开源实现，则判定经典运动学与学习方法完成工程接缝；依据为理论侧已成熟（旋量/李群 [30][23]、等变教程综述 [29]）而工程侧无对应来源。**置信度：低**；`> 待核实`（需补检开源仓库与实时性报告）。\n\n### 7.3 Watchlist（持续关注）\n\n- [6] Pi0.5 + correlated noise flow matching（BEHAVIOR 2025 冠军方案）—— 关注是否出现**真机迁移**与**同行评审版本**。\n- [4] VLA 推理期注意力干预 —— 关注是否补齐**延迟/安全约束**数字。\n- [21] ROS 2 中间件透明回调强制 —— 关注是否从 \"Work in Progress\" 转为标准/产品级实时语义。\n- [29] SE(3) 等变机器人学习与控制教程综述 —— 作为经典运动学 ↔ 学习控制的桥接入口。\n- [8] 弱硬实时控制系统的 ℓ2 性能 —— 用于量化\"实时性违约代价\"的工具性文献。\n- [14] ALOHA 2 —— 真机双臂数据采集硬件的持续迭代节点。\n- [22] ROS 2 + MoveIt 2 工程框架 —— 生态活跃度指标（当前 citations=0）。\n\n### 7.4 本报告的置信度自评\n\n- **高置信**：本批来源存在严重主题漂移、WBC/MPC/真机 RL 与 ROS 2 官方生态**零覆盖**（可由来源清单直接清点验证：q1 候选 4 条中 2 条离题，[6] 为仿真竞赛自述）。\n- **中置信**：VLA + 流匹配/扩散动作头是当前一条主流工程路线 [6][4]。\n- **低置信 / 待核实**：任何关于**控制频率、真机成功率、开源仓库活跃度、标准与法规生效、资本流向**的陈述——本次均**无可用来源**，一律不得写成结论。\n\n---\n\n## 参考来源\n\n[1] A Human-Vector Susceptible-Infected-Susceptible Model for Analyzing and Controlling the Spread of Vector-Borne Diseases — http://arxiv.org/abs/2510.14787v2\n[2] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[3] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1\n[4] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1\n[5] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1\n[6] Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge — http://arxiv.org/abs/2512.06951v2\n[7] System Level Synthesis for Affine Control Policies: Model Based and Data-Driven Settings — http://arxiv.org/abs/2504.01677v2\n[8] On $\\ell_2$-performance of weakly-hard real-time control systems — http://arxiv.org/abs/2305.07875v3\n[9] Quantum control theory and applications: A survey — http://arxiv.org/abs/0910.2350v3\n[10] Large VLM-based Vision-Language-Action Models for Robotic ... — https://arxiv.org/html/2508.13073v3\n[11] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[12] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[13] Two-dimensional magnetic interactions in LaFeAsO — http://arxiv.org/abs/1303.4033v1\n[14] ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1\n[15] Observation of Atmospheric Neutrino Oscillations in Soudan 2 — http://arxiv.org/abs/hep-ex/0307069v1\n[16] Search for the Proton Decay Mode proton to neutrino K+ in Soudan 2 — http://arxiv.org/abs/hep-ex/9803030v1\n[17] A Study of Cosmic Ray Composition in the Knee Region using Multiple Muon Events in the Soudan 2 Detector — http://arxiv.org/abs/hep-ex/9612004v2\n[18] Search for nucleon decay into lepton + K0 final states using Soudan 2 — http://arxiv.org/abs/hep-ex/9910026v2\n[19] The Atmospheric Neutrino Flavor Ratio from a 3.9 Fiducial Kiloton-Year Exposure of Soudan 2 — http://arxiv.org/abs/hep-ex/9901024v1\n[20] The Observation of a Shadow of the Moon in the Underground muon flux in the Soudan 2 detector — http://arxiv.org/abs/hep-ex/9905036v1\n[21] Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems — http://arxiv.org/abs/2505.06546v1\n[22] Development of a Modular Pick-and-Place Execution Framework in ROS 2 with MoveIt 2 — https://doi.org/10.32920/32288082\n[23] The Geometry and Kinematics of the Matrix Lie Group $SE_K(3)$ — http://arxiv.org/abs/2012.00950v4\n[24] Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics — http://arxiv.org/abs/1403.5204v3\n[25] Ensemble Control on Lie Groups — http://arxiv.org/abs/2008.03243v1\n[26] Approximation properties of simple Lie groups made discrete — http://arxiv.org/abs/1408.5238v2\n[27] This paper has been withdrawn — http://arxiv.org/abs/cond-mat/0309395v2（E 级，已丢弃）\n[28] Cohomological Equation for Robotic Screw Motion on the Lie Group SE(3) — http://arxiv.org/abs/2601.10734v1\n[29] SE(3)-Equivariant Robot Learning and Control: A Tutorial Survey — http://arxiv.org/abs/2503.09829v3\n[30] Screw and Lie Group Theory in Multibody Kinematics -- Motion Representation and Recursive Kinematics of Tree-Topology Systems — http://arxiv.org/abs/2306.17415v1\n[31] Bringing Quantum Systems under Control: A Tutorial Invitation to Quantum Computing and Its Relation to Bilinear Control Systems — http://arxiv.org/abs/2412.00736v1\n[32] Exponential input-to-state stabilization of a class of diagonal boundary control systems with delay boundary control — http://arxiv.org/abs/2003.05711v1\n[33] Coordinate Transformations and Manipulator Kinematics — https://doi.org/10.1017/9781139019217.003\n\n---\n\n*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=33 · duration=195s · 2026-10-08T22:14:22+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "A Human-Vector Susceptible-Infected-Susceptible Model for Analyzing and Controlling the Spread of Vector-Borne Diseases",
+      "url": "http://arxiv.org/abs/2510.14787v2",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+      "url": "http://arxiv.org/abs/2608.17095v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-08-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+      "url": "http://arxiv.org/abs/2512.06951v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "System Level Synthesis for Affine Control Policies: Model Based and Data-Driven Settings",
+      "url": "http://arxiv.org/abs/2504.01677v2",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-04-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "On $\\ell_2$-performance of weakly-hard real-time control systems",
+      "url": "http://arxiv.org/abs/2305.07875v3",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2023-05-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Quantum control theory and applications: A survey",
+      "url": "http://arxiv.org/abs/0910.2350v3",
+      "kind": "paper",
+      "venue": "quant-ph",
+      "published": "2009-10-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Large VLM-based Vision-Language-Action Models for Robotic ...",
+      "url": "https://arxiv.org/html/2508.13073v3",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Two-dimensional magnetic interactions in LaFeAsO",
+      "url": "http://arxiv.org/abs/1303.4033v1",
+      "kind": "paper",
+      "venue": "cond-mat.supr-con",
+      "published": "2013-03-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation",
+      "url": "http://arxiv.org/abs/2405.02292v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Observation of Atmospheric Neutrino Oscillations in Soudan 2",
+      "url": "http://arxiv.org/abs/hep-ex/0307069v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2003-07-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Search for the Proton Decay Mode proton to neutrino K+ in Soudan 2",
+      "url": "http://arxiv.org/abs/hep-ex/9803030v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "1998-03-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "A Study of Cosmic Ray Composition in the Knee Region using Multiple Muon Events in the Soudan 2 Detector",
+      "url": "http://arxiv.org/abs/hep-ex/9612004v2",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "1996-12-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Search for nucleon decay into lepton + K0 final states using Soudan 2",
+      "url": "http://arxiv.org/abs/hep-ex/9910026v2",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "1999-10-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "The Atmospheric Neutrino Flavor Ratio from a 3.9 Fiducial Kiloton-Year Exposure of Soudan 2",
+      "url": "http://arxiv.org/abs/hep-ex/9901024v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "1999-01-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "The Observation of a Shadow of the Moon in the Underground muon flux in the Soudan 2 detector",
+      "url": "http://arxiv.org/abs/hep-ex/9905036v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "1999-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Work in Progress: Middleware-Transparent Callback Enforcement in Commoditized Component-Oriented Real-time Systems",
+      "url": "http://arxiv.org/abs/2505.06546v1",
+      "kind": "paper",
+      "venue": "cs.OS",
+      "published": "2025-05-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Development of a Modular Pick-and-Place Execution Framework in ROS 2 with MoveIt 2",
+      "url": "https://doi.org/10.32920/32288082",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-05-14",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "The Geometry and Kinematics of the Matrix Lie Group $SE_K(3)$",
+      "url": "http://arxiv.org/abs/2012.00950v4",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+      "url": "http://arxiv.org/abs/1403.5204v3",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2014-03-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Ensemble Control on Lie Groups",
+      "url": "http://arxiv.org/abs/2008.03243v1",
+      "kind": "paper",
+      "venue": "math.OC",
+      "published": "2020-08-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Approximation properties of simple Lie groups made discrete",
+      "url": "http://arxiv.org/abs/1408.5238v2",
+      "kind": "paper",
+      "venue": "math.GR",
+      "published": "2014-08-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "This paper has been withdrawn",
+      "url": "http://arxiv.org/abs/cond-mat/0309395v2",
+      "kind": "paper",
+      "venue": "cond-mat.soft",
+      "published": "2003-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Cohomological Equation for Robotic Screw Motion on the Lie Group SE(3)",
+      "url": "http://arxiv.org/abs/2601.10734v1",
+      "kind": "paper",
+      "venue": "math.DS",
+      "published": "2026-01-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "SE(3)-Equivariant Robot Learning and Control: A Tutorial Survey",
+      "url": "http://arxiv.org/abs/2503.09829v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-03-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Screw and Lie Group Theory in Multibody Kinematics -- Motion Representation and Recursive Kinematics of Tree-Topology Systems",
+      "url": "http://arxiv.org/abs/2306.17415v1",
+      "kind": "paper",
+      "venue": "math.NA",
+      "published": "2023-06-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Bringing Quantum Systems under Control: A Tutorial Invitation to Quantum Computing and Its Relation to Bilinear Control Systems",
+      "url": "http://arxiv.org/abs/2412.00736v1",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2024-12-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Exponential input-to-state stabilization of a class of diagonal boundary control systems with delay boundary control",
+      "url": "http://arxiv.org/abs/2003.05711v1",
+      "kind": "paper",
+      "venue": "math.OC",
+      "published": "2020-03-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Coordinate Transformations and Manipulator Kinematics",
+      "url": "https://doi.org/10.1017/9781139019217.003",
+      "kind": "paper",
+      "venue": "Screw Theory and Its Application to Spatial Robot Manipulators",
+      "published": "2022-09-30",
+      "citations": 0,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-08-机器人运动学控制与-ros-2.md",
+    "json": "report/2026/10/2026-10-08-机器人运动学控制与-ros-2.json"
+  }
+}

@@ -1,0 +1,1104 @@
+{
+  "topic": "机器人操作与世界模型",
+  "title": "机器人操作与世界模型：领域增量追踪报告（2024–2026，7 facet）",
+  "query": "机器人操作与世界模型",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-08T22:07:17+00:00",
+  "finished_at": "2026-10-08T22:11:02+00:00",
+  "duration_s": 224.7,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人操作与世界模型：领域增量追踪报告（2024–2026，7 facet）",
+    "summary": "以增量视角追踪「机器人操作 × 世界模型」近 1-2 年的前沿进展、奠基脉络、开源工程、数据集与基准，以及蓝海缺口、瓶颈拐点、产业/资本/政策信号与可证伪预测，所有结论需带时间戳与可核查引用。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 1-2 年（2024 至今），把世界模型用于机器人操作的前沿进展与 SOTA 变动有哪些？哪些被独立复现/真机验证，哪些仍只有演示视频或自评？",
+        "rationale": "对应 frontier-watch 的 facet1（进展与热点）与 facet4（瓶颈/拐点）：先建立「相对上一基线新增了什么」的时间线（模型发布、榜单刷新、真机部署），并明确区分 demo 与独立验证，避免把宣传当结论。",
+        "queries": [
+          "world model robot manipulation 2024..2026 arXiv survey SOTA",
+          "vision-language-action world model policy real robot 2025 CoRL RSS",
+          "视频世界模型 机器人操作 2025 最新进展 榜单 突破",
+          "model-based policy learning latent dynamics DreamerV3 TD-MPC2 2024 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该方向的经典/奠基工作与技术演进脉络是什么（World Models、PlaNet/Dreamer 系列、MuZero、UniPi/SuSIE/RoboDreamer 等视频生成式规划），以及当前可复用的开源项目与工程实践（代码/权重、训练栈、仿真到真机管线）现状如何？",
+        "rationale": "对应 paper-survey 的「从综述入手 + 脉络梳理」与 frontier-tracking 的代码权重分层：只有搞清承上启下的方法与真正可运行的开源实现，才能判断新工作的增量来自数据、架构还是算力，并评估复现难度。",
+        "queries": [
+          "World Models Ha Schmidhuber 2018 PlaNet Dreamer DreamerV3 latent dynamics",
+          "UniPi SuSIE RoboDreamer video generation robot planning github",
+          "TD-MPC2 IRIS MuZero model-based RL baseline 2024 open source",
+          "世界模型 机器人 开源 GitHub 复现 工程实践 训练管线"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "github"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "该方向的数据集与评测基准能否支撑可信比较（Open X-Embodiment、DROID、LIBERO、SimplerEnv、RoboCasa、RoboArena 及世界模型专用评测），存在哪些开放问题与争议（复合误差、长时程、物理一致性、仿真-真机差距），以及产业、资本、政策/监管层面的增量信号如何？",
+        "rationale": "对应 frontier-watch 的 facet3/4/5/6/7：把评测可比性与争议作为蓝海与瓶颈判断的依据，同时补齐工业落地、融资生态和监管标准等非学术信号，用于给出可证伪的未来预判。",
+        "queries": [
+          "robot manipulation benchmark LIBERO SimplerEnv RoboCasa RoboArena 2025 evaluation",
+          "world model evaluation benchmark video generation physical consistency 2025",
+          "world model robot manipulation limitations compounding error 争议 失败案例",
+          "具身智能 世界模型 融资 商业化 政策 监管 标准 2025 2026 趋势 预测"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 1-2 年（2024 至今），把世界模型用于机器人操作的前沿进展与 SOTA 变动有哪些？哪些被独立复现/真机验证，哪些仍只有演示视频或自评？",
+      "queries": [
+        "world model robot manipulation 2024..2026 arXiv survey SOTA",
+        "vision-language-action world model policy real robot 2025 CoRL RSS",
+        "视频世界模型 机器人操作 2025 最新进展 榜单 突破",
+        "model-based policy learning latent dynamics DreamerV3 TD-MPC2 2024 2025"
+      ],
+      "rationale": "对应 frontier-watch 的 facet1（进展与热点）与 facet4（瓶颈/拐点）：先建立「相对上一基线新增了什么」的时间线（模型发布、榜单刷新、真机部署），并明确区分 demo 与独立验证，避免把宣传当结论。",
+      "round": 1,
+      "results": [
+        {
+          "title": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+          "url": "http://arxiv.org/abs/2605.22882v4",
+          "snippet": "Video world models can generate realistic futures from a single instruction, but they often fail to track the same physical points consistently across time. As a result, the generated videos appear plausible, yet lack the physical grounding required for reliable action execution, such as robot manipulation. We present GEM-4D, a geometry-grounded video world model that resolves this limitation by injecting dense 4D correspondence supervision distilled from a pretrained geometry foundation model into the video generative backbone during training. This supervision enables the model to jointly ca…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Kaichen Zhou",
+            "Yuzhen Chen",
+            "Fangneng Zhan",
+            "Hang Hua",
+            "Grace Chen",
+            "Xinhai Chang",
+            "Ao Qu",
+            "Yilun Du",
+            "Zhuang Liu",
+            "Paul Pu Liang",
+            "Mengyu Wang"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.22882v4",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "RealD$^2$iff: Bridging Real-World Gap in Robot Manipulation via Depth Diffusion",
+          "url": "http://arxiv.org/abs/2511.22505v2",
+          "snippet": "Robot manipulation in the real world is fundamentally constrained by the visual sim2real gap, where depth observations collected in simulation fail to reflect the complex noise patterns inherent to real sensors. In this work, inspired by the denoising capability of diffusion models, we invert the conventional perspective and propose a clean-to-noisy paradigm that learns to synthesize noisy depth, thereby bridging the visual sim2real gap through purely simulation-driven robotic learning. Building on this idea, we introduce RealD$^2$iff, a hierarchical coarse-to-fine diffusion framework that de…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-27",
+          "authors": [
+            "Xiujian Liang",
+            "Jiacheng Liu",
+            "Mingyang Sun",
+            "Qichen He",
+            "Cewu Lu",
+            "Jianhua Sun"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.22505v2",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "DECOWAM: Decoupled Whole-Body World-Action Model for Legged Mobile Manipulation",
+          "url": "http://arxiv.org/abs/2608.20114v2",
+          "snippet": "Mobile manipulation requires a robot to predict how locomotion and arm motion jointly alter future observations and control. Existing world-action models, developed largely for fixed-base platforms, do not explicitly distinguish camera ego-motion from base and arm actions. Here we introduce DECOWAM, a whole-body world-action model that separates these factors through dedicated conditional interfaces. DECOWAM freezes an adapted FastWAM backbone and trains residual adapters, an action-equivalent future bottleneck distilled from privileged observations, adversarially separated base and arm laten…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-20",
+          "authors": [
+            "Siyuan Ma",
+            "Boshi Zhang",
+            "Yutian Zhang",
+            "Qinglian Wu",
+            "Jiaqi Zhai",
+            "Dong Wei",
+            "Qiaojun Yu"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.20114v2",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "World Models for Robotic Manipulation: A Survey",
+          "url": "http://arxiv.org/abs/2606.00113v1",
+          "snippet": "Robotic manipulation depends on the ability to anticipate how actions reshape objects, contacts, and scene geometry before execution. Learned world models provide this capability by predicting task-relevant future evolution under robot intervention, yet the term now spans latent dynamics models, action-conditioned video generators, three- and four-dimensional scene predictors, physics-informed simulators, and predictive modules inside vision-language-action systems. This breadth has fragmented the literature and obscured the design choices that matter for manipulation. We survey world models…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-27",
+          "authors": [
+            "Fangyuan Wang",
+            "Ziyuan Wang",
+            "Guorui Pei",
+            "Mengshi Zhang",
+            "Canxi Liang",
+            "Jun Hu",
+            "Zhongxuan Li",
+            "Jinsong Wu",
+            "Ning Han",
+            "Zeqing Zhang",
+            "Jiaming Qi",
+            "Hongmin Wu",
+            "Shiyao Zhang",
+            "Pai Zheng",
+            "Jia Pan",
+            "David Navarro-Alarcon",
+            "Sichao Liu",
+            "Peng Zhou"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.00113v1",
+            "rrf_score": 0.022388
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+            "evidence": "Video world models can generate realistic futures from a single instruction, but they often fail to track the same physical points consistently across time. As a result, the generated videos appear plausible, yet lack the physical grounding required for reliable action execution, such as robot mani…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "RealD$^2$iff: Bridging Real-World Gap in Robot Manipulation via Depth Diffusion",
+            "evidence": "Robot manipulation in the real world is fundamentally constrained by the visual sim2real gap, where depth observations collected in simulation fail to reflect the complex noise patterns inherent to real sensors. In this work, inspired by the denoising capability of diffusion models, we invert the c…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "DECOWAM: Decoupled Whole-Body World-Action Model for Legged Mobile Manipulation",
+            "evidence": "Mobile manipulation requires a robot to predict how locomotion and arm motion jointly alter future observations and control. Existing world-action models, developed largely for fixed-base platforms, do not explicitly distinguish camera ego-motion from base and arm actions. Here we introduce DECOWAM…",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "World Models for Robotic Manipulation: A Survey",
+            "evidence": "Robotic manipulation depends on the ability to anticipate how actions reshape objects, contacts, and scene geometry before execution. Learned world models provide this capability by predicting task-relevant future evolution under robot intervention, yet the term now spans latent dynamics models, ac…",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该方向的经典/奠基工作与技术演进脉络是什么（World Models、PlaNet/Dreamer 系列、MuZero、UniPi/SuSIE/RoboDreamer 等视频生成式规划），以及当前可复用的开源项目与工程实践（代码/权重、训练栈、仿真到真机管线）现状如何？",
+      "queries": [
+        "World Models Ha Schmidhuber 2018 PlaNet Dreamer DreamerV3 latent dynamics",
+        "UniPi SuSIE RoboDreamer video generation robot planning github",
+        "TD-MPC2 IRIS MuZero model-based RL baseline 2024 open source",
+        "世界模型 机器人 开源 GitHub 复现 工程实践 训练管线"
+      ],
+      "rationale": "对应 paper-survey 的「从综述入手 + 脉络梳理」与 frontier-tracking 的代码权重分层：只有搞清承上启下的方法与真正可运行的开源实现，才能判断新工作的增量来自数据、架构还是算力，并评估复现难度。",
+      "round": 1,
+      "results": [
+        {
+          "title": "DiLA: Disentangled Latent Action World Models",
+          "url": "http://arxiv.org/abs/2605.15725v1",
+          "snippet": "Latent Action Models (LAMs) enable the learning of world models from unlabeled video by inferring abstract actions between consecutive frames. However, LAMs face a fundamental trade-off between action abstraction and generation fidelity. Existing methods typically circumvent this issue by using two-stage training with pre-trained world models or by limiting predictions to optical flow. In this paper, we introduce DiLA, a novel Disentangled Latent Action world model that aims to resolve this trade-off via content-structure disentanglement. Our key insight is that disentanglement and latent act…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-15",
+          "authors": [
+            "Tianqiu Zhang",
+            "Muyang Lyu",
+            "Yufan Zhang",
+            "Fang Fang",
+            "Si Wu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.15725v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "A Control Theory of Predictability in Latent World Models",
+          "url": "http://arxiv.org/abs/2607.10362v1",
+          "snippet": "Latent world models are trained to predict future states in a learned representation and are then deployed inside a planner that selects actions by simulating them forward. Current practice adopts the prediction error, the single- or multi-step rollout loss on held-out data, as the training and model-selection objective, on the assumption that a lower prediction error yields better control. We show that this assumption is unreliable for a structural reason: a planner does not query the model on the training distribution but on the states that its candidate actions reach, which generally leave…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-11",
+          "authors": [
+            "Hanzhe You",
+            "Yonggang Zhang",
+            "Maohao Ran",
+            "Zhiqin Yang",
+            "Zhenyuan Zhang",
+            "Wei Xue",
+            "Jun Song",
+            "Xinmei Tian",
+            "Yike Guo"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.10362v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Visual Cue Guided Video Planning for Generalizable Robot Navigation",
+          "url": "http://arxiv.org/abs/2609.16737v2",
+          "snippet": "Generative video models can serve as a promising backbone for robot navigation by predicting future observations as video plans. Recent approaches often condition video planning on short-horizon guidance and recover geometric waypoints through scene reconstruction, leaving longer-horizon planning and precise video-to-action translation less explored. We present CueNav, a video model-based navigation framework combining visual cue guided video planning with an embodiment-specific Inverse-Dynamics Model (IDM). As visual cues, we use a Bird's-Eye View (BEV) map to convey global task context and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-15",
+          "authors": [
+            "Hojin Lee",
+            "Sizhe Lester Li",
+            "Maximilian Hilger",
+            "Susie Lu",
+            "Achim J. Lilienthal",
+            "Vincent Sitzmann",
+            "Daniel A. Duecker"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.16737v2",
+            "rrf_score": 0.017857
+          }
+        },
+        {
+          "title": "World Models: A Survey of Architectures and Training Methods, and ...",
+          "url": "https://medium.com/@gwrx2005/world-models-a-survey-of-architectures-and-training-methods-and-nextwm-a-browser-native-latent-717bc46836f1",
+          "snippet": "Sep 29, 2026 ... Keywords: world models; model-based reinforcement learning; latent dynamics ... latent, PlaNet and Dreamer minimise: L = Σ_t [ −ln p(o_t | h_t, ...",
+          "engine": "searxng",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.019085,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "经典 World Models / PlaNet / Dreamer 一脉的核心训练目标被近期一篇 World Models 综述概括为在 latent dynamics 上最小化观测似然项 L = Σ_t [ −ln p(o_t | h_t, ...) ]",
+            "evidence": "该综述明确写道 'latent, PlaNet and Dreamer minimise: L = Σ_t [ −ln p(o_t | h_t, ...) ]'，并将 PlaNet/Dreamer 归入 latent dynamics 家族，同时覆盖架构与训练方法以及 NextWM（浏览器原生 latent world model）等新工作",
+            "sources": [
+              21
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "Medium 平台个人综述文章，非同行评审、非官方技术报告",
+            "attention": "中 + 依据：作为综述型二手解读被检索命中（2026-09-29 发布），但候选块未提供引用数/阅读量等热度信号",
+            "recommendation": "★★☆☆☆ + 仅可作为梳理 PlaNet/Dreamer 训练目标表述的二手线索，结论需回到 PlaNet/Dreamer 原始论文核实"
+          },
+          {
+            "point": "Latent Action Models（LAM）存在『动作抽象度 vs 生成保真度』的根本权衡，现有方法通常靠两阶段训练（依赖预训练 world model）或把预测限制在光流层面来规避该问题",
+            "evidence": "DiLA 摘要原文：'LAMs face a fundamental trade-off between action abstraction and generation fidelity. Existing methods typically circumvent this issue by using two-stage training with pre-trained world models or by limiting predictions to optical flow.'",
+            "sources": [
+              17
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2605.15725v1（cs.CV），2026-05-15 提交，预印本未见同行评审信息",
+            "attention": "低 + 依据：2026 年新预印本，候选块未提供引用数/GitHub star/榜单排名等热度信号",
+            "recommendation": "★★★★☆ + 直接命中『视频生成式世界模型 + latent action』主线，是理解 LAM 瓶颈的当前一手预印本"
+          },
+          {
+            "point": "DiLA 提出用 content-structure 解耦来化解 LAM 的抽象-保真权衡，主张解耦与 latent action 学习互相促进：latent action 学习的预测瓶颈驱动模型把空间布局蒸馏进 structure 通路，而把视觉细节交由独立 content 通路负责生成",
+            "evidence": "摘要称 'introduce DiLA, a novel Disentangled Latent Action world model that aims to resolve this trade-off via content-structure disentanglement'，并称 'the predictive bottleneck inherent in latent action learning serves as a driving force for disentanglement, compelling the model to distill spatial layouts into the structure pathway while offloading visual details to a separate content pathway for generation'，目标是得到连续、语义化的抽象动作表示",
+            "sources": [
+              17
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2605.15725v1（cs.CV）预印本，作者含 Tianqiu Zhang、Muyang Lyu、Yufan Zhang、Fang Fang、Si Wu；未见同行评审",
+            "attention": "低 + 依据：新预印本，候选块无引用数/开源仓库/榜单信号",
+            "recommendation": "★★★★☆ + 与『视频生成式规划 / 无标注视频学世界模型』强相关，是候选证据中唯一给出具体方法机制的 LAM 工作"
+          },
+          {
+            "point": "latent world model 的常规做法（用 held-out 数据上的单步或多步 rollout 预测误差作为训练与模型选择目标）在结构上不可靠：规划器查询的并非训练分布上的状态，而是候选动作到达的状态，后者通常偏离数据流形，因此数据分布上平均的误差本身无法支配控制性能",
+            "evidence": "该论文称 'Current practice adopts the prediction error, the single- or multi-step rollout loss on held-out data, as the training and model-selection objective, on the assumption that a lower prediction error yields better control. We show that this assumption is unreliable for a structural reason: a planner does not query the model on the training distribution but on the states that its candidate actions reach, which generally leave the data manifold, so an error averaged over the data cannot by itself govern control.'",
+            "sources": [
+              20
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2607.10362v1（cs.LG），2026-07-11 提交，预印本未见同行评审信息",
+            "attention": "低 + 依据：2026 年 7 月新预印本，候选块未提供引用数/榜单/复现信号",
+            "recommendation": "★★★★☆ + 对『世界模型误差是否等于控制性能』这一奠基性假设提出结构性反驳，是评估 Dreamer/MuZero 类规划可靠性的关键理论线索"
+          },
+          {
+            "point": "该控制理论工作把世界模型的训练目标重构为『规划器实际提交的 plan 上，预测 plan-cost 与真实 plan-cost 之间的差异』，并证明规划器的次优性可由该差异界定",
+            "evidence": "摘要：'We therefore reframe the objective as the discrepancy between the predicted and the true plan-cost at the plan the planner commits to, and prove that the planner's suboptimality is b…'（候选块在此处截断）。作者为 Hanzhe You、Yonggang Zhang、Maohao Ran、Zhiqin Yang、Zhenyuan Zhang、Wei Xue、Jun Song、Xinmei Tian、Yike Guo",
+            "sources": [
+              20
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2607.10362v1（cs.LG）预印本；摘要被截断，定理完整表述与实验设置未能核实",
+            "attention": "低 + 依据：无引用数/开源实现/第三方评测信号",
+            "recommendation": "★★★★☆ + 为世界模型训练目标提供了可替代预测误差的规划导向目标，理论上直接关联 Dreamer/MuZero 类模型的模型选择问题"
+          },
+          {
+            "point": "生成式视频模型可作为机器人导航的骨干：以『预测未来观测』构成 video plan；现有做法多依赖短时域引导并通过场景重建恢复几何 waypoint，长时域规划与视频到动作的精确映射仍较少被探索",
+            "evidence": "CueNav 摘要：'Generative video models can serve as a promising backbone for robot navigation by predicting future observations as video plans. Recent approaches often condition video planning on short-horizon guidance and recover geometric waypoints through scene reconstruction, leaving longer-horizon planning and precise video-to-action translation less explored.'，作者提出名为 CueNav 的视频模型导航方法",
+            "sources": [
+              23
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2609.16737v2（cs.RO），2026-09-15 版本，预印本未见同行评审信息",
+            "attention": "中 + 依据：属于具身智能/机器人导航直接相关方向且为 2026-09 最新版本，但候选块未提供引用数/榜单排名/项目仓库等热度信号",
+            "recommendation": "★★★★☆ + 直接对应当前最前沿的『视频生成式规划到真机导航』落地路径，是评估仿真到真机管线的近期一手证据"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "DiLA: Disentangled Latent Action World Models",
+            "url": "http://arxiv.org/abs/2605.15725v1",
+            "why": "提出 content-structure 解耦，试图一次训练同时解决 latent action 抽象与生成保真度权衡，属于 LAM / 无标注视频世界模型主线的当前预印本",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2605.15725v1（cs.CV），预印本，未见同行评审",
+            "attention": "低 + 依据：候选块无引用数、无开源仓库、无榜单信号",
+            "recommendation": "★★★★☆ + 与视频生成式世界模型高度相关且给出具体机制，但影响力和可复现性待核实"
+          },
+          {
+            "title": "A Control Theory of Predictability in Latent World Models",
+            "url": "http://arxiv.org/abs/2607.10362v1",
+            "why": "指出用 rollout 预测误差做训练/模型选择目标在结构上不可靠，并把目标改为规划器提交 plan 上的 cost 差异，为世界模型评估与训练提供理论替代方案",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2607.10362v1（cs.LG），预印本，未见同行评审；摘要截断，定理细节未核实",
+            "attention": "低 + 依据：新预印本，无引用/项目/榜单热度信号",
+            "recommendation": "★★★★☆ + 直接挑战 Dreamer/MuZero 类规划模型的模型选择范式，理论价值高"
+          },
+          {
+            "title": "Visual Cue Guided Video Planning for Generalizable Robot Navigation (CueNav)",
+            "url": "http://arxiv.org/abs/2609.16737v2",
+            "why": "把生成式视频模型用作导航骨干，针对长时域规划与视频到动作映射两个被忽视环节提出方法，代表视频生成式规划在机器人导航的最新落地尝试",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2609.16737v2（cs.RO），预印本，未见同行评审",
+            "attention": "中 + 依据：2026-09 最新版且主题属具身智能热点，但候选块无引用数、无基准名次、无代码链接",
+            "recommendation": "★★★★☆ + 是视频规划到真实机器人任务的关键近期证据，需后续核实其真机与基准结果"
+          },
+          {
+            "title": "World Models: A Survey of Architectures and Training Methods, and NextWM（个人综述）",
+            "url": "https://medium.com/@gwrx2005/world-models-a-survey-of-architectures-and-training-methods-and-nextwm-a-browser-native-latent-717bc46836f1",
+            "why": "以二手综述形式串联 world models 架构/训练方法与 PlaNet、Dreamer 的 latent dynamics 目标，并提及 NextWM 浏览器原生 latent world model",
+            "year": "2026",
+            "heat": "",
+            "authority": "Medium 个人文章，非同行评审、非官方文档",
+            "attention": "中 + 依据：2026-09-29 发布的综述型内容被检索命中，但无阅读量/引用等信号",
+            "recommendation": "★★☆☆☆ + 只能作为定位经典工作与术语的线索，所有论断须回到 PlaNet/Dreamer 原文核实"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "LAM 的动作抽象度与生成保真度权衡：DiLA 用 content-structure 解耦给出一种方案，但候选证据中未见定量指标、本体与任务数，方案有效性待核实 [17]",
+          "latent world model 的模型选择标准：预测误差（单步/多步 rollout loss）被认为是结构性不可靠的代理指标，应改用规划器提交 plan 上的 pred-true plan-cost 差异，但该替代目标在实际训练中的可行性与代价未被候选证据覆盖 [20]",
+          "视频生成式规划的长时域能力与 video-to-action 精确映射：CueNav 指出这两点仍被忽视，短时域引导+场景重建恢复 waypoint 的既有路线存在局限 [23]",
+          "经典 World Models / PlaNet / Dreamer 训练目标（观测似然最小化）与新一代 latent action / 解耦式世界模型目标之间的关系缺乏一手对比证据（候选块仅提供二手综述表述）[21]",
+          "可复用的开源代码/权重、训练栈与仿真到真机管线：候选证据中未出现任何 GitHub 仓库、HuggingFace 权重或数据集条目，该维度证据为空，需要补充检索 [17][20][23]",
+          "MuZero、UniPi、SuSIE、RoboDreamer 等被问题提及的具体工作未出现在候选证据中，其贡献与技术脉络无法在本轮抽取中确认"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "该方向的数据集与评测基准能否支撑可信比较（Open X-Embodiment、DROID、LIBERO、SimplerEnv、RoboCasa、RoboArena 及世界模型专用评测），存在哪些开放问题与争议（复合误差、长时程、物理一致性、仿真-真机差距），以及产业、资本、政策/监管层面的增量信号如何？",
+      "queries": [
+        "robot manipulation benchmark LIBERO SimplerEnv RoboCasa RoboArena 2025 evaluation",
+        "world model evaluation benchmark video generation physical consistency 2025",
+        "world model robot manipulation limitations compounding error 争议 失败案例",
+        "具身智能 世界模型 融资 商业化 政策 监管 标准 2025 2026 趋势 预测"
+      ],
+      "rationale": "对应 frontier-watch 的 facet3/4/5/6/7：把评测可比性与争议作为蓝海与瓶颈判断的依据，同时补齐工业落地、融资生态和监管标准等非学术信号，用于给出可证伪的未来预判。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.054758,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+          "url": "http://arxiv.org/abs/2605.22882v4",
+          "snippet": "Video world models can generate realistic futures from a single instruction, but they often fail to track the same physical points consistently across time. As a result, the generated videos appear plausible, yet lack the physical grounding required for reliable action execution, such as robot manipulation. We present GEM-4D, a geometry-grounded video world model that resolves this limitation by injecting dense 4D correspondence supervision distilled from a pretrained geometry foundation model into the video generative backbone during training. This supervision enables the model to jointly ca…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Kaichen Zhou",
+            "Yuzhen Chen",
+            "Fangneng Zhan",
+            "Hang Hua",
+            "Grace Chen",
+            "Xinhai Chang",
+            "Ao Qu",
+            "Yilun Du",
+            "Zhuang Liu",
+            "Paul Pu Liang",
+            "Mengyu Wang"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.22882v4",
+            "rrf_score": 0.03355,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+          "url": "http://arxiv.org/abs/2508.11117v1",
+          "snippet": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenges and desiderata in designing benchmarks for generalist robotic manipulation policies for the goal of sim-to-real policy transfer. We propose 1) utilizing high visual-fidelity simulation for improved sim-to-real transfer, 2) evaluating policies by systematically increasing task complexity and scenar…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-14",
+          "authors": [
+            "Xuning Yang",
+            "Clemens Eppner",
+            "Jonathan Tremblay",
+            "Dieter Fox",
+            "Stan Birchfield",
+            "Fabio Ramos"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.11117v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+          "url": "http://arxiv.org/abs/2609.24350v1",
+          "snippet": "Robotic foundation models achieve impressive performance on standard manipulation benchmarks, yet these evaluations typically assume clean, timely, and consistent visual observations throughout execution. We introduce LIBERO-VPro, a benchmark for systematically evaluating the closed-loop visual robustness of robotic foundation models by perturbing the visual evidence available during execution. LIBERO-VPro covers four complementary dimensions, including Visual Evidence Degradation, Camera Staleness, Visual Source Consistency, and Task-Relevant Scene Variation, spanning 12 challenge categories…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-21",
+          "authors": [
+            "Huiqiong Li",
+            "Zhiting Mei",
+            "Anirudha Majumdar",
+            "Jingjing Chen",
+            "Yu-Gang Jiang",
+            "Bin Zhu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.24350v1",
+            "rrf_score": 0.024194
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+            "evidence": "Video world models can generate realistic futures from a single instruction, but they often fail to track the same physical points consistently across time. As a result, the generated videos appear plausible, yet lack the physical grounding required for reliable action execution, such as robot mani…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+            "evidence": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenge…",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+            "evidence": "Robotic foundation models achieve impressive performance on standard manipulation benchmarks, yet these evaluations typically assume clean, timely, and consistent visual observations throughout execution. We introduce LIBERO-VPro, a benchmark for systematically evaluating the closed-loop visual rob…",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 7,
+    "prompt_tokens": 46661,
+    "completion_tokens": 37089,
+    "generated_at": "2026-10-08T22:11:02.036142+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 机器人操作 × 世界模型（Robot Manipulation × World Models）前沿增量调研报告\n\n> **日期**：2026-10-08（UTC）｜**领域**：具身智能 / 机器人操作 / 世界模型 / 视频生成式规划｜**检索源数量**：35 条候选来源（编号 [1]–[35]），其中 **23 条与本主题直接相关**、1 条弱相关（[31]）、**11 条判定为噪声/不相关**（[1][7][13][14][15][16][18][19][25][29][30]）。\n\n> **证据与噪声说明（必读）**\n> 1. **本轮所有 2025–2026 年条目均为 arXiv 预印本 + 摘要级证据**，无一条附带第三方复现报告、榜单排名、真机任务成功率或 GitHub star/引用数。因此本报告所有「最新进展」条目的**热度证据一律为 `> 待核实`**，请勿把「有论文」当成「已验证」。\n> 2. **命名陷阱**：候选来源 [16] 标题含 \"PLANET 1995 Pilot Campaign\"，是天文微引力透镜巡天项目，与 Hafner 等提出的 **PlaNet**（latent dynamics 世界模型）**无关**，不得混引。同理 [13][14][15] 的 \"Latent-X/Latent-Y\" 属生物医药领域模型，与本域 latent world model / latent action model 仅命名相近。\n> 3. **时间戳来源**：以下「提交月份」由 arXiv ID 前四位（YYMM）与版本号推断（如 `2605.22882v4` → 2026-05，第 4 版），属可核查的元数据推断，非论文正文陈述。\n> 4. 无法以现有来源确证的一切内容，均显式标注 `> 待核实`；本报告不提供任何未经来源支持的引用数、star 数或榜单名次。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n> **一句话增量判断**：相对 2023–2024 以「视频生成式规划」（UniPi / SuSIE / RoboDreamer 一脉，其短时域引导 + 场景重建取 waypoint 的范式被 [23] 概括为既有做法）为主的基线，2025–2026 的增量集中在三条线：**(a) 几何/深度/3D 显式化以修复「看着像但物理不落地」** [3][9][4]；**(b) 世界-动作联合模型从固定基座扩展到移动/全身操作** [6]；**(c) 首次出现对世界模型训练目标与模型选择标准的理论批判与替代方案** [20]。但**没有任何一条被独立复现或真机第三方验证**。\n\n### 1.1 最新进展（近 1–2 年，2025-08 → 2026-09）\n\n**（A）几何/深度增强：修「物理 grounding」这一核心病灶**\n\n- **GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation** [3]｜2026-05（`2605.22882v4`）\n  - 贡献：指出视频世界模型能由单条指令生成看似合理的未来，但**无法在时间上一致追踪同一物理点**，因而缺少可靠执行动作所需的物理 grounding；以几何增强作为修复路径 [3]。\n  - 热度：`> 待核实`（候选块无引用数/star）｜权威：arXiv cs.CV 预印本，未见同行评审 [3]｜关注度：**中**（依据：视频世界模型为当前热点，且该预印本已迭代至 v4；但无引用/star/榜单信号）[3]｜推荐度：**★★★★☆**（该领域的病灶诊断清晰，必读一手预印本）[3]\n- **GWM: Towards Scalable Gaussian World Models for Robotic Manipulation** [9]｜2025-08（`2508.17600v2`）\n  - 贡献（仅标题级证据）：面向机器人操作的可扩展 **Gaussian** 世界模型（3D 表征路线）[9]。\n  - 热度：`> 待核实`｜权威：预印本，未见同行评审 [9]｜关注度：**中**（依据：属 3D/高斯世界模型这一新兴子线，但候选块未提供引用/榜单/仓库信号）[9]｜推荐度：**★★★★☆**（3D 显式世界模型的代表入口；方法细节与指标 `> 待核实`）[9]\n- **Causal Physics Steering in Video World Models via Concept Activation Vectors** [35]｜2026-05（`2605.24322v1`）\n  - 贡献：用概念激活向量（CAV）在视频世界模型中「转向」物理因果行为 [35]。\n  - 热度：`> 待核实`｜权威：预印本，未见同行评审 [35]｜关注度：**中**（依据：物理一致性 + 可解释控制在 2026 年形成小集群 [3][35]）[35]｜推荐度：**★★★★☆**（与 [3] 互补：一个改架构、一个改推理期控制）[35]\n- **RealD²iff: Bridging Real-World Gap in Robot Manipulation via Depth Diffusion** [4]｜2025-11（`2511.22505v2`）\n  - 贡献：用扩散模型的去噪能力**反转**仿真深度噪声模式，缓解真机深度观测与仿真深度分布不一致的视觉 sim2real gap [4]。严格说它不是世界模型，但直接决定世界模型观测输入的真实性 [4]。\n  - 热度：`> 待核实`｜权威：arXiv cs.RO 预印本 [4]｜关注度：**中**（依据：真实 vs 仿真 depth 噪声差异是 sim2real 经典痛点）[4]｜推荐度：**★★★☆☆**（作为世界模型输入侧补强，值得纳入管线评估）[4]\n\n**（B）世界-动作联合模型走向移动/全身操作**\n\n- **DECOWAM: Decoupled Whole-Body World-Action Model for Legged Mobile Manipulation** [6]｜2026-08（`2608.20114v2`）\n  - 贡献：移动操作要求机器人预测**运动与手臂动作如何联合改变未来观测与控制**；现有 world-action model 多为固定基座，**未显式区分相机自运动（base）与手臂动作**，DECOWAM 做去耦建模 [6]。\n  - 热度：`> 待核实`｜权威：arXiv cs.AI 预印本，未见同行评审 [6]｜关注度：**中**（依据：具身移动操作是 2026 热点，但无引用/榜单信号）[6]｜推荐度：**★★★★☆**（代表「固定基座假设」被打破的增量，是本体泛化方向的关键一手证据）[6]\n\n**（C）理论线：世界模型的训练目标与模型选择是否错了**\n\n- **A Control Theory of Predictability in Latent World Models** [20]｜2026-07（`2607.10362v1`），作者含 Hanzhe You、Yonggang Zhang、Wei Xue、Jun Song、Xinmei Tian、Yike Guo 等 [20]\n  - 贡献：论证「用 held-out 数据上的单步/多步 rollout 预测误差作为训练与模型选择目标」在**结构上不可靠**——规划器查询的不是训练分布上的状态，而是其候选动作到达的状态，后者通常**离开数据流形**，故数据分布上的平均误差无法支配控制性能 [20]；进而把目标重构为「规划器实际提交的 plan 上，预测 plan-cost 与真实 plan-cost 的差异」，并证明规划器次优性可由该差异界定 [20]（摘要被候选块截断，定理完整表述与实验 `> 待核实`）。\n  - 热度：`> 待核实`｜权威：arXiv cs.LG 预印本，未见同行评审 [20]｜关注度：**低**（依据：新预印本，无引用/项目/榜单信号）[20]｜推荐度：**★★★★★**（直接挑战 Dreamer/MuZero 类规划模型的模型选择范式，是本周期最强理论信号）[20]\n\n**（D）Latent Action / 无标注视频学习**\n\n- **DiLA: Disentangled Latent Action World Models** [17]｜2026-05（`2605.15725v1`），作者含 Tianqiu Zhang、Muyang Lyu、Yufan Zhang、Fang Fang、Si Wu [17]\n  - 贡献：指出 Latent Action Models（LAM）存在**动作抽象度 vs 生成保真度**的根本权衡，现有方法靠「两阶段训练（依赖预训练 world model）」或「把预测限制在光流层面」绕开 [17]；提出以 **content–structure 解耦**化解，主张 latent action 学习的预测瓶颈反向驱动解耦——把空间布局蒸馏进 structure 通路、把视觉细节外包给 content 通路，最终得到连续语义化抽象动作 [17]。\n  - 热度：`> 待核实`｜权威：arXiv cs.CV 预印本，未见同行评审 [17]｜关注度：**低**（依据：新预印本，无引用/仓库/榜单信号）[17]｜推荐度：**★★★★☆**（唯一给出具体机制的 LAM 工作，但没有定量指标/本体/任务数 `> 待核实`）[17]\n\n**（E）效率与导航落地**\n\n- **DriftWorld: Fast World Modeling through Drifting** [24]｜2026-07（`2607.15065v3`）——仅标题级证据：以 drifting 实现**快速世界建模**（推理/采样加速方向）[24]。热度 `> 待核实`；权威：预印本 [24]；关注度 **低**（依据：无引用/仓库信号）[24]；推荐度 **★★★☆☆**（推理成本是关键工程瓶颈，但本条目证据过薄，方法 `> 待核实`）[24]\n- **CueNav: Visual Cue Guided Video Planning for Generalizable Robot Navigation** [23]｜2026-09（`2609.16737v2`）\n  - 贡献：以生成式视频模型为导航骨干，用「预测未来观测」构成 video plan；指出既有方法多依赖**短时域引导**并通过**场景重建**恢复几何 waypoint，**长时域规划与 video-to-action 精确映射仍少被探索** [23]。\n  - 热度：`> 待核实`｜权威：arXiv cs.RO 预印本，未见同行评审 [23]｜关注度：**中**（依据：2026-09 最新版本 + 视频规划到真机落地的直接相关主题；但无引用/榜单/代码信号）[23]｜推荐度：**★★★★☆**（评估仿真到真机管线的近期一手证据；真机与基准结果 `> 待核实`）[23]\n\n**（F）评测反思与专用基准**（详见 1.3 表格）\n\n- **World Models for Robotic Manipulation: A Survey** [8]｜2026-06（`2606.00113v1`）：其摘要开篇即指出该术语如今**横跨 latent dynamics models 与动作条件生成模型等多种范式**（[8] 摘要被截断，完整分类谱系 `> 待核实`），这正是本领域当前「同名不同物」的术语混乱证据 [8]。\n- **What-If World: A Causal Benchmark for General World Models in Embodied Scenarios** [34]｜2026-05（`2605.27589v1`）[34]；**LIBERO-VPro**（闭环视觉鲁棒性基准）[27]｜2026-09（`2609.24350v1`）；**LIBERO-Para**（VLA 改写鲁棒性诊断基准）[28]｜2026-03（`2603.28301v3`）；**Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective** [26]｜2025-08（`2508.11117v1`）；**What Are We Actually Benchmarking in Robot Manipulation?** [32]｜2026-06（`2606.04233v1`）。\n- 上述基准条目的权威均为 arXiv cs.RO 预印本、**均未见同行评审声明**，热度 `> 待核实`，关注度 **中**（依据：2025–2026 出现「基准/评测反思」小集群，说明社区开始质疑既有指标的可比性 [26][27][28][32][34]），推荐度 **★★★☆☆ – ★★★★☆**（LIBERO-VPro 直接针对「执行中视觉观测被假设为干净、及时、一致」这一不符合真机的默认前提 [27]）。\n\n> **独立复现 vs 演示/自评（关键结论）**：以上 2025–2026 条目**全部**只有预印本 + 自评，**无第三方复现、无榜单名次、无真机成功率数字**；因此本报告将所有此类结论标为「演示/自评级」，而非「已验证」[3][4][6][9][17][20][23][24][27][28][34][35]。\n\n### 1.2 经典与奠基性工作（与 1.1 严格分节）\n\n> ⚠️ 本表除 [22]（Nature 正刊）与 [8][11][12][21][5][33] 外，**多数经典工作的一手链接未出现在本轮 35 条候选来源中**，其「热度/权威」只能标 `> 待核实`；列出它们是作为**待补充检索清单**，不构成已核实事实。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| **Dreamer / DreamerV3**（\"Mastering diverse control tasks through world models\"） | 2025（Nature 正刊） | Hafner 等（机构 `> 待核实`） | `> 待核实` | **A 级：Nature 正刊同行评审** [22] | **高**（依据：该方向极少数经 Nature 同行评审的里程碑 [22]） | **★★★★★** | https://www.nature.com/articles/s41586-025-08744-2 [22] | latent world model 智能体在多类控制任务上的代表作；与机器人操作的真实任务仍有 gap `> 待核实` |\n| World Models（Ha & Schmidhuber） | 2018 | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实`（仅可确认为 latent dynamics 一脉的公认起点叙述，见 [21] 对 PlaNet/Dreamer 家族的归类） | **★★★★☆** | `> 待核实` | 本轮未命中一手来源，条目作为检索线索保留 |\n| PlaNet | 2019 | Hajner 等 `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | **★★★★☆** | `> 待核实` | 其训练目标（latent dynamics 上最小化观测似然 L = Σ_t[−ln p(...)]）的表述**仅来自二手综述 [21]**，原始公式与实现须回原文核实 |\n| MuZero | 2020 | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | **★★★★☆** | `> 待核实` | 与 [20] 争论的「模型预测误差 vs 规划性能」直接相关，是 [20] 论述的隐含背景 |\n| UniPi / SuSIE / RoboDreamer（视频生成式规划一脉） | 2023–2024 | `> 待核实` | `> 待核实` | `> 待核实` | **中**（依据：[23] 将其范式概括为「短时域引导 + 场景重建取 waypoint」的既有做法 [23]） | **★★★★☆** | `> 待核实` | 作为 1.1 中 2025–2026 增量的对照基线 |\n| **GR-2: A Generative Video-Language-Action Model for Robot Manipulation** | 2024 | 字节跳动 ByteDance Research（`> 待核实`，候选块未给作者） | `> 待核实` | 以 DOI 形式收录 [11][12]，同行评审状态 `> 待核实` | **中**（依据：生成式 VLA 产品化叙事的代表性条目 [11][12]） | **★★★★☆** | https://doi.org/10.59350/18ct2-xbf48 [11]；https://doi.org/10.59350/m5s7m-3kd85 [12] | 把视频生成与 VLA 结合用于操作，是「世界模型 → 工业产品」叙事的关键一环 |\n| 通用世界模型综述（\"Is Sora a World Simulator?\"） | 2024 | `> 待核实` | `> 待核实` | arXiv 预印本 [5] | **中** | **★★★★☆** | http://arxiv.org/abs/2405.03520v2 [5] | 提供「通用世界模型」的质疑式框架，是理解「视频生成 ≠ 世界模型」争议的入口 |\n| Text-to-Video 世界模型综述（\"Sora as a World Model?\"） | 2024 | `> 待核实` | `> 待核实` | arXiv 预印本 [33] | **中** | **★★★☆☆** | http://arxiv.org/abs/2403.05131v3 [33] | 从文本到视频视角审视世界模型能力边界 |\n| **World Models for Robotic Manipulation: A Survey** | 2026-06 | `> 待核实` | `> 待核实` | arXiv cs.RO 预印本 [8] | **高**（依据：本主题**唯一**同名领域综述，且覆盖 latent dynamics 与动作条件生成式两族，是当前最贴题的分类骨架 [8]） | **★★★★★** | http://arxiv.org/abs/2606.00113v1 [8] | 建议作为本方向分类学与引用回溯的起点 |\n| VLA/VLM 机器人操作综合综述 | 2026 | `> 待核实` | `> 待核实` | Preprints 预印本（DOI）[2] | **中** | **★★★☆☆** | https://doi.org/10.20944/preprints202606.0400.v1 [2] | 提供 VLA 侧对照，用于区分「VLA 政策」与「世界模型」两条技术栈 [2] |\n| World Models: 架构与训练方法（个人综述）+ NextWM | 2026-09-29 | Medium 个人作者 | `> 待核实` | **D 级：非同行评审、非官方文档** [21] | **中**（依据：作为综述型二手解读被检索命中，无阅读量/引用信号）[21] | **★★☆☆☆** | https://medium.com/@gwrx2005/world-models-a-survey-of-architectures-and-training-methods-and-nextwm-a-browser-native-latent-717bc46836f1 [21] | **仅可作线索**：其关于 PlaNet/Dreamer 训练目标的表述必须回原文核实 [21] |\n\n### 1.3 数据集与基准（能否支撑可信比较）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| **LIBERO-VPro** | 2026-09 | `> 待核实` | `> 待核实` | arXiv cs.RO 预印本 [27] | **中**（依据：直指既有基准默认「观测干净、及时、一致」的失真前提）[27] | **★★★★☆** | http://arxiv.org/abs/2609.24350v1 [27] | 评测机器人基础模型的**闭环视觉鲁棒性**；说明 LIBERO 仍是主流基座（[27] 是其扩展） |\n| **LIBERO-Para** | 2026-03 | `> 待核实` | `> 待核实` | arXiv 预印本 [28] | **中**（依据：VLA 指令改写鲁棒性诊断，与前者的视觉鲁棒性构成一对）[28] | **★★★☆☆** | http://arxiv.org/abs/2603.28301v3 [28] | 语言侧鲁棒的诊断基准与指标 |\n| **What-If World** | 2026-05 | `> 待核实` | `> 待核实` | arXiv 预印本 [34] | **中**（依据：少见的**具身场景因果**通用世界模型基准）[34] | **★★★★☆** | http://arxiv.org/abs/2605.27589v1 [34] | 面向通用世界模型的因果评测，直击「生成逼真 ≠ 因果正确」 |\n| Robot Policy Evaluation for Sim-to-Real Transfer（基准视角） | 2025-08 | `> 待核实` | `> 待核实` | arXiv cs.RO 预印本 [26] | **中**（依据：指出真实世界评测落后于通用策略的进展）[26] | **★★★☆☆** | http://arxiv.org/abs/2508.11117v1 [26] | 给出 sim2real 评测方法论的批判性视角 |\n| What Are We Actually Benchmarking in Robot Manipulation? | 2026-06 | `> 待核实` | `> 待核实` | arXiv 预印本 [32] | **中**（依据：元评测反思潮的一部分）[32] | **★★★☆☆** | http://arxiv.org/abs/2606.04233v1 [32] | 对「基准到底测了什么」的诘问 |\n| **Open X-Embodiment / DROID / LIBERO / SimplerEnv / RoboCasa / RoboArena** | — | — | `> 待核实` | `> 待核实` | `> 待核实` | **★★★★☆**（均为该方向公认对照平台，但本轮**未命中其主页链接**） | `> 待核实` | 本报告无法为其提供一手链接，**不得引用为已核实资源**；仅能从 [27][28] 的「LIBERO 扩展」定位到 LIBERO 的存在 |\n| **世界模型专用评测（rollout 预测质量 vs 规划收益）** | — | — | — | — | **高**（依据：[20] 已从理论上论证预测误差不能支配控制性能，但**候选证据中不存在对应的公开 benchmark**） | — | `> 待核实` | **确认的评测空白**（见第 3、4 章）[20] |\n\n> **可比性结论**：截至 2026-10，机器人操作的公开基准（LIBERO 系及其 2026 年鲁棒性扩展 [27][28]）测的是**策略闭环鲁棒性**，而世界模型评估实际采用的是 **rollout 预测误差**；[20] 已论证后者与规划收益脱钩，因此**目前不存在能验证「世界模型更好 ⇒ 操作更成功」的公认评测协议**——这是本轮最重要的可比性缺口。`> 待核实`：是否已有未检索到的世界模型专用榜单（如新近出现的 rollout-quality leaderboard）。\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n> **一句话增量判断**：本周期可核实的「产业侧」增量只有两点——**生成式 VLA 进入机器人操作的产品化叙事**（GR-2 [11][12]）与**模型透明度治理报告的更新**（2025 Foundation Model Transparency Index [10]）；而**部署量、量产、权重下载量、客户数等一切工业指标在本轮证据中完全缺失**。\n\n- **GR-2：生成式 video-language-action 模型** [11][12]（2024）｜作为「视频生成能力 → 机器人操作模型」的产业代表作被以 DOI 形式收录 [11][12]。热度 `> 待核实`；权威：DOI 收录，同行评审状态 `> 待核实` [11][12]；关注度 **中**（依据：产业机构投入生成式 VLA 的公开信号）[11][12]；推荐度 **★★★★☆**（追踪「世界模型技术如何进入产品」的关键节点）。\n- **The 2025 Foundation Model Transparency Index** [10]（2025-12，`2512.10169v1`）｜治理/透明度维度的最新官方化尝试 [10]。热度 `> 待核实`；权威：arXiv 预印本 [10]；关注度 **中**（依据：指数类报告通常被政策与媒体引用，但候选块未提供采用者/引用信号）[10]；推荐度 **★★★☆☆**（**注意**：该证据是否覆盖机器人/世界模型厂商，本轮**无法确认** `> 待核实`）。\n- **开源项目与工程栈现状（关键负面结论）**：本轮 23 条直接相关来源中，**没有任何一条提供 GitHub 仓库、HuggingFace 权重、训练脚本或仿真到真机管线代码**。因此「是否开源、复现难度」这一子问题只能给出如下表格（全部为 `> 待核实`）。\n\n| 开源项目（候选） | 年份 | 机构/作者 | 热度（star/下载） | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| DiLA | 2026-05 | 见 [17] | `> 待核实`（无仓库） | 预印本 [17] | 低 [17] | ★★★★☆（若开源将显著降低 LAM 门槛） | `> 待核实` | 有无官方实现 `> 待核实` |\n| GEM-4D | 2026-05 | `> 待核实` | `> 待核实` | 预印本 [3] | 中 [3] | ★★★★☆ | `> 待核实` | 几何增强视频世界模型 |\n| GWM（Gaussian World Models） | 2025-08 | `> 待核实` | `> 待核实` | 预印本 [9] | 中 [9] | ★★★★☆ | `> 待核实` | 3DGS 路线世界模型 |\n| DECOWAM | 2026-08 | `> 待核实` | `> 待核实` | 预印本 [6] | 中 [6] | ★★★★☆ | `> 待核实` | 移动/全身 world-action model |\n| DriftWorld | 2026-07 | `> 待核实` | `> 待核实` | 预印本 [24] | 低 [24] | ★★★☆☆ | `> 待核实` | 快速世界建模（加速） |\n| CueNav | 2026-09 | `> 待核实` | `> 待核实` | 预印本 [23] | 中 [23] | ★★★★☆ | `> 待核实` | 视频规划导航 |\n| LIBERO-VPro / LIBERO-Para | 2026 | `> 待核实` | `> 待核实` | 预印本 [27][28] | 中 [27][28] | ★★★★☆ | `> 待核实` | 基准代码是否放出 `> 待核实` |\n| DreamerV3 官方实现 | 2025 | Hafner 等 | `> 待核实` | Nature 论文 [22] + `> 待核实` 仓库 | 高 [22] | ★★★★★ | `> 待核实`（本轮未命中仓库链接） | 该方向最成熟的公开训练栈候选，**链接需另行核实** |\n| GR-2 | 2024 | 字节跳动（`> 待核实`） | `> 待核实` | DOI [11][12] | 中 [11][12] | ★★★★☆ | [11][12] | 权重开放情况 `> 待核实` |\n| 仿真到真机管线（通用） | — | — | — | — | — | — | `> 待核实` | 本轮无任何管线级证据，补检重点 |\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n> **一句话增量判断**：本周期**从「没人提」变成「被明确写进论文局限」**的缺口有五个：长时域视频规划与 video-to-action 精确映射 [23]、点级物理一致性 [3]、世界模型训练/选择目标的规划导向重构 [20]、移动/全身世界-动作建模 [6]、以及**世界模型专用评测协议的缺失** [20][27][32]。\n\n- **缺口 1｜长时域规划 + 视频到动作的精确映射**：既有视频规划依赖短时域引导、靠场景重建恢复几何 waypoint，长时域与精确 video-to-action 被明确点名为「less explored」[23]。→ 高杠杆：把「预测视频」变成「可执行轨迹」的中间表示仍无标准答案。\n- **缺口 2｜物理 grounding 的量化标准**：视频世界模型「看似合理但无法一致追踪同一物理点」[3]；因果/物理可被「转向」[35]，但**无公开 metric 衡量点级一致性** → 与 [34] 的因果基准互补，构成新基准机会。\n- **缺口 3｜模型选择目标的重构与工程化**：理论上已论证预测误差不可靠、应改为「提交 plan 上的 pred–true plan-cost 差异」[20]，但**该目标在实际训练中的代价、方差与可行性在本轮证据中完全未被覆盖** `> 待核实` [20]。\n- **缺口 4｜Latent action 的抽象-保真权衡**：DiLA 给出一套方案 [17]，但**无定量指标、无本体说明、无任务数** → 该子方向的实验报告规范本身是缺口 [17]。\n- **缺口 5｜移动/全身操作**：既有 world-action model 面向固定基座，未区分相机自运动与手臂动作；DECOWAM 是少数破局尝试 [6] → 移动操作世界模型是竞争空白区。\n- **缺口 6｜评测与「自评」文化**：2026 年出现「鲁棒性基准」[27][28]、「因果基准」[34]、「我们到底在测什么」[32]、「sim2real 评测反思」[26] 的集中反思，但**没有一篇把世界模型 rollout 质量与真机任务成功率做闭环关联** → **planner-in-the-loop 评测协议**是最清晰的蓝海 [20][26][32]。\n- **缺口 7｜可复现性**：本轮 0/23 条直接相关来源提供代码或权重（见第 2 章表）→ 世界模型方向的「演示驱动」状态本身是生态缺口 `> 待核实`（不排除本文检索未覆盖仓库链接）。\n- **缺口 8｜噪声与命名污染**：本域术语正被外部领域命名挤占（\"Latent-X/Y\" 属生物医药 [13][14][15]，\"PLANET\" 属天文 [16]）→ 学术检索与引用管理本身存在工程缺口。\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n> **一句话增量判断**：本周期出现了**一个真正的理论型拐点信号**——「世界模型预测误差 ⇒ 控制性能」这一被默认了多年的假设被结构性反驳 [20]；其余瓶颈（物理一致性、评测、数据）仍处于「被承认但未解决」阶段。\n\n| 瓶颈 | 性质 | 本周期信号 | 拐点判断与信号 |\n|---|---|---|---|\n| **训练/选择目标错配**：数据分布上的预测误差无法支配规划性能（规划器查询离开数据流形的状态）[20] | 算法/理论 | 已给出替代目标（plan-cost discrepancy）与次优性界定 [20] | **临近拐点**：若 12 个月内出现真机操作上超越 rollout-loss 选择的实证，即拐点成立（见 7 章 [P1]） |\n| **物理一致性**：点级跟踪不一致使生成视频无法支撑可靠执行 [3] | 算法/表征 | 几何增强 [3]、3D 高斯 [9]、CAV 物理转向 [35] | **早期**：三条技术路线并存，无统一 metric [3][9][35] |\n| **观测真实性 / depth sim2real**：仿真深度噪声模式与真机不一致 [4] | 数据/传感器 | 深度扩散反演噪声模式 [4] | **早期**：模态级修复，尚未接入世界模型训练闭环 `> 待核实` [4] |\n| **Latent action 抽象-保真权衡**：两阶段训练或限制在光流层面 [17] | 算法/表征 | content-structure 解耦 [17] | **早期**：机制已提出但证据只有摘要 [17] |\n| **长时域与 video→action 映射** [23] | 算法 | 被明确列为未充分探索 [23] | **未到拐点**：无公开 benchmark 定义「多长算长时域」 `> 待核实` [23] |\n| **评测不可比**：基准假设干净/及时/一致观测 [27]，且「到底在测什么」被质疑 [32][26] | 评测/元科学 | 一组 2025–2026 基准与反思论文 [26][27][28][32][34] | **临近拐点**：基准化速度明显快于方法验证速度 [27][28][34] |\n| **推理/训练成本**：快速世界建模需求 [24] | 工程/算力 | DriftWorld 类加速工作 [24] | **早期**：仅标题级证据，`> 待核实` [24] |\n| **术语混乱**：同一术语横跨 latent dynamics 与动作条件生成 [8] | 社区/元科学 | 2026 年综述开始做统一分类 [8] | **正在收敛** [8] |\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n> **一句话增量判断**：**本周期在本主题下无显著可核实增量**——除一份通用透明度指数 [10] 与一条弱相关的安全语言交互线索 [31] 外，本轮候选来源未提供任何直接涉及机器人操作世界模型的监管文件、标准、出口管制或地缘政治事件。\n\n- **模型透明度治理**：The 2025 Foundation Model Transparency Index [10]（2025-12）是本周期唯一可核实的治理类一手材料 [10]。热度 `> 待核实`；权威：arXiv 预印本 [10]；关注度 **中**；推荐度 **★★★☆☆**。**关键限定**：其覆盖对象是否包含世界模型/机器人基础模型厂商，本轮**无法确认** `> 待核实` [10]。\n- **安全与人机语言交互（弱相关）**：LLM-based ambiguity detection in natural language instructions for collaborative surgical robots [31]（2025-07）提示「指令歧义 → 安全」问题在医疗机器人场景已被研究 [31]；与本主题仅弱相关。热度 `> 待核实`；权威：预印本 [31]；关注度 **低**；推荐度 **★★☆☆☆**。\n- **合成数据 / 生成内容治理**：通用世界模型与文本到视频综述 [5][33] 触及「视频生成是否世界模型」的能力边界争议，但**没有任何政策/伦理结论\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：本周期内未检索到任何可一手核实的融资额、估值或并购交易数据（`> 待核实`）；可观测的生态增量集中在三处——世界模型控制方法进入 Nature 正刊 [22]、生成式 Video-Language-Action 模型以 DOI 形式形成产业侧叙述 [11][12]、以及面向基础模型的外部透明度审计工具出现 [10]。\n\n### 6.1 学术声望层的\"资本化\"：世界模型控制方法进入综合顶刊\n\n| 条目 | 时间 | 信号内容 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|\n| Nature 论文《Mastering diverse control tasks through world models》 [22] | 2025 | 世界模型（Dreamer 一脉；作者与具体版本 `> 待核实`）在 Nature 正刊发表，标志该范式从 cs.LG/arXiv 圈层进入高影响力综合期刊 | `> 待核实`（候选块未提供引用数、Altmetric 或下载量） | Nature 正刊，同行评审（A 级）[22] | 中——依据：正刊发表本身是强权威信号，但候选块无榜单/社区讨论数据，热度侧不敢上调 `> 待核实` | ★★★★★——若要在报告中为\"世界模型是严肃科学而非 demo 文化\"提供单条最硬证据，这是首选 [22] |\n\n**推论（谨慎表述）**：正刊发表通常伴随研究资源的进一步集中；但本轮证据无法量化这一效应 `> 待核实`。\n\n### 6.2 产业侧叙述：生成式 VLA 与\"面向真机应用\"的综述化倾向\n\n- **GR-2: A Generative Video-Language-Action Model for Robot Manipulation** [11][12]：同一标题存在两个独立 DOI（10.59350/18ct2-xbf48、10.59350/m5s7m-3kd85），说明该工作通过 DOI 渠道做多版本/多入口发布，属于产业界产出以学术格式对外披露的常见形态。\n  - 热度证据：`> 待核实`（候选块未给出引用数、star、下载量）\n  - 权威证据：DOI 注册发布，**非同行评审期刊**；机构与作者归属 `> 待核实` [11][12]\n  - 关注度：低—中——依据：仅出现在候选来源清单，未见基准排名或社区讨论信号，故不给高 `> 待核实` [11][12]\n  - 推荐度：★★★☆☆——作为\"生成式视频 + 动作\"工业路线的可引用条目，但引用时必须标注为非同行评审 [11][12]\n\n- **《Vision-Language-Action and Vision Language Models for Robot Manipulation: A Comprehensive Review Towards Real-World Applications》** [2]：标题即体现\"Towards Real-World Applications\"的落地导向，反映综述写作口径正从\"能力盘点\"转向\"部署可行性\"。\n  - 热度证据：`> 待核实` [2]\n  - 权威证据：MDPI Preprints 平台预印本（DOI 10.20944/preprints202606.0400.v1），**非同行评审** [2]\n  - 关注度：低—中——依据：仅文本标题与平台信息可核，无引用/榜单信号 `> 待核实` [2]\n  - 推荐度：★★☆☆☆——可作产业落地语境的背景引用，不宜作为技术结论依据 [2]\n\n### 6.3 治理与审计工具的外溢：基础模型透明度评估\n\n- **The 2025 Foundation Model Transparency Index** [10]：为\"基础模型需接受外部透明度审计\"提供了可复用的评估框架。该框架是否已覆盖机器人基础模型 / 世界模型（VLA、视频世界模型）**未被候选证据确认** `> 待核实` [10]。\n  - 热度证据：`> 待核实` [10]\n  - 权威证据：arXiv 预印本（`> 是否同行评审待核实`）[10]\n  - 关注度：中——依据：透明度指数在 AI 治理议题中属被持续跟踪的工具型产出，但候选块无具体排名或媒体讨论数据支撑，故标注为\"依据不足的中间判断\" `> 待核实` [10]\n  - 推荐度：★★★☆☆——若报告需要讨论\"世界模型开源/权重披露的治理压力\"，这是唯一可引条目，但需先核实其覆盖面 [10]\n\n### 6.4 生态扩散：话语从机器人圈层外溢到通用视频生成圈层\n\n- 2024 年出现两篇明确以 Sora 为对象的\"世界模型/文本到视频\"综述：[5]（Is Sora a World Simulator?）与 [33]（Sora as a World Model? A Complete Survey on Text-to-Video Generation）。这构成\"世界模型\"概念在通用生成模型社区的扩散证据，客观效果是为机器人操作方向引入外部注意力与人才。\n  - 热度证据：`> 待核实`（候选块未提供引用数）[5][33]\n  - 权威证据：arXiv 预印本（v2 / v3 多版本迭代，说明持续维护）[5][33]\n  - 关注度：中——依据：2024 年发布、有 v2/v3 迭代记录，说明有持续修订与引用生态；但无量化热度 `> 待核实` [5][33]\n  - 推荐度：★★★☆☆——用于建立\"世界模型\"术语跨圈层演化的时间锚点，不建议作为机器人操作的方法论依据 [5][33]\n\n### 6.5 生态可见度缺口（负向证据，需显式记录）\n\n- 本轮候选证据中，**机器人操作 × 世界模型**方向未出现任何 GitHub 仓库、HuggingFace 权重或数据集主页条目 [17][20][23]。\n- 唯一带\"新工作/新工具\"性质的非学术条目是一篇 Medium 个人综述，其中提及浏览器原生 latent world model「NextWM」[21]，但该条目为二手来源（D 级），**不是**可核实的项目仓库 `> 待核实` [21]。\n- 结论：该方向的\"开源生态\"在本轮检索中**证据为空**，不构成\"没有开源\"的结论 `> 待核实`。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n**一句话增量判断**：本周期最值得关注的不是某个 SOTA 数字，而是三条**互相独立的\"反共识\"信号**——(a) 预测误差不等于控制性能 [20]，(b) 视频世界模型缺物理点级一致性 [3]，(c) \"机器人操作到底在评测什么\"的口径质疑 [32]——三者共同指向同一转折：从\"生成得像\"转向\"规划得对、物理上对、评测口径上说得清\"。\n\n### 7.1 早期信号清单（带来源与证据四轴）\n\n| # | 信号（含时间） | 依据链 | 热度 | 权威 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|\n| S1 | 2026-07 提出\"用 rollout 预测误差做世界模型训练/模型选择在结构上不可靠\"，应改为规划器提交 plan 上的 pred-true plan-cost 差异 [20] | 规划器查询的是候选动作到达的状态（离开数据流形）→ 数据分布平均误差无法支配控制 → 需换目标函数 | `> 待核实` [20] | arXiv:2607.10362v1（cs.LG）预印本，未见同行评审；摘要截断，定理细节与实验未核实 [20] | 低——依据：新预印本，无引用/榜单/复现信号 [20] | ★★★★★——若成立将动摇 Dreamer/MuZero 一脉的模型选择惯例，是最高杠杆的理论线索 [20] |\n| S2 | 2026-05 视频世界模型\"能生成合理未来，但无法在时间上跟踪同一物理点\"，因此缺物理接地，影响动作执行 [3] | 物理点级一致性缺失 → 生成视频\"看似合理\"却不可执行 → 需几何增强 | `> 待核实` [3] | arXiv:2605.22882v4（cs.CV）预印本，v4 表明经多轮修订，未见同行评审信息 [3] | 中——依据：v4 多次修订 + 主题直击痛点，但无引用数/榜单 [3] | ★★★★☆——是\"物理一致性\"成为独立评测维度的最早可引证据之一 [3] |\n| S3 | 2026 出现专门的因果/物理评测努力：What-If World（具身场景因果基准）[34]、用概念激活向量做视频世界模型的因果物理引导 [35] | 从\"生成质量\"转向\"因果/物理正确性\"的可量化检验 → 需要基准与干预手段 | `> 待核实` [34][35] | 均为 arXiv 预印本，未见同行评审 [34][35] | 低—中——依据：2026 年新预印本，无榜单/引用信号 `> 待核实` [34][35] | ★★★★☆——若要做\"物理一致性评测\"章节，这两条是当前最直接的抓手 [34][35] |\n| S4 | 2026 评测方法论质疑集中出现：LIBERO-VPro（闭环视觉鲁棒性）[27]、LIBERO-Para（释义鲁棒性诊断）[28]、《What Are We Actually Benchmarking in Robot Manipulation?》[32] | 现有基准假设\"观测干净、及时、一致\" → 与真机不符 → 需闭环扰动与语言变异维度 | `> 待核实` [27][28][32] | 均为 arXiv 预印本；[27][28] 为 cs.RO，未见同行评审 [27][28][32] | 中——依据：同一评测对象（LIBERO）短期内出现多项鲁棒性扩展，属\"同题聚集\"信号；但无引用/榜单数据 `> 待核实` [27][28] | ★★★★☆——直接对应\"评测可信度\"这一蓝海缺口 [27][28][32] |\n| S5 | 表征路线向几何/深度/高斯偏移：GWM 高斯世界模型 [9]、RealD²iff 深度扩散补 sim2real 差距 [4]、GEM-4D 几何增强 [3] | 纯 RGB 视频预测保真度受限于几何与深度噪声 → 引入高斯/深度/几何表示 | `> 待核实` [3][4][9] | 均为 arXiv 预印本（[4] 为 v2），未见同行评审 [3][4][9] | 中——依据：三条独立工作同期指向几何/深度表示，属方向性收敛信号；无量化热度 `> 待核实` [3][4][9] | ★★★★☆——判断\"世界模型表征演化\"必读 [3][4][9] |\n| S6 | 推理速度被单独提为主题：DriftWorld「Fast World Modeling through Drifting」[24] | 世界模型要进真机闭环 → 单步生成速度成为硬约束 → 出现专门做\"快\"的方法 | `> 待核实` [24] | arXiv:2607.15065v3（预印本，v3 多次修订），未见同行评审 [24] | 低—中——依据：v3 修订是持续投入信号，但无 star/榜单 `> 待核实` [24] | ★★★☆☆——\"速度\"尚未被充分基准化，属可提前占位的缺口 [24] |\n| S7 | 移动/全身操作被显式纳入世界-动作模型：DECOWAM（区分相机自运动与基座/臂动作）[6] | 固定基座世界-动作模型无法处理移动平台 → 需解耦 ego-motion 与动作 | `> 待核实` [6] | arXiv:2608.20114v2（cs.AI）预印本，未见同行评审 [6] | 低——依据：新预印本，无榜单/引用信号 [6] | ★★★★☆——把\"世界模型\"从固定臂扩展到 legged mobile manipulation 的代表条目 [6] |\n\n### 7.2 可证伪预测（[P]，附依据链、置信度与证伪条件）\n\n**[P1] 规划导向的模型选择目标将在 12 个月内获得公开复现或后续工作。**\n- 依据链：S1 指出预测误差在结构上不可靠 [20] → 该问题对所有使用 learned latent dynamics + planner 的系统普遍成立（Dreamer 一脉 [22]）→ 问题足够根本，学界有动机跟进。\n- 可证伪假设：**若 2027-10-08 之前未出现以\"规划器提交 plan 上的 pred-true plan-cost 差异\"为训练或模型选择目标的公开复现/后续论文，则本预测不成立。**\n- 置信度：中低（依据：仅一条预印本，摘要截断、实验与定理未核实 [20]；且该方向历史惯性大）。\n- 四轴：热度 `> 待核实` [20]；权威 arXiv cs.LG 预印本、未见同行评审 [20]；关注度 低 [20]；推荐度 ★★★★★ [20]。\n\n**[P2] \"物理/因果一致性\"将在 12–18 个月内形成独立基准或竞赛赛道，而非附属于成功率榜单。**\n- 依据链：S2（物理点级一致性缺失）[3] + S3（因果基准 [34]、因果物理引导 [35]）同期独立出现 → 说明问题被多个团队同时识别 → 通常会催生专门榜单/挑战赛。\n- 可证伪假设：**若 2028-04-08 之前没有出现以\"世界模型物理/因果一致性\"为主指标的公开基准、排行榜或竞赛，则本预测不成立。**\n- 置信度：中（依据：三条独立工作指向同一维度 [3][34][35]，但均无榜单或引用热度佐证采纳度 `> 待核实`）。\n- 四轴：热度 `> 待核实` [3][34][35]；权威 均为 arXiv 预印本、未见同行评审 [3][34][35]；关注度 低—中 [3][34][35]；推荐度 ★★★★☆ [3][34][35]。\n\n**[P3] 世界模型/VLA 论文的结果报告口径将从\"干净观测下的成功率\"转向\"扰动与语言变异下的鲁棒性\"。**\n- 依据链：S4——同一基准 LIBERO 上短期内出现闭环视觉鲁棒性 [27] 与释义鲁棒性 [28] 两个诊断基准，加上对\"机器人操作究竟在评测什么\"的方法论质疑 [32] → 评测压力会反向传导到论文写作口径。\n- 可证伪假设：**若 2027-10-08 之前新发表的机器人操作/世界模型论文中，报告扰动条件或语言变异条件下结果的占比未出现可观测上升（例如主流基准论文仍只报单一条件成功率），则本预测不成立。**（需先建立基线比例，`> 待核实`）\n- 置信度：中低（依据：鲁棒性基准存在 [27][28][32]，但\"论文口径随之改变\"这一环节未被证据覆盖）。\n- 四轴：热度 `> 待核实` [27][28][32]；权威 均 arXiv 预印本、未见同行评审 [27][28][32]；关注度 中（同题聚集）[27][28]；推荐度 ★★★★☆ [27][28][32]。\n\n**[P4] Latent Action Model 的\"抽象度 vs 保真度\"权衡在 12 个月内不会收敛到统一范式。**\n- 依据链：S? ——DiLA 明确指出\"LAMs face a fundamental trade-off between action abstraction and generation fidelity\"，并指出既有方法靠两阶段训练或限制在光流层面规避该问题 [17] → \"规避\"而非\"解决\"意味着范式分歧仍开放 → 单点解耦方案 [17] 不足以统一。\n- 可证伪假设：**若 2027-10-08 之前出现被至少两个独立团队复现并作为基线的统一 LAM 训练范式，则本预测不成立。**\n- 置信度：中高（依据：该权衡被一手预印本明确定义为\"fundamental\" [17]；但复现生态证据为空 `> 待核实`）。\n- 四轴：热度 `> 待核实` [17]；权威 arXiv:2605.15725v1（cs.CV）预印本、未见同行评审 [17]；关注度 低 [17]；推荐度 ★★★★☆ [17]。\n\n**[P5] 世界模型表征将持续向几何/深度/高斯等 3D 结构表征偏移，纯 RGB 视频预测不再默认占优。**\n- 依据链：S5——GWM 高斯表示 [9] + 深度域 sim2real 校正 [4] + 几何增强以保物理点一致性 [3]，三条独立路径同期指向\"显式结构表征\"。\n- 可证伪假设：**若 2027-10-08 之前主流世界模型工作在机器人操作上的主结果仍普遍只使用纯 RGB 隐空间表征、且未报告几何/深度/高斯变体的增益，则本预测不成立。**（需先建立基线 `> 待核实`）\n- 置信度：中（依据：方向收敛信号明确 [3][4][9]，但缺定量对比与榜单支持 `> 待核实`）。\n- 四轴：热度 `> 待核实` [3][4][9]；权威 均 arXiv 预印本、未见同行评审 [3][4][9]；关注度 中 [3][4][9]；推荐度 ★★★★☆ [3][4][9]。\n\n**[P6] 推理速度/实时性将上升为世界模型进入真机闭环的门槛指标。**\n- 依据链：S6——出现以\"Fast World Modeling\"为标题核心的方法 [24] → 说明速度已被视作独立瓶颈而非附带工程细节 → 真机闭环（[23] 视频规划到导航、[6] 移动操作）天然要求在线推理。\n- 可证伪假设：**若 2027-10-08 之前，新发表的世界模型操作工作普遍仍未报告推理时延或实时倍率指标，则本预测不成立。**\n- 置信度：中低（依据：仅一条以速度为题的预印本 [24]；速度与真机部署的因果链未被候选证据量化）。\n- 四轴：热度 `> 待核实` [24]；权威 arXiv:2607.15065v3 预印本、未见同行评审 [24]；关注度 低—中 [24]；推荐度 ★★★☆☆ [24]。\n\n### 7.3 Watchlist（建议持续跟踪的条目）\n\n| 跟踪对象 | 为什么值得跟踪 | 观察指标（可观测） | 来源 |\n|---|---|---|---|\n| 规划导向训练/模型选择目标的后续工作 | 直接挑战 latent world model 的模型选择惯例，理论杠杆最高 | 是否出现复现、是否被引、是否有开源实现 | [20] |\n| 物理/因果一致性基准（What-If World 一类） | 决定\"世界模型好不好\"的度量是否能脱离成功率单一指标 | 是否出现榜单、是否有第三方使用、是否被后续工作当评测 | [34][35][3] |\n| LAM 抽象-保真权衡的解法 | latent action 是无标注视频学世界模型的关键接口 | 是否收敛到共同范式、是否开源、是否有跨本体验证 | [17] |\n| 闭环/鲁棒性评测扩展（LIBERO-VPro、LIBERO-Para） | 直接反映\"评测可信度\"这一蓝海缺口 | 论文报告口径是否随之改变、是否被采纳为默认评测 | [27][28][32] |\n| 几何/高斯/深度表征的世界模型（GWM 等） | 判断表征演化是否真带来增益而非仅视觉更漂亮 | 是否报告几何一致性/物理点跟踪指标、是否有真机结果 | [9][4][3] |\n| 真机管线与速度指标 | 决定世界模型能否闭环进入真机 | 是否报告时延/实时倍率、是否有真机部署披露 | [24][23][6] |\n| 治理与透明度压力 | 可能影响权重/数据披露策略与开源节奏 | 透明度评估是否扩展到机器人基础模型、是否有政策生效节点 | [10] |\n\n> 说明：本章所有\"热度/引用数/star/榜单排名\"字段在本轮候选证据中均未提供，故一律标注 `> 待核实`，未做任何数值填充。产业融资、并购、估值与政策法规生效节点在本轮证据中**完全缺失**，第 6 章相应条目已按 `> 待核实` 处理，需补充针对投融资数据库、厂商官方博客与监管机构公告的定向检索后方可下结论。\n\n## 参考来源\n\n[1] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2\n[2] Vision-Language-Action and Vision Language Models for Robot Manipulation: A Comprehensive Review Towards Real-World Applications — https://doi.org/10.20944/preprints202606.0400.v1\n[3] GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation — http://arxiv.org/abs/2605.22882v4\n[4] RealD$^2$iff: Bridging Real-World Gap in Robot Manipulation via Depth Diffusion — http://arxiv.org/abs/2511.22505v2\n[5] Is Sora a World Simulator? A Comprehensive Survey on General World Models and Beyond — http://arxiv.org/abs/2405.03520v2\n[6] DECOWAM: Decoupled Whole-Body World-Action Model for Legged Mobile Manipulation — http://arxiv.org/abs/2608.20114v2\n[7] A Simulation and Modeling of Access Points with Definition Language — http://arxiv.org/abs/1304.1836v2\n[8] World Models for Robotic Manipulation: A Survey — http://arxiv.org/abs/2606.00113v1\n[9] GWM: Towards Scalable Gaussian World Models for Robotic Manipulation — http://arxiv.org/abs/2508.17600v2\n[10] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[11] GR-2: A Generative Video-Language-Action Model for Robot Manipulation — https://doi.org/10.59350/18ct2-xbf48\n[12] GR-2: A Generative Video-Language-Action Model for Robot Manipulation — https://doi.org/10.59350/m5s7m-3kd85\n[13] Latent-Y: A Lab-Validated Autonomous Agent for De Novo Drug Design — http://arxiv.org/abs/2603.29727v2\n[14] Latent-X: An Atom-level Frontier Model for De Novo Protein Binder Design — http://arxiv.org/abs/2507.19375v1\n[15] Drug-like antibodies with low immunogenicity in human panels designed with Latent-X2 — http://arxiv.org/abs/2512.20263v1\n[16] The 1995 Pilot Campaign of PLANET: Searching for Microlensing Anomalies through Precise, Rapid, Round-the-Clock Monitoring — http://arxiv.org/abs/astro-ph/9807299v1\n[17] DiLA: Disentangled Latent Action World Models — http://arxiv.org/abs/2605.15725v1\n[18] QCD and High Energy Interactions: Moriond 2018 Theory Summary — http://arxiv.org/abs/1806.04982v2\n[19] Evaluation of an open-source implementation of the SRP-PHAT algorithm within the 2018 LOCATA challenge — http://arxiv.org/abs/1812.05901v1\n[20] A Control Theory of Predictability in Latent World Models — http://arxiv.org/abs/2607.10362v1\n[21] World Models: A Survey of Architectures and Training Methods, and ... — https://medium.com/@gwrx2005/world-models-a-survey-of-architectures-and-training-methods-and-nextwm-a-browser-native-latent-717bc46836f1\n[22] Mastering diverse control tasks through world models | Nature — https://www.nature.com/articles/s41586-025-08744-2\n[23] Visual Cue Guided Video Planning for Generalizable Robot Navigation — http://arxiv.org/abs/2609.16737v2\n[24] DriftWorld: Fast World Modeling through Drifting — http://arxiv.org/abs/2607.15065v3\n[25] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[26] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1\n[27] LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models — http://arxiv.org/abs/2609.24350v1\n[28] LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models — http://arxiv.org/abs/2603.28301v3\n[29] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators — http://arxiv.org/abs/2507.12143v1\n[30] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1\n[31] LLM-based ambiguity detection in natural language instructions for collaborative surgical robots — http://arxiv.org/abs/2507.11525v1\n[32] What Are We Actually Benchmarking in Robot Manipulation? — http://arxiv.org/abs/2606.04233v1\n[33] Sora as a World Model? A Complete Survey on Text-to-Video Generation — http://arxiv.org/abs/2403.05131v3\n[34] What-If World: A Causal Benchmark for General World Models in Embodied Scenarios — http://arxiv.org/abs/2605.27589v1\n[35] Causal Physics Steering in Video World Models via Concept Activation Vectors — http://arxiv.org/abs/2605.24322v1\n\n\n---\n\n*Generated by research-bot · topic=`机器人操作与世界模型` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=35 · duration=225s · 2026-10-08T22:11:02+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+      "url": "http://arxiv.org/abs/1711.10137v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2017-11-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Vision-Language-Action and Vision Language Models for Robot Manipulation: A Comprehensive Review Towards Real-World Applications",
+      "url": "https://doi.org/10.20944/preprints202606.0400.v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-06-04",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+      "url": "http://arxiv.org/abs/2605.22882v4",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "RealD$^2$iff: Bridging Real-World Gap in Robot Manipulation via Depth Diffusion",
+      "url": "http://arxiv.org/abs/2511.22505v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Is Sora a World Simulator? A Comprehensive Survey on General World Models and Beyond",
+      "url": "http://arxiv.org/abs/2405.03520v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "DECOWAM: Decoupled Whole-Body World-Action Model for Legged Mobile Manipulation",
+      "url": "http://arxiv.org/abs/2608.20114v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-08-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "A Simulation and Modeling of Access Points with Definition Language",
+      "url": "http://arxiv.org/abs/1304.1836v2",
+      "kind": "paper",
+      "venue": "cs.OH",
+      "published": "2013-04-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "World Models for Robotic Manipulation: A Survey",
+      "url": "http://arxiv.org/abs/2606.00113v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-05-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "GWM: Towards Scalable Gaussian World Models for Robotic Manipulation",
+      "url": "http://arxiv.org/abs/2508.17600v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "GR-2: A Generative Video-Language-Action Model for Robot Manipulation",
+      "url": "https://doi.org/10.59350/18ct2-xbf48",
+      "kind": "paper",
+      "venue": null,
+      "published": "2024-10-26",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "GR-2: A Generative Video-Language-Action Model for Robot Manipulation",
+      "url": "https://doi.org/10.59350/m5s7m-3kd85",
+      "kind": "paper",
+      "venue": null,
+      "published": "2024-10-26",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Latent-Y: A Lab-Validated Autonomous Agent for De Novo Drug Design",
+      "url": "http://arxiv.org/abs/2603.29727v2",
+      "kind": "paper",
+      "venue": "q-bio.BM",
+      "published": "2026-03-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Latent-X: An Atom-level Frontier Model for De Novo Protein Binder Design",
+      "url": "http://arxiv.org/abs/2507.19375v1",
+      "kind": "paper",
+      "venue": "q-bio.BM",
+      "published": "2025-07-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Drug-like antibodies with low immunogenicity in human panels designed with Latent-X2",
+      "url": "http://arxiv.org/abs/2512.20263v1",
+      "kind": "paper",
+      "venue": "q-bio.BM",
+      "published": "2025-12-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "The 1995 Pilot Campaign of PLANET: Searching for Microlensing Anomalies through Precise, Rapid, Round-the-Clock Monitoring",
+      "url": "http://arxiv.org/abs/astro-ph/9807299v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "1998-07-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "DiLA: Disentangled Latent Action World Models",
+      "url": "http://arxiv.org/abs/2605.15725v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-05-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "QCD and High Energy Interactions: Moriond 2018 Theory Summary",
+      "url": "http://arxiv.org/abs/1806.04982v2",
+      "kind": "paper",
+      "venue": "hep-ph",
+      "published": "2018-06-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Evaluation of an open-source implementation of the SRP-PHAT algorithm within the 2018 LOCATA challenge",
+      "url": "http://arxiv.org/abs/1812.05901v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2018-12-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "A Control Theory of Predictability in Latent World Models",
+      "url": "http://arxiv.org/abs/2607.10362v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-07-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "World Models: A Survey of Architectures and Training Methods, and ...",
+      "url": "https://medium.com/@gwrx2005/world-models-a-survey-of-architectures-and-training-methods-and-nextwm-a-browser-native-latent-717bc46836f1",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Mastering diverse control tasks through world models | Nature",
+      "url": "https://www.nature.com/articles/s41586-025-08744-2",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Visual Cue Guided Video Planning for Generalizable Robot Navigation",
+      "url": "http://arxiv.org/abs/2609.16737v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "DriftWorld: Fast World Modeling through Drifting",
+      "url": "http://arxiv.org/abs/2607.15065v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+      "url": "http://arxiv.org/abs/2508.11117v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+      "url": "http://arxiv.org/abs/2609.24350v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models",
+      "url": "http://arxiv.org/abs/2603.28301v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-03-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+      "url": "http://arxiv.org/abs/2507.12143v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance",
+      "url": "http://arxiv.org/abs/2503.08541v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-03-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "LLM-based ambiguity detection in natural language instructions for collaborative surgical robots",
+      "url": "http://arxiv.org/abs/2507.11525v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-07-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "What Are We Actually Benchmarking in Robot Manipulation?",
+      "url": "http://arxiv.org/abs/2606.04233v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-06-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Sora as a World Model? A Complete Survey on Text-to-Video Generation",
+      "url": "http://arxiv.org/abs/2403.05131v3",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-03-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "What-If World: A Causal Benchmark for General World Models in Embodied Scenarios",
+      "url": "http://arxiv.org/abs/2605.27589v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-05-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "Causal Physics Steering in Video World Models via Concept Activation Vectors",
+      "url": "http://arxiv.org/abs/2605.24322v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-05-23",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-08-机器人操作与世界模型.md",
+    "json": "report/2026/10/2026-10-08-机器人操作与世界模型.json"
+  }
+}
