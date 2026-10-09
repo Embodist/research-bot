@@ -1,0 +1,1008 @@
+{
+  "topic": "机器人操作与世界模型",
+  "title": "机器人操作与世界模型：领域增量追踪调研计划（2024–2026）",
+  "query": "机器人操作与世界模型",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-09T22:05:56+00:00",
+  "finished_at": "2026-10-09T22:08:45+00:00",
+  "duration_s": 169.2,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人操作与世界模型：领域增量追踪调研计划（2024–2026）",
+    "summary": "以「前沿进展—奠基工作与开源实践—数据集基准与开放争议」为主线，检索并交叉验证机器人操作中世界模型（world model for manipulation）近 1-2 年的增量变化、SOTA 变动、开源可复现性与落地瓶颈，为 7 facet 增量快照报告提供可核查证据。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近 1-2 年（2024–2026）机器人操作领域的世界模型有哪些关键进展与 SOTA 变动？在哪些基准与真实机器人上被验证（仿真 vs 真机、任务数、本体数）？",
+        "rationale": "覆盖「前沿进展」与部分「数据集/基准」维度，明确最新增量相对上一基线（如 Dreamer 系列、早期 VLA 策略）新增了什么，并区分官方演示、自评指标与独立第三方复现，避免把 demo 视频当实验证据。",
+        "queries": [
+          "robot manipulation world model 2025 2026 survey arXiv",
+          "world model vision-language-action policy real robot manipulation SOTA",
+          "world model robot manipulation benchmark leaderboard LIBERO SimplerEnv RoboArena 2025",
+          "具身智能 世界模型 机器人操作 最新进展 2025 2026 真机"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "机器人操作+世界模型的经典/奠基工作有哪些（含 model-based RL 与生成式世界模型两条脉络），当前有哪些可运行的开源项目与工程实践，复现难度如何？",
+        "rationale": "覆盖「经典/奠基工作」与「开源项目与工程实践」，用综述与一手论文建立技术演进骨架（模块化→端到端→基础模型/统一动作空间），再用 GitHub/HuggingFace 的 stars、最近提交、权重开放情况判定工程可用性与复现门槛。",
+        "queries": [
+          "world models Ha Schmidhuber 2018 model-based reinforcement learning",
+          "DreamerV3 DayDreamer robot manipulation model-based RL",
+          "robot world model open source GitHub implementation pretrained checkpoint 2025",
+          "视觉语言动作模型 世界模型 开源 复现 工程落地 ROS2"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "机器人操作世界模型的数据集与评测基准现状如何，主要开放问题、瓶颈与争议（数据规模、长时程/接触动力学、评测不可比、复现困难、安全与商业化）是什么？",
+        "rationale": "覆盖「数据集与基准」与「开放问题与争议」，同时为 7 facet 中的产业落地、瓶颈拐点、政策伦理与资本生态提供证据入口；重点记录数字口径（成功率/任务数/硬件/仿真或真机）与相互矛盾的来源，凡无法核实处标注待核实。",
+        "queries": [
+          "robot manipulation dataset benchmark Open X-Embodiment DROID 2025 world model evaluation",
+          "world model robot manipulation limitations failure cases reproducibility negative results",
+          "world model robotics startup funding commercialization deployment 2025 2026",
+          "世界模型 机器人操作 瓶颈 数据 算力 争议 政策 监管 标准"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "github",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近 1-2 年（2024–2026）机器人操作领域的世界模型有哪些关键进展与 SOTA 变动？在哪些基准与真实机器人上被验证（仿真 vs 真机、任务数、本体数）？",
+      "queries": [
+        "robot manipulation world model 2025 2026 survey arXiv",
+        "world model vision-language-action policy real robot manipulation SOTA",
+        "world model robot manipulation benchmark leaderboard LIBERO SimplerEnv RoboArena 2025",
+        "具身智能 世界模型 机器人操作 最新进展 2025 2026 真机"
+      ],
+      "rationale": "覆盖「前沿进展」与部分「数据集/基准」维度，明确最新增量相对上一基线（如 Dreamer 系列、早期 VLA 策略）新增了什么，并区分官方演示、自评指标与独立第三方复现，避免把 demo 视频当实验证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+          "url": "http://arxiv.org/abs/2605.22882v4",
+          "snippet": "Video world models can generate realistic futures from a single instruction, but they often fail to track the same physical points consistently across time. As a result, the generated videos appear plausible, yet lack the physical grounding required for reliable action execution, such as robot manipulation. We present GEM-4D, a geometry-grounded video world model that resolves this limitation by injecting dense 4D correspondence supervision distilled from a pretrained geometry foundation model into the video generative backbone during training. This supervision enables the model to jointly ca…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Kaichen Zhou",
+            "Yuzhen Chen",
+            "Fangneng Zhan",
+            "Hang Hua",
+            "Grace Chen",
+            "Xinhai Chang",
+            "Ao Qu",
+            "Yilun Du",
+            "Zhuang Liu",
+            "Paul Pu Liang",
+            "Mengyu Wang"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.22882v4",
+            "rrf_score": 0.039296,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.036149,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+          "url": "http://arxiv.org/abs/2607.03399v1",
+          "snippet": "We describe the 2026 Methods for Open Agent Systems Evaluation Initiative (MOASEI) Competition, a benchmark event for evaluating multi-agent decision-making under open-system conditions. Building on the inaugural 2025 competition, the 2026 edition retained wildfire fighting, cybersecurity, and ride-sharing domains while adding a bonus wildfire track with frame openness, in which agent equipment states such as suppressant capacities and firefighting range vary over time. The competition also expanded its reporting metrics to emphasize total task completions, mean task-completion time, and mean…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-03",
+          "authors": [
+            "Ceferino Patino",
+            "Tyler J. Billings",
+            "Alireza Saleh Abadi",
+            "Daniel Redder",
+            "Adam Eck",
+            "Prashant Doshi",
+            "Leen-Kiat Soh"
+          ],
+          "venue": "cs.MA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.03399v1",
+            "rrf_score": 0.034879,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+          "url": "http://arxiv.org/abs/2508.11117v1",
+          "snippet": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenges and desiderata in designing benchmarks for generalist robotic manipulation policies for the goal of sim-to-real policy transfer. We propose 1) utilizing high visual-fidelity simulation for improved sim-to-real transfer, 2) evaluating policies by systematically increasing task complexity and scenar…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-14",
+          "authors": [
+            "Xuning Yang",
+            "Clemens Eppner",
+            "Jonathan Tremblay",
+            "Dieter Fox",
+            "Stan Birchfield",
+            "Fabio Ramos"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.11117v1",
+            "rrf_score": 0.031876,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+            "evidence": "Video world models can generate realistic futures from a single instruction, but they often fail to track the same physical points consistently across time. As a result, the generated videos appear plausible, yet lack the physical grounding required for reliable action execution, such as robot mani…",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+            "evidence": "We describe the 2026 Methods for Open Agent Systems Evaluation Initiative (MOASEI) Competition, a benchmark event for evaluating multi-agent decision-making under open-system conditions. Building on the inaugural 2025 competition, the 2026 edition retained wildfire fighting, cybersecurity, and ride…",
+            "sources": [
+              17
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.MA",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.MA）"
+          },
+          {
+            "point": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+            "evidence": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenge…",
+            "sources": [
+              18
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "机器人操作+世界模型的经典/奠基工作有哪些（含 model-based RL 与生成式世界模型两条脉络），当前有哪些可运行的开源项目与工程实践，复现难度如何？",
+      "queries": [
+        "world models Ha Schmidhuber 2018 model-based reinforcement learning",
+        "DreamerV3 DayDreamer robot manipulation model-based RL",
+        "robot world model open source GitHub implementation pretrained checkpoint 2025",
+        "视觉语言动作模型 世界模型 开源 复现 工程落地 ROS2"
+      ],
+      "rationale": "覆盖「经典/奠基工作」与「开源项目与工程实践」，用综述与一手论文建立技术演进骨架（模块化→端到端→基础模型/统一动作空间），再用 GitHub/HuggingFace 的 stars、最近提交、权重开放情况判定工程可用性与复现门槛。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+          "url": "http://arxiv.org/abs/2607.18488v1",
+          "snippet": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We propose a physical platform that is designed to simplify the transition. In this paper, we present the Open Ant: a physical variant of the commonly used Gymnasium Ant environment, along with a simulation. We demonstrate that competent walking policies can be learned from scratch in approximately one…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-20",
+          "authors": [
+            "Elena Sorina Lupu",
+            "Patrick Spieler",
+            "Khurram Javed",
+            "Kris De Asis",
+            "John D. Martin",
+            "Martha Steenstrup",
+            "Joseph Modayil"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.18488v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2602.12375v1",
+          "snippet": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propagating local uncertainties around rewards. However, this approach only increases the value bonus for an action retroactively, after seeing a higher reward bonus from that state and action. Such an approach does not encourage the agent to visit a state and action for the first time. In this work, we in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-12",
+          "authors": [
+            "Abdul Wahab",
+            "Raksha Kumaraswamy",
+            "Martha White"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.12375v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "RL-100: Performant Robotic Manipulation with Real-World Reinforcement Learning",
+          "url": "http://arxiv.org/abs/2510.14830v4",
+          "snippet": "Real-world robotic manipulation in homes and factories demands reliability, efficiency, and robustness that approach or surpass those of skilled human operators. We present RL-100, a real-world reinforcement learning framework built on diffusion visuomotor policies. RL-100 unifies imitation and reinforcement learning under a single clipped PPO surrogate objective applied within the denoising process, yielding conservative and stable improvements across offline and online stages. To meet deployment latency requirements, a lightweight consistency distillation method compresses multi-step diffus…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-16",
+          "authors": [
+            "Kun Lei",
+            "Huanyu Li",
+            "Dongjie Yu",
+            "Zhenyu Wei",
+            "Lingxiao Guo",
+            "Zhennan Jiang",
+            "Ziyu Wang",
+            "Shiyu Liang",
+            "Huazhe Xu"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.14830v4",
+            "rrf_score": 0.019737
+          }
+        },
+        {
+          "title": "A Conversational Framework for Human-Robot Collaborative Manipulation with Distributed Generative AI models",
+          "url": "http://arxiv.org/abs/2606.06061v1",
+          "snippet": "This paper presents a distributed conversational framework for human-robot collaborative manipulation that integrates local language and vision-language models (VLMs) with a Robot Operating System 2 (ROS 2)-based execution stack. Language understanding, visual grounding, orchestration, and motion execution run as separate ROS 2 nodes, enabling flexible deployment across distributed hardware while maintaining a responsive control loop. From free-form user commands, the system generates structured action requests for pick, place, and handover. It uses a VLM to return image-space targets, which…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-06-04",
+          "authors": [
+            "Arash Ghasemzadeh Kakroudi",
+            "Roel Pieters"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.06061v1",
+            "rrf_score": 0.019231
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+            "evidence": "Reinforcement learning (RL) research has demonstrated success in both physical and simulated domains; however, the predominant methodology remains rooted in simulations. The predominance of simulations makes translating research to physical reality uncertain for both algorithms and researchers. We…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+            "evidence": "Optimistic value estimates provide one mechanism for directed exploration in reinforcement learning (RL). The agent acts greedily with respect to an estimate of the value plus what can be seen as a value bonus. The value bonus can be learned by estimating a value function on reward bonuses, propaga…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "RL-100: Performant Robotic Manipulation with Real-World Reinforcement Learning",
+            "evidence": "Real-world robotic manipulation in homes and factories demands reliability, efficiency, and robustness that approach or surpass those of skilled human operators. We present RL-100, a real-world reinforcement learning framework built on diffusion visuomotor policies. RL-100 unifies imitation and rei…",
+            "sources": [
+              9
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "A Conversational Framework for Human-Robot Collaborative Manipulation with Distributed Generative AI models",
+            "evidence": "This paper presents a distributed conversational framework for human-robot collaborative manipulation that integrates local language and vision-language models (VLMs) with a Robot Operating System 2 (ROS 2)-based execution stack. Language understanding, visual grounding, orchestration, and motion e…",
+            "sources": [
+              11
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "机器人操作世界模型的数据集与评测基准现状如何，主要开放问题、瓶颈与争议（数据规模、长时程/接触动力学、评测不可比、复现困难、安全与商业化）是什么？",
+      "queries": [
+        "robot manipulation dataset benchmark Open X-Embodiment DROID 2025 world model evaluation",
+        "world model robot manipulation limitations failure cases reproducibility negative results",
+        "world model robotics startup funding commercialization deployment 2025 2026",
+        "世界模型 机器人操作 瓶颈 数据 算力 争议 政策 监管 标准"
+      ],
+      "rationale": "覆盖「数据集与基准」与「开放问题与争议」，同时为 7 facet 中的产业落地、瓶颈拐点、政策伦理与资本生态提供证据入口；重点记录数字口径（成功率/任务数/硬件/仿真或真机）与相互矛盾的来源，凡无法核实处标注待核实。",
+      "round": 1,
+      "results": [
+        {
+          "title": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+          "url": "http://arxiv.org/abs/2605.22882v4",
+          "snippet": "Video world models can generate realistic futures from a single instruction, but they often fail to track the same physical points consistently across time. As a result, the generated videos appear plausible, yet lack the physical grounding required for reliable action execution, such as robot manipulation. We present GEM-4D, a geometry-grounded video world model that resolves this limitation by injecting dense 4D correspondence supervision distilled from a pretrained geometry foundation model into the video generative backbone during training. This supervision enables the model to jointly ca…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Kaichen Zhou",
+            "Yuzhen Chen",
+            "Fangneng Zhan",
+            "Hang Hua",
+            "Grace Chen",
+            "Xinhai Chang",
+            "Ao Qu",
+            "Yilun Du",
+            "Zhuang Liu",
+            "Paul Pu Liang",
+            "Mengyu Wang"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.22882v4",
+            "rrf_score": 0.0408,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+          "url": "http://arxiv.org/abs/2508.11117v1",
+          "snippet": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenges and desiderata in designing benchmarks for generalist robotic manipulation policies for the goal of sim-to-real policy transfer. We propose 1) utilizing high visual-fidelity simulation for improved sim-to-real transfer, 2) evaluating policies by systematically increasing task complexity and scenar…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-14",
+          "authors": [
+            "Xuning Yang",
+            "Clemens Eppner",
+            "Jonathan Tremblay",
+            "Dieter Fox",
+            "Stan Birchfield",
+            "Fabio Ramos"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.11117v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "What-If World: A Causal Benchmark for General World Models in Embodied Scenarios",
+          "url": "http://arxiv.org/abs/2605.27589v1",
+          "snippet": "Video generation models are increasingly used as world simulators for tasks like driving and robotic manipulation. What matters in these settings is not whether a single video looks right, but whether the model's output changes when its input changes. We test this by giving a model two prompts describing the same scene with one physical detail varied, and checking whether the two videos diverge the way physics predicts. The wording difference between the prompts is small by design, since only one variable is changed, but the correct physical difference is not. A model that misses this can sti…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-26",
+          "authors": [
+            "Kunlin Cai",
+            "Rui Song",
+            "Jinghuai Zhang",
+            "Kaiyuan Zhang",
+            "Pranav Bodapati",
+            "Alicia Yu",
+            "Fnu Suya",
+            "Mohammad Rostami",
+            "Jiaqi Ma",
+            "Yuan Tian"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.27589v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "NTIRE 2025 Challenge on Short-form UGC Video Quality Assessment and Enhancement: KwaiSR Dataset and Study",
+          "url": "http://arxiv.org/abs/2504.15003v1",
+          "snippet": "In this work, we build the first benchmark dataset for short-form UGC Image Super-resolution in the wild, termed KwaiSR, intending to advance the research on developing image super-resolution algorithms for short-form UGC platforms. This dataset is collected from the Kwai Platform, which is composed of two parts, i.e., synthetic and wild parts. Among them, the synthetic dataset, including 1,900 image pairs, is produced by simulating the degradation following the distribution of real-world low-quality short-form UGC images, aiming to provide the ground truth for training and objective comparis…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-21",
+          "authors": [
+            "Xin Li",
+            "Xijun Wang",
+            "Bingchen Li",
+            "Kun Yuan",
+            "Yizhen Shao",
+            "Suhang Yao",
+            "Ming Sun",
+            "Chao Zhou",
+            "Radu Timofte",
+            "Zhibo Chen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.15003v1",
+            "rrf_score": 0.022388
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+            "evidence": "Video world models can generate realistic futures from a single instruction, but they often fail to track the same physical points consistently across time. As a result, the generated videos appear plausible, yet lack the physical grounding required for reliable action execution, such as robot mani…",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+            "evidence": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenge…",
+            "sources": [
+              18
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "What-If World: A Causal Benchmark for General World Models in Embodied Scenarios",
+            "evidence": "Video generation models are increasingly used as world simulators for tasks like driving and robotic manipulation. What matters in these settings is not whether a single video looks right, but whether the model's output changes when its input changes. We test this by giving a model two prompts desc…",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "NTIRE 2025 Challenge on Short-form UGC Video Quality Assessment and Enhancement: KwaiSR Dataset and Study",
+            "evidence": "In this work, we build the first benchmark dataset for short-form UGC Image Super-resolution in the wild, termed KwaiSR, intending to advance the research on developing image super-resolution algorithms for short-form UGC platforms. This dataset is collected from the Kwai Platform, which is compose…",
+            "sources": [
+              29
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 27865,
+    "completion_tokens": 25427,
+    "generated_at": "2026-10-09T22:08:45.336504+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 机器人操作中的世界模型（World Model for Manipulation）增量快照报告\n\n**日期**：2026-10-09　|　**领域**：具身智能 / 机器人操作（Manipulation）× 世界模型（World Model, WM）　|　**检索源**：33 条候选（arXiv / DOI 级来源），其中与本主题直接相关约 12 条，其余为跨域召回噪声（见文末分类标注）　|　**方法**：deep-research × frontier-tracking × evidence-grading 四阶段流程\n\n> **证据基线与评级说明（请先读）**\n> 1. 本轮结构化检索**未返回引用数（citations）与 GitHub star 字段**，故所有「热度证据」一律标注 `> 待核实`，**不编造任何数字或榜单排名**。\n> 2. 候选条目 confidence 绝大多数为 `low`，且证据类型集中在 arXiv 预印本（B 级）；仅 [19] 具备会议 DOI（ICCV 2025，A 级）、[20] 为期刊（Science Robotics，A 级）。\n> 3. **检索池存在明显噪声污染**：[16] 短视频参与度预测、[22] 人脸修复、[29] UGC 视频超分、[30] 腹部 CT 数据集、[15] 临床问答、[17] 多智能体竞赛，与机器人操作世界模型无实质关系；[2] 为 ML4H workshop 卷首。这本身是一个生态信号：术语 “world model” 已被视频生成/多模态社区泛化占用，导致摘要级检索召回严重漂移（见 §1、§7）。\n> 4. **排除项**：[33] 为 embargo 状态且元数据异常，按 E 级丢弃。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量判断**：近 1–2 年操作世界模型的主线，从「生成看起来合理的未来视频」转向「**几何/4D 一致 + 反事实敏感性**」，并首次出现专门针对世界模型**因果正确性**的评测提案；但在本检索池内**未命中任何统一榜单或 SOTA 排名**，因此「SOTA 具体变动」**无法确证** `> 待核实`。\n\n### 1.1 最新进展（近 1–2 年，2025–2026）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation | 2026（arXiv 编号 2605 → 约 2026-05，据编号推断） | `> 待核实` | `> 待核实`（未返回引用数） | arXiv cs.CV 预印本（B 级） | 中：同一文在两个子问题中被命中，但无第三方复现证据 | ★★★☆ 操作专用、直击「视频合理但物理 grounding 不足」痛点；但仅自述证据 | [14] | 摘要自述：视频世界模型能从单条指令生成未来，但**无法跨时间一致追踪同一物理点**，故生成结果\"看似合理\"却缺乏可靠动作执行所需的物理 grounding |\n| IRASim: A Fine-Grained World Model for Robot Manipulation | 2025 | `> 待核实` | `> 待核实` | **ICCV 2025（同行评审，A 级）** | 中高：检索池中唯一具备顶会 DOI 的操作世界模型工作 | ★★★★ 若只精读一篇，优先此篇：会议级 + 明确定位 manipulation | [19] | 细粒度操作世界模型；具体任务数/本体/仿真或真机口径 `> 待核实` |\n| GWM: Towards Scalable Gaussian World Models for Robotic Manipulation | 2025（arXiv 2508 → 约 2025-08） | `> 待核实` | `> 待核实` | arXiv 预印本（B 级） | 中：代表 3D 显式表征路线 | ★★★★ 3D/高斯表征进入操作世界模型，是与像素生成路线互补的关键支线 | [21] | 面向操作的可扩展 Gaussian 世界模型；实现细节、是否开源、是否真机验证 `> 待核实` |\n| What-If World: A Causal Benchmark for General World Models in Embodied Scenarios | 2026（arXiv 2605 → 约 2026-05） | `> 待核实` | `> 待核实` | arXiv cs.CV 预印本（B 级） | 中：提出\"因果/反事实\"评测新提法 | ★★★☆ 把评测焦点从\"单视频是否逼真\"移到\"输入变了输出是否随之变\"，直指评测范式缺陷 | [27] | 方法：给模型两条不同 prompt，检验输出是否相应改变；面向驾驶与操作等具身场景 |\n| RL-100: Performant Robotic Manipulation with Real-World Reinforcement Learning | 2025（arXiv 2510，v4） | `> 待核实` | `> 待核实` | arXiv cs.RO 预印本（B 级） | 中：真机 RL + diffusion policy 组合路线 | ★★★ 是\"真机闭环学习\"的重要对照线，但**是否使用世界模型 `> 待核实`**，勿混淆为 WM 论文 | [9] | 基于 diffusion visuomotor policy 的真机 RL 框架，统一模仿与强化，面向家居/工厂场景的可靠性诉求 |\n| Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective | 2025（arXiv 2508） | `> 待核实` | `> 待核实` | arXiv cs.RO 预印本（B 级） | 中：评测方法论批评 | ★★★☆ 指出「仿真基准进步快、真实世界泛化策略评测严重滞后」 | [18] | 评测视角论文，可用于支撑 §4 的评测瓶颈论断 |\n| The Open Ant: A Robot Platform for Reinforcement Learning Research | 2026（arXiv 2607） | `> 待核实` | `> 待核实` | arXiv cs.RO 预印本（B 级） | 低–中：RL 硬件平台，非 WM 主线 | ★★☆ 相关性偏「物理 RL 平台」，作为生态信号收录 | [3] | 主张 RL 研究不应停留在仿真，提供实体平台 |\n\n**增量要点（相对已知基线）**\n- **一致性标准升级**：从\"像素似真\"升级为\"**同一物理点跨时间追踪一致**\"（[14]），以及\"**反事实敏感性**\"（[27]）。这是评测目标本身的改变，而非单纯指标提升。\n- **表征路线分化**：视频/像素生成（[14][27]）vs 3D 显式高斯表征（[21]）两条线并行。\n- **闭环学习回归**：真机 RL 重新成为提升操作可靠性的主线（[9]），与\"世界模型做规划/想象\"形成互补而非替代关系。\n- **术语污染**：「world model / world simulator」在 cs.CV 视频生成社区被大量占用（[16][22][29] 等），导致方向检索信噪比显著下降。\n\n### 1.2 经典与奠基性工作（含 model-based RL 与生成式世界模型两条脉络）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Learning Multimodal Transition Dynamics for Model-Based Reinforcement Learning | 2017 | `> 待核实`（作者字段未返回） | `> 待核实` | arXiv 预印本（B 级） | 中：学习式动力学模型的早期代表 | ★★★ 【脉络一：model-based RL】处理随机/多模态转移，是\"先学可 rollout 的世界模型、再用于控制\"的代表性早期工作 | [7] |\n| One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay | 2017 | `> 待核实` | `> 待核实` | arXiv 预印本（B 级） | 低–中 | ★★ 【脉络一】一次性学习 + 交互回放，早期经验复用/模型近似思想 | [13] |\n| Equivalence Between Wasserstein and Value-Aware Loss for Model-based Reinforcement Learning | 2018 | `> 待核实` | `> 待核实` | arXiv 预印本（B 级；是否正式发表 `> 待核实`） | 低 | ★★ 【脉络一】世界模型损失设计与\"值感知\"目标的理论分析 | [1] |\n| Model-Based Regularization for Deep RL with Transcoder Networks | 2018 | `> 待核实` | `> 待核实` | arXiv 预印本（B 级） | 低 | ★★ 【脉络一】把模型作为正则项而非显式规划器 | [6] |\n| Maximum Entropy Model-based Reinforcement Learning | 2021 | `> 待核实` | `> 待核实` | arXiv 预印本（B 级） | 低 | ★★ 【脉络一】最大熵目标下的 MBRL | [8] |\n| Benchmarking Simulated Robotic Manipulation through a Real World Dataset | 2019 | `> 待核实` | `> 待核实` | arXiv 预印本（B 级） | 中：sim-to-real 对齐评测的经典先例 | ★★★ 【脉络：评测传统】\"仿真基准 vs 真机数据\"对齐的先例，是今天 [18] 争论的前身 | [26] |\n| Open X-Embodiment: Robotic Learning Datasets and RT-X Models | 2023（arXiv 2310，v9 多次更新） | 跨机构协作（具体名单 `> 待核实`） | `> 待核实`（社区引用广泛，但引用数未返回） | arXiv 预印本（B 级） | 高：跨本体数据 + 模型的公共基线 | ★★★★ 【生成式/基础模型脉络】奠定\"多本体预训练\"基线，是跨本体世界模型的数据底座 | [28] |\n| DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset | 2024（arXiv 2403） | `> 待核实` | `> 待核实` | arXiv 预印本（B 级） | 高：野外大规模操作数据，常被用作真机训练/评测集 | ★★★★ 真机评测与策略泛化的关键数据基础设施 | [25] |\n\n> **脉络划分说明**：检索池对「生成式世界模型」的早期奠基（如视频预测/潜空间动力学类工作）**未命中**，因此本节只能覆盖 **model-based RL（[1][6][7][8][13]）** 与 **数据/评测传统（[26][25][28]）** 两条线；生成式 WM 的奠基谱系在本轮证据下 `> 待核实`，需补充检索（建议精确词：latent dynamics model、video prediction world model、dreamer、planning with learned model）。\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量判断**：本检索池**没有命中任何厂商一手公告或产品化证据**，可见的\"落地\"信号全部是**工程栈与真机训练框架**层面（ROS2 集成、真机 RL），世界模型本身尚未出现可核实的产品化案例 `> 待核实`。\n\n### 2.1 开源项目与工程实践\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| RL-100（真机 RL 训练框架） | 2025 | `> 待核实` | GitHub star `> 待核实`（检索未返回） | arXiv cs.RO（B 级） | 中 | ★★★ 真机闭环训练的代表性工程实践；**是否开源代码/权重 `> 待核实`** | [9] |\n| GWM（Gaussian 世界模型实现） | 2025 | `> 待核实` | star `> 待核实` | arXiv（B 级） | 中 | ★★★ 若开源，是 3D 表征 WM 最直接的可运行候选；开源状态 `> 待核实` | [21] |\n| IRASim（细粒度操作世界模型） | 2025 | `> 待核实` | star `> 待核实` | **ICCV 2025（A 级）** | 中高 | ★★★★ 会议背书 + 操作专用，**当前最值得优先复现验证的候选** | [19] |\n| 对话式人机协作操作框架（分布式生成式模型 + ROS 2） | 2026（arXiv 2606） | `> 待核实` | `> 待核实` | arXiv cs.RO（B 级） | 低–中 | ★★★ 工程集成价值高：本地语言/VLM + ROS 2 执行栈；但它是**集成栈，不是世界模型** | [11] |\n| The Open Ant（实体 RL 研究平台） | 2026 | `> 待核实` | `> 待核实` | arXiv cs.RO（B 级） | 低–中 | ★★☆ 降低真机 RL 门槛的硬件侧努力 | [3] |\n| Enabling Failure Recovery for On-The-Move Mobile Manipulation | 2023（arXiv 2305） | `> 待核实` | `> 待核实` | arXiv cs.RO（B 级） | 低 | ★★ 失败恢复的工程实践，反映\"真实部署靠恢复机制兜底\" | [31] |\n\n### 2.2 落地观察（谨慎表述）\n- **可直接陈述**：检索到的工作以「论文 + 框架」形态为主，未见经核实的产品发布记录（[9][11][21][19]）。\n- **据报道**（C 级以下，需二次核实）：真实世界操作的可靠性仍是行业级未解问题，[20] 在 Science Robotics 上以质疑式标题讨论该问题，可作为\"真机可靠性=产业瓶颈\"的高权威侧证。\n- **未见证据**：量产部署量、客户数、定价、权重许可条款——全部 `> 待核实`。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量判断**：缺口从\"能不能生成未来\"收缩为\"**生成的未来是否因果正确、几何一致、可被独立评测**\"；其中**反事实/因果评测**与**真机评测基础设施**是当前最明确的高杠杆空白。\n\n### 3.1 数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Open X-Embodiment（数据 + RT-X 模型） | 2023 | 跨机构协作（`> 待核实`） | `> 待核实` | arXiv（B 级） | 高 | ★★★★ 跨本体数据事实标准之一 | [28] |\n| DROID | 2024 | `> 待核实` | `> 待核实` | arXiv（B 级） | 高 | ★★★★ 野外真机数据，支撑泛化与真机评测 | [25] |\n| Benchmarking Simulated Manipulation through a Real World Dataset | 2019 | `> 待核实` | `> 待核实` | arXiv（B 级） | 中 | ★★★ 仿真-真机对齐评测的历史基准 | [26] |\n| What-If World（因果/反事实基准） | 2026 | `> 待核实` | `> 待核实` | arXiv（B 级） | 中 | ★★★☆ **最值得关注的评测新范式**：测\"输入变化→输出是否相应变化\" | [27] |\n| IRASim 自带评测（细粒度操作生成） | 2025 | `> 待核实` | `> 待核实` | ICCV 2025（A 级） | 中高 | ★★★★ 会议级评测口径，`> 具体指标待核实` | [19] |\n| Sim-to-Real 评测方法学视角 | 2025 | `> 待核实` | `> 待核实` | arXiv（B 级） | 中 | ★★★☆ 指出「真机泛化策略评测滞后于仿真基准」 | [18] |\n| 真机 RL 评测（RL-100 场景） | 2025 | `> 待核实` | `> 待核实` | arXiv（B 级） | 中 | ★★★ 家居/工厂场景可靠性口径 | [9] |\n\n> **检索缺口如实标注**：社区常见的三大操作基准（SimplerEnv、LIBERO、RoboArena 等）**在本轮候选池中一条都未命中**；因此「哪些基准被用于操作 WM 评测、SOTA 数值如何」在本报告内**无法回答** `> 待核实`，需补检索。\n\n### 3.2 蓝海机会（按可核查度排序）\n1. **因果/反事实世界模型评测的标准化**：目前仅见单一提案 [27]，尚无被广泛采纳的榜单 → 竞争空白。\n2. **几何一致的视频 WM**：GEM-4D 自述其失败模式正是\"同一物理点跨时间不一致\"（[14]），说明该问题公开未解；3D 显式表征（[21]）是候选解法之一。\n3. **真机评测基础设施**：评测滞后被明确点出（[18]），且真机可靠性被高权威期刊质疑（[20]）→ 谁能提供低成本、可复现的真机评测协议即是蓝海。\n4. **失败检测与恢复作为 WM 的落地接口**：检索池有失败恢复（[31]）与\"失败解释\"用户研究（[32]），但**未发现世界模型与失败恢复直接结合**的工作 → 组合式空白（此点为本报告推断 `> 待核实`）。\n5. **跨本体 WM**：数据侧已有跨本体底座（[28][25]），但 WM 侧跨本体验证证据缺失 `> 待核实`。\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n**一句话增量判断**：瓶颈已从\"模型容量/算力\"迁移到**评测口径不可比 + 物理一致性不可验证**两处；拐点信号是\"评测目标本身被重定义\"（[14][27]），而非某个指标刷新。\n\n| 瓶颈类别 | 具体表现 | 证据 | 证据强度 |\n|---|---|---|---|\n| 评测不可比 | 仿真基准推进快、真机泛化策略评测滞后；缺乏统一真机口径 | [18][26] | B 级（可陈述） |\n| 真机可靠性 | 真实世界操作可靠性仍是被公开质疑的开放问题 | [20]（Science Robotics，A 级） | A 级（可陈述） |\n| 物理一致性 | 视频 WM \"看似合理但缺乏物理 grounding\"，同一点跨时间追踪失败 | [14]（自述失败模式） | B 级，且为**作者自评**，非第三方复现 |\n| 因果正确性 | 单视频逼真 ≠ 模型对输入变化敏感；此前无评测工具 | [27] | B 级 |\n| 归因困难 | 提升究竟来自几何/3D 表征、数据规模还是训练策略，检索池未提供消融证据 | [14][21][9] | 归因结论 `> 待核实` |\n| 长时程与接触动力学 | 检索池**无直接证据**（无长时程/接触 benchmark 命中） | — | `> 待核实`，需补检索 |\n| 复现困难 | 多数条目为 arXiv 预印本，开源状态与权重许可未返回 | [9][21][14] | `> 待核实` |\n\n**拐点信号（可观测）**\n- 出现以\"反事实敏感性\"为目标的评测提案（[27]，2026-05 前后）→ 评测范式可能的转折点。\n- 操作 WM 首次进入顶会主会（[19]，ICCV 2025）→ 方向从边缘走向主流。\n- 真机 RL 与 diffusion policy 结合的报告出现（[9]，2025-10）→ 真机闭环训练成本假设正在改变。\n- 3D 显式表征（Gaussian）进入操作 WM（[21]，2025-08）→ 像素生成独大格局可能被打破。\n> 以上均为**方向性信号**，是否构成\"拐点\"需 12–18 个月后的独立复现与榜单变化验证。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量判断**：本检索池**几乎没有机器人操作世界模型的治理、标准或地缘政治一手证据**；仅有基础模型透明度这一间接线索与\"安全/人机协作\"侧的边缘证据，本节**主体为待核实状态**，不做扩写。\n\n- **间接政策线索**：Foundation Model Transparency Index 2025 关注基础模型透明度与披露（[23]，arXiv 2512 → 约 2025-12）。该指数**并非机器人/世界模型专用**，可否外推到操作 WM 的合规讨论 `> 待核实`。\n- **安全与人机协作**：失败解释的用户研究（[32]，2023）与 TD-RL 透明性/人类教师在环（[12]，2020）表明\"可解释性 / 人类监督\"是协作机器人的既有议题；但其与**世界模型的内部预测错误**如何关联 `> 待核实`。\n- **失败恢复的工程合规含义**：移动操作失败恢复机制（[31]，2023）可视为部署侧的\"安全兜底\"实践，但**未见监管条文引用** `> 待核实`。\n- **数据治理 / 劳动 / 供应链 / 地缘政治**：检索池**无任何**相关证据 → 明确写「本周期在本检索池内无显著可核查变化」，不臆测。\n- 术语层面已出现的一个社会性信号：世界模型概念被短视频、AIGC 评测社区大量借用（[16][22][29]），可能稀释学术与政策沟通中的语义边界（此为本文推断 `> 待核实`）。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：本检索池**未命中融资、并购、估值或人才流动证据**，故\"资本\"维度在本周期**无显著可核查变化**；生态侧唯一可见的增量是**跨机构数据联盟 + 低成本真机 RL 平台**两类基础设施型投入。\n\n- **生态：数据联盟化**：Open X-Embodiment 的跨机构数据 + RT-X 模型（[28]，2023 起持续迭代至 v9）与 DROID 的大规模野外数据（[25]，2024），共同构成\"多本体 / 真机\"数据层公共品。具体机构名单与资助方 `> 待核实`。\n- **生态：真机学习门槛下探**：Open Ant 明确以\"RL 研究不应停留在仿真\"为动机提供实体平台（[3]，2026）；RL-100 展示真机 RL 的工程化路径（[9]，2025）。\n- **生态：评测公共品缺口**：反事实评测（[27]）与 sim-to-real 评测方法学（[18]）仍在提案阶段，尚无主导性联盟或榜单 → 生态位空缺。\n- **资本**：融资金额、并购、公司格局、人才流动 → **零证据**，全部 `> 待核实`；本报告不做任何推测性填充。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n**一句话增量判断**：最早期、最可操作的信号是\"**评测目标从逼真度转向因果与一致性**\"（[14][27]），其次才是方法侧的 3D 表征与真机闭环。\n\n### 7.1 早期信号（已确证/较大概率）\n| 信号 | 时间 | 依据 | 强度 |\n|---|---|---|---|\n| 操作 WM 进入顶会（ICCV 2025） | 2025 | [19] | 较大概率（有 DOI） |\n| 一致性/因果评测成为独立议题 | 2026-05 前后 | [14][27] | 较大概率（两文同年提出同类批评） |\n| 3D 显式表征（Gaussian）进入操作 WM | 2025-08 | [21] | 较大概率 |\n| 真机 RL 与扩散策略结合 | 2025-10 | [9] | 较大概率 |\n| 方向术语被视频生成社区泛化占用，检索信噪比下降 | 2025–2026 | [16][22][29] 等噪声命中 | 确定（本报告可观测现象） |\n\n### 7.2 可证伪假设（[P]，含依据与置信度）\n\n- **[P] 假设 H1（几何/3D 路线主流化）**：若到 **2027-06** 之前，出现 ≥2 个**相互独立团队**的几何一致世界模型在**真机操作**任务上以统一口径超越纯视频生成基线，则\"操作 WM 主流从像素生成转向几何一致表征\"成立。\n  - 依据链：GEM-4D 自述像素 WM 的一致性失败 [14] → 3D Gaussian WM 出现 [21] → 因果评测提案 [27]。\n  - 置信度：**中**。证伪条件：若届时主流工作仍在优化像素 FVD/PSNR 类指标而无一致性声明，则假设不成立。\n\n- **[P] 假设 H2（因果评测标准化）**：若到 **2027-12** 之前出现被 ≥3 个独立团队共同报告的\"反事实/因果\"评测协议（含公开测试集），则 [27] 一类的因果评测将取代\"生成逼真度\"成为 WM 主评测。\n  - 置信度：**中低**（当前仅单一提案，无联盟或榜单承接 [27][18]）。\n  - 证伪条件：一年内无公开测试集或第三方引用该协议。\n\n- **[P] 假设 H3（真机评测基础设施成为瓶颈突破口）**：若 18 个月内出现被 ≥3 家机构共同采用的**真机评测协议**（含权限、任务集、统计口径），则 [18][20] 指出的\"真机评测滞后\"进入缓解期。\n  - 置信度：**低**（无资本/联盟证据支撑，见 §6）。\n\n- **[R] 传闻类**：本检索池**未捕获任何**融资、产品发布、并购类传闻，故**不列 [R] 条目**（不凭空生成）。\n\n- **不确定性声明**：\n  - `未知`：操作 WM 在各基准上的具体 SOTA 数值与排名（无榜单命中）。\n  - `需要数据`：开源仓库 star/引用数、权重许可、真机任务数与本体数。\n  - `推测`：世界模型与失败恢复结合的商业价值（基于 [31][14] 的间接推断）。\n\n### 7.3 Watchlist（建议持续监控）\n1. **IRASim [19]** — 顶会级、操作专用，优先核对其开源与第三方复现。\n2. **GEM-4D [14] / GWM [21]** — 一致性 vs 3D 表征两条竞争解法。\n3. **What-If World [27]** — 可能定义下一代 WM 评测口径。\n4. **RL-100 [9]** — 真机闭环训练的成本/可靠性基线。\n5. **DROID [25] / Open X-Embodiment [28]** — 数据与跨本体底座的变化。\n6. **评测方法学 [18] 与真机可靠性 [20]** — 判断\"落地拐点\"的高权威标尺。\n\n---\n\n## 参考来源\n\n**已引用（相关证据）**\n- [1] Equivalence Between Wasserstein and Value-Aware Loss for Model-based Reinforcement Learning — http://arxiv.org/abs/1806.01265v2\n- [3] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1\n- [6] Model-Based Regularization for Deep Reinforcement Learning with Transcoder Networks — http://arxiv.org/abs/1809.01906v2\n- [7] Learning Multimodal Transition Dynamics for Model-Based Reinforcement Learning — http://arxiv.org/abs/1705.00470v2\n- [8] Maximum Entropy Model-based Reinforcement Learning — http://arxiv.org/abs/2112.01195v1\n- [9] RL-100: Performant Robotic Manipulation with Real-World Reinforcement Learning — http://arxiv.org/abs/2510.14830v4\n- [11] A Conversational Framework for Human-Robot Collaborative Manipulation with Distributed Generative AI models — http://arxiv.org/abs/2606.06061v1\n- [12] Towards Transparency of TD-RL Robotic Systems with a Human Teacher — http://arxiv.org/abs/2005.05926v1\n- [13] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2\n- [14] GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation — http://arxiv.org/abs/2605.22882v4\n- [18] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1\n- [19] IRASim: A Fine-Grained World Model for Robot Manipulation — https://doi.org/10.1109/iccv51701.2025.00917\n- [20] How reliable is robotic manipulation in the real world? — https://doi.org/10.1126/scirobotics.adz6787\n- [21] GWM: Towards Scalable Gaussian World Models for Robotic Manipulation — http://arxiv.org/abs/2508.17600v2\n- [23] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n- [25] DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset — http://arxiv.org/abs/2403.12945v2\n- [26] Benchmarking Simulated Robotic Manipulation through a Real World Dataset — http://arxiv.org/abs/1911.01557v2\n- [27] What-If World: A Causal Benchmark for General World Models in Embodied Scenarios — http://arxiv.org/abs/2605.27589v1\n- [28] Open X-Embodiment: Robotic Learning Datasets and RT-X Models — http://arxiv.org/abs/2310.08864v9\n- [31] Enabling Failure Recovery for On-The-Move Mobile Manipulation — http://arxiv.org/abs/2305.08351v1\n- [32] User Study Exploring the Role of Explanation of Failures by Robots in Human Robot Collaboration Tasks — http://arxiv.org/abs/2303.16010v1\n\n**检索池内其余候选（已评估；相关性低或不可用）**\n- [2] Machine Learning for Health (ML4H) Workshop at NeurIPS 2018 — http://arxiv.org/abs/1811.07216v2（无关联）\n- [4] Exploring Hierarchy-Aware Inverse Reinforcement Learning — http://arxiv.org/abs/1807.05037v1（IRL，非 WM 主线）\n- [5] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1（探索机制，非 WM）\n- [10] High-level robot programming based on CAD — http://arxiv.org/abs/1309.2086v1（早期编程范式）\n- [15] UIC-AIHealth4All at ArchEHR-QA 2026 — http://arxiv.org/abs/2608.27467v1（临床问答，噪声）\n- [16] VQualA 2025 Challenge on Engagement Prediction for Short Videos — http://arxiv.org/abs/2509.02969v1（噪声）\n- [17] Second MOASEI Competition at AAMAS'2026 — http://arxiv.org/abs/2607.03399v1（多智能体，噪声）\n- [22] The Second Challenge on Real-World Face Restoration at NTIRE 2026 — http://arxiv.org/abs/2604.10532v2（噪声）\n- [24] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1（驾驶 VLA，领域不同）\n- [29] NTIRE 2025 Challenge on Short-form UGC Video Quality Assessment (KwaiSR) — http://arxiv.org/abs/2504.15003v1（噪声）\n- [30] The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset — http://arxiv.org/abs/2405.19595v1（医学影像，噪声）\n- [33] Evaluation and Manipulation of Virtual Embodiment — https://doi.org/10.70675/8be9120cz2a27z4798zba0dz64130a3f6704（元数据异常/embargo，E 级丢弃）\n\n---\n\n*Generated by research-bot · topic=`机器人操作与世界模型` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=33 · duration=169s · 2026-10-09T22:08:45+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Equivalence Between Wasserstein and Value-Aware Loss for Model-based Reinforcement Learning",
+      "url": "http://arxiv.org/abs/1806.01265v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-06-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Machine Learning for Health (ML4H) Workshop at NeurIPS 2018",
+      "url": "http://arxiv.org/abs/1811.07216v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-11-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "The Open Ant: A Robot Platform for Reinforcement Learning Research",
+      "url": "http://arxiv.org/abs/2607.18488v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Exploring Hierarchy-Aware Inverse Reinforcement Learning",
+      "url": "http://arxiv.org/abs/1807.05037v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2018-07-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2602.12375v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-02-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Model-Based Regularization for Deep Reinforcement Learning with Transcoder Networks",
+      "url": "http://arxiv.org/abs/1809.01906v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-09-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Learning Multimodal Transition Dynamics for Model-Based Reinforcement Learning",
+      "url": "http://arxiv.org/abs/1705.00470v2",
+      "kind": "paper",
+      "venue": "stat.ML",
+      "published": "2017-05-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Maximum Entropy Model-based Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2112.01195v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2021-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "RL-100: Performant Robotic Manipulation with Real-World Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2510.14830v4",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "High-level robot programming based on CAD: dealing with unpredictable environments",
+      "url": "http://arxiv.org/abs/1309.2086v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2013-09-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "A Conversational Framework for Human-Robot Collaborative Manipulation with Distributed Generative AI models",
+      "url": "http://arxiv.org/abs/2606.06061v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-06-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Towards Transparency of TD-RL Robotic Systems with a Human Teacher",
+      "url": "http://arxiv.org/abs/2005.05926v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-05-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+      "url": "http://arxiv.org/abs/1711.10137v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2017-11-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+      "url": "http://arxiv.org/abs/2605.22882v4",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering",
+      "url": "http://arxiv.org/abs/2608.27467v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+      "url": "http://arxiv.org/abs/2607.03399v1",
+      "kind": "paper",
+      "venue": "cs.MA",
+      "published": "2026-07-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+      "url": "http://arxiv.org/abs/2508.11117v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "IRASim: A Fine-Grained World Model for Robot Manipulation",
+      "url": "https://doi.org/10.1109/iccv51701.2025.00917",
+      "kind": "paper",
+      "venue": "2025 IEEE/CVF International Conference on Computer Vision (ICCV)",
+      "published": "2025-10-19",
+      "citations": 10,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "How reliable is robotic manipulation in the real world?",
+      "url": "https://doi.org/10.1126/scirobotics.adz6787",
+      "kind": "paper",
+      "venue": "Science Robotics",
+      "published": "2025-12-17",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "GWM: Towards Scalable Gaussian World Models for Robotic Manipulation",
+      "url": "http://arxiv.org/abs/2508.17600v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "The Second Challenge on Real-World Face Restoration at NTIRE 2026: Methods and Results",
+      "url": "http://arxiv.org/abs/2604.10532v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-04-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+      "url": "http://arxiv.org/abs/2608.17095v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-08-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset",
+      "url": "http://arxiv.org/abs/2403.12945v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-03-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Benchmarking Simulated Robotic Manipulation through a Real World Dataset",
+      "url": "http://arxiv.org/abs/1911.01557v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-11-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "What-If World: A Causal Benchmark for General World Models in Embodied Scenarios",
+      "url": "http://arxiv.org/abs/2605.27589v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-05-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+      "url": "http://arxiv.org/abs/2310.08864v9",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-10-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "NTIRE 2025 Challenge on Short-form UGC Video Quality Assessment and Enhancement: KwaiSR Dataset and Study",
+      "url": "http://arxiv.org/abs/2504.15003v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset",
+      "url": "http://arxiv.org/abs/2405.19595v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Enabling Failure Recovery for On-The-Move Mobile Manipulation",
+      "url": "http://arxiv.org/abs/2305.08351v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-05-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "User Study Exploring the Role of Explanation of Failures by Robots in Human Robot Collaboration Tasks",
+      "url": "http://arxiv.org/abs/2303.16010v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-03-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Evaluation and Manipulation of Virtual Embodiment",
+      "url": "https://doi.org/10.70675/8be9120cz2a27z4798zba0dz64130a3f6704",
+      "kind": "paper",
+      "venue": null,
+      "published": null,
+      "citations": 0,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-09-机器人操作与世界模型.md",
+    "json": "report/2026/10/2026-10-09-机器人操作与世界模型.json"
+  }
+}
