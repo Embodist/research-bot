@@ -1,0 +1,934 @@
+{
+  "topic": "机器人运动学控制与-ros-2",
+  "title": "机器人运动学、控制与 ROS 2 领域增量追踪与深度调研计划",
+  "query": "机器人运动学、控制与 ROS 2",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-11T22:10:18+00:00",
+  "finished_at": "2026-10-11T22:12:50+00:00",
+  "duration_s": 152.3,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人运动学、控制与 ROS 2 领域增量追踪与深度调研计划",
+    "summary": "以“相对上一次基线的增量变化”为主线，系统追踪机器人运动学、控制与 ROS 2 生态在前沿进展、奠基工作、开源工程实践、数据集与基准、开放问题与争议五个维度上的最新变化、蓝海缺口与产业信号，并输出带时间戳与可核查引用的增量快照。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 12–24 个月，机器人运动学/控制与 ROS 2 方向出现了哪些真正的增量进展（新算法、新版本、SOTA 变动），其中哪些已被独立复现或真机验证，哪些仅有演示或自评？",
+        "rationale": "对应 frontier-watch 的“进展与热点”“瓶颈与拐点”两个 facet。需要区分“刚发布”与“已被验证”，并明确相对于上一基线（如 ROS 2 Humble / 经典 MPC 控制栈、2023 年前的模仿学习策略）新增了什么，避免复述常识。",
+        "queries": [
+          "ROS 2 Jazzy Jalisco release notes features 2024",
+          "ROS 2 Kilted Kaiju LTS release 2025 real-time control",
+          "vision-language-action policy real robot 2025 arxiv cs.RO",
+          "whole-body control humanoid robot 2025 arxiv"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该领域的经典与奠基工作有哪些（运动学建模、逆运动学求解、阻抗/力控、ROS 架构设计），它们如何定义了今天 ROS 2 控制栈的技术基线？",
+        "rationale": "对应 paper-survey 的“从综述入手 + 脉络梳理”。增量追踪必须建立在明确基线上，需先锁定被广泛引用的奠基论文与官方设计文献（如 DH 参数、阻抗控制、ROS 2 设计论文），才能判断后续工作是“承上”还是“启下”。",
+        "queries": [
+          "Denavit Hartenberg 机器人运动学 逆运动学 经典 综述",
+          "Hogan impedance control 1985 foundational paper",
+          "Macenski ROS 2 design Science Robotics 2022",
+          "MoveIt 2 motion planning ROS 2 architecture paper"
+        ],
+        "prefer": [
+          "arxiv",
+          "crossref",
+          "semantic_scholar",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "ROS 2 控制与运动规划相关的开源项目与工程实践现状如何（ros2_control、MoveIt 2、Nav2、Pinocchio/Drake/MuJoCo 等），近一年有哪些关键更新、维护活跃度与落地障碍？",
+        "rationale": "对应 frontier-tracking 的“代码与权重”层级与 frontier-watch 的“工业界与产品”facet。开源活跃度、发行版迁移、实时性改进等可量化信号，是判断“lab 到落地”的关键证据，也是蓝海缺口的主要来源。",
+        "queries": [
+          "ros2_control hardware_interface github releases 2025",
+          "MoveIt 2 github release notes 2025",
+          "Nav2 ROS 2 navigation github 2025",
+          "Pinocchio Drake MuJoCo 动力学库 对比 2025"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing",
+          "semantic_scholar"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 12–24 个月，机器人运动学/控制与 ROS 2 方向出现了哪些真正的增量进展（新算法、新版本、SOTA 变动），其中哪些已被独立复现或真机验证，哪些仅有演示或自评？",
+      "queries": [
+        "ROS 2 Jazzy Jalisco release notes features 2024",
+        "ROS 2 Kilted Kaiju LTS release 2025 real-time control",
+        "vision-language-action policy real robot 2025 arxiv cs.RO",
+        "whole-body control humanoid robot 2025 arxiv"
+      ],
+      "rationale": "对应 frontier-watch 的“进展与热点”“瓶颈与拐点”两个 facet。需要区分“刚发布”与“已被验证”，并明确相对于上一基线（如 ROS 2 Humble / 经典 MPC 控制栈、2023 年前的模仿学习策略）新增了什么，避免复述常识。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.031806,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.019481
+          }
+        },
+        {
+          "title": "Robot Operating System - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Robot_Operating_System",
+          "snippet": "ROS 2 ; Rolling Ridley · (rolling release with latest features), progressing since. June 2020 ; Lyrical Luth, 22 May 2026 · N/A ; Kilted Kaiju, 23 May 2025 ; Jazzy ...",
+          "engine": "searxng",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.021875,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+          "url": "http://arxiv.org/abs/2409.08956v1",
+          "snippet": "Recent advancements in gravitational wave astronomy hold the promise of a completely new way to explore our Universe. These lecture notes aim to provide a concise but self-contained introduction to key concepts of gravitational wave physics, with a focus on the opportunities to explore fundamental physics in transient gravitational wave signals and stochastic gravitational wave background searches.CERN-TH-2024-152",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-09-13",
+          "authors": [
+            "Valerie Domcke"
+          ],
+          "venue": "astro-ph.CO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2409.08956v1",
+            "rrf_score": 0.02459
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "ROS 2 维持每年 5 月左右的年度发行节奏，候选证据中出现了 2025 与 2026 两个新发行版名称（Kilted Kaiju、Lyrical Luth），以及长期存在的滚动发行线 Rolling Ridley。",
+            "evidence": "Wikipedia 词条列出 ROS 2 发行线：Rolling Ridley（rolling release with latest features，自 2020 年 6 月起持续），Lyrical Luth 发布日期 22 May 2026，Kilted Kaiju 发布日期 23 May 2025，另有 Jazzy 等更早版本。说明近 12–24 个月（2024-10 至 2026-10）内至少有两个新的 ROS 2 命名发行版落地，分布于 2025-05 与 2026-05。",
+            "sources": [
+              10
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "Wikipedia 词条（非一手来源，非官方发布公告）；需以 ROS 2 官方发行文档/REP 2000 复核",
+            "attention": "中 + 依据：ROS 2 发行命名是机器人开发者高频查询对象，但候选块未提供引用数/star/榜单等量化信号",
+            "recommendation": "★★☆☆☆ + 与 ROS 2 版本演进直接相关，但仅为百科条目，只能作为版本时间线的线索，须回到官方发行页核实后再引用"
+          },
+          {
+            "point": "ROS 2 除固定年度发行外，还长期维护一条滚动发行通道（Rolling Ridley），用于承载最新特性，这一机制自 2020-06 起持续至今。",
+            "evidence": "候选块记载：Rolling Ridley — rolling release with latest features, progressing since June 2020。即滚动发行不是近期新增机制，而是已存在约 6 年以上的持续性工程安排，属于稳定基线而非本周期增量。",
+            "sources": [
+              10
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "2020",
+            "heat": "",
+            "authority": "Wikipedia 词条（非官方一手文档）",
+            "attention": "低 + 依据：该机制为既有事实，候选块无任何社区讨论热度或使用量数据支撑其为当前热点",
+            "recommendation": "★★☆☆☆ + 作为区分“本周期增量”与“历史基线”的参照有用，但本身不构成本周期新进展"
+          },
+          {
+            "point": "本次候选证据存在严重覆盖缺口：4 条候选中仅 1 条与 ROS 2 相关，没有任何一条涉及机器人运动学、控制算法、新 SOTA 或真机/独立复现验证，因此无法从候选证据中抽取该子问题的实质增量。",
+            "evidence": "候选 [1] 为 ICCV 2025 短视频参与度预测挑战赛（cs.CV），[11] 为车载边缘计算任务卸载（cs.DC），[2] 为引力波物理讲义（astro-ph.CO），三者与运动学/控制/ROS 2 无关；仅 [10] 提供 ROS 2 发行版本信息。无任何候选块包含 citations/stars/benchmark 榜单等可支撑“新算法/SOTA 变动/独立复现”判定的信号。",
+            "sources": [
+              1,
+              11,
+              2,
+              10
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 依据：该结论是检索覆盖度判断，非社区关注度信号，候选块未提供量化依据",
+            "recommendation": "★☆☆☆☆ + 仅作为本轮抽取的证据充分性说明，提示需要补充 cs.RO 论文、ROS 2 官方发行日志与基准榜单后重跑"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据中无任何运动学/控制算法论文（cs.RO 方向），无法判断近 12–24 个月是否出现新算法或 SOTA 变动。",
+          "候选证据中无任何真机验证或独立复现报告，无法回答“哪些已被独立复现/真机验证、哪些仅有演示或自评”。",
+          "ROS 2 版本信息仅来自 Wikipedia（[10]），缺少官方发行公告与 changelog，版本号与发布日期待与官方来源核实（含 Lyrical Luth 2026-05-22、Kilted Kaiju 2025-05-23 的准确性）。",
+          "缺少 ROS 2 生态关键中间件/工具链（如 DDS 实现、ros2_control、MoveIt 2、Nav2）的版本变更与性能对比证据。",
+          "缺少运动学/控制方向的评测基准（仿真与真机口径区分）证据，无法区分“论文宣称”与“第三方榜单/复现”。"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该领域的经典与奠基工作有哪些（运动学建模、逆运动学求解、阻抗/力控、ROS 架构设计），它们如何定义了今天 ROS 2 控制栈的技术基线？",
+      "queries": [
+        "Denavit Hartenberg 机器人运动学 逆运动学 经典 综述",
+        "Hogan impedance control 1985 foundational paper",
+        "Macenski ROS 2 design Science Robotics 2022",
+        "MoveIt 2 motion planning ROS 2 architecture paper"
+      ],
+      "rationale": "对应 paper-survey 的“从综述入手 + 脉络梳理”。增量追踪必须建立在明确基线上，需先锁定被广泛引用的奠基论文与官方设计文献（如 DH 参数、阻抗控制、ROS 2 设计论文），才能判断后续工作是“承上”还是“启下”。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Kinematic Analysis and Integration of Vision Algorithms for a Mobile Manipulator Employed Inside a Self-Driving Laboratory",
+          "url": "http://arxiv.org/abs/2510.19081v1",
+          "snippet": "Recent advances in robotics and autonomous systems have broadened the use of robots in laboratory settings, including automated synthesis, scalable reaction workflows, and collaborative tasks in self-driving laboratories (SDLs). This paper presents a comprehensive development of a mobile manipulator designed to assist human operators in such autonomous lab environments. Kinematic modeling of the manipulator is carried out based on the Denavit Hartenberg (DH) convention and inverse kinematics solution is determined to enable precise and adaptive manipulation capabilities. A key focus of this r…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-21",
+          "authors": [
+            "Shifa Sulaiman",
+            "Tobias Busk Jensen",
+            "Stefan Hein Bengtson",
+            "Simon Bøgh"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.19081v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Robot Manipulator Control with Inverse Kinematics PD-Pseudoinverse Jacobian and Forward Kinematics Denavit Hartenberg",
+          "url": "http://arxiv.org/abs/2103.10461v2",
+          "snippet": "This paper presents the development of vision-based robotic arm manipulator control by applying Proportional Derivative-Pseudoinverse Jacobian (PD-PIJ) kinematics and Denavit Hartenberg forward kinematics. The task of sorting objects based on color is carried out to observe error propagation in the implementation of manipulator on real system. The objects image captured by the digital camera were processed based on HSV-color model and the centroid coordinate of each object detected were calculated. These coordinates are end effector position target to pick each object and were placed to the r…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2021-03-18",
+          "authors": [
+            "Indra Agustian",
+            "Novalio Daratha",
+            "Ruvita Faurina",
+            "Agus Suandi",
+            " Sulistyaningsih"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2103.10461v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "A Technique for Deriving Equational Conditions on the Denavit-Hartenberg Parameters of 6R Linkages that are Necessary for Movability",
+          "url": "http://arxiv.org/abs/1402.5761v3",
+          "snippet": "A closed 6R linkage is generically rigid. Special cases may be mobile. Many families of mobile 6R linkages have been characterised in terms of the invariant Denavit-Hartenberg parameters of the linkage. In other words, many sufficient conditions for mobility are known. In this paper we give, for the first time, equational conditions on the invariant Denavit-Hartenberg parameters that are necessary for mobility. The method is based on the theory of bonds. We illustrate the method by deriving the equational conditions for various well-known linkages (Bricard's line symmetric linkage, Hooke's li…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2014-02-24",
+          "authors": [
+            "Zijia Li",
+            "Josef Schicho"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1402.5761v3",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Geometric interpretation of the general POE model for a serial-link robot via conversion into D-H parameterization",
+          "url": "http://arxiv.org/abs/1902.00198v2",
+          "snippet": "While Product of Exponentials (POE) formula has been gaining increasing popularity in modeling the kinematics of a serial-link robot, the Denavit-Hartenberg (D-H) notation is still the most widely used due to its intuitive and concise geometric interpretation of the robot. This paper has developed an analytical solution to automatically convert a POE model into a D-H model for a robot with revolute, prismatic, and helical joints, which are the complete set of three basic one degree of freedom lower pair joints for constructing a serial-link robot. The conversion algorithm developed can be use…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2019-02-01",
+          "authors": [
+            "Liao Wu",
+            "Ross Crawford",
+            "Jonathan Roberts"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1902.00198v2",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "Kinematic Analysis and Integration of Vision Algorithms for a Mobile Manipulator Employed Inside a Self-Driving Laboratory",
+            "evidence": "Recent advances in robotics and autonomous systems have broadened the use of robots in laboratory settings, including automated synthesis, scalable reaction workflows, and collaborative tasks in self-driving laboratories (SDLs). This paper presents a comprehensive development of a mobile manipulato…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Robot Manipulator Control with Inverse Kinematics PD-Pseudoinverse Jacobian and Forward Kinematics Denavit Hartenberg",
+            "evidence": "This paper presents the development of vision-based robotic arm manipulator control by applying Proportional Derivative-Pseudoinverse Jacobian (PD-PIJ) kinematics and Denavit Hartenberg forward kinematics. The task of sorting objects based on color is carried out to observe error propagation in the…",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2021",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "A Technique for Deriving Equational Conditions on the Denavit-Hartenberg Parameters of 6R Linkages that are Necessary for Movability",
+            "evidence": "A closed 6R linkage is generically rigid. Special cases may be mobile. Many families of mobile 6R linkages have been characterised in terms of the invariant Denavit-Hartenberg parameters of the linkage. In other words, many sufficient conditions for mobility are known. In this paper we give, for th…",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2014",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Geometric interpretation of the general POE model for a serial-link robot via conversion into D-H parameterization",
+            "evidence": "While Product of Exponentials (POE) formula has been gaining increasing popularity in modeling the kinematics of a serial-link robot, the Denavit-Hartenberg (D-H) notation is still the most widely used due to its intuitive and concise geometric interpretation of the robot. This paper has developed…",
+            "sources": [
+              15
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2019",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "ROS 2 控制与运动规划相关的开源项目与工程实践现状如何（ros2_control、MoveIt 2、Nav2、Pinocchio/Drake/MuJoCo 等），近一年有哪些关键更新、维护活跃度与落地障碍？",
+      "queries": [
+        "ros2_control hardware_interface github releases 2025",
+        "MoveIt 2 github release notes 2025",
+        "Nav2 ROS 2 navigation github 2025",
+        "Pinocchio Drake MuJoCo 动力学库 对比 2025"
+      ],
+      "rationale": "对应 frontier-tracking 的“代码与权重”层级与 frontier-watch 的“工业界与产品”facet。开源活跃度、发行版迁移、实时性改进等可量化信号，是判断“lab 到落地”的关键证据，也是蓝海缺口的主要来源。",
+      "round": 1,
+      "results": [
+        {
+          "title": "A ROS~2-based Navigation and Simulation Stack for the Robotino",
+          "url": "http://arxiv.org/abs/2411.09441v1",
+          "snippet": "The Robotino, developed by Festo Didactic, serves as a versatile platform in education and research for mobile robotics tasks. However, there currently is no ROS2 integration for the Robotino available. In this paper, we describe our work on a Webots simulation environment for a Robotino platform extended by LIDAR sensors. A ROS2 integration and a pre-configured setup for localization and navigation using existing ROS packages from the Nav2 suite are provided. We validate our setup by comparing simulations with real-world experiments conducted by three Robotinos in a logistics environment in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-11-14",
+          "authors": [
+            "Saurabh Borse",
+            "Tarik Viehmann",
+            "Alexander Ferrein",
+            "Gerhard Lakemeyer"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2411.09441v1",
+            "rrf_score": 0.015464
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "Nav2 套件已被用于在非标准移动平台上构建可用的定位与导航栈：作者为 Festo Didactic 的 Robotino 平台提供了此前缺失的 ROS 2 集成，并基于 Nav2 现有软件包预配置了定位与导航方案。",
+            "evidence": "论文摘要称 'there currently is no ROS2 integration for the Robotino available'，作者提供 'A ROS2 integration and a pre-configured setup for localization and navigation using existing ROS packages from the Nav2 suite'。",
+            "sources": [
+              35
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv 预印本 (arXiv:2411.09441v1, cs.RO)，未经同行评审确认；作者 Saurabh Borse, Tarik Viehmann, Alexander Ferrein, Gerhard Lakemeyer",
+            "attention": "低 + arXiv 预印本，候选块未提供引用数/下载量等热度信号，且面向教育用 Robotino 平台，受众较窄",
+            "recommendation": "★★☆☆☆ + 对『Nav2 在非主流硬件上的二次集成与预配置』这一工程实践有参考价值，但属单平台应用类工作，非方法创新"
+          },
+          {
+            "point": "该工作通过仿真与真机对比验证了 ROS 2 + Nav2 导航在 Robotino 上的可行性，并报告仿真与真实实验之间存在较高一致性。",
+            "evidence": "作者 'validate our setup by comparing simulations with real-world experiments conducted by three Robotinos in a logistics environment in our lab'，结果 'demonstrate the feasibility of using ROS2 and Nav2 for navigation tasks on the Robotino platform showing great consistency between simulation and re…'（摘要截断）。",
+            "sources": [
+              35
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv 预印本 (arXiv:2411.09441v1)，自评实验，未见第三方复现或榜单验证",
+            "attention": "低 + 仅有自述的实验一致性结论，无独立评测或社区热议信号",
+            "recommendation": "★★☆☆☆ + sim-to-real 一致性验证思路可借鉴（3 台真机、物流环境），但结论为作者自评，口径需谨慎引用"
+          },
+          {
+            "point": "工程落地路径上，仿真侧采用 Webots 并额外扩展了 LIDAR 传感器，以支撑 Nav2 的定位与导航验证。",
+            "evidence": "'we describe our work on a Webots simulation environment for a Robotino platform extended by LIDAR sensors'。",
+            "sources": [
+              35
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv 预印本 (arXiv:2411.09441v1)",
+            "attention": "低 + 未提供代码仓库/star 等生态信号",
+            "recommendation": "★★☆☆☆ + 对使用 Webots + Nav2 做移动机器人仿真的团队有直接借鉴意义"
+          },
+          {
+            "point": "硬件驱动依赖第三方（RoboCup Logistics League 的 GRIPS 团队）提供的 ROS 2 硬件驱动，说明非主流平台的 ROS 2 落地常受制于驱动层生态。",
+            "evidence": "'we tested the setup using a ROS 2 hardware driver for the Robotino developed by team GRIPS of the RoboCup Logistics League'。",
+            "sources": [
+              35
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv 预印本 (arXiv:2411.09441v1)；GRIPS 为 RoboCup 参赛团队而非平台官方厂商",
+            "attention": "低 + 仅论文内一句描述，无驱动仓库热度数据",
+            "recommendation": "★★☆☆☆ + 作为『ROS 2 落地瓶颈常在驱动/硬件接口而非规划算法』的一个具体案例证据"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "A ROS 2-based Navigation and Simulation Stack for the Robotino",
+            "url": "http://arxiv.org/abs/2411.09441v1",
+            "why": "候选证据中唯一直接涉及本题的文献：给出了在缺乏官方 ROS 2 支持的非标准平台上，用 Webots 仿真 + Nav2 定位导航 + GRIPS 硬件驱动完成 ROS 2 集成，并用 3 台真机在物流环境做 sim-to-real 对比的完整工程案例。",
+            "year": "2024",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本 (cs.RO)，提交于 2024-11-14，未见同行评审 venue",
+            "attention": "低 + 无引用数/榜单/社区讨论等热度信号，平台为教育科研用 Robotino",
+            "recommendation": "★★☆☆☆ + 对 ROS 2 + Nav2 工程集成与 sim-to-real 验证有实例参考价值，但新颖度与影响力证据有限"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "Nav2 (ROS 2 Navigation Stack)",
+            "url": "",
+            "why": "候选证据显示该套件被直接复用以提供 Robotino 的定位与导航预配置，并被验证可用于该平台的导航任务；候选块未给出其官方仓库或文档链接。",
+            "heat": "候选块未提供 stars/采用度数据",
+            "authority": "论文描述为 'existing ROS packages from the Nav2 suite'；候选块未提供官方文档或维护方链接",
+            "attention": "低 + 仅在论文中被作为被复用组件提及，候选块无独立热度证据（引用/star/榜单均缺失）",
+            "recommendation": "★★★☆☆ + 作为 ROS 2 导航的事实标准组件与本题高度相关，但本候选块未提供其自身活跃度/更新证据，需另找官方来源核实"
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据仅覆盖 Nav2 在 Robotino 上的集成案例，未提供 ros2_control、MoveIt 2、Pinocchio、Drake、MuJoCo 中任何一项的近一年更新、维护活跃度或落地障碍证据 —— 这些子问题在本次候选集内无法回答，需补充检索。",
+          "非主流/教育类硬件平台缺乏官方 ROS 2 集成与硬件驱动，需依赖第三方团队（如 RoboCup 队伍）的驱动，构成本类平台 ROS 2 落地的实际障碍（依据候选证据 [35]，待更多案例核实）。",
+          "仿真与真机一致性仅在单一平台、3 台机器人、单一物流场景下自评验证，缺乏第三方复现或跨平台泛化证据。"
+        ],
+        "notes": "候选证据池中仅 [35] 与本子问题相关，且只涉及 Nav2 与 ROS 2 集成/仿真，未涉及 ros2_control、MoveIt 2、Pinocchio/Drake/MuJoCo，故相关 findings 与 key_projects/key_datasets 只能据该单条证据抽取，其余类别返回空。"
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 28880,
+    "completion_tokens": 18518,
+    "generated_at": "2026-10-11T22:12:50.846480+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 机器人运动学、控制与 ROS 2 生态增量快照\n\n**报告日期**：2026-10-11（UTC） | **领域**：机器人运动学（kinematics） / 控制（control） / ROS 2 生态 | **检索源数量**：35 条候选来源，其中与本主题直接相关者 14 条（含 1 条边缘相关 [12]），其余 21 条为跨领域噪声（音频/视觉挑战赛、天体物理、医学影像等）\n\n> **证据充分性声明（必读）**\n> 本次候选集存在**严重覆盖缺口**：35 条候选中仅 1 条来自 ROS 官方生态条目 [10]、1 条为 ROS 2 工程集成论文 [35]、约 12 条为运动学/控制类 arXiv 预印本 [13][14][15][16][17][18][19][20][22][24][34]。**候选集内未出现任何 ROS 2 官方发行公告、REP、ros2_control / MoveIt 2 / Nav2 官方仓库、基准榜单（LIBERO / SimplerEnv 等）或第三方复现报告。** 因此本报告对多数维度只能给出「低置信度线索」或「本周期无显著变化（证据不足）」，凡此均以 `> 待核实` 显式标注，**不编造引用数、star 数与榜单排名**。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量判断**：本周期（2024-10 至 2026-10）可核实的实质增量**极少且证据等级偏低**——仅能确认 ROS 2 出现 2025/2026 两个新命名发行版的**线索** [10]，以及 2024-2025 年两篇工程/应用类论文 [35][16]；**没有任何 SOTA 变动、算法突破或独立复现的证据进入候选集**。\n\n### 1.1 最新进展（近 1–2 年）\n\n| 条目 | 时间 | 增量内容 | 证据强度 | 四类证据 |\n|---|---|---|---|---|\n| ROS 2 年度发行线新增两个版本名 | 2025-05-23 / 2026-05-22 | 「Kilted Kaiju」（2025-05-23）与「Lyrical Luth」（2026-05-22）出现在发行列表中，另有自 2020-06 起的滚动发行线 Rolling Ridley | **低**（仅百科条目，非官方公告） | 热度：`> 待核实`（候选块未提供下载量/引用）[10]；权威：Wikipedia 词条，非 ROS 官方发行文档/REP 2000 [10]；关注度：**中**，依据为 ROS 2 版本号是开发者高频查询对象 [10]；推荐度：**★★☆☆☆**，仅可作时间线线索，须回官方页核实 [10] |\n| ROS 2 + Nav2 集成到非标准平台（Robotino） | 2024-11 | 为缺乏官方 ROS 2 支持的 Festo Didactic Robotino 提供 Webots 仿真（扩展 LIDAR）+ Nav2 定位导航预配置，并用 3 台真机在物流环境做 sim-to-real 对比 | **中**（arXiv 预印本，作者自评） | 热度：`> 待核实`（无引用数）[35]；权威：arXiv:2411.09441v1，cs.RO，未见同行评审 venue，作者 Borse / Viehmann / Ferrein / Lakemeyer [35]；关注度：**低**，依据为面向教育科研平台的窄受众、无社区讨论信号 [35]；推荐度：**★★☆☆☆**，工程集成与 sim-to-real 验证范式可借鉴，非方法创新 [35] |\n| 移动操作臂运动学分析 + 视觉算法集成（自驱动实验室 SDL 场景） | 2025 | 面向 self-driving laboratory 的移动操作臂运动学分析与视觉集成完整开发 | **低**（仅摘要级信息） | 热度：`> 待核实` [16]；权威：arXiv:2510.19081v1，标注 cs.RO [16]；关注度：**低**，无热度量化信号 [16]；推荐度：**★★☆☆☆**，与移动操作（mobile manipulation）运动学建模相关，但候选块仅提供摘要 [16] |\n\n> **关键缺口**：无法回答「哪些已被独立复现或真机验证」。仅 [35] 报告了 3 台真机实验，但属**作者自评**，无第三方复现或榜单背书；[16] 未提供实验口径。运动学/控制方向**新算法或 SOTA 变动**在候选集内**完全无证据**。\n\n### 1.2 经典与较早的相关工作（2000–2023）\n\n> **重要限定**：候选集内**未出现公认的领域奠基文献**（如空间机构学与机器人运动学的教科书级基础、MoveIt/ros2_control 的官方设计文档）。下表实为「**候选集内可核实的运动学/控制相关文献**」，**不应被解读为学术界的奠基工作清单**。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| A Technique for Deriving Equational Conditions on the DH Parameters of 6R Linkages Necessary for Movability | 2014 | 未在候选块中给出 | `> 待核实` | arXiv:1402.5761v3，cs.RO 预印本，非同行评审确认 [14] | 低（无引用/讨论信号）[14] | ★★★☆☆ | [14] | 闭链 6R 机构可动性的代数条件，属机构学理论层 |\n| The Theory of Bonds II: Closed 6R Linkages with Maximal Genus | 2013 | 未在候选块中给出 | `> 待核实` | arXiv:1309.6558v1 [18] | 低 [18] | ★★★☆☆ | [18] | 6R 闭链理论的后续发展，理论谱系线索 |\n| Geometric interpretation of the general POE model via conversion into D-H parameterization | 2019 | 未在候选块中给出 | `> 待核实` | arXiv:1902.00198v2，cs.RO [15] | 低 [15] | ★★★★☆ | [15] | POE（Product of Exponentials）与 D-H 参数化的互转，直接关联现代运动学建模范式之争 |\n| Polynomial Invariants and SAGBI Bases for Multi-screws | 2020 | 未在候选块中给出 | `> 待核实` | arXiv:2001.05417v2 [20] | 低 [20] | ★★★☆☆ | [20] | 多旋量（multi-screws）多项式不变量，旋量理论的计算代数基础 |\n| Development of Direct Kinematics and Workspace Representation for Smokie Robot Manipulator & the Barrett WAM | 2017 | 未在候选块中给出 | `> 待核实` | arXiv:1707.04820v2 [19] | 低 [19] | ★★★☆☆ | [19] | 正运动学 + 工作空间表示的工程化样例 |\n| Robot Manipulator Control with Inverse Kinematics PD-Pseudoinverse Jacobian and Forward Kinematics Denavit Hartenberg | 2021 | 未在候选块中给出 | `> 待核实` | arXiv:2103.10461v2，cs.RO [13] | 低 [13] | ★★★★☆ | [13] | PD + 伪逆雅可比 IK 与 DH 正运动学的经典组合，含颜色分拣误差传播实验 |\n| Model Predictive Impedance Control with Gaussian Processes for Human and Environment Interaction | 2022 | 未在候选块中给出 | `> 待核实` | arXiv:2208.07035v2 [22] | 低 [22] | ★★★★☆ | [22] | 阻抗控制（impedance control）+ MPC + GP 的力控代表方向 |\n| Kinematics and Dynamics Modeling of 7 DoF Human Lower Limb Using Dual Quaternions Algebra | 2023 | 未在候选块中给出 | `> 待核实` | arXiv:2302.11605v3 [17] | 低 [17] | ★★★☆☆ | [17] | 对偶四元数（dual quaternions）做 7-DoF 建模，属替代性姿态表征路线 |\n| Encrypted control for networked systems — An illustrative introduction and current challenges | 2020 | 未在候选块中给出 | `> 待核实` | arXiv:2010.00268v1 [24] | 低 [24] | ★★★☆☆ | [24] | 网络化系统的加密控制（encrypted control），控制安全方向入门综述 |\n| A Simple Observer for Gyro and Accelerometer Biases in Land Navigation Systems | 2015 | 未在候选块中给出 | `> 待核实` | arXiv:1501.06618v1 [34] | 低 [34] | ★★☆☆☆ | [34] | 陆地导航陀螺/加速度计零偏观测器，与状态估计链路相关但年代较早 |\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量判断**：本周期在候选集内**无厂商级产品发布、无商业化与量产证据**；可观测的仅有两类弱信号——ROS 2 的**年度发行节拍** [10]，以及**非官方硬件驱动由第三方团队承担**的生态现象 [35]。\n\n- **发行工程节奏**：ROS 2 呈现「每年 5 月一个命名发行版 + 一条滚动发行线」的双轨安排；滚动线 Rolling Ridley 自 2020-06 起持续 [10]。这是**稳定的工程基线而非本周期增量**，但它是判断「生态是否活跃」的可观测指标。> 待核实（须以 ROS 官方发行页复核版本名与日期）[10]\n- **组件复用而非重造**：[35] 明确将 Nav2 套件作为「existing ROS packages」直接复用，为其平台提供定位与导航预配置——说明 Nav2 已是 ROS 2 导航的事实标准组件。热度：`> 待核实`（候选块未提供 Nav2 仓库 star / 采用度）[35]；权威：论文将 Nav2 描述为既有 ROS 软件包集合，但候选块未提供官方文档链接 [35]；关注度：**低**，仅在论文中被作为被复用组件提及 [35]；推荐度：**★★★☆☆**，与 ROS 2 栈高度相关，但本候选块未提供其活跃度证据，须另找官方来源 [35]。\n- **驱动层「民间供给」**：Robotino 的 ROS 2 硬件驱动由 RoboCup Logistics League 的 **GRIPS 团队**提供，而非平台厂商 Festo Didactic [35]。热度：`> 待核实`（无驱动仓库数据）[35]；权威：GRIPS 为竞赛团队而非官方厂商，属非官方供给 [35]；关注度：**低** [35]；推荐度：**★★☆☆☆**，作为「ROS 2 落地瓶颈常在驱动而非算法」的产业侧证据 [35]。\n- **电机级监测与控制相邻方向**：[12]（LabVIEW 电机实时状态监测与故障诊断）出现在候选集，但与 ROS 2 / 现代控制栈无直接连接。热度：`> 待核实` [12]；权威：arXiv:1806.09998v1，非 ROS 生态来源 [12]；关注度：**低** [12]；推荐度：**★☆☆☆☆**，仅作工业电机健康监测的边缘线索。\n\n> **本周期在本维度无显著变化（证据不足）**：无任何真机部署量、产品化、量产或厂商技术报告进入候选集。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量判断**：缺口集中在「**理论—工程转化断层**」与「**非主流平台的驱动/集成空白**」两处，且这两个缺口在候选集内有**具体案例支撑**，是本周期最高杠杆的机会点。\n\n1. **非标准平台的 ROS 2 集成与预配置仍是无人区**。[35] 的出发点即为「目前不存在 Robotino 的 ROS 2 集成」，且硬件驱动需依赖竞赛团队外部供给。热度：`> 待核实` [35]；权威：arXiv 预印本 [35]；关注度：**低**（窄受众）[35]；推荐度：**★★★☆☆**，「为长尾硬件补齐 ROS 2 一等公民支持」是可复制的高杠杆工程切口 [35]。\n2. **运动学理论（6R 闭链 / POE / 旋量不变量）与现代 ROS 2 控制栈之间缺少落地桥**。候选集内 [14][18]（6R 闭链可动性条件）、[15]（POE↔D-H 互转）、[20]（多旋量不变量）全部停留在理论/表征层，而 [13][19] 是传统 DH + 雅可比的工程实现，两者之间**没有候选证据显示存在开源实现或标准化工具链衔接**。热度：`> 待核实`（各篇均无引用数）[14][15][18][20]；权威：均为 arXiv 预印本，非同行评审确认 [14][15][18][20]；关注度：**低** [14][15][18][20]；推荐度：**★★★★☆**（[15]）——POE 与 D-H 的统一表征若能被工程栈直接消费，价值显著 [15]；其余 **★★★☆☆** [14][18][20]。\n3. **姿态表征的多元路线尚未收敛**：D-H/POE [15]、对偶四元数 [17]、旋量不变量 [20] 三条路线并存，**缺乏统一评测口径**（本候选集无任何对比基准）。\n4. **控制安全性**：[24] 提出的加密控制（encrypted control）在网络化控制场景下的挑战清单，在 ROS 2 的 DDS 通信语境下**未见候选证据讨论其落地**，构成潜在蓝海。热度：`> 待核实` [24]；权威：arXiv:2010.00268v1，综述性介绍 [24]；关注度：**低** [24]；推荐度：**★★★☆☆**，若与 ROS 2 安全机制结合具有研究价值 [24]。\n5. **移动操作（mobile manipulation）的真实场景运动学**：[16] 将运动学分析与视觉算法集成于自驱动实验室（SDL），提示「实验室自动化」是运动学+感知集成的应用蓝海，但候选块仅提供摘要，深度不足。热度：`> 待核实` [16]；权威：cs.RO 预印本 [16]；关注度：**低** [16]；推荐度：**★★☆☆☆** [16]。\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n**一句话增量判断**：候选集指向的**首要瓶颈是驱动与硬件接口层，而非规划/控制算法本身**；且「仿真—真机一致性」的验证口径仍依赖单平台自评，**尚未看到评测标准化的拐点信号**。\n\n- **驱动层瓶颈（有案例）**：非主流平台的 ROS 2 落地受制于第三方硬件驱动供给 [35]。热度：`> 待核实` [35]；权威：arXiv 预印本 + 竞赛团队供给 [35]；关注度：**低** [35]；推荐度：**★★★☆☆**，作为瓶颈定位的方向性证据 [35]。\n- **验证口径瓶颈**：[35] 的 sim-to-real 一致性结论建立在**单一平台（Robotino）、3 台机器人、单一物流场景**，且为**作者自评**，无第三方复现，无法推广为通用结论 [35]。热度：`> 待核实` [35]；权威：自评实验 [35]；关注度：**低** [35]；推荐度：**★★☆☆☆**，引用其结论时须限定口径 [35]。\n- **算法—工程鸿沟（结构性瓶颈）**：运动学理论文献 [14][15][18][20] 与工程实现文献 [13][19] 之间存在明显断层，缺乏统一的中间表征与工具链。热度：`> 待核实` [14][15][18][20]；权威：皆为 arXiv 预印本 [14][15][18][20]；关注度：**低**；推荐度：**★★★☆☆**。\n- **本维度无法判断拐点信号**：候选集内**无 ros2_control、MoveIt 2、Pinocchio、Drake、MuJoCo 的任何版本变更或性能对比证据**，也无 DDS 实现差异、实时性基准、评测榜单数据。> 待核实\n\n> **结论**：目前**无法确认存在拐点**；可观测的仅是一个**持续性瓶颈**（驱动/硬件接口供给）与一个**持续性缺口**（理论—工程桥接）。拐点的判定需要 ros2_control / MoveIt 2 的发布日志与第三方基准数据，候选中缺失。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量判断**：**本周期在本候选集内无显著变化**——没有任何监管、标准、地缘政治、供应链或伦理相关证据进入检索结果。\n\n- 候选集中唯一可勉强关联的是 [24] 的**加密控制**（encrypted control）主题，其动机涉及网络化系统的隐私与安全问题，可视为「控制的网络安全」这一政策相关方向上的**学术线索**，但该文为 2020 年综述性介绍，**不构成 2024-2026 周期的政策增量**。热度：`> 待核实` [24]；权威：arXiv:2010.00268v1 [24]；关注度：**低** [24]；推荐度：**★★★☆☆**（仅在控制安全议题上具参考性）[24]。\n- ROS 2 的治理结构（REP 流程、发行决策机制、TSC 等）在候选集内**无任何一手材料**（仅有 Wikipedia 条目 [10]）。> 待核实\n\n> **明确声明**：本维度因证据缺失，**不给出任何结论性判断**，亦不进行推测。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：**本周期在本候选集内无显著变化**——无融资、并购、人才流动或公司格局变动证据。\n\n- 可观测的生态结构信号**仅有一条**：ROS 2 生态在长尾硬件上呈现「**官方缺位 → 社区/竞赛团队补位**」的供给模式（GRIPS 团队为 Robotino 提供 ROS 2 硬件驱动）[35]。热度：`> 待核实` [35]；权威：非官方维护者 [35]；关注度：**低** [35]；推荐度：**★★☆☆☆**，作为生态治理结构的观察点，而非资本信号 [35]。\n- **开源项目的活跃度（stars / 最近提交 / 发布频率）在候选集中完全缺失**，因此无法对 ros2_control、MoveIt 2、Nav2、Pinocchio、Drake、MuJoCo 做任何维护活跃度对比。> 待核实\n\n### 6.1 开源项目表（候选集内可核实者）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| ROS 2（含 Rolling Ridley / Kilted Kaiju / Lyrical Luth 发行线） | 2020–2026 | 未在候选块中给出具体维护机构 | `> 待核实`（无下载量/引用数据）[10] | Wikipedia 条目，非官方发行文档/REP [10] | 中（版本号高频查询）[10] | ★★☆☆☆ | [10] | 双轨发行：年度命名版 + 滚动版；版本名与日期须官方复核 |\n| Nav2（ROS 2 Navigation Stack） | 候选块未给 | 候选块未给 | `> 待核实`（无 stars）[35] | 论文称其为既有 ROS 软件包集合；**候选块未提供官方文档/仓库链接** [35] | 低（仅被复用处提及）[35] | ★★★☆☆ | `> 待核实` | 被 [35] 直接复用为 Robotino 的定位与导航预配置 |\n| Robotino ROS 2 硬件驱动（GRIPS 团队） | 候选块未给 | RoboCup Logistics League 的 GRIPS 团队 | `> 待核实` [35] | 竞赛团队非官方维护 [35] | 低 [35] | ★★☆☆☆ | `> 待核实` | 长尾硬件 ROS 2 落地的驱动供给案例 |\n\n### 6.2 数据集与基准表\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| `> 待核实` | — | — | — | — | — | — | — | **候选集内未出现任何运动学/控制/ROS 2 数据集或基准（如 Open X-Embodiment、DROID、LIBERO、SimplerEnv、RoboArena 等均无证据）**；仿真与真机口径的基准证据完全缺失，无法进行跨方法可比性判断 |\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n**一句话增量判断**：本周期可用的**早期信号极稀疏**，以下预测均以「可被证伪的假设」形式给出，并显式标注置信度与不确定性。\n\n### 7.1 早期信号（Signal）\n\n- **S1｜发行节拍信号**：ROS 2 保持年度命名发行 + 滚动发行双轨，是生态持续投入的**弱正面信号**。[10]｜置信度：**中**（机制长期存在，属结构性事实；但本周期版本名/日期仅百科来源）。> 待核实\n- **S2｜长尾硬件驱动缺位信号**：非主流平台需靠竞赛团队补位硬件驱动 [35]，反映 ROS 2 在**教育/科研长尾硬件**上的覆盖仍不完整。置信度：**低–中**（单案例）。[35]\n- **S3｜理论—工程断层信号**：运动学理论文献（6R 闭链、POE/D-H、旋量不变量）与工程实现文献（DH+雅可比）在候选集中**无交叉引用证据**。[13][14][15][18][19][20]｜置信度：**低**（受候选集覆盖限制，可能因检索噪声导致的假断层）。\n\n### 7.2 可证伪假设（Prediction，`[P]`）\n\n- **[P] H1（ROS 2 控制栈活跃演进）**：若在 **2027-05 之前**，ROS 2 官方发行页确认除 Kilted Kaiju（2025-05-23）与 Lyrical Luth（2026-05-22）之外仍有新年度发行版落地，**且** ros2_control 或 MoveIt 2 出现记录在案的 breaking change 或 API 迁移指南，则「ROS 2 控制栈处于活跃演进期」成立；否则该判断被削弱。依据链：长期年度发行机制 [10] → 推断控制栈随之演进 → 结论。**置信度：中**。> 待核实（当前版本名与日期均未获官方来源确认 [10]）\n- **[P] H2（瓶颈在驱动层而非算法层）**：若未来 12 个月内出现 **≥3 个非主流/长尾平台的官方 ROS 2 驱动发布**（由平台厂商而非第三方团队维护），则 H2 被削弱；若仍以第三方/竞赛团队供给为主，则 H2 成立。依据链：[35] 显示的「厂商缺位 + 社区补位」模式 → 推断该模式具一般性 → 结论。**置信度：低–中**（仅单案例支撑 [35]）。\n- **[P] H3（sim-to-real 一致性结论不可泛化）**：若在 2027-10 前出现**跨平台、第三方复现**的 ROS 2 + Nav2 sim-to-real 一致性评测，且结论与 [35] 的「高度一致」相符，则 H3 被削弱；若第三方复现显示显著性能落差（reality gap），则 H3 成立。依据链：[35] 为单平台 3 台机器人自评 [35] → 推断验证口径不足 → 结论。**置信度：中**。\n- **[P] H4（理论—工程桥接缺口将被填补或持续）**：若到 2027-10 前出现把 6R 闭链可动性条件 [14][18] 或 POE↔D-H 转换 [15] 直接落地为 ROS 2 可用开源工具的工作，则「缺口正在收敛」成立；若无，则缺口持续。依据链：理论与工程文献在候选集中无交叉引用 [13][14][15][18][19][20] → 推断断层 → 结论。**置信度：低**（受候选集覆盖度限制，此断层可能是检索假象）。\n\n### 7.3 明确的不确定性\n\n- 本报告**无法对「是否出现新算法或 SOTA 变动」给出任何判断**，因候选集内不存在 cs.RO 控制算法论文或任何榜单数据。[1][2][11] 等候选条目与主题无关。\n- 所有预测的**前提证据均未达 A 级或 B 级中的官方一手标准**，最强者仅为 arXiv 预印本 [16][35] 与 Wikipedia [10]。**本报告不构成技术选型决策依据。**\n\n---\n\n## 参考来源\n\n> 仅列出本报告实际引用的编号；[1]–[9]、[11]、[21]、[23]、[25]–[33] 经核查与本主题无关（语音隐私、图像超分、天体物理、医学影像、足球训练综述、已撤稿论文等），故未引用。\n\n- [10] Robot Operating System - Wikipedia — https://en.wikipedia.org/wiki/Robot_Operating_System\n- [12] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1\n- [13] Robot Manipulator Control with Inverse Kinematics PD-Pseudoinverse Jacobian and Forward Kinematics Denavit Hartenberg — http://arxiv.org/abs/2103.10461v2\n- [14] A Technique for Deriving Equational Conditions on the Denavit-Hartenberg Parameters of 6R Linkages that are Necessary for Movability — http://arxiv.org/abs/1402.5761v3\n- [15] Geometric interpretation of the general POE model for a serial-link robot via conversion into D-H parameterization — http://arxiv.org/abs/1902.00198v2\n- [16] Kinematic Analysis and Integration of Vision Algorithms for a Mobile Manipulator Employed Inside a Self-Driving Laboratory — http://arxiv.org/abs/2510.19081v1\n- [17] Kinematics and Dynamics Modeling of 7 Degrees of Freedom Human Lower Limb Using Dual Quaternions Algebra — http://arxiv.org/abs/2302.11605v3\n- [18] The Theory of Bonds II: Closed 6R Linkages with Maximal Genus — http://arxiv.org/abs/1309.6558v1\n- [19] Development of Direct Kinematics and Workspace Representation for Smokie Robot Manipulator & the Barret WAM — http://arxiv.org/abs/1707.04820v2\n- [20] Polynomial Invariants and SAGBI Bases for Multi-screws — http://arxiv.org/abs/2001.05417v2\n- [22] Model Predictive Impedance Control with Gaussian Processes for Human and Environment Interaction — http://arxiv.org/abs/2208.07035v2\n- [24] Encrypted control for networked systems -- An illustrative introduction and current challenges — http://arxiv.org/abs/2010.00268v1\n- [34] A Simple Observer for Gyro and Accelerometer Biases in Land Navigation Systems — http://arxiv.org/abs/1501.06618v1\n- [35] A ROS~2-based Navigation and Simulation Stack for the Robotino — http://arxiv.org/abs/2411.09441v1\n\n---\n\n*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=35 · duration=152s · 2026-10-11T22:12:50+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge",
+      "url": "http://arxiv.org/abs/2406.10598v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-06-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024",
+      "url": "http://arxiv.org/abs/2407.12038v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation",
+      "url": "http://arxiv.org/abs/2409.02649v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-09-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Overview of the 2024 ALTA Shared Task: Detect Automatic AI-Generated Sentences for Human-AI Hybrid Articles",
+      "url": "http://arxiv.org/abs/2412.17848v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-12-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "NTIRE 2024 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2404.09790v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-04-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Robot Operating System - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Robot_Operating_System",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Robot Manipulator Control with Inverse Kinematics PD-Pseudoinverse Jacobian and Forward Kinematics Denavit Hartenberg",
+      "url": "http://arxiv.org/abs/2103.10461v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-03-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "A Technique for Deriving Equational Conditions on the Denavit-Hartenberg Parameters of 6R Linkages that are Necessary for Movability",
+      "url": "http://arxiv.org/abs/1402.5761v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2014-02-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Geometric interpretation of the general POE model for a serial-link robot via conversion into D-H parameterization",
+      "url": "http://arxiv.org/abs/1902.00198v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-02-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Kinematic Analysis and Integration of Vision Algorithms for a Mobile Manipulator Employed Inside a Self-Driving Laboratory",
+      "url": "http://arxiv.org/abs/2510.19081v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-10-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Kinematics and Dynamics Modeling of 7 Degrees of Freedom Human Lower Limb Using Dual Quaternions Algebra",
+      "url": "http://arxiv.org/abs/2302.11605v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-02-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "The Theory of Bonds II: Closed 6R Linkages with Maximal Genus",
+      "url": "http://arxiv.org/abs/1309.6558v1",
+      "kind": "paper",
+      "venue": "math.AG",
+      "published": "2013-09-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Development of Direct Kinematics and Workspace Representation for Smokie Robot Manipulator & the Barret WAM",
+      "url": "http://arxiv.org/abs/1707.04820v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2017-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Polynomial Invariants and SAGBI Bases for Multi-screws",
+      "url": "http://arxiv.org/abs/2001.05417v2",
+      "kind": "paper",
+      "venue": "math.AG",
+      "published": "2020-01-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "This paper has been withdrawn",
+      "url": "http://arxiv.org/abs/cond-mat/0309395v2",
+      "kind": "paper",
+      "venue": "cond-mat.soft",
+      "published": "2003-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Model Predictive Impedance Control with Gaussian Processes for Human and Environment Interaction",
+      "url": "http://arxiv.org/abs/2208.07035v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-08-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "足球运动员运动表现提升的科学训练路径与效果：综述研究",
+      "url": "https://doi.org/10.54254/3029-0740/2025.30077",
+      "kind": "paper",
+      "venue": "学知 Xue Zhi",
+      "published": "2025-12-02",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Encrypted control for networked systems -- An illustrative introduction and current challenges",
+      "url": "http://arxiv.org/abs/2010.00268v1",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2020-10-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "The AudioMOS Challenge 2025",
+      "url": "http://arxiv.org/abs/2509.01336v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "TDCOSMO 2025: Cosmological constraints from strong lensing time delays",
+      "url": "http://arxiv.org/abs/2506.03023v4",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+      "url": "http://arxiv.org/abs/2509.11402v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection",
+      "url": "http://arxiv.org/abs/2509.19861v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+      "url": "http://arxiv.org/abs/2508.18904v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Automated Classification of Normal and Atypical Mitotic Figures Using ConvNeXt V2: MIDOG 2025 Track 2",
+      "url": "http://arxiv.org/abs/2508.18831v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "A Simple Observer for Gyro and Accelerometer Biases in Land Navigation Systems",
+      "url": "http://arxiv.org/abs/1501.06618v1",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2015-01-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "A ROS~2-based Navigation and Simulation Stack for the Robotino",
+      "url": "http://arxiv.org/abs/2411.09441v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-11-14",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-11-机器人运动学控制与-ros-2.md",
+    "json": "report/2026/10/2026-10-11-机器人运动学控制与-ros-2.json"
+  }
+}
