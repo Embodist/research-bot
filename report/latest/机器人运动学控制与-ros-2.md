@@ -1,202 +1,246 @@
 # 机器人运动学、控制与 ROS 2：2024–2026 增量调研报告
 
-**元信息**｜日期：2026-10-12（UTC）｜领域：机器人运动学（kinematics）、控制（control）、ROS 2 生态｜可引用来源：34 条（[1]–[34]）｜子问题抽取结果：3 组（q1–q3）｜增量窗口：2024-01 – 2026-10
-
-> **证据基线说明（必读）**：本轮回收的 34 条可引用来源中，存在**严重主题漂移**——q1 的候选块全部与运动学/控制/ROS 2 无关（HRI 信任工作坊 [2]、短视频热度预测 [3]、强引力透镜宇宙学 [4]、虫媒传染病 SIS 模型 [5]）；q3 同样只召回车联网边缘计算 [24] 与 NLP/多智能体竞赛 [28][29]。真正命中本主题的来源集中在 [1][7][8][9][10][11][12][13][14][15][16][17][19][22][23][31][34] 约 17 条。**因此本报告对"产业、资本、政策"等维度只能给出"证据为零"的判定，而非趋势结论**；所有无法核实的数字一律标注 `> 待核实`，不做推断性填充。
+**日期**：2026-10-13（UTC）
+**领域**：机器人运动学 / 全身控制（WBC）/ 接触密集操作 / Sim-to-Real / ROS 2 生态
+**检索源数量**：候选来源 32 条（[1]–[32]），其中与本主题**直接相关**约 18 条；**ROS 2 运动规划/控制/仿真栈**与 **LIBERO/DROID/SimplerEnv/RoboArena 等基准**在本次证据池中**近乎零覆盖**
+**证据基础声明**：本报告仅基于 [1]–[32] 可核查条目撰写。证据池存在明显偏斜——条目高度集中于**人形全身控制与接触密集操作的 arXiv cs.RO 预印本**，而 ROS 2 生态、产业融资、政策法规、数据集榜单四类信息几乎缺失。凡证据不足处一律标注 `> 待核实`，并**不给出无来源的 URL、引用数或 star 数**。候选池中 [1][10][13][14][16][17][18][20][21][32] 经核对与本主题无关（短视频参与度预测、语音隐私、图像超分、宇宙学、词典条目等），仅作噪声登记，不参与论证；[15] 为 RO-MAN 2025 信任主题 workshop 论文，相关性弱，仅在社会维度谨慎引用。
 
 ---
 
 ## 1. 进展与热点（Progress & Hotspots）
 
-**增量判断**：相对 2024 年之前的基线，本批可核证据显示三处真实增量——① **人形全身控制从"平衡/行走"扩展到高动态任务**（羽毛球），并以强化学习课程退火实现 [9]；② **运动规划从"算法提出"转向"评测口径设计"**（基准化）[13][15]；③ **确定性实时性从理论模型进入可测量的工程指标**（LET 模型 [34]、DDS 分段延迟测试 [31]）。**未观察到任何 SOTA 榜单刷新类证据**（无 leaderboard 字段），故"最新 SOTA"在本报告中不可断言。
+**一句话增量判断**：相对经典「任务空间 IK + 分层二次规划 WBC + MPC/WBC 两段式」范式，2024–2026 的增量并不在运动学求解器本身，而在**三条迁移线**：①人形机器人从 locomotion 转向**全身操作与动态交互**（羽毛球、遥操作、无机器人示教）；②控制范式从「结构化模型控制」转向「**RL 策略 + 课程/随机化**」；③sim-to-real 的焦点从域随机化转向「**接触表征与在线合规残差学习**」。运动学/IK 层面的新算法证据在本批材料中**缺失**。
 
-### 1.1 最新进展（近 1–2 年，2024-2026）
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|---|---|---|---|---|---|---|---|---|
-| Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum [9] | 2025 | > 待核实 | > 待核实（候选块无 citations=） | arXiv 预印本（cs.RO），未标注同行评审 venue | 低 —— 无引用/star/榜单信号，> 待核实 | ★★★★☆ —— 直接命中"人形全身控制 + 高动态任务"前沿，是本批最贴近控制 SOTA 的一条 | http://arxiv.org/abs/2511.11218v4 | 用退火式 RL 课程实现人形全身羽毛球，属"任务难度—策略稳定性"折中路线 |
-| The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control [10] | 2024 | > 待核实 | > 待核实 | arXiv 预印本（cs.RO） | 低 —— 无热度字段，> 待核实 | ★★★★☆ —— 把 domain randomization 与 diffusion policy 组合用于全身控制，是"数据/随机化归因"问题的直接入口 | http://arxiv.org/abs/2411.01349v1 | 研究域随机化在扩散策略训练中的作用（归因于数据而非架构） |
-| System Identification for Virtual Sensor-Based MPC: 2-DoF Direct-Drive Robotic Arm [7] | 2025 | > 待核实 | > 待核实 | arXiv 预印本（eess.SY/cs.RO 类），未标注 venue | 低 —— 无热度信号 | ★★★★☆ —— 用虚拟传感器做系统辨识以支撑 MPC，是"模型精度瓶颈"的工程级解法 | http://arxiv.org/abs/2505.23138v2 | 面向 2-DoF 直驱机械臂，把 MPC 对模型的依赖转化为可辨识问题 |
-| Feedback Optimization with State Constraints through Control Barrier Functions [8] | 2025 | > 待核实 | > 待核实 | arXiv 预印本 | 低 —— 无热度信号 | ★★★☆☆ —— CBF 用作状态约束下的安全滤波，代表"控制+约束满足"合流方向 | http://arxiv.org/abs/2504.00813v3 | 反馈优化与 CBF 结合，处理状态约束 |
-| Direct Kinematics, Inverse Kinematics, and Motion Planning of 1-DoF Rational Linkages [17] / 期刊版 [23] | 2024 / 2025 | > 待核实 | 期刊版 citations=6（候选块标注）[23]；arXiv 版 > 待核实 [17] | 期刊版：Mechanism and Machine Theory（Elsevier，同行评审）[23]；arXiv 版未标注 venue [17] | 低 —— 2025-10 新发表，引用数仅 6 [23] | ★★★☆☆ —— 正/逆运动学与运动规划统一解析处理，权威性可核实，但对象是特定 1-DoF 连杆机构 | [17] http://arxiv.org/abs/2409.01198v2 ；[23] https://doi.org/10.1016/j.mechmachtheory.2025.106074 | **跨版本交叉验证**：同一工作先出 arXiv [17] 后出期刊版 [23]，是本批唯一可做"预印本→期刊"校验的条目 |
-| Optimizing Logical Execution Time Model for Both Determinism and Low Latency [34] | 2024 | > 待核实 | > 待核实 | RTAS 2024（IEEE 实时与嵌入式技术会议，同行评审） | 中 —— 属实时系统顶会，同行评审为权威信号；具体引用数 > 待核实 | ★★★★☆ —— 同时优化确定性与低延迟（LET 模型），是"实时性拐点"的机制级证据 | https://doi.org/10.1109/rtas61025.2024.00019 | 把 LET（Logical Execution Time）从牺牲延迟换成可同时兼顾 |
-| Research on Segmented Latency Testing Method for in-Vehicle Real-Time Systems Based on DDS Middleware [31] | 2025 | > 待核实 | > 待核实 | SAE 技术论文（doi:10.4271/2025-01-8083），标准组织出版物 | 中 —— SAE 体系具备行业标准影响力；引用数 > 待核实 | ★★★★★ —— **本批唯一直接以 DDS 中间件延迟为题**的来源，对"ROS 2 QoS/DDS 确定性"议题不可替代 | https://doi.org/10.4271/2025-01-8083 | 分段式延迟测试方法，车载场景，但机制层可迁移至 ROS 2 的 DDS 层讨论 |
-| The Open Ant: A Robot Platform for Reinforcement Learning Research [11] | 2026 | > 待核实 | > 待核实 | arXiv 预印本 | 低 —— 2026-07 新出，无热度信号 | ★★★☆☆ —— 提供 RL 研究用机器人平台，是"可复现硬件基线"的线索 | http://arxiv.org/abs/2607.18488v1 | 面向 RL 研究的开源式平台描述 |
-| Evaluating Guiding Spaces for Motion Planning [13] | 2022（基线外但被本轮召回，说明评测议题延续） | > 待核实 | > 待核实 | arXiv 预印本（cs.RO），未标注录用信息 | 低 —— 无引用数/榜单信号，> 待核实 | ★★★☆☆ —— 讨论"如何评测采样启发式"，是评测口径设计的方法参考 | http://arxiv.org/abs/2210.08640v1 | 指出多数采样规划器已非均匀采样，而用启发式偏置 |
-
-### 1.2 经典与奠基性工作（基线，2024 年之前）
+### 1.1 最新进展（2024–2026）
 
 | 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
 |---|---|---|---|---|---|---|---|---|
-| Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics [1] | 2014（arXiv v3） | > 待核实 | > 待核实 | arXiv 预印本，候选块未标注同行评审 venue，> 待核实 | 低 —— 本批未提供引用数，> 待核实 | ★★★★☆ —— "运动学 + 动力学双重不确定性自适应"是控制领域的经典问题设定，理解后续工作的必要底座 | http://arxiv.org/abs/1403.5204v3 | 把运动学不确定性纳入自适应控制，而非假定 Jacobian 精确已知 |
-| Motion planning in high-dimensional spaces [16] | 2018 | > 待核实 | > 待核实 | arXiv 预印本（综述性质） | 低 —— 无热度字段，> 待核实 | ★★★☆☆ —— 高维运动规划的全景梳理，作为术语与分类骨架仍可用 | http://arxiv.org/abs/1806.07457v2 | 高维空间中规划方法的综述性材料 |
-| Predicted Composite Signed-Distance Fields for Real-Time Motion Planning in Dynamic Environments [19] | 2020 | > 待核实 | > 待核实 | arXiv 预印本 | 低 —— 无热度字段，> 待核实 | ★★★☆☆ —— "实时 + 动态环境"规划的代表性思路，与 §4 实时性瓶颈呼应 | http://arxiv.org/abs/2008.00969v2 | 用预测式复合 SDF 支撑动态环境实时规划 |
-| One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay [12] | 2017 | > 待核实 | > 待核实 | arXiv 预印本 | 低 —— 无热度字段，> 待核实 | ★★☆☆☆ —— 导航 RL 的早期样本效率路线，与 ROS 2 栈关联弱 | http://arxiv.org/abs/1711.10137v2 | 交互式回放实现单次学习 |
-| Data-Efficient Learning of High-Quality Controls for Kinodynamic Planning used in Vehicular Navigation [14] | 2022 | > 待核实 | > 待核实 | arXiv 预印本 | 低 —— 无热度字段，> 待核实 | ★★★☆☆ —— 运动动力学规划（kinodynamic planning）中的控制质量学习，与运动学/控制交叉主题相关 | http://arxiv.org/abs/2201.02254v1 | 面向车辆导航的运动动力学规划控制学习 |
-| Quantum control theory and applications: A survey [6] | 2009 | > 待核实 | > 待核实 | arXiv 预印本（综述） | 低 —— 无热度字段，> 待核实 | ★☆☆☆☆ —— **边界项**：控制理论综述，但对象是量子系统，不属机器人控制，仅作概念边界说明 | http://arxiv.org/abs/0910.2350v3 | 控制理论另一分支，不应混入机器人控制脉络 |
-| The Relativistic Elasticity of Rigid Bodies [21] | 2003 | > 待核实 | > 待核实 | arXiv 预印本（physics） | 低 —— 无热度字段 | ★☆☆☆☆ —— **噪声项，建议剔除**；与机器人运动学无实质关联（"rigid bodies"为词面误召回） | http://arxiv.org/abs/physics/0307019v3 | 相对论弹性力学，非机器人刚体动力学 |
+| Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum | 2025 | cs.RO 预印本（作者信息未在候选块展开） | `> 待核实`（候选块无 citations/stars） | arXiv 预印本，非同行评审 [3] | 中——全身动态交互属于人形控制当前高讨论方向，但缺量化热度信号 | ★★★★☆ 全身动态物体交互的代表性尝试，值得读方法而非读数字 | http://arxiv.org/abs/2511.11218v4 | 用退火 RL 课程产出统一全身策略，面向快速运动物体交互 [3] |
+| CHILD: Controller for Humanoid Imitation and Live Demonstration | 2025 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [4] | 中——现有工作少支持人形**关节级全身遥操作**，填补空白 | ★★★★☆ 全身关节级遥操作数据采集的关键基础设施候选 | http://arxiv.org/abs/2508.00162v2 | 指出现有遥操作很少支持人形全身关节级操作，限制任务多样性 [4] |
+| Humanoid Manipulation Interface（无机器人示教的人形全身操作） | 2026 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [5] | 高（相对基线：把「机器人本体」从数据采集回路中拿掉，直击硬件物流瓶颈） | ★★★★☆ 若成立可大幅降低人形操作数据采集成本，但需真机复现验证 | http://arxiv.org/abs/2602.06643v2 | 现有路线依赖遥操作或视觉 sim-to-real RL，受硬件物流与奖励工程拖累，已演示技能有限 [5] |
+| Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum | 2026 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [7] | 中——"脑–小脑"分层与可泛化动作层是分层架构的新表述 | ★★★☆☆ 分层命名新颖，需看是否与经典分层 WBC 有本质差异 | http://arxiv.org/abs/2605.21133v2 | 全身操作的分层架构路线 [7] |
+| Real-Time Whole-Body Control of Legged Robots with Model-Predictive Path Integral Control | 2024 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [8] | 中——采样型 MPC 用于实时 WBC，属对经典 MPC/WBC 两段式的直接替代尝试 | ★★★★☆ 与经典优化式 WBC 的对比价值高，建议精读其实时性论证 [8] | http://arxiv.org/abs/2409.10469v1 | 以模型预测路径积分（MPPI）实现腿式机器人实时全身控制 [8] |
+| Learning Humanoid Standing-up Control across Diverse Postures | 2025 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [9] | 中——"多样姿态起立"连接 locomotion 与全身操作的能力边界 | ★★★☆☆ 单一技能但覆盖姿态多样性，可作 WBC 鲁棒性参照 [9] | http://arxiv.org/abs/2502.08378v2 | 跨多样姿态的学习式起立控制 [9] |
+| Learning Getting-Up Policies for Real-World Humanoid Robots | 2025 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [23] | 中——面向真机的起身策略，与 [9] 构成同一问题簇 | ★★★☆☆ 与 [9] 交叉对读可判断「真机 vs 仿真」口径差异 [23] | http://arxiv.org/abs/2502.12152v2 | 真机人形起身策略学习 [23] |
+| Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids | 2025 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [25] | 中高——直指"真机 RL 从零训练/适配仍罕见"这一缺口 | ★★★★☆ 若可复现，是真机持续学习的关键增量 [25] | http://arxiv.org/abs/2508.12252v2 | 基于仿真的 RL 已推进人形 locomotion，但真机直接 RL 或从预训练策略适配仍少见 [25] |
+| TDC: Sim-to-Real Transferable Directional Compliance for Contact-Rich Manipulation | 2026 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [28] | 中——"方向性合规（directional compliance）"是可迁移表征的新提法 | ★★★★☆ 与 [29] 的在线导纳残差学习形成演进对照 | http://arxiv.org/abs/2602.14174v2 | 面向接触密集操作的可迁移方向性合规 [28] |
+| SARI: Phase-Split Sim-Real Co-Training for Contact-Rich Manipulation | 2026 | cs.RO 预印本 | `> 待核实`（2026-10 新近上线） | arXiv 预印本，**最新周期条目** [30] | 中——"分阶段 sim-real 协同训练"是 sim-to-real 流程层的新方案 | ★★★★☆ 属本周期最新信号，建议跟踪第三方复现 | http://arxiv.org/abs/2610.02804v1 | 阶段切分的仿真–真机协同训练 [30] |
+| Beyond Binary: Sim-to-Real Dexterous Manipulation with Physics-Grounded Contact Representation | 2026 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [27] | 高——指出二值化接触表征是触觉模态无法 sim-to-real 的根因 | ★★★★☆ 接触表征问题是接触密集操作的核心痛点，方法层面值得精读 | http://arxiv.org/abs/2605.28812v1 | 现有 sim-to-real 方法因仿真–现实差距，无法有效利用触觉这类信息密集模态 [27] |
+| Certifiably Safe Manipulation of Deformable Linear Objects via Joint Shape and Tension Prediction | 2025 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [26] | 中——「可证明安全 + 形状/张力联合预测」在 DLO 操作中较少见 | ★★★★☆ 安全性与接触约束联合建模，属尚未拥挤的方向 | http://arxiv.org/abs/2505.13889v1 | 多数现有模型只预测形状、忽略接触与张力约束，可能损伤物体和工具 [26] |
+| The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control | 2024 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [2] | 中——对"域随机化到底贡献多少"的消融式追问 | ★★★☆☆ 适合作为 sim-to-real 归因分析的基线 [2] | http://arxiv.org/abs/2411.01349v1 | 域随机化在全身人形扩散策略训练中的作用分析 [2] |
 
-> **待核实**：本批来源均未提供 GitHub star、下载量或基准榜单排名字段，因此上表"热度/关注度"列大量为 `> 待核实`，**不得据此判断某工作"高影响力"**。
+**注**：上表所有「热度」列在本批证据中**均无 citations 或 star 数据**，一律标注 `> 待核实`；这是证据池的结构性缺口，不代表这些工作影响力低。
+
+### 1.2 经典与奠基性工作（作为「相对基线」的参照）
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| Whole-Body Geometric Retargeting for Humanoid Robots | 2019 | cs.RO 预印本（作者未在候选块展开） | `> 待核实` | arXiv 预印本 [6] | 中——人形全身"几何重定向"的思路在 2025–2026 遥操作工作中仍被沿用（见 [4]） | ★★★★☆ 理解 [4][5] 的前置经典读本 | http://arxiv.org/abs/1909.10080v1 | 全身几何重定向方法 [6] |
+| Balance control in whole body coordination framework for biped humanoid robot MAHRU-R | 2008 | IEEE RO-MAN 2008（DOI 指向会议论文） | `> 待核实` | 同行评审会议论文（RO-MAN 2008），证据等级 A [11] | 低——年代久远，属历史脉络 | ★★☆☆☆ 仅作"全身协调框架"历史锚点，非当前工程首选 [11] | https://doi.org/10.1109/roman.2008.4600699 | 双足人形 MAHRU-R 的全身协调平衡控制 [11] |
+| Learning Contact-Rich Manipulation Skills with Guided Policy Search | 2015 | cs.RO 预印本（Levine 等，作者信息见原论文） | `> 待核实` | arXiv 预印本，该方向被广泛引用的早期工作 [31] | 中——接触密集操作的"经典起点" | ★★★★☆ 理解从 GPS → 在线导纳残差 [29] → 方向性合规 [28] → 协同训练 [30] 演进的起点 | http://arxiv.org/abs/1501.05611v2 | 引导式策略搜索学习接触密集操作技能 [31] |
+| Efficient Sim-to-real Transfer of Contact-Rich Manipulation Skills with Online Admittance Residual Learning | 2023 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [29] | 中——在线导纳残差是 [28][30] 的直接前作 | ★★★★☆ 接触密集 sim-to-real 的承上启下节点 | http://arxiv.org/abs/2310.10509v1 | 用在线导纳残差学习实现高效的 sim-to-real 迁移 [29] |
+| Optimization of Humanoid Robot Designs for Human-Robot Ergonomic Payload Lifting | 2022 | cs.RO 预印本 | `> 待核实` | arXiv 预印本 [24] | 低——机械设计优化，属邻近分支 | ★★☆☆☆ 与"控制/运动学"主题交叉但不直接 | http://arxiv.org/abs/2211.13503v1 | 面向人机工效学负载搬运的人形设计优化 [24] |
+
+**脉络叙事（承上启下）**：接触密集操作线可读作 **GPS（2015）[31] → 在线导纳残差（2023）[29] → 方向性合规 TDC（2026）[28] 与 阶段切分协同训练 SARI（2026）[30]**；人形全身线可读作 **几何重定向（2019）[6] → 关节级全身遥操作 CHILD（2025）[4] → 无机器人示教 HuMI（2026）[5]**。**但需强调**：本批证据**未能提供任何引用数或第三方复现**，上述脉络是基于方法问题的相似性推断，属**编辑性梳理而非引文链证据**，`> 待核实`。
 
 ---
 
 ## 2. 工业界与产品（Industry & Product）
 
-**增量判断**：本周期在该维度**证据近乎为零**——34 条来源中没有一条是厂商产品公告、官方发布说明或量产/真机部署报告。唯一可勉强归入"工程栈落地"的是 [22]（ROS 2 + MoveIt 2 的机械臂开发与运动规划库分析）与 [31]（车载 DDS 延迟测试，SAE 标准组织出版物）。因此本维度的正确结论是**"无法评估"，而非"无进展"**。
+**一句话增量判断**：本批证据中**工业界一手材料近乎为零**；可确认的产业侧增量只有一项——**ALOHA 2 开源全部硬件设计并提供经系统辨识的 MuJoCo 模型**[19]；ROS 2 侧仅检索到一篇**零引用**的架构综述类期刊论文 [22]，无法支撑"事实标准"判断。
 
-### 2.1 开源项目 / 工程栈
+### 2.1 开源项目（可确认者）
 
 | 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
 |---|---|---|---|---|---|---|---|---|
-| Manipulator Robot Development and Analysis of Motion Planning Libraries Through ROS2 and MoveIt2 [22] | > 待核实（SSRN DOI 编号 5251139，年份未在本批标注） | > 待核实 | > 待核实（无 star/citations） | SSRN 预印本平台（doi:10.2139/ssrn.5251139），**非同行评审**，权威等级偏低 | 低 —— SSRN 预印本且无任何热度信号 | ★★★☆☆ —— **本批唯一明确出现 ROS2 + MoveIt2 字样的来源**，对"ROS 2 生态工程实践"维度不可替代，但需以官方文档交叉验证 | https://doi.org/10.2139/ssrn.5251139 | 对机械臂开发与运动规划库（MoveIt 2）做分析与对比 |
-| The Open Ant: A Robot Platform for Reinforcement Learning Research [11] | 2026 | > 待核实 | > 待核实 | arXiv 预印本 | 低 —— 新出且无热度信号 | ★★★☆☆ —— 平台类工作，可能带来可复现硬件与代码线索，但本批未确认是否开源权重/代码 | http://arxiv.org/abs/2607.18488v1 | RL 研究用机器人平台，工程可复现性 > 待核实 |
-| Research on Segmented Latency Testing Method for in-Vehicle Real-Time Systems Based on DDS Middleware [31] | 2025 | > 待核实 | > 待核实 | SAE 技术论文（标准组织出版物） | 中 —— SAE 体系具备行业标准影响力 | ★★★★★ —— 唯一以 DDS 中间件延迟为题，是 ROS 2 DDS 层工程测量的最近邻证据 | https://doi.org/10.4271/2025-01-8083 | 分段延迟测试方法，车载实时系统 |
+| ALOHA 2 开源硬件与 MuJoCo 模型 | 2024 | ALOHA 2 Team 等 26 位作者（含 Chelsea Finn、Tony Z. Zhao），arXiv cs.RO，2024-02-07 提交 | `> 待核实`（候选块未给 star / 引用数） | 官方项目论文（arXiv 预印本），证据等级 B [19] | 中——被候选块描述为双臂遥操作硬件的事实参考设计之一，但**无量化信号**支撑 | ★★★★☆ 开源硬件 + 系统辨识 MuJoCo 模型，对**可复现性**有直接价值；但**与 ROS 2 栈的对接方式在证据中未体现** | http://arxiv.org/abs/2405.02292v1 | 开源全部硬件设计与详细教程，并给出经系统辨识的 ALOHA 2 MuJoCo 模型，目标是降低双臂操作数据采集的硬件成本与复现门槛 [19] |
 
-### 2.2 边界与噪声条目（不纳入结论）
+### 2.2 ROS 2 侧产业/工程证据
 
-- [32] Edge Computing in Telecommunication: Reducing Latency for Real-Time Services 与 [33] Latency Revolution: How Edge Data Centers are Reshaping Real-Time Computing 均为 SSRN 平台的边缘计算时延材料（doi:10.2139/ssrn.6081611 / 10.2139/ssrn.5733985），**权威等级低（非同行评审，疑似白皮书/营销文本）**，与机器人控制栈无直接关系，仅可作"低延迟叙事在 IT 侧升温"的旁证。热度/关注度：`> 待核实`。
-- [25] Real time state monitoring and fault diagnosis system for motor based on LabVIEW（arXiv:1806.09998v1，2018）：属电机状态监测/故障诊断，与"控制"仅词面相邻。热度 `> 待核实`，推荐度 ★☆☆☆☆。
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| ROS 2: Architecture and Practical Implementation Features | 2025 | 期刊论文（Taurida National V.I. Vernadsky University, Series: Technical Sciences），2025-01-01 | **citations=0**（候选块标注） | 非机器人主流会议/期刊；证据等级 C [22] | 低——引用数为 0，候选块无社区讨论或榜单信号 | ★☆☆☆☆ 未涉及运动规划/控制/仿真标准，作为"事实标准"证据价值低，仅作线索 | https://doi.org/10.32782/2663-5941/2025.3.2/22 | 仅讨论 ROS 2 架构与实现特征，摘要/片段未提运动规划、控制或仿真框架及其标准地位 [22] |
 
-> **待核实**：Nav2、ros2_control、MoveIt 2、Gazebo/Isaac 的版本演进、维护活跃度、star 数，在本批 34 条来源中**完全缺失**，本报告不做任何版本号或活跃度断言。
+**明确的缺口陈述**：
+- **MoveIt 2、ros2_control、Nav2、Gazebo / Isaac Sim 等工程事实标准**——本批候选证据中**没有任何一条**提供其版本演进、采用度或官方文档证据 [22]，因此"已成为工程事实标准"这一论断在本次材料中**无法成立** `> 待核实`。
+- **厂商产品发布、量产、真机部署规模、商业化数据**——本批证据**零覆盖** `> 待核实`。
+- 唯一可提及的产业邻近信号是 **Robot Trains Robot**[25]：它把"真机 RL 从零训练或从预训练策略适配仍属罕见"点名为限制人形机器人潜力释放的瓶颈，隐含的是**部署后持续学习**的产品化需求，但该文是 arXiv 预印本，**非厂商官方公告** [25] `> 待核实`。
 
 ---
 
 ## 3. 蓝海与缺口（Blue Ocean & Gaps）
 
-**增量判断**：本维度的增量不是"发现了新缺口"，而是**用可核查方式确认了若干关键缺口在文献层真的没有被本轮召回覆盖**——这本身就是高价值信息：说明这些方向要么证据分散在非 arXiv 渠道（官方文档、GitHub、标准文档），要么相关研究确实稀少。
+**一句话增量判断**：本批证据暴露出的最大蓝海不在"再做一个全身控制策略"，而在**两处无人区**：①**ROS 2 工程栈与具身基础模型/基准之间的接口层与标准**（证据池完全空白）；②**接触约束下的可证明安全 + 多物理量联合预测**（如 DLO 的形状与张力联合建模 [26]）。
 
-### 3.1 数据集与基准
+### 3.1 未解问题与无人区
+
+| 缺口 | 现状证据 | 缺口性质 | 关注度 | 推荐度 |
+|---|---|---|---|---|
+| ROS 2 与具身基础模型/数据集基准的**集成与接口标准** | 候选证据未覆盖任何 ROS 2 运动规划、控制或仿真项目，也未出现任何基准名称 [22] | **生态级空白**（无人区） | 高（若无人做即意味着高杠杆） | ★★★★★ 谁先定义"ROS 2 ↔ VLA/基准"的接口层，谁占生态位 |
+| **可证明安全**的接触密集操作（形状 + 张力**联合**预测） | 现有模型多数只预测形状，忽略接触与张力约束，可能损伤物体与工具 [26] | **方法级空白** | 中 | ★★★★☆ 安全约束与多物理量联合建模尚未拥挤 [26] |
+| 人形**全身操作**的真机长时序自主技能 | 现有路线受硬件物流与复杂奖励工程阻碍，已演示的自主技能仍有限且受限 [5] | **验证级空白**（演示多、验证少） | 高 | ★★★★☆ 从"能演"到"能长期用"是最大落差 [5] |
+| 触觉等**信息密集模态**在 sim-to-real 中的可用性 | 仿真–现实差距使触觉无法被有效使用；现有方法多依赖二值化接触表征 [27] | **表征级空白** | 中高 | ★★★★☆ 接触表征是接触密集操作的核心卡点 [27] |
+| **真机强化学习**（从零或从预训练策略适配） | 基于仿真的 RL 大幅推进 locomotion，但真机 RL 仍罕见 [25] | **流程级空白** | 中高 | ★★★★☆ 若复现成立，将改变数据采集经济学 [25] |
+| **评测口径不一致** | 本批证据无法给出任何统一基准的任务数/成功率口径 `> 待核实` | **评测基础设施空白** | 高 | ★★★★☆ 无统一口径则跨论文数字不可比 |
+
+### 3.2 数据集与基准
+
+> **重要声明**：本批 32 条候选证据中，**未出现 LIBERO、DROID、SimplerEnv、RoboArena 或任何同类具身智能基准的名称与指标**，因此下表第二块全部列项**无法评估**，不做任何数字或链接性推断。
 
 | 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
 |---|---|---|---|---|---|---|---|---|
-| Local Planner Bench: Benchmarking for Local Motion Planning [15] | 2022 | > 待核实 | > 待核实（无 star/citations 字段） | arXiv 预印本（cs.RO），是否已正式发表 > 待核实 | 低 —— 无榜单排名/引用信号 | ★★★★☆ —— **本批唯一的运动规划专用基准**，是"规划评测口径"议题的锚点，缺口分析必引 | http://arxiv.org/abs/2210.06033v1 | 面向局部运动规划的基准化评测 |
-| Second MOASEI Competition at AAMAS'2026: A Technical Report [29] | 2026 | > 待核实 | > 待核实 | arXiv 技术报告（cs.MA），AAMAS'2026 关联竞赛报告 | 中 —— AAMAS 关联年度竞赛具备会议社区持续关注度；参赛规模 > 待核实 | ★★★☆☆ —— 引入 **frame openness**（智能体装备随帧变化），代表"开放动态环境如何评测"的新尝试 | http://arxiv.org/abs/2607.03399v1 | 保留 wildfire/cybersecurity/ride-sharing 三域，新增 frame openness 加分赛道 |
-| Evaluating Guiding Spaces for Motion Planning [13] | 2022 | > 待核实 | > 待核实 | arXiv 预印本（cs.RO） | 低 —— 无热度信号 | ★★★☆☆ —— 作为"评测方法论"而非数据集使用 | http://arxiv.org/abs/2210.08640v1 | 评估采样启发式（guiding space）有效性 |
-| VQualA 2025 Challenge on Engagement Prediction for Short Videos [3] | 2025 | 42 位作者（名单见原文） | > 待核实 | arXiv 综述（cs.CV），ICCV 2025 同期挑战赛官方总结 | 中 —— ICCV 关联挑战赛，但**与机器人无关** | ★☆☆☆☆ —— 领域外，仅作"挑战赛 + 专用数据集"组织形态样例 | http://arxiv.org/abs/2509.02969v1 | UGC 短视频参与度预测 |
-| AIM 2025 Challenge on High FPS Motion Deblurring [18] | 2025 | > 待核实 | > 待核实 | arXiv 综述（cs.CV），ICCV 2025 挑战赛总结 | 低 —— 与机器人无关 | ★☆☆☆☆ —— 纯噪声项，建议剔除 | http://arxiv.org/abs/2509.06793v1 | 高帧率运动去模糊 |
-| AutoRestTest at the SBFT 2026 Tool Competition [30] | 2026 | > 待核实 | > 待核实 | arXiv 竞赛工具报告（软件测试） | 低 —— 与机器人无关 | ★☆☆☆☆ —— 噪声项 | http://arxiv.org/abs/2607.01063v1 | 软件测试工具竞赛 |
+| ALOHA 2 系统辨识 MuJoCo 模型（仿真资产，非通用基准） | 2024 | ALOHA 2 Team 等 [19] | `> 待核实` | 官方项目论文（arXiv 预印本）[19] | 中——候选块描述其为双臂遥操作代表性开源方案，无量化信号 | ★★★★☆ 是**仿真模型可复现性**的直接相关条目，但**不属于 ROS 2 生态**，也不是任务基准 | http://arxiv.org/abs/2405.02292v1 | 提供经系统辨识的 MuJoCo 模型，服务于双臂操作数据采集与仿真复现 [19] |
+| LIBERO | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（本批证据未检索到）` | 本批候选块标题、摘要与可见内容中均未出现该基准名称与指标 |
+| DROID | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（本批证据未检索到）` | 同上 |
+| SimplerEnv | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（本批证据未检索到）` | 同上 |
+| RoboArena | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实（本批证据未检索到）` | 同上 |
 
-> **重要缺口声明**：具身智能/机器人领域常被引用的基准与数据集（Open X-Embodiment、DROID、LIBERO、SimplerEnv、RoboArena 等）**在本批 34 条可引用来源中没有任何条目**，因此本报告**不引用它们**，其现状一律 `> 待核实`，需另行定向检索。
-
-### 3.2 高杠杆蓝海缺口（均基于本批证据的"零覆盖"判定）
-
-1. **ROS 2 中间件确定性（DDS/QoS）与机器人控制的联合研究**：本批唯一 DDS 相关来源是车载场景的 [31]，唯一确定性机制来源是通用实时系统的 [34]；**没有一条把 DDS QoS 策略与机械臂/人形控制回路的稳定性直接关联**。这是一个可核查的空白。依据：[31][34]，缺口判定依据 q3 抽取结果（[3][24][28][29] 均无 DDS/ROS 2/QoS 关键词）。
-2. **标定（calibration）**：本批 34 条来源中**零覆盖**（无手眼标定、无运动学参数辨识专文；[7] 做的是系统辨识用于 MPC，非标定）。`> 待核实`
-3. **接触丰富与柔顺控制（contact-rich / compliant control）**：本批**零覆盖**。人形控制相关条目 [9][10] 属全身运动与 RL 策略，未涉及接触力/阻抗控制。`> 待核实`
-4. **仿真-真机（sim-to-real）评测口径**：本批**零覆盖**——没有任何条目给出硬件平台 + 任务数 + 成功率统计口径的三元组。q2 抽取已明确将该点列为 open problem。`> 待核实`
-5. **运动规划基准与 ROS 2 Nav2 的打通**：已有规划基准 [15] 与 ROS 2 栈分析 [22]，但**两者之间无桥接证据**，即"标准规划基准如何映射到 Nav2 实际评测"仍属空白。
+**结论**：本子问题（ROS 2 事实标准 + 数据集基准现状）在本轮证据下**不可回答**，需另起针对性检索（官方仓库、官方文档、基准榜单主页）方能成立 `> 待核实`。
 
 ---
 
 ## 4. 瓶颈与拐点（Bottleneck & Inflection）
 
-**增量判断**：本周期最清晰的拐点信号出现在**实时性/确定性**——它正从"理论性质"变成"可测量、可优化、可写入标准的工程指标"（[34] 同时优化确定性与低延迟；[31] 分段延迟测试方法）。第二个信号是**模型精度瓶颈的工程化绕行**：当 MPC 依赖精确模型时，路线不是换算法而是补辨识（[7]）或把不确定性显式建模进控制器（[1]）。
+**一句话增量判断**：当前最主要的瓶颈已从"控制算法不够好"转移到**数据获取成本**与**接触物理的可迁移表征**；2026 年出现两个潜在拐点信号——**分阶段 sim-real 协同训练**[30] 与 **physics-grounded 接触表征**[27]。
 
-| # | 瓶颈 | 证据 | 拐点信号 / 强度 |
-|---|---|---|---|
-| 1 | **实时性与确定性**：时间关键系统在带宽与算力双约束、严格截止期下仍难求解 | [24]（车联网语境，DOAP 问题 + SARound；arXiv:2512.14002v1，cs.DC，未标注同行评审；热度 `> 待核实`） | **较大概率已临近拐点**：LET 模型可同时优化确定性与低延迟 [34]（RTAS 2024，同行评审）；DDS 层已有分段延迟测试方法 [31]（SAE） |
-| 2 | **中间件机制层证据缺失**：DDS / ROS 2 QoS / 确定性实时中间件在 q3 候选中零覆盖 | q3 抽取结论（[3][24][28][29] 均无相关关键词） | **未知**——需补检 ROS 2 官方文档与实时 DDS 实现（`> 待核实`） |
-| 3 | **模型精度依赖**：MPC/控制质量受制于模型与传感器可观测性 | [7]（虚拟传感器 + 系统辨识，2-DoF 直驱臂） | **推测**：从"换更复杂模型"转向"补辨识 + 虚拟传感"的路线正在成型；单条证据，强度弱 |
-| 4 | **不确定性建模**：运动学与动力学同时不确定 | [1]（2014 基线，运动学+动力学双重不确定性自适应） | **无新证据**表明该问题在 2024–2026 被新范式取代；`> 待核实` |
-| 5 | **安全约束满足**：状态约束下如何不牺牲闭环性能 | [8]（CBF 用于反馈优化，2025） | **较大概率**：CBF 作为"安全滤波层"与主流控制/学习策略合流的趋势信号；但仅单条来源，需交叉验证 |
-| 6 | **评测口径不统一**：规划启发式、局部规划器缺乏共识度量 | [13]（guiding space 如何评测）、[15]（Local Planner Bench） | **中**：已有基准尝试，但均为 2022 年且是否与 ROS 2 生态对齐 `> 待核实` |
-| 7 | **证据层瓶颈**：本批来源无 star/下载/榜单字段，"谁在工业界真正部署"不可判定 | §2、§3 表 | **未知**——属检索瓶颈而非技术瓶颈，需补 GitHub/官方文档源 |
+### 4.1 瓶颈清单
 
-> **争议与失败案例**：本批证据中**未出现**任何负面结果、复现失败报告或方法间直接对照争议。q3 抽取明确指出"本批次候选块未提供任何关于 DDS/ROS 2 确定性、标定、接触丰富与柔顺控制的可核查材料"。因此本报告不臆造争议。`> 待核实`
+| 瓶颈类型 | 具体表现 | 证据 | 是否临近拐点 | 拐点信号 |
+|---|---|---|---|---|
+| **数据/硬件物流** | 人形全身操作依赖遥操作或视觉 sim-to-real RL，受硬件物流与奖励工程拖累，已演示自主技能有限 [5] | [5] | 可能临近 | 出现"无机器人示教"路线 [5] 与 "robot trains robot" 真机自学习 [25] |
+| **接触物理表征** | 仿真–现实差距使触觉等信息密集模态无法被有效使用；现有方法多依赖二值化接触表征 [27] | [27] | 可能临近 | 转向 physics-grounded 连续接触表征 [27]；方向性合规可迁移表征 [28] |
+| **接触密集迁移效率** | 在线导纳残差 [29] 之后仍需更高样本效率 | [29][28] | 观察中 | 分阶段 sim-real 协同训练 [30] |
+| **安全性** | 形状预测忽略接触与张力约束，可能导致物体/工具损坏 [26] | [26] | 否（早期） | 出现"可证明安全"（certifiably safe）表述 [26] |
+| **奖励工程** | 复杂奖励工程被点名为人形操作路线的主要阻碍 [5] | [5] | 否 | 无直接拐点证据 `> 待核实` |
+| **评测口径** | 无法从本批证据判断统一口径 `> 待核实` | — | 未知 | — |
+| **ROS 2 工程栈与前沿方法脱节** | 本批证据中无 ROS 2 与现代控制/学习方法的集成证据 [22] | [22] | 未知 | `> 待核实` |
+
+### 4.2 值得单独标记的两个拐点候选
+
+- **[30] SARI（2026-10，最新周期）**：提出"分阶段 + 仿真–真机协同训练"的流程方案，若被独立复现，意味着 sim-to-real 从"单向迁移"转向"双向共同训练"，属**流程范式级**变化。当前仅有预印本，**无第三方复现证据**，判定为「**演示级**」而非「已验证」。推荐度 ★★★★☆。
+- **[27] Beyond Binary（2026-05）**：把 sim-to-real 失败归因于**接触表征的二值化**，而非策略或数据量，这是**归因层面**的新提法。若能证明替换表征即可解锁触觉迁移，则是接触密集操作的拐点。当前同样**仅有预印本**，判定为「**待验证**」。推荐度 ★★★★☆。
 
 ---
 
 ## 5. 社会·政策·国际（Society, Policy & Geopolitics）
 
-**增量判断**：**本周期在该维度无显著变化**——在 34 条可引用来源中，没有任何一条是机器人领域的监管文件、国家标准、出口管制、供应链报告或伦理/劳动影响研究。
+**一句话增量判断**：本周期内**未见与本主题（机器人运动学/控制/ROS 2）直接相关的政策、标准或地缘证据**；唯一可用的结构性背景是**基础模型开发者透明度的年度性倒退**，它对"开源可复现"的宏观环境构成负面信号。
 
-可观察的边缘信号（均为弱证据，仅作线索，不构成结论）：
+| 议题 | 增量与证据 | 热度 | 权威 | 关注度 | 推荐度 | 链接 |
+|---|---|---|---|---|---|---|
+| 基础模型透明度（开源可复现性的宏观背景） | 2025 FMTI 报告：平均分从 2024 年 **58 分降至 40 分**（满分 100）；公司在**训练数据与训练算力**方面最不透明；2025 版新增数据获取、使用数据与监控类指标，并首次评估 Alibaba、DeepSeek、xAI | `> 待核实`（候选块未给引用数） | arXiv 预印本 cs.AI，年度系列报告，作者含 Percy Liang、Rishi Bommasani、Sayash Kapoor，属透明度研究核心团队；证据等级 B [12] | 中——年度旗舰指数，媒体与政策讨论频繁，但**缺量化引用数据** | ★★☆☆☆ 与 ROS 2/运动控制主题**相关性弱**，仅可作开源透明度背景引用 | http://arxiv.org/abs/2512.10169v1 |
+| 人机信任（社会接受度） | TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — 机器人信任主题 workshop 论文 | `> 待核实` | RO-MAN 2025 配套 workshop 论文，**非正式主会论文**，证据等级 C/D [15] | 低——候选块未提供引用、讨论或榜单信号 | ★★☆☆☆ 仅作为"社会信任"维度的线索；因等级偏低，**不用于支撑强结论** | http://arxiv.org/abs/2509.11402v1 |
 
-- [31] SAE 技术论文（doi:10.4271/2025-01-8083）表明**标准组织仍在推进车载实时系统的延迟测试方法学**，属"工程标准活动"而非政策/监管。权威：SAE 标准组织出版物；热度 `> 待核实`；关注度：中（标准体系影响力）；推荐度 ★★★★☆（因唯一可核实的标准侧来源）。
-- [28] 涉及 UN/UNESCO 决议的段落级论点挖掘任务（arXiv:2607.20430v1，cs.CL；"获胜系统"为作者自述，官方榜单未附），**其研究对象是文本而非政策本体**，不能作为国际政策动向证据。推荐度 ★☆☆☆☆，`> 待核实`。
-- 关于机器人领域的国际标准（如 ISO 10218 / ISO/TS 15066）、各国具身智能政策、供应链（减速器/伺服/芯片）与出口管制：**本批来源零覆盖**，一律 `> 待核实`，需另行检索官方公报与标准组织页面。
-
-> **结论**：本维度**不做任何趋势判断**。任何"某国政策推动/限制机器人产业"的表述在本次证据下均不可成立。
+**明确标注为不可得的内容**：
+- 机器人安全标准（如 ISO 体系更新）、出口管制、供应链限制、各国机器人产业政策在 2025–2026 的**具体增量**——本批证据**零覆盖** `> 待核实`。
+- ROS 2 治理机构（Open Robotics / 基金会）的组织与政策变化——**零覆盖** `> 待核实`。
+- 劳动影响与伦理争议——**零覆盖**；本报告不基于记忆补写 `> 待核实`。
 
 ---
 
 ## 6. 资本与生态（Capital & Ecosystem）
 
-**增量判断**：**本周期在该维度无显著变化（证据为零）**。34 条来源中没有任何一条包含融资额、并购、估值、人才流动、公司格局或社区活跃度数据。本批所有条目均无 `stars=`、下载量、榜单排名字段（q1/q2 抽取已两次确认这一点）。
+**一句话增量判断**：本批证据对融资、并购、人才流动**零覆盖**；生态侧唯一可确认的增量是**开源硬件与仿真模型的持续开放**（ALOHA 2）[19]，以及**开源透明度宏观环境走弱**的背景信号 [12]。
 
-可间接观察到的生态信号（弱，仅作"生态组织形态"参考，不作资本结论）：
+| 维度 | 增量判断 | 证据 | 关注度 | 推荐度 |
+|---|---|---|---|---|
+| **开源硬件生态** | ALOHA 2 开源全部硬件设计、配套教程与系统辨识 MuJoCo 模型，目标降低双臂数据采集的硬件成本与复现门槛 [19] | [19]，arXiv 预印本，证据等级 B | 中——候选块视为代表性开源方案，但**无 star/采用度数字** | ★★★★☆ 对降低生态进入门槛有实际价值，但**与 ROS 2 栈的关系未在证据中体现** |
+| **开源透明度环境** | 2025 年基础模型开发者透明度平均分由 58 降至 40（满分 100），训练数据与算力最不透明 [12] | [12]，arXiv 预印本，证据等级 B | 中 | ★★☆☆☆ 与机器人控制主题相关性弱，仅作生态背景 |
+| **公司格局 / 融资 / 并购 / 人才流动** | **零覆盖** | — | `> 待核实` | `> 待核实`，本报告不填数 |
+| **社区与标准组织动态（ROS 2 基金会、MoveIt/ros2_control 维护活跃度）** | **零覆盖**（仅一篇 citations=0 的架构论文 [22]） | [22]，证据等级 C | 低 | ★☆☆☆☆，无法支撑生态结论 |
 
-- **评测竞赛化已成常态**：ICCV 2025 体系内存在稳定挑战赛 + 专用数据集组织形态 [3][18]；软件测试领域有 SBFT 2026 工具竞赛 [30]；多智能体领域有 AAMAS 年度延续竞赛（MOASEI 第二届，2026）[29]。这些说明**会议驱动的评测生态在扩张**，但不等于资本流入。
-- **机器人方向的评测生态证据薄弱**：本批中真正与机器人相关的竞赛/基准仅 [15]（Local Planner Bench，2022）与 [29]（多智能体仿真，非机器人本体），**与 VLA/操作领域的竞赛生态无任何可引用证据**。`> 待核实`
-- **开源生态热度无法评估**：[11] The Open Ant（2026）、[22] ROS2/MoveIt2 分析均无 star 或维护活跃度数据。推荐度仅基于相关性给出（[11] ★★★☆☆、[22] ★★★☆☆），**不代表采用度或商业价值**。
-
-> **结论**：任何关于"资本正在涌入/撤离某方向""人才向某公司集中"的表述，在本次证据下均属编造，**不予输出**。
+> 说明：本维度缺口的成因是**检索证据池偏学术预印本**，而非该领域资本活动缺失。判断"资本活动强弱"需要融资数据库、厂商公告与并购新闻等一手来源，本批证据不具备 `> 待核实`。
 
 ---
 
 ## 7. 信号与预测（Signals & Forecast）
 
-**增量判断**：本批证据足以支撑的预测很少且偏工程侧；以下每条均写成**可证伪假设**，并标注依据链与置信度。不确定处标 `[P]`（预测）、`[R]`（传闻，本轮无此类条目）、`[Debated]`（争议，本轮无）。
+**一句话增量判断**：当前最强的两个早期信号是「**无机器人示教**」[5] 与「**接触表征归因转向**」[27]；两者都还停留在预印本+自评阶段，**尚未见独立复现**。
 
-### 7.1 早期信号（已确证的事实层）
-1. 实时性研究已从"提出确定性模型"演进到"同时优化确定性与延迟" [34]，并出现 DDS 中间件分层延迟测量的工程方法 [31]。**证据等级：A（[34] 同行评审） / B（[31] 标准组织技术论文）**。
-2. 运动规划研究的注意力部分转向评测方法论 [13][15]，而非新算法。**证据等级：B（预印本）**。
-3. 全身人形控制开始覆盖高动态任务 [9] 并通过域随机化 + 扩散策略探索泛化 [10]。**证据等级：B（预印本）**。
+### 7.1 早期信号清单
 
-### 7.2 可证伪预测
+| # | 信号 | 时间 | 证据强度 | 说明 |
+|---|---|---|---|---|
+| S1 | 人形全身操作的数据采集去机器人化（robot-free demonstrations） | 2026-02 [5] | 预印本 / 演示级 | 现有路线受硬件物流与奖励工程限制，已演示技能有限 [5] |
+| S2 | sim-to-real 失败被归因于接触**表征**而非数据或策略 | 2026-05 [27] | 预印本 / 待验证 | 二值化接触表征阻碍触觉模态迁移 [27] |
+| S3 | 仿真–真机从单向迁移转向**协同训练** | 2026-10 [30] | 预印本 / **本周期最新** | 阶段切分的 sim-real co-training [30] |
+| S4 | 真机自学习（robot trains robot） | 2025-08 [25] | 预印本 / 演示级 | 真机 RL 从零或从预训练适配仍罕见 [25] |
+| S5 | 接触密集操作引入**可证明安全**与多物理量联合预测 | 2025-05 [26] | 预印本 / 早期 | 只预测形状会忽略接触与张力约束 [26] |
+| S6 | 全身动态物体交互（羽毛球等高动态任务） | 2025-11 [3] | 预印本 / 演示级 | 用退火 RL 课程训练统一全身策略 [3] |
+| S7 | 基础模型透明度年度倒退 | 2025-12 [12] | 年度指数报告 / 已确证（报告内部口径） | 平均分 58 → 40 [12] |
 
-| # | 预测（可证伪假设） | 标记 | 依据链 | 置信度 | 证伪条件 |
-|---|---|---|---|---|---|
-| P1 | 到 2027 年底前，会出现把 **ROS 2 的 DDS QoS 配置与实时控制回路稳定性做联合量化**的公开研究（论文或官方基准） | [P] | 信号 ①：LET 可同时优化确定性与延迟 [34]；信号 ②：DDS 层已有可用的分段延迟测试方法 [31]；信号 ③：本批中"DDS × 机器人控制"为零覆盖（§3.1 缺口 1），空白越大越易被填补 | 推测（中低） | 若到 2027-12-31 仍未检索到任何将 QoS 策略与控制性能指标联合建模的公开论文或官方文档，则 P1 不成立 |
-| P2 | 运动规划评测将向"统一基准 + 可复现实验协议"收敛，出现至少 1 个被多个团队在论文中共同引用的局部规划基准 | [P] | 信号：已有基准化尝试 [15]，且已有专门讨论"评测怎么做"的方法学工作 [13]；但两者均为 2022 年，本批未见 2024–2026 的替代品 | 推测（中低） | 若到 2027-12-31，运动规划论文仍普遍各用自建场景、无共同基准被反复引用，则 P2 不成立 |
-| P3 | "系统辨识 / 虚拟传感"会被更多作为 MPC 在真实机械臂上的前置步骤写入工程流程，而非仅在特定论文中出现 | [P] | 信号：[7] 以虚拟传感 + 辨识支撑 2-DoF 直驱臂 MPC；[1] 显示运动学不确定性长期是被显式处理的对象 | 推测（低，仅单条直接证据） | 若 2027-12-31 前的真实机械臂 MPC 工作仍普遍假设精确模型且不报告辨识环节，则 P3 不成立 |
-| P4 | CBF（控制屏障函数）会从"独立方法"更多转为"叠加在既有控制器/学习策略之上的安全层" | [P] | 信号：[8] 将 CBF 用于状态约束下的反馈优化（2025） | 推测（低，单条证据） | 若 2027-12-31 前 CBF 相关工作仍主要作为独立最优控制问题求解、而非附加滤波层，则 P4 不成立 |
-| P5 | 具身智能**仿真-真机评测口径**（硬件 + 任务数 + 成功率统计）会成为下一轮公开讨论焦点 | [P] | 信号：本批 34 条来源对该口径**零覆盖**（§3.2 缺口 4），而人形全身任务 [9][10] 已进入需要标准化评测的阶段 | 推测（中低） | 若 2027-12-31 前仍未出现被广泛采用的 sim-to-real 报告规范或榜单，则 P5 不成立 |
+### 7.2 可证伪预测（[P]，附依据与置信度）
 
-### 7.3 明确不可预测项（证据不足，禁止外推）
-- 资本流向、厂商产品路线、政策与出口管制、供应链变化：**本批证据为零**，`> 待核实`，不做预测。
-- 任何"SOTA 已被刷新至 X%"的断言：本批**无任何基准榜单数据**，不做预测。
-- 争议性判断（如"端到端是否优于模块化"）：本批**无对立证据**，不标 `[Debated]` 以免虚构争议。
+- **[P1]**（置信度：较大概率）**若到 2027-06 之前，出现 ≥2 个独立团队在**真机**上复现"无机器人示教"人形全身操作 [5] 并开源数据/权重，则判断"人形控制重心已从 locomotion 迁移到全身操作"成立**；**若到 2027-06 仍只有原作者团队的演示，则该迁移判断降级为"叙事而非范式"**。依据链：S1 [5] + S4 [25] + 遥操作系统层面长期缺口 [4]。
+- **[P2]**（置信度：推测）**若到 2027-06 之前，出现至少 1 篇论文证明**替换接触表征（二值 → physics-grounded）即可让触觉模态在真机 sim-to-real 中稳定生效** [27]，则判断"接触表征是当前接触密集操作的一级瓶颈"成立**；**若同期论文仍普遍依赖力/位混合调参或在线残差学习解决同一问题 [29][28]，则该归因被削弱**。
+- **[P3]**（置信度：未知/需要数据）**若在 2027 年内出现 ROS 2 官方或主流社区（MoveIt 2 / ros2_control 层）与具身基础模型/评测基准之间的**标准化适配层**，则判断"ROS 2 生态正在被纳入具身智能技术栈"成立**；**目前本批证据中 ROS 2 与现代控制/学习方法之间**没有任何集成证据** [22]，因此该判断当前**不可评估** `> 待核实`**。
+- **[P4]**（置信度：较大概率）**若到 2027-06 之前，"sim-real 协同/分阶段训练" [30] 未被任何第三方独立复现或引用式跟进，则该路线判定为"单点展示"而非拐点**。依据：S3 [30] 为 2026-10 新上线预印本，无复现证据。
+- **[P5]**（置信度：推测）**若基础模型透明度指数在 2026 版继续下降或持平于 40 分区间 [12]，则"开源权重≠开源可复现"的落差将继续扩大**，进而抬高对**仿真模型/系统辨识资产**（如 ALOHA 2 的 MuJoCo 模型 [19]）这类"可复现基础设施"的相对价值。可观测指标：FMTI 2026 平均分、训练数据/算力维度的披露率。
+
+### 7.3 Watchlist（值得持续关注）
+
+1. **[30] SARI**（2026-10）——本周期最新 sim-real 协同训练信号，跟踪其第三方复现。
+2. **[27] Beyond Binary**（2026-05）——接触表征归因，跟踪其是否被后续工作采纳为基线。
+3. **[5] Humanoid Manipulation Interface**（2026-02）——去机器人示教的可行性边界。
+4. **[7] Active Spatial Brain / Action Cerebellum**（2026-05）——分层架构是否带来可泛化动作层。
+5. **[25] Robot Trains Robot**（2025-08）——真机自学习的样本效率与安全性。
+6. **[19] ALOHA 2 MuJoCo 模型**——作为"可复现基础设施"的参照，观察其与 ROS 2 控制栈是否出现对接工作。
+7. **ROS 2 官方生态（MoveIt 2 / ros2_control / Nav2 / Gazebo）版本与采用度**——**本轮无证据，需另起检索** `> 待核实`。
+8. **LIBERO / DROID / SimplerEnv / RoboArena**——**本轮零覆盖，需另起检索** `> 待核实`。
+
+---
+
+## 8. 方法论自检与证据局限
+
+| 自检项 | 结果 |
+|---|---|
+| 是否每条关键论断都带 [n]？ | 是；无来源处标 `> 待核实`，未编造编号 |
+| 是否区分"最新进展"与"经典工作"？ | 是（§1.1 vs §1.2） |
+| 是否给出热度/权威/关注度/推荐度四轴？ | 是；热度列因候选块缺 citations/stars 数据，绝大多数标 `> 待核实` |
+| 是否区分"演示"与"独立验证"？ | 是；所有 2025–2026 条目均判定为**预印本/自评级**，未见第三方复现 |
+| 是否覆盖七维？ | 是，§1–§7 逐一展开 |
+| 是否点出蓝海与拐点？ | 是（§3、§4） |
+| **最大局限** | 证据池偏斜：ROS 2 工程栈、数据集基准、产业资本、政策法规四类**近乎零覆盖**；结论不可外推至这些维度 |
 
 ---
 
 ## 参考来源
 
-[1] Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics — http://arxiv.org/abs/1403.5204v3
-[2] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1
-[3] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
-[4] TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4
-[5] A Human-Vector Susceptible-Infected-Susceptible Model for Analyzing and Controlling the Spread of Vector-Borne Diseases — http://arxiv.org/abs/2510.14787v2
-[6] Quantum control theory and applications: A survey — http://arxiv.org/abs/0910.2350v3
-[7] System Identification for Virtual Sensor-Based Model Predictive Control: Application to a 2-DoF Direct-Drive Robotic Arm — http://arxiv.org/abs/2505.23138v2
-[8] Feedback Optimization with State Constraints through Control Barrier Functions — http://arxiv.org/abs/2504.00813v3
-[9] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4
-[10] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1
-[11] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1
-[12] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2
-[13] Evaluating Guiding Spaces for Motion Planning — http://arxiv.org/abs/2210.08640v1
-[14] Data-Efficient Learning of High-Quality Controls for Kinodynamic Planning used in Vehicular Navigation — http://arxiv.org/abs/2201.02254v1
-[15] Local Planner Bench: Benchmarking for Local Motion Planning — http://arxiv.org/abs/2210.06033v1
-[16] Motion planning in high-dimensional spaces — http://arxiv.org/abs/1806.07457v2
-[17] Direct Kinematics, Inverse Kinematics, and Motion Planning of 1-DoF Rational Linkages — http://arxiv.org/abs/2409.01198v2
-[18] AIM 2025 Challenge on High FPS Motion Deblurring: Methods and Results — http://arxiv.org/abs/2509.06793v1
-[19] Predicted Composite Signed-Distance Fields for Real-Time Motion Planning in Dynamic Environments — http://arxiv.org/abs/2008.00969v2
-[20] PINOCCHIO and the hierarchical build-up of dark matter haloes — http://arxiv.org/abs/astro-ph/0109324v1
-[21] The Relativistic Elasticity of Rigid Bodies — http://arxiv.org/abs/physics/0307019v3
-[22] Manipulator Robot Development and Analysis of Motion Planning Libraries Through ROS2 and MoveIt2 — https://doi.org/10.2139/ssrn.5251139
-[23] Direct kinematics, inverse kinematics, and motion planning of 1-DoF rational linkages — https://doi.org/10.1016/j.mechmachtheory.2025.106074
-[24] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1
-[25] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1
-[26] UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering — http://arxiv.org/abs/2608.27467v1
-[27] ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification — http://arxiv.org/abs/2607.28637v1
-[28] LLM-INSTRUCT at UZH Shared Task 2026: Constraint-Aware Retrieval and Selective Debate for Paragraph-Level Argument Mining — http://arxiv.org/abs/2607.20430v1
-[29] Second MOASEI Competition at AAMAS'2026: A Technical Report — http://arxiv.org/abs/2607.03399v1
-[30] AutoRestTest at the SBFT 2026 Tool Competition — http://arxiv.org/abs/2607.01063v1
-[31] Research on Segmented Latency Testing Method for in-Vehicle Real-Time Systems Based on DDS Middleware — https://doi.org/10.4271/2025-01-8083
-[32] Edge Computing in Telecommunication: Reducing Latency for Real-Time Services — https://doi.org/10.2139/ssrn.6081611
-[33] Latency Revolution: How Edge Data Centers are Reshaping Real-Time Computing — https://doi.org/10.2139/ssrn.5733985
-[34] Optimizing Logical Execution Time Model for Both Determinism and Low Latency — https://doi.org/10.1109/rtas61025.2024.00019
+> 标注说明：`[相关]` 表示参与本报告论证；`[噪声]` 表示经核对与本主题无关，仅登记不引用为论据。
+
+1. `[噪声]` VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
+2. `[相关]` The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1
+3. `[相关]` Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4
+4. `[相关]` CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System — http://arxiv.org/abs/2508.00162v2
+5. `[相关]` Humanoid Manipulation Interface: Humanoid Whole-Body Manipulation from Robot-Free Demonstrations — http://arxiv.org/abs/2602.06643v2
+6. `[相关]` Whole-Body Geometric Retargeting for Humanoid Robots — http://arxiv.org/abs/1909.10080v1
+7. `[相关]` Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum — http://arxiv.org/abs/2605.21133v2
+8. `[相关]` Real-Time Whole-Body Control of Legged Robots with Model-Predictive Path Integral Control — http://arxiv.org/abs/2409.10469v1
+9. `[相关]` Learning Humanoid Standing-up Control across Diverse Postures — http://arxiv.org/abs/2502.08378v2
+10. `[噪声]` NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1
+11. `[相关]` Balance control in whole body coordination framework for biped humanoid robot MAHRU-R — https://doi.org/10.1109/roman.2008.4600699
+12. `[相关]` The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
+13. `[噪声]` NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
+14. `[噪声]` SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection — http://arxiv.org/abs/2509.19861v1
+15. `[弱相关]` TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1
+16. `[噪声]` Fluid Antenna System: New Insights on Outage Probability and Diversity Gain — http://arxiv.org/abs/2301.00073v2
+17. `[噪声]` AI Wizards at CheckThat! 2025: Enhancing Transformer-Based Embeddings with Sentiment for Subjectivity Detection in News Articles — http://arxiv.org/abs/2507.11764v1
+18. `[噪声]` TDCOSMO 2025: Cosmological constraints from strong lensing time delays — http://arxiv.org/abs/2506.03023v4
+19. `[相关]` ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1
+20. `[噪声]` kilted, adj.¹ — https://doi.org/10.1093/oed/4035658682
+21. `[噪声]` Wayward Husbands, Jazzy Jezebels, and Lost Children — https://doi.org/10.1017/9781009566711.008
+22. `[相关]` ROS 2: ARCHITECTURE AND PRACTICAL IMPLEMENTATION FEATURES — https://doi.org/10.32782/2663-5941/2025.3.2/22
+23. `[相关]` Learning Getting-Up Policies for Real-World Humanoid Robots — http://arxiv.org/abs/2502.12152v2
+24. `[相关]` Optimization of Humanoid Robot Designs for Human-Robot Ergonomic Payload Lifting — http://arxiv.org/abs/2211.13503v1
+25. `[相关]` Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids — http://arxiv.org/abs/2508.12252v2
+26. `[相关]` Certifiably Safe Manipulation of Deformable Linear Objects via Joint Shape and Tension Prediction — http://arxiv.org/abs/2505.13889v1
+27. `[相关]` Beyond Binary: Sim-to-Real Dexterous Manipulation with Physics-Grounded Contact Representation — http://arxiv.org/abs/2605.28812v1
+28. `[相关]` TDC: Sim-to-Real Transferable Directional Compliance for Contact-Rich Manipulation — http://arxiv.org/abs/2602.14174v2
+29. `[相关]` Efficient Sim-to-real Transfer of Contact-Rich Manipulation Skills with Online Admittance Residual Learning — http://arxiv.org/abs/2310.10509v1
+30. `[相关]` SARI: Phase-Split Sim-Real Co-Training for Contact-Rich Manipulation — http://arxiv.org/abs/2610.02804v1
+31. `[相关]` Learning Contact-Rich Manipulation Skills with Guided Policy Search — http://arxiv.org/abs/1501.05611v2
+32. `[噪声]` AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3
 
 ---
 
-*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=34 · duration=197s · 2026-10-12T22:13:44+00:00*
+*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=32 · duration=204s · 2026-10-13T22:23:41+00:00*
