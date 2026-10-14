@@ -1,0 +1,1090 @@
+{
+  "topic": "机器人运动学控制与-ros-2",
+  "title": "机器人运动学、控制与 ROS 2 —— 领域增量追踪报告（2024–2026，7 facet）",
+  "query": "机器人运动学、控制与 ROS 2",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-14T22:21:35+00:00",
+  "finished_at": "2026-10-14T22:25:22+00:00",
+  "duration_s": 227.2,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人运动学、控制与 ROS 2 —— 领域增量追踪报告（2024–2026，7 facet）",
+    "summary": "以近 1–2 年增量为主线，覆盖前沿进展、经典奠基、开源工程实践、数据集基准与开放争议，回答「机器人运动学、控制与 ROS 2 从实验室走向大规模真机部署的过程中，发生了什么真实变化、缺口与拐点在哪」。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024–2026 年间，机器人运动学求解、实时控制与 ROS 2 软件栈出现了哪些真正的新进展与 SOTA 变动（含学习方法化控制、可微运动学、MPC/WBC 与 ros2_control 新特性）？相对上一基线的增量是什么，哪些已被独立验证、哪些仍只有演示？",
+        "rationale": "对应 frontier-watch 的 facet 1（进展与热点）与 facet 4（瓶颈与拐点）。必须先确定「最近 1–2 年新增了什么」这一时间基线，否则后续产业/缺口判断无锚点。需同时覆盖学术侧（arXiv/顶会）与工程侧（GitHub release、官方文档），并把「论文宣称」与「第三方复现/榜单」分开标注。",
+        "queries": [
+          "robot kinematics solver 2025 survey differentiable IK Pinocchio CuRobo benchmark",
+          "ros2_control 2025 release controller_manager real-time new features",
+          "whole-body control MPC 2025 legged humanoid SOTA benchmark comparison",
+          "视觉语言动作模型 机器人关节控制 2025 部署 真机 复现"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "机器人运动学、控制与 ROS 2 方向的经典/奠基工作有哪些，以及当前该领域用于对比与验证的数据集、基准与评测平台是什么（含仿真与真机口径、任务数、本体验证范围）？",
+        "rationale": "对应论文调研方法论「从综述入手 + 建立论文图谱」与 frontier-tracking 的数据集/榜单层级。用来划清「经典工作」与「最新进展」的边界，并建立可比性标准（在什么 benchmark、什么硬件、多少任务），避免把演示视频当实验证据、把仿真 SOTA 当真机 SOTA。",
+        "queries": [
+          "MoveIt 2 motion planning framework benchmark 2025 evaluation",
+          "Pinocchio rigid body dynamics library paper 2019 2024 Kuhn Stasse",
+          "ros2_control ros2 实时性 延迟 DDS 性能测评价 2025",
+          "robot manipulation benchmark dataset 2024 2025 DROID LIBERO RoboArena evaluation"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "crossref",
+          "github"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "ROS 2 与运动控制的工程落地、产业与生态现状如何：ROS 1 EOL 后迁移是否完成、厂商与开源权重格局、融资/人才流向，以及存在哪些开放问题、争议与政策/标准约束（实时性、确定性、安全认证、DDS 供应商锁定、许可证与供应链）？",
+        "rationale": "对应 frontier-watch 的 facet 2/3/5/6/7（工业界与产品、蓝海与缺口、社会政策国际、资本与生态、信号与预测），也是本主题用户额外关注点的落点。此维度需要跨一手官方公告、GitHub 活跃度、权威媒体与产业新闻交叉验证，并明确区分「官方公告 / 媒体报道 / 二手转述」，对传闻标 [R]、对预测标 [P]。",
+        "queries": [
+          "ROS 1 end of life 2025 migration ROS 2 industrial adoption status",
+          "ROS 2 real-time determinism criticism DDS vendor lock-in debate safety certification",
+          "ROS 2 robot middleware funding acquisition 2025 2026 ecosystem investment",
+          "机器人中间件 标准化 政策 供应链 2025 2026 开源生态 融资"
+        ],
+        "prefer": [
+          "bing",
+          "github",
+          "semantic_scholar",
+          "arxiv"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024–2026 年间，机器人运动学求解、实时控制与 ROS 2 软件栈出现了哪些真正的新进展与 SOTA 变动（含学习方法化控制、可微运动学、MPC/WBC 与 ros2_control 新特性）？相对上一基线的增量是什么，哪些已被独立验证、哪些仍只有演示？",
+      "queries": [
+        "robot kinematics solver 2025 survey differentiable IK Pinocchio CuRobo benchmark",
+        "ros2_control 2025 release controller_manager real-time new features",
+        "whole-body control MPC 2025 legged humanoid SOTA benchmark comparison",
+        "视觉语言动作模型 机器人关节控制 2025 部署 真机 复现"
+      ],
+      "rationale": "对应 frontier-watch 的 facet 1（进展与热点）与 facet 4（瓶颈与拐点）。必须先确定「最近 1–2 年新增了什么」这一时间基线，否则后续产业/缺口判断无锚点。需同时覆盖学术侧（arXiv/顶会）与工程侧（GitHub release、官方文档），并把「论文宣称」与「第三方复现/榜单」分开标注。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.052679,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "TDCOSMO 2025: Cosmological constraints from strong lensing time delays",
+          "url": "http://arxiv.org/abs/2506.03023v4",
+          "snippet": "We present cosmological constraints from 8 strongly lensed quasars (hereafter, the TDCOSMO-2025 sample). Building on previous work, our analysis incorporated new deflector stellar velocity dispersions measured from spectra obtained with the James Webb Space Telescope (JWST), the Keck Telescopes, and the Very Large Telescope (VLT), utilizing improved methods. We used integrated JWST stellar kinematics for 5 lenses, VLT-MUSE for 2, and resolved kinematics from Keck and JWST for RXJ1131-1231. We also considered two samples of non-time-delay lenses: 11 from the Sloan Lens ACS (SLACS) sample with…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-03",
+          "authors": [
+            " TDCOSMO Collaboration",
+            "Simon Birrer",
+            "Elizabeth J. Buckley-Geer",
+            "Michele Cappellari",
+            "Frédéric Courbin",
+            "Frédéric Dux",
+            "Christopher D. Fassnacht",
+            "Joshua A. Frieman",
+            "Aymeric Galan",
+            "Daniel Gilman",
+            "Xiang-Yu Huang",
+            "Shawn Knabel",
+            "Danial Langeroodi",
+            "Huan Lin",
+            "Martin Millon",
+            "Takahiro Morishita",
+            "Veronica Motta",
+            "Pritom Mozumdar",
+            "Eric Paic",
+            "Anowar J. Shajib",
+            "William Sheu",
+            "Dominique Sluse",
+            "Alessandro Sonnenfeld",
+            "Chiara Spiniello",
+            "Massimo Stiavelli",
+            "Sherry H. Suyu",
+            "Chin Yi Tan",
+            "Tommaso Treu",
+            "Lyne Van de Vyvere",
+            "Han Wang",
+            "Patrick Wells",
+            "Devon M. Williams",
+            "Kenneth C. Wong"
+          ],
+          "venue": "astro-ph.CO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.03023v4",
+            "rrf_score": 0.034266,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+          "url": "http://arxiv.org/abs/2509.11402v1",
+          "snippet": "The TRUST workshop is the result of a collaboration between two established workshops in the field of Human-Robot Interaction: SCRITA (Trust, Acceptance and Social Cues in Human-Robot Interaction) and RTSS (Robot Trust for Symbiotic Societies). This joint initiative brings together the complementary goals of these workshops to advance research on trust from both the human and robot perspectives.\n  Website: https://scrita.herts.ac.uk/2025/",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-14",
+          "authors": [
+            "Alessandra Rossi",
+            "Patrick Holthaus",
+            "Gabriella Lakatos",
+            "Sílvia Moros",
+            "Ali Fallahi",
+            "Murat Kirtay",
+            "Marie Postma",
+            "Erhan Oztop"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.11402v1",
+            "rrf_score": 0.033509,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.028665,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "候选证据集与本子问题（机器人运动学求解 / 实时控制 / ROS 2 软件栈）完全不相关，无法据此抽取任何关于 2024–2026 年该方向新进展或 SOTA 变动的结论。",
+            "evidence": "5 条候选中，[1] 为短视频互动度预测挑战赛（cs.CV），[3] 为强引力透镜宇宙学约束（astro-ph.CO），[4] 为人机信任 HRI 研讨会（cs.RO），[5] 为基础模型透明度指数（cs.AI）；无一涉及运动学求解、可微运动学、MPC/WBC、ros2_control 或实时控制软件栈。",
+            "sources": [
+              1,
+              3,
+              4,
+              5
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "候选块均为 arXiv 条目，无一条属于机器人运动学/控制/ROS 2 方向的权威来源",
+            "attention": "低 + 5 条候选无一命中子问题关键词，主题错配明显",
+            "recommendation": "★1 + 该发现仅说明证据缺口，不提供领域内容；建议补充针对该方向的定向检索"
+          },
+          {
+            "point": "[4] TRUST 2025 是候选集中唯一 cs.RO 来源，但主题为人机交互中的信任（SCRITA/RTSS 联合研讨会），不涉及运动学、实时控制或 ROS 2 软件栈。",
+            "evidence": "标题为 “TRUST 2025: SCRITA and RTSS @ RO-MAN 2025”，摘要描述其为 HRI 领域两个既有研讨会（Trust, Acceptance and Social Cues in HRI；Robot Trust for Symbiotic Societies）的联合，目标是从人与机器人两个视角推进信任研究。",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2509.11402v1（2025-09-14），RO-MAN 2025 研讨会论文集性质，非本子问题的同行评审方法论文",
+            "attention": "低 + 候选块未提供引用数或榜单信号，且主题与运动学/控制无关",
+            "recommendation": "★1 + 仅作为 HRI 方向的旁支线索，对本子问题无参考价值"
+          },
+          {
+            "point": "[5] 2025 年版基础模型透明度指数聚焦模型开发者的透明度指标演进，与具身智能的实时控制或 ROS 2 软件栈无直接关系。",
+            "evidence": "摘要说明 2025 FMTI 是该年度工作的第三版，新增与数据获取相关的指标，用于刻画和量化基础模型开发者的透明度实践。",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2512.10169v1（2025-12-11，cs.AI 预印本）；属治理/透明度评估类报告",
+            "attention": "低 + 候选块无引用/下载指标，主题偏离机器人控制",
+            "recommendation": "★1 + 可作为具身智能政策/治理维度的间接素材，但不可用于回答运动学与控制问题"
+          },
+          {
+            "point": "[1] VQualA 2025 为 ICCV 2025 短视频互动度预测挑战赛方法汇总，属于视觉内容分析方向，与本子问题无关。",
+            "evidence": "摘要描述其聚焦社交媒体用户生成短视频的流行度建模，并使用包含真实互动指标的新短视频 UGC 数据集。",
+            "sources": [
+              1
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2509.02969v1（2025-09-03），ICCV 2025 挑战赛综述，非机器人领域",
+            "attention": "低 + 挑战赛类但方向为视频热度预测，与运动学/控制无关",
+            "recommendation": "★1 + 与主题无关，仅用于确认候选集噪声"
+          },
+          {
+            "point": "[3] TDCOSMO 2025 为天体物理宇宙学约束研究，属完全不同的学科，对本子问题无任何可用证据。",
+            "evidence": "摘要描述基于 8 个强透镜类星体（TDCOSMO-2025 样本）并结合 JWST/Keck/VLT 光谱测量的新偏转体恒星速度弥散给出宇宙学约束。",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2506.03023v4（2025-06-03 提交，2025-12-21 修订），astro-ph.CO 领域",
+            "attention": "低 + 天文学主题，与机器人软件栈无交集",
+            "recommendation": "★1 + 与主题完全无关"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据中无任何关于 2024–2026 年可微运动学 / 学习式 IK-FK 求解器（如可微刚体动力学与神经网络运动学）进展的来源，相关 SOTA 变动待核实。",
+          "候选证据中无任何关于 MPC/WBC（全身控制）实时求解性能、新算法或开源实现的来源，相关进展与拐点判断待核实。",
+          "候选证据中无任何关于 ros2_control 新特性（实时性、硬件接口、控制器链、实时内核）或 ROS 2 控制软件栈版本演进的来源，官方发布与社区验证情况待核实。",
+          "候选证据无法区分该方向哪些成果已被独立验证（榜单/第三方复现/真机部署）、哪些仅有演示，证据等级无法判定。",
+          "相对上一基线的增量（数据、架构还是算力驱动）在候选集中完全没有对应材料，需补充 arXiv cs.RO、GitHub ros2_control 官方仓库与 CoRL/ICRA/RSS 等一手来源后再行抽取。"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "机器人运动学、控制与 ROS 2 方向的经典/奠基工作有哪些，以及当前该领域用于对比与验证的数据集、基准与评测平台是什么（含仿真与真机口径、任务数、本体验证范围）？",
+      "queries": [
+        "MoveIt 2 motion planning framework benchmark 2025 evaluation",
+        "Pinocchio rigid body dynamics library paper 2019 2024 Kuhn Stasse",
+        "ros2_control ros2 实时性 延迟 DDS 性能测评价 2025",
+        "robot manipulation benchmark dataset 2024 2025 DROID LIBERO RoboArena evaluation"
+      ],
+      "rationale": "对应论文调研方法论「从综述入手 + 建立论文图谱」与 frontier-tracking 的数据集/榜单层级。用来划清「经典工作」与「最新进展」的边界，并建立可比性标准（在什么 benchmark、什么硬件、多少任务），避免把演示视频当实验证据、把仿真 SOTA 当真机 SOTA。",
+      "round": 1,
+      "results": [
+        {
+          "title": "A Framework for Joint Grasp and Motion Planning in Confined Spaces",
+          "url": "http://arxiv.org/abs/2505.07259v1",
+          "snippet": "Robotic grasping is a fundamental skill across all domains of robot applications. There is a large body of research for grasping objects in table-top scenarios, where finding suitable grasps is the main challenge. In this work, we are interested in scenarios where the objects are in confined spaces and hence particularly difficult to reach. Planning how the robot approaches the object becomes a major part of the challenge, giving rise to methods for joint grasp and motion planning. The framework proposed in this paper provides 20 benchmark scenarios with systematically increasing difficulty,…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-12",
+          "authors": [
+            "Martin Rudorfer",
+            "Jiří Hartvich",
+            "Vojtěch Vonásek"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.07259v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Evaluating Guiding Spaces for Motion Planning",
+          "url": "http://arxiv.org/abs/2210.08640v1",
+          "snippet": "Randomized sampling based algorithms are widely used in robot motion planning due to the problem's intractability, and are experimentally effective on a wide range of problem instances. Most variants do not sample uniformly at random, and instead bias their sampling using various heuristics for determining which samples will provide more information, or are more likely to participate in the final solution. In this work, we define the \\emph{motion planning guiding space}, which encapsulates many seemingly distinct prior works under the same framework. In addition, we suggest an information the…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2022-10-16",
+          "authors": [
+            "Amnon Attali",
+            "Stav Ashur",
+            "Isaac Burton Love",
+            "Courtney McBeth",
+            "James Motes",
+            "Diane Uwacu",
+            "Marco Morales",
+            "Nancy M. Amato"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2210.08640v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Robowflex: Robot Motion Planning with MoveIt Made Easy",
+          "url": "http://arxiv.org/abs/2103.12826v2",
+          "snippet": "Robowflex is a software library for robot motion planning in industrial and research applications, leveraging the popular MoveIt library and Robot Operating System (ROS) middleware. Robowflex provides an augmented API for crafting and manipulating motion planning queries within a single program, making motion planning with MoveIt easy. Robowflex's high-level API simplifies many common use-cases while still providing low-level access to the MoveIt library when needed. Robowflex is particularly useful for 1) developing new motion planners, 2) evaluating motion planners, and 3) complex problems…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2021-03-23",
+          "authors": [
+            "Zachary Kingston",
+            "Lydia E. Kavraki"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2103.12826v2",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Local Planner Bench: Benchmarking for Local Motion Planning",
+          "url": "http://arxiv.org/abs/2210.06033v1",
+          "snippet": "Local motion planning is a heavily researched topic in the field of robotics with many promising algorithms being published every year. However, it is difficult and time-consuming to compare different methods in the field. In this paper, we present localPlannerBench, a new benchmarking suite that allows quick and seamless comparison between local motion planning algorithms. The key focus of the project lies in the extensibility of the environment and the simulation cases. Out-of-the-box, localPlannerBench already supports many simulation cases ranging from a simple 2D point mass to full-fledg…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2022-10-12",
+          "authors": [
+            "Max Spahn",
+            "Chadi Salmi",
+            "Javier Alonso-Mora"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2210.06033v1",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "受限空间抓取存在联合抓取与运动规划框架，并自带基准场景集：20 个难度系统递增的 benchmark 场景、带预计算抓取标注的真实物体，以及创建/共享更多场景的工具。",
+            "evidence": "论文摘要称：框架提供 20 benchmark scenarios with systematically increasing difficulty、realistic objects with precomputed grasp annotations、tools to create and share more scenarios；作者提供两个基线规划器并在这些场景上评估，显示难度等级确实带来有意义的递进。",
+            "sources": [
+              16
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（arXiv:2505.07259v1，2025-05-12 提交，cs.RO），候选块未标注同行评审 venue",
+            "attention": "中 + 候选块明确给出 20 个基准场景与两个基线规划器的评测设计，属可核查的评测资产，但无引用数/榜单数据可判断社区热度",
+            "recommendation": "★★★★☆ + 是候选证据中唯一明确给出任务数（20 个场景）、基线规划器数量（2 个）与数据资产（预计算抓取标注）的基准类工作，对回答“数据集/基准/评测平台”证据价值最高"
+          },
+          {
+            "point": "存在统一刻画运动规划采样的框架「motion planning guiding space」，并提出用信息论方法评估带引导规划的质量；该工作被 IROS 2022 Workshop 接收。",
+            "evidence": "论文定义 motion planning guiding space，把多个看似不同的先前工作纳入同一框架；提出信息论方法评估 guided planning，聚焦所得偏置采样的质量；并分析若干运动规划算法以证明定义与评估方法的适用性。Comments 字段标注：Accepted at IROS 2022, Workshop for Evaluation...",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2022",
+            "heat": "",
+            "authority": "arXiv 预印本（arXiv:2210.08640v1），Comments 标注被 IROS 2022 Workshop 接收（Workshop 非主会正式论文，权威性中等）",
+            "attention": "低 + 候选块未提供引用数或榜单数据；仅从属于 workshop 论文与评估方法学判断关注度有限",
+            "recommendation": "★★★☆☆ + 提供了运动规划“引导/采样质量”这一层评估视角，可为“如何评测规划器”提供方法论参考，但证据等级限于 workshop 且缺热度信号"
+          },
+          {
+            "point": "存在面向局部运动规划算法的基准测试套件 localPlannerBench，目标是让局部规划算法之间的对比快速且无缝。",
+            "evidence": "论文称局部运动规划是机器人领域被大量研究的方向、每年有大量算法发表，但方法间比较困难且耗时；该套件即为解决这一问题而提出对比基准。",
+            "sources": [
+              15
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2022",
+            "heat": "",
+            "authority": "arXiv 预印本（arXiv:2210.06033v1，2022-10-12 提交，cs.RO），候选块未标注同行评审 venue 或官方项目主页",
+            "attention": "低 + 候选块未给出引用数、star 或榜单排名；仅凭主题属“局部规划评测”判断关注度有限",
+            "recommendation": "★★★☆☆ + 与“对比与验证局部规划算法”的子问题直接相关，但候选证据仅到标题/摘要层，无法核实覆盖算法数、场景数与本体，降为中性推荐"
+          },
+          {
+            "point": "存在面向工业与研究应用的机器人运动规划软件库 Robowflex，基于广泛使用的 MoveIt 与 ROS 中间件，为 MoveIt 提供增强 API 以简化规划查询的构造与操作。",
+            "evidence": "论文摘要称 Robowflex 是软件库，leveraging the popular MoveIt library and Robot Operating System (ROS) middleware，提供 augmented API for crafting and manipulating motion planning queries within a single program，其高层 API 简化多个常见用例。",
+            "sources": [
+              14
+            ],
+            "type": "project",
+            "confidence": "medium",
+            "year": "2021",
+            "heat": "",
+            "authority": "arXiv 预印本（arXiv:2103.12826v2，2021-03-23 提交，cs.RO）；建立在 MoveIt/ROS 官方生态之上，但候选块未给官方仓库链接或 star 数",
+            "attention": "低 + 候选块未提供 GitHub star、引用数或榜单数据，无法判断当前社区使用程度",
+            "recommendation": "★★★☆☆ + 与“ROS 2/运动规划软件栈经典工具”高度相关，是候选证据中唯一的 ROS/MoveIt 生态软件工作，但需另行核实其 ROS 2 兼容状态与维护活跃度"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "A Framework for Joint Grasp and Motion Planning in Confined Spaces",
+            "url": "http://arxiv.org/abs/2505.07259v1",
+            "why": "给出受限空间下联合抓取与运动规划的框架，并附带 20 个难度递进的基准场景、预计算抓取标注与两个基线规划器，可直接作为“评测平台/基准”证据。",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO），候选块未标注同行评审 venue",
+            "attention": "中 + 候选块含明确基准资产与基线评测设计，但无引用/榜单数据佐证热度",
+            "recommendation": "★★★★☆ + 候选证据中信息量最大、基准要素最完整（场景数、标注、基线），对子问题核心部分直接可用"
+          },
+          {
+            "title": "Robowflex: Robot Motion Planning with MoveIt Made Easy",
+            "url": "http://arxiv.org/abs/2103.12826v2",
+            "why": "把 MoveIt 与 ROS 的运动规划能力封装为更易用的增强 API，是连接经典运动规划与 ROS 生态的工程型工作。",
+            "year": "2021",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO）；基于 MoveIt/ROS 生态，非官方文档",
+            "attention": "低 + 候选块未给 star/引用/榜单信号",
+            "recommendation": "★★★☆☆ + 与 ROS 软件栈问题直接相关，但证据仅摘要层，需核实仓库维护与 ROS 2 支持情况"
+          },
+          {
+            "title": "Local Planner Bench: Benchmarking for Local Motion Planning",
+            "url": "http://arxiv.org/abs/2210.06033v1",
+            "why": "针对局部运动规划算法难以公平对比的问题，提出统一基准套件 localPlannerBench。",
+            "year": "2022",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO），候选块未标注会议或官方基准主页",
+            "attention": "低 + 无引用数/榜单/star 证据",
+            "recommendation": "★★★☆☆ + 主题与“局部规划评测平台”直接吻合，但证据层级偏浅"
+          },
+          {
+            "title": "Evaluating Guiding Spaces for Motion Planning",
+            "url": "http://arxiv.org/abs/2210.08640v1",
+            "why": "把多种带引导的采样规划方法统一到 motion planning guiding space 框架下，并提出信息论式评估，属于“如何评价规划器”的方法学工作。",
+            "year": "2022",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.RO）；Comments 标注 IROS 2022 Workshop 接收",
+            "attention": "低 + 无引用数或榜单数据",
+            "recommendation": "★★★☆☆ + 提供评估方法论参考，但属 workshop 级证据且无热度信号"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "Robowflex",
+            "url": "http://arxiv.org/abs/2103.12826v2",
+            "why": "基于 MoveIt 与 ROS 的运动规划软件库，提供单程序内构造与操作规划查询的增强 API，是候选证据中唯一的 ROS 生态规划工程工具。",
+            "heat": "候选块未提供 stars 或采用度数据",
+            "authority": "arXiv 预印本；构建在流行的 MoveIt 库与 ROS 中间件之上，非官方文档，维护方信息待核实",
+            "attention": "低 + 无 star/下载/社区讨论数据支撑",
+            "recommendation": "★★★☆☆ + 与 ROS 运动规划工具链高度相关，但需核实仓库与 ROS 2 兼容性"
+          }
+        ],
+        "key_datasets": [
+          {
+            "name": "Confined-Space Joint Grasp and Motion Planning Benchmarks (20 scenarios)",
+            "url": "http://arxiv.org/abs/2505.07259v1",
+            "why": "提供 20 个难度系统递增的受限空间抓取/运动规划场景，附真实物体与预计算抓取标注，并提供两个基线规划器与场景创建/共享工具，可用于对比与验证规划方法。",
+            "heat": "候选块未提供引用数或下载/使用度数据",
+            "authority": "论文作者发布的基准场景集（arXiv 预印本配套），非独立第三方标准基准",
+            "attention": "中 + 候选块明确给出场景数量与基线结果，具备可复现评测要素，但无外部采纳信号",
+            "recommendation": "★★★★☆ + 是候选证据中唯一具备任务数（20）、标注与基线实测的评测数据集，对子问题的基准部分贡献最直接"
+          },
+          {
+            "name": "localPlannerBench",
+            "url": "http://arxiv.org/abs/2210.06033v1",
+            "why": "面向局部运动规划算法的基准测试套件，支持不同局部规划方法之间的快速无缝对比。",
+            "heat": "候选块未提供引用数、star 或榜单排名",
+            "authority": "论文提出的基准套件（arXiv 预印本），是否被社区广泛采用待核实",
+            "attention": "低 + 无使用度或榜单数据",
+            "recommendation": "★★★☆☆ + 主题对口但证据仅摘要层，需核实其算法覆盖范围与维护状态"
+          }
+        ],
+        "open_problems": [
+          "候选证据中缺少 ROS 2（而非 ROS 1）专用运动学/控制基线、评测平台与官方文档的直接证据；Robowflex 基于 ROS 中间件，其 ROS 2 兼容状态与维护活跃度待核实。",
+          "候选证据未提供任何引用数、GitHub star、下载量或榜单排名等热度信号，无法判断这些基准/工具是否被社区广泛采用（heat 全部留空）。",
+          "缺少同一事实的第二个独立来源：各基准（20 场景集、localPlannerBench）的真机验证口径、本体验证范围（机型/自由度）与是否支持多本体，候选块均未说明，需另行核实。",
+          "运动学/控制方向的奠基性经典工作（如经典规划算法、控制理论源头论文）在候选证据中完全缺失，仅覆盖采样规划评估与工程工具，无法据此回答“奠基工作”部分。",
+          "候选证据未给出任何基准的第三方独立复现或榜单对比结果，所有基准结论均为论文自述，证据强度受限于作者自评。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "ROS 2 与运动控制的工程落地、产业与生态现状如何：ROS 1 EOL 后迁移是否完成、厂商与开源权重格局、融资/人才流向，以及存在哪些开放问题、争议与政策/标准约束（实时性、确定性、安全认证、DDS 供应商锁定、许可证与供应链）？",
+      "queries": [
+        "ROS 1 end of life 2025 migration ROS 2 industrial adoption status",
+        "ROS 2 real-time determinism criticism DDS vendor lock-in debate safety certification",
+        "ROS 2 robot middleware funding acquisition 2025 2026 ecosystem investment",
+        "机器人中间件 标准化 政策 供应链 2025 2026 开源生态 融资"
+      ],
+      "rationale": "对应 frontier-watch 的 facet 2/3/5/6/7（工业界与产品、蓝海与缺口、社会政策国际、资本与生态、信号与预测），也是本主题用户额外关注点的落点。此维度需要跨一手官方公告、GitHub 活跃度、权威媒体与产业新闻交叉验证，并明确区分「官方公告 / 媒体报道 / 二手转述」，对传闻标 [R]、对预测标 [P]。",
+      "round": 1,
+      "results": [
+        {
+          "title": "UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering",
+          "url": "http://arxiv.org/abs/2608.27467v1",
+          "snippet": "We describe the UIC-AIHealth4All system for ArchEHR-QA 2026, a shared task on grounded question answering from electronic health records. We participated in Subtasks 2 (evidence identification), 3 (answer generation), and 4 (answer-evidence alignment). For Subtasks 2 and 3, we propose an answer-first pipeline in which the model generates candidate answers citing specific note sentences before classifying the full evidence set, exploiting the asymmetry between judging relevance in the abstract versus relative to a generated answer. For Subtask 4, we apply self-consistency voting over five inde…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-21",
+          "authors": [
+            "Mohammad Arvan",
+            "Hossein Haeri",
+            "Natalie Parde",
+            "Rebecca T. Feinstein"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.27467v1",
+            "rrf_score": 0.029719,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+          "url": "http://arxiv.org/abs/2607.03399v1",
+          "snippet": "We describe the 2026 Methods for Open Agent Systems Evaluation Initiative (MOASEI) Competition, a benchmark event for evaluating multi-agent decision-making under open-system conditions. Building on the inaugural 2025 competition, the 2026 edition retained wildfire fighting, cybersecurity, and ride-sharing domains while adding a bonus wildfire track with frame openness, in which agent equipment states such as suppressant capacities and firefighting range vary over time. The competition also expanded its reporting metrics to emphasize total task completions, mean task-completion time, and mean…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-03",
+          "authors": [
+            "Ceferino Patino",
+            "Tyler J. Billings",
+            "Alireza Saleh Abadi",
+            "Daniel Redder",
+            "Adam Eck",
+            "Prashant Doshi",
+            "Leen-Kiat Soh"
+          ],
+          "venue": "cs.MA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.03399v1",
+            "rrf_score": 0.028942,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "AutoRestTest at the SBFT 2026 Tool Competition",
+          "url": "http://arxiv.org/abs/2607.01063v1",
+          "snippet": "Large input spaces and complex inter-operation dependencies make black-box REST API testing challenging. AutoRestTest combines a Semantic Property Dependency Graph, multi-agent reinforcement learning, and large language models to intelligently explore large API input spaces. In the SBFT 2026 REST League, AutoRestTest ranked first in all three evaluation categories -- fault detection, overall efficiency, and overall effectiveness -- on 11 APIs (317 operations, approximately 29 per API), averaging 67.09 unique server errors and 17.27 successfully processed operations per API under a one-hour te…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-01",
+          "authors": [
+            "Tyler Stennett",
+            "Myeongsoo Kim",
+            "Saurabh Sinha",
+            "Alessandro Orso"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.01063v1",
+            "rrf_score": 0.028544,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification",
+          "url": "http://arxiv.org/abs/2607.28637v1",
+          "snippet": "This paper presents our system for the CHiPSAL 2026 shared task on multimodal hate speech and sentiment detection in Nepali memes. We address both subtasks: binary hate speech classification and three-class sentiment analysis. Our approach adapts the Robust Adaptation of Hateful Meme Detection (RA-HMD) framework using Qwen3-VL-8B-Instruct, a state-of-the-art vision-language model with native Devanagari support. We employ a two-stage training pipeline: (1) LoRA fine-tuning with an MLP projection head for generative classification, and (2) contrastive backbone fine-tuning with supervised InfoNC…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-19",
+          "authors": [
+            "Nitiz Khanal"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.28637v1",
+            "rrf_score": 0.028507,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "本次候选证据集中不存在任何与 ROS 2、ROS 1 EOL 迁移、运动控制、DDS、实时性/确定性、安全认证、许可证或供应链相关的材料，因此该子问题无法基于给定证据给出任何可核查结论。",
+            "evidence": "四条候选证据主题分别为：ArchEHR-QA 2026 临床电子病历问答系统（cs.CL）、AAMAS'2026 MOASEI 多智能体竞赛技术报告（cs.MA）、SBFT 2026 REST API 测试工具竞赛（cs.SE）、CHiPSAL 2026 尼泊尔语模因分类（cs.CL）。四者标题与摘要均未出现 ROS/ROS 2、机器人中间件、运动控制、DDS、实时操作系统或功能安全（ISO 13849/IEC 61508）等关键词。",
+            "sources": [
+              23,
+              24,
+              25,
+              26
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "候选证据均为 arXiv 预印本（非本主题同行评审文献）",
+            "attention": "低 + 候选材料与 ROS 2/运动控制主题零交集，无任何社区关注度信号可循",
+            "recommendation": "★☆☆☆☆ + 与子问题无关，不构成可用证据，仅用于说明当前证据缺口"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "ROS 1 于 2025-05 EOL 后，各厂商/开源项目的 ROS 2 迁移完成度如何：给定证据中无任何材料，无法判断（待核实）。",
+          "ROS 2 生态中的厂商与开源权重格局（如 MoveIt 2、ros2_control、Nav2、各本体厂商 SDK 与预训练策略权重发布情况）无证据支持（待核实）。",
+          "该领域融资与人才流向、社区格局变化无证据支持（待核实）。",
+          "实时性与确定性（DDS 中间件 QoS、executor 调度、PREEMPT_RT、xenomai 等）现状与争议无证据支持（待核实）。",
+          "安全认证与标准约束（ISO 10218 / ISO/TS 15066 / IEC 61508 / ISO 13849 等在 ROS 2 上的落地路径）无证据支持（待核实）。",
+          "DDS 供应商锁定问题（Fast DDS / Cyclone DDS / RTI Connext 的可替换性与性能差异）无证据支持（待核实）。",
+          "许可证与供应链约束（Apache-2.0 生态、ROS 2 治理结构、Open Robotics 并入 Intrinsic 后的治理影响）无证据支持（待核实）。"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 7,
+    "prompt_tokens": 43463,
+    "completion_tokens": 29730,
+    "generated_at": "2026-10-14T22:25:22.988060+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 机器人运动学、控制与 ROS 2：从实验室走向真机规模化进程中的增量快照（2024–2026）\n\n**报告日期（UTC）**：2026-10-14 ｜ **领域**：机器人运动学（kinematics）、实时控制（real-time control）、ROS 2 软件栈 ｜ **检索源数量**：34 条候选引用（其中 14 条与主题直接或边缘相关、19 条主题错配、1 条已撤稿 [20]），3 个子问题抽取块（q1/q2/q3） ｜ **报告类型**：增量追踪（frontier-watch 七维骨架）\n\n> **证据基础声明（必读）**\n> 本轮检索的召回质量严重不足，必须先声明边界，否则任何\"SOTA 变动\"结论都是虚构。\n> 1. **时间窗严重错配**：在\"近 1–2 年\"（2024-10 至 2026-10）窗口内，本可引用来源中与主题直接相关的只有 2025-05 的 [16] 与 2025-07 的 [8]（后者属人机接口，非运动学/控制）；其余相关条目全部落在 2018–2022 年（[6][11][12][13][14][15][17][19][21][28][31]）。\n> 2. **热度证据整体缺失**：全部候选块均未提供 citations / GitHub stars / 下载量 / 榜单排名，因此本报告所有\"热度\"字段一律写 `> 待核实`，**这不是\"0 引用/0 star\"**。\n> 3. **q1 与 q3 的候选证据集与子问题完全错配**（视频热度预测、天体物理、临床问答、多智能体竞赛等），因此 q1/q3 在方法论上**无法产出任何领域内容**，只能产出缺口清单——本报告如实照此处理，不以外推填补。\n> 4. 凡本报告未能用 [n] 支撑的判断，一律标 `> 待核实`；凡属推演，一律显式标 `[P]`。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量判断**：本周期内可核查的一手增量仅 **1 条**（2025-05 的受限空间联合抓取-运动规划框架及其 20 场景基准 [16]）；相对\"2022 年基线\"，运动学求解、MPC/WBC、ros2_control、可微运动学四个方向在本轮证据中**均无增量材料**，属检索缺口而非\"领域无变化\"。\n\n### 1.1 近 1–2 年（2025）可核查增量\n\n- **[16] A Framework for Joint Grasp and Motion Planning in Confined Spaces（2025-05-12，arXiv:2505.07259v1，cs.RO）**：把抓取与运动规划从\"先抓后规划\"的两段式，改为受限空间内的联合求解框架，并**自带评测资产**——20 个难度系统性递增的 benchmark 场景、带预计算抓取标注的真实物体、创建/共享更多场景的工具，作者以两个基线规划器验证难度分级确实带来有意义的递进。\n  - 热度证据：`> 待核实`（候选块无 citations / 下载量 / 榜单）\n  - 权威证据：arXiv 预印本，候选块未标注同行评审 venue [16]\n  - 关注度：**中**——依据是候选块给出了可核查的场景数（20）、基线规划器数（2）与数据资产（预计算抓取标注），属\"可复现评测要素完整\"的少数条目，但无外部采纳信号 [16]\n  - 推荐度：**★★★★☆**——本轮信息量最大、基准要素最完整的一篇，对\"评测平台/基准\"子问题直接可用 [16]\n  - 验证状态：**仅论文自述**，第三方复现与真机口径 `> 待核实`\n- **[8] LLM-based ambiguity detection in natural language instructions for collaborative surgical robots（2025-07，arXiv:2507.11525v1）**：把 LLM 用于协作手术机器人指令的歧义检测，属\"自然语言 → 机器人任务接口\"热点。与运动学求解、实时控制、ROS 2 软件栈**无直接关系**，仅作为热点外溢信号记录。\n  - 热度证据：`> 待核实`；权威证据：arXiv 预印本 [8]；关注度：**低**（主题偏离本报告主轴）；推荐度：**★★☆☆☆**（仅作语言接口线索）\n\n### 1.2 经典与奠基性工作（2018–2022 基线，非本周期增量）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| IK-Geo: Unified Robot Inverse Kinematics Using Subproblem Decomposition | 2022（v3 修订，据 arXiv ID 2211） | `> 待核实` | `> 待核实` | arXiv 预印本；是否已被期刊/会议接收 `> 待核实` [6] | 低——无引用/榜单数据 [6] | ★★★★☆ 统一 IK 子问题分解路线，是\"解析式 IK 求解器\"的代表性工程化工作 | http://arxiv.org/abs/2211.05737v3 | 用子问题分解统一多类机械臂 IK；v3 修订说明作者仍在维护，但 2024–2026 是否续更 `> 待核实` [6] |\n| SLInKi: State Lattice based Inverse Kinematics — Fast, Accurate, Flexible IK for Soft Continuum Robot Manipulators | 2021 | `> 待核实` | `> 待核实` | **同行评审**：DOI 前缀 10.1109/CASE49439.2021 指向 IEEE CASE 2021 [12] | 低——无引用/榜单数据 [12] | ★★★☆☆ 说明\"通用 IK 求解器\"之外仍存在本体专用求解器这一并行路线 | https://doi.org/10.1109/case49439.2021.9551686 | 面向软连续体机械臂的 state-lattice IK 求解器，强调速度/精度/灵活性 [12] |\n| Evaluating Guiding Spaces for Motion Planning | 2022 | `> 待核实` | `> 待核实` | 据候选块 Comments 字段标注为 **IROS 2022 Workshop** 接收（workshop 级，非主会） [13] | 低——无引用/榜单数据 [13] | ★★★☆☆ 提供\"如何评测带引导采样规划质量\"的方法论视角 | http://arxiv.org/abs/2210.08640v1 | 提出 motion planning guiding space 统一框架 + 信息论式评估偏置采样质量 [13] |\n| Predicted Composite Signed-Distance Fields for Real-Time Motion Planning in Dynamic Environments | 2020 | `> 待核实` | `> 待核实` | arXiv 预印本 [19] | 低——无引用/榜单数据 [19] | ★★★☆☆ 动态环境下实时规划的 SDF 预测路线代表 | http://arxiv.org/abs/2008.00969v2 | 用预测的复合符号距离场支撑动态环境实时规划，是\"感知-规划耦合\"的早期基线 [19] |\n| Data-Efficient Learning of High-Quality Controls for Kinodynamic Planning used in Vehicular Navigation | 2022 | `> 待核实` | `> 待核实` | arXiv 预印本 [17] | 低——无引用/榜单数据 [17] | ★★★☆☆ \"学习方法化控制\"支线的早期证据，补足纯几何规划之外的监督信号视角 | http://arxiv.org/abs/2201.02254v1 | 数据高效地学习运动动力学规划所需的高质量控制量 [17] |\n| Can ROS be used securely in industry? Red teaming ROS-Industrial | 2020 | `> 待核实` | `> 待核实` | arXiv 预印本；正式 venue `> 待核实` [28] | 低——无引用/讨论热度数据 [28] | ★★★★☆ 工业 ROS 安全议题的奠基性一手材料，是判断\"6 年后是否解决\"的唯一锚点 | http://arxiv.org/abs/2009.08211v1 | 对 ROS-Industrial 做红队测试，系统暴露工业部署下的安全攻击面 [28] |\n\n> 覆盖说明：候选集中 [11]（2018，LabVIEW 电机状态监测与故障诊断）与 [22]（2019，RoboCup SSL 冠军队伍 CUDA 传球射门算法）同属机器人/实时系统边缘相关，但因非 ROS 生态、且与运动学/控制主问题关联弱，未纳入上表，仅作召回完整性记录。\n\n### 1.3 数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Confined-Space Joint Grasp & Motion Planning Benchmarks（20 场景） | 2025 | `> 待核实` | `> 待核实` | 论文作者自建（arXiv 预印本配套），非第三方标准基准 [16] | 中——候选块明确给出场景数（20）、预计算抓取标注与 2 个基线规划器 [16] | ★★★★☆ 唯一同时给出任务数、标注与基线实测的评测资产 | http://arxiv.org/abs/2505.07259v1 | 难度递进的受限空间抓取+规划场景集，附场景创建/共享工具；真机口径与本体范围 `> 待核实` [16] |\n| localPlannerBench | 2022 | `> 待核实` | `> 待核实` | arXiv 预印本；官方主页与维护状态 `> 待核实` [15] | 低——无使用度/榜单数据 [15] | ★★★☆☆ 直击\"局部规划算法难以公平对比\"的痛点，但覆盖范围待核 | http://arxiv.org/abs/2210.06033v1 | 面向局部运动规划算法的统一对比套件，目标是让算法间比较快速无缝 [15] |\n| Motion Planning Guiding Space（评估方法论，非数据集） | 2022 | `> 待核实` | `> 待核实` | IROS 2022 Workshop（据候选块 Comments）[13] | 低——无引用数据 [13] | ★★★☆☆ 属评测方法学而非数据集，可作指标设计参考 | http://arxiv.org/abs/2210.08640v1 | 统一带引导采样规划框架 + 信息论评估 [13] |\n\n> **关键缺口**：本报告中**不存在**任何 ROS 2 原生的运动学/控制基准、多本体真机基准或公开榜单。三个评测资产 [13][15][16] 互不衔接、均为作者自建、均无第三方复现记录。\n\n### 1.4 本周期\"应出现但无证据\"的 SOTA 项（全部 `> 待核实`）\n\n| 方向 | 期望证据类型 | 本轮状态 |\n|---|---|---|\n| 可微运动学 / 可微刚体动力学 / 学习式 IK-FK 求解器 | 2024–2026 arXiv cs.RO、CoRL/ICRA/RSS 论文 | 零命中 `> 待核实` |\n| MPC / WBC 全身控制实时求解性能与新算法 | 论文 + 开源实现 + 实时性基准 | 零命中 `> 待核实` |\n| ros2_control / MoveIt 2 / Nav2 的新特性与版本演进 | 官方 release notes、仓库提交记录 | 零命中 `> 待核实` |\n| ROS 2 实时性与确定性（DDS QoS、executor、PREEMPT_RT） | 官方文档 + 实测报告 | 零命中 `> 待核实` |\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量判断**：本周期**可核查的产业化证据为 0 条**。没有任何厂商产品发布、预训练权重、量产或真机部署材料进入本轮证据集；唯一与\"工业落地/工程化\"相关的一手材料全部来自 2020–2022 年，且处于\"工具发布\"而非\"规模部署\"证据层级。\n\n| 开源项目 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Robowflex | 2021 | `> 待核实` | `> 待核实` | arXiv 预印本；构建于 MoveIt + ROS 之上，非官方文档 [14] | 低——无 star/下载/讨论数据 [14] | ★★★☆☆ 候选证据中唯一的 ROS 生态运动规划封装库，但 ROS 2 兼容性与维护活跃度 `> 待核实` | http://arxiv.org/abs/2103.12826v2 | 为 MoveIt 提供增强 API，单程序内构造与操作规划查询，简化常见用例 [14] |\n| Extending the Motion Planning Framework — MoveIt with Advanced Manipulation Functions for Industrial Applications | `> 待核实` | `> 待核实` | `> 待核实` | **SSRN 预印本（10.2139 前缀），非同行评审**，权威性偏低 [21] | `> 待核实`——无使用度数据 [21] | ★★☆☆☆ 主题对口（MoveIt 工业扩展），但证据平台较弱，仅作线索 | https://doi.org/10.2139/ssrn.4251344 | 面向工业应用的 MoveIt 操作功能扩展 [21] |\n| Prognostic and Health Management (PHM) tool for ROS | 2020 | `> 待核实` | `> 待核实` | arXiv 预印本 [31] | `> 待核实` | ★★☆☆☆ 属运维/诊断层工具，证明 ROS 生态在\"可用性工程\"上早有布局，但与运动控制本体关系间接 | http://arxiv.org/abs/2011.09222v1 | 为 ROS 提供的预测与健康管理（PHM）工具 [31] |\n\n- **ROS 1 → ROS 2 迁移完成度**：本轮证据**完全无材料**。ROS 1（Noetic）EOL 的具体日期、各厂商与开源项目（MoveIt 2 / ros2_control / Nav2 / 本体厂商 SDK）的迁移与权重发布现状，`> 待核实`。\n- **\"从 lab 走向落地\"的可核查证据**：**缺**。本轮唯一的 2025 年机器人相关条目 [16] 为单篇 arXiv 预印本，其真机部署与用户采纳情况 `> 待核实`。\n- 边缘相关：`[11]` 的电机状态监测/故障诊断（LabVIEW 实现，2018）属\"设备级实时监测\"思路，与 ROS 2 控制栈无耦合关系，`> 待核实`其是否在 ROS/ROS 2 生态被复用。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量判断**：**缺口本身是本次调研最确凿的发现**——\"ROS 2 原生 + 多本体 + 可复现榜单\"三位一体的评测基础设施在本轮证据中完全缺席，而三个现存评测资产 [13][15][16] 各自为政。\n\n- **缺口 1：ROS 2 原生的运动学/控制基准与公开榜单**。现存资产 [13][15][16] 均为作者自建、无第三方榜单、无 ROS 2 依赖说明，且 [14] 基于 ROS 中间件但 ROS 2 兼容状态 `> 待核实`。四轴：热度 `> 待核实`；权威 `> 待核实`（无官方标准）；关注度 低；推荐度 ★★★★☆（**这正是高杠杆的空白位**）[13][14][15][16]\n- **缺口 2：2024–2026 可微运动学 / 学习式 IK-FK 的公开可比结果**。当前唯一可核的 IK 路线证据是 2022 年的子问题分解 [6]（v3 修订说明线仍在维护）与 2021 年的软体专用求解器 [12]，二者之间**没有对比实验**。热度 `> 待核实`；权威 arXiv/IEEE CASE [6][12]；关注度 低；推荐度 ★★★★☆（存在无人区特征）\n- **缺口 3：真机与多本体验证口径缺失**。[16] 的 20 场景基准未说明真机/仿真口径、本体自由度与机型范围 [16]；[15] 的算法与场景覆盖 `> 待核实` [15]。关注度 中（对 [16]）；推荐度 ★★★★☆——**\"谁先把真机口径填上，谁就定义了可比性\"**\n- **缺口 4：ROS 2 安全与实时认证的当代证据真空**。唯一锚点是 2020 年的 ROS-Industrial 红队研究 [28]；此后 6 年多的进展（标准映射、认证路径、DDS 供应商锁定与供应链风险）**零证据** `> 待核实`。关注度 低（无热搜/榜单信号）；推荐度 ★★★★★（**这是工业规模化的硬门槛，且证据真空本身就是信号**）[28]\n- **缺口 5：评测方法论与工具链脱节**。[13] 提供\"引导空间质量\"的信息论评估视角，[15] 提供局部规划对比套件，但二者未与 [16] 的场景资产或 ROS 2 工具链打通 [13][15][16]。关注度 低；推荐度 ★★★☆☆\n- `[P]` **高杠杆机会（预判，置信度：低）**：依据\"三个评测资产互不衔接 + 无第三方榜单\"这一可观测现状，推演结论为——**未来 12–18 个月，最先被社区采纳的不会是又一个新规划器，而是把现有场景资产接入 ROS 2 可复现流水线的评测层**。可证伪条件见第 7 节 P1。\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n**一句话增量判断**：本周期**不能断言存在拐点**；能确认的是三类瓶颈，其中\"证据链断层\"使拐点判断在方法上不可完成。\n\n- **瓶颈 A：评测碎片化 + 无榜单**。[13][15][16] 三个资产使用不同口径、不同任务定义、无共享榜单；全部热度信号 `> 待核实`，即**无法证明其中任何一个被社区广泛采用**。关注度 中；推荐度 ★★★★☆ [13][15][16]\n- **瓶颈 B：证据链断层（2018→2022→2025 跳跃）**。本轮相关材料密集在 2020–2022（[13][14][15][17][19][21][28][31]），2023–2024 **完全空白**，2025 仅 [16]。这是**检索/公开性瓶颈**，不等于领域停滞；但在当前证据下，任何\"2024–2026 发生了什么变化\"的强断言都不成立 `> 待核实`。\n- **瓶颈 C：工业合规证据停留在 ROS 1 时代**。[28] 是 2020 年的 ROS-Industrial 红队研究；关于其时是否已催生后续标准或修复，本报告无证据 `> 待核实`。关注度 低；推荐度 ★★★★★（硬门槛）[28]\n- **瓶颈 D：本体专用 vs 通用求解器的取舍**。[6] 走统一子问题分解，[12] 走软连续体专用 state-lattice——两条路线并存 5 年，缺乏统一的精度/速度对比口径 [6][12]。关注度 低；推荐度 ★★★☆☆\n- **拐点信号清单（可观测、但本轮无法给出取值）**：\n  1. ros2_control / MoveIt 2 官方仓库的 release 节奏与提交活跃度 `> 待核实`\n  2. 是否出现 ≥2 个独立团队共同引用的 ROS 2 原生评测榜单 `> 待核实`\n  3. 是否出现 ROS 2 与功能安全标准的官方映射文档 `> 待核实`\n  4. 是否有论文把真机口径（本体型号/自由度/任务数）作为必填项 `> 待核实`\n- **结论**：拐点判断**证据不足**；本次记为\"待观察\"，不记\"已发生\"。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量判断**：本维度**零命中**——没有任何监管、标准、地缘政治、供应链或伦理材料进入本轮证据集。\n\n- **监管与标准**：ISO 10218 / ISO/TS 15066 / IEC 61508 / ISO 13849 等在 ROS 2 上的落地路径 `> 待核实`；本轮唯一相关锚点是 2020 年针对 ROS-Industrial 的安全红队研究 [28]，说明\"ROS 用于工业安全吗\"这一问题**至少在 2020 年已被系统提出**，但 2024–2026 的政策/标准状态无证据。权威：arXiv 预印本 [28]；关注度 低；推荐度 ★★★★☆\n- **治理指标化的跨领域外溢（弱信号）**：[5] 2025 年版 Foundation Model Transparency Index（第三版）新增与数据获取相关的透明度指标，反映\"对基础模型开发者透明度进行量化评级\"的治理范式在持续演进 [5]。但该工作是**基础模型治理**，**不可外推**为机器人控制栈的监管趋势。权威：arXiv 预印本（cs.AI）[5]；热度 `> 待核实`；关注度 低（偏离主轴）；推荐度 ★★☆☆☆\n- **地缘政治 / 供应链 / 出口管制 / 劳动影响**：本轮**无任何证据**，全部 `> 待核实`。按方法论要求，此维度写\"本周期无可核查变化\"，**不**写\"无变化\"。\n- 提示：`[20]`（arXiv:cond-mat/0309395v2）标注为\"This paper has been withdrawn\"，属不可用来源，已丢弃。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：本维度**零命中**——无融资、并购、人才流动或公司格局材料；生态侧只能从工具条目的**时间分布**读出间接信号，且该信号本身受检索偏差污染。\n\n- **投资 / 并购 / 人才**：`> 待核实`（零证据，不推测）。\n- **生态工具的时间分布（可核查的间接信号）**：相关开源/工程条目集中于 2020–2022（[14] 2021 MoveIt 封装库、[21] MoveIt 工业扩展、[31] 2020 ROS PHM 工具、[28] 2020 ROS 安全红队），2025 年仅 [16] 一篇单组预印本。**可核事实是\"本轮证据中没有 2023–2026 的新工具链条目\"**，但这是召回质量问题，**不能**据此宣称生态降温 `> 待核实`。四轴：热度 `> 待核实`；权威 arXiv/SSRN（[21] 非同行评审）[14][21][31]；关注度 低；推荐度 ★★★☆☆（[14]）/★★☆☆☆（[21][31]）\n- **社区与榜单**：无任何 star、下载、榜单排名数据进入本轮证据 `> 待核实`。\n- **结论**：本维度按方法论写作\"**本周期无可核查证据**\"，而非\"本周期无显著变化\"。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n**一句话增量判断**：可确认的早期信号仅 3 条，且都指向\"评测资产自建化\"与\"求解器长期维护化\"两个慢变量，而非爆发式变化。\n\n### 7.1 早期信号（可核查）\n\n- **S1（2025-05）**：新工作倾向于**自带基准与基线**发布——[16] 一次性给出 20 个难度递进场景 + 预计算抓取标注 + 2 个基线规划器 + 场景共享工具。这可能反映\"评测资产已是论文竞争力的一部分\"，但也可能只是单篇案例 `> 待核实`。[16]\n- **S2（2022–）**：解析式 IK 求解器仍在**持续修订**——[6] 已迭代至 v3，说明子问题分解路线未被视为已终结问题。[6]\n- **S3（2021）**：本体专用 IK 求解器与通用求解器**并行演进**——[12] 为软连续体机械臂单独设计 state-lattice IK，说明通用求解器未必覆盖软体/连续体本体。[12]\n\n### 7.2 预判 `[P]`（均为可证伪假设，依据链：现状 → 推演 → 结论）\n\n- **P1（评测收敛）**：依据\"三个评测资产 [13][15][16] 各自为政且全部缺第三方榜单\"这一现状，推演\"社区需要统一口径但尚无供给\"，结论为——**若到 2027-06 出现被 ≥2 个独立团队（非原作者）引用的 ROS 2 原生运动学/控制评测榜单，则\"评测碎片化正在收敛\"成立；否则不成立**。置信度：**低**（依据仅 3 条自建资产，样本过小）。\n- **P2（合规拐点）**：依据\"唯一工业安全证据是 2020 年的 ROS-Industrial 红队研究 [28]，其后无证据\"，推演\"若工业规模化真在发生，合规文档应随之出现\"，结论为——**若 2026-10 至 2027-12 之间出现 ros2_control 或 ROS 2 官方/半官方的实时性与功能安全（IEC 61508 / ISO 13849 类）映射文档或认证案例，则\"工业级 ROS 2 控制栈合规拐点\"成立；否则该拐点尚未到来**。置信度：**低**（本轮无 2023 年后合规证据，无法判断是\"已解决但未检索到\"还是\"未解决\"）。\n- **P3（学习式运动学落地）**：依据\"本轮 2024–2026 窗口内**零**可微运动学/学习式 IK 证据，而工作区之外的基线 [6][12] 均为解析/几何法\"，结论为——**若到 2027-06 仍无可微运动学方法在公开真机基准上超过并行解析求解器，则\"学习方法尚未取代解析 IK 在实时控制中的地位\"成立**。置信度：**低**，且**高度可能是检索缺口所致**，不作为结论使用。\n\n### 7.3 争议与传闻\n\n- `[Debated]`：本轮证据量不足以形成任何可陈述的学术争议（不存在两方独立来源的冲突材料）。\n- `[R]`：无（不记录未证实传闻）。\n\n### 7.4 Watchlist 与下一轮检索式\n\n| 观察对象 | 观察指标 | 建议检索式 |\n|---|---|---|\n| ros2_control / MoveIt 2 | release 与 commit 活跃度、官方文档新增章节 | `site:github.com ros2_control releases 2025..2026`、`ros2_control real-time determinism docs` |\n| 可微运动学 / 学习式 IK | 新论文 + 真机对比 | `site:arxiv.org differentiable kinematics IK 2025..2026`、`learning inverse kinematics real robot benchmark` |\n| MPC / WBC | 实时求解频率与开源实现 | `whole-body control MPC real-time 2025..2026 site:arxiv.org` |\n| 评测榜单 | 第三方复现与榜单 | `simpler env libero benchmark leaderboard 2025..2026`、`motion planning benchmark leaderboard ros2` |\n| 安全与合规 | 标准映射文档 | `ROS 2 functional safety IEC 61508 certification 2025..2026`、`ISO 10218 ROS 2` |\n| ROS 1 EOL 迁移 | 迁移完成度报告 | `ROS 1 Noetic EOL migration status 2025..2026`、`ROS 2 migration survey robotics companies` |\n\n**Watchlist 判定标准（延续 P1）**：是否出现**非原作者团队**引用的 ROS 2 原生基准/榜单 —— 这是本报告认为最值得盯的单一指标。\n\n---\n\n## 参考来源\n\n**本报告实际引用**\n\n- [5] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n- [6] IK-Geo: Unified Robot Inverse Kinematics Using Subproblem Decomposition — http://arxiv.org/abs/2211.05737v3\n- [8] LLM-based ambiguity detection in natural language instructions for collaborative surgical robots — http://arxiv.org/abs/2507.11525v1\n- [11] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1\n- [12] SLInKi: State Lattice based Inverse Kinematics - A Fast, Accurate, and Flexible IK Solver for Soft Continuum Robot Manipulators — https://doi.org/10.1109/case49439.2021.9551686\n- [13] Evaluating Guiding Spaces for Motion Planning — http://arxiv.org/abs/2210.08640v1\n- [14] Robowflex: Robot Motion Planning with MoveIt Made Easy — http://arxiv.org/abs/2103.12826v2\n- [15] Local Planner Bench: Benchmarking for Local Motion Planning — http://arxiv.org/abs/2210.06033v1\n- [16] A Framework for Joint Grasp and Motion Planning in Confined Spaces — http://arxiv.org/abs/2505.07259v1\n- [17] Data-Efficient Learning of High-Quality Controls for Kinodynamic Planning used in Vehicular Navigation — http://arxiv.org/abs/2201.02254v1\n- [19] Predicted Composite Signed-Distance Fields for Real-Time Motion Planning in Dynamic Environments — http://arxiv.org/abs/2008.00969v2\n- [20] This paper has been withdrawn（不可用来源，已丢弃）— http://arxiv.org/abs/cond-mat/0309395v2\n- [21] Extending the Motion Planning Framework—Moveit with Advanced Manipulation Functions for Industrial Applications — https://doi.org/10.2139/ssrn.4251344\n- [22] Champion Team Paper: Dynamic Passing-Shooting Algorithm Based on CUDA of The RoboCup SSL 2019 Champion — http://arxiv.org/abs/1909.07717v1\n- [28] Can ROS be used securely in industry? Red teaming ROS-Industrial — http://arxiv.org/abs/2009.08211v1\n- [31] Prognostic and Health Management (PHM) tool for Robot Operating System (ROS) — http://arxiv.org/abs/2011.09222v1\n\n**本轮未采用候选（主题错配，仅作召回质量记录，未用于任何论断）**\n\n- 视觉/视频与图像挑战赛类：[1] VQualA 2025 短视频互动度预测、[2] NTIRE 2025 图像超分\n- 天体物理与数学类：[3] TDCOSMO 2025、[7] PINOCCHIO 暗物质晕、[27] LaFeAsO 磁相互作用、[29] 3C309.1、[32] AGN Jets 运动学、[33] 相位延迟天体测量、[34] LIFE 干涉仪\n- NLP / 评测 / 治理类：[9] 德语开放问卷编码、[10] 车联网边缘计算、[18] ELOQUENT 2025 Sensemaking\n- 人机交互与工程管理类：[4] TRUST 2025（HRI 信任，cs.RO 但非本主题）\n- 2026 年其他竞赛/应用类：[23] ArchEHR-QA 2026、[24] MOASEI 2026、[25] AutoRestTest SBFT 2026、[26] CHiPSAL 2026\n- 其他：[30] Jayne–Rogers 定理注记\n\n> **报告自评（覆盖检查）**：✅ 最新进展与经典工作已分节；✅ 三类必填表格（经典/开源/基准）已给出；✅ 四类证据轴已逐条标注，缺失处统一写 `待核实`；✅ 七维章节全部完成。❌ **未达成**：无法回答\"2024–2026 年 ros2_control / MPC-WBC / 可微运动学的真实 SOTA 变动\"，原因是本轮召回集与子问题错配 → 建议以第 7.4 节检索式重跑一轮后再出增量结论。\n\n---\n\n*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=34 · duration=227s · 2026-10-14T22:25:22+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "TDCOSMO 2025: Cosmological constraints from strong lensing time delays",
+      "url": "http://arxiv.org/abs/2506.03023v4",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2025-06-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+      "url": "http://arxiv.org/abs/2509.11402v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "IK-Geo: Unified Robot Inverse Kinematics Using Subproblem Decomposition",
+      "url": "http://arxiv.org/abs/2211.05737v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-11-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "PINOCCHIO and the hierarchical build-up of dark matter haloes",
+      "url": "http://arxiv.org/abs/astro-ph/0109324v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2001-09-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "LLM-based ambiguity detection in natural language instructions for collaborative surgical robots",
+      "url": "http://arxiv.org/abs/2507.11525v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-07-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+      "url": "http://arxiv.org/abs/2506.14634v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "SLInKi: State Lattice based Inverse Kinematics - A Fast, Accurate, and Flexible IK Solver for Soft Continuum Robot Manipulators",
+      "url": "https://doi.org/10.1109/case49439.2021.9551686",
+      "kind": "paper",
+      "venue": "2021 IEEE 17th International Conference on Automation Science and Engineering (CASE)",
+      "published": "2021-08-23",
+      "citations": 11,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Evaluating Guiding Spaces for Motion Planning",
+      "url": "http://arxiv.org/abs/2210.08640v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Robowflex: Robot Motion Planning with MoveIt Made Easy",
+      "url": "http://arxiv.org/abs/2103.12826v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-03-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Local Planner Bench: Benchmarking for Local Motion Planning",
+      "url": "http://arxiv.org/abs/2210.06033v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-10-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "A Framework for Joint Grasp and Motion Planning in Confined Spaces",
+      "url": "http://arxiv.org/abs/2505.07259v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Data-Efficient Learning of High-Quality Controls for Kinodynamic Planning used in Vehicular Navigation",
+      "url": "http://arxiv.org/abs/2201.02254v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-01-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+      "url": "http://arxiv.org/abs/2507.12143v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Predicted Composite Signed-Distance Fields for Real-Time Motion Planning in Dynamic Environments",
+      "url": "http://arxiv.org/abs/2008.00969v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-08-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "This paper has been withdrawn",
+      "url": "http://arxiv.org/abs/cond-mat/0309395v2",
+      "kind": "paper",
+      "venue": "cond-mat.soft",
+      "published": "2003-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Extending the Motion Planning Framework—Moveit with Advanced Manipulation Functions for Industrial Applications",
+      "url": "https://doi.org/10.2139/ssrn.4251344",
+      "kind": "paper",
+      "venue": "SSRN Electronic Journal",
+      "published": "2022-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Champion Team Paper: Dynamic Passing-Shooting Algorithm Based on CUDA of The RoboCup SSL 2019 Champion",
+      "url": "http://arxiv.org/abs/1909.07717v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering",
+      "url": "http://arxiv.org/abs/2608.27467v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+      "url": "http://arxiv.org/abs/2607.03399v1",
+      "kind": "paper",
+      "venue": "cs.MA",
+      "published": "2026-07-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "AutoRestTest at the SBFT 2026 Tool Competition",
+      "url": "http://arxiv.org/abs/2607.01063v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification",
+      "url": "http://arxiv.org/abs/2607.28637v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-05-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Two-dimensional magnetic interactions in LaFeAsO",
+      "url": "http://arxiv.org/abs/1303.4033v1",
+      "kind": "paper",
+      "venue": "cond-mat.supr-con",
+      "published": "2013-03-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Can ROS be used securely in industry? Red teaming ROS-Industrial",
+      "url": "http://arxiv.org/abs/2009.08211v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "A Multi-Frequency Study of 3C309.1",
+      "url": "http://arxiv.org/abs/astro-ph/0211200v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2002-11-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Some observations on \"A new proof of a theorem of Jayne and Rogers\"",
+      "url": "http://arxiv.org/abs/1112.0350v2",
+      "kind": "paper",
+      "venue": "math.LO",
+      "published": "2011-12-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Prognostic and Health Management (PHM) tool for Robot Operating System (ROS)",
+      "url": "http://arxiv.org/abs/2011.09222v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-11-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Kinematics of AGN Jets",
+      "url": "http://arxiv.org/abs/0810.4714v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2008-10-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "On the way to global phase-delay astrometry",
+      "url": "http://arxiv.org/abs/astro-ph/0010611v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2000-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "Large Interferometer For Exoplanets (LIFE): IV. Ideal kernel-nulling array architectures for a space-based mid-infrared nulling interferometer",
+      "url": "http://arxiv.org/abs/2201.04891v3",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2022-01-13",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-14-机器人运动学控制与-ros-2.md",
+    "json": "report/2026/10/2026-10-14-机器人运动学控制与-ros-2.json"
+  }
+}

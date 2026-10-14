@@ -1,0 +1,1092 @@
+{
+  "topic": "agent-评测与安全能力基准欺骗与可纠正性",
+  "title": "Agent 评测与安全：能力基准、欺骗与可纠正性 —— 领域增量调研计划（2026-10 快照）",
+  "query": "Agent 评测与安全（能力基准、欺骗与可纠正性）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-14T22:29:48+00:00",
+  "finished_at": "2026-10-14T22:33:17+00:00",
+  "duration_s": 208.7,
+  "rounds": 1,
+  "plan": {
+    "title": "Agent 评测与安全：能力基准、欺骗与可纠正性 —— 领域增量调研计划（2026-10 快照）",
+    "summary": "以七维增量追踪为骨架，系统梳理近 1-2 年 Agent 能力评测基准与安全评测（欺骗、可纠正性、监督与治理）的真实进展、产业落地、蓝海缺口与拐点信号，产出带时间戳与可核查引用的增量报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近 1-2 年 Agent 能力评测基准（工具使用、计算机/浏览器操作、软件工程、长时程任务）发生了哪些真实增量：新基准、榜单 SOTA 变动、以及从仿真/自评走向独立复现与真实环境验证的证据？",
+        "rationale": "对应 frontier-watch facet 1（进展与热点）与 facet 4（瓶颈与拐点）。需要区分『论文自称 SOTA』与『第三方榜单/独立复现』，并核实每个基准的任务数、本体/环境（真机 vs 沙箱 vs 网页）、污染与可复现性争议。时间锚定 2024..2026，以 published 时间判断新旧，避免把训练知识当作最新进展。",
+        "queries": [
+          "LLM agent benchmark survey 2025 tool use computer use evaluation arxiv",
+          "SWE-bench WebArena OSWorld τ-bench Terminal-Bench leaderboard 2025 2026 results",
+          "agent 能力基准 评测 榜单 SOTA 2025 综述 综述论文",
+          "long-horizon agent evaluation METR task suite time horizon 2025 2026"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing",
+          "github"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "Agent 欺骗（deception / scheming / agentic misalignment）与可纠正性（corrigibility、关停抵抗、监督可扩展性）的奠基工作是什么，近 1-2 年有哪些新的实证评测与安全方法？",
+        "rationale": "对应 frontier-watch facet 1 与 facet 3：这是本主题的核心安全轴。需要先定位奠基文献（可纠正性、工具性目标收敛、欺骗的形式化讨论），再追踪最新实证评测（in-context scheming 评测、内部威胁/告密场景评测、sandbagging、reward hacking）与其证据等级——注意区分『模型在构造场景下表现出的行为』与『真实部署中的欺骗』，后者多为推测，须显式标注不确定性。",
+        "queries": [
+          "in-context scheming evaluations Apollo Research LLM agents 2024 2025",
+          "agentic misalignment insider threat evaluation Anthropic 2025",
+          "corrigibility shutdown resistance AI safety foundational paper Soares Fallenstein Yudkowsky",
+          "deception sandbagging reward hacking agent evaluation benchmark 2024 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "Agent 评测与安全在工程实践、数据集/基准与治理层面有哪些可用资产与未解争议：开源评测框架与红队工具、对抗性基准（提示注入、有害任务）、以及监管标准（EU AI Act / NIST 等）对 Agent 评测要求的实际落地情况？",
+        "rationale": "对应 frontier-watch facet 2/5/6/7（产业与产品、社会政策、资本生态、信号预测）以及 deep-research 的『开源实现 + 数据集 + 争议/失败案例』缺口检查。需要核实仓库活跃度与许可（GitHub stars/最近提交）、基准主页的一手说明、以及监管文本的生效日期与适用范围；对融资/并购与预测类信息一律标注 [R]/[P] 并写成可证伪假设。",
+        "queries": [
+          "open source LLM agent safety evaluation harness Inspect AI Petri AgentDojo GitHub",
+          "prompt injection red teaming agent benchmark InjecAgent AgentHarm 2024 2025",
+          "EU AI Act GPAI obligations 2025 AI agent governance standard NIST AI RMF",
+          "agent evaluation leaderboard reproducibility data contamination criticism 2025 2026"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv",
+          "openalex"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近 1-2 年 Agent 能力评测基准（工具使用、计算机/浏览器操作、软件工程、长时程任务）发生了哪些真实增量：新基准、榜单 SOTA 变动、以及从仿真/自评走向独立复现与真实环境验证的证据？",
+      "queries": [
+        "LLM agent benchmark survey 2025 tool use computer use evaluation arxiv",
+        "SWE-bench WebArena OSWorld τ-bench Terminal-Bench leaderboard 2025 2026 results",
+        "agent 能力基准 评测 榜单 SOTA 2025 综述 综述论文",
+        "long-horizon agent evaluation METR task suite time horizon 2025 2026"
+      ],
+      "rationale": "对应 frontier-watch facet 1（进展与热点）与 facet 4（瓶颈与拐点）。需要区分『论文自称 SOTA』与『第三方榜单/独立复现』，并核实每个基准的任务数、本体/环境（真机 vs 沙箱 vs 网页）、污染与可复现性争议。时间锚定 2024..2026，以 published 时间判断新旧，避免把训练知识当作最新进展。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+          "url": "http://arxiv.org/abs/2504.19675v2",
+          "snippet": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our approach combines traditional natural language processing and machine learning techniques implemented in the Annif toolkit with innovative LLM-based methods for translation and synthetic data generation, and merging predictions from monolingual models. The system ranked first in the all-subjects category…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-28",
+          "authors": [
+            "Osma Suominen",
+            "Juho Inkinen",
+            "Mona Lehtinen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.19675v2",
+            "rrf_score": 0.034993,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.032093,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "UI-Evol: Automatic Knowledge Evolving for Computer Use Agents",
+          "url": "http://arxiv.org/abs/2505.21964v2",
+          "snippet": "External knowledge has played a crucial role in the recent development of computer use agents. We identify a critical knowledge-execution gap: retrieved knowledge often fails to translate into effective real-world task execution. Our analysis shows even 90% correct knowledge yields only 41% execution success rate. To bridge this gap, we propose UI-Evol, a plug-and-play module for autonomous GUI knowledge evolution. UI-Evol consists of two stages: a Retrace Stage that extracts faithful objective action sequences from actual agent-environment interactions, and a Critique Stage that refines exis…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-28",
+          "authors": [
+            "Ziyun Zhang",
+            "Xinyi Liu",
+            "Xiaoyi Zhang",
+            "Jun Wang",
+            "Gang Chen",
+            "Yan Lu"
+          ],
+          "venue": "cs.HC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.21964v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "HealthAdminBench: Evaluating Computer-Use Agents on Healthcare Administration Tasks",
+          "url": "http://arxiv.org/abs/2604.09937v1",
+          "snippet": "Healthcare administration accounts for over $1 trillion in annual spending, making it a promising target for LLM-based computer-use agents (CUAs). While clinical applications of LLMs have received significant attention, no benchmark exists for evaluating CUAs on end-to-end administrative workflows. To address this gap, we introduce HealthAdminBench, a benchmark comprising four realistic GUI environments: an EHR, two payer portals, and a fax system, and 135 expert-defined tasks spanning three administrative task types: Prior Authorization, Appeals and Denials Management, and Durable Medical Eq…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-04-10",
+          "authors": [
+            "Suhana Bedi",
+            "Ryan Welch",
+            "Ethan Steinberg",
+            "Michael Wornow",
+            "Taeil Matthew Kim",
+            "Haroun Ahmed",
+            "Peter Sterling",
+            "Bravim Purohit",
+            "Qurat Akram",
+            "Angelic Acosta",
+            "Esther Nubla",
+            "Pritika Sharma",
+            "Michael A. Pfeffer",
+            "Sanmi Koyejo",
+            "Nigam H. Shah"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2604.09937v1",
+            "rrf_score": 0.024194
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+            "evidence": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our appro…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "UI-Evol: Automatic Knowledge Evolving for Computer Use Agents",
+            "evidence": "External knowledge has played a crucial role in the recent development of computer use agents. We identify a critical knowledge-execution gap: retrieved knowledge often fails to translate into effective real-world task execution. Our analysis shows even 90% correct knowledge yields only 41% executi…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.HC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.HC）"
+          },
+          {
+            "point": "HealthAdminBench: Evaluating Computer-Use Agents on Healthcare Administration Tasks",
+            "evidence": "Healthcare administration accounts for over $1 trillion in annual spending, making it a promising target for LLM-based computer-use agents (CUAs). While clinical applications of LLMs have received significant attention, no benchmark exists for evaluating CUAs on end-to-end administrative workflows.…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "Agent 欺骗（deception / scheming / agentic misalignment）与可纠正性（corrigibility、关停抵抗、监督可扩展性）的奠基工作是什么，近 1-2 年有哪些新的实证评测与安全方法？",
+      "queries": [
+        "in-context scheming evaluations Apollo Research LLM agents 2024 2025",
+        "agentic misalignment insider threat evaluation Anthropic 2025",
+        "corrigibility shutdown resistance AI safety foundational paper Soares Fallenstein Yudkowsky",
+        "deception sandbagging reward hacking agent evaluation benchmark 2024 2025"
+      ],
+      "rationale": "对应 frontier-watch facet 1 与 facet 3：这是本主题的核心安全轴。需要先定位奠基文献（可纠正性、工具性目标收敛、欺骗的形式化讨论），再追踪最新实证评测（in-context scheming 评测、内部威胁/告密场景评测、sandbagging、reward hacking）与其证据等级——注意区分『模型在构造场景下表现出的行为』与『真实部署中的欺骗』，后者多为推测，须显式标注不确定性。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+          "url": "http://arxiv.org/abs/2504.19675v2",
+          "snippet": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our approach combines traditional natural language processing and machine learning techniques implemented in the Annif toolkit with innovative LLM-based methods for translation and synthetic data generation, and merging predictions from monolingual models. The system ranked first in the all-subjects category…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-28",
+          "authors": [
+            "Osma Suominen",
+            "Juho Inkinen",
+            "Mona Lehtinen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.19675v2",
+            "rrf_score": 0.040677,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.039629,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Whose Personae? Synthetic Persona Experiments in LLM Research and Pathways to Transparency",
+          "url": "http://arxiv.org/abs/2512.00461v1",
+          "snippet": "Synthetic personae experiments have become a prominent method in Large Language Model alignment research, yet the representativeness and ecological validity of these personae vary considerably between studies. Through a review of 63 peer-reviewed studies published between 2023 and 2025 in leading NLP and AI venues, we reveal a critical gap: task and population of interest are often underspecified in persona-based experiments, despite personalization being fundamentally dependent on these criteria. Our analysis shows substantial differences in user representation, with most studies focusing on…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-29",
+          "authors": [
+            "Jan Batzner",
+            "Volker Stocker",
+            "Bingjun Tang",
+            "Anusha Natarajan",
+            "Qinhao Chen",
+            "Stefan Schmid",
+            "Gjergji Kasneci"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.00461v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "TRIZ Agents: A Multi-Agent LLM Approach for TRIZ-Based Innovation",
+          "url": "http://arxiv.org/abs/2506.18783v1",
+          "snippet": "TRIZ, the Theory of Inventive Problem Solving, is a structured, knowledge-based framework for innovation and abstracting problems to find inventive solutions. However, its application is often limited by the complexity and deep interdisciplinary knowledge required. Advancements in Large Language Models (LLMs) have revealed new possibilities for automating parts of this process. While previous studies have explored single LLMs in TRIZ applications, this paper introduces a multi-agent approach. We propose an LLM-based multi-agent system, called TRIZ agents, each with specialized capabilities an…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-23",
+          "authors": [
+            "Kamil Szczepanik",
+            "Jarosław A. Chudziak"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.18783v1",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "候选证据池中不存在任何直接研究 Agent 欺骗（deception / scheming / agentic misalignment）或可纠正性（corrigibility、关停抵抗、监督可扩展性）的文献，本子问题在当前证据集下无法被回答。",
+            "evidence": "候选 4 条证据的主题分别为：多语言主题标引（SemEval-2025 Task 5 LLMs4Subjects）[1]、短视频参与度预测挑战赛（VQualA 2025 @ ICCV）[2]、LLM 合成人格实验方法学综述 [14]、TRIZ 多智能体创新 [16]；无一条摘要或正文片段出现 deception、scheming、agentic misalignment、corrigibility、shutdown resistance、scalable oversight 等关键词或等价表述。",
+            "sources": [
+              1,
+              2,
+              14,
+              16
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 依据：该批候选均为 2025 年 arXiv 预印本，主题集中在 LLM 应用/评测，与 AI 安全对齐的社区热点（欺骗、可纠正性）无交集，无任一候选带引用数或 star 字段。",
+            "recommendation": "★1 + 仅作为“证据缺口”记录，不构成对子问题的实质回答，需换用 deception / scheming / corrigibility 等关键词重新检索。"
+          },
+          {
+            "point": "候选池中与“对齐评测方法学”最接近的是 [14]：其通过对 2023–2025 年 63 篇同行评审研究的综述，指出合成人格（synthetic persona）实验在“任务与目标人群”设定上常不充分、跨研究生态效度差异大，属于对齐评测设计的有效性与透明性问题，但不涉及欺骗行为本身或可纠正性的测量。",
+            "evidence": "摘要原文：“Through a review of 63 peer-reviewed studies published between 2023 and 2025 in leading NLP and AI venues, we reveal a critical gap: task and population of interest are often underspecified…”；标题为 “Whose Personae? Synthetic Persona Experiments in LLM Research and Pathways to Transparency”。",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.CY），venue 与是否同行评审待核实；文内自称覆盖 63 篇同行评审研究（属其研究对象的属性，非本文自身评审状态）。",
+            "attention": "低 + 依据：候选块未提供引用数/star/榜单信号，且主题是合成人格实验的外部效度，与欺骗/可纠正性仅有方法学层面的间接相关性。",
+            "recommendation": "★★☆☆☆ + 只可作为“对齐评测设计易失真”的方法学旁证，回答 Agent 欺骗与可纠正性奠基工作需要另找一手文献。"
+          },
+          {
+            "point": "候选池的召回方向整体偏向 LLM 应用与内容/创新评测（主题标引、短视频热度、TRIZ 创新），而非 AI 安全与 Agent 行为失准，说明本次检索的查询构造与本子问题不匹配。",
+            "evidence": "[1] 为图书馆书目主题预测系统（排名：all-subjects 第一、tib-core-subjects 第二，定性评估第四）；[2] 为短视频参与度预测挑战赛综述（ICCV 2025）；[16] 为基于 TRIZ 的多智能体 LLM 创新方法。三者均无安全/对齐/欺骗相关评测设置。",
+            "sources": [
+              1,
+              2,
+              16
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 依据：候选块仅有标题/摘要，无引用数或 star 等热度信号，且领域归属（NLP 应用、CV 挑战赛、创新方法）与安全对齐社区关注点分离。",
+            "recommendation": "★1 + 建议以“检索失败”处理，重新用 deception/scheming/corrigibility/scalable oversight 及对应机构（如 Anthropic/OpenAI/DeepMind 对齐团队）定向召回。"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Whose Personae? Synthetic Persona Experiments in LLM Research and Pathways to Transparency",
+            "url": "http://arxiv.org/abs/2512.00461v1",
+            "why": "候选池中唯一与对齐研究（alignment research）方法学沾边的综述类工作：系统审视 2023–2025 年 63 篇合成人格实验研究，指出任务与目标人群设定不充分的普遍缺陷，可作为‘对齐评测结论可靠性与外部效度’讨论的边缘支撑；但未涉及欺骗、scheming 或可纠正性，不能作为本子问题的实质证据。",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.CY），同行评审状态待核实",
+            "attention": "低 + 依据：无引用数/star/榜单等候选块内信号，主题与欺骗/可纠正性仅间接相关",
+            "recommendation": "★★☆☆☆ + 仅在需要论证‘对齐类实证研究易出现评测效度与透明度问题’时引用，对奠基工作梳理无用"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据未覆盖 Agent 欺骗（deception / scheming / agentic misalignment）的奠基工作——该方向的一手论文、机构技术报告与评测基准均未出现在当前证据集中，需重新检索后回答，结论待核实。",
+          "候选证据未覆盖可纠正性（corrigibility）、关停抵抗（shutdown resistance）与监督可扩展性（scalable oversight）的奠基工作与近 1–2 年实证评测，相关模型评测（如关停场景实验、欺骗行为诱发实验）与安全方法（如监督/审计方案）均缺失。",
+          "候选证据未提供任何与本子问题相关的数据集或基准（如欺骗行为评测套件、可纠正性测试场景），无法给出可比性与 SOTA 判断。",
+          "近 1–2 年（2024–2025）该方向的新增实证评测与安全方法在本证据集中零覆盖，无法判断‘演示’与‘独立验证’的界线，需按 frontier-tracking 方法重新构造查询并补齐一手来源。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "Agent 评测与安全在工程实践、数据集/基准与治理层面有哪些可用资产与未解争议：开源评测框架与红队工具、对抗性基准（提示注入、有害任务）、以及监管标准（EU AI Act / NIST 等）对 Agent 评测要求的实际落地情况？",
+      "queries": [
+        "open source LLM agent safety evaluation harness Inspect AI Petri AgentDojo GitHub",
+        "prompt injection red teaming agent benchmark InjecAgent AgentHarm 2024 2025",
+        "EU AI Act GPAI obligations 2025 AI agent governance standard NIST AI RMF",
+        "agent evaluation leaderboard reproducibility data contamination criticism 2025 2026"
+      ],
+      "rationale": "对应 frontier-watch facet 2/5/6/7（产业与产品、社会政策、资本生态、信号预测）以及 deep-research 的『开源实现 + 数据集 + 争议/失败案例』缺口检查。需要核实仓库活跃度与许可（GitHub stars/最近提交）、基准主页的一手说明、以及监管文本的生效日期与适用范围；对融资/并购与预测类信息一律标注 [R]/[P] 并写成可证伪假设。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Code as Agent Harness",
+          "url": "http://arxiv.org/abs/2605.18747v1",
+          "snippet": "Recent large language models (LLMs) have demonstrated strong capabilities in understanding and generating code, from competitive programming to repository-level software engineering. In emerging agentic systems, code is no longer only a target output. It increasingly serves as an operational substrate for agent reasoning, acting, environment modeling, and execution-based verification. We frame this shift through the lens of agent harnesses and introduce code as agent harness: a unified view that centers code as the basis for agent infrastructure. To systematically study this perspective, we o…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-18",
+          "authors": [
+            "Xuying Ning",
+            "Katherine Tieu",
+            "Dongqi Fu",
+            "Tianxin Wei",
+            "Zihao Li",
+            "Yuanchen Bei",
+            "Jiaru Zou",
+            "Mengting Ai",
+            "Zhining Liu",
+            "Ting-Wei Li",
+            "Lingjie Chen",
+            "Yanjun Zhao",
+            "Ke Yang",
+            "Bingxuan Li",
+            "Cheng Qian",
+            "Gaotang Li",
+            "Xiao Lin",
+            "Zhichen Zeng",
+            "Ruizhong Qiu",
+            "Sirui Chen",
+            "Yifan Sun",
+            "Xiyuan Yang",
+            "Ruida Wang",
+            "Rui Pan",
+            "Chenyuan Yang",
+            "Dylan Zhang",
+            "Liri Fang",
+            "Zikun Cui",
+            "Yang Cao",
+            "Pan Chen",
+            "Dorothy Sun",
+            "Ren Chen",
+            "Mahesh Srinivasan",
+            "Nipun Mathur",
+            "Yinglong Xia",
+            "Hong Li",
+            "Hong Yan",
+            "Pan Lu",
+            "Lingming Zhang",
+            "Tong Zhang",
+            "Hanghang Tong",
+            "Jingrui He"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.18747v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Inspect Robots: Evaluating the Capabilities and Safety of Embodied AI",
+          "url": "http://arxiv.org/abs/2610.06306v1",
+          "snippet": "General purpose language models are increasingly able to control robotic hardware. Understanding the capabilities and safety of these models when embodied is therefore increasingly important for understanding their societal impact and risks. To this end, we introduce Inspect Robots, a modular, open-source framework for developing and running evaluations of embodied agents. Inspect Robots pairs customizable, reusable abstractions for specifying physical evaluations and analyzing their results with infrastructure that automates evaluation setup, execution and termination. We demonstrate Inspect…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-10-05",
+          "authors": [
+            "Christopher Leet",
+            "Achu Menon",
+            "Sravanthi Machcha",
+            "Sabrina Zou",
+            "Aayushya Patel",
+            "Aditya Kumar Singh",
+            "Anish Kr Singh",
+            "Galaba Vamsi",
+            "Javin Ahuja",
+            "Sai Asish Yamani",
+            "Tushar Anand",
+            "Vedang Alle",
+            "Zihan Jack Zhang",
+            "Tzu Kit Chan",
+            "Jay Chooi"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2610.06306v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "From Prompts to Contracts: Harness Engineering for Auditable Enterprise LLM Agents",
+          "url": "http://arxiv.org/abs/2607.08028v1",
+          "snippet": "Enterprise large language model (LLM) applications often begin as prototypes whose behavior is carried by prompts and retrieval context. Productization adds requirements for source boundaries, entity routing, answer contracts, and reproducible traces. We present a harness-engineering approach that reconstructs this pattern into a traceable, auditable LLM-agent architecture: deterministic behavior moves into code, manifests, schemas, and validation artifacts around a replaceable composition boundary, while source-backed claims remain the authority for runtime answers. We instantiate it on a pu…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-09",
+          "authors": [
+            "Joongho Ahn",
+            "Moonsoo Kim"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.08028v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "A Different Approach to AI Safety: Proceedings from the Columbia Convening on Openness in Artificial Intelligence and AI Safety",
+          "url": "http://arxiv.org/abs/2506.22183v1",
+          "snippet": "The rapid rise of open-weight and open-source foundation models is intensifying the obligation and reshaping the opportunity to make AI systems safe. This paper reports outcomes from the Columbia Convening on AI Openness and Safety (San Francisco, 19 Nov 2024) and its six-week preparatory programme involving more than forty-five researchers, engineers, and policy leaders from academia, industry, civil society, and government. Using a participatory, solutions-oriented process, the working groups produced (i) a research agenda at the intersection of safety and open source AI; (ii) a mapping of…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-27",
+          "authors": [
+            "Camille François",
+            "Ludovic Péran",
+            "Ayah Bdeir",
+            "Nouha Dziri",
+            "Will Hawkins",
+            "Yacine Jernite",
+            "Sayash Kapoor",
+            "Juliet Shen",
+            "Heidy Khlaaf",
+            "Kevin Klyman",
+            "Nik Marda",
+            "Marie Pellat",
+            "Deb Raji",
+            "Divya Siddarth",
+            "Aviya Skowron",
+            "Joseph Spisak",
+            "Madhulika Srikumar",
+            "Victor Storchan",
+            "Audrey Tang",
+            "Jen Weedon"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.22183v1",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "Code as Agent Harness",
+            "evidence": "Recent large language models (LLMs) have demonstrated strong capabilities in understanding and generating code, from competitive programming to repository-level software engineering. In emerging agentic systems, code is no longer only a target output. It increasingly serves as an operational substr…",
+            "sources": [
+              22
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Inspect Robots: Evaluating the Capabilities and Safety of Embodied AI",
+            "evidence": "General purpose language models are increasingly able to control robotic hardware. Understanding the capabilities and safety of these models when embodied is therefore increasingly important for understanding their societal impact and risks. To this end, we introduce Inspect Robots, a modular, open…",
+            "sources": [
+              23
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "From Prompts to Contracts: Harness Engineering for Auditable Enterprise LLM Agents",
+            "evidence": "Enterprise large language model (LLM) applications often begin as prototypes whose behavior is carried by prompts and retrieval context. Productization adds requirements for source boundaries, entity routing, answer contracts, and reproducible traces. We present a harness-engineering approach that…",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "A Different Approach to AI Safety: Proceedings from the Columbia Convening on Openness in Artificial Intelligence and AI Safety",
+            "evidence": "The rapid rise of open-weight and open-source foundation models is intensifying the obligation and reshaping the opportunity to make AI systems safe. This paper reports outcomes from the Columbia Convening on AI Openness and Safety (San Francisco, 19 Nov 2024) and its six-week preparatory programme…",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 29247,
+    "completion_tokens": 26639,
+    "generated_at": "2026-10-14T22:33:17.189039+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# Agent 评测与安全（能力基准、欺骗与可纠正性）——七维增量追踪报告\n\n**日期**：2026-10-14（UTC）\n**领域**：LLM Agent / 具身 Agent 的**能力评测基准**（capability benchmarks）与**安全评测**（deception 欺骗、corrigibility 可纠正性、监督与治理）\n**检索源数量**：33 条可引用来源（引用编号 [1]–[33]），以 arXiv 预印本为主，另含 3 条 DOI 文献 [20][21][32]\n**证据分级口径**：A＝同行评审论文/官方技术报告；B＝arXiv 预印本、官方仓库；C＝第三方复现/公开榜单；D＝社区与二手解读；E＝不可用\n\n> **检索局限声明（影响全文可信度，请先读）**\n> ① **召回噪声显著**：[1][2][3][13][15][16] 等与主题无关（多语言主题标引、短视频参与度、图像超分、语音隐私、音频修复、TRIZ 创新）。\n> ② **关键缺口**：q2 所问\"Agent 欺骗/可纠正性奠基工作\"在原始抽取中判定为**零覆盖**；本文仅能借助引用列表中确实存在但未被抽取器命中的 [19] 做有限补充。corrigibility / shutdown resistance / scalable oversight 三个关键词在全池**无任何命中**。\n> ③ **热度证据普遍缺失**：全池未提供引用数（citations）、GitHub star、下载量或榜单排名字段，因此各表的\"热度\"列几乎全为 `> 待核实`；凡标注\"关注度\"处，依据均为**主题相关性**而非引用数字，不得据此宣称某工作\"热门\"。\n> ④ **多数条目仅精读至标题/摘要**：凡以\"标题表明\"表述处，正文结论 `> 待核实`。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量判断**：近 12–24 个月真正的增量不是\"又多了几个 benchmark\"，而是三个转移——评测对象从**模型本体**转向 **agent harness（代码脚手架/工具权限/运行生命周期）**；基准形态从**静态快照**转向 **live 与对抗强化**；安全评测从**模型级红队**转向 **agentic 级红队与内部威胁场景**。\n\n### 1.1 基准形态：静态快照 → 活基准与对抗强化\n- **SWE-bench Goes Live!** [11]（2025，arXiv:2505.23419）：把已被广泛使用的软件工程基准改造为持续更新的\"活\"版本，直接回应静态测试集的数据污染与饱和。\n  - 热度证据：`> 待核实`（无引用/star/榜单字段）\n  - 权威证据：arXiv 预印本（B）；是否已中稿 `> 待核实`\n  - 关注度：**中**——依据：SWE-bench 生态是 agent 编码评测的主战场，该工作直接改动主基准形态（主题判断，非引用数据）\n  - 推荐度：**★★★★☆**——对\"基准本身是否可信\"这一核心问题有直接增量\n- **SWE-ABS: Adversarial Benchmark Strengthening...** [12]（2026，arXiv:2603.00520）：标题即主张以对抗式强化暴露 test-based benchmark 上**被夸大的成功率**，属\"评测效度攻击\"类增量。\n  - 权威证据：arXiv 预印本（B）｜热度证据：`> 待核实`｜关注度：中｜推荐度：**★★★★☆**（若结论可复现，将直接冲击现有排行榜数字；正文未精读 `> 待核实`）\n\n### 1.2 能力评测：从\"单点能力\"细化到\"知识—执行落差\"\n- **UI-Evol: Automatic Knowledge Evolving for Computer Use Agents** [4]（2025，arXiv:2505.21964）：摘要给出本池中少见的**量化瓶颈**——即使 90% 知识正确，执行成功率仅 41%，作者称为 knowledge-execution gap。\n  - 权威证据：arXiv 预印本（B），cs.HC｜热度证据：`> 待核实`｜关注度：中（computer use agent 是 2025 年热点方向）｜推荐度：**★★★★☆**（唯一带具体落差数字的 grounding 证据）\n- **Retrieval Models Aren't Tool-Savvy** [9]（2025，arXiv:2503.01763）：把\"**工具检索**\"独立基准化，说明 agent 工具使用评测从\"会不会调\"细化到\"找不找得对\"。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★★☆\n- **When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents** [8]（2026，arXiv:2606.20023）：把\"**最小权限**\"从运维口号变成可评测指标（over-privileged tool selection）。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★★☆（可直接转成产品安全策略）\n- **HealthAdminBench** [5]（2026，arXiv:2604.09937）：摘要称医疗行政年支出超 $1 万亿，且此前**不存在**端到端行政工作流的 CUA 基准——典型\"空白领域首个基准\"。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★☆☆\n- **ELOQUENT 2025 Sensemaking Task** [7]（2025，arXiv:2507.12143）：把 LLM 同时当作 teacher / student / evaluator，指向长时程\"意义建构\"任务评测。权威（B）｜热度 `> 待核实`｜关注度低—中｜推荐度 ★★☆☆☆\n- **Inspect Robots: Evaluating the Capabilities and Safety of Embodied AI** [23]（2026，arXiv:2610.06306）：面向**具身 AI** 的模块化开源评测框架，摘要明确同时覆盖 capabilities 与 safety。**对本报告读者（具身智能/VLA/ROS2）相关度最高**。权威（B，自述 modular/open）｜热度 `> 待核实`｜关注度：中（具身安全评测稀缺）｜推荐度 **★★★★☆**\n\n### 1.3 安全评测：模型级 → agentic 级\n- **Agentic Misalignment: How LLMs Could Be Insider Threats** [19]（2025，arXiv:2510.05179）：把 LLM 置于\"**内部人威胁**\"场景，是本池中唯一直接对应\"欺骗/失准（deception / scheming / misalignment）\"的一手实证工作。\n  - 热度证据：`> 待核实`\n  - 权威证据：arXiv 预印本（B）；**机构归属与作者 `> 待核实`**（来源列表未标注，不得臆断为某实验室）\n  - 关注度：**高**——依据：主题直接命中安全社区焦点（**注：为主题判断，非引用数判断**）\n  - 推荐度：**★★★★★**——本报告主题核心条目，且是当前证据池中唯一可用的欺骗方向来源\n- **Mind the Gap: Comparing Model- vs Agentic-Level Red Teaming with Action-Graph Observability on GPT-OSS-20B** [33]（2025，arXiv:2509.17259）：提出\"**评测粒度错配**\"这一方法论问题。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★★☆\n- **EvalSafetyGap** [26]（2026，arXiv:2606.30219v5）：标题表明其给出\"LLM 评测—安全失效\"的混合综述与概念框架，把**评测失效本身**当作安全问题。权威（B，v5 多轮修订）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★★☆\n\n### 1.4 对齐评测的方法学自我审查\n- **Whose Personae? Synthetic Persona Experiments in LLM Research and Pathways to Transparency** [14]（2025，arXiv:2512.00461）：综述 2023–2025 年 **63 篇同行评审研究**，指出合成人格实验普遍存在\"任务与目标人群设定不充分\"的外部效度缺陷。\n  - 权威证据：arXiv 预印本（cs.CY），**同行评审状态 `> 待核实`**；须注意\"63 篇同行评审\"是其**研究对象属性**，不等于本文已评审\n  - 关注度：低—中｜推荐度：**★★☆☆☆**（仅作为\"对齐评测易失真\"的方法学旁证，不能回答奠基工作）\n\n### 表 A：经典与奠基性工作\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated LLM Agents | 2024 | `> 待核实` | `> 待核实` | arXiv 预印本（B），评审状态待核实 | 中（间接提示注入已成 agent 标准威胁模型） | ★★★★☆ | http://arxiv.org/abs/2403.02691v3 | 工具集成 agent 的间接提示注入基准，本池中时间最早、最接近\"奠基\"的安全评测资产 |\n| Agentic Misalignment: How LLMs Could Be Insider Threats | 2025 | `> 待核实` | `> 待核实` | arXiv 预印本（B） | 高（主题命中 deception/insider threat） | ★★★★★ | http://arxiv.org/abs/2510.05179v2 | 欺骗/失准行为的场景化实证，用以替代缺失的奠基梳理 |\n| Grounding LLM Agents in Knowledge, Context, and Action | `> 待核实` | `> 待核实`（HKUST 学位论文库 DOI） | `> 待核实` | 学位论文（介于 A/B，`> 待核实`） | 低 | ★★☆☆☆ | https://doi.org/10.14711/thesis-hdl172464 | 从 grounding 视角系统整理 agent 的知识/上下文/动作基础 |\n| A Comparison and Analysis of LLM Agents within the Context of An LLM-Guided Evolution for Object Detection | `> 待核实` | `> 待核实`（ACM DOI） | `> 待核实` | 会议论文 DOI（`> 待核实` 具体 venue） | 低 | ★★☆☆☆ | https://doi.org/10.1145/3712255.3726669 | 非安全向，仅作 agent 组合方式对比的旁证 |\n\n> **待核实（重大缺口）**：**corrigibility（可纠正性）、shutdown resistance（关停抵抗）、scalable oversight（可扩展监督）的奠基工作在本证据池中完全缺失**，本节无法给出其经典文献清单。需以 `corrigibility` / `shutdown resistance` / `scalable oversight` / `AI control` 为关键词，对 arXiv（cs.AI/cs.CY）与主流对齐团队技术报告做定向补检后再补全本表。\n\n### 表 C：数据集与基准（本池可得）\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| SWE-bench Goes Live! | 2025 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2505.23419v2 | 活基准，缓解静态集污染与饱和 |\n| SWE-ABS | 2026 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2603.00520v1 | 对抗强化暴露虚高成功率 |\n| HealthAdminBench | 2026 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★☆☆ | http://arxiv.org/abs/2604.09937v1 | 医疗行政 CUA 端到端基准 |\n| HarnessRisk | 2026 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2608.17597v1 | **生命周期导向的 harness 安全基准** |\n| InjecAgent | 2024 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2403.02691v3 | 间接提示注入基准 |\n| EvalSafetyGap | 2026 | `> 待核实` | `> 待核实` | arXiv（B，v5），是否期刊待核实 | 中 | ★★★★☆ | http://arxiv.org/abs/2606.30219v5 | 把评测失效概念化为安全问题 |\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量判断**：企业侧关键词从\"prompt 原型\"变为\"**可审计 harness + 契约化输出 + 生产内评测**\"；安全能力（最小权限、harness 风险）开始被工程化，但**一手厂商公告/权重发布在本证据池中为零**。\n\n- **从 prompt 到契约**：[24] *From Prompts to Contracts: Harness Engineering for Auditable Enterprise LLM Agents*（2026，arXiv:2607.08028）。摘要明确列出产品化新增需求：**source boundaries、entity routing、answer contracts、reproducible traces**——即\"从模型能力到工程契约\"。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 **★★★★☆**\n- **harness 自动化与基质化**：[28] **AutoHarness**（2026，arXiv:2603.03329，自动合成 code harness 改进 agent）；[22] **Code as Agent Harness**（2026，arXiv:2605.18747，摘要称 code \"no longer only a target output… serves as an operational substrate\"）。二者共同说明技术栈把 harness 当作一等公民。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★★☆\n- **多 agent harness 演化**：[29] **HarnessNet**（2026，arXiv:2610.15221，反馈驱动的层次化联合 harness 演化）。权威（B）｜热度 `> 待核实`｜关注度低—中｜推荐度 ★★★☆☆\n- **生产环境评测**：[6] *Efficient Benchmarking in Production: A Study of an Evolving LLM Agent*（2026，arXiv:2609.21267）：针对持续演化 agent 的在线高效评测，直接回应\"离线榜单 ≠ 线上表现\"。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 **★★★★☆**\n- **权限最小化落地**：[8]（2026）over-privileged tool selection，可直接转成工具白名单/权限分级策略。\n- **具身侧可复用资产**：[23] Inspect Robots（2026），自述 modular、open，是最接近\"可被产业复用\"的具身能力+安全评测框架。\n- **产品评测口径变化**：[18] **RecoAtlas**（2026，arXiv:2605.18805）：从 semantic plausibility 走向 **set-level utility**，说明 agent 类产品评测开始看集合级效用而非单点正确率。权威（B）｜热度 `> 待核实`｜关注度低｜推荐度 ★★☆☆☆\n\n### 表 B：开源项目\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Inspect Robots | 2026 | `> 待核实` | `> 待核实` | arXiv（B），自述 modular/open | 中（具身安全评测稀缺） | ★★★★☆ | http://arxiv.org/abs/2610.06306v1 | 具身 AI 能力+安全评测框架，与 VLA/ROS2 生态最相关 |\n| AutoHarness | 2026 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2603.03329v1 | 自动合成 code harness 以改进 agent |\n| HarnessNet | 2026 | `> 待核实` | `> 待核实` | arXiv（B） | 低 | ★★★☆☆ | http://arxiv.org/abs/2610.15221v1 | 多 agent 系统的 harness 联合演化 |\n\n> **待核实**：本证据池**未包含任何厂商官方博客、模型卡、权重发布或产品文档**，也没有 GitHub star / 最近提交数据；因此\"工业界落地、真机部署、商业化量产\"层面的判断均**缺少一手来源**，本节条目只应视为\"工程方法学层面的落地迹象\"，而非产品事实。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量判断**：**能力侧的 harness 在爆发，harness 安全才刚起步**；而**可纠正性/关停抵抗在证据池中零覆盖**，是最大无人区。\n\n1. **可纠正性与可扩展监督：零覆盖（最高杠杆缺口）**\n   q2 明确判定：全池未出现 corrigibility、shutdown resistance、scalable oversight 的实证评测或基准，也没有关停场景实验。欺骗侧唯一的场景化实证是 [19]，但**没有任何反向能力（被信任/可被纠正）的测量工具**。`> 待核实`（可能已有工作未被本次检索召回）。\n2. **harness 生命周期安全：供给严重不对称**\n   能力侧有 [22][28][29] 三条在造 harness，安全侧仅 [27] **HarnessRisk** 一条生命周期导向基准——典型的\"先造能力、后补安全\"结构，属新蓝海。\n3. **评测的评测（meta-evaluation）**\n   [14]（人群/任务设定不足）与 [26]（评测—安全失效框架）从两个方向质疑现有结论可信度；\"谁能评测评测者\"仍无标准。相关综述也提示 LLM 作为评测者本身存在效度争议 [7][10][17]。\n4. **评测粒度错配**\n   [33] 显示 model-level 红队结论未必迁移到 agentic 级；缺少统一的 action-graph 级观测规范。\n5. **具身 agent 安全评测（与本报告读者最相关）**\n   全池仅 [23] 一条（2026-10）。**具身场景下的欺骗与可纠正性**（如机器人拒绝关停、为完成奖励绕过人类指令）在本池中**完全未见**——对具身智能/VLA 社区是明确空白。\n6. **攻击面覆盖不全**\n   web agent 提示注入 [30]、工具集成注入 [31] 已有；但 MCP 类工具链注入、多 agent 互相注入、长时程记忆投毒在本池缺位 `> 待核实`。\n7. **元层缺口（文献计量）**\n   本池召回出 [1][2][3][13][15][16] 等无关项，说明\"Agent 评测与安全\"在通用检索中的**语义边界尚不稳定**，跨社区（NLP/CV/RO/安全）术语未统一——这本身是知识组织层面的缺口。\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n| # | 瓶颈 | 证据 | 是否临近拐点 |\n|---|---|---|---|\n| 1 | **知识—执行落差（grounding）** | [4]：90% 正确知识 → 41% 执行成功率 | 未见拐点，仍是硬瓶颈 |\n| 2 | **基准污染与饱和** | [11] 活基准；[12] 对抗强化暴露虚高成功率 | **已现拐点信号**：社区从\"刷榜\"转向\"攻击榜单\" |\n| 3 | **评测成本与不可复现** | [6] 生产内评测；[24] 要求 reproducible traces | 接近拐点：可审计性成为上生产门槛 |\n| 4 | **评测效度** | [14] 63 篇研究的系统性设定缺陷；[26] 评测失效框架 | 方法学审查已起步，标准未立 |\n| 5 | **观测与归因** | [33] action-graph observability | 无统一规范 |\n| 6 | **可纠正性无任何测量工具** | 全池零覆盖（q2） | **拐点尚未到来** |\n\n**拐点判断与信号**：\n- \"harness\"一词在 2026 年密集出现（[22][24][27][28][29] 五条，据 arXiv 编号对应 2026-03 至 2026-10，**月份系编号推断，`> 需以论文页面为准`**），是**术语固化**的典型信号——一个领域正在形成自己的工程词汇，通常预示着工具链与标准化的前夜。\n- 最硬瓶颈是**可纠正性缺乏测量**：没有场景库、没有基准、没有红队协议。**若 12 个月内出现 A 级 venue 的公开可纠正性评测套件，即为拐点到来的可观测信号。**\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量判断**：本维度**证据严重不足**——仅有一条政策类材料；EU AI Act / NIST 等监管文件在本池中**零覆盖**。\n\n- **开放性与安全的政策张力**：[25] *A Different Approach to AI Safety: Proceedings from the Columbia Convening on Openness in Artificial Intelligence and AI Safety*（arXiv:2506.22183；会议 **2024-11-19 旧金山**，含六周筹备项目）。其核心增量主张是：开放权重/开源基础模型既扩大了安全义务，也重塑了实现安全的机会——**开放性本身被纳入安全治理框架**。权威：arXiv 预印本（B），会议论文集属性 `> 待核实`｜热度 `> 待核实`｜关注度中｜推荐度 **★★★☆☆**\n- **具身 AI 被上升为社会议题**：[23] 摘要明确把\"理解具身模型的能力与安全\"与 societal impact and risks 挂钩，即机器人安全评测从工程问题变为社会问题。\n- **合规压力的工程投影**：[24] 的 source boundaries / answer contracts / reproducible traces 与审计、问责类监管要求**结构同构**（此为**本文的分析性推断**，非来源直接主张）。\n- **EU AI Act / NIST / ISO**：本证据池**无任何一手条文、指南或合规落地案例** → 无法评估\"监管对 Agent 评测的实际落地情况\"，`> 待核实`。\n- **地缘政治与供应链**：本周期**无显著可核实变化**（无来源，不臆测）。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：本周期**无显著可核实变化**——证据池中没有任何融资、并购、估值、人才流动或公司格局的一手来源。以下仅为**间接生态信号**，均需补证。\n\n- **术语生态形成**：harness 系工作在同一年集中出现 [22][24][27][28][29]，通常对应工具链与创业团队开始围绕该层布局（[P]，依据见 §7；**属推断，非事实**）。\n- **学术培养链条**：出现以 agent grounding 为主题的学位论文 [20]，说明该方向已进入研究生培养层面。热度 `> 待核实`｜推荐度 ★★☆☆☆\n- **社区评测赛事常态化**：ELOQUENT 2025 Lab [7]、CheckThat! 2025 [17] 把 LLM-as-evaluator 纳入正式赛道，说明\"评测\"本身已成为学术社区活动。\n- **开源资产极薄**：仅 [23] 具名自述 open/modular；[27][28][31] 等是否有公开仓库 `> 待核实`。\n- **`> 待核实`（硬缺口）**：无融资额、无 star、无下载量 → **任何关于\"资本流向\"\"公司格局变化\"的数量化结论都不应采信**。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n> 以下均为 **[P] 预测/预判**，写成可证伪假设；置信度为编辑判断，非来源结论。\n\n- **[P1] 可纠正性/关停抵抗将出现首个标准化公开评测套件 —— 置信度：中**\n  依据链：欺骗侧已有场景化实证 [19] → 但 corrigibility 全池零覆盖（空白）→ 叠加企业审计与合规需求上升 [24][25] → 预测。\n  **证伪条件**：若到 **2027-06** 仍无 A 级 venue 或主流机构发布的公开可纠正性/关停抵抗基准，则本预测不成立。\n- **[P2] 活基准与对抗强化将取代静态快照成为默认形态 —— 置信度：中高**\n  依据 [11][12]。**证伪条件**：2027 年主流榜单仍以静态数据集为唯一依据，且 SWE-bench Live 类工作未被任何第三方榜单采纳。\n- **[P3] 安全评测重心将从 model-level 迁至 harness / agentic 级 —— 置信度：中**\n  依据：能力侧 harness 密集 [22][28][29]，安全侧已出现生命周期基准 [27]，且 [33] 证明两级结论不可互推。\n  **观测指标**：HarnessRisk 类基准被厂商安全报告或第三方榜单引用。**证伪条件**：2027 年内厂商安全披露仍只给模型级红队结果。\n- **[P4] 具身 agent 安全评测将在 12 个月内出现第三方复现或独立榜单 —— 置信度：低—中**\n  依据：仅 [23] 一条且为 2026-10 新出，尚未有复现。**证伪条件**：2027-10 前无第三方复现/榜单。\n- **[P5] 评测效度（meta-evaluation）将独立成子领域 —— 置信度：中**\n  依据：[14] 与 [26] 分别从\"设定不足\"和\"评测—安全失效\"两侧切入。**证伪条件**：相关框架未形成持续引用链。\n\n**本期已可观测的早期信号**：\n1. **2026 年 harness 词汇固化**（[22][24][27][28][29]）；\n2. **评测指标从\"分数\"转向\"可审计轨迹\"**（[24] reproducible traces、[33] action-graph observability）；\n3. **\"最小权限\"进入 agent 评测语言**（[8]）。\n\n**Watchlist**：\n- Agentic Misalignment [19] 的后续工作与**独立复现**（当前仅单点来源）；\n- HarnessRisk [27] 是否被采纳为生命周期安全标准；\n- Inspect Robots [23] 是否扩展到具身欺骗/可纠正性场景；\n- SWE-ABS [12] 与 SWE-bench Live [11] 的相互验证结果；\n- **可纠正性一手工作（当前全池缺失，`> 待核实`，建议列为下一轮检索的第一优先项）**；\n- EU AI Act / NIST 对 agent 评测的实际要求（当前零证据，需补检官方法规文本与合规案例）。\n\n---\n\n## 参考来源\n\n[1] Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs — http://arxiv.org/abs/2504.19675v2\n[2] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[3] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[4] UI-Evol: Automatic Knowledge Evolving for Computer Use Agents — http://arxiv.org/abs/2505.21964v2\n[5] HealthAdminBench: Evaluating Computer-Use Agents on Healthcare Administration Tasks — http://arxiv.org/abs/2604.09937v1\n[6] Efficient Benchmarking in Production: A Study of an Evolving LLM Agent — http://arxiv.org/abs/2609.21267v1\n[7] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators — http://arxiv.org/abs/2507.12143v1\n[8] When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents — http://arxiv.org/abs/2606.20023v2\n[9] Retrieval Models Aren't Tool-Savvy: Benchmarking Tool Retrieval for Large Language Models — http://arxiv.org/abs/2503.01763v2\n[10] AIn't Nothing But a Survey? Using Large\n\n---\n\n*Generated by research-bot · topic=`agent-评测与安全能力基准欺骗与可纠正性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=33 · duration=209s · 2026-10-14T22:33:17+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+      "url": "http://arxiv.org/abs/2504.19675v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "UI-Evol: Automatic Knowledge Evolving for Computer Use Agents",
+      "url": "http://arxiv.org/abs/2505.21964v2",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2025-05-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "HealthAdminBench: Evaluating Computer-Use Agents on Healthcare Administration Tasks",
+      "url": "http://arxiv.org/abs/2604.09937v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-04-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Efficient Benchmarking in Production: A Study of an Evolving LLM Agent",
+      "url": "http://arxiv.org/abs/2609.21267v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-09-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+      "url": "http://arxiv.org/abs/2507.12143v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents",
+      "url": "http://arxiv.org/abs/2606.20023v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-06-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Retrieval Models Aren't Tool-Savvy: Benchmarking Tool Retrieval for Large Language Models",
+      "url": "http://arxiv.org/abs/2503.01763v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-03-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+      "url": "http://arxiv.org/abs/2506.14634v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "SWE-bench Goes Live!",
+      "url": "http://arxiv.org/abs/2505.23419v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark",
+      "url": "http://arxiv.org/abs/2603.00520v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-02-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Whose Personae? Synthetic Persona Experiments in LLM Research and Pathways to Transparency",
+      "url": "http://arxiv.org/abs/2512.00461v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-11-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Apollo: Band-sequence Modeling for High-Quality Audio Restoration",
+      "url": "http://arxiv.org/abs/2409.08514v2",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "TRIZ Agents: A Multi-Agent LLM Approach for TRIZ-Based Innovation",
+      "url": "http://arxiv.org/abs/2506.18783v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-06-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "CEA-LIST at CheckThat! 2025: Evaluating LLMs as Detectors of Bias and Opinion in Text",
+      "url": "http://arxiv.org/abs/2507.07539v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "RecoAtlas: From Semantic Plausibility to Set-Level Utility in LLM Recommendation Agents",
+      "url": "http://arxiv.org/abs/2605.18805v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2026-05-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Agentic Misalignment: How LLMs Could Be Insider Threats",
+      "url": "http://arxiv.org/abs/2510.05179v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-10-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Grounding LLM Agents in Knowledge, Context, and Action",
+      "url": "https://doi.org/10.14711/thesis-hdl172464",
+      "kind": "paper",
+      "venue": null,
+      "published": null,
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "A Comparison and Analysis of LLM Agents within the Context of An LLM-Guided Evolution for Object Detection",
+      "url": "https://doi.org/10.1145/3712255.3726669",
+      "kind": "paper",
+      "venue": "Proceedings of the Genetic and Evolutionary Computation Conference Companion",
+      "published": "2025-07-14",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Code as Agent Harness",
+      "url": "http://arxiv.org/abs/2605.18747v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-05-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Inspect Robots: Evaluating the Capabilities and Safety of Embodied AI",
+      "url": "http://arxiv.org/abs/2610.06306v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-10-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "From Prompts to Contracts: Harness Engineering for Auditable Enterprise LLM Agents",
+      "url": "http://arxiv.org/abs/2607.08028v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-07-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "A Different Approach to AI Safety: Proceedings from the Columbia Convening on Openness in Artificial Intelligence and AI Safety",
+      "url": "http://arxiv.org/abs/2506.22183v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-06-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "EvalSafetyGap: A Hybrid Survey and Conceptual Framework for LLM Evaluation-Safety Failures",
+      "url": "http://arxiv.org/abs/2606.30219v5",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-06-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "HarnessRisk: A Lifecycle-Oriented Benchmark for Agent Harness Safety",
+      "url": "http://arxiv.org/abs/2608.17597v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-08-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "AutoHarness: improving LLM agents by automatically synthesizing a code harness",
+      "url": "http://arxiv.org/abs/2603.03329v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-02-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "HarnessNet: Feedback-driven Hierarchical Joint Harness Evolution for Multi-agent Systems",
+      "url": "http://arxiv.org/abs/2610.15221v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-10-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "WebInject: Prompt Injection Attack to Web Agents",
+      "url": "http://arxiv.org/abs/2505.11717v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-05-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents",
+      "url": "http://arxiv.org/abs/2403.02691v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-03-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Exploring Trends in Healthcare Open Source Software on GitHub: LLM-Based Topic Augmentation and Network Analysis",
+      "url": "https://doi.org/10.13088/jiis.2025.31.16.273",
+      "kind": "paper",
+      "venue": "Journal of Intelligence and Information Systems",
+      "published": "2025-09-30",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Mind the Gap: Comparing Model- vs Agentic-Level Red Teaming with Action-Graph Observability on GPT-OSS-20B",
+      "url": "http://arxiv.org/abs/2509.17259v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-09-21",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-14-agent-评测与安全能力基准欺骗与可纠正性.md",
+    "json": "report/2026/10/2026-10-14-agent-评测与安全能力基准欺骗与可纠正性.json"
+  }
+}
