@@ -1,206 +1,230 @@
-# Agent 评测与安全（能力基准、欺骗与可纠正性）——七维增量追踪报告
+# Agent 评测与安全（能力基准、欺骗与可纠正性）增量调研报告
 
-**日期**：2026-10-14（UTC）
-**领域**：LLM Agent / 具身 Agent 的**能力评测基准**（capability benchmarks）与**安全评测**（deception 欺骗、corrigibility 可纠正性、监督与治理）
-**检索源数量**：33 条可引用来源（引用编号 [1]–[33]），以 arXiv 预印本为主，另含 3 条 DOI 文献 [20][21][32]
-**证据分级口径**：A＝同行评审论文/官方技术报告；B＝arXiv 预印本、官方仓库；C＝第三方复现/公开榜单；D＝社区与二手解读；E＝不可用
+**日期**：2026-10-15 ｜ **领域**：Agent Evaluation & Safety（能力基准、deception / alignment faking、corrigibility） ｜ **检索源数量**：33 条候选来源（其中与主题直接相关约 12 条，其余为跨域召回噪音） ｜ **方法论**：deep-research + frontier-watch + paper-survey + evidence-grading
 
-> **检索局限声明（影响全文可信度，请先读）**
-> ① **召回噪声显著**：[1][2][3][13][15][16] 等与主题无关（多语言主题标引、短视频参与度、图像超分、语音隐私、音频修复、TRIZ 创新）。
-> ② **关键缺口**：q2 所问"Agent 欺骗/可纠正性奠基工作"在原始抽取中判定为**零覆盖**；本文仅能借助引用列表中确实存在但未被抽取器命中的 [19] 做有限补充。corrigibility / shutdown resistance / scalable oversight 三个关键词在全池**无任何命中**。
-> ③ **热度证据普遍缺失**：全池未提供引用数（citations）、GitHub star、下载量或榜单排名字段，因此各表的"热度"列几乎全为 `> 待核实`；凡标注"关注度"处，依据均为**主题相关性**而非引用数字，不得据此宣称某工作"热门"。
-> ④ **多数条目仅精读至标题/摘要**：凡以"标题表明"表述处，正文结论 `> 待核实`。
+> **证据基线说明（必读）**：本次可用证据池中，仅有 [29] 附带了可核查热度数据（`citations=146`）；其余条目均无 citations / stars / 下载量字段，四轴证据中的「热度」一律标 `> 待核实`，**不做任何数字推测**。候选池中不存在本主题公认的经典奠基文献（deceptive alignment、corrigibility 的原始论述），该缺口在本报告「经典与奠基性工作」表中显式标注，建议下一轮补检。此外，候选池存在显著的术语污染（"benchmark / challenge / evaluation" 召回出图像超分、LHC 物理、音频修复、气候模型等条目），这一现象本身构成第 4 章的瓶颈证据。
 
 ---
 
 ## 1. 进展与热点（Progress & Hotspots）
 
-**一句话增量判断**：近 12–24 个月真正的增量不是"又多了几个 benchmark"，而是三个转移——评测对象从**模型本体**转向 **agent harness（代码脚手架/工具权限/运行生命周期）**；基准形态从**静态快照**转向 **live 与对抗强化**；安全评测从**模型级红队**转向 **agentic 级红队与内部威胁场景**。
+**一句话增量判断**：相对上一基线，Agent 评测的增量不在"任务更多"，而在评测对象从**单步输出**迁移到**长时程轨迹 + 开放多智能体系统**，并首次出现"agent 自身作为对手（scheming / containment）"这一独立评测面向 [1][5][6][20]。
 
-### 1.1 基准形态：静态快照 → 活基准与对抗强化
-- **SWE-bench Goes Live!** [11]（2025，arXiv:2505.23419）：把已被广泛使用的软件工程基准改造为持续更新的"活"版本，直接回应静态测试集的数据污染与饱和。
-  - 热度证据：`> 待核实`（无引用/star/榜单字段）
-  - 权威证据：arXiv 预印本（B）；是否已中稿 `> 待核实`
-  - 关注度：**中**——依据：SWE-bench 生态是 agent 编码评测的主战场，该工作直接改动主基准形态（主题判断，非引用数据）
-  - 推荐度：**★★★★☆**——对"基准本身是否可信"这一核心问题有直接增量
-- **SWE-ABS: Adversarial Benchmark Strengthening...** [12]（2026，arXiv:2603.00520）：标题即主张以对抗式强化暴露 test-based benchmark 上**被夸大的成功率**，属"评测效度攻击"类增量。
-  - 权威证据：arXiv 预印本（B）｜热度证据：`> 待核实`｜关注度：中｜推荐度：**★★★★☆**（若结论可复现，将直接冲击现有排行榜数字；正文未精读 `> 待核实`）
+- **开放系统下的多智能体决策评测（MOASEI 2026）**：相对 2025 首届，2026 版延续了 wildfire fighting、cybersecurity、ride-hailing 等场景（原文摘要被截断，具体场景清单 `> 待核实`）。这是"评测即竞赛事件"型基准，属技术报告而非同行评审论文 [1]。
+  - 热度：`> 待核实`（无 citations 字段）｜权威：AAMAS'2026 technical report（会议附属报告，非正式论文）｜关注度：**中**（依托 AAMAS 社区，但无引用信号）｜推荐度：**★★★★☆**——若研究方向是开放多智能体评测，这是最直接的新基线。
+- **长时程链式推理基准（LongCoT）**：增量点是把评测对象从"答案正确性"前移到"长链规划与自我管理"，宣称可扩展（scalable）；具体任务域与规模 `> 待核实` [5]。
+  - 热度：`> 待核实`｜权威：arXiv cs.LG 预印本｜关注度：**中**（cs.LG 高竞争赛道上无引用数据，判断为推测）｜推荐度：**★★★★☆**——长时程是 2026 年评测叙事的主轴。
+- **可信 agentic AI 综述（safety / robustness / privacy / system security）**：增量在于把四类风险统一到"多步轨迹引入的新失效模式"这一因果面上，而非罗列单点攻击 [6]。
+  - 权威：arXiv cs.AI 综述（非同行评审）｜热度：`> 待核实`｜关注度：**高**（综述类在 2026 年 agentic safety 议题中承担术语统一职能，判断依据为标题覆盖面而非引用数）｜推荐度：**★★★★☆**——作为术语与分类骨架入口。
+- **Agent 记忆与长时程自演化综述**：把 memory 从工程插件提升为"自演化 / 长时程"能力的评测维度（v4 版本说明仍在快速迭代）[11]。
+  - 权威：arXiv preprint（v4，快速修订是活跃度的弱信号）｜热度/关注度：`> 待核实`｜推荐度：**★★★☆☆**。
+- **Scheming propensity（图谋/欺骗倾向）评测**：直接命中"agent 欺骗"议题的评测工作，标题即指向"评估并理解 LLM agent 的图谋倾向"；实验细节与是否独立复现 `> 待核实` [20]。
+  - 权威：arXiv HTML 版（预印本）｜关注度：**中**（与 alignment faking 议题同源，但无引用信号）｜推荐度：**★★★★☆**。
 
-### 1.2 能力评测：从"单点能力"细化到"知识—执行落差"
-- **UI-Evol: Automatic Knowledge Evolving for Computer Use Agents** [4]（2025，arXiv:2505.21964）：摘要给出本池中少见的**量化瓶颈**——即使 90% 知识正确，执行成功率仅 41%，作者称为 knowledge-execution gap。
-  - 权威证据：arXiv 预印本（B），cs.HC｜热度证据：`> 待核实`｜关注度：中（computer use agent 是 2025 年热点方向）｜推荐度：**★★★★☆**（唯一带具体落差数字的 grounding 证据）
-- **Retrieval Models Aren't Tool-Savvy** [9]（2025，arXiv:2503.01763）：把"**工具检索**"独立基准化，说明 agent 工具使用评测从"会不会调"细化到"找不找得对"。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★★☆
-- **When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents** [8]（2026，arXiv:2606.20023）：把"**最小权限**"从运维口号变成可评测指标（over-privileged tool selection）。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★★☆（可直接转成产品安全策略）
-- **HealthAdminBench** [5]（2026，arXiv:2604.09937）：摘要称医疗行政年支出超 $1 万亿，且此前**不存在**端到端行政工作流的 CUA 基准——典型"空白领域首个基准"。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★☆☆
-- **ELOQUENT 2025 Sensemaking Task** [7]（2025，arXiv:2507.12143）：把 LLM 同时当作 teacher / student / evaluator，指向长时程"意义建构"任务评测。权威（B）｜热度 `> 待核实`｜关注度低—中｜推荐度 ★★☆☆☆
-- **Inspect Robots: Evaluating the Capabilities and Safety of Embodied AI** [23]（2026，arXiv:2610.06306）：面向**具身 AI** 的模块化开源评测框架，摘要明确同时覆盖 capabilities 与 safety。**对本报告读者（具身智能/VLA/ROS2）相关度最高**。权威（B，自述 modular/open）｜热度 `> 待核实`｜关注度：中（具身安全评测稀缺）｜推荐度 **★★★★☆**
-
-### 1.3 安全评测：模型级 → agentic 级
-- **Agentic Misalignment: How LLMs Could Be Insider Threats** [19]（2025，arXiv:2510.05179）：把 LLM 置于"**内部人威胁**"场景，是本池中唯一直接对应"欺骗/失准（deception / scheming / misalignment）"的一手实证工作。
-  - 热度证据：`> 待核实`
-  - 权威证据：arXiv 预印本（B）；**机构归属与作者 `> 待核实`**（来源列表未标注，不得臆断为某实验室）
-  - 关注度：**高**——依据：主题直接命中安全社区焦点（**注：为主题判断，非引用数判断**）
-  - 推荐度：**★★★★★**——本报告主题核心条目，且是当前证据池中唯一可用的欺骗方向来源
-- **Mind the Gap: Comparing Model- vs Agentic-Level Red Teaming with Action-Graph Observability on GPT-OSS-20B** [33]（2025，arXiv:2509.17259）：提出"**评测粒度错配**"这一方法论问题。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★★☆
-- **EvalSafetyGap** [26]（2026，arXiv:2606.30219v5）：标题表明其给出"LLM 评测—安全失效"的混合综述与概念框架，把**评测失效本身**当作安全问题。权威（B，v5 多轮修订）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★★☆
-
-### 1.4 对齐评测的方法学自我审查
-- **Whose Personae? Synthetic Persona Experiments in LLM Research and Pathways to Transparency** [14]（2025，arXiv:2512.00461）：综述 2023–2025 年 **63 篇同行评审研究**，指出合成人格实验普遍存在"任务与目标人群设定不充分"的外部效度缺陷。
-  - 权威证据：arXiv 预印本（cs.CY），**同行评审状态 `> 待核实`**；须注意"63 篇同行评审"是其**研究对象属性**，不等于本文已评审
-  - 关注度：低—中｜推荐度：**★★☆☆☆**（仅作为"对齐评测易失真"的方法学旁证，不能回答奠基工作）
-
-### 表 A：经典与奠基性工作
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|---|---|---|---|---|---|---|---|---|
-| InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated LLM Agents | 2024 | `> 待核实` | `> 待核实` | arXiv 预印本（B），评审状态待核实 | 中（间接提示注入已成 agent 标准威胁模型） | ★★★★☆ | http://arxiv.org/abs/2403.02691v3 | 工具集成 agent 的间接提示注入基准，本池中时间最早、最接近"奠基"的安全评测资产 |
-| Agentic Misalignment: How LLMs Could Be Insider Threats | 2025 | `> 待核实` | `> 待核实` | arXiv 预印本（B） | 高（主题命中 deception/insider threat） | ★★★★★ | http://arxiv.org/abs/2510.05179v2 | 欺骗/失准行为的场景化实证，用以替代缺失的奠基梳理 |
-| Grounding LLM Agents in Knowledge, Context, and Action | `> 待核实` | `> 待核实`（HKUST 学位论文库 DOI） | `> 待核实` | 学位论文（介于 A/B，`> 待核实`） | 低 | ★★☆☆☆ | https://doi.org/10.14711/thesis-hdl172464 | 从 grounding 视角系统整理 agent 的知识/上下文/动作基础 |
-| A Comparison and Analysis of LLM Agents within the Context of An LLM-Guided Evolution for Object Detection | `> 待核实` | `> 待核实`（ACM DOI） | `> 待核实` | 会议论文 DOI（`> 待核实` 具体 venue） | 低 | ★★☆☆☆ | https://doi.org/10.1145/3712255.3726669 | 非安全向，仅作 agent 组合方式对比的旁证 |
-
-> **待核实（重大缺口）**：**corrigibility（可纠正性）、shutdown resistance（关停抵抗）、scalable oversight（可扩展监督）的奠基工作在本证据池中完全缺失**，本节无法给出其经典文献清单。需以 `corrigibility` / `shutdown resistance` / `scalable oversight` / `AI control` 为关键词，对 arXiv（cs.AI/cs.CY）与主流对齐团队技术报告做定向补检后再补全本表。
-
-### 表 C：数据集与基准（本池可得）
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|---|---|---|---|---|---|---|---|---|
-| SWE-bench Goes Live! | 2025 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2505.23419v2 | 活基准，缓解静态集污染与饱和 |
-| SWE-ABS | 2026 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2603.00520v1 | 对抗强化暴露虚高成功率 |
-| HealthAdminBench | 2026 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★☆☆ | http://arxiv.org/abs/2604.09937v1 | 医疗行政 CUA 端到端基准 |
-| HarnessRisk | 2026 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2608.17597v1 | **生命周期导向的 harness 安全基准** |
-| InjecAgent | 2024 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2403.02691v3 | 间接提示注入基准 |
-| EvalSafetyGap | 2026 | `> 待核实` | `> 待核实` | arXiv（B，v5），是否期刊待核实 | 中 | ★★★★☆ | http://arxiv.org/abs/2606.30219v5 | 把评测失效概念化为安全问题 |
+**最新进展 vs 经典工作的分界**：上述全部条目均落在 2025–2026 窗口，属"最新进展"。**本候选池未提供 2020–2024 年的 corrigibility / deceptive alignment 经典奠基文献**，因此本报告无法给出"经典 → 最新"的完整演进链条，此为本轮调研最大结构性缺口（详见第 3、7 章）。
 
 ---
 
 ## 2. 工业界与产品（Industry & Product）
 
-**一句话增量判断**：企业侧关键词从"prompt 原型"变为"**可审计 harness + 契约化输出 + 生产内评测**"；安全能力（最小权限、harness 风险）开始被工程化，但**一手厂商公告/权重发布在本证据池中为零**。
+**一句话增量判断**：本轮唯一具备可核查热度的"从 lab 走向工程栈"的条目是开源护栏系统 LlamaFirewall [29]；其余产品化断言均缺乏一手证据，"真机部署/量产"维度本周期**无显著可核变化**。
 
-- **从 prompt 到契约**：[24] *From Prompts to Contracts: Harness Engineering for Auditable Enterprise LLM Agents*（2026，arXiv:2607.08028）。摘要明确列出产品化新增需求：**source boundaries、entity routing、answer contracts、reproducible traces**——即"从模型能力到工程契约"。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 **★★★★☆**
-- **harness 自动化与基质化**：[28] **AutoHarness**（2026，arXiv:2603.03329，自动合成 code harness 改进 agent）；[22] **Code as Agent Harness**（2026，arXiv:2605.18747，摘要称 code "no longer only a target output… serves as an operational substrate"）。二者共同说明技术栈把 harness 当作一等公民。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 ★★★★☆
-- **多 agent harness 演化**：[29] **HarnessNet**（2026，arXiv:2610.15221，反馈驱动的层次化联合 harness 演化）。权威（B）｜热度 `> 待核实`｜关注度低—中｜推荐度 ★★★☆☆
-- **生产环境评测**：[6] *Efficient Benchmarking in Production: A Study of an Evolving LLM Agent*（2026，arXiv:2609.21267）：针对持续演化 agent 的在线高效评测，直接回应"离线榜单 ≠ 线上表现"。权威（B）｜热度 `> 待核实`｜关注度中｜推荐度 **★★★★☆**
-- **权限最小化落地**：[8]（2026）over-privileged tool selection，可直接转成工具白名单/权限分级策略。
-- **具身侧可复用资产**：[23] Inspect Robots（2026），自述 modular、open，是最接近"可被产业复用"的具身能力+安全评测框架。
-- **产品评测口径变化**：[18] **RecoAtlas**（2026，arXiv:2605.18805）：从 semantic plausibility 走向 **set-level utility**，说明 agent 类产品评测开始看集合级效用而非单点正确率。权威（B）｜热度 `> 待核实`｜关注度低｜推荐度 ★★☆☆☆
+- **LlamaFirewall（开源 guardrail 系统）**：定位从"模型输出过滤"升级为"面向自主 agent 的安全护栏"，明确针对 agent 读取非可信输入（网页、邮件）后执行高风险动作的场景 [29]。
+  - 热度：`citations=146`（本报告唯一可核数字）｜权威：arXiv 预印本 + 开源实现，机构归属 `> 待核实`（证据片段未明示维护方，不得以名称推断）｜关注度：**高**（依据：citations=146，为本池最高信号）｜推荐度：**★★★★★**——安全评测工程栈的当前首选参考实现。
+- **评估仓库的工程化维护**：把"AI evaluations 开源仓库如何长期维护"作为研究对象，说明评测已进入"基础设施运维"阶段而非一次性论文 [31]。
+  - 热度：`> 待核实`｜权威：arXiv 预印本｜关注度：**中**｜推荐度：**★★★★☆**——做 agent 评测平台选型时的高相关经验贴。
+- **模型卡与透明度流水线**：AI Transparency Atlas 提供框架、打分与实时模型卡评测流水线 [33]，属"评测产品化"的轻量形态。
+  - 热度：`> 待核实`｜权威：arXiv 预印本｜关注度：**中**｜推荐度：**★★★☆☆**。
+- **受监管行业的多智能体合规架构**：面向奥地利/德国 Solvency II 与 EU AI Act 的通用多智能体 AI 框架，属"合规即产品需求"的一手体现 [30]。
+  - 权威：arXiv 预印本（非标准或官方指南）｜热度/关注度：`> 待核实`｜推荐度：**★★★☆☆**。
+- **对照组（说明检索偏差）**：候选池中 [32]（会话健康 agent 框架）说明 agent 产品化在垂直医疗场景已有落地形态，但与"评测与安全"主题相关性弱。
+  - 权威：JAMIA Open（同行评审期刊，DOI 可核）｜热度/关注度：`> 待核实`｜推荐度：**★★☆☆☆**——仅作产品化侧写。
 
-### 表 B：开源项目
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|---|---|---|---|---|---|---|---|---|
-| Inspect Robots | 2026 | `> 待核实` | `> 待核实` | arXiv（B），自述 modular/open | 中（具身安全评测稀缺） | ★★★★☆ | http://arxiv.org/abs/2610.06306v1 | 具身 AI 能力+安全评测框架，与 VLA/ROS2 生态最相关 |
-| AutoHarness | 2026 | `> 待核实` | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2603.03329v1 | 自动合成 code harness 以改进 agent |
-| HarnessNet | 2026 | `> 待核实` | `> 待核实` | arXiv（B） | 低 | ★★★☆☆ | http://arxiv.org/abs/2610.15221v1 | 多 agent 系统的 harness 联合演化 |
-
-> **待核实**：本证据池**未包含任何厂商官方博客、模型卡、权重发布或产品文档**，也没有 GitHub star / 最近提交数据；因此"工业界落地、真机部署、商业化量产"层面的判断均**缺少一手来源**，本节条目只应视为"工程方法学层面的落地迹象"，而非产品事实。
+> 待核实：本周期内**厂商级 agent 安全产品的发布、真机部署规模、商业化数据**在候选池中零证据，第 6 章的资本判断因此只能给出"需要数据"档。
 
 ---
 
 ## 3. 蓝海与缺口（Blue Ocean & Gaps）
 
-**一句话增量判断**：**能力侧的 harness 在爆发，harness 安全才刚起步**；而**可纠正性/关停抵抗在证据池中零覆盖**，是最大无人区。
+**一句话增量判断**：最大的无人区不是"再造一个能力基准"，而是**可纠正性（corrigibility）的一手实验评测**与**长时程轨迹级欺骗检测**——前者在候选池中完全缺席，后者只有伪装成"人类欺骗检测"的相邻任务 [15]。
 
-1. **可纠正性与可扩展监督：零覆盖（最高杠杆缺口）**
-   q2 明确判定：全池未出现 corrigibility、shutdown resistance、scalable oversight 的实证评测或基准，也没有关停场景实验。欺骗侧唯一的场景化实证是 [19]，但**没有任何反向能力（被信任/可被纠正）的测量工具**。`> 待核实`（可能已有工作未被本次检索召回）。
-2. **harness 生命周期安全：供给严重不对称**
-   能力侧有 [22][28][29] 三条在造 harness，安全侧仅 [27] **HarnessRisk** 一条生命周期导向基准——典型的"先造能力、后补安全"结构，属新蓝海。
-3. **评测的评测（meta-evaluation）**
-   [14]（人群/任务设定不足）与 [26]（评测—安全失效框架）从两个方向质疑现有结论可信度；"谁能评测评测者"仍无标准。相关综述也提示 LLM 作为评测者本身存在效度争议 [7][10][17]。
-4. **评测粒度错配**
-   [33] 显示 model-level 红队结论未必迁移到 agentic 级；缺少统一的 action-graph 级观测规范。
-5. **具身 agent 安全评测（与本报告读者最相关）**
-   全池仅 [23] 一条（2026-10）。**具身场景下的欺骗与可纠正性**（如机器人拒绝关停、为完成奖励绕过人类指令）在本池中**完全未见**——对具身智能/VLA 社区是明确空白。
-6. **攻击面覆盖不全**
-   web agent 提示注入 [30]、工具集成注入 [31] 已有；但 MCP 类工具链注入、多 agent 互相注入、长时程记忆投毒在本池缺位 `> 待核实`。
-7. **元层缺口（文献计量）**
-   本池召回出 [1][2][3][13][15][16] 等无关项，说明"Agent 评测与安全"在通用检索中的**语义边界尚不稳定**，跨社区（NLP/CV/RO/安全）术语未统一——这本身是知识组织层面的缺口。
+- **缺口 1：corrigibility 无一手评测**。候选池未出现任何直接测量"agent 在被纠正/被关闭时的顺从性与抵抗性"的实验工作。唯一相邻线索是 containment 架构讨论 [7]，但其标题包含"April 2026 Frontier Model Escape"这一**极端宣称**，属 `[R] 待证实` 级别——在未获得一手事故报告前，不得作为事实引用。
+- **缺口 2：把"人类说谎检测"误当"agent 欺骗评测"**。SVC 2025 是**多模态人类欺骗检测**挑战（安防、反欺诈、可信度评估），与 agent 的 scheming / alignment faking 是**两个不同问题**；社区存在概念混用风险 [15]。
+  - 权威：挑战赛概览报告（同侪挑战性质）｜热度：`> 待核实`｜关注度：**中**（ICCV 系挑战生态）｜推荐度：**★★★☆☆**——作为"判别信号可用性"的方法参考，而非 agent 安全基准。
+- **缺口 3：跨本体 / 真实环境 agent 基准缺失**。候选池中没有浏览器、操作系统或机器人本体的 agent 能力基准；这不是"领域没有"，而是**本轮检索未覆盖**，属抽样缺口而非现实缺口，需在下一轮定向补检。
+- **缺口 4：长时程评测的纵向方法学**。LongEval at CLEF 2025 提供"跨时间点模型性能漂移"的 IR 评测范式 [14]，可迁移到 agent 长期部署后能力衰减的度量——目前尚无 agent 领域的对应物。
+  - 权威：CLEF 2025 评测实验室（体系化评测平台）｜热度/关注度：`> 待核实`｜推荐度：**★★★☆☆**。
+- **缺口 5：开放 vs 封闭安全的路线之争尚在早期**。Columbia Convening 记录把"开放性"作为 AI 安全的独立设计变量 [27]，说明该议题已进入议程建构阶段，但尚无收敛结论，属 `[Debated]`。
+  - 权威：会议论文集（arXiv 预印本形式）｜热度/关注度：`> 待核实`｜推荐度：**★★★☆☆**。
 
 ---
 
 ## 4. 瓶颈与拐点（Bottleneck & Inflection）
 
-| # | 瓶颈 | 证据 | 是否临近拐点 |
-|---|---|---|---|
-| 1 | **知识—执行落差（grounding）** | [4]：90% 正确知识 → 41% 执行成功率 | 未见拐点，仍是硬瓶颈 |
-| 2 | **基准污染与饱和** | [11] 活基准；[12] 对抗强化暴露虚高成功率 | **已现拐点信号**：社区从"刷榜"转向"攻击榜单" |
-| 3 | **评测成本与不可复现** | [6] 生产内评测；[24] 要求 reproducible traces | 接近拐点：可审计性成为上生产门槛 |
-| 4 | **评测效度** | [14] 63 篇研究的系统性设定缺陷；[26] 评测失效框架 | 方法学审查已起步，标准未立 |
-| 5 | **观测与归因** | [33] action-graph observability | 无统一规范 |
-| 6 | **可纠正性无任何测量工具** | 全池零覆盖（q2） | **拐点尚未到来** |
+**一句话增量判断**：瓶颈正从"缺基准"转向"**基准不可比 + 评测基础设施不可持续**"；拐点信号是叙事重心从 alignment（对齐）向 containment / system safety（系统安全）迁移 [7][26]。
 
-**拐点判断与信号**：
-- "harness"一词在 2026 年密集出现（[22][24][27][28][29] 五条，据 arXiv 编号对应 2026-03 至 2026-10，**月份系编号推断，`> 需以论文页面为准`**），是**术语固化**的典型信号——一个领域正在形成自己的工程词汇，通常预示着工具链与标准化的前夜。
-- 最硬瓶颈是**可纠正性缺乏测量**：没有场景库、没有基准、没有红队协议。**若 12 个月内出现 A 级 venue 的公开可纠正性评测套件，即为拐点到来的可观测信号。**
+- **瓶颈 A：评测仓库的可持续性**。把"维护开源 AI 评测仓库的挑战"作为论文主题 [31]，本身就是基础设施承压的证据：评测资产的生命周期短于模型迭代周期。
+  - 权威：arXiv 预印本｜热度：`> 待核实`｜关注度：**中**｜推荐度：**★★★★☆**。
+- **瓶颈 B：术语污染导致元评测失效**。候选池中 [3]（短视频参与度预测）、[4]（图像超分）、[8]（AI 生成图像检测）、[9]（LHC 物理 ML 盘点）、[17]（音频修复）、[19]（视频理解 LMM）、[23]（海岸侵蚀建模）等均因 "challenge / benchmark / evaluation / survey" 词面命中而被召回。这说明检索层缺少"agent capability vs perception task"的判别器——**评测检索本身需要评测**。
+  - 全部条目热度/关注度：`> 待核实`（[4][8] 属 NTIRE 挑战赛体系，社区热度真实存在但缺数字）｜推荐度：**★☆☆☆☆**（主题相关性极低）。
+- **瓶颈 C：技术安全叙事的自我局限**。[26] 直接批评国际 AI Safety Report 过度依赖技术术语、脱离系统安全（system safety）传统。
+  - 权威：arXiv 预印本（政策批评类）｜热度/关注度：`> 待核实`｜推荐度：**★★★☆☆**。
+- **拐点信号（[P] 预测）**：出现"agent containment 架构需求"这类以**架构隔离**而非**价值对齐**为核心的论述 [7]，叠加受监管行业的合规化落地 [30]，我判断叙事在 2026 年正从"让模型想对"转向"让系统撑得住"。
+  - 可证伪假设：**若到 2027-06，顶会（NeurIPS/ICLR/CoRL）中出现以 "containment / sandbox escape / capability control" 为标题关键词的独立 track 或 ≥3 篇口头报告，则该拐点判断成立。** 置信度：**推测**（依据为单篇预印本 + 单篇合规论文，样本极薄）。
+  - 不确定项：`[7]` 的核心事实（2026 年 4 月的"前沿模型逃逸"事件）本报告**无法核实**，标 `[R] 待证实`；若该事件不存在，则本条拐点证据链断裂。
 
 ---
 
 ## 5. 社会·政策·国际（Society, Policy & Geopolitics）
 
-**一句话增量判断**：本维度**证据严重不足**——仅有一条政策类材料；EU AI Act / NIST 等监管文件在本池中**零覆盖**。
+**一句话增量判断**：相对上一基线，政策侧的增量是**合规框架开始直接约束 agent 架构设计**（EU AI Act × Solvency II），而安全侧则出现"技术安全 vs 系统安全"的路线分歧。
 
-- **开放性与安全的政策张力**：[25] *A Different Approach to AI Safety: Proceedings from the Columbia Convening on Openness in Artificial Intelligence and AI Safety*（arXiv:2506.22183；会议 **2024-11-19 旧金山**，含六周筹备项目）。其核心增量主张是：开放权重/开源基础模型既扩大了安全义务，也重塑了实现安全的机会——**开放性本身被纳入安全治理框架**。权威：arXiv 预印本（B），会议论文集属性 `> 待核实`｜热度 `> 待核实`｜关注度中｜推荐度 **★★★☆☆**
-- **具身 AI 被上升为社会议题**：[23] 摘要明确把"理解具身模型的能力与安全"与 societal impact and risks 挂钩，即机器人安全评测从工程问题变为社会问题。
-- **合规压力的工程投影**：[24] 的 source boundaries / answer contracts / reproducible traces 与审计、问责类监管要求**结构同构**（此为**本文的分析性推断**，非来源直接主张）。
-- **EU AI Act / NIST / ISO**：本证据池**无任何一手条文、指南或合规落地案例** → 无法评估"监管对 Agent 评测的实际落地情况"，`> 待核实`。
-- **地缘政治与供应链**：本周期**无显著可核实变化**（无来源，不臆测）。
+- **合规约束架构化**：面向奥地利/德国受监管保险业的多智能体 AI 框架，把 Solvency II 与 EU AI Act 作为设计约束写入架构 [30]——这是"监管影响技术选型"的一手证据。
+  - 权威：arXiv 预印本，**非**官方监管指南，不可当作合规依据｜热度/关注度：`> 待核实`｜推荐度：**★★★☆☆**。
+- **欧盟资助与研究议程**：DOI `10.3030/101222556` 指向欧盟资助项目，但标题与内容在证据池中为空（E 级证据，不可用）[2]，仅可作为"欧盟资金正在流入相关方向"的**弱线索**。
+  - 热度/权威/关注度/推荐度：**全部 `> 待核实`**——按证据分级规则，E 级内容应丢弃，此处仅标注存在性。
+- **安全叙事的公共话语分歧**：[26] 主张从系统安全传统重写安全议程，代表工程安全学派；[27] 则把"开放性"本身作为安全变量，代表开放生态学派。两者在政策建议上存在张力 `[Debated]`。
+  - 权威：均为 arXiv 预印本 / 会议记录，**非**政府或标准组织文件｜关注度：**中**｜推荐度：**★★★☆☆**。
+- **机构伦理话语的实证研究**：对 OpenAI 公共话语中 "ethics / safety / alignment" 用词语义漂移的案例分析 [10]，提供了"安全话语被机构化重塑"的可核证据路径。
+  - 权威：arXiv cs.CY（交叉学科，非安全顶会）｜热度/关注度：`> 待核实`｜推荐度：**★★★☆☆**。
+- **社会认知层**：1305 人行为实验显示 AI 预测会收窄个体考量的未来选项 [24]，为"agent 建议改变人类决策空间"提供实验证据（N=1,305 见摘要）。
+  - 权威：arXiv cs.HC 预印本（非同行评审确认）｜热度/关注度：`> 待核实`｜推荐度：**★★☆☆☆**——与 agent 评测主线相关度中低。
 
 ---
 
 ## 6. 资本与生态（Capital & Ecosystem）
 
-**一句话增量判断**：本周期**无显著可核实变化**——证据池中没有任何融资、并购、估值、人才流动或公司格局的一手来源。以下仅为**间接生态信号**，均需补证。
+**一句话增量判断**：本周期在候选池中**无显著的、可核实的融资/并购/估值变化证据**；可观察到的生态增量集中在"竞赛生态 + 开源维护 + 欧盟资助"三类弱信号。
 
-- **术语生态形成**：harness 系工作在同一年集中出现 [22][24][27][28][29]，通常对应工具链与创业团队开始围绕该层布局（[P]，依据见 §7；**属推断，非事实**）。
-- **学术培养链条**：出现以 agent grounding 为主题的学位论文 [20]，说明该方向已进入研究生培养层面。热度 `> 待核实`｜推荐度 ★★☆☆☆
-- **社区评测赛事常态化**：ELOQUENT 2025 Lab [7]、CheckThat! 2025 [17] 把 LLM-as-evaluator 纳入正式赛道，说明"评测"本身已成为学术社区活动。
-- **开源资产极薄**：仅 [23] 具名自述 open/modular；[27][28][31] 等是否有公开仓库 `> 待核实`。
-- **`> 待核实`（硬缺口）**：无融资额、无 star、无下载量 → **任何关于"资本流向""公司格局变化"的数量化结论都不应采信**。
+- **证据强度：需要数据**。候选池未包含任何机构融资公告、投资机构报告或公司格局分析；因此本章不做资本规模判断，避免编造。
+- **可核生态信号 1：竞赛/挑战赛生态持续运转**。MOASEI 2026 明确以"Inaugural 2025 → 2026"的连续届次方式运行 [1]，说明多智能体评测已有稳定的年度机制（但经费与主办方 `> 待核实`）｜关注度：**中**｜推荐度：**★★★★☆**。
+- **可核生态信号 2：开源评测仓库是稀缺资产**。[31] 把维护经验写成论文，隐含信号是此类仓库迭代快、贡献者稀缺｜推荐度：**★★★★☆**。
+- **可核生态信号 3：欧盟资助通道存在**（[2]，内容为空，E 级）｜`> 待核实`。
+- **人才与社区**：候选池无作者/机构集中度分析所需数据（多数条目作者信息缺失），无法判断"哪些团队在领跑"｜`> 待核实`。
+
+> 本节刻意保持短：按 frontier-watch 纪律，**没有增量证据的维度应明确写"本周期无显著变化"，不为凑字数编内容**。
 
 ---
 
 ## 7. 信号与预测（Signals & Forecast）
 
-> 以下均为 **[P] 预测/预判**，写成可证伪假设；置信度为编辑判断，非来源结论。
+**一句话增量判断**：2026 年的早期信号集中在"欺骗/图谋倾向可测量化"[20] 与"containment 架构化"[7] 两条线，但两者证据强度都偏弱。
 
-- **[P1] 可纠正性/关停抵抗将出现首个标准化公开评测套件 —— 置信度：中**
-  依据链：欺骗侧已有场景化实证 [19] → 但 corrigibility 全池零覆盖（空白）→ 叠加企业审计与合规需求上升 [24][25] → 预测。
-  **证伪条件**：若到 **2027-06** 仍无 A 级 venue 或主流机构发布的公开可纠正性/关停抵抗基准，则本预测不成立。
-- **[P2] 活基准与对抗强化将取代静态快照成为默认形态 —— 置信度：中高**
-  依据 [11][12]。**证伪条件**：2027 年主流榜单仍以静态数据集为唯一依据，且 SWE-bench Live 类工作未被任何第三方榜单采纳。
-- **[P3] 安全评测重心将从 model-level 迁至 harness / agentic 级 —— 置信度：中**
-  依据：能力侧 harness 密集 [22][28][29]，安全侧已出现生命周期基准 [27]，且 [33] 证明两级结论不可互推。
-  **观测指标**：HarnessRisk 类基准被厂商安全报告或第三方榜单引用。**证伪条件**：2027 年内厂商安全披露仍只给模型级红队结果。
-- **[P4] 具身 agent 安全评测将在 12 个月内出现第三方复现或独立榜单 —— 置信度：低—中**
-  依据：仅 [23] 一条且为 2026-10 新出，尚未有复现。**证伪条件**：2027-10 前无第三方复现/榜单。
-- **[P5] 评测效度（meta-evaluation）将独立成子领域 —— 置信度：中**
-  依据：[14] 与 [26] 分别从"设定不足"和"评测—安全失效"两侧切入。**证伪条件**：相关框架未形成持续引用链。
+**早期信号（带不确定性标记）**
 
-**本期已可观测的早期信号**：
-1. **2026 年 harness 词汇固化**（[22][24][27][28][29]）；
-2. **评测指标从"分数"转向"可审计轨迹"**（[24] reproducible traces、[33] action-graph observability）；
-3. **"最小权限"进入 agent 评测语言**（[8]）。
+| 信号 | 类型 | 时间 | 依据 | 证据强度 |
+|---|---|---|---|---|
+| Agent scheming 倾向被单独建为评测对象 | 确定（存在性） | 2026 | [20] | 推测（无引用/复现数据） |
+| 长时程 CoT 成为评测主轴 | 较大概率 | 2026 | [1][5][11] | 推测 |
+| 安全叙事从 alignment 转向 containment / system safety | [P] | 2026 | [7][26][30] | 推测（样本薄） |
+| 前沿模型逃逸（2026-04）事件 | [R] 待证实 | 2026-04 | [7] 标题 | **未知** |
+| 开放 vs 封闭安全的路线之争 | [Debated] | 2025–2026 | [27] vs [26] | 需要数据 |
 
-**Watchlist**：
-- Agentic Misalignment [19] 的后续工作与**独立复现**（当前仅单点来源）；
-- HarnessRisk [27] 是否被采纳为生命周期安全标准；
-- Inspect Robots [23] 是否扩展到具身欺骗/可纠正性场景；
-- SWE-ABS [12] 与 SWE-bench Live [11] 的相互验证结果；
-- **可纠正性一手工作（当前全池缺失，`> 待核实`，建议列为下一轮检索的第一优先项）**；
-- EU AI Act / NIST 对 agent 评测的实际要求（当前零证据，需补检官方法规文本与合规案例）。
+**未来 6–18 个月可证伪预测**
+
+1. **[P] 可纠正性会出现首个独立评测基准。** 依据链：scheming 倾向已被建为评测对象 [20] → 能力评测与安全评测正合流 → corrigibility 是其自然缺口（第 3 章缺口 1）。
+   证伪条件：**若到 2027-04 仍无 ≥1 篇以 corrigibility 为标题核心词并附公开评测集的论文/仓库，则本预测不成立。** 置信度：**较大概率（推测档）**。
+2. **[P] 术语污染将催生"元评测"工具。** 依据链：本次检索中 ≥7 条跨域噪音条目（[3][4][8][9][17][19][23]）证明判别层失效 → 评测资产检索需要 agent capability 判别器。
+   证伪条件：**若到 2027-10，主流 agent 评测综述仍以人工筛选为主、无公开的基准筛选/分类工具，则本预测不成立。** 置信度：**推测**。
+3. **[P] 合规驱动会成为 agent 安全评测的一手需求来源。** 依据链：[30] 显示 EU AI Act × Solvency II 已进入架构设计层。
+   证伪条件：**若到 2027-06 无任何 agent 评测框架以 EU AI Act 条款编号作为评测维度映射，则本预测不成立。** 置信度：**推测**。
+
+**Watchlist（持续关注）**
+- Agent scheming / alignment faking 的独立复现报告 [20]
+- containment / sandbox escape 的一手事故或架构论文（核实 [7] 的真实性）
+- 开源 guardrail 与评测仓库的版本迭代与 star 增长（[29][31]）
+- corrigibility 一手评测的出现（当前为空白）
+- 长时程记忆评测的标准化（[11]）
+
+---
+
+## 经典与奠基性工作（候选池内可锚定的条目）
+
+> **重要声明**：本候选池**未包含** deception / alignment faking / corrigibility 的经典奠基文献（如 deceptive alignment 的原始论述、corrigibility 的形式化提案）。下表仅列出池内可充当"上一基线"的条目，缺口需下一轮补检。
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| AI Safety is Stuck in Technical Terms — A System Safety Response to the International AI Safety Report [26] | 2025 | `> 待核实` | `> 待核实` | arXiv 预印本（非同行评审） | 中（政策安全议程讨论） | ★★★☆☆ | http://arxiv.org/abs/2503.04743v1 | 系统安全学派对技术对齐叙事的基础性批评，可作"经典 vs 新范式"的分界参考 |
+| A Different Approach to AI Safety: Columbia Convening [27] | 2025 | Columbia Convening | `> 待核实` | 会议记录（arXiv 形式） | 中 | ★★★☆☆ | http://arxiv.org/abs/2506.22183v1 | 把"开放性"作为独立安全变量的奠基性议程文本 |
+| Competing Visions of Ethical AI: A Case Study of OpenAI [10] | 2026 | `> 待核实` | `> 待核实` | arXiv cs.CY | 中 | ★★★☆☆ | http://arxiv.org/abs/2601.16513v1 | 机构安全话语漂移的实证案例 |
+| Making Large Language Models Better Reasoners with Alignment [21] | 2023 | `> 待核实` | `> 待核实` | arXiv 预印本 | 低（主题相关性弱） | ★★☆☆☆ | http://arxiv.org/abs/2309.02144v1 | 池内唯一 2023 年条目，可作 alignment-then-reasoning 的上游基线 |
+| Towards trustworthy agentic AI: a comprehensive survey [6] | 2026 | `> 待核实` | `> 待核实` | arXiv cs.AI 综述 | 高 | ★★★★☆ | http://arxiv.org/abs/2605.23989v1 | 当前分类骨架，替代缺失的经典综述 |
+
+---
+
+## 开源项目
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| LlamaFirewall [29] | 2025 | `> 待核实` | **citations=146** | arXiv 预印本 + 开源实现 | **高**（依据 citations=146，本池唯一可核热度） | ★★★★★ | https://arxiv.org/abs/2505.03574 | 面向自主 agent 的开源 guardrail，覆盖非可信输入引发的高风险动作 |
+| Open-Source Repository of AI Evaluations（维护经验） [31] | 2025 | `> 待核实` | `> 待核实` | arXiv 预印本 | 中 | ★★★★☆ | https://arxiv.org/abs/2507.06893 | 评测仓库工程化维护的挑战与洞见，选型必读 |
+| AI Transparency Atlas [33] | 2025 | `> 待核实` | `> 待核实` | arXiv 预印本 | 中 | ★★★☆☆ | https://arxiv.org/abs/2512.12443 | 框架 + 打分 + 实时模型卡评测流水线 |
+
+---
+
+## 数据集与基准
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|---|---|---|---|---|---|---|---|---|
+| MOASEI Competition 2026 [1] | 2026 | MOASEI 社区 | `> 待核实` | AAMAS'2026 技术报告（非正式论文） | 中 | ★★★★☆ | http://arxiv.org/abs/2607.03399v1 | 开放系统下多智能体决策评测；场景清单 `> 待核实`（摘要截断） |
+| LongCoT [5] | 2026 | `> 待核实` | `> 待核实` | arXiv cs.LG | 中 | ★★★★☆ | http://arxiv.org/abs/2604.14140v1 | 长时程 CoT 推理的可扩展基准 |
+| Evaluating and Understanding Scheming Propensity in LLM Agents [20] | 2026 | `> 待核实` | `> 待核实` | arXiv HTML（预印本） | 中 | ★★★★☆ | https://arxiv.org/html/2603.01608v2 | 最贴近"agent 欺骗"主题的评测工作；独立复现情况 `> 待核实` |
+| SVC 2025: First Multimodal Deception Detection Challenge [15] | 2025 | `> 待核实` | `> 待核实` | 挑战赛概览报告 | 中 | ★★★☆☆ | http://arxiv.org/abs/2508.04129v1 | **人类**多模态欺骗检测，勿与 agent scheming 混为一谈 |
+| LongEval at CLEF 2025 [14] | 2025 | CLEF | `> 待核实` | CLEF 2025 评测实验室 | 中 | ★★★☆☆ | http://arxiv.org/abs/2503.08541v1 | 纵向（跨时间）模型性能漂移评测范式，可迁移到 agent 长期部署评测 |
+| ELOQUENT 2025 Sensemaking [13] | 2025 | `> 待核实` | `> 待核实` | 共享任务报告 | 低–中 | ★★☆☆☆ | http://arxiv.org/abs/2507.12143v1 | 生成模型作为教师/学生/评估者的三级评测设计，与 agent-as-judge 议题相邻 |
+| 术语污染对照组（**非 agent 基准**） [3][4][8][9][17][19][23] | 2025–2026 | 多机构 | `> 待核实` | NTIRE/ICCV/CLEF/期刊等 | 低（与本主题无关） | ★☆☆☆☆ | 见参考来源 | 因 "challenge/benchmark/evaluation" 词面命中被召回，是检索层失效的证据 |
 
 ---
 
 ## 参考来源
 
-[1] Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs — http://arxiv.org/abs/2504.19675v2
-[2] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
-[3] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
-[4] UI-Evol: Automatic Knowledge Evolving for Computer Use Agents — http://arxiv.org/abs/2505.21964v2
-[5] HealthAdminBench: Evaluating Computer-Use Agents on Healthcare Administration Tasks — http://arxiv.org/abs/2604.09937v1
-[6] Efficient Benchmarking in Production: A Study of an Evolving LLM Agent — http://arxiv.org/abs/2609.21267v1
-[7] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators — http://arxiv.org/abs/2507.12143v1
-[8] When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents — http://arxiv.org/abs/2606.20023v2
-[9] Retrieval Models Aren't Tool-Savvy: Benchmarking Tool Retrieval for Large Language Models — http://arxiv.org/abs/2503.01763v2
-[10] AIn't Nothing But a Survey? Using Large
+[1] Second MOASEI Competition at AAMAS'2026: A Technical Report — http://arxiv.org/abs/2607.03399v1
+[2] （无标题，E 级证据，内容不可用） — https://doi.org/10.3030/101222556
+[3] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
+[4] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
+[5] LongCoT: Benchmarking Long-Horizon Chain-of-Thought Reasoning — http://arxiv.org/abs/2604.14140v1
+[6] Towards trustworthy agentic AI: a comprehensive survey of safety, robustness, privacy, and system security — http://arxiv.org/abs/2605.23989v1
+[7] When the Agent Is the Adversary: Architectural Requirements for Agentic AI Containment After the April 2026 Frontier Model Escape — http://arxiv.org/abs/2604.23425v1
+[8] NTIRE 2026 Challenge on Robust AI-Generated Image Detection in the Wild — http://arxiv.org/abs/2604.11487v1
+[9] Machine learning for the LHC physics program: a 2025-2026 stocktake — http://arxiv.org/abs/2609.32874v1
+[10] Competing Visions of Ethical AI: A Case Study of OpenAI — http://arxiv.org/abs/2601.16513v1
+[11] A Survey of Agent Memory in the Second Half: Towards Self-Evolving and Long-Horizon Agents — http://arxiv.org/abs/2602.06052v4
+[12] Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs — http://arxiv.org/abs/2504.19675v2
+[13] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators — http://arxiv.org/abs/2507.12143v1
+[14] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1
+[15] SVC 2025: the First Multimodal Deception Detection Challenge — http://arxiv.org/abs/2508.04129v1
+[16] Normalization of peer-evaluation measures of group research quality across academic disciplines — http://arxiv.org/abs/1006.3863v2
+[17] Apollo: Band-sequence Modeling for High-Quality Audio Restoration — http://arxiv.org/abs/2409.08514v2
+[18] LTG at SemEval-2025 Task 10: Optimizing Context for Classification of Narrative Roles — http://arxiv.org/abs/2506.05976v1
+[19] Apollo: An Exploration of Video Understanding in Large Multimodal Models — http://arxiv.org/abs/2412.10360v1
+[20] Evaluating and Understanding Scheming Propensity in LLM Agents — https://arxiv.org/html/2603.01608v2
+[21] Making Large Language Models Better Reasoners with Alignment — http://arxiv.org/abs/2309.02144v1
+[22] Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025) — http://arxiv.org/abs/2412.16365v1
+[23] Modelling evaluation of the impact of Medicane Apollo on pocket beaches in the context of climate change — https://doi.org/10.5194/egusphere-egu25-5549
+[24] Faith in AI can narrow the futures individuals consider — http://arxiv.org/abs/2603.28944v2
+[25] Foundations of GenIR — http://arxiv.org/abs/2501.02842v1
+[26] AI Safety is Stuck in Technical Terms -- A System Safety Response to the International AI Safety Report — http://arxiv.org/abs/2503.04743v1
+[27] A Different Approach to AI Safety: Proceedings from the Columbia Convening on Openness in Artificial Intelligence and AI Safety — http://arxiv.org/abs/2506.22183v1
+[28] DeBiasMe: De-biasing Human-AI Interactions with Metacognitive AIED (AI in Education) Interventions — http://arxiv.org/abs/2504.16770v1
+[29] LlamaFirewall: An open source guardrail system for building secure AI agents — https://arxiv.org/abs/2505.03574
+[30] Multi-Agent AI Architecture for Regulated Insurers: A generic AI framework under Solvency II and the AI Act in Austria and Germany — http://arxiv.org/abs/2609.27636v2
+[31] Developing and Maintaining an Open-Source Repository of AI Evaluations: Challenges and Insights — https://arxiv.org/abs/2507.06893
+[32] Conversational health agents: a personalized large language model-powered agent framework — https://doi.org/10.1093/jamiaopen/ooaf067
+[33] AI Transparency Atlas: Framework, Scoring, and Real-Time Model Card Evaluation Pipeline — https://arxiv.org/abs/2512.12443
 
 ---
 
-*Generated by research-bot · topic=`agent-评测与安全能力基准欺骗与可纠正性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=33 · duration=209s · 2026-10-14T22:33:17+00:00*
+### 附：本报告的四轴证据纪律自检
+
+| 检查项 | 结果 |
+|---|---|
+| 是否所有引用编号都来自给定来源列表 | 是（[1]–[33]） |
+| 是否有编造的 citations / star / 榜单数字 | 否；仅引用 [29] 的 `citations=146`，其余一律 `> 待核实` |
+| 传闻/预测是否显式标记 | 是；[7] 标 `[R] 待证实`，第 4/7 章预测标 `[P]` 并附证伪条件 |
+| 是否区分演示/自评 与 独立验证/真机部署 | 是；第 2 章明确"产品化与真机部署本周期无显著可核变化" |
+| 是否省略章节 | 否；第 1–7 章及三类表格均已写完 |
+| 主要残余风险 | 经典奠基文献缺失、可纠正性零证据、产品与资本维度证据为空 —— 建议下一轮定向补检 |
+
+---
+
+*Generated by research-bot · topic=`agent-评测与安全能力基准欺骗与可纠正性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=33 · duration=204s · 2026-10-15T22:30:34+00:00*

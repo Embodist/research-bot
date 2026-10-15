@@ -1,0 +1,1075 @@
+{
+  "topic": "机器人运动学控制与-ros-2",
+  "title": "机器人运动学、控制与 ROS 2：领域增量追踪调研计划（2024–2026）",
+  "query": "机器人运动学、控制与 ROS 2",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-15T22:20:18+00:00",
+  "finished_at": "2026-10-15T22:23:17+00:00",
+  "duration_s": 178.7,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人运动学、控制与 ROS 2：领域增量追踪调研计划（2024–2026）",
+    "summary": "以 7 facet 增量视角，追踪机器人运动学、控制与 ROS 2 生态在最近 1–2 年的前沿进展、产业落地、蓝海缺口、瓶颈拐点、政策社会、资本生态与未来信号，并给出可核查证据链。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 1–2 年（2024–2026），机器人运动学与控制（含 VLA/扩散策略/全身控制/模型预测控制）出现了哪些真正的新进展与 SOTA 变动？这些进展是否在多个任务、多个本体上被独立验证，还是仅有演示视频？",
+        "rationale": "对应 frontier-watch 的 facet 1（进展与热点）与 facet 4（瓶颈拐点）与 facet 7（信号预测）。必须区分『论文宣称/演示』与『第三方复现/真机部署』，并按年份-季度排出时间线，识别相对上一基线的增量，而非复述教材常识。",
+        "queries": [
+          "vision-language-action policy 2025 real robot manipulation benchmark SOTA arxiv",
+          "robot kinematics whole-body control humanoid 2025 2026 CoRL RSS site:arxiv.org",
+          "机器人 运动学 控制 2025 最新进展 综述 突破",
+          "model predictive control diffusion policy real-time 2025 real-world evaluation"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "机器人运动学/控制的经典与奠基工作（阻抗控制、操作空间控制、轨迹优化、刚体动力学库）如何演化为今天的 ROS 2 工程栈？MoveIt 2、ros2_control、Pinocchio、Drake、MuJoCo 等开源项目最近一年有哪些实质性发布、架构变更与真机部署案例？",
+        "rationale": "覆盖『经典/奠基工作』与『开源项目与工程实践』两类要求。经典方法决定今天的 API 与语义，工程栈决定落地可行性；需核查仓库 star/最近提交/官方文档与发布会时间，避免把 demo 当验证（见 evidence-grading 与 paper-survey）。",
+        "queries": [
+          "MoveIt 2 ros2_control release 2025 2026 documentation changelog site:github.com",
+          "Pinocchio KDL Drake rigid body dynamics library comparison 2025",
+          "operational space control Khatib impedance control classic paper citation",
+          "ROS 2 Jazzy Kilted release real-time control 2025 industrial deployment"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "在数据集与基准层面（Open X-Embodiment、DROID、LIBERO、SimplerEnv、RoboArena 等）以及运动学/控制评测上还有哪些空白与争议？与此对应的产业商业化、政策监管与资本生态（人形机器人量产、ROS 2 供应链、融资并购、人才流动）在 2025–2026 发生了哪些可观测变化？",
+        "rationale": "覆盖『数据集与基准』与『开放问题与争议』，并同时满足 frontier-watch 的 facet 2（工业界与产品）、facet 3（蓝海与缺口）、facet 5（社会/政策/国际）、facet 6（资本与生态）。要求数字以一手榜单/官方公告为准，传闻标 [R]、预测标 [P]，并写成可证伪假设。",
+        "queries": [
+          "Open X-Embodiment DROID LIBERO SimplerEnv RoboArena 2025 leaderboard benchmark",
+          "sim-to-real gap control failure case negative results 2025 reproducibility",
+          "humanoid robot commercialization 2025 mass production funding financing",
+          "人形机器人 2025 政策 监管 标准 供应链 融资 量产"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "github",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 1–2 年（2024–2026），机器人运动学与控制（含 VLA/扩散策略/全身控制/模型预测控制）出现了哪些真正的新进展与 SOTA 变动？这些进展是否在多个任务、多个本体上被独立验证，还是仅有演示视频？",
+      "queries": [
+        "vision-language-action policy 2025 real robot manipulation benchmark SOTA arxiv",
+        "robot kinematics whole-body control humanoid 2025 2026 CoRL RSS site:arxiv.org",
+        "机器人 运动学 控制 2025 最新进展 综述 突破",
+        "model predictive control diffusion policy real-time 2025 real-world evaluation"
+      ],
+      "rationale": "对应 frontier-watch 的 facet 1（进展与热点）与 facet 4（瓶颈拐点）与 facet 7（信号预测）。必须区分『论文宣称/演示』与『第三方复现/真机部署』，并按年份-季度排出时间线，识别相对上一基线的增量，而非复述教材常识。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+          "url": "http://arxiv.org/abs/2508.11117v1",
+          "snippet": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenges and desiderata in designing benchmarks for generalist robotic manipulation policies for the goal of sim-to-real policy transfer. We propose 1) utilizing high visual-fidelity simulation for improved sim-to-real transfer, 2) evaluating policies by systematically increasing task complexity and scenar…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-14",
+          "authors": [
+            "Xuning Yang",
+            "Clemens Eppner",
+            "Jonathan Tremblay",
+            "Dieter Fox",
+            "Stan Birchfield",
+            "Fabio Ramos"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.11117v1",
+            "rrf_score": 0.037195,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.028324,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+          "url": "http://arxiv.org/abs/2608.17095v1",
+          "snippet": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visual tokens of detector localized traffic actors on Alpamayo-R1's Qwen3-VL backbone. It is applied as a fail open forward pre-hook with no weight changes. On 50 lane-change scenarios from the Physical AI World Model Synthetic dataset. The trajectory decoder shows a monotonic dose response in the bias…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-17",
+          "authors": [
+            "Darshan Nagendra Prasad",
+            "Lars Ullrich",
+            "Knut Graichen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.17095v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+          "url": "http://arxiv.org/abs/2512.06951v2",
+          "snippet": "We present a vision-action policy that won 1st place in the 2025 BEHAVIOR Challenge - a large-scale benchmark featuring 50 diverse long-horizon household tasks in photo-realistic simulation, requiring bimanual manipulation, navigation, and context-aware decision making. Building on the Pi0.5 architecture, we introduce several innovations. Our primary contribution is correlated noise for flow matching, which improves training efficiency and enables correlation-aware inpainting for smooth action sequences. We also apply learnable mixed-layer attention and System 2 stage tracking for ambiguity r…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-07",
+          "authors": [
+            "Ilia Larchenko",
+            "Gleb Zarin",
+            "Akash Karnatak"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.06951v2",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+            "evidence": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenge…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+            "evidence": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visu…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+            "evidence": "We present a vision-action policy that won 1st place in the 2025 BEHAVIOR Challenge - a large-scale benchmark featuring 50 diverse long-horizon household tasks in photo-realistic simulation, requiring bimanual manipulation, navigation, and context-aware decision making. Building on the Pi0.5 archit…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "机器人运动学/控制的经典与奠基工作（阻抗控制、操作空间控制、轨迹优化、刚体动力学库）如何演化为今天的 ROS 2 工程栈？MoveIt 2、ros2_control、Pinocchio、Drake、MuJoCo 等开源项目最近一年有哪些实质性发布、架构变更与真机部署案例？",
+      "queries": [
+        "MoveIt 2 ros2_control release 2025 2026 documentation changelog site:github.com",
+        "Pinocchio KDL Drake rigid body dynamics library comparison 2025",
+        "operational space control Khatib impedance control classic paper citation",
+        "ROS 2 Jazzy Kilted release real-time control 2025 industrial deployment"
+      ],
+      "rationale": "覆盖『经典/奠基工作』与『开源项目与工程实践』两类要求。经典方法决定今天的 API 与语义，工程栈决定落地可行性；需核查仓库 star/最近提交/官方文档与发布会时间，避免把 demo 当验证（见 evidence-grading 与 paper-survey）。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.051188,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+          "url": "http://arxiv.org/abs/2607.03399v1",
+          "snippet": "We describe the 2026 Methods for Open Agent Systems Evaluation Initiative (MOASEI) Competition, a benchmark event for evaluating multi-agent decision-making under open-system conditions. Building on the inaugural 2025 competition, the 2026 edition retained wildfire fighting, cybersecurity, and ride-sharing domains while adding a bonus wildfire track with frame openness, in which agent equipment states such as suppressant capacities and firefighting range vary over time. The competition also expanded its reporting metrics to emphasize total task completions, mean task-completion time, and mean…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-03",
+          "authors": [
+            "Ceferino Patino",
+            "Tyler J. Billings",
+            "Alireza Saleh Abadi",
+            "Daniel Redder",
+            "Adam Eck",
+            "Prashant Doshi",
+            "Leen-Kiat Soh"
+          ],
+          "venue": "cs.MA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.03399v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Machine learning for the LHC physics program: a 2025-2026 stocktake",
+          "url": "http://arxiv.org/abs/2609.32874v1",
+          "snippet": "The first sentence of this abstract--and the introduction to these proceedings--was authored by a human, but the bulk of this document was generated by an agentic AI system. In this talk, I take stock of machine learning (ML) for the LHC physics program over the twelve months from May 2025 to May 2026. The corpus is the HEPML Living Review, split at May 2025 into 1,756 earlier papers and 569 later ones. An AI pipeline surveyed the 569 abstracts, ranked them by citations, recency, theme, and collaboration involvement, and read 103 papers in full (95 from after the split, plus 8 earlier baselin…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-26",
+          "authors": [
+            "Jesse Thaler"
+          ],
+          "venue": "hep-ph",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.32874v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "Surgical Vision ROS2: a ROS2 Humble pipeline for intraoperative wound assessment and variable-autonomy arm control",
+          "url": "https://doi.org/10.21203/rs.3.rs-10362132/v1",
+          "snippet": "Abstract \n                 Surgical Vision ROS2 is a ROS2 Humble pipeline for intraoperative wound assessment. A vision node scores a wound using a five-part ABCDE framework adapted from dermatology. A behaviour manager converts the score into one of three autonomy tiers for a MoveIt2-controlled arm: full execution, reduced-speed execution with per-motion confirmation, and a hold state in which the arm freezes until the operator types CONFIRM. On a 45-image synthetic benchmark the original grayscale adaptive-threshold segmentation reached 6.7% three-class verdict accuracy. Inspection showed t…",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2026-07-16",
+          "authors": [
+            "Lamia Islam"
+          ],
+          "venue": null,
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "doi": "10.21203/rs.3.rs-10362132/v1",
+            "type": "posted-content",
+            "rrf_score": 0.017391
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "候选证据中唯一与 ROS 2 工程栈直接相关的一条，是一个运行在 ROS 2 Humble 上、用 MoveIt 2 控制机械臂的术中伤口评估流水线（Surgical Vision ROS2），说明 MoveIt 2 已被用于医疗/手术场景的视觉—行为—运动执行闭环。",
+            "evidence": "摘要描述：vision node 用改编自皮肤科的 ABCDE 五部分框架给伤口打分；behaviour manager 把分数映射为三种自主性层级，控制一台 MoveIt2-controlled arm。标题明确为 'Surgical Vision ROS2: a ROS2 Humble pipeline for intraoperative wound assessment and variable-autonomy arm control'。",
+            "sources": [
+              22
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "citations=0（候选块给出 citations=0）",
+            "authority": "Research Square 预印本，DOI 10.21203/rs.3.rs-10362132/v1；非同行评审（候选块未标注任何会议/期刊）",
+            "attention": "低 —— 引用数为 0，候选块中无榜单排名、star 或社区讨论信号",
+            "recommendation": "★★★☆☆ —— 与本子问题（ROS 2 运动规划栈的真实部署案例）高度相关，且是本次候选中唯一一手证据；但为预印本、零引用，只能作为线索，需另找官方/评审来源核实"
+          },
+          {
+            "point": "该 ROS 2 流水线给出了一种把感知评分映射到机械臂自主性等级的显式行为管理设计（可变自主性 variable-autonomy），是「感知—决策—运动执行」在 ROS 2 栈内分层而非端到端的工程实现。",
+            "evidence": "三档自主性：full execution（直接执行）；reduced-speed execution with per-motion confirmation（降速执行并对每个动作逐次确认）；hold state（保持/停机状态）。",
+            "sources": [
+              22
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "citations=0",
+            "authority": "Research Square 预印本（同 [22]），非同行评审",
+            "attention": "低 —— 零引用、无第三方复现或榜单信号",
+            "recommendation": "★★★☆☆ —— 对「ROS 2 中如何做安全/分级自主控制」有工程参考价值，但证据强度仅为预印本摘要级"
+          },
+          {
+            "point": "证据缺口：本次候选证据中不含 ros2_control、Pinocchio、Drake、MuJoCo 的任何条目，也不含阻抗控制、操作空间控制（OSC）、轨迹优化、刚体动力学库相关论文或项目；因此无法据现有候选证据回答「经典与奠基工作如何演化为今天的 ROS 2 工程栈」，也无法给出这些项目近一年的发布、架构变更或真机部署案例。",
+            "evidence": "候选块 [2] 为短视频热度预测挑战赛（cs.CV）、[16] 为 AAMAS 2026 多智能体竞赛技术报告（cs.MA）、[18] 为 LHC 机器学习年度综述（hep-ph），三者均与机器人运动学/控制及 ROS 2 无关；[22] 是唯一相关条目且仅涉及 MoveIt 2。",
+            "sources": [
+              2,
+              16,
+              18,
+              22
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "本判断基于候选集合本身，非外部来源",
+            "attention": "低 —— 该缺口说明本子问题目前缺乏可核查证据",
+            "recommendation": "★★☆☆☆ —— 作为检索缺口记录使用，提示需要补充针对 MoveIt 2 / ros2_control / Pinocchio / Drake / MuJoCo 的定向检索"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Surgical Vision ROS2: a ROS2 Humble pipeline for intraoperative wound assessment and variable-autonomy arm control",
+            "url": "https://doi.org/10.21203/rs.3.rs-10362132/v1",
+            "why": "本次候选中唯一直接涉及 ROS 2 Humble + MoveIt 2 机械臂控制的案例，展示了感知评分驱动的可变自主性分层设计",
+            "year": "2026",
+            "heat": "citations=0",
+            "authority": "Research Square 预印本（DOI 10.21203/rs.3.rs-10362132/v1），未标注同行评审 venue",
+            "attention": "低 —— 零引用，无第三方验证或榜单记录",
+            "recommendation": "★★★☆☆ —— 主题相关度高，但属预印本且无独立验证，建议仅作为 ROS 2 应用线索引用"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "MoveIt 2",
+            "url": "",
+            "why": "候选证据 [22] 明确提到使用 'MoveIt2-controlled arm' 完成手术场景下的手臂运动执行，是候选集合中唯一被点名的 ROS 2 运动规划组件",
+            "heat": "候选块未提供 stars 或采用度数据（待核实）",
+            "authority": "候选块未提供维护方或官方文档信息（待核实）",
+            "attention": "低 —— 仅在 [22] 的摘要中被提及，候选中无 star/下载/榜单等热度信号",
+            "recommendation": "★★☆☆☆ —— 仅证明其被用于一个医疗预印本工作，项目本身的发布与架构变更信息在本候选集合中完全缺失，需补充官方仓库证据"
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据中完全没有阻抗控制、操作空间控制（OSC）、轨迹优化、刚体动力学库的经典/奠基工作，无法构建「经典理论 → ROS 2 工程栈」的演化脉络。",
+          "ros2_control、Pinocchio、Drake、MuJoCo 在候选集合中零覆盖：其近一年的实质性发布、架构变更、许可证/维护模式变化均无法核实。",
+          "缺少这些开源项目的真机部署案例（除 [22] 间接提到 MoveIt 2 用于医疗机械臂外），无法判断哪些组件已进入产品化阶段。",
+          "候选证据整体与子问题主题（机器人运动学/控制与 ROS 2）严重不匹配——[2][16][18] 分别属于视频质量评估、多智能体竞赛与高能物理论文，说明本次检索召回失败，需要重新构造检索式。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "在数据集与基准层面（Open X-Embodiment、DROID、LIBERO、SimplerEnv、RoboArena 等）以及运动学/控制评测上还有哪些空白与争议？与此对应的产业商业化、政策监管与资本生态（人形机器人量产、ROS 2 供应链、融资并购、人才流动）在 2025–2026 发生了哪些可观测变化？",
+      "queries": [
+        "Open X-Embodiment DROID LIBERO SimplerEnv RoboArena 2025 leaderboard benchmark",
+        "sim-to-real gap control failure case negative results 2025 reproducibility",
+        "humanoid robot commercialization 2025 mass production funding financing",
+        "人形机器人 2025 政策 监管 标准 供应链 融资 量产"
+      ],
+      "rationale": "覆盖『数据集与基准』与『开放问题与争议』，并同时满足 frontier-watch 的 facet 2（工业界与产品）、facet 3（蓝海与缺口）、facet 5（社会/政策/国际）、facet 6（资本与生态）。要求数字以一手榜单/官方公告为准，传闻标 [R]、预测标 [P]，并写成可证伪假设。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.055168,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+          "url": "http://arxiv.org/abs/2510.20381v1",
+          "snippet": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal legal text processing and to provide a benchmark dataset for building and evaluating intelligent systems in multimodal legal domains, with a focus on traffic sign regulation in Vietnam. The best-reported results on VLSP 2025 MLQA-TSR are an F2 score of 64.55% for multimodal legal retrieval and an a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Son T. Luu",
+            "Trung Vo",
+            "Hiep Nguyen",
+            "Khanh Quoc Tran",
+            "Kiet Van Nguyen",
+            "Vu Tran",
+            "Ngan Luu-Thuy Nguyen",
+            "Le-Minh Nguyen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20381v1",
+            "rrf_score": 0.034559,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+          "url": "http://arxiv.org/abs/2508.18904v1",
+          "snippet": "The Event-Enriched Image Analysis (EVENTA) Grand Challenge, hosted at ACM Multimedia 2025, introduces the first large-scale benchmark for event-level multimodal understanding. Traditional captioning and retrieval tasks largely focus on surface-level recognition of people, objects, and scenes, often overlooking the contextual and semantic dimensions that define real-world events. EVENTA addresses this gap by integrating contextual, temporal, and semantic information to capture the who, when, where, what, and why behind an image. Built upon the OpenEvents V1 dataset, the challenge features two…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-26",
+          "authors": [
+            "Thien-Phuc Tran",
+            "Minh-Quang Nguyen",
+            "Minh-Triet Tran",
+            "Tam V. Nguyen",
+            "Trong-Le Do",
+            "Duy-Nam Ly",
+            "Viet-Tham Huynh",
+            "Khanh-Duy Le",
+            "Mai-Khiem Tran",
+            "Trung-Nghia Le"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.18904v1",
+            "rrf_score": 0.028679,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models",
+          "url": "http://arxiv.org/abs/2603.28301v3",
+          "snippet": "Vision-Language-Action (VLA) models achieve strong performance in robotic manipulation by leveraging pre-trained vision-language backbones. However, in downstream robotic settings, they are typically fine-tuned with limited data, leading to overfitting to specific instruction formulations and leaving robustness to paraphrased instructions underexplored. To study this gap, we introduce LIBERO-Para, a controlled benchmark that independently varies action expressions and object references for fine-grained analysis of linguistic generalization. Across seven VLA configurations (0.6B-7.5B), we obse…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-30",
+          "authors": [
+            "Chanyoung Kim",
+            "Minwoo Kim",
+            "Minseok Kang",
+            "Hyunwoo Kim",
+            "Dahuin Jung"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.28301v3",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+            "evidence": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal…",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+            "evidence": "The Event-Enriched Image Analysis (EVENTA) Grand Challenge, hosted at ACM Multimedia 2025, introduces the first large-scale benchmark for event-level multimodal understanding. Traditional captioning and retrieval tasks largely focus on surface-level recognition of people, objects, and scenes, often…",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models",
+            "evidence": "Vision-Language-Action (VLA) models achieve strong performance in robotic manipulation by leveraging pre-trained vision-language backbones. However, in downstream robotic settings, they are typically fine-tuned with limited data, leading to overfitting to specific instruction formulations and leavi…",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 29450,
+    "completion_tokens": 24302,
+    "generated_at": "2026-10-15T22:23:17.106738+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 机器人运动学、控制与 ROS 2 生态：7-Facet 增量追踪报告（2024–2026）\n\n**报告日期**：2026-10-15（UTC） ｜ **领域**：机器人运动学、运动/力控制、学习型策略工程化、ROS 2 软件栈 ｜ **可引用来源**：33 条（其中与本主题直接相关者约 12 条，其余为检索噪声） ｜ **证据基座**：仅使用本次给定候选证据集，未新增实时联网检索 ｜ **报告性质**：带日期的增量快照，而非领域教材\n\n> **证据基座警示（请先读）**\n> 1. 与「ROS 2 / 运动学 / 控制」**直接相关**的候选证据仅 [22] 一条；其余相关项集中在 VLA 策略与全身控制（[1][5][6][7][8][9][10][11][12][27][29][30][31]）。\n> 2. 大量候选来源属**检索噪声**，与主题无关：[2][13][14][15][16][17][18][19][24][25][26][28][32][33]（涵盖短视频热度预测、图像超分、尼泊尔语迷因分类、LHC 机器学习综述、疾病传播 SIS 模型等）。\n> 3. **命名陷阱**：候选来源 [20] *“PINOCCHIO and the hierarchical build-up of dark matter haloes”* 是**天体物理学**论文（arXiv astro-ph/0109324），与刚体动力学库 **Pinocchio** 仅为同名巧合，二者不可互相引用。[21] *“The Relativistic Elasticity of Rigid Bodies”* 属物理学，非机器人学。\n> 4. 因此本报告在多个 facet 上只能给出「**证据缺口**」结论。**缺口 ≠ 领域无进展**，仅表示本次证据集无法支撑可核查陈述。所有经典奠基文献（阻抗控制、OSC、刚体动力学算法）均不在可引用编号内，本报告**不编造引用**，统一标 `> 待核实`。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量判断**：相对 2024 年前的基线，本窗口最清晰的增量不是「又出现一个更强策略」，而是**评测范式从「跑通 demo / 刷单基准分数」转向「诊断性基准 + 鲁棒性度量 + sim-and-real 一致性」**；控制层的增量集中在**全身控制 + 强化学习/扩散策略 + 遥操作**三支。\n\n| # | 条目 | 时间 | 类型 | 四类证据 |\n|---|---|---|---|---|\n| 1.1 | **诊断性基准成为一等公民**：RoboDojo 提出 sim-and-real 统一评测 [8]；LIBERO-Para 针对 VLA 的**指令释义鲁棒性**给出诊断基准与度量 [27]；LIBERO-VPro 针对机器人基础模型的**闭环视觉鲁棒性** [30]；[1] 从基准视角指出「机器人本质是真机问题，但通用策略的真机评测长期落后」[1] | 2025-08 ~ 2026-09（由 arXiv 编号 2508/2603/2607/2609 推断） | preprint（标题级/摘要级） | 热度：`> 待核实`（候选块未提供引用数）｜权威：均为 arXiv 预印本（B 级），[1][8] 属 cs.RO，[27] 属 cs.LG ｜关注度：**中**（依据：四条独立工作同指\"鲁棒性/一致性评测\"这一细分问题，属方向性信号，非单一团队行为）｜推荐度：★★★★☆（评测口径是本领域当前最缺的公共品） |\n| 1.2 | **策略的推理期可干预性 / 可解释性**：[7] 用 VLA 已有的 attention heads 做路径偏差检测（无需额外训练）；[3] 提出有界加性 pre-softmax 注意力偏置，在**不重训**的前提下把注意力导向安全关键目标 | 2026-03 [7] / 2026-08 [3] | preprint（摘要级） | 热度：`> 待核实`｜权威：arXiv 预印本，[3][7] 均属 cs.CV，且 [3] 面向 **VLA 驾驶模型**而非机械臂 ｜关注度：**中**（依据：两条独立工作共享\"推理期干预\"的技术动机）｜推荐度：★★★☆☆（机理可迁移到机械臂安全层，但需本体迁移验证，当前无证据）**跨域迁移性 `> 待核实`** |\n| 1.3 | **多任务长程操作被竞赛级评测推动**：[5] 为 2025 BEHAVIOR Challenge 第一名方案，基于 **Pi0.5** 架构，基准含 **50 个**长程家务任务、需双臂操作 + 导航 + 上下文决策，**在仿真中** | 2025-12 | 竞赛技术报告 / preprint | 热度：`> 待核实`｜权威：arXiv 预印本（B 级，cs.RO），属**竞赛自评方案**而非第三方复现论文 ｜关注度：**中**（依据：挑战赛为公开基准，方案公开）｜推荐度：★★★★☆（提供了大规模多任务口径下的 VLA 任务适配样板，但**无真机证据**） |\n| 1.4 | **全身控制 / 人形三支路线**：[10] 系统研究**域随机化**对扩散策略训练全身人形控制的作用；[11] 用**退火 RL 课程**实现人形全身羽毛球；[12] 提出 CHILD——人形**全身遥操作**系统 | 2024-11 [10] / 2025-11 [11] / 2025-08 [12] | preprint（标题级） | 热度：`> 待核实`｜权威：均为 arXiv 预印本（B 级），[10] 见 2411.01349 ｜关注度：**中高**（依据：全身控制 + 人形是当前社区集中投入方向，三条线索分别覆盖训练机制、任务能力、遥操作数据采集）｜推荐度：★★★★☆（[10] 的\"域随机化归因\"问题最值得精读） |\n| 1.5 | **摆脱动作标签的数据路线**：Generalist Robot Manipulation beyond Action Labeled Data [6] | 2025-09 | preprint（标题级） | 热度：`> 待核实`｜权威：arXiv 预印本（B 级）｜关注度：**中**｜推荐度：★★★☆☆（与\"数据瓶颈\"直接对应） |\n| 1.6 | **控制与学习的交汇**：用控制框架弥合模仿学习 MPC 的 sim-to-real gap [31] | 2025-03 | preprint（标题级） | 热度：`> 待核实`｜权威：arXiv 预印本（B 级）｜关注度：**中**｜推荐度：★★★★☆（本证据集中最贴近\"经典控制 × 学习\"这条主线的条目） |\n\n**SOTA 变动**：`> 待核实`。本次候选证据**未提供任何榜单数值、任务成功率或口径说明**，因此无法给出可核查的 SOTA 变动陈述。所有「提升多少」类结论本报告一律不写。\n\n**是否被独立验证**：本证据集中，[5] 为**竞赛公开榜单**级证据（强于纯 demo，弱于第三方复现）；[1][6][7][8][9][10][11][12][22][27][30][31] 均为**预印本级别**，未见独立复现报告或第三方基准复测。**「多个任务/多个本体上被独立验证」在本证据集中不成立** → `> 待核实`。\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量判断**：本周期在**本次证据集内无显著可核查增量**。ROS 2 侧唯一一手证据是一条医疗场景预印本；机器人中间件与动力学库的官方发布、架构变更、真机部署案例**全部缺失**。\n\n**唯一相关一手证据：**\n\n- **[22] Surgical Vision ROS2: a ROS2 Humble pipeline for intraoperative wound assessment and variable-autonomy arm control**（2026，Research Square 预印本，DOI 10.21203/rs.3.rs-10362132/v1）\n  - 内容：vision node 用改编自皮肤科的 **ABCDE** 五部分框架给伤口评分；behaviour manager 把分数映射到**三档自主性**——full execution（直接执行）／reduced-speed execution with per-motion confirmation（降速并对每个动作逐次确认）／hold state（保持/停机）；由 **MoveIt 2** 控制的机械臂执行。\n  - **热度证据**：citations=0（候选块给出）[22]。\n  - **权威证据**：[22] 为 Research Square 预印本，**未标注同行评审 venue**，属 B/C 之间偏弱等级。\n  - **关注度**：**低**——零引用，无第三方复现、无榜单、无社区讨论信号 [22]。\n  - **推荐度**：★★★☆☆ —— 主题相关度最高的 ROS 2 落地线索，且给出了「感知打分 → 自主等级 → 运动执行」的分层安全设计；但证据强度仅到预印本摘要级，**只能作线索**。\n- **证据缺口（高置信）**：本次候选证据中**不含** `ros2_control`、`Pinocchio`、`Drake`、`MuJoCo`、`MoveIt 2` 的任何官方发布记录、架构变更说明或真机部署案例；也不含阻抗控制、操作空间控制（OSC）、轨迹优化、刚体动力学库相关论文 [2][16][18][22]。**无法判断哪些组件已进入产品化阶段** → `> 待核实`。\n- **命名陷阱提示**：若以关键词 \"pinocchio\" 检索，注意 [20] 是天体物理学的暗物质晕层级构建论文，**不是**刚体动力学库 Pinocchio [20]。\n\n### 表 2-1 开源项目\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| MoveIt 2 | 2026（仅依据 [22]） | `> 待核实` | `> 待核实`（无 stars/采用度数据） | `> 待核实`（未取得官方文档/维护方来源） | 低（仅在 [22] 摘要中被点名） | ★★☆☆☆（仅能证明被用于一个医疗预印本，项目本身发布记录缺失） | `> 待核实` | [22] 明确写到 \"MoveIt2-controlled arm\" [22] |\n| ros2_control | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | 本次候选证据**零覆盖** |\n| Pinocchio（刚体动力学库） | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | 本次候选证据**零覆盖**；[20] 为同名天体物理论文，勿混淆 [20] |\n| Drake | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | 本次候选证据**零覆盖** |\n| MuJoCo | — | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | `> 待核实` | 本次候选证据**零覆盖** |\n\n> 表 2-1 中除 MoveIt 2 行外，全部单元格为 `待核实`：这本身就是本报告最重要的缺口结论之一——**本证据集不足以回答\"ROS 2 工程栈近一年发生了什么\"**。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量判断**：本窗口暴露出三类明确缺口——**真机评测基础设施**、**分布外鲁棒性（指令 + 视觉）**、**ROS 2 与学习型策略的工程整合**；运动学/控制理论层与学习策略的接口则在本证据集中**完全空白**。\n\n| # | 缺口 | 依据 | 证据等级 | 四类证据 |\n|---|---|---|---|---|\n| 3.1 | **真机评测基础设施缺位**：策略多在仿真中比较，真机评测口径不统一；sim-and-real 统一基准刚起步 | [1][8] | preprint [1][8] | 热度 `> 待核实`；权威 arXiv 预印本（B 级）；关注度 **中高**（[1] 直接以\"benchmarking perspective\"立论）；推荐度 ★★★★☆ |\n| 3.2 | **指令表述鲁棒性**：VLA 在下游仅用有限数据微调，**过拟合到特定指令措辞**，释义（paraphrase）下的行为一致性缺乏度量 | [27] | preprint（摘要级） | 热度 `> 待核实`；权威 arXiv（B 级）；关注度 **中**（首篇把\"释义鲁棒性\"单列为诊断靶点）；推荐度 ★★★★☆ |\n| 3.3 | **闭环视觉鲁棒性**：视觉扰动下的闭环失效模式缺少系统评测 | [30] | preprint（标题级） | 热度 `> 待核实`；权威 arXiv（B 级）；关注度 **中**；推荐度 ★★★☆☆ |\n| 3.4 | **ROS 2 × 学习型策略的部署中间层**：唯一线索 [22] 只做了\"评分 → 自主等级 → MoveIt 2 执行\"的**浅层分层**，未见共享的部署参考栈、安全监控器或仿真—真机一致性工具链 | [22] | 预印本，citations=0 | 热度 **低**（零引用）；权威 Research Square 预印本（非同行评审）；关注度 **低**；推荐度 ★★★☆☆ |\n| 3.5 | **经典控制层与学习策略的接口**：阻抗控制、OSC、轨迹优化在本证据集中**零出现**；唯一擦边条目 [31] 处理的是 MPC 模仿学习的 sim-to-real | [31] 及缺口判断 | preprint [31] | 热度 `> 待核实`；权威 arXiv（B 级）；关注度 `> 待核实`；推荐度 ★★★☆☆ |\n| 3.6 | **工具链的术语污染**：库名与学术词（Pinocchio）同名，导致检索召回被天体物理文献污染 | [20][21] | 直接可验证的候选事实 | 热度 不适用；权威 不适用；关注度 **低**；推荐度 ★☆☆☆☆（记录用） |\n\n> **必须明确**：以上 3.1–3.6 是**本次检索的缺口**，不等于\"领域无人做\"。相反，3.1–3.3 已被多个独立团队同时盯上，说明它们是\"已被识别但尚未解决\"的缺口，而非蓝海；真正的蓝海更可能在 3.4 与 3.5（**把 ROS 2 实时约束与学习型策略接口形式化**），但该判断属推测 `[P]`，置信度低。\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n**一句话增量判断**：本窗口的瓶颈集中在**评测口径、分布外鲁棒性、数据标注依赖、人形全身控制训练稳定性**四处；拐点信号是「评测从演示/自评转向诊断基准」与「从重训转向推理期干预」。\n\n| # | 瓶颈 | 依据 | 强度 | 四类证据 |\n|---|---|---|---|---|\n| 4.1 | **仿真—真机 gap 与评测口径不统一** | [1][8][31] | 确定（三条独立线索） | 热度 `> 待核实`；权威 arXiv 预印本（B 级）；关注度 **中高**；推荐度 ★★★★☆ |\n| 4.2 | **指令分布外泛化**：有限数据微调导致措辞过拟合 | [27] | 较大概率 | 热度 `> 待核实`；权威 arXiv（B 级）；关注度 **中**；推荐度 ★★★★☆ |\n| 4.3 | **视觉闭环鲁棒性**：开环/短时评估掩盖闭环失效 | [30] | 较大概率 | 热度 `> 待核实`；权威 arXiv（B 级）；关注度 **中**；推荐度 ★★★☆☆ |\n| 4.4 | **数据瓶颈：动作标签依赖** | [6][29] | 较大概率（两条线索互为对偶：[6] 试图绕过动作标签，[29] 代表大规模真实数据路线） | 热度 `> 待核实`；权威 [29] 为 arXiv 预印本（B 级）；关注度 **中高**（DROID 属公认公开数据资产）；推荐度 ★★★★☆ |\n| 4.5 | **人形全身控制的训练稳定性与课程设计** | [10][11][12] | 推测 | 热度 `> 待核实`；权威 arXiv（B 级）；关注度 **中高**；推荐度 ★★★★☆ |\n\n**拐点信号（`[P]` 预测，见 §7）**：\n\n- **信号 A**：评测类工作在同一时间窗内成簇出现（[1][8][27][30] 的 arXiv 编号横跨 2025-08 至 2026-09），说明\"评测\"已从论文的附属实验升级为独立研究对象 `[P]`。\n- **信号 B**：推理期干预范式出现（[3][7]），指向\"安全/可控性不必以重训为代价\" `[P]`。注意 [3] 属驾驶域，机械臂域证据缺失。\n- **信号 C**：`> 待核实`——是否存在产业侧的拐点（如某中间件被广泛用于量产），本次证据集**无法判断**。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量判断**：本周期在本次证据集内**无显著可核查增量**——没有任何监管、标准、地缘政治或供应链来源被召回。\n\n- **监管与标准**：本次候选来源中**不含**任何法规、标准（如功能安全标准、医疗器械法规）或政策文本 `> 待核实`。本报告**不以记忆补写**相关条款，以避免不可核查引用。\n- **伦理与劳动影响**：无来源 `> 待核实`。\n- **国际与供应链**：无来源 `> 待核实`。\n- **唯一可外推的弱线索（`[P]`，置信度低）**：[22] 在**术中（intraoperative）**场景下采用三档自主性（全执行 / 降速逐动作确认 / 保持）[22]，其设计动因高度符合医疗器械领域对\"自主等级与操作者可覆写\"的合规取向；若该取向成立，则\"**可变自主性（variable autonomy）会成为医疗机器人 ROS 2 栈的默认架构模式**\"是可检验的假设。依据链：术中场景 × 高风险 × 分级自主 → 合规约束 → 架构模式。**该推断未经任何法规来源核实** `[P]` `> 待核实`。\n\n> 本 facet 的空缺应被解读为**检索覆盖失败**（候选集中出现大量与主题无关的竞赛/评测类论文，说明检索式对\"政策/生态\"维度未作定向召回），而非\"该维度无变化\"。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：本周期在本次证据集内**无显著可核查增量**；仅能识别出两项可观测的**公共生态资产**与一项弱信号。\n\n| # | 条目 | 依据 | 四类证据 |\n|---|---|---|---|\n| 6.1 | **公共数据资产**：DROID —— 大规模野外（in-the-wild）机器人操作数据集，作为基础设施型资产被公开 | [29]（arXiv 2403.12945v2, 2024） | 热度 `> 待核实`（未采集引用数/下载量）；权威 arXiv 预印本（B 级）；关注度 **中高**（依据：作为\"in-the-wild\"路线代表被独立引用）；推荐度 ★★★★☆（本证据集中最像\"生态资产\"的条目） |\n| 6.2 | **公共基准资产**：LIBERO 系（经 LIBERO-Para [27] / LIBERO-VPro [30] 间接出现）与 BEHAVIOR Challenge [5] 形成\"基础基准 + 诊断扩展\"的生态位 | [5][27][30] | 热度 `> 待核实`；权威 arXiv 预印本（B 级）；关注度 **中**；推荐度 ★★★★☆ |\n| 6.3 | **学术产出增速的弱信号**：VLA 综述 *Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey* 已迭代到 **v3** | [9]（arXiv 2508.13073v3） | 热度 `> 待核实`；权威 arXiv 预印本（B 级，survey）；关注度 **中**（依据：版本迭代至 v3 表明作者持续更新，间接提示领域文献增速快——**该归因为推测**）；推荐度：★★★★☆（入门骨架可用） |\n| 6.4 | **融资、并购、人才流动、公司格局** | 无来源 | `> 待核实` —— 本次候选证据**零覆盖**，本报告不编造任何金额、轮次或机构名 |\n\n**生态结构观察（`[P]`，置信度低）**：投入正在从\"造策略\"向\"造评测与诊断\"迁移（§4 信号 A）；若该迁移成立，则公共基准与诊断工具将成为下一轮生态竞争的入口 `[P]`。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n以下预测均写成**可证伪假设**，并标注依据链与置信度。全部为 `[P]`（prediction），非既成事实。\n\n| 编号 | 可证伪假设 | 依据链 | 置信度 | 证伪条件 |\n|---|---|---|---|---|\n| `[P1]` | **评测范式迁移**：到 **2027 年年中**，机器人操作/ VLA 主流论文的默认评测将从\"单基准成功率\"转为\"多基准 + sim-and-real 一致性 + 鲁棒性维度（指令/视觉）\" | 评测类工作已成簇出现：[1][8][27][30]，编号横跨 2025-08 至 2026-09 | **中** | 若到 2027-06，顶会主流操作论文仍以单一仿真成功率作为唯一评测指标，则假设失败 |\n| `[P2]` | **ROS 2 × 学习策略整合栈出现**：到 **2027 年底**，出现 ≥3 个基于 `ros2_control`/MoveIt 2 的公开开源\"学习型策略部署参考栈\"（含安全监控与自主性分级） | 唯一孤证 [22] 展示了该模式的雏形（感知评分 → 三档自主性 → MoveIt 2 执行），但当前 citations=0、无同类工作 | **低** | 若到 2027-12 仍无 ≥3 个公开仓库，则假设失败 |\n| `[P3]` | **推理期可控性成为安全层手段**：12–18 个月内出现 ≥2 个**在真机上验证**的、基于注意力/激活干预（不重训）的机器人安全干预方法 | [3][7] 已分别验证\"注意力可被推理期引导\"与\"注意力头可用于偏差检测\"，但 [3] 为驾驶域、[7] 未见真机证据 | **低-中** | 若 18 个月内相关方法仍全部停留在仿真/离线分析，则假设失败 |\n| `[P4]` | **人形全身控制走向可复现**：12 个月内出现对 [10][11][12] 路线的**第三方独立复现 + 真机长时稳定运行**报告 | 三条线索分别覆盖训练机制 [10]、任务能力 [11]、遥操作数据 [12]；但当前全部为预印本级别 | **低** | 若无第三方复现且无真机长时运行记录，则假设失败 |\n| `[P5]` | **可变自主性进入医疗机器人 ROS 2 栈**：术中/临床场景的多档自主性设计成为该类系统的默认架构模式 | 依据 [22] 的三档设计，但其为单一预印本（citations=0） | **低** | 若后续该类系统普遍采用全自主或全手动二值模式，则假设失败 |\n\n### Watchlist（值得持续关注）\n\n1. **诊断性基准簇**：[27] LIBERO-Para、[30] LIBERO-VPro、[8] RoboDojo —— 关注是否被第三方采纳为默认评测。\n2. **sim-and-real 一致性方法**：[1][8][31] —— 关注是否有量化的真机—仿真相关性指标被提出并被复现。\n3. **人形全身控制**：[10][11][12] —— 关注域随机化的**归因分析**是否被独立验证（提升来自随机化、架构还是算力？）。\n4. **数据路线之争**：[6]（绕过动作标签） vs [29]（大规模真实数据）—— 2026–2027 谁在真机上更占优。\n5. **ROS 2 工程侧**：`ros2_control` / MoveIt 2 / Pinocchio / Drake / MuJoCo 的官方发布记录 —— **本次完全缺失，需优先补充定向检索**；检索时须规避 [20] 的同名污染。\n\n### 方法论自检与后续检索建议\n\n- 本次检索在 **facet 5（社会·政策）与 facet 6（资本·生态）** 上召回为零，在 **facet 2（ROS 2 工程栈）** 上召回高度不足；建议下一轮针对性检索式：`MoveIt 2 release notes 2025..2026`、`ros2_control architecture changes`、`pinocchio rigid body dynamics library`（须排除天体物理）、`Drake toolbox release`、`MuJoCo release notes`、以及 `人形机器人 量产 2025 2026 融资`、`robot safety standard functional safety 2026`。\n- 本次所有相关条目**均无引用数/star 数据**，四轴中的\"热度证据\"普遍为 `> 待核实`。**结论强度因此受限**：本报告应被视为\"证据地图与缺口清单\"，而非\"结论性综述\"。\n\n---\n\n## 参考来源\n\n**本报告实际引用：**\n\n[1] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1\n[2] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[3] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1\n[4] Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge — http://arxiv.org/abs/2101.02842v1\n[5] Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge — http://arxiv.org/abs/2512.06951v2\n[6] Generalist Robot Manipulation beyond Action Labeled Data — http://arxiv.org/abs/2509.19958v1\n[7] Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection — http://arxiv.org/abs/2603.13782v1\n[8] RoboDojo: A Unified Sim-and-Real Benchmark for Comprehensive Evaluation of Generalist Robot Manipulation Policies — http://arxiv.org/abs/2607.04434v3\n[9] Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey — http://arxiv.org/abs/2508.13073v3\n[10] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1\n[11] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4\n[12] CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System — http://arxiv.org/abs/2508.00162v2\n[16] Second MOASEI Competition at AAMAS'2026: A Technical Report — http://arxiv.org/abs/2607.03399v1\n[18] Machine learning for the LHC physics program: a 2025-2026 stocktake — http://arxiv.org/abs/2609.32874v1\n[20] PINOCCHIO and the hierarchical build-up of dark matter haloes — http://arxiv.org/abs/astro-ph/0109324v1\n[21] The Relativistic Elasticity of Rigid Bodies — http://arxiv.org/abs/physics/0307019v3\n[22] Surgical Vision ROS2: a ROS2 Humble pipeline for intraoperative wound assessment and variable-autonomy arm control — https://doi.org/10.21203/rs.3.rs-10362132/v1\n[27] LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models — http://arxiv.org/abs/2603.28301v3\n[29] DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset — http://arxiv.org/abs/2403.12945v2\n[30] LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models — http://arxiv.org/abs/2609.24350v1\n[31] Bridging the Sim-to-real Gap: A Control Framework for Imitation Learning of Model Predictive Control — http://arxiv.org/abs/2503.19228v4\n\n**可引用但本报告未采用（与主题无关 / 检索噪声，仅登记以确保编号完整）：**\n\n[13] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n[14] UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering — http://arxiv.org/abs/2608.27467v1\n[15] ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification — http://arxiv.org/abs/2607.28637v1\n[17] AutoRestTest at the SBFT 2026 Tool Competition — http://arxiv.org/abs/2607.01063v1\n[19] ICDAR 2025 Competition on End-to-End Document Image Machine Translation Towards Complex Layouts — http://arxiv.org/abs/2603.09392v1\n[23] Engineering Documentation Release — https://doi.org/10.1201/9781482273427-13\n[24] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1\n[25] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1\n[26] Open-LLM-Leaderboard: From Multi-choice to Open-style Questions for LLMs Evaluation, Benchmark, and Arena — http://arxiv.org/abs/2406.07545v1\n[28] The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization — http://arxiv.org/abs/2505.06371v2\n[32] A Human-Vector Susceptible-Infected-Susceptible Model for Analyzing and Controlling the Spread of Vector-Borne Diseases — http://arxiv.org/abs/2510.14787v2\n[33] Moving Peaks Benchmark Survey: An Open, Interactive Leaderboard — https://doi.org/10.2139/ssrn.7541489\n\n**在本次可引用来源中缺失、因而无法给出引用的经典/奠基主题（需下一轮定向检索，本报告不编造引用）：** 阻抗控制（impedance control）、操作空间控制（operational space control）、刚体动力学算法（rigid-body dynamics algorithms）、轨迹优化（trajectory optimization）、MoveIt 2 / `ros2_control` / Pinocchio（库） / Drake / MuJoCo 的官方发布与架构变更、Open X-Embodiment / SimplerEnv / RoboArena 的官方主页与榜单。以上条目均标 `> 待核实`。\n\n---\n\n*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=33 · duration=179s · 2026-10-15T22:23:17+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+      "url": "http://arxiv.org/abs/2508.11117v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+      "url": "http://arxiv.org/abs/2608.17095v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-08-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge",
+      "url": "http://arxiv.org/abs/2101.02842v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-01-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+      "url": "http://arxiv.org/abs/2512.06951v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Generalist Robot Manipulation beyond Action Labeled Data",
+      "url": "http://arxiv.org/abs/2509.19958v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection",
+      "url": "http://arxiv.org/abs/2603.13782v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-03-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "RoboDojo: A Unified Sim-and-Real Benchmark for Comprehensive Evaluation of Generalist Robot Manipulation Policies",
+      "url": "http://arxiv.org/abs/2607.04434v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-07-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey",
+      "url": "http://arxiv.org/abs/2508.13073v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control",
+      "url": "http://arxiv.org/abs/2411.01349v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+      "url": "http://arxiv.org/abs/2511.11218v4",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+      "url": "http://arxiv.org/abs/2508.00162v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-07-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering",
+      "url": "http://arxiv.org/abs/2608.27467v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification",
+      "url": "http://arxiv.org/abs/2607.28637v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-05-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+      "url": "http://arxiv.org/abs/2607.03399v1",
+      "kind": "paper",
+      "venue": "cs.MA",
+      "published": "2026-07-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "AutoRestTest at the SBFT 2026 Tool Competition",
+      "url": "http://arxiv.org/abs/2607.01063v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Machine learning for the LHC physics program: a 2025-2026 stocktake",
+      "url": "http://arxiv.org/abs/2609.32874v1",
+      "kind": "paper",
+      "venue": "hep-ph",
+      "published": "2026-09-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "ICDAR 2025 Competition on End-to-End Document Image Machine Translation Towards Complex Layouts",
+      "url": "http://arxiv.org/abs/2603.09392v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-03-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "PINOCCHIO and the hierarchical build-up of dark matter haloes",
+      "url": "http://arxiv.org/abs/astro-ph/0109324v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2001-09-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "The Relativistic Elasticity of Rigid Bodies",
+      "url": "http://arxiv.org/abs/physics/0307019v3",
+      "kind": "paper",
+      "venue": "physics.gen-ph",
+      "published": "2003-07-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Surgical Vision ROS2: a ROS2 Humble pipeline for intraoperative wound assessment and variable-autonomy arm control",
+      "url": "https://doi.org/10.21203/rs.3.rs-10362132/v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-07-16",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Engineering Documentation Release",
+      "url": "https://doi.org/10.1201/9781482273427-13",
+      "kind": "paper",
+      "venue": "Engineering Documentation Control Practices &amp; Procedures",
+      "published": "1995-02-17",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+      "url": "http://arxiv.org/abs/2508.18904v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Open-LLM-Leaderboard: From Multi-choice to Open-style Questions for LLMs Evaluation, Benchmark, and Arena",
+      "url": "http://arxiv.org/abs/2406.07545v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-06-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models",
+      "url": "http://arxiv.org/abs/2603.28301v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-03-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization",
+      "url": "http://arxiv.org/abs/2505.06371v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-05-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset",
+      "url": "http://arxiv.org/abs/2403.12945v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-03-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+      "url": "http://arxiv.org/abs/2609.24350v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Bridging the Sim-to-real Gap: A Control Framework for Imitation Learning of Model Predictive Control",
+      "url": "http://arxiv.org/abs/2503.19228v4",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-03-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "A Human-Vector Susceptible-Infected-Susceptible Model for Analyzing and Controlling the Spread of Vector-Borne Diseases",
+      "url": "http://arxiv.org/abs/2510.14787v2",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Moving Peaks Benchmark Survey: An Open, Interactive Leaderboard",
+      "url": "https://doi.org/10.2139/ssrn.7541489",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-15-机器人运动学控制与-ros-2.md",
+    "json": "report/2026/10/2026-10-15-机器人运动学控制与-ros-2.json"
+  }
+}
