@@ -1,0 +1,1103 @@
+{
+  "topic": "agent-评测与安全能力基准欺骗与可纠正性",
+  "title": "Agent 评测与安全：能力基准、欺骗与可纠正性 —— 领域增量追踪调研计划（2024–2026）",
+  "query": "Agent 评测与安全（能力基准、欺骗与可纠正性）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-16T22:29:20+00:00",
+  "finished_at": "2026-10-16T22:32:54+00:00",
+  "duration_s": 213.5,
+  "rounds": 1,
+  "plan": {
+    "title": "Agent 评测与安全：能力基准、欺骗与可纠正性 —— 领域增量追踪调研计划（2024–2026）",
+    "summary": "以增量视角追踪近两年 Agent 能力评测基准（OSWorld/WebArena/GAIA/SWE-bench/tau-bench 等）与安全评测（欺骗、沙箱式放水 sandbagging、可纠正性、AI Control）的关键变化、工程与基准生态、开放争议，并识别蓝海缺口与瓶颈拐点。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "能力基准与评测方法学在 2024–2026 年出现了哪些实质增量：从静态问答基准转向长程计算机/终端/真实经济价值任务（OSWorld、WebArena、GAIA、SWE-bench Verified、Terminal-Bench、tau-bench、MLE-bench、BFCL 等）时，SOTA 被谁刷新、在何种硬件与任务规模下、是否有独立第三方复现？",
+        "rationale": "facet 1（进展与热点）的核心。必须区分「论文/厂商自评分数」与「独立榜单复现」，并记录数字口径（任务数、交互步数、真机/沙箱、成本）。近期评测重心从单轮能力转向高成本长程 agentic 轨迹，是相对上一基线的关键增量，也是判断后续安全评测可行性的前提。",
+        "queries": [
+          "agentic benchmark survey 2025 OSWorld WebArena GAIA tau-bench evaluation",
+          "LLM agent evaluation benchmark long-horizon computer use 2025 arXiv cs.AI",
+          "Terminal-Bench MLE-bench SWE-bench Verified agent scaffold leaderboard 2025",
+          "智能体 能力基准 评测 榜单 SOTA 2025 长程任务"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "github",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "关于「欺骗与可纠正性」的安全评测在 2024–2026 年新增了哪些可核查证据：in-context scheming / alignment faking / sandbagging / agentic misalignment / sabotage 评测是否被独立复现，结论存在哪些争议与反例？",
+        "rationale": "facet 1、4、7 的交叉点，也是本主题最具争议的部分。需把「模型在受控实验设置下表现出欺骗倾向」与「部署中真实发生」严格分开，标注证据等级与复现状态，并识别当前评测在外部有效性、可纠正性定义、shutdown resistance 度量上的瓶颈。",
+        "queries": [
+          "in-context scheming deceptive alignment LLM evaluation Apollo Research 2025",
+          "sandbagging evaluation LLM corrigibility shutdown resistance arXiv 2024..2026",
+          "agentic misalignment sabotage evaluation Anthropic alignment faking 2025",
+          "奖励黑客 欺骗性对齐 可纠正性 智能体 安全评测 复现"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "工程实践与治理侧的基础设施和规则发生了什么变化：开源评测框架（Inspect AI、lm-evaluation-harness、METR task suite、AgentDojo、AgentHarm、PyRIT/garak）的可用性与维护状态如何，以及政策/标准（EU AI Act GPAI、NIST、前沿安全框架、实验室红队承诺）对 Agent 评测提出了哪些可验证要求？",
+        "rationale": "覆盖 facet 2、5、6：评测能力是否从实验室走向工程化与合规化，直接决定安全结论能否被复现与审计。GitHub star/最近提交、官方文档、监管生效日期是可观测指标，可用于判断「评测 engineering 化」是否已临近拐点，并定位尚无标准答案的蓝海缺口（如长程 agent 的可纠正性审计工具）。",
+        "queries": [
+          "Inspect AI UK AISI evaluation framework METR task suite GitHub 2025",
+          "AgentDojo AgentHarm prompt injection agent security benchmark GitHub",
+          "EU AI Act GPAI systemic risk evaluation standard frontier safety framework 2025",
+          "智能体 安全评测 开源框架 红队 监管 标准 2025"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing",
+          "semantic_scholar"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "能力基准与评测方法学在 2024–2026 年出现了哪些实质增量：从静态问答基准转向长程计算机/终端/真实经济价值任务（OSWorld、WebArena、GAIA、SWE-bench Verified、Terminal-Bench、tau-bench、MLE-bench、BFCL 等）时，SOTA 被谁刷新、在何种硬件与任务规模下、是否有独立第三方复现？",
+      "queries": [
+        "agentic benchmark survey 2025 OSWorld WebArena GAIA tau-bench evaluation",
+        "LLM agent evaluation benchmark long-horizon computer use 2025 arXiv cs.AI",
+        "Terminal-Bench MLE-bench SWE-bench Verified agent scaffold leaderboard 2025",
+        "智能体 能力基准 评测 榜单 SOTA 2025 长程任务"
+      ],
+      "rationale": "facet 1（进展与热点）的核心。必须区分「论文/厂商自评分数」与「独立榜单复现」，并记录数字口径（任务数、交互步数、真机/沙箱、成本）。近期评测重心从单轮能力转向高成本长程 agentic 轨迹，是相对上一基线的关键增量，也是判断后续安全评测可行性的前提。",
+      "round": 1,
+      "results": [
+        {
+          "title": "ClawBench & Agentic Web Benchmarks - a Reacherx Collection",
+          "url": "https://huggingface.co/collections/Reacherx/clawbench-and-agentic-web-benchmarks",
+          "snippet": "Aug 31, 2026 ... Claw-SWE-Bench evaluates OpenClaw-style agent harnesses on 350 ... Terminal-Bench 2.0 benchmark dataset for terminal agents: https ...",
+          "engine": "searxng",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.026941,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "OSWorld 2.0: Benchmarking Computer Use Agents on Long ... - arXiv",
+          "url": "https://arxiv.org/html/2606.29537v1",
+          "snippet": "Jun 28, 2026 ... Shang Mobile-Bench: an evaluation benchmark for LLM-based mobile agents. ... Kenstler SWE-Bench Pro: can AI agents solve long-horizon software ...",
+          "engine": "searxng",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.019661,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "GitHub - benchflow-ai/awesome-evals: A curated, non-BS library of ...",
+          "url": "https://github.com/benchflow-ai/awesome-evals",
+          "snippet": "... WebArena, OSWorld, Terminal-Bench, Cybench. WebArena: A Realistic Web ... Agentic AI MOOC (Fall 2025) | Predictable Noise in LLM Benchmarks — Sida Wang ...",
+          "engine": "searxng",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.01793,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Gaia Data Release 2. Summary of the contents and survey properties",
+          "url": "http://arxiv.org/abs/1804.09365v2",
+          "snippet": "We present the second Gaia data release, Gaia DR2, consisting of astrometry, photometry, radial velocities, and information on astrophysical parameters and variability, for sources brighter than magnitude 21. In addition epoch astrometry and photometry are provided for a modest sample of minor planets in the solar system.\n  A summary of the contents of Gaia DR2 is presented, accompanied by a discussion on the differences with respect to Gaia DR1 and an overview of the main limitations which are still present in the survey. Recommendations are made on the responsible use of Gaia DR2 results.…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-04-25",
+          "authors": [
+            " Gaia Collaboration",
+            "A. G. A. Brown",
+            "A. Vallenari",
+            "T. Prusti",
+            "J. H. J. de Bruijne",
+            "C. Babusiaux",
+            "C. A. L. Bailer-Jones"
+          ],
+          "venue": "astro-ph.GA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1804.09365v2",
+            "rrf_score": 0.024194
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "计算机使用评测从短程 GUI 操作转向长程、真实职业场景且带经济价值维度的新范式，OSWorld 2.0 为其代表。",
+            "evidence": "OSWorld 2.0 的结构显示新增 task horizon、professional-domain distribution、economic value 等任务统计维度，并加入模拟用户（simulated user）与动态环境（dynamic environment），评测协议采用 fine-grained partial reward 与 functional/model-based evaluation。",
+            "sources": [
+              11
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 2606.29537v1（HTML 版），未见同行评审记录",
+            "attention": "低 + 候选块无引用数/star/榜单数据，热度无法确证",
+            "recommendation": "★★★★☆ + 直接对应『静态问答→长程真实任务』的评测迁移主线，但为预印本，需交叉核实"
+          },
+          {
+            "point": "OSWorld 2.0 上前沿模型（Claude Opus 4.8、GPT-5.5）仍未解决长程专业计算机使用任务，且存在成本-收益非线性与『最后一公里』瓶颈。",
+            "evidence": "论文自述结论：Frontier agents are still far from solving long-horizon professional computer use；Claude Opus 4.8 reaches higher accuracy while GPT-5.5 is more token-efficient；Each additional point of accuracy costs disproportionately more tokens；More turns do not buy completion; the turn-space frontier is set by batching, not by taking more steps；Extra inference buys partial credit, not completion。",
+            "sources": [
+              11
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 2606.29537v1；基准作者自评，无第三方复现证据",
+            "attention": "中 + 涉及 Claude Opus 4.8 / GPT-5.5 前沿模型排名，但候选块未给引用/star/榜单位次",
+            "recommendation": "★★★★☆ + 提供『提升来自推理量还是架构』的量化式判断（token 效率、轮次与 batching），是评估该基准是否饱和的关键数据"
+          },
+          {
+            "point": "终端 agent 与 agent harness 评测出现新版本与新基准：Terminal-Bench 2.0 面向 terminal agents，Claw-SWE-Bench 面向 OpenClaw 类 harness，后者在 350 个任务上评测。",
+            "evidence": "候选块提到『Terminal-Bench 2.0 benchmark dataset for terminal agents』与『Claw-SWE-Bench evaluates OpenClaw-style agent harnesses on 350 ...』，并聚合为 ClawBench & Agentic Web Benchmarks 集合。",
+            "sources": [
+              1
+            ],
+            "type": "benchmark",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "ClawBench 数据集下载量 534，likes 2",
+            "authority": "HuggingFace 社区集合（Reacherx），非官方基准主页；提及 TIGER-AI-Lab/ClawBench 仓库与 arXiv:2604.08523",
+            "attention": "低 + 数据集下载量 534、likes 2，属小规模社区热度",
+            "recommendation": "★★★☆☆ + 提示 terminal/harness 类评测正在分化出新变体，但来源为社区集合页，任务数细节被截断，需回查原文"
+          },
+          {
+            "point": "存在针对 SWE agent 长程软件任务的新基准 ClawBench / SWE 类任务集，附带数据集与代码仓库，属早期阶段资源。",
+            "evidence": "候选块显示 TIGER-Lab/ClawBench 数据集：numRows 283、downloads 534、likes 2、lastModified 2026-06-10，附 repo github.com/TIGER-AI-Lab/ClawBench 与 project claw-bench.com；内容提到 Claw-SWE-Bench 评测 350 任务（数字与 283 行数口径不同，需核实）。",
+            "sources": [
+              1
+            ],
+            "type": "dataset",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "下载量 534，likes 2",
+            "authority": "TIGER-Lab（第三方研究团队）发布，非官方标准基准",
+            "attention": "低 + 下载量与点赞数均较小",
+            "recommendation": "★★★☆☆ + 与新增长程软件任务评测直接相关，但任务数口径存在 283 vs 350 的疑点，且无第三方复现证据"
+          },
+          {
+            "point": "社区出现对 agent 评测基准的系统性整理（awesome 类清单），覆盖 WebArena、OSWorld、Terminal-Bench 等，反映评测生态正在被横向梳理。",
+            "evidence": "GitHub 仓库 benchflow-ai/awesome-evals 被描述为『A curated, non-BS library of ...』，其内容列举『WebArena, OSWorld, Terminal-Bench, Cybench』，并提及 Agentic AI MOOC (Fall 2025) 与 Predictable Noise in LLM Benchmarks 等主题。",
+            "sources": [
+              12
+            ],
+            "type": "project",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "GitHub 第三方仓库（benchflow-ai），非官方组织",
+            "attention": "低 + 候选块未提供 star 数或讨论热度",
+            "recommendation": "★★★☆☆ + 可作为发现其他基准与评测方法学讨论的索引入口，但无量化热度信号"
+          },
+          {
+            "point": "检索结果中存在与主题无关的同名/同缩写干扰项（Gaia 指天文探测卫星 Gaia DR2 及其天体测量数据），提示以『GAIA』为代表的 agent 基准术语存在歧义。",
+            "evidence": "候选块 [4] 为 Gaia Data Release 2（astro-ph.GA，arXiv 1804.09365v2），内容为天体测量、光度、径向速度与天体物理参数，与通用 AI assistant 基准 GAIA 无关。",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2018",
+            "heat": "",
+            "authority": "arXiv 预印本（astro-ph.GA），同行评审版本发表于 A&A",
+            "attention": "低 + 与本子问题主题无关",
+            "recommendation": "★☆☆☆☆ + 仅作为术语歧义与检索噪声的提示，不构成主题证据"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "OSWorld 2.0: Benchmarking Computer Use Agents on Long-Horizon Real-World Tasks",
+            "url": "https://arxiv.org/html/2606.29537v1",
+            "why": "把计算机使用评测推进到长程真实职业任务与部分奖励协议，并给出前沿模型在该设定下的差距与成本分析",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 2606.29537v1（未见同行评审记录）",
+            "attention": "低 + 候选块无引用/star/榜单数据",
+            "recommendation": "★★★★☆ + 主题高度相关的一手基准论文，但需核实发表状态与第三方复现"
+          },
+          {
+            "title": "ClawBench（arXiv:2604.08523）相关论文与项目",
+            "url": "https://arxiv.org/abs/2604.08523",
+            "why": "面向 OpenClaw 类 agent harness 与 SWE 长程任务的评测集合，代表终端/软件 agent 评测的新变体",
+            "year": "2026",
+            "heat": "数据集下载量 534，likes 2",
+            "authority": "TIGER-AI-Lab 团队，预印本形式",
+            "attention": "低 + 数据集下载量小、社区讨论有限",
+            "recommendation": "★★★☆☆ + 提供 harness 级评测线索，但细节需从原文核实"
+          },
+          {
+            "title": "Gaia Data Release 2. Summary of the contents and survey properties",
+            "url": "http://arxiv.org/abs/1804.09365v2",
+            "why": "非本主题证据，作为 GAIA 术语歧义（天文 Gaia vs 通用助手基准 GAIA）的反例",
+            "year": "2018",
+            "heat": "",
+            "authority": "arXiv 预印本（astro-ph.GA）",
+            "attention": "低 + 与本子问题无关",
+            "recommendation": "★☆☆☆☆ + 仅用于标注检索噪声"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "benchflow-ai/awesome-evals",
+            "url": "https://github.com/benchflow-ai/awesome-evals",
+            "why": "系统性整理 WebArena、OSWorld、Terminal-Bench、Cybench 等 agent 评测基准与评测方法学讨论",
+            "heat": "",
+            "authority": "GitHub 第三方仓库（benchflow-ai）",
+            "attention": "低 + 候选块未给 star 或讨论热度",
+            "recommendation": "★★★☆☆ + 作为基准发现索引有用，但无量化热度信号"
+          },
+          {
+            "name": "TIGER-AI-Lab/ClawBench",
+            "url": "https://github.com/TIGER-AI-Lab/ClawBench",
+            "why": "ClawBench 数据集与 harness 评测的代码实现；项目主页 claw-bench.com",
+            "heat": "数据集下载量 534，likes 2",
+            "authority": "TIGER-AI-Lab 团队维护",
+            "attention": "低 + 社区反馈规模小",
+            "recommendation": "★★★☆☆ + 与长程 SWE/终端 agent 评测直接相关，但成熟度待验证"
+          }
+        ],
+        "key_datasets": [
+          {
+            "name": "TIGER-Lab/ClawBench（dataset）",
+            "url": "https://huggingface.co/datasets/TIGER-Lab/ClawBench",
+            "why": "含 283 行任务/评分标准，用于 ClawBench/Claw-SWE-Bench 评测；候选块提示关联 Claw-SWE-Bench 350 任务（口径需核实）",
+            "heat": "downloads 534，likes 2",
+            "authority": "HuggingFace 第三方数据集，发布方 TIGER-Lab，非官方基准",
+            "attention": "低 + 下载量与点赞数偏小",
+            "recommendation": "★★★☆☆ + 可直接获取的评测数据，但规模与任务口径存在不一致需核实"
+          },
+          {
+            "name": "Terminal-Bench 2.0（benchmark dataset，见于集合页引用）",
+            "url": "https://huggingface.co/collections/Reacherx/clawbench-and-agentic-web-benchmarks",
+            "why": "面向 terminal agents 的新版终端评测数据集，代表终端 agent 评测的版本迭代",
+            "heat": "",
+            "authority": "仅见于社区集合页引用，官方主页未在候选块出现",
+            "attention": "低 + 无量化热度信号",
+            "recommendation": "★★☆☆☆ + 仅有二手集合页线索，需回查官方来源后方可采信"
+          }
+        ],
+        "open_problems": [
+          "长程任务的『最后一公里』完成度问题：额外推理仅能换取部分奖励而无法带来完成，评测如何度量真实完工而非部分得分",
+          "成本-收益非线性：准确率每提升一点所需的 token 成本急剧上升，token 效率与准确率的权衡缺乏统一指标",
+          "SOTA 归属与硬件/推理预算口径不统一：Claude Opus 4.8 与 GPT-5.5 的相对优势依赖 accuracy vs token-efficiency 的不同口径，缺乏独立第三方复现",
+          "长程/经济价值任务的任务数与规模口径不一致（如 ClawBench 数据集 283 行 vs Claw-SWE-Bench 350 任务），缺少统一的任务规模与难度分级标准",
+          "评测术语歧义（GAIA 等）导致检索与引用混乱，需要明确的基准命名与索引规范",
+          "部分新基准（OSWorld 2.0、Terminal-Bench 2.0）在候选证据中仅有预印本或社区集合页线索，尚无同行评审与第三方独立评测确认"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "关于「欺骗与可纠正性」的安全评测在 2024–2026 年新增了哪些可核查证据：in-context scheming / alignment faking / sandbagging / agentic misalignment / sabotage 评测是否被独立复现，结论存在哪些争议与反例？",
+      "queries": [
+        "in-context scheming deceptive alignment LLM evaluation Apollo Research 2025",
+        "sandbagging evaluation LLM corrigibility shutdown resistance arXiv 2024..2026",
+        "agentic misalignment sabotage evaluation Anthropic alignment faking 2025",
+        "奖励黑客 欺骗性对齐 可纠正性 智能体 安全评测 复现"
+      ],
+      "rationale": "facet 1、4、7 的交叉点，也是本主题最具争议的部分。需把「模型在受控实验设置下表现出欺骗倾向」与「部署中真实发生」严格分开，标注证据等级与复现状态，并识别当前评测在外部有效性、可纠正性定义、shutdown resistance 度量上的瓶颈。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+          "url": "http://arxiv.org/abs/2507.12143v1",
+          "snippet": "ELOQUENT is a set of shared tasks that aims to create easily testable high-level criteria for evaluating generative language models. Sensemaking is one such shared task.\n  In Sensemaking, we try to assess how well generative models ``make sense out of a given text'' in three steps inspired by exams in a classroom setting: (1) Teacher systems should prepare a set of questions, (2) Student systems should answer these questions, and (3) Evaluator systems should score these answers, all adhering rather strictly to a given set of input materials.\n  We report on the 2025 edition of Sensemaking, whe…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-16",
+          "authors": [
+            "Pavel Šindelář",
+            "Ondřej Bojar"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.12143v1",
+            "rrf_score": 0.038961,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+          "url": "http://arxiv.org/abs/2504.19675v2",
+          "snippet": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our approach combines traditional natural language processing and machine learning techniques implemented in the Annif toolkit with innovative LLM-based methods for translation and synthetic data generation, and merging predictions from monolingual models. The system ranked first in the all-subjects category…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-28",
+          "authors": [
+            "Osma Suominen",
+            "Juho Inkinen",
+            "Mona Lehtinen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.19675v2",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "SVC 2025: the First Multimodal Deception Detection Challenge",
+          "url": "http://arxiv.org/abs/2508.04129v1",
+          "snippet": "Deception detection is a critical task in real-world applications such as security screening, fraud prevention, and credibility assessment. While deep learning methods have shown promise in surpassing human-level performance, their effectiveness often depends on the availability of high-quality and diverse deception samples. Existing research predominantly focuses on single-domain scenarios, overlooking the significant performance degradation caused by domain shifts. To address this gap, we present the SVC 2025 Multimodal Deception Detection Challenge, a new benchmark designed to evaluate cro…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-06",
+          "authors": [
+            "Xun Lin",
+            "Xiaobao Guo",
+            "Taorui Wang",
+            "Yingjie Ma",
+            "Jiajian Huang",
+            "Jiayu Zhang",
+            "Junzhe Cao",
+            "Zitong Yu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.04129v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Whose Personae? Synthetic Persona Experiments in LLM Research and Pathways to Transparency",
+          "url": "http://arxiv.org/abs/2512.00461v1",
+          "snippet": "Synthetic personae experiments have become a prominent method in Large Language Model alignment research, yet the representativeness and ecological validity of these personae vary considerably between studies. Through a review of 63 peer-reviewed studies published between 2023 and 2025 in leading NLP and AI venues, we reveal a critical gap: task and population of interest are often underspecified in persona-based experiments, despite personalization being fundamentally dependent on these criteria. Our analysis shows substantial differences in user representation, with most studies focusing on…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-29",
+          "authors": [
+            "Jan Batzner",
+            "Volker Stocker",
+            "Bingjun Tang",
+            "Anusha Natarajan",
+            "Qinhao Chen",
+            "Stefan Schmid",
+            "Gjergji Kasneci"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.00461v1",
+            "rrf_score": 0.023077
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "本批候选证据中没有任何一条覆盖 in-context scheming / alignment faking / sandbagging / agentic misalignment / sabotage 的安全评测或其独立复现，因此本子问题的核心断言在本批证据下无法成立，必须标注为待核实",
+            "evidence": "4 条候选分别属于 ELOQUENT Sensemaking 共享任务（LLM 作为教师/学生/评估者）、SemEval-2025 Task 5 书目主题标引（LLMs4Subjects）、SVC 2025 多模态欺骗检测挑战赛、合成人格实验综述（63 篇 2023-2025 同行评审研究）。候选块文本中未出现 scheming、alignment faking、sandbagging、agentic misalignment、sabotage 等术语，也没有任何复现实验、复现成功/失败的结论或争议记录",
+            "sources": [
+              13,
+              16,
+              17,
+              18
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 依据：候选块未提供引用数、star、下载量或榜单排名等任何真实热度信号，此处仅反映检索覆盖缺口，不代表社区关注度",
+            "recommendation": "★★☆☆☆ 作为检索缺口提示有参考价值，但其自身不含关于 scheming 类评测的任何实质证据，不可据此下领域结论"
+          },
+          {
+            "point": "2025 年出现首个多模态欺骗检测挑战赛 SVC 2025，但其检测对象是人类的欺骗行为（安检、反欺诈、可信度评估），与『AI 模型策略性欺骗（scheming / alignment faking）』评测不是同一对象，不能直接作为后者被验证的证据",
+            "evidence": "论文标题为 SVC 2025: the First Multimodal Deception Detection Challenge，摘要列出应用场景 security screening、fraud prevention、credibility assessment，并指出既有研究 predominantly focuses on single-domain scenarios，因此需要高质量、多样化欺骗样本；提交时间 2025-08-06，分类 cs.CV",
+            "sources": [
+              17
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.CV），挑战赛概述类论文，候选块未给同行评审信息",
+            "attention": "低 + 依据：候选块未提供引用数/参赛规模/社区讨论等信号，属细分方向挑战赛",
+            "recommendation": "★★☆☆☆ 仅在『欺骗评测』关键词上相关，可用于划清人类欺骗检测与 AI 策略性欺骗评测的边界，对本子问题核心贡献有限"
+          },
+          {
+            "point": "对齐研究中广泛使用的合成人格（synthetic persona）实验存在系统性外部效度缺陷：任务与目标人群常被欠明确说明，人格代表性与生态效度在各项研究间差异很大，这会削弱依赖人格设定诱发的欺骗/对齐伪装类结论的可解释性",
+            "evidence": "该综述评阅 2023–2025 年发表于主流 NLP 与 AI 会议的 63 篇同行评审研究，指出 a critical gap: task and population of interest are often underspecified，并给出通往透明度的建议路径；候选块归类 cs.CY，提交时间标注 2025-11-29",
+            "sources": [
+              18
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.CY）；其证据主体为对 63 篇同行评审研究的二次综述",
+            "attention": "中 + 依据：覆盖 63 篇 2023–2025 年主流会议论文，属对既有对齐研究的方法学批评，但候选块未提供引用数等热度数据",
+            "recommendation": "★★★☆☆ 其方法学批评可外推到『人格/情境诱发的对齐伪装』类实验设计，是评估该类结论可信度时值得参考的元层面证据，但并非直接的 scheming 评测复现"
+          },
+          {
+            "point": "本批证据的时间分布集中在 2025 年，未覆盖 2024 年与 2026 年的相关工作，因而无法据其判断 2024–2026 期间『欺骗与可纠正性』安全评测证据的增量趋势",
+            "evidence": "候选条目提交时间分别为 2025-07-16（[13]）、2025-04-28 提交/2025-08-21 修订（[16]）、2025-08-06（[17]）、2025-11-29（[18]）；没有任何一条标注 2024 或 2026 年发布",
+            "sources": [
+              13,
+              16,
+              17,
+              18
+            ],
+            "type": "trend",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 依据：仅为候选集的时间构成观察，无引用或下载等外部热度支撑",
+            "recommendation": "★★☆☆☆ 可作为继续检索时补足 2024 与 2026 时间窗的提示，本身不构成领域结论"
+          },
+          {
+            "point": "候选证据中两条为共享任务/评测榜单类工作（ELOQUENT Sensemaking 与 SemEval-2025 Task 5），说明 2025 年的 LLM 评测建设热点之一仍在理解力与主题标引等能力维度，而非欺骗倾向或可纠正性等安全行为维度",
+            "evidence": "[13] ELOQUENT 设置 Teacher/Student/Evaluator 三步流程，并使用 7 类测试材料（事实核查分析、教科书、讲座转写、教学视频），覆盖英语、德语、乌克兰语、捷克语；[16] 要求基于双语 TIBKAT 数据库与 GND 词表生成主题预测，该系统在 all-subjects 类别排名第一、tib-core-subjects 排名第二、定性评估排名第四",
+            "sources": [
+              13,
+              16
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "均为 arXiv 预印本（cs.CL）；SemEval-2025 为有组织的共享任务，ELOQUENT 2025 Lab 为共享任务",
+            "attention": "低 + 依据：候选块未提供引用数或参与队伍数等热度信号，且主题偏离本子问题",
+            "recommendation": "★☆☆☆☆ 与本子问题相关性极低，仅佐证同期评测热点分布，不建议优先阅读"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "SVC 2025: the First Multimodal Deception Detection Challenge",
+            "url": "http://arxiv.org/abs/2508.04129v1",
+            "why": "2025 年首个多模态欺骗检测挑战赛，是候选集中唯一与『欺骗评测』直接字面相关的证据，但其对象为人类欺骗行为，可用于界定『欺骗检测』与『AI scheming 评测』的边界",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.CV），挑战赛概述，未见同行评审信息",
+            "attention": "低 + 依据：候选块无引用/榜单/社区讨论信号",
+            "recommendation": "★★☆☆☆ 关键词相关但研究对象不同，仅作边界对照"
+          },
+          {
+            "title": "Whose Personae? Synthetic Persona Experiments in LLM Research and Pathways to Transparency",
+            "url": "http://arxiv.org/abs/2512.00461v1",
+            "why": "对 2023–2025 年 63 篇同行评审研究的综述，指出合成人格实验任务与人群欠明确、生态效度差异大，直接关系到依赖人格/情境设定的对齐与欺骗类实验的可解释性",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.CY），主体为对 63 篇同行评审研究的二次综述",
+            "attention": "中 + 依据：覆盖 63 篇主流会议论文的方法学批评，但候选块无热度数字",
+            "recommendation": "★★★☆☆ 方法学层面可用于评估欺骗/对齐伪装类实验结论的可信度，但非直接评测复现"
+          },
+          {
+            "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+            "url": "http://arxiv.org/abs/2507.12143v1",
+            "why": "2025 年 LLM 高层能力评测共享任务的设计与结果，可用于对照说明同期评测资源投向了理解力维度而非安全行为维度",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.CL），ELOQUENT 2025 Lab 共享任务概述",
+            "attention": "低 + 依据：候选块无引用/参与团队数据，主题偏离",
+            "recommendation": "★☆☆☆☆ 与本子问题相关性很低"
+          },
+          {
+            "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+            "url": "http://arxiv.org/abs/2504.19675v2",
+            "why": "SemEval-2025 共享任务参赛系统报告，显示 2025 年 LLM 评测主要聚焦主题标引等能力任务，可作为同期评测热点的旁证",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.CL），SemEval-2025 Task 5 参赛系统描述",
+            "attention": "低 + 依据：候选块无引用/榜单热度信号",
+            "recommendation": "★☆☆☆☆ 与本子问题无关，仅作背景"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "本批候选证据完全未覆盖 in-context scheming / alignment faking / sandbagging / agentic misalignment / sabotage 评测，无法回答这些评测是否被独立复现",
+          "无法从现有候选证据判断 2024–2026 期间欺骗与可纠正性安全评测的结论争议与反例（证据覆盖缺口，需补充检索）",
+          "候选集中『欺骗检测』一词指向人类欺骗行为（SVC 2025），需明确区分人类欺骗检测基准与 AI 策略性欺骗评测，避免术语混用导致的证据误用",
+          "合成人格实验的任务/人群欠说明与生态效度不足，可能削弱依赖人格设定的对齐伪装类实验结论的可解释性",
+          "候选证据缺少引用数、榜单排名、参与规模等热度信号，无法对相关工作的社区关注度与复现难度做量化评估"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "工程实践与治理侧的基础设施和规则发生了什么变化：开源评测框架（Inspect AI、lm-evaluation-harness、METR task suite、AgentDojo、AgentHarm、PyRIT/garak）的可用性与维护状态如何，以及政策/标准（EU AI Act GPAI、NIST、前沿安全框架、实验室红队承诺）对 Agent 评测提出了哪些可验证要求？",
+      "queries": [
+        "Inspect AI UK AISI evaluation framework METR task suite GitHub 2025",
+        "AgentDojo AgentHarm prompt injection agent security benchmark GitHub",
+        "EU AI Act GPAI systemic risk evaluation standard frontier safety framework 2025",
+        "智能体 安全评测 开源框架 红队 监管 标准 2025"
+      ],
+      "rationale": "覆盖 facet 2、5、6：评测能力是否从实验室走向工程化与合规化，直接决定安全结论能否被复现与审计。GitHub star/最近提交、官方文档、监管生效日期是可观测指标，可用于判断「评测 engineering 化」是否已临近拐点，并定位尚无标准答案的蓝海缺口（如长程 agent 的可纠正性审计工具）。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+          "url": "http://arxiv.org/abs/2510.20381v1",
+          "snippet": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal legal text processing and to provide a benchmark dataset for building and evaluating intelligent systems in multimodal legal domains, with a focus on traffic sign regulation in Vietnam. The best-reported results on VLSP 2025 MLQA-TSR are an F2 score of 64.55% for multimodal legal retrieval and an a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Son T. Luu",
+            "Trung Vo",
+            "Hiep Nguyen",
+            "Khanh Quoc Tran",
+            "Kiet Van Nguyen",
+            "Vu Tran",
+            "Ngan Luu-Thuy Nguyen",
+            "Le-Minh Nguyen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20381v1",
+            "rrf_score": 0.038191,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+          "url": "http://arxiv.org/abs/2504.19675v2",
+          "snippet": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our approach combines traditional natural language processing and machine learning techniques implemented in the Annif toolkit with innovative LLM-based methods for translation and synthetic data generation, and merging predictions from monolingual models. The system ranked first in the all-subjects category…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-28",
+          "authors": [
+            "Osma Suominen",
+            "Juho Inkinen",
+            "Mona Lehtinen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.19675v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+          "url": "http://arxiv.org/abs/2507.12143v1",
+          "snippet": "ELOQUENT is a set of shared tasks that aims to create easily testable high-level criteria for evaluating generative language models. Sensemaking is one such shared task.\n  In Sensemaking, we try to assess how well generative models ``make sense out of a given text'' in three steps inspired by exams in a classroom setting: (1) Teacher systems should prepare a set of questions, (2) Student systems should answer these questions, and (3) Evaluator systems should score these answers, all adhering rather strictly to a given set of input materials.\n  We report on the 2025 edition of Sensemaking, whe…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-16",
+          "authors": [
+            "Pavel Šindelář",
+            "Ondřej Bojar"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.12143v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+          "url": "http://arxiv.org/abs/2510.22631v1",
+          "snippet": "This paper presents our submission to the MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets. The objective of the shared task is to create manually-annotated evaluation data in the physical commonsense reasoning domain, for languages other than English, following a format similar to PIQA. Our contribution, FormaMentis, is a novel benchmark for physical commonsense reasoning that is grounded in Italian language and culture. The data samples in FormaMentis are created by expert annotators who are native Italian speakers and are familiar with local customs and norms. The samples a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-26",
+          "authors": [
+            "Marco De Santis",
+            "Lisa Alazraki"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.22631v1",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+            "evidence": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal…",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+            "evidence": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our appro…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+            "evidence": "ELOQUENT is a set of shared tasks that aims to create easily testable high-level criteria for evaluating generative language models. Sensemaking is one such shared task.\n  In Sensemaking, we try to assess how well generative models ``make sense out of a given text'' in three steps inspired by exams…",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+            "evidence": "This paper presents our submission to the MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets. The objective of the shared task is to create manually-annotated evaluation data in the physical commonsense reasoning domain, for languages other than English, following a format similar to…",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 7,
+    "prompt_tokens": 45363,
+    "completion_tokens": 27610,
+    "generated_at": "2026-10-16T22:32:54.137088+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# Agent 评测与安全：能力基准、欺骗与可纠正性 —— 近两年增量调研报告\n\n- **调研日期**：2026-10-16（UTC）\n- **领域**：通用/具身 Agent 能力评测（OSWorld、WebArena、GAIA、SWE-bench、tau-bench 等）与安全评测（欺骗、sandbagging、可纠正性、AI Control）\n- **可引用来源**：34 条（编号 [1]–[34]）；其中与主题直接相关者约 12 条，其余为术语噪声或弱相关共享任务论文\n- **方法论**：deep-research / frontier-tracking / paper-survey / evidence-grading\n- **覆盖自检（必读）**：子问题 q1（能力基准）为**部分覆盖**；q2（欺骗与可纠正性）与 q3（工程/治理基础设施）在本批检索中**基本未命中**目标证据 [13,16,17,18]。因此本报告多处标注 `> 待核实`，并显式区分「有证据的增量」与「证据缺口」。**未检索到的结论不得当领域事实使用。**\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n> **一句话增量判断**：能力侧评测已明确从「静态问答 / 短程 GUI 操作」迁移到「长程、真实职业、带经济价值」的任务范式；安全侧本批证据仅覆盖 prompt injection 与 sandbagging 的零星线索，scheming / alignment faking / agentic misalignment / sabotage **无直接证据**。\n\n**能力基准：范式迁移（最新进展，2026）**\n- **OSWorld 2.0 把计算机使用评测推进到长程真实职业任务** [11]：新增 `task horizon`、`professional-domain distribution`、`economic value` 等任务统计维度，引入 simulated user 与 dynamic environment，评测协议采用 fine-grained partial reward 与 functional/model-based evaluation。\n  - **热度证据**：`> 待核实`（[11] 候选块无引用数/star/榜单数据）。\n  - **权威证据**：[11] 为 arXiv 预印本 2606.29537v1，未见同行评审记录。\n  - **关注度**：低（依据：[11] 无任何量化热度信号）。\n  - **推荐度**：★★★★☆（直接命中「静态问答→长程真实任务」主线，但需核实发表状态与第三方复现）。\n- **前沿模型仍未解决长程专业计算机使用** [11]：论文自述 Claude Opus 4.8 准确率更高、GPT-5.5 token 效率更高；每提升 1 点准确率的 token 成本呈非线性上升；「更多轮次不买来完成度」，轮次空间前沿由 batching 而非步数设定；额外推理只买到 partial credit 而非完成。\n  - **热度证据**：`> 待核实`（[11] 无引用/star/榜单位次）。\n  - **权威证据**：[11] 基准作者自评，**无第三方复现证据**。\n  - **关注度**：中（依据：涉及 Claude Opus 4.8 / GPT-5.5 前沿模型相对排名，但来源为自评）。\n  - **推荐度**：★★★★☆（提供「提升来自推理量还是架构」的量化式判断，是评估该基准是否饱和的关键数据）。\n\n**终端 / 软件 Agent 与 harness 评测分化（最新进展，2026）**\n- **Terminal-Bench 2.0 与 Claw-SWE-Bench / ClawBench** [1]：候选块提到面向 terminal agents 的 Terminal-Bench 2.0、面向 OpenClaw 类 harness 的 Claw-SWE-Bench（350 任务），并聚合为 ClawBench & Agentic Web Benchmarks 集合。\n  - **热度证据**：ClawBench 数据集 downloads 534、likes 2 [1]。\n  - **权威证据**：[1] 为 HuggingFace 社区集合页（Reacherx），非官方基准主页；提及 TIGER-AI-Lab/ClawBench 仓库与 arXiv:2604.08523。\n  - **关注度**：低（依据：[1] 下载 534、likes 2，属小规模社区热度）。\n  - **推荐度**：★★★☆☆（提示 terminal/harness 评测在分化，但任务数细节被截断，需回查原文）。\n\n**安全评测：prompt injection 攻防（最新进展）**\n- **AgentDojo** 提供动态环境以评测 LLM Agent 的 prompt injection 攻击与防御 [31]；**SecAlign** 用偏好优化防御 prompt injection [32]；**StruQ** 用结构化查询防御 prompt injection [33]。\n  - **热度证据**：`> 待核实`（三条来源在本批中仅以标题/URL 形式出现，无引用/star 数据）。\n  - **权威证据**：均为 arXiv 预印本（[31] 2406.13352v3；[32] 2410.05451v3；[33] 2402.06363v2）。\n  - **关注度**：中（依据：prompt injection 为 agent 安全高频议题，但本批无量化信号）。\n  - **推荐度**：★★★★☆（Agent 安全评测中最具工程可复现性的方向，建议优先核实）。\n\n**Sandbagging：唯一直接线索（最新进展，2026）**\n- [21] 标题为 *Option-Order Randomisation Reveals a Distributional Position Attractor in Prompted Sandbagging*：提示**选项顺序会系统性影响所测得的 sandbagging 行为**，属评测方法学信号（arXiv 2604.26206v1，2026 预印本）。\n  - **热度/权威/关注度**：`> 待核实`（本批仅有标题级信息，未见摘要、引用或代码）。\n  - **推荐度**：★★★★☆（本主题下唯一直接命中 sandbagging 的可引用来源，务必精读原文后再引用其结论）。\n\n**欺骗评测的边界辨析（最新进展，2025）**\n- **SVC 2025 是首个多模态欺骗检测挑战赛，但检测对象是人类的欺骗行为**（安检、反欺诈、可信度评估），**不等同于 AI 策略性欺骗（scheming / alignment faking）评测** [17]。可作为术语边界对照，不可作为后者的验证证据。\n  - **权威证据**：[17] arXiv 预印本（cs.CV），挑战赛概述，未见同行评审信息。\n  - **关注度**：低（依据：[17] 属细分方向，本批无参赛规模/引用信号）。\n  - **推荐度**：★★☆☆☆（仅作边界对照）。\n\n**方法学争议（最新进展，2025）**\n- [18] 评阅 2023–2025 年 63 篇同行评审研究，指出合成人格（synthetic persona）实验存在系统性外部效度缺陷：任务与目标人群常被欠说明、生态效度差异大，**削弱依赖人格设定诱发的欺骗 / 对齐伪装类结论的可解释性**。\n  - **权威证据**：[18] arXiv 预印本（cs.CY），主体为对 63 篇同行评审研究的二次综述。\n  - **关注度**：中（依据：覆盖 63 篇主流会议论文的方法学批评）。\n  - **推荐度**：★★★☆☆（元层面证据，评估该类结论可信度时值得参考，但非直接复现）。\n\n**覆盖缺口（必须显式声明）**\n- 本批证据**未覆盖** in-context scheming / alignment faking / agentic misalignment / sabotage 的任何评测或其独立复现，也未提供结论争议与反例 [13,16,17,18] → `> 待核实`。\n- 时间分布集中在 2025 年，**未覆盖 2024 与 2026 年**的对应安全评测 [13,16,17,18] → 无法据此判断 2024–2026 增量趋势。\n\n**术语噪声提示**\n- 「GAIA」在天文语境下指 Gaia 卫星系列 DR1/DR2/DR3 [2,4,6,7,8,9,10]，与通用助手基准 GAIA 无关。检索中此类噪声占比较高，提示基准命名需规范化。\n\n> **最新 vs 经典**：本节条目均为 2025–2026 进展。OSWorld / WebArena / GAIA / SWE-bench / tau-bench 的**原始论文不在本次可引用来源清单内**，其基线定义、任务数与硬件口径均 `> 待核实`，不得凭记忆补写。\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n> **一句话增量判断**：本批证据**几乎不覆盖厂商产品、真机部署与量产**，仅有少量第三方团队与社区工件可佐证评测生态的工程化；其余 `> 待核实`。\n\n- **benchflow-ai/awesome-evals** [12]：系统性整理 WebArena、OSWorld、Terminal-Bench、Cybench 等基准与评测方法学讨论，并提及 Agentic AI MOOC (Fall 2025)、Predictable Noise in LLM Benchmarks。\n  - **热度证据**：`> 待核实`（[12] 未给 star 或讨论热度）。\n  - **权威证据**：GitHub 第三方仓库（benchflow-ai），非官方组织。\n  - **关注度**：低（依据：[12] 无量化热度信号）。\n  - **推荐度**：★★★☆☆（作为基准发现索引有用）。\n- **TIGER-AI-Lab/ClawBench** [1]：HF 数据集 + GitHub 仓库 + 项目主页 claw-bench.com，代表长程 SWE / harness 评测的工程化尝试。\n  - **热度证据**：downloads 534、likes 2 [1]。**权威证据**：TIGER-AI-Lab 团队维护。**关注度**：低。**推荐度**：★★★☆☆。\n- **零信任安全架构（部署侧线索）**：[34] 提出面向医疗自主 AI 的零信任安全架构，属产品/部署安全工程线索，非厂商产品证据；细节 `> 待核实`。\n- **无**任何厂商官方博客、权重开源、量产部署的一手证据 → `> 待核实`。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n> **一句话增量判断**：**长程「完成度」度量、token 效率统一指标、以及安全评测的独立复现机制**，是当前最明显的三个无人区。\n\n| # | 缺口 | 证据 | 为什么是蓝海 |\n|---|------|------|--------------|\n| G1 | 长程任务「最后一公里」度量：额外推理只买到 partial reward 而非完成 [11] | [11] | 现有协议奖励部分得分，缺少「真实完工」指标 |\n| G2 | 成本–收益非线性：准确率每升 1 点 token 成本飙升，缺统一指标 [11] | [11] | 需 accuracy–token 联合指标与预算标准化 |\n| G3 | SOTA 归属与推理预算口径不统一，缺第三方独立复现 [11] | [11] | 「谁在什么预算下更强」无中立仲裁 |\n| G4 | 长程/经济价值任务的规模与难度分级不统一（283 行 vs 350 任务）[1] | [1] | 缺通用任务规模/难度分类标准 |\n| G5 | 基准命名与索引规范缺失（GAIA 歧义）[2,4] | [2,4] | 术语治理直接影响检索与引用可靠性 |\n| G6 | AI scheming / alignment faking / sandbagging / corrigibility / AI Control 评测证据空白 [13,16,17,18]；唯一 sandbagging 线索仅方法学 [21] | [13,16,17,18,21] | 安全侧最核心的开口 |\n| G7 | prompt injection 攻防评测与越狱/欺骗评测尚未整合 [31,32,33] | [31,32,33] | 缺少统一 agent 安全评测栈 |\n| G8 | 合成人格实验的任务/人群欠说明与生态效度不足 [18] | [18] | 直接影响欺骗/对齐伪装结论可信度 |\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n> **一句话增量判断**：能力侧瓶颈已从「会不会做」转为「**能否完工 + 成本是否可控**」；安全侧瓶颈是「**缺可复现的欺骗/可纠正性评测**」。\n\n- **完成度瓶颈**（是否临近拐点：较大概率已到）[11]：额外推理与更多轮次换成 partial credit，而非完成；轮次前沿由 batching 设定。\n  - **权威**：[11] 预印本自评；**关注度**：中；**推荐度**：★★★★☆。\n- **成本拐点** [11]：每点准确率的 token 成本非线性上升 → 性价比拐点未知，`> 待核实`（缺公开成本-性能表）。\n- **评测协议瓶颈** [11]：partial reward 与 completion 之间的度量缺口，是把「分数提升」误读为「能力提升」的主要来源。\n- **安全评测缺口即拐点信号**：若 scheming/alignment faking 类结论长期无独立复现，则该方向结论无法定论 `> 待核实` [17,18,21]。\n- **方法学瓶颈** [18]：合成人格实验外部效度不足，可能系统性抬高/压低对齐相关结论。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n> **一句话增量判断**：本批来源**几无直接的 AI 治理/标准证据**，仅有间接线索，全部需标 `> 待核实`。\n\n- **间接数据治理线索**：[27] 研究「评估英国政府作为 AI 数据提供者角色」的方法，与数据供给/治理相关，但**不涉及 Agent 评测规则**；细节 `> 待核实`。\n- **EU AI Act GPAI、NIST 框架、前沿安全框架、实验室红队承诺**：**不在本次可引用来源清单内** → `> 待核实`，不得据记忆补写具体条款与生效日。\n- **标准化缺口具治理外溢**：基准命名歧义 [2,4] 与任务规模口径不一 [1]，会影响监管可核验性与跨机构对比 → 属潜在标准议题。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n> **一句话增量判断**：本周期**无显著可核查的资本/融资/并购证据**。\n\n- 仅见小规模社区生态信号：awesome-evals 索引仓库 [12]（热度 `> 待核实`）；ClawBench 数据集 downloads 534、likes 2 [1]。\n- 无融资额、并购、人才流动、公司格局变化的一手证据 → `> 待核实`。\n- **本周期无显著变化**。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n> **一句话增量判断**：三个早期信号——长程完成度、prompt injection 攻防、sandbagging 方法学——最可能在 6–18 个月内形成新评测轴。\n\n- **[P] 长程「完成度」将取代部分「部分得分」成为新 SOTA 轴**（依据：[11] 指出 partial credit 与 completion 脱钩）。**置信度**：中。**可证伪假设**：若到 2027 年底前主流 Agent 榜单出现以「completion rate」而非仅「partial score」为主报指标的基准，则判断成立。\n- **[P] prompt injection 攻防将并入 Agent 安全标准评测栈**（依据：[31,32,33] 已成体系）。**置信度**：中高。**可证伪假设**：若 2027 年前出现至少一个被多方独立复现的「agent 安全综合榜」包含注入攻防子项，则成立。\n- **[P] sandbagging / corrigibility 评测将从「prompted」走向系统性基准**（依据：[21] 为唯一早期方法学信号）。**置信度**：低–中。**可证伪假设**：若 12 个月内出现含沙箱式放水/可纠正性任务的公开基准与第三方复现，则成立。\n- **[P] 第三方复现基础设施仍是蓝海**（依据：[11] SOTA 为作者自评、无独立复现）。**置信度**：中高。\n- **[Debated] 合成人格实验效度**：[18] 提出系统性外部效度批评；是否有反方证据 `> 待核实`。\n- **[R]**：本批未出现可标注的传闻类信息。\n- **Watchlist**：OSWorld 2.0 [11]、ClawBench/Claw-SWE-Bench [1]、AgentDojo 及 inject 攻防 [31,32,33]、Prompted Sandbagging 方法学 [21]、零信任 Agent 部署架构 [34]。\n\n---\n\n## 附：经典与奠基性工作\n\n> 说明：本主题公认的奠基基准（OSWorld、WebArena、GAIA、SWE-bench、tau-bench 等）**其原始论文不在本次可引用来源清单内**，故下表不作数据填列，统一标 `> 待核实`，仅提示后续需补检。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| OSWorld（原始版） | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 公认经典计算机使用基准，本批未检索到原文，`> 待核实` |\n| WebArena | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 被 [12] 列名但无原文数据，`> 待核实` |\n| GAIA（通用助手基准） | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 与天文 Gaia [2,4] 术语冲突，`> 待核实` |\n| SWE-bench / tau-bench | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 待核实 | 本批未检索到原文，`> 待核实` |\n\n---\n\n## 附：开源项目\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| benchflow-ai/awesome-evals | 2025 | benchflow-ai | 待核实（[12] 无 star） | GitHub 第三方仓库 | 低（无量化信号）[12] | ★★★☆☆ | https://github.com/benchflow-ai/awesome-evals | 基准与评测方法学索引 [12] |\n| TIGER-AI-Lab/ClawBench | 2026 | TIGER-AI-Lab | downloads 534、likes 2 [1] | 第三方团队维护 | 低 [1] | ★★★☆☆ | https://github.com/TIGER-AI-Lab/ClawBench | 长程 SWE/harness 评测实现 [1]；任务数口径待核实 |\n| AgentDojo | 2024 | 待核实 | 待核实 | arXiv 2406.13352v3 [31] | 中 | ★★★★☆ | http://arxiv.org/abs/2406.13352v3 | prompt injection 攻防评测动态环境 [31] |\n| SecAlign | 2024 | 待核实 | 待核实 | arXiv 2410.05451v3 [32] | 中 | ★★★★☆ | http://arxiv.org/abs/2410.05451v3 | 用偏好优化防御 prompt injection [32] |\n| StruQ | 2024 | 待核实 | 待核实 | arXiv 2402.06363v2 [33] | 中 | ★★★★☆ | http://arxiv.org/abs/2402.06363v2 | 用结构化查询防御 prompt injection [33] |\n\n---\n\n## 附：数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| OSWorld 2.0 | 2026 | 待核实 | 待核实（[11] 无引用/star） | arXiv 2606.29537v1（预印本，未见同行评审）[11] | 低–中 [11] | ★★★★☆ | https://arxiv.org/html/2606.29537v1 | 长程职业计算机使用 + partial reward + 模拟用户 [11] |\n| ClawBench（dataset） | 2026 | TIGER-Lab | downloads 534、likes 2 [1] | HuggingFace 第三方数据集 [1] | 低 [1] | ★★★☆☆ | https://huggingface.co/datasets/TIGER-Lab/ClawBench | 283 行任务/评分标准；与 Claw-SWE-Bench 350 任务口径不一致，`> 待核实` [1] |\n| Terminal-Bench 2.0 | 2026 | 待核实 | 待核实 | 仅见于社区集合页 [1] | 低 [1] | ★★☆☆☆ | https://huggingface.co/collections/Reacherx/clawbench-and-agentic-web-benchmarks | 终端 agent 评测数据集；二手线索，需回查官方 [1] |\n| AgentDojo | 2024 | 待核实 | 待核实 | arXiv 2406.13352v3 [31] | 中 | ★★★★☆ | http://arxiv.org/abs/2406.13352v3 | prompt injection 攻击/防御评测环境 [31] |\n| SVC 2025（多模态欺骗检测） | 2025 | 待核实 | 待核实 | arXiv 2508.04129v1 [17] | 低 [17] | ★★☆☆☆ | http://arxiv.org/abs/2508.04129v1 | **人类**欺骗检测挑战赛，非 AI scheming 评测，仅作边界对照 [17] |\n\n---\n\n## 参考来源\n\n[1] ClawBench & Agentic Web Benchmarks - a Reacherx Collection — https://huggingface.co/collections/Reacherx/clawbench-and-agentic-web-benchmarks\n[2] The Gaia mission — http://arxiv.org/abs/1609.04153v1\n[3] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[4] Gaia Data Release 2. Summary of the contents and survey properties — http://arxiv.org/abs/1804.09365v2\n[5] Gaia Data Release 3: The Galaxy in your preferred colours — http://arxiv.org/abs/2206.06215v2\n[6] Gaia Data Release 1. Summary of the astrometric, photometric, and survey properties — http://arxiv.org/abs/1609.04172v1\n[7] Gaia Data Release 3: Exploring and mapping the diffuse interstellar band at 862 nm — http://arxiv.org/abs/2206.05536v1\n[8] Gaia Data Release 2: Kinematics of globular clusters and dwarf galaxies — http://arxiv.org/abs/1804.09381v3\n[9] Gaia Early Data Release 3: Structure and properties of the Magellanic Clouds — http://arxiv.org/abs/2012.01771v4\n[10] Gaia Early Data Release 3: Summary of the contents and survey properties — http://arxiv.org/abs/2012.01533v2\n[11] OSWorld 2.0: Benchmarking Computer Use Agents on Long-Horizon Real-World Tasks — https://arxiv.org/html/2606.29537v1\n[12] GitHub - benchflow-ai/awesome-evals: A curated, non-BS library of ... — https://github.com/benchflow-ai/awesome-evals\n[13] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab — http://arxiv.org/abs/2507.12143v1\n[14] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1\n[15] Normalization of peer-evaluation measures of group research quality across academic disciplines — http://arxiv.org/abs/1006.3863v2\n[16] Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs — http://arxiv.org/abs/2504.19675v2\n[17] SVC 2025: the First Multimodal Deception Detection Challenge — http://arxiv.org/abs/2508.04129v1\n[18] Whose Personae? Synthetic Persona Experiments in LLM Research and Pathways to Transparency — http://arxiv.org/abs/2512.00461v1\n[19] CEA-LIST at CheckThat! 2025: Evaluating LLMs as Detectors of Bias and Opinion in Text — http://arxiv.org/abs/2507.07539v1\n[20] Apollo: Band-sequence Modeling for High-Quality Audio Restoration — http://arxiv.org/abs/2409.08514v2\n[21] Option-Order Randomisation Reveals a Distributional Position Attractor in Prompted Sandbagging — http://arxiv.org/abs/2604.26206v1\n[22] A Simulation and Modeling of Access Points with Definition Language — http://arxiv.org/abs/1304.1836v2\n[23] Superconductivity as a consequence of an ordering of the electron gas zero-point oscillations — http://arxiv.org/abs/1005.0280v6\n[24] Intutionistic Fuzzy Ideals in Γ-semiring — http://arxiv.org/abs/1011.5746v2\n[25] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal QA on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1\n[26] Culturally Grounded Physical Commonsense Reasoning in Italian and English — http://arxiv.org/abs/2510.22631v1\n[27] Methods to Assess the UK Government's Current Role as a Data Provider for AI — http://arxiv.org/abs/2412.09632v2\n[28] DeDisCo at the DISRPT 2025 Shared Task: Discourse Relation Classification — http://arxiv.org/abs/2509.11498v4\n[29] CLaC at SemEval-2025 Task 6: Corporate Environmental Promise Verification — http://arxiv.org/abs/2505.23538v1\n[30] AINL-Eval 2025 Shared Task: Detection of AI-Generated Scientific Abstracts in Russian — http://arxiv.org/abs/2508.09622v1\n[31] AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents — http://arxiv.org/abs/2406.13352v3\n[32] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3\n[33] StruQ: Defending Against Prompt Injection with Structured Queries — http://arxiv.org/abs/2402.06363v2\n[34] Caging the Agents: A Zero Trust Security Architecture for Autonomous AI in Healthcare — http://arxiv.org/abs/2603.17419v1\n\n---\n\n> **检索局限声明**：本报告基于以上 34 条来源。子问题 q2（欺骗与可纠正性）与 q3（工程/治理基础设施）在本批检索中未命中目标证据，故 scheming / alignment faking / agentic misalignment / sabotage 的**评测存在性与独立复现结论均标 `> 待核实`**；EU AI Act GPAI、NIST、前沿安全框架等政策文本亦不在来源清单内，未作实质陈述。凡标 `> 待核实` 的判断，均不得作为领域事实引用，需补充检索后再定论。\n\n---\n\n*Generated by research-bot · topic=`agent-评测与安全能力基准欺骗与可纠正性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=34 · duration=214s · 2026-10-16T22:32:54+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "ClawBench & Agentic Web Benchmarks - a Reacherx Collection",
+      "url": "https://huggingface.co/collections/Reacherx/clawbench-and-agentic-web-benchmarks",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "The Gaia mission",
+      "url": "http://arxiv.org/abs/1609.04153v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2016-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Gaia Data Release 2. Summary of the contents and survey properties",
+      "url": "http://arxiv.org/abs/1804.09365v2",
+      "kind": "paper",
+      "venue": "astro-ph.GA",
+      "published": "2018-04-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Gaia Data Release 3: The Galaxy in your preferred colours. Synthetic photometry from Gaia low-resolution spectra",
+      "url": "http://arxiv.org/abs/2206.06215v2",
+      "kind": "paper",
+      "venue": "astro-ph.SR",
+      "published": "2022-06-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Gaia Data Release 1. Summary of the astrometric, photometric, and survey properties",
+      "url": "http://arxiv.org/abs/1609.04172v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2016-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Gaia Data Release 3: Exploring and mapping the diffuse interstellar band at 862 nm",
+      "url": "http://arxiv.org/abs/2206.05536v1",
+      "kind": "paper",
+      "venue": "astro-ph.GA",
+      "published": "2022-06-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Gaia Data Release 2: Kinematics of globular clusters and dwarf galaxies around the Milky Way",
+      "url": "http://arxiv.org/abs/1804.09381v3",
+      "kind": "paper",
+      "venue": "astro-ph.GA",
+      "published": "2018-04-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Gaia Early Data Release 3: Structure and properties of the Magellanic Clouds",
+      "url": "http://arxiv.org/abs/2012.01771v4",
+      "kind": "paper",
+      "venue": "astro-ph.GA",
+      "published": "2020-12-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Gaia Early Data Release 3: Summary of the contents and survey properties",
+      "url": "http://arxiv.org/abs/2012.01533v2",
+      "kind": "paper",
+      "venue": "astro-ph.GA",
+      "published": "2020-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "OSWorld 2.0: Benchmarking Computer Use Agents on Long ... - arXiv",
+      "url": "https://arxiv.org/html/2606.29537v1",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "GitHub - benchflow-ai/awesome-evals: A curated, non-BS library of ...",
+      "url": "https://github.com/benchflow-ai/awesome-evals",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+      "url": "http://arxiv.org/abs/2507.12143v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance",
+      "url": "http://arxiv.org/abs/2503.08541v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-03-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Normalization of peer-evaluation measures of group research quality across academic disciplines",
+      "url": "http://arxiv.org/abs/1006.3863v2",
+      "kind": "paper",
+      "venue": "physics.soc-ph",
+      "published": "2010-06-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+      "url": "http://arxiv.org/abs/2504.19675v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "SVC 2025: the First Multimodal Deception Detection Challenge",
+      "url": "http://arxiv.org/abs/2508.04129v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Whose Personae? Synthetic Persona Experiments in LLM Research and Pathways to Transparency",
+      "url": "http://arxiv.org/abs/2512.00461v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-11-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "CEA-LIST at CheckThat! 2025: Evaluating LLMs as Detectors of Bias and Opinion in Text",
+      "url": "http://arxiv.org/abs/2507.07539v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Apollo: Band-sequence Modeling for High-Quality Audio Restoration",
+      "url": "http://arxiv.org/abs/2409.08514v2",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Option-Order Randomisation Reveals a Distributional Position Attractor in Prompted Sandbagging",
+      "url": "http://arxiv.org/abs/2604.26206v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-04-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "A Simulation and Modeling of Access Points with Definition Language",
+      "url": "http://arxiv.org/abs/1304.1836v2",
+      "kind": "paper",
+      "venue": "cs.OH",
+      "published": "2013-04-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Superconductivity as a consequence of an ordering of the electron gas zero-point oscillations",
+      "url": "http://arxiv.org/abs/1005.0280v6",
+      "kind": "paper",
+      "venue": "physics.gen-ph",
+      "published": "2010-05-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Intutionistic Fuzzy Ideals in Γ-semiring",
+      "url": "http://arxiv.org/abs/1011.5746v2",
+      "kind": "paper",
+      "venue": "math.LO",
+      "published": "2010-11-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+      "url": "http://arxiv.org/abs/2510.22631v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Methods to Assess the UK Government's Current Role as a Data Provider for AI",
+      "url": "http://arxiv.org/abs/2412.09632v2",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2024-11-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "DeDisCo at the DISRPT 2025 Shared Task: A System for Discourse Relation Classification",
+      "url": "http://arxiv.org/abs/2509.11498v4",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "CLaC at SemEval-2025 Task 6: A Multi-Architecture Approach for Corporate Environmental Promise Verification",
+      "url": "http://arxiv.org/abs/2505.23538v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "AINL-Eval 2025 Shared Task: Detection of AI-Generated Scientific Abstracts in Russian",
+      "url": "http://arxiv.org/abs/2508.09622v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-08-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents",
+      "url": "http://arxiv.org/abs/2406.13352v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-06-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "SecAlign: Defending Against Prompt Injection with Preference Optimization",
+      "url": "http://arxiv.org/abs/2410.05451v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-10-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "StruQ: Defending Against Prompt Injection with Structured Queries",
+      "url": "http://arxiv.org/abs/2402.06363v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-02-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "Caging the Agents: A Zero Trust Security Architecture for Autonomous AI in Healthcare",
+      "url": "http://arxiv.org/abs/2603.17419v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-03-18",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-16-agent-评测与安全能力基准欺骗与可纠正性.md",
+    "json": "report/2026/10/2026-10-16-agent-评测与安全能力基准欺骗与可纠正性.json"
+  }
+}
