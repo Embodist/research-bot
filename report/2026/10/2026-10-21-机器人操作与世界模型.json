@@ -1,0 +1,1105 @@
+{
+  "topic": "机器人操作与世界模型",
+  "title": "机器人操作与世界模型 — 领域增量追踪调研计划（2026-10 快照）",
+  "query": "机器人操作与世界模型",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-21T22:18:53+00:00",
+  "finished_at": "2026-10-21T22:21:50+00:00",
+  "duration_s": 177.9,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人操作与世界模型 — 领域增量追踪调研计划（2026-10 快照）",
+    "summary": "以 2026-10 为基准时点，用七维增量框架核查「机器人操作 × 世界模型」近 12–24 个月相对既有基线的真实变化：SOTA 与验证强度、奠基方法与开源可复现栈、数据集与评测口径差异、以及瓶颈/蓝海/产业与政策信号，并对无法核实处显式标注待核实。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024–2026 年机器人操作与世界模型方向的前沿进展是什么：哪些世界模型/视频预测模型与 VLA/扩散策略刷新了操控基准 SOTA，其提升是仿真还是真机、是否有独立第三方验证？",
+        "rationale": "回答 frontier-watch 的 facet 1（进展与热点）与 facet 4（瓶颈与拐点）中的技术侧。必须区分「论文自评/演示视频」与「独立复现/榜单」，并按 年份-季度 建立时间线；据实际检索到的 published 时间判断新旧，不采信模型记忆中的『最新』。候选线索包括 model-based RL 路线（DreamerV3、TD-MPC2）、视频生成式世界模型路线（UniSim、Genie、DIAMOND、V-JEPA 2）与 VLA 路线（RT-2、OpenVLA、π0 系列），但所有条目均需检索到一手来源后方可写入。",
+        "queries": [
+          "world model robot manipulation 2025 2026 arxiv DreamerV3 TD-MPC2 Genie survey",
+          "V-JEPA 2 world model robot manipulation 2025 arxiv",
+          "vision-language-action policy 2025 2026 SOTA LIBERO SimplerEnv real robot evaluation",
+          "世界模型 机器人操作 2025 最新进展 综述 仿真 真机 对比"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该方向的奠基性工作与当前开源工程实践是什么：从 latent dynamics / model-based RL 到视频式世界模型的关键节点论文，以及 LeRobot、Isaac Lab、ManiSkill 等开源栈在真实操控任务中的可用性与复现门槛如何？",
+        "rationale": "回答 facet 1 的『经典 vs 最新』分节要求与 facet 2（工业界与产品）中的开源/权重维度。需要建立方法演进脉络（模块化 → 端到端 → 基础模型 → 统一动作空间/世界模型），并对每个仓库核查 stars、最近提交、是否有权重与真机示例，区分『开源代码』『开源权重』『仅 demo 视频』。避免把 README 宣传当作实验证据。",
+        "queries": [
+          "DreamerV3 world model Nature 2025 Mastering diverse control tasks",
+          "UniSim learning interactive real-world simulator robot manipulation arxiv 2024",
+          "LeRobot HuggingFace github open source robot learning policies ACT diffusion",
+          "Isaac Lab ManiSkill MuJoCo sim2real manipulation benchmark github stars"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "数据集与评测基准的口径差异以及开放问题与争议在哪里：Open X-Embodiment / DROID / LIBERO / SimplerEnv / RoboArena 各自测什么、成功率数字能否横向比较，世界模型用于操作在长程泛化、物理一致性、评测缺失与可复现性上存在哪些公认瓶颈与蓝海缺口？",
+        "rationale": "回答 facet 3（蓝海与缺口）、facet 4（瓶颈）与学术方法论的交叉验证要求。同一『SOTA』需至少两个独立来源并按 benchmark/硬件/任务数口径对齐；需专门检索 negative results、复现失败报告与评测协议批评（如仿真 SOTA 与真机 SOTA 混淆）。此子问题同时为 facet 5–7（政策/资本/预测）提供技术事实底座。",
+        "queries": [
+          "Open X-Embodiment DROID dataset robot manipulation benchmark 2024 2025",
+          "LIBERO SimplerEnv RoboArena evaluation protocol success rate comparison",
+          "world model robot manipulation limitations failure cases reproducibility 争议 复现",
+          "世界模型 机器人操作 评测 缺失 长程 泛化 物理一致性 未解问题"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "github",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024–2026 年机器人操作与世界模型方向的前沿进展是什么：哪些世界模型/视频预测模型与 VLA/扩散策略刷新了操控基准 SOTA，其提升是仿真还是真机、是否有独立第三方验证？",
+      "queries": [
+        "world model robot manipulation 2025 2026 arxiv DreamerV3 TD-MPC2 Genie survey",
+        "V-JEPA 2 world model robot manipulation 2025 arxiv",
+        "vision-language-action policy 2025 2026 SOTA LIBERO SimplerEnv real robot evaluation",
+        "世界模型 机器人操作 2025 最新进展 综述 仿真 真机 对比"
+      ],
+      "rationale": "回答 frontier-watch 的 facet 1（进展与热点）与 facet 4（瓶颈与拐点）中的技术侧。必须区分「论文自评/演示视频」与「独立复现/榜单」，并按 年份-季度 建立时间线；据实际检索到的 published 时间判断新旧，不采信模型记忆中的『最新』。候选线索包括 model-based RL 路线（DreamerV3、TD-MPC2）、视频生成式世界模型路线（UniSim、Genie、DIAMOND、V-JEPA 2）与 VLA 路线（RT-2、OpenVLA、π0 系列），但所有条目均需检索到一手来源后方可写入。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.048775,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+          "url": "http://arxiv.org/abs/2605.22882v4",
+          "snippet": "Video world models can generate realistic futures from a single instruction, but they often fail to track the same physical points consistently across time. As a result, the generated videos appear plausible, yet lack the physical grounding required for reliable action execution, such as robot manipulation. We present GEM-4D, a geometry-grounded video world model that resolves this limitation by injecting dense 4D correspondence supervision distilled from a pretrained geometry foundation model into the video generative backbone during training. This supervision enables the model to jointly ca…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Kaichen Zhou",
+            "Yuzhen Chen",
+            "Fangneng Zhan",
+            "Hang Hua",
+            "Grace Chen",
+            "Xinhai Chang",
+            "Ao Qu",
+            "Yilun Du",
+            "Zhuang Liu",
+            "Paul Pu Liang",
+            "Mengyu Wang"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.22882v4",
+            "rrf_score": 0.039939,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "GWM: Towards Scalable Gaussian World Models for Robotic Manipulation",
+          "url": "http://arxiv.org/abs/2508.17600v2",
+          "snippet": "Training robot policies within a learned world model is trending due to the inefficiency of real-world interactions. The established image-based world models and policies have shown prior success, but lack robust geometric information that requires consistent spatial and physical understanding of the three-dimensional world, even pre-trained on internet-scale video sources. To this end, we propose a novel branch of world model named Gaussian World Model (GWM) for robotic manipulation, which reconstructs the future state by inferring the propagation of Gaussian primitives under the effect of r…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-25",
+          "authors": [
+            "Guanxing Lu",
+            "Baoxiong Jia",
+            "Puhao Li",
+            "Yixin Chen",
+            "Ziwei Wang",
+            "Yansong Tang",
+            "Siyuan Huang"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.17600v2",
+            "rrf_score": 0.037684,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.025079,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+            "evidence": "Video world models can generate realistic futures from a single instruction, but they often fail to track the same physical points consistently across time. As a result, the generated videos appear plausible, yet lack the physical grounding required for reliable action execution, such as robot mani…",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "GWM: Towards Scalable Gaussian World Models for Robotic Manipulation",
+            "evidence": "Training robot policies within a learned world model is trending due to the inefficiency of real-world interactions. The established image-based world models and policies have shown prior success, but lack robust geometric information that requires consistent spatial and physical understanding of t…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              7
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该方向的奠基性工作与当前开源工程实践是什么：从 latent dynamics / model-based RL 到视频式世界模型的关键节点论文，以及 LeRobot、Isaac Lab、ManiSkill 等开源栈在真实操控任务中的可用性与复现门槛如何？",
+      "queries": [
+        "DreamerV3 world model Nature 2025 Mastering diverse control tasks",
+        "UniSim learning interactive real-world simulator robot manipulation arxiv 2024",
+        "LeRobot HuggingFace github open source robot learning policies ACT diffusion",
+        "Isaac Lab ManiSkill MuJoCo sim2real manipulation benchmark github stars"
+      ],
+      "rationale": "回答 facet 1 的『经典 vs 最新』分节要求与 facet 2（工业界与产品）中的开源/权重维度。需要建立方法演进脉络（模块化 → 端到端 → 基础模型 → 统一动作空间/世界模型），并对每个仓库核查 stars、最近提交、是否有权重与真机示例，区分『开源代码』『开源权重』『仅 demo 视频』。避免把 README 宣传当作实验证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "FluidZero: Mastering Diverse Tasks in Fluid Systems through a Single Generative Model",
+          "url": "https://doi.org/10.21203/rs.3.rs-6881567/v1",
+          "snippet": "Abstract \n                 Fluid dynamics are pervasive in human civilization, such as spacecraft and submersible, which are important to understand and optimize, involving four key tasks for a long time: prediction, parameter identification, design, and control. Traditionally, these tasks have been addressed by separate models, each tailored to specific scenarios, leading to redundancy and repeated development costs. To overcome this issue while utilizing the correlation between tasks to improve the effectiveness of each task, we propose FluidZero, a unified deep generative model, to tackle…",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2025-06-13",
+          "authors": [
+            "Haodong Feng",
+            "Haoren Zheng",
+            "Peiyan Hu",
+            "Hongyuan Liu",
+            "Chenglei Yu",
+            "Long Wei",
+            "Ruiqi Feng",
+            "Jinlong Duan",
+            "Dixia Fan",
+            "Tailin Wu"
+          ],
+          "venue": null,
+          "citations": 1,
+          "stars": null,
+          "extra": {
+            "doi": "10.21203/rs.3.rs-6881567/v1",
+            "type": "posted-content",
+            "rrf_score": 0.017143
+          }
+        },
+        {
+          "title": "Mastering diverse control tasks through world models",
+          "url": "https://doi.org/10.1038/s41586-025-08744-2",
+          "snippet": "Abstract \n                   \n                    Developing a general algorithm that learns to solve tasks across a wide range of applications has been a fundamental challenge in artificial intelligence. Although current reinforcement-learning algorithms can be readily applied to tasks similar to what they have been developed for, configuring them for new application domains requires substantial human expertise and experimentation\n                     1,2 \n                    . Here we present the third generation of Dreamer, a general algorithm that outperforms specialized methods across ov…",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2025-04-02",
+          "authors": [
+            "Danijar Hafner",
+            "Jurgis Pasukonis",
+            "Jimmy Ba",
+            "Timothy Lillicrap"
+          ],
+          "venue": "Nature",
+          "citations": 207,
+          "stars": null,
+          "extra": {
+            "doi": "10.1038/s41586-025-08744-2",
+            "type": "journal-article",
+            "rrf_score": 0.017391
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "DreamerV3 是该子问题所需的“从 latent dynamics / model-based RL 走向通用世界模型”脉络中的关键奠基性节点：它把“单一算法跨多类控制任务”作为目标，并发表于同行评审期刊 Nature（2025）。",
+            "evidence": "候选证据 [19] 的 DOI 为 10.1038/s41586-025-08744-2，发表于 Nature，Crossref 记录 citations=207；摘要明确指出“开发一个能学习解决广泛应用的通用算法一直是 AI 的根本挑战”，并指出当前 RL 算法虽可用于与其开发场景相似的任务，但“为新应用域配置它们需要大量工作”。这印证了 world model 路线以通用性替代按域调参的问题动机。",
+            "sources": [
+              19
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "citations=207（Crossref 记录）",
+            "authority": "Nature（同行评审期刊），DOI 10.1038/s41586-025-08744-2",
+            "attention": "高 + 依据：正式期刊论文且 Crossref 引用数达 207，说明模型基强化学习/世界模型方向对这篇期刊论文的引用密集。",
+            "recommendation": "★★★★★ + 与子问题“latent dynamics / model-based RL 关键节点”高度吻合，是当前候选证据中唯一可作为奠基性节点的 A 级证据。"
+          },
+          {
+            "point": "该世界模型工作的核心论断是“通用性瓶颈在于跨域配置成本，而非算法本身”，因此其贡献被定位为用统一算法减少按任务工程调参——这正是后续视频式世界模型与通用策略研究共享的问题框架。",
+            "evidence": "摘要原文的逻辑链为：现有 RL 算法可解决与其开发场景相似的任务，但迁移到新领域“requires substantial”配置工作；据此提出一个可在广泛应用中学习求解任务的通用算法（Mastering diverse control tasks through world models）。注意：候选证据仅提供摘要片段，未给出具体任务清单、本体、仿真/真机口径与超参设置，这些细节待核实。",
+            "sources": [
+              19
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "citations=207（Crossref）",
+            "authority": "Nature 同行评审论文，但此处引用的是摘要层面的动机表述，非实验表格",
+            "attention": "中 + 依据：问题框架被广泛引用，但候选证据未提供可核对的 benchmark/任务数字，社区对其具体指标的比较需回到原文。",
+            "recommendation": "★★★★☆ + 适合作为“为什么需要世界模型/通用算法”的论证引用；若需引用具体成功率或任务数，必须回原文核对（当前候选块不含）。"
+          },
+          {
+            "point": "关于 LeRobot、Isaac Lab、ManiSkill 等开源栈在真实操控任务中的可用性与复现门槛，本批候选证据完全缺失，无法从现有材料得出结论。",
+            "evidence": "候选证据 [1]（短视频互动度预测挑战赛）、[7]（2025 基础模型透明度指数）与本子问题无主题关联；[19] 为算法论文，不含任何开源工程栈、代码库、star 数或复现报告；[20] 为流体系统生成模型，亦不涉及机器人操控栈。因此“真实操控任务可用性/复现门槛”维度在本批证据中证据为空。",
+            "sources": [
+              1,
+              7,
+              19,
+              20
+            ],
+            "type": "trend",
+            "confidence": "low",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 + 依据：候选池中检索到的是跨主题噪声（视频质量评测、模型透明度），说明本轮召回对该工程栈维度覆盖失败，而非该主题热度低。",
+            "recommendation": "★★☆☆☆ + 仅作为“证据缺口”记录，提示需要补检 GitHub 官方仓库、官方文档与复现博客后再回答；不可据此推断这些栈“不可用”或“门槛高”。"
+          },
+          {
+            "point": "生成式世界模型“单一模型覆盖多任务”的思路已外溢到科学计算域：FluidZero 声称用单一生成模型统一流体系统的预测、参数辨识、设计与控制四类任务。",
+            "evidence": "候选证据 [20] 摘要：流体动力学长期涉及 prediction / parameter identification / design / control 四类关键任务，传统上由各自定制的独立模型解决，造成冗余与重复；FluidZero 以单一生成模型统一处理。Crossref 记录 citations=1，发表于 Research Square 预印本平台（DOI 10.21203/rs.3.rs-6881567/v1）。",
+            "sources": [
+              20
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "citations=1（Crossref）",
+            "authority": "Research Square 预印本（DOI 10.21203/rs.3.rs-6881567/v1），候选块未显示同行评审状态",
+            "attention": "低 + 依据：仅 1 次引用且为预印本，社区验证信号微弱。",
+            "recommendation": "★★☆☆☆ + 与机器人操控仅有方法论类比价值（统一生成模型 vs 分任务模型），且证据等级为预印本、引用极少，不宜作为奠基性节点引用。"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Mastering diverse control tasks through world models",
+            "url": "https://doi.org/10.1038/s41586-025-08744-2",
+            "why": "在本子问题脉络中，它是“model-based RL / latent dynamics → 通用世界模型”的关键节点：以单一算法跨多类控制任务为目标，直指按域配置成本这一瓶颈；且为本批证据中唯一 A 级（同行评审期刊）来源。",
+            "year": "2025",
+            "heat": "citations=207（Crossref 记录）",
+            "authority": "Nature，DOI 10.1038/s41586-025-08744-2，同行评审",
+            "attention": "高 + 依据：期刊正式发表且 Crossref 引用 207 次，是本批候选中唯一有显著引用量的相关论文。",
+            "recommendation": "★★★★★ + 与本子问题“奠基性工作/关键节点”直接对齐，权威性与热度均最高；引用具体任务与指标前需回原文核对。"
+          },
+          {
+            "title": "FluidZero: Mastering Diverse Tasks in Fluid Systems through a Single Generative Model",
+            "url": "https://doi.org/10.21203/rs.3.rs-6881567/v1",
+            "why": "体现“单一生成模型统一多类任务（预测/辨识/设计/控制）”这一与世界模型同源的方法论取向，可作为跨域佐证。",
+            "year": "2025",
+            "heat": "citations=1（Crossref）",
+            "authority": "Research Square 预印本，候选块未显示同行评审",
+            "attention": "低 + 依据：仅 1 次引用、预印本状态，缺少第三方复现或榜单验证。",
+            "recommendation": "★★☆☆☆ + 主题为流体系统而非机器人操控，相关性与证据强度都有限，仅作类比线索；结论需标注为预印本宣称。"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "LeRobot、Isaac Lab、ManiSkill 的可用性、真机部署案例与复现门槛在本批候选证据中完全缺失，需补检官方仓库/文档与第三方复现报告后方可回答（当前不可下结论）。",
+          "视频式世界模型（video-based world model）与 latent dynamics 路线之间的衔接论文（如基于视频预测表征驱动策略学习的工作）在本批候选中未出现，奠基性节点链条不完整，待补检。",
+          "[19] 的具体实验口径（任务数量、本体类型、仿真 vs 真机、超参与算力）未包含在候选摘要中，任何数字型论断均需回原文核实。",
+          "候选池存在明显主题漂移（如 [1] 短视频互动度预测、[7] 基础模型透明度指数），说明本轮召回对“机器人世界模型 + 开源工程栈”覆盖不足，建议以 arXiv cs.RO 与 GitHub 官方仓库为主源重新检索。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "数据集与评测基准的口径差异以及开放问题与争议在哪里：Open X-Embodiment / DROID / LIBERO / SimplerEnv / RoboArena 各自测什么、成功率数字能否横向比较，世界模型用于操作在长程泛化、物理一致性、评测缺失与可复现性上存在哪些公认瓶颈与蓝海缺口？",
+      "queries": [
+        "Open X-Embodiment DROID dataset robot manipulation benchmark 2024 2025",
+        "LIBERO SimplerEnv RoboArena evaluation protocol success rate comparison",
+        "world model robot manipulation limitations failure cases reproducibility 争议 复现",
+        "世界模型 机器人操作 评测 缺失 长程 泛化 物理一致性 未解问题"
+      ],
+      "rationale": "回答 facet 3（蓝海与缺口）、facet 4（瓶颈）与学术方法论的交叉验证要求。同一『SOTA』需至少两个独立来源并按 benchmark/硬件/任务数口径对齐；需专门检索 negative results、复现失败报告与评测协议批评（如仿真 SOTA 与真机 SOTA 混淆）。此子问题同时为 facet 5–7（政策/资本/预测）提供技术事实底座。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "LIBERO-Industry: Benchmarking Robotic Manipulation under Industrial Process Constraints",
+          "url": "http://arxiv.org/abs/2610.16782v2",
+          "snippet": "Industrial manipulation in flexible manufacturing, e.g., high-mix, low-volume (HMLV) electronics assembly, requires robot policies to adapt to changing products and production conditions. Such settings impose industrial process constraints, including product variants, moving material flows, finite execution windows, and tight geometric tolerances. However, existing evaluation frameworks do not systematically capture these constraints when assessing generalist robot policies. To address this gap, we introduce LIBERO-Industry, a novel benchmark built on the widely used robot learning benchmark…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-10-12",
+          "authors": [
+            "Ming Shin Cindy Sung",
+            "Duan Leijiahao",
+            "Haoxiang Wang",
+            "Boning Tan",
+            "Liangna Fu",
+            "Chao Tan",
+            "Yafu Li",
+            "Yulong Chen",
+            "Chaoqun Wan",
+            "Zhen Huang",
+            "Shuxian Liang",
+            "Xian-Sheng Hua"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2610.16782v2",
+            "rrf_score": 0.019481
+          }
+        },
+        {
+          "title": "LIBERO-PeRM: Benchmarking Personalized Robotic Manipulation",
+          "url": "http://arxiv.org/abs/2610.22372v1",
+          "snippet": "Personalization is essential for general-purpose robots to transition into household environments and achieve true practicality. While general robotic manipulation has been extensively studied, personalized robotic manipulation (PeRM) lacks a controlled benchmark for separating task completion from preference satisfaction. We introduce LIBERO-PeRM, a benchmark for preference learning in embodied agents. LIBERO-PeRM studies five questions: 1) how policies follow preferences in zero-shot settings; 2) how they learn single preferences from demonstrations; 3) how efficiently they acquire preferen…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-10-15",
+          "authors": [
+            "Zhixu Li",
+            "Keqian Tang",
+            "Litian Gong",
+            "Jingyu Yao",
+            "Wenqian Zhang",
+            "Tianze Xu",
+            "Zehao Wang",
+            "Yuping Wang",
+            "Junge Zhang",
+            "Jiachen Li"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2610.22372v1",
+            "rrf_score": 0.019231
+          }
+        },
+        {
+          "title": "The Evaluation Context Protocol (ECP): A Portable Contract for AI Agent Evaluation",
+          "url": "http://arxiv.org/abs/2608.19263v1",
+          "snippet": "The evolution of artificial intelligence has necessitated a fundamental shift from evaluating isolated Large Language Models (LLMs) to assessing autonomous agentic architectures. This paper explores the critical methodologies for evaluating AI agents and the essential role of advanced observability infrastructure. We analyze the architectural components of agents and identify the severe limitations of current evaluation paradigms, including benchmark exploitation, the \"confidently wrong\" phenomenon, and the discrepancy between theoretical capability and operational reliability. To begin addre…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-18",
+          "authors": [
+            "Aniket Wattamwar",
+            "Manav Anandani",
+            "Mrunal Kakirwar"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.19263v1",
+            "rrf_score": 0.018987
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "LIBERO-Industry: Benchmarking Robotic Manipulation under Industrial Process Constraints",
+            "evidence": "Industrial manipulation in flexible manufacturing, e.g., high-mix, low-volume (HMLV) electronics assembly, requires robot policies to adapt to changing products and production conditions. Such settings impose industrial process constraints, including product variants, moving material flows, finite…",
+            "sources": [
+              29
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "LIBERO-PeRM: Benchmarking Personalized Robotic Manipulation",
+            "evidence": "Personalization is essential for general-purpose robots to transition into household environments and achieve true practicality. While general robotic manipulation has been extensively studied, personalized robotic manipulation (PeRM) lacks a controlled benchmark for separating task completion from…",
+            "sources": [
+              30
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "The Evaluation Context Protocol (ECP): A Portable Contract for AI Agent Evaluation",
+            "evidence": "The evolution of artificial intelligence has necessitated a fundamental shift from evaluating isolated Large Language Models (LLMs) to assessing autonomous agentic architectures. This paper explores the critical methodologies for evaluating AI agents and the essential role of advanced observability…",
+            "sources": [
+              31
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 29366,
+    "completion_tokens": 20935,
+    "generated_at": "2026-10-21T22:21:50.995040+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 机器人操作 × 世界模型：2026-10 增量快照\n\n**基准时点**：2026-10-21（UTC）｜**领域**：Robotic Manipulation × World Models（机器人操作 × 世界模型）｜**检索源**：32 条候选，其中直接相关 16 条、边缘相关 3 条、主题漂移 13 条｜**框架**：frontier-watch 七维增量\n\n> **证据池质量声明（必读）**：本轮候选池存在严重**主题漂移**（recall drift）。[1]（短视频互动度预测）、[9]（GENIE v3 中微子截面，与 [11] 生成式环境 Genie **同名不同物**）、[13]（媒介传染病模型）、[15][16][17][18][23][25][26][28] 与机器人操作无主题关联，本报告**不采用**其结论。同时，**LeRobot / Isaac Lab / ManiSkill / SimplerEnv / RoboArena 在候选池中零证据**——这是**检索覆盖失败**，不等于这些项目不存在或不可用。因此本报告整体置信度为**中低**，所有 SOTA 类结论均标注证据强度。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量**：相对 2023–2024 基线，该方向的主要矛盾已从“能否生成看上去合理的未来帧”转向“生成的未来是否**几何/物理可 grounding（可落地）**”，并在 2025–2026 出现 3D 显式表示与“世界基础平台”两条新支线；但**第三方独立验证在本周期仍为空白**。\n\n| 时间 | 条目 | 机构 | 相对基线新增了什么 | 证据强度 |\n|---|---|---|---|---|\n| 2023-01 | DreamerV3 预印本 [14] | 待核实 | 单一算法跨多域控制，隐空间动力学路线基线 | B |\n| 2023-10 | TD-MPC2 [10] | 待核实 | 可扩展鲁棒世界模型用于连续控制 | B |\n| 2024-02 | Genie: Generative Interactive Environments [11] | 待核实 | 从视频生成可交互环境（非机器人专用） | B |\n| 2025 | IRASim（ICCV 2025）[5] | 待核实 | 面向操作的**细粒度**世界模型，进入同行评审 | A |\n| 2025-08 | GWM: Gaussian World Models [4] | 待核实 | 用**高斯显式几何**替代纯图像表示 | B |\n| 2025-08 | Genie Envisioner [8] | 待核实 | 自称“统一世界基础平台”，从单模型走向平台化 | B |\n| 2025 | DreamerV3 正刊（Nature）[19] | 待核实 | 隐空间世界模型获得**同行评审期刊**背书，Crossref citations=207 | A |\n| 2026-05 | GEM-4D [2] | 待核实 | 几何增强 + 跨时**点轨迹一致性**约束 | B |\n| 2026-06 | World Models for Robotic Manipulation: A Survey [12] | 待核实 | 领域首现系统性综述，标志进入整合期 | B |\n\n**关键交叉验证（两条独立来源指向同一瓶颈）**：GEM-4D 明确指出视频世界模型“often fail to track the same physical points consistently across time... lack the physical grounding required for reliable action execution”[2]；GWM 独立指出 image-based 世界模型“lack robust geometric information”[4]。两条 2025–2026 的独立工作给出**同一诊断**，可判定“2D 像素级世界模型物理 grounding 不足”已是该子领域的**共识性瓶颈**，而非单篇作者的一家之言。\n\n**验证强度（必须降级陈述）**：\n- 候选池中**没有任何一条**提供榜单排名、第三方复现或独立评测数字。所有“SOTA/刷新基准”类表述在本轮证据下均属**论文自评**。\n- 唯一可量化的热度信号是 [19] 的 Crossref citations=207；其余条目引用数、star 数、下载量均 `> 待核实`。\n- 若需断言“刷新操控基准 SOTA”，**必须回原文核对其 benchmark、任务数、本体、仿真/真机口径**，当前候选块不含这些字段 `> 待核实`。\n\n> **判定**：本周期是“**问题重定义**”期（从像素真实 → 物理可 grounding），而非“**指标突破已被验证**”期。\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量**：**本维度证据严重不足**——无任何厂商产品发布、量产、真机部署或融资信息进入候选池；仅能观测到“平台化叙事”与“评测向工业约束靠拢”两个弱信号。\n\n| 类型 | 条目 | 时间 | 增量信号 | 证据等级 |\n|---|---|---|---|---|\n| 平台化 | Genie Envisioner [8] | 2025-08 | 自我定位为 “unified **world foundation platform** for robotic manipulation”，语汇从“模型”升级为“平台” | B（arXiv 摘要自述，无落地证据） |\n| 工业落地牵引 | LIBERO-Industry [29] | 2026-10 | 面向高混合小批量（HMLV）电子装配，引入 product variants / moving material flows / finite 等**工业过程约束** | B（本月新发，仅摘要） |\n| 真机可靠性 | How reliable is robotic manipulation in the real world? [6] | — | Science Robotics 标题直接质疑真机可靠性 | A（venue）/ **仅标题级**，正文结论 `> 待核实` |\n\n**必须显式记录的缺口**：\n- **LeRobot / Isaac Lab / ManiSkill** 的真实操控可用性、真机部署案例、复现门槛、GitHub star 与最近提交——候选池**零证据**。q2 的检索结论明确指出这是本轮召回对“机器人世界模型 + 开源工程栈”覆盖失败，而**不可据此推断这些栈“不可用”或“门槛高”**。\n- **Genie Envisioner [8]、GWM [4]、GEM-4D [2]、IRASim [5] 是否开源代码/权重**——候选块未提供仓库链接 `> 待核实`。\n- **无任何**“lab → 产品”的转化证据；本周期该维度记为**无显著变化（证据缺失，非确证无变化）**。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量**：缺口从“模型能力不足”迁移到“**度量标准缺位**”——每一篇新世界模型论文都在**自定义**自己的物理一致性判据，领域尚无公认指标。\n\n| 缺口 | 证据 | 为何是蓝海/无人区 |\n|---|---|---|\n| **物理一致性度量无共识** | [2] 用跨时点轨迹一致性；[4] 用高斯显式几何——两套判据互不可比 | 缺一个可跨模型比较的 **physical-consistency benchmark**；谁定义指标谁掌握话语权 |\n| **长程（long-horizon）操作** | 候选池**无任何**长程任务专项证据 `> 待核实` | 视频世界模型的误差累积在长程上最致命，但无公开评测 |\n| **工业过程约束下的操作** | [29] 2026-10 才首次提出，仅覆盖 HMLV 电子装配一类场景 | 约束建模（换型、物料流、有限产能）几乎空白 |\n| **个性化操作（personalization）** | [30] 明确指出 personalized robotic manipulation “lacks a controlled benchmark for separating task completion from...” | 把“任务完成”与“个性化满足”解耦的评测尚属首创 |\n| **闭环视觉鲁棒性** | [32] LIBERO-VPro 专测 closed-loop visual robustness of robotic foundation models | 说明既有基准默认视觉条件理想化 |\n| **世界模型作为“数据放大器”的收益核算** | 无证据 `> 待核实` | 用合成 rollout 替代真机采样的**边际收益曲线**无人公开测绘 |\n\n**结构性观察**：LIBERO 在 2026-09/10 一个月内裂变出 **VPro [32] → Industry [29] → PeRM [30]** 三个子基准，且分属 cs.RO / cs.AI。这既是“缺口被发现”的证据，也是“评测碎片化加剧”的证据——两者是同一枚硬币（见 §4、§7）。\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n**一句话增量**：瓶颈已从**数据量**转向**数据的“物理正确性”与“评测口径”**；是否临近拐点，取决于 3D-grounded 表示能否在 12 个月内形成可比指标。\n\n| 瓶颈 | 类型 | 证据 | 拐点信号（可观测） |\n|---|---|---|---|\n| 视频世界模型跨时物理点漂移 | 算法/表征 | [2] 摘要明示 | 2025→2026 从 2D 像素转向 3D 显式几何（[4] Gaussian） |\n| 图像式模型缺几何信息 | 表征 | [4] 摘要明示 | 同上，两条独立工作同期转向 |\n| 真机可靠性 | 系统/工程 | [6]（仅标题级） | `> 待核实` |\n| 基准口径不可横向比较 | 评测 | LIBERO 家族裂变 [29][30][32]；跨本体数据 [24]、in-the-wild 数据 [22] 与仿真评测并存 | 子基准数量增加 = 单一 success rate 失效 |\n| 复现与开源缺位 | 生态 | 候选池零 GitHub 证据 | 无信号，`> 待核实` |\n\n**拐点判断（谨慎）**：`较大概率`——表征层正处在“2D 视频生成 → 3D/几何 grounded”的切换窗口，依据是 [2] 与 [4] 在 2025-05 至 2026-05 一年内**独立收敛**到同一诊断并各自给出几何方案。但 `未知`——尚无证据表明新表征已带来**可复现的**成功率提升。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量**：**本周期该维度几乎无有效增量**；候选池中唯一可引的治理类信号是基础模型透明度评估，且并非机器人专用。\n\n- [7]《The 2025 Foundation Model Transparency Index》（2025-12）是第三版年度透明度量化工作，聚焦“基础模型开发者的透明度实践如何演变”[7]。其与**机器人基础模型**的相关性是**间接外溢**：若 VLA / world foundation model 被纳入同类透明度框架，将影响权重与数据披露义务——但**是否已纳入，`> 待核实`**。\n- **无任何**监管生效、标准草案、出口管制、供应链或劳动影响的候选证据。本报告**不引用**未经检索确认的法规条款。\n- **地缘与供应链**：`> 待核实`（候选池零证据）。\n- **伦理与劳动影响**：`> 待核实`。\n\n> 结论：本维度记为**本周期无显著变化（证据缺失）**，不做趋势外推。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量**：**投融资、并购、人才流动维度完全无证据**；可观测的生态变化只有三条，均属“学术侧结构性信号”。\n\n| 生态信号 | 证据 | 解读 | 等级 |\n|---|---|---|---|\n| **领域进入综述期** | World Models for Robotic Manipulation: A Survey [12]（2026-06） | 出现系统性综述通常标志领域从“散点探索”进入“整合与术语统一”阶段 | B |\n| **基准家族化/平台化** | LIBERO-VPro [32]（2026-09）、LIBERO-Industry [29]（2026-10）、LIBERO-PeRM [30]（2026-10） | 单一实验室基准扩展为多维度家族，形成事实上的生态位 | B |\n| **“世界基础平台”叙事** | Genie Envisioner [8]（2025-08） | 从发布模型转向发布平台，是生态卡位的早期语言信号 | B |\n\n- **开源生态（GitHub stars / 贡献者 / 复现报告）**：`> 待核实`，候选池零证据。\n- **融资额、估值、并购、公司格局**：`> 待核实`，候选池零证据；本报告**不填数字**。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n**一句话增量**：真正的早期信号不是“又一个世界模型”，而是**度量标准之争**与**基准碎片化**——这两者决定了未来 12–18 个月该领域的评价权归属。\n\n### 已确证信号\n1. 表征层从 2D 像素向 3D/几何 grounding 迁移，由两条独立工作佐证 [2][4]。\n2. 隐空间世界模型路线已获同行评审期刊背书（Nature，citations=207）[19]，其预印本可追溯至 2023-01 [14]。\n3. LIBERO 在一个月内裂变三个子基准 [29][30][32]，评测维度从“能否完成”扩展到“工业约束 / 个性化 / 视觉鲁棒”。\n\n### 预测（`[P]`，均写成可证伪假设）\n\n| # | 假设 | 依据链 | 证伪条件 | 置信度 |\n|---|---|---|---|---|\n| P1 | 3D-grounded 表示将在 12 个月内成为视频世界模型论文的**默认配置** | [2][4] 独立同向收敛 → 审稿人预期抬升 | 若 2027-10 前顶级会议该方向论文仍以纯 2D 像素生成为主流，则 P1 不成立 | 较大概率 |\n| P2 | 会出现至少一个**跨模型可比**的物理一致性指标或榜单 | 缺口 §3 已被两篇论文以不同判据暴露，度量缺位成为显性痛点 | 若 2027-10 前仍无第三方评测平台对该维度排名，则 P2 不成立 | 推测 |\n| P3 | LIBERO 家族**继续碎片化**，短期不收敛为元基准 | [29][30][32] 同月/近月分头发布，无整合迹象 | 若 2027-06 前出现统一 meta-benchmark 整合三者，则 P3 不成立 | 较大概率 |\n| P4 | 「自评 SOTA」格局将延续，独立复现报告仍稀缺 | 本轮检索零第三方复现证据（§1） | 若 12 个月内出现 ≥2 份独立复现报告，则 P4 不成立 | 推测 |\n\n### 不确定性与待核实清单\n- 所有成功率、任务数、本体类型、仿真/真机口径：`> 待核实`（候选块不含）。\n- 开源状态（代码/权重/数据）：`> 待核实`。\n- LeRobot / Isaac Lab / ManiSkill / SimplerEnv / RoboArena：**本轮未检索到**，`> 待核实`，不得据本报告作选型判断。\n- `[R]` 传闻：本轮**无**可信传闻级信息。\n- `[Debated]`：本周期**无**明确对立观点证据（沉默不等于共识，仅代表未检索到争议）。\n\n---\n\n## 附：经典与奠基性工作（2023 之前及脉络节点）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| One-Shot RL for Robot Navigation with Interactive Replay | 2017 | 待核实 | `> 待核实` | arXiv 预印本（B） | 低（仅脉络价值） | ★★☆☆☆ | http://arxiv.org/abs/1711.10137v2 | 交互回放式单样本 RL，属世界模型前史 |\n| Mastering Diverse Domains through World Models（DreamerV3 预印本） | 2023 | 待核实 | `> 待核实`（正刊版 [19] 为 207） | arXiv（B）→ 后发表于 Nature（A） | 高（有正刊背书）[19] | ★★★★★ | http://arxiv.org/abs/2301.04104v2 | 隐空间动力学路线的现代基线 |\n| TD-MPC2 | 2023 | 待核实 | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2310.16828v2 | 可扩展鲁棒世界模型用于连续控制 |\n| Genie: Generative Interactive Environments | 2024 | 待核实 | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2402.15391v1 | 从视频生成可交互环境，**勿与 [9] 中微子 GENIE 混淆** |\n| Mastering diverse control tasks through world models | 2025 | 待核实 | citations=207（Crossref） | **Nature**，DOI 10.1038/s41586-025-08744-2（A） | 高（本批唯一有显著引用量） | ★★★★★ | https://doi.org/10.1038/s41586-025-08744-2 | 唯一 A 级奠基节点；具体任务/指标需回原文核对 |\n\n## 附：开源项目 / 平台（可核实部分）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Genie Envisioner | 2025 | 待核实 | `> 待核实` | arXiv（B） | 中 | ★★★★☆ | http://arxiv.org/abs/2508.05635v3 | 自称统一世界基础平台；**是否开源 `> 待核实`** |\n| GWM | 2025 | 待核实 | `> 待核实` | arXiv cs.RO（B） | 中 | ★★★☆☆ | http://arxiv.org/abs/2508.17600v2 | 高斯世界模型；代码状态 `> 待核实` |\n| IRASim | 2025 | 待核实 | `> 待核实` | **ICCV 2025**（A） | 中 | ★★★★☆ | https://doi.org/10.1109/iccv51701.2025.00917 | 唯一进入顶会正刊的操作世界模型 |\n| LeRobot / Isaac Lab / ManiSkill | — | — | `> 待核实` | `> 待核实` | `> 待核实` | — | 候选池无链接 | **本轮未检索到，不作任何评价** |\n\n## 附：数据集与基准（口径差异）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 测什么 / 口径 |\n|---|---|---|---|---|---|---|---|---|\n| Open X-Embodiment | 2023 | 待核实 | `> 待核实` | arXiv v9（B） | 高 | ★★★★★ | http://arxiv.org/abs/2310.08864v9 | **跨本体真机**大规模混合数据；成功率不可与他基准直接横比 |\n| DROID | 2024 | 待核实 | `> 待核实` | arXiv（B） | 高 | ★★★★★ | http://arxiv.org/abs/2403.12945v2 | **in-the-wild 真机**多场景；测泛化，非固定任务套件 |\n| Benchmarking Simulated Manipulation through a Real World Dataset | 2019 | 待核实 | `> 待核实` | arXiv（B） | 低 | ★★★☆☆ | http://arxiv.org/abs/1911.01557v2 | 早期用真机数据校准仿真基准，sim-real 口径问题的原型 |\n| LIBERO-VPro | 2026 | 待核实 | `> 待核实` | arXiv cs.RO（B） | 中（新发） | ★★★☆☆ | http://arxiv.org/abs/2609.24350v1 | 闭环**视觉鲁棒性** |\n| LIBERO-Industry | 2026 | 待核实 | `> 待核实` | arXiv cs.AI（B） | 中（本月） | ★★★☆☆ | http://arxiv.org/abs/2610.16782v2 | **工业过程约束**（换型/物料流/产能） |\n| LIBERO-PeRM | 2026 | 待核实 | `> 待核实` | arXiv cs.RO（B） | 中（本月） | ★★★☆☆ | http://arxiv.org/abs/2610.22372v1 | **个性化**操作，尝试解耦“完成”与“个性化” |\n| SimplerEnv / RoboArena | — | — | `> 待核实` | `> 待核实` | `> 待核实` | — | 候选池无链接 | **本轮未检索到，口径差异无法评估** |\n\n> **口径警告**：OXE [24] 与 DROID [22] 是真机数据分布，LIBERO 家族 [29][30][32] 是受控任务套件，二者 success rate **不可横向比较**；候选池亦未提供任何跨基准换算证据 `> 待核实`。\n\n---\n\n## 参考来源\n\n[1] VQualA 2025 Challenge on Engagement Prediction for Short Videos — http://arxiv.org/abs/2509.02969v1 （**主题漂移，未采用**）\n[2] GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation — http://arxiv.org/abs/2605.22882v4\n[3] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2\n[4] GWM: Towards Scalable Gaussian World Models for Robotic Manipulation — http://arxiv.org/abs/2508.17600v2\n[5] IRASim: A Fine-Grained World Model for Robot Manipulation — https://doi.org/10.1109/iccv51701.2025.00917\n[6] How reliable is robotic manipulation in the real world? — https://doi.org/10.1126/scirobotics.adz6787\n[7] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[8] Genie Envisioner: A Unified World Foundation Platform for Robotic Manipulation — http://arxiv.org/abs/2508.05635v3\n[9] Neutrino-Nucleon Cross-Section Model Tuning in GENIE v3 — http://arxiv.org/abs/2104.09179v2 （**与 [11] Genie 同名不同物，未采用**）\n[10] TD-MPC2: Scalable, Robust World Models for Continuous Control — http://arxiv.org/abs/2310.16828v2\n[11] Genie: Generative Interactive Environments — http://arxiv.org/abs/2402.15391v1\n[12] World Models for Robotic Manipulation: A Survey — https://arxiv.org/html/2606.00113v1\n[13] A Human-Vector SIS Model for Vector-Borne Diseases — http://arxiv.org/abs/2510.14787v2 （**主题漂移，未采用**）\n[14] Mastering Diverse Domains through World Models — http://arxiv.org/abs/2301.04104v2\n[15] Feedback Optimization with State Constraints through CBF — http://arxiv.org/abs/2504.00813v3 （**主题漂移，未采用**）\n[16] LongEval at CLEF 2025 — http://arxiv.org/abs/2503.08541v1 （**主题漂移，未采用**）\n[17] System Level Synthesis for Affine Control Policies — http://arxiv.org/abs/2504.01677v2 （**主题漂移，未采用**）\n[18] Annif at SemEval-2025 Task 5 — http://arxiv.org/abs/2504.19675v2 （**主题漂移，未采用**）\n[19] Mastering diverse control tasks through world models — https://doi.org/10.1038/s41586-025-08744-2\n[20] FluidZero (v1) — https://doi.org/10.21203/rs.3.rs-6881567/v1 （仅作跨域类比，未用于论证）\n[21] FluidZero (v2) — https://doi.org/10.21203/rs.3.rs-6881567/v2 （同上）\n[22] DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset — http://arxiv.org/abs/2403.12945v2\n[23] Point Transformer V3 Extreme (Waymo) — http://arxiv.org/abs/2407.15282v1 （**主题漂移，未采用**）\n[24] Open X-Embodiment: Robotic Learning Datasets and RT-X Models — http://arxiv.org/abs/2310.08864v9\n[25] The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset — http://arxiv.org/abs/2405.19595v1 （**主题漂移，未采用**）\n[26] NTIRE 2025 Challenge on Short-form UGC Video Quality — http://arxiv.org/abs/2504.15003v1 （**主题漂移，未采用**）\n[27] Benchmarking Simulated Robotic Manipulation through a Real World Dataset — http://arxiv.org/abs/1911.01557v2\n[28] The RSNA Intracranial Aneurysm (RSNA-ICA) Dataset — http://arxiv.org/abs/2610.01135v2 （**主题漂移，未采用**）\n[29] LIBERO-Industry: Benchmarking Robotic Manipulation under Industrial Process Constraints — http://arxiv.org/abs/2610.16782v2\n[30] LIBERO-PeRM: Benchmarking Personalized Robotic Manipulation — http://arxiv.org/abs/2610.22372v1\n[31] The Evaluation Context Protocol (ECP): A Portable Contract for AI Agent Evaluation — http://arxiv.org/abs/2608.19263v1 （跨域参考，未用于机器人结论）\n[32] LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models — http://arxiv.org/abs/2609.24350v1\n\n---\n\n*Generated by research-bot · topic=`机器人操作与世界模型` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=32 · duration=178s · 2026-10-21T22:21:50+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "GEM-4D: Geometry-Enhanced Video World Models for Robot Manipulation",
+      "url": "http://arxiv.org/abs/2605.22882v4",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay",
+      "url": "http://arxiv.org/abs/1711.10137v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2017-11-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "GWM: Towards Scalable Gaussian World Models for Robotic Manipulation",
+      "url": "http://arxiv.org/abs/2508.17600v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "IRASim: A Fine-Grained World Model for Robot Manipulation",
+      "url": "https://doi.org/10.1109/iccv51701.2025.00917",
+      "kind": "paper",
+      "venue": "2025 IEEE/CVF International Conference on Computer Vision (ICCV)",
+      "published": "2025-10-19",
+      "citations": 11,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "How reliable is robotic manipulation in the real world?",
+      "url": "https://doi.org/10.1126/scirobotics.adz6787",
+      "kind": "paper",
+      "venue": "Science Robotics",
+      "published": "2025-12-17",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Genie Envisioner: A Unified World Foundation Platform for Robotic Manipulation",
+      "url": "http://arxiv.org/abs/2508.05635v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Neutrino-Nucleon Cross-Section Model Tuning in GENIE v3",
+      "url": "http://arxiv.org/abs/2104.09179v2",
+      "kind": "paper",
+      "venue": "hep-ph",
+      "published": "2021-04-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "TD-MPC2: Scalable, Robust World Models for Continuous Control",
+      "url": "http://arxiv.org/abs/2310.16828v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-10-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Genie: Generative Interactive Environments",
+      "url": "http://arxiv.org/abs/2402.15391v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-02-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "World Models for Robotic Manipulation: A Survey - arXiv",
+      "url": "https://arxiv.org/html/2606.00113v1",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "A Human-Vector Susceptible-Infected-Susceptible Model for Analyzing and Controlling the Spread of Vector-Borne Diseases",
+      "url": "http://arxiv.org/abs/2510.14787v2",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Mastering Diverse Domains through World Models",
+      "url": "http://arxiv.org/abs/2301.04104v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2023-01-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Feedback Optimization with State Constraints through Control Barrier Functions",
+      "url": "http://arxiv.org/abs/2504.00813v3",
+      "kind": "paper",
+      "venue": "math.OC",
+      "published": "2025-04-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance",
+      "url": "http://arxiv.org/abs/2503.08541v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-03-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "System Level Synthesis for Affine Control Policies: Model Based and Data-Driven Settings",
+      "url": "http://arxiv.org/abs/2504.01677v2",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-04-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+      "url": "http://arxiv.org/abs/2504.19675v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Mastering diverse control tasks through world models",
+      "url": "https://doi.org/10.1038/s41586-025-08744-2",
+      "kind": "paper",
+      "venue": "Nature",
+      "published": "2025-04-02",
+      "citations": 207,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "FluidZero: Mastering Diverse Tasks in Fluid Systems through a Single Generative Model",
+      "url": "https://doi.org/10.21203/rs.3.rs-6881567/v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-06-13",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "FluidZero: Mastering Diverse Tasks in Fluid Systems through a Single Generative Model",
+      "url": "https://doi.org/10.21203/rs.3.rs-6881567/v2",
+      "kind": "paper",
+      "venue": null,
+      "published": "2025-06-23",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset",
+      "url": "http://arxiv.org/abs/2403.12945v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-03-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation",
+      "url": "http://arxiv.org/abs/2407.15282v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+      "url": "http://arxiv.org/abs/2310.08864v9",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2023-10-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset",
+      "url": "http://arxiv.org/abs/2405.19595v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "NTIRE 2025 Challenge on Short-form UGC Video Quality Assessment and Enhancement: KwaiSR Dataset and Study",
+      "url": "http://arxiv.org/abs/2504.15003v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Benchmarking Simulated Robotic Manipulation through a Real World Dataset",
+      "url": "http://arxiv.org/abs/1911.01557v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-11-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "The RSNA Intracranial Aneurysm (RSNA-ICA) Dataset",
+      "url": "http://arxiv.org/abs/2610.01135v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-10-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "LIBERO-Industry: Benchmarking Robotic Manipulation under Industrial Process Constraints",
+      "url": "http://arxiv.org/abs/2610.16782v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-10-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "LIBERO-PeRM: Benchmarking Personalized Robotic Manipulation",
+      "url": "http://arxiv.org/abs/2610.22372v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-10-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "The Evaluation Context Protocol (ECP): A Portable Contract for AI Agent Evaluation",
+      "url": "http://arxiv.org/abs/2608.19263v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-08-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "LIBERO-VPro: Benchmarking Closed-Loop Visual Robustness of Robotic Foundation Models",
+      "url": "http://arxiv.org/abs/2609.24350v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-09-21",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-21-机器人操作与世界模型.md",
+    "json": "report/2026/10/2026-10-21-机器人操作与世界模型.json"
+  }
+}

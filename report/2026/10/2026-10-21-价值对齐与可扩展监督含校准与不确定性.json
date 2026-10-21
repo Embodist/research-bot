@@ -1,0 +1,1027 @@
+{
+  "topic": "价值对齐与可扩展监督含校准与不确定性",
+  "title": "价值对齐与可扩展监督（含校准与不确定性）：领域增量追踪调研计划（2026-10 快照）",
+  "query": "价值对齐与可扩展监督（含校准与不确定性）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-21T22:24:58+00:00",
+  "finished_at": "2026-10-21T22:28:24+00:00",
+  "duration_s": 206.0,
+  "rounds": 1,
+  "plan": {
+    "title": "价值对齐与可扩展监督（含校准与不确定性）：领域增量追踪调研计划（2026-10 快照）",
+    "summary": "以 2024-10 至 2026-10 为主要增量窗口，核查可扩展监督（debate / prover-verifier / weak-to-strong / AI control）与不确定性校准（conformal prediction、语义熵、verbalized confidence）的真实进展、奠基脉络、开源与基准现状及开放争议，产出带证据分级与 [n] 引用的七维增量报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 12-24 个月（2024-10 至 2026-10），可扩展监督路线（AI safety via debate、prover-verifier games、weak-to-strong generalization、AI control / 破坏性行为评估）与不确定性校准路线（conformal prediction、语义熵、verbalized confidence、RLHF 后校准漂移）分别出现了哪些被独立验证的进展与 SOTA 变化？相对 2023-2024 基线，增量是什么？",
+        "rationale": "回答 frontier-watch 的 facet 1（进展与热点）：必须区分「论文自评/演示视频」与「第三方复现、榜单刷新、真机/真实部署验证」，并锁定发表时间而非模型记忆。可扩展监督与校准是本主题两条主干，需并行检索再交叉验证。",
+        "queries": [
+          "scalable oversight debate large language models 2025 arxiv judge",
+          "prover-verifier games legibility confidence OpenAI 2024 arxiv",
+          "conformal prediction LLM uncertainty quantification benchmark 2025 arxiv",
+          "semantic entropy hallucination detection Kuhn Nature 2024"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该方向的奠基工作与可复现工程栈现状如何：从 RLHF/Constitutional AI、AI safety via debate（Irving 2018）、iterated distillation and amplification（Christiano 2018）到 weak-to-strong generalization（2023），以及开源实现（weak-to-strong 官方仓库、TRL / alignment-handbook、MAPIE / TorchUQ / uncertainty-toolbox）与评测基准（TruthfulQA、MMLU 校准子集、QuALITY 长文辩论、ControlArena、SimpleQA）分别覆盖了什么、缺什么？",
+        "rationale": "回答 facet 2（工业界与产品/开源落地）与 paper-survey 的脉络梳理要求：先由综述与奠基论文建立 taxonomy，再用 GitHub 与 HuggingFace 核实「是否开源、是否可复现、最近提交」，避免把只有 demo 的工作当作已验证能力；同时明确数据集与榜单口径（仿真/人类评审/自动评判）。",
+        "queries": [
+          "AI safety via debate Irving 2018 iterated amplification Christiano 2018 arxiv",
+          "weak-to-strong generalization openai github repository superalignment",
+          "LLM calibration benchmark ECE TruthfulQA MMLU 2024 arxiv",
+          "ControlArena AI control benchmark UK AISI 2025 github"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "开放问题与争议在哪里：verbalized confidence 与 ECE 等校准指标是否可靠、debate 的可扩展性是否只有小规模实验证据、weak-to-strong 的增益能否归因于方法而非数据/算力、欺骗性对齐与 alignment faking / scheming 评估是否可信，以及 EU AI Act GPAI 系统性风险条款与前沿模型安全承诺对可扩展监督提出了什么硬性需求？哪些是无人区（蓝海）与临近拐点的瓶颈？",
+        "rationale": "回答 facet 3/4/5/7（蓝海缺口、瓶颈拐点、政策社会、信号预测）：争议必须并列多方说法并标 [Debated]，预测须写成可证伪假设；政策维度以生效日期与官方文本为准，不用二手转述。",
+        "queries": [
+          "verbalized confidence LLM calibration unreliable limitations 2025 arxiv",
+          "weak-to-strong generalization limitations critique reproduction 2025",
+          "alignment faking scheming evaluations Claude Anthropic 2024 2025",
+          "EU AI Act general-purpose AI systemic risk standards 2025 official"
+        ],
+        "prefer": [
+          "arxiv",
+          "bing",
+          "semantic_scholar"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 12-24 个月（2024-10 至 2026-10），可扩展监督路线（AI safety via debate、prover-verifier games、weak-to-strong generalization、AI control / 破坏性行为评估）与不确定性校准路线（conformal prediction、语义熵、verbalized confidence、RLHF 后校准漂移）分别出现了哪些被独立验证的进展与 SOTA 变化？相对 2023-2024 基线，增量是什么？",
+      "queries": [
+        "scalable oversight debate large language models 2025 arxiv judge",
+        "prover-verifier games legibility confidence OpenAI 2024 arxiv",
+        "conformal prediction LLM uncertainty quantification benchmark 2025 arxiv",
+        "semantic entropy hallucination detection Kuhn Nature 2024"
+      ],
+      "rationale": "回答 frontier-watch 的 facet 1（进展与热点）：必须区分「论文自评/演示视频」与「第三方复现、榜单刷新、真机/真实部署验证」，并锁定发表时间而非模型记忆。可扩展监督与校准是本主题两条主干，需并行检索再交叉验证。",
+      "round": 1,
+      "results": [
+        {
+          "title": "LLM-as-a-Judge: Rapid Evaluation of Legal Document Recommendation for Retrieval-Augmented Generation",
+          "url": "http://arxiv.org/abs/2509.12382v1",
+          "snippet": "The evaluation bottleneck in recommendation systems has become particularly acute with the rise of Generative AI, where traditional metrics fall short of capturing nuanced quality dimensions that matter in specialized domains like legal research. Can we trust Large Language Models to serve as reliable judges of their own kind? This paper investigates LLM-as-a-Judge as a principled approach to evaluating Retrieval-Augmented Generation systems in legal contexts, where the stakes of recommendation quality are exceptionally high.\n  We tackle two fundamental questions that determine practical viab…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-15",
+          "authors": [
+            "Anu Pradhan",
+            "Alexandra Ortan",
+            "Apurv Verma",
+            "Madhavan Seshadri"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.12382v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "TurQUaz at CheckThat! 2025: Debating Large Language Models for Scientific Web Discourse Detection",
+          "url": "http://arxiv.org/abs/2508.08265v1",
+          "snippet": "In this paper, we present our work developed for the scientific web discourse detection task (Task 4a) of CheckThat! 2025. We propose a novel council debate method that simulates structured academic discussions among multiple large language models (LLMs) to identify whether a given tweet contains (i) a scientific claim, (ii) a reference to a scientific study, or (iii) mentions of scientific entities. We explore three debating methods: i) single debate, where two LLMs argue for opposing positions while a third acts as a judge; ii) team debate, in which multiple models collaborate within each s…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-26",
+          "authors": [
+            "Tarık Saraç",
+            "Selin Mergen",
+            "Mucahid Kutlu"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.08265v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "A Holistic Assessment of the Carbon Footprint of Noor, a Very Large Arabic Language Model",
+          "url": "http://arxiv.org/abs/2610.00223v1",
+          "snippet": "As ever larger language models grow more ubiquitous, it is crucial to consider their environmental impact. Characterised by extreme size and resource use, recent generations of models have been criticised for their voracious appetite for compute, and thus significant carbon footprint. Although reporting of carbon impact has grown more common in machine learning papers, this reporting is usually limited to compute resources used strictly for training. In this work, we propose a holistic assessment of the footprint of an extreme-scale language model, Noor. Noor is an ongoing project aiming to d…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-22",
+          "authors": [
+            "Imad Lakim",
+            "Ebtesam Almazrouei",
+            "Ibrahim Abu Alhaol",
+            "Merouane Debbah",
+            "Julien Launay"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2610.00223v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "SBASH: a Framework for Designing and Evaluating RAG vs. Prompt-Tuned LLM Honeypots",
+          "url": "http://arxiv.org/abs/2510.21459v1",
+          "snippet": "Honeypots are decoy systems used for gathering valuable threat intelligence or diverting attackers away from production systems. Maximising attacker engagement is essential to their utility. However research has highlighted that context-awareness, such as the ability to respond to new attack types, systems and attacker agents, is necessary to increase engagement. Large Language Models (LLMs) have been shown as one approach to increase context awareness but suffer from several challenges including accuracy and timeliness of response time, high operational costs and data-protection issues due t…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-24",
+          "authors": [
+            "Adetayo Adebimpe",
+            "Helmut Neukirchen",
+            "Thomas Welsh"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.21459v1",
+            "rrf_score": 0.022059
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "多 LLM 结构化辩论（debate）协议在 2025 年已进入真实评测任务的系统实现，并报告 council debate（多专家模型 + 主席模型协商共识）优于 single debate 与 team debate，属于「AI safety via debate」思想在任务层的工程化落地，但其目标函数是检测性能而非可扩展监督的安全性论证。",
+            "evidence": "TurQUaz 参加 CheckThat! 2025 Task 4a（科学网络话语检测，判定推文是否含科学主张/科学研究的引用/科学实体提及），实现三种辩论方法：i) single debate，两个 LLM 持对立立场、第三个模型充当 judge；ii) team debate，多方在每一侧内部协作；iii) council debate，多个专家模型在 chairperson 模型主持下协商达成共识。作者明确以 council debate 为主模型，理由是其表现优于其他辩论方法；摘要未给出具体分数、任务规模或与人类基线的差值。",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2508.08265v1（cs.CL，2025-07-26 提交）；CLEF CheckThat! 2025 Task 4a 参赛系统描述，候选块未显示正式同行评审 venue。",
+            "attention": "低 + 仅有 arXiv 预印本与评测活动参赛系统身份，候选块无引用数、下载量或榜单排名信号。",
+            "recommendation": "★★★☆☆ + 是四条候选证据中唯一直接实现「辩论 + judge」协议的工作，可作为 debate 协议设计（角色分配、judge、共识机制）的可核查线索；但非安全动机的可扩展监督研究，不能作为 debate 路线 SOTA 变化的证据。"
+          },
+          {
+            "point": "「用模型评审模型」这一可扩展监督核心假设的可靠性，被单独作为方法学问题提出：需要明确哪种 inter-rater reliability 指标能刻画 LLM 评审与人类评审的一致性，以及如何在竞争系统间做统计上可靠的比较。",
+            "evidence": "该文以法律文档推荐 RAG 为场景，提出两个决定实用性的问题：(1) 哪种 inter-rater reliability（评分者间信度）指标最能反映 LLM 评估与人类评估的对齐程度；(2) 如何对相互竞争的系统进行统计上可靠的比较。作者强调该领域推荐质量风险极高，因此 LLM-as-a-Judge 的可信度是前提问题。",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2509.12382v1（cs.CL，2025-09-15 提交）预印本；候选块未显示会议或期刊录用信息。",
+            "attention": "低 + 候选块无引用数/star/榜单数据，主题为垂直领域（法律 RAG）评估方法学。",
+            "recommendation": "★★☆☆☆ + 仅在「judge 可靠性与一致性度量」这一点上与可扩展监督相关，可作为评估协议方法学参考，但不足以支撑 debate / weak-to-strong 的进展判断。"
+          },
+          {
+            "point": "候选证据完全未覆盖不确定性校准路线：conformal prediction、语义熵（semantic entropy）、verbalized confidence、RLHF 后校准漂移四类方法在给定证据中均无对应论文、基准或复现报告，因此该路线在 2024-10 至 2026-10 的 SOTA 变化无法从本次候选集得出。",
+            "evidence": "四条候选分别为：法律 RAG 的 LLM-as-a-Judge 评估[4]、多 LLM 辩论用于科学网络话语检测[5]、大型阿拉伯语模型 Noor 的碳足迹评估[6]、RAG 与 prompt-tuned LLM 蜜罐框架对比[8]。逐条检查主题与摘要，无一条涉及 conformal prediction、语义熵、verbalized confidence 或 RLHF 后校准漂移，也无校准误差（ECE）类指标或相关榜单结果。",
+            "sources": [
+              4,
+              5,
+              6,
+              8
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "候选证据集自身（4 条 arXiv 预印本）构成的本轮检索覆盖范围，非外部权威结论。",
+            "attention": "低 + 该缺口判断基于候选集为空，而非社区关注度信号缺失；候选块中无任何校准相关条目可供判断热度。",
+            "recommendation": "★★☆☆☆ + 作为证据缺口记录有价值（提示必须补充检索），但本身不构成对校准路线的实质结论。"
+          },
+          {
+            "point": "候选证据同样未覆盖可扩展监督路线的其余三条子线：prover-verifier games、weak-to-strong generalization、AI control / 破坏性行为（sabotage）评估，均无对应论文或评测结果，因此无法确认存在「被独立验证」的进展或 SOTA 变化。",
+            "evidence": "候选块中唯一与 AI control 语义相近的是 LLM 蜜罐框架 SBASH（用 RAG 与 prompt-tuned LLM 构建诱捕系统以提升攻击者参与度），其研究对象是攻击者交互与威胁情报收集，而非模型破坏性行为、后门或 sabotage 评测；其余候选[4][5][6]与该三条子线无关。四条候选均无第三方复现、榜单或独立评测信息。",
+            "sources": [
+              4,
+              5,
+              6,
+              8
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "候选证据集自身（4 条 arXiv 预印本）覆盖范围，非外部权威结论。",
+            "attention": "低 + 缺口判断来自候选集为空，候选块未提供相关社区热度或榜单信号。",
+            "recommendation": "★★☆☆☆ + 明确划出本次证据的边界，避免把无关工作误当作 AI control 进展；需另行检索补齐。"
+          },
+          {
+            "point": "候选中的 LLM 蜜罐工作属于安全工程侧的相邻方向（用 LLM 提升攻击者诱捕与交互能力），与「AI control / 破坏性行为评估」在术语上接近但研究对象不同，只能作为弱相关线索，不能计入可扩展监督进展。",
+            "evidence": "SBASH 定位为设计与评估「RAG vs prompt-tuned LLM」蜜罐的框架，指出蜜罐作为诱饵系统需最大化攻击者参与度，并强调 context-awareness（对新攻击类型、系统与攻击者 agent 的响应能力）是提升参与度的必要条件。摘要未涉及模型自身的不当行为检测、sabotage 评测或监督协议。",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2510.21459v1（cs.CR，2025-10-24 提交）预印本；候选块未显示同行评审 venue。",
+            "attention": "低 + 仅预印本，候选块无引用数或采用度信号；与本题主题交集仅限「LLM + 安全评估」表层。",
+            "recommendation": "★☆☆☆☆ + 与可扩展监督四条子线仅有术语邻近性，不建议作为本子问题的证据使用。"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "TurQUaz at CheckThat! 2025: Debating Large Language Models for Scientific Web Discourse Detection",
+            "url": "http://arxiv.org/abs/2508.08265v1",
+            "why": "候选集中唯一直接实现多模型辩论协议（single / team / council debate，含 judge 与 chairperson 角色）并报告 council debate 为主方法的工作，可作为 debate 协议设计的可核查工程参考。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.CL，2025-07-26），CLEF CheckThat! 2025 Task 4a 参赛系统；候选块未显示同行评审",
+            "attention": "低 + 无引用/下载/榜单信号，仅评测任务参赛身份",
+            "recommendation": "★★★☆☆ + 与 debate 路线直接相关但非安全动机研究，作为协议细节线索使用"
+          },
+          {
+            "title": "LLM-as-a-Judge: Rapid Evaluation of Legal Document Recommendation for Retrieval-Augmented Generation",
+            "url": "http://arxiv.org/abs/2509.12382v1",
+            "why": "把「LLM 评审是否可信」转化为可操作的度量问题（inter-rater reliability 指标选择、系统间统计比较），与可扩展监督依赖的 judge 可靠性前提直接相关。",
+            "year": "2025",
+            "heat": "候选块未提供引用数",
+            "authority": "arXiv 预印本（cs.CL，2025-09-15）；候选块未显示会议/期刊",
+            "attention": "低 + 无引用/star/榜单数据，垂直领域评估方法学",
+            "recommendation": "★★☆☆☆ + 仅 judge 可靠性一点相关，作为评估方法学参考"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据无法回答可扩展监督四子线（debate、prover-verifier games、weak-to-strong generalization、AI control/sabotage 评估）在 2024-10 至 2026-10 是否存在被独立验证的进展与 SOTA 变化，需补充检索一手论文与榜单。",
+          "候选证据中没有任何 conformal prediction、语义熵、verbalized confidence、RLHF 后校准漂移相关条目，不确定性校准路线的基线与增量完全缺失。",
+          "delegate「用模型评审模型」的可靠性度量（inter-rater reliability 指标选择、统计显著比较）尚无候选证据给出与人类评审对齐的定量结果。",
+          "候选中的 debate 实现以任务性能为目标，缺少针对「辩论能否扩展至超越人类判断的监督」这一安全命题的实验证据与失败案例分析。",
+          "全部四条候选均为 arXiv 预印本，候选块未显示同行评审、第三方复现或基准榜单信息，证据等级普遍为 B 级及以下。"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该方向的奠基工作与可复现工程栈现状如何：从 RLHF/Constitutional AI、AI safety via debate（Irving 2018）、iterated distillation and amplification（Christiano 2018）到 weak-to-strong generalization（2023），以及开源实现（weak-to-strong 官方仓库、TRL / alignment-handbook、MAPIE / TorchUQ / uncertainty-toolbox）与评测基准（TruthfulQA、MMLU 校准子集、QuALITY 长文辩论、ControlArena、SimpleQA）分别覆盖了什么、缺什么？",
+      "queries": [
+        "AI safety via debate Irving 2018 iterated amplification Christiano 2018 arxiv",
+        "weak-to-strong generalization openai github repository superalignment",
+        "LLM calibration benchmark ECE TruthfulQA MMLU 2024 arxiv",
+        "ControlArena AI control benchmark UK AISI 2025 github"
+      ],
+      "rationale": "回答 facet 2（工业界与产品/开源落地）与 paper-survey 的脉络梳理要求：先由综述与奠基论文建立 taxonomy，再用 GitHub 与 HuggingFace 核实「是否开源、是否可复现、最近提交」，避免把只有 demo 的工作当作已验证能力；同时明确数据集与榜单口径（仿真/人类评审/自动评判）。",
+      "round": 1,
+      "results": [
+        {
+          "title": "QCD and High Energy Interactions: Moriond 2018 Theory Summary",
+          "url": "http://arxiv.org/abs/1806.04982v2",
+          "snippet": "The highlights of the theory developments presented at the Rencontres de Moriond 2018 on QCD and High Energy Interactions are summarised and put into perspective.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-06-13",
+          "authors": [
+            "Gudrun Heinrich"
+          ],
+          "venue": "hep-ph",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1806.04982v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Evaluation of an open-source implementation of the SRP-PHAT algorithm within the 2018 LOCATA challenge",
+          "url": "http://arxiv.org/abs/1812.05901v1",
+          "snippet": "This short paper presents an efficient, flexible implementation of the SRP-PHAT multichannel sound source localization method. The method is evaluated on the single-source tasks of the LOCATA 2018 development dataset, and an associated Matlab toolbox is made available online.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-12-14",
+          "authors": [
+            "Romain Lebarbenchon",
+            "Ewen Camberlein",
+            "Diego di Carlo",
+            "Clément Gaultier",
+            "Antoine Deleforge",
+            "Nancy Bertin"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1812.05901v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "The 2018 PIRM Challenge on Perceptual Image Super-resolution",
+          "url": "http://arxiv.org/abs/1809.07517v3",
+          "snippet": "This paper reports on the 2018 PIRM challenge on perceptual super-resolution (SR), held in conjunction with the Perceptual Image Restoration and Manipulation (PIRM) workshop at ECCV 2018. In contrast to previous SR challenges, our evaluation methodology jointly quantifies accuracy and perceptual quality, therefore enabling perceptual-driven methods to compete alongside algorithms that target PSNR maximization. Twenty-one participating teams introduced algorithms which well-improved upon the existing state-of-the-art methods in perceptual SR, as confirmed by a human opinion study. We also anal…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-09-20",
+          "authors": [
+            "Yochai Blau",
+            "Roey Mechrez",
+            "Radu Timofte",
+            "Tomer Michaeli",
+            "Lihi Zelnik-Manor"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1809.07517v3",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Luminoso at SemEval-2018 Task 10: Distinguishing Attributes Using Text Corpora and Relational Knowledge",
+          "url": "http://arxiv.org/abs/1806.01733v2",
+          "snippet": "Luminoso participated in the SemEval 2018 task on \"Capturing Discriminative Attributes\" with a system based on ConceptNet, an open knowledge graph focused on general knowledge. In this paper, we describe how we trained a linear classifier on a small number of semantically-informed features to achieve an $F_1$ score of 0.7368 on the task, close to the task's high score of 0.75.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-06-05",
+          "authors": [
+            "Robyn Speer",
+            "Joanna Lowry-Duda"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1806.01733v2",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "QCD and High Energy Interactions: Moriond 2018 Theory Summary",
+            "evidence": "The highlights of the theory developments presented at the Rencontres de Moriond 2018 on QCD and High Energy Interactions are summarised and put into perspective.",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2018",
+            "heat": "",
+            "authority": "hep-ph",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=hep-ph）"
+          },
+          {
+            "point": "Evaluation of an open-source implementation of the SRP-PHAT algorithm within the 2018 LOCATA challenge",
+            "evidence": "This short paper presents an efficient, flexible implementation of the SRP-PHAT multichannel sound source localization method. The method is evaluated on the single-source tasks of the LOCATA 2018 development dataset, and an associated Matlab toolbox is made available online.",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2018",
+            "heat": "",
+            "authority": "cs.SD",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SD）"
+          },
+          {
+            "point": "The 2018 PIRM Challenge on Perceptual Image Super-resolution",
+            "evidence": "This paper reports on the 2018 PIRM challenge on perceptual super-resolution (SR), held in conjunction with the Perceptual Image Restoration and Manipulation (PIRM) workshop at ECCV 2018. In contrast to previous SR challenges, our evaluation methodology jointly quantifies accuracy and perceptual qu…",
+            "sources": [
+              15
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2018",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Luminoso at SemEval-2018 Task 10: Distinguishing Attributes Using Text Corpora and Relational Knowledge",
+            "evidence": "Luminoso participated in the SemEval 2018 task on \"Capturing Discriminative Attributes\" with a system based on ConceptNet, an open knowledge graph focused on general knowledge. In this paper, we describe how we trained a linear classifier on a small number of semantically-informed features to achie…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2018",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "开放问题与争议在哪里：verbalized confidence 与 ECE 等校准指标是否可靠、debate 的可扩展性是否只有小规模实验证据、weak-to-strong 的增益能否归因于方法而非数据/算力、欺骗性对齐与 alignment faking / scheming 评估是否可信，以及 EU AI Act GPAI 系统性风险条款与前沿模型安全承诺对可扩展监督提出了什么硬性需求？哪些是无人区（蓝海）与临近拐点的瓶颈？",
+      "queries": [
+        "verbalized confidence LLM calibration unreliable limitations 2025 arxiv",
+        "weak-to-strong generalization limitations critique reproduction 2025",
+        "alignment faking scheming evaluations Claude Anthropic 2024 2025",
+        "EU AI Act general-purpose AI systemic risk standards 2025 official"
+      ],
+      "rationale": "回答 facet 3/4/5/7（蓝海缺口、瓶颈拐点、政策社会、信号预测）：争议必须并列多方说法并标 [Debated]，预测须写成可证伪假设；政策维度以生效日期与官方文本为准，不用二手转述。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.059247,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.034539,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The AudioMOS Challenge 2025",
+          "url": "http://arxiv.org/abs/2509.01336v1",
+          "snippet": "This is the summary paper for the AudioMOS Challenge 2025, the very first challenge for automatic subjective quality prediction for synthetic audio. The challenge consists of three tracks. The first track aims to assess text-to-music samples in terms of overall quality and textual alignment. The second track is based on the four evaluation dimensions of Meta Audiobox Aesthetics, and the test set consists of text-to-speech, text-to-audio, and text-to-music samples. The third track focuses on synthetic speech quality assessment in different sampling rates. The challenge attracted 24 unique team…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-01",
+          "authors": [
+            "Wen-Chin Huang",
+            "Hui Wang",
+            "Cheng Liu",
+            "Yi-Chiao Wu",
+            "Andros Tjandra",
+            "Wei-Ning Hsu",
+            "Erica Cooper",
+            "Yong Qin",
+            "Tomoki Toda"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.01336v1",
+            "rrf_score": 0.03337,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Rethinking Verbalized Confidence for LLM-as-a-Judge: A Compatibility Shift on Post-2025 Proprietary Models",
+          "url": "http://arxiv.org/abs/2609.10996v1",
+          "snippet": "Verbalized confidence, long dismissed as overconfident, coarse, and prone to round-number clustering, is now the more robust soft-scoring mechanism for LLM-as-a-Judge on top-tier proprietary models. Across SummEval, AggreFact, and HelpSteer2, spanning up to 18 LLMs, we show that the standard advice to prefer log-probabilities no longer holds on post-2025 models, where verbalized confidence is the better signal. We call this a compatibility shift. On top of a standard verbalized-confidence baseline, we introduce two new ingredients: an overconfidence advisory and self-debate. Together they imp…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-10",
+          "authors": [
+            "Yu-Chung Hsiao"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.10996v1",
+            "rrf_score": 0.024194
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "The AudioMOS Challenge 2025",
+            "evidence": "This is the summary paper for the AudioMOS Challenge 2025, the very first challenge for automatic subjective quality prediction for synthetic audio. The challenge consists of three tracks. The first track aims to assess text-to-music samples in terms of overall quality and textual alignment. The se…",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SD",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SD）"
+          },
+          {
+            "point": "Rethinking Verbalized Confidence for LLM-as-a-Judge: A Compatibility Shift on Post-2025 Proprietary Models",
+            "evidence": "Verbalized confidence, long dismissed as overconfident, coarse, and prone to round-number clustering, is now the more robust soft-scoring mechanism for LLM-as-a-Judge on top-tier proprietary models. Across SummEval, AggreFact, and HelpSteer2, spanning up to 18 LLMs, we show that the standard advice…",
+            "sources": [
+              28
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 6,
+    "prompt_tokens": 36918,
+    "completion_tokens": 29172,
+    "generated_at": "2026-10-21T22:28:24.972268+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# 价值对齐与可扩展监督（含校准与不确定性）七维增量报告（2024-10 → 2026-10）\n\n**元信息**：撰写日期 2026-10-21（UTC）｜领域：AI 对齐 / 可扩展监督（scalable oversight）/ 不确定性校准（uncertainty calibration）｜检索源：本次候选证据集 34 条，其中与本主题直接相关约 13 条，其余为检索噪声（见文末说明）｜证据等级：A 级 1 条、B 级 12 条、其余不可用。\n\n> **证据范围声明（先读）**：本报告严格只引用候选证据集中真实存在的 [1]–[34]。本次候选集存在两类系统性缺口，直接决定结论强度：\n> 1. **conformal prediction、语义熵（semantic entropy）、weak-to-strong 原始论文、AI safety via debate 原始论文（Irving 2018）、IDA（Christiano 2018）、ControlArena、SimpleQA、TruthfulQA、MMLU 校准子集**在候选集中**均无对应可引用条目**，凡涉及这些内容一律标 `> 待核实`，不做数字断言。\n> 2. 候选集混入大量无关条目（如 2018 年高能物理理论总结 [13]、图像超分挑战赛 [15][34]、短视频参与度预测 [24]、合成音频 MOS 挑战 [26]），已在文末标注为噪声，未作为论据使用。\n> 因此，本报告的\"增量\"判断只在**有可引用证据的窄带内**成立；凡\"无显著变化\"的表述，含义是\"本证据集无变化证据\"，而非\"领域确实没变\"。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量判断**：可扩展监督四条子线中，**debate 与 prover-verifier games（PVG）出现了可核查的方法/工程增量**，weak-to-strong 有一条方法补强，AI control 的公开证据仍停留在厂商系统卡自评；不确定性侧的真实增量集中在 **verbalized confidence 的校准、鲁棒性与\"代际反转\"**，而 conformal prediction 与语义熵在本证据集中**完全缺位**。本证据集**不足以宣称任何 SOTA 变化**——无一条证据附带榜单排名或第三方复现。\n\n### 1.1 可扩展监督侧（最新进展，2024-10 起）\n\n1. **Debate 从\"协议设想\"走向\"可训练 + 可工程化\"两端**。自博弈辩论训练可提升 judge（裁判）判定准确率，是 debate 路线少有的可训练实证 [1]（2024-09，窗口前缘的基线）；2025 年出现的系统实现把 multi-LLM debate 拆成 single debate（两模型对立 + judge）/ team debate（每侧内部协作）/ council debate（多专家模型在 chairperson 主持下协商共识）三种协议，并明确以 council debate 作为主方法，理由是表现优于其他辩论方式 [5]（CheckThat! 2025 Task 4a 参赛系统，2025-07）。**注意其目标函数是任务检测性能，而非\"辩论能否监督超越人类的模型\"这一安全命题** [5]。\n   - 热度：`> 待核实`（候选块未提供引用数/下载量）[1][5]；权威：均为 arXiv 预印本，[5] 为评测活动参赛系统，未见同行评审 [1][5]；关注度：**低**（无引用/榜单信号，仅评测参赛身份）[5]；推荐度：**★★★☆☆**（协议细节可复用，但不能当 SOTA 证据）[1][5]。\n2. **PVG 路线进入\"二代问题\"阶段**。2024 年的原始 PVG 以提升 LLM 输出可读性（legibility）为目标 [10]；2026-02 出现的工作直接以\"缓解 legibility tax（可读性税）\"为题，用**解耦（decoupled）的 prover-verifier 结构**处理该权衡 [12]。这说明该路线的问题表述已从\"能否提升可读性\"迁移到\"提升可读性的代价如何消除\"，是本窗口内**最清晰的一条方法演进信号**。\n   - 热度：`> 待核实`[10][12]；权威：arXiv 预印本，[10] 为 OpenAI 出品但同行评审状态 `> 待核实`；关注度：**中**（PVG 是该子线被反复引用的框架，但本次无引用数据支撑，判断仅基于\"存在后续二代工作\"这一间接信号，标 `> 待核实`）[10][12]；推荐度：**★★★★☆**（[10] 为该子线必读，[12] 为窗口内新增）[10][12]。\n3. **Weak-to-strong 出现\"集成\"补强路线**。EnsemW2S 以 LLM 集成增强 weak-to-strong 泛化 [21]（2024-10，正好落在窗口起点）。该工作属于对 Burns et al. 2023 设定的方法层补强，但**增益究竟来自集成、数据还是算力，从标题级证据无法归因** `> 待核实`。\n   - 热度：`> 待核实`[21]；权威：arXiv 预印本（v3 版本说明有修订），同行评审 `> 待核实`[21]；关注度：**低-中**（无引用/star 数据）`> 待核实`[21]；推荐度：**★★★☆☆**（是窗口内唯一可核查的 weak-to-strong 方法增量）[21]。\n4. **AI control 的公开证据仍以厂商系统卡为主**。o1 System Card 把 preparedness 风险评估与外部机构评估纳入发布文档 [23]（2024-12），这是\"控制/破坏性行为评估\"在工业界最接近落地的形态；但**具体 sabotage（破坏性行为）评测项、样本量与结果**在本证据集中未展开 `> 待核实`。\n   - 热度：`> 待核实`（系统卡类文档无引用数语义）[23]；权威：厂商官方技术报告（B 级偏上，非同行评审）[23]；关注度：**高**（前沿模型发布文档是社区与监管共同引用的事实标准载体；但本证据集无量化信号支撑，标 `> 待核实`）[23]；推荐度：**★★★★☆**（AI control 讨论的必备一手文档）[23]。\n5. **\"用模型评审模型\"的可靠性被单独当作方法学问题处理**。一方面，有工作把 judge 可信度操作化为两个可度量问题：哪种 inter-rater reliability（评分者间信度）指标最能反映 LLM 评估与人类评估的对齐、以及如何在竞争系统间做统计上可靠的比较 [4]（2025-09，法律文档推荐 RAG 场景）；另一方面，LLM-as-a-Judge 本身被做成**对抗鲁棒性基准**：用自动化流程诱导偏见（bias elicitation）来压力测试评审模型 [2]（预印本 2025-04）→ 期刊版 [11]（*Machine Learning*，DOI 10.1007/s10994-025-06862-6）。\n   - 热度：`> 待核实`[2][4][11]；权威：**[11] 为本报告中唯一 A 级证据（同行评审期刊）**，[2] 为其预印本前身，[4] 为预印本 [2][11][4]；关注度：**中**（同一工作完成\"预印本→期刊\"跃迁，是可核查的成熟度信号）[2][11]；推荐度：**★★★★☆**（judge 可靠性是可扩展监督的前提问题）[4][11]。\n\n### 1.2 不确定性校准侧（最新进展，2024-10 起）\n\n6. **Verbalized confidence 经历了\"被否定 → 被重估\"的反转**。2024-12 的工作系统研究 LLM 口头置信度分数（verbalized confidence scores）的性质与校准行为 [27]；2026-09 的工作给出**方向性相反的结论**：verbalized confidence 长期被认为过度自信、粒度粗、易出现整数聚集（round-number clustering），但在 2025 年之后的顶级专有模型上，它反而是 LLM-as-a-Judge 更稳健的 soft-scoring 机制，实验覆盖 SummEval、AggreFact、HelpSteer2 三个基准、最多 18 个 LLM [28]。这是本窗口内**最强的\"相对基线发生变化\"信号**，但为单来源、预印本、且结论依赖模型代际。\n   - 热度：`> 待核实`[27][28]；权威：均为 arXiv 预印本（[28] 为 2026-09 新稿，尚未见同行评审）[27][28]；关注度：**中**（提出\"compatibility shift\"这一可被证伪的代际命题，但无引用数据）`> 待核实`[28]；推荐度：**★★★★☆**（若成立，会推翻\"verbalized confidence 不可用\"的教科书建议）[28]。\n7. **校准方法侧出现\"自生成干扰项\"与\"训练数据溯源\"两条新路径**：用模型自生成的干扰项（self-generated distractors）来校准口头置信度 [30]（2025-09）；用影响函数式的训练数据检索来解释模型为何给出某个置信度 [33]（2026-01）。二者共同点是把置信度从\"输出层标量\"变成\"可干预、可归因的对象\"。\n   - 热度：`> 待核实`[30][33]；权威：arXiv 预印本 [30][33]；关注度：**低-中**（无引用/star 数据）`> 待核实`；推荐度：**★★★☆☆**（可解释校准是有潜力的新切口）[33]。\n8. **口头置信度的脆弱性被单独量化**：有工作专门评估 verbal confidence 在对抗攻击下的鲁棒性 [31]（2025-07），这为\"把置信度当安全信号\"的做法提供了负面证据线。\n   - 热度：`> 待核实`[31]；权威：arXiv 预印本 [31]；关注度：**中**（安全场景下置信度可被操纵是硬约束）`> 待核实`；推荐度：**★★★★☆**（任何用置信度做门控的系统都应读）[31]。\n9. **明确缺口**：conformal prediction、语义熵（semantic entropy）、RLHF 后校准漂移三类方法在本候选集中**零覆盖**，因此其 2024-10 至 2026-10 的 SOTA 变化**无法从本证据集得出** `> 待核实`。这是本次调研最重要的负面结论 [4][5][6][8]。\n\n### 1.3 经典与奠基性工作（与上表严格分节）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| AI Safety via Debate | 2018 | Irving, Christiano, Amodei（OpenAI） | `> 待核实` | 奠基性预印本，本次证据集未提供条目 | 高（该子线命名来源）`> 待核实` | ★★★★★ | `> 待核实` | debate 路线的原点，本窗口所有 debate 工作的问题设定来源 [1][5] |\n| Supervising Strong Learners by Amplifying Weak Experts / IDA | 2018 | Christiano, Shlegeris, Amodei | `> 待核实` | 奠基性预印本，未提供条目 | 高 `> 待核实` | ★★★★★ | `> 待核实` | 迭代蒸馏与放大，weak-to-strong 的思想前身 [21] |\n| Weak-to-Strong Generalization | 2023 | Burns et al.（OpenAI） | `> 待核实` | 未提供条目 | 高 `> 待核实` | ★★★★★ | `> 待核实` | [21] 直接对标的基线设定 |\n| Prover-Verifier Games improve legibility of LLM outputs | 2024 | OpenAI | `> 待核实` | arXiv 预印本，同行评审 `> 待核实` [10] | 中 `> 待核实` | ★★★★☆ | http://arxiv.org/abs/2407.13692v2 | PVG 框架原始工作，[12] 的改进对象 [10][12] |\n| Training LMs to Win Debates with Self-Play Improves Judge Accuracy | 2024 | Khan et al. | `> 待核实` | arXiv 预印本，venue `> 待核实` [1] | 中 `> 待核实` | ★★★★☆ | http://arxiv.org/abs/2409.16636v1 | 把 debate 变成可训练目标的关键实证 [1] |\n| Language Models (Mostly) Know What They Know | 2022 | Kadavath et al.（Anthropic） | `> 待核实` | 未提供条目 | 高 `> 待核实` | ★★★★★ | `> 待核实` | 自评估/置信度校准的经典起点，[27][30] 的问题源头 |\n| Semantic Uncertainty（语义熵） | 2023 | Kuhn, Gal, Farquhar | `> 待核实` | 未提供条目 | 高 `> 待核实` | ★★★★★ | `> 待核实` | 本报告无法核实的核心方法线，**本次零证据** |\n| Conformal prediction 教程/综述 | 2021–2023 | Angelopoulos & Bates 等 | `> 待核实` | 未提供条目 | 高 `> 待核实` | ★★★★★ | `> 待核实` | 覆盖率保证的理论基础，**本次零证据** |\n| TruthfulQA / QuALITY | 2022 | Lin et al. / Pang et al. | `> 待核实` | 未提供条目 | 高 `> 待核实` | ★★★★☆ | `> 待核实` | 校准与长文辩论的经典基准，**本次零证据** |\n\n### 1.4 数据集与基准现状\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| CheckThat! 2025 Task 4a | 2025 | CLEF 评测活动 | `> 待核实` | 评测活动任务，非同行评审 [5] | 低 `> 待核实` | ★★★☆☆ | http://arxiv.org/abs/2508.08265v1 | 科学网络话语检测，被用作 debate 协议的试验场 [5] |\n| SummEval / AggreFact / HelpSteer2 | 2020–2024 | 多机构 | `> 待核实` | 被 [28] 用作 LLM-as-a-Judge 评测集 | 中 `> 待核实` | ★★★★☆ | http://arxiv.org/abs/2609.10996v1 | 本窗口唯一可核查的\"verbalized confidence 跨基准\"证据来源 [28] |\n| 法律文档推荐 RAG 评测集 | 2025 | 见 [4] | `> 待核实` | 预印本 [4] | 低 `> 待核实` | ★★☆☆☆ | http://arxiv.org/abs/2509.12382v1 | 用于 inter-rater reliability 方法学研究 [4] |\n| 偏见诱导对抗基准（bias elicitation） | 2025 | 见 [2][11] | `> 待核实` | **同行评审期刊** [11] | 中 `> 待核实` | ★★★★☆ | https://doi.org/10.1007/s10994-025-06862-6 | 目前证据等级最高的 judge 鲁棒性基准 [2][11] |\n| TruthfulQA / MMLU 校准子集 / SimpleQA / ControlArena / QuALITY | 2022–2025 | 多机构 | `> 待核实` | 本次证据集未提供条目 | `> 待核实` | `> 待核实` | `> 待核实` | **本报告无法核实其现状与榜单结果，禁止据此下结论** |\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量判断**：本窗口工业界的公开动作集中在**\"评估框架 + 透明度披露\"**，而不是可扩展监督的产品化；可扩展监督仍处研究原型阶段，唯一接近\"产品级文档\"的形态是前沿模型系统卡。\n\n1. **系统卡成为事实上的评估载体**。o1 System Card 把 preparedness 风险分级与外部机构评估写入发布文档 [23]（2024-12）。这为 AI control / sabotage 评估提供了**工业界可审计的模板**，但其自评属性意味着不能等同于独立验证 `> 待核实`。热度：`> 待核实`；权威：厂商官方技术报告 [23]；关注度：**高**（发布文档被监管与社区共同引用）`> 待核实`[23]；推荐度：**★★★★☆**。\n2. **第三方透明度打分形成年度机制**。2025 Foundation Model Transparency Index 为该系列第三版，量化主要开发者的透明度实践 [25]（2025-12）。它提供的是\"承诺 vs 实践\"的外部刻度，可用于检验安全承诺是否落地。热度：`> 待核实`；权威：arXiv 预印本，但其方法论具公共品属性 `> 待核实`[25]；关注度：**中-高** `> 待核实`[25]；推荐度：**★★★★☆**。\n3. **成本/能耗进入披露议程**。有工作对超大型阿拉伯语模型 Noor 的碳足迹做整体评估 [6]（2026-10），说明训练与推理成本正被纳入公开核算议题；**具体数值本报告不引用** `> 待核实`。权威：arXiv 预印本 [6]；关注度：**低** `> 待核实`；推荐度：**★★☆☆☆**（与可扩展监督仅间接相关）。\n4. **辩论式多模型系统仍是竞赛原型**。council debate 只在评测任务中出现 [5]，未见产品化证据 `> 待核实`。\n5. **LLM-as-a-Judge 已成为\"事实上的评审基础设施\"**，其可靠性问题因此具有产品级影响：法律 RAG 这类高风险场景已开始要求 inter-rater reliability 与统计显著比较 [4]，并用对抗基准压力测试评审模型 [2][11]。\n\n### 2.1 开源项目现状（可复现工程栈）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| weak-to-strong 官方仓库 | 2023– | OpenAI | `> 待核实`（star 数未取得） | 官方代码库，本次未提供条目 | 高 `> 待核实` | ★★★★☆ | `> 待核实` | [21] 的直接复现基线，**本报告无法核实其当前维护状态** |\n| TRL / alignment-handbook | 2023– | HuggingFace | `> 待核实` | 官方文档，未提供条目 | 高 `> 待核实` | ★★★★☆ | `> 待核实` | RLHF/偏好优化的事实标准栈，**未核实** |\n| MAPIE | — | 社区 | `> 待核实` | 官方文档，未提供条目 | 中 `> 待核实` | ★★★★☆ | `> 待核实` | conformal prediction 的 Python 实现，**本次零证据** |\n| TorchUQ / uncertainty-toolbox | — | 社区/高校 | `> 待核实` | 未提供条目 | 中 `> 待核实` | ★★★☆☆ | `> 待核实` | 不确定性度量与校准工具，**未核实** |\n| ControlArena / Inspect AI | 2025– | 多家 | `> 待核实` | 未提供条目 | `> 待核实` | `> 待核实` | `> 待核实` | AI control 评测框架，**本报告无法确认其存在细节与版本** |\n\n> **判断**：本证据集**没有任何一条**能证明上述开源栈在 2024-10 至 2026-10 的功能增量（如是否新增语义熵、是否支持 agent 轨迹级 conformal 覆盖）`> 待核实`。这是本报告在\"可复现工程栈\"维度上的硬缺口。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量判断**：本证据集暴露的最大空白不是\"某方法不够好\"，而是**校准与可扩展监督两条路线几乎没有交汇**——没有一条证据同时处理\"监督信号的可扩展性\"与\"该信号的校准/覆盖率保证\"。\n\n1. **Conformal prediction × 多步 agent / VLA 的轨迹级覆盖**：本证据集零覆盖 `> 待核实`。若该方向确实稀薄，其价值在于把\"单次输出 90% 覆盖\"升级为\"整条行动序列的失败率上界\"，这对具身智能是刚需。\n2. **语义熵在长链推理与工具调用中的采样成本**：零覆盖 `> 待核实`。语义熵需要多次采样做语义聚类，在 agent 场景下单步成本乘以步数，工程上是否可承受无证据。\n3. **Debate 的可扩展性验证**：现有 debate 证据只到\"任务检测性能\"与\"judge 准确率提升\" [1][5]，**缺少\"judge 弱于 debater 时协议是否仍成立\"的实验与失败案例** `> 待核实`。\n4. **PVG 的 legibility tax 定量权衡**：二代工作以缓解该税为标题 [12]，但税的大小、可消除比例、是否以准确率为代价，均 `> 待核实`。\n5. **Weak-to-strong 的增益归因**：[21] 用集成提升泛化，但\"集成 vs 数据 vs 算力\"的分解实验 `> 待核实`。这是该子线长期被批评的方法学弱点。\n6. **校准结论的\"保质期\"问题（本报告识别的最有价值缺口）**：[28] 显示 verbalized confidence 的优劣判断会随模型代际**反转**，意味着任何 ECE/校准结论都绑定特定模型版本。由此产生一个几乎无人系统处理的工程需求：**per-model、per-release 的自动重校准流水线**，以及\"校准结论何时失效\"的检测机制。本证据集无相关证据 `> 待核实`。\n7. **AI control 缺公开 sabotage 基准**：目前只有系统卡自评 [23]，无第三方榜单 `> 待核实`。\n8. **Judge 可靠性的报告规范**：[4] 提出指标选择与统计比较问题，但尚未形成社区标准 `> 待核实`。\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n**一句话增量判断**：本窗口出现的不是\"能力突破\"，而是**三类瓶颈被显式量化**——judge 可被对抗操纵、置信度信号可被攻击 [31]、校准结论随模型代际失效 [28]。这三者共同把可扩展监督从\"协议设计问题\"推向\"测量学问题\"。\n\n- **瓶颈 1：judge 的对抗脆弱性**。LLM-as-a-Judge 在偏见诱导下可被系统性影响 [2][11]，且该问题已进入同行评审期刊，说明它不是边角议题而是被承认的硬约束。\n- **瓶颈 2：置信度信号的可操纵性**。verbal confidence 在对抗攻击下不稳健 [31]；若把置信度用作\"是否需要人类介入\"的门控信号，攻击面直接转化为安全漏洞。\n- **瓶颈 3：校准结论的模型版本依赖**。[28] 的 compatibility shift 命题意味着：**任何基于 2024 年模型得出的\"verbalized confidence 不可靠\"结论，在 2025+ 专有模型上可能已不成立**；反之亦然。这既是拐点信号，也是复现危机来源。\n- **瓶颈 4：证据等级整体偏低**。除 [11] 外，全部关键条目为预印本；无一条附带第三方榜单或独立复现 [1][2][4][5][6][10][12][21][23][25][27][28][30][31][33]。这意味着**当前不存在可被称为\"SOTA 变化\"的可核查事实**。\n- **瓶颈 5：成本**。大规模模型的全生命周期碳核算已被作为独立研究问题提出 [6]，但可扩展监督（多模型辩论、多次采样做语义熵）本身就是成本放大器，二者的张力无证据 `> 待核实`。\n- **拐点信号（本报告判定）**：① PVG 从\"提出\"转入\"代价缓解\"[10]→[12]；② verbalized confidence 从\"被否定\"转为\"被重估\"[27]→[28]；③ 辩论协议从\"思想实验\"进入\"评测竞赛系统实现\"[5]。三者共性是**路线进入工程优化期而非概念期**。是否真拐点，取决于是否出现独立复现。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量判断**：本证据集能支撑的只有\"透明度与文档化\"这一条制度化线索；EU AI Act GPAI 系统性风险条款、前沿模型安全承诺的具体条款与生效影响**均无可引用证据** `> 待核实`。\n\n1. **透明度被做成可年度比较的指标**：2025 Foundation Model Transparency Index 为该系列第三版，持续量化开发者透明度实践 [25]（2025-12）。这类指数是\"自愿承诺\"转向\"可比较压力\"的载体。\n2. **系统卡成为跨企业的事实文档惯例**：o1 System Card 展示的 preparedness 分级 + 外部评估结构 [23]，为监管提供可引用的模板；但它同时意味着**评估口径由被评估方定义**，这是政策层面的结构性争议 `> 待核实`。\n3. **评估的对抗化带来治理新问题**：当 judge 可被诱导 [2][11]、置信度可被攻击 [31] 时，\"自动化合规检查\"的可靠性本身成为治理对象 `> 待核实`。\n4. **EU AI Act GPAI 系统性风险条款（算力阈值、评测义务、文档义务）**：本证据集**无任何条目**，故不对条款内容、生效时间与对可扩展监督的硬性需求下断言 `> 待核实`。\n5. **国际与地缘政治**：本证据集无相关证据，**本周期（就本证据集而言）无显著变化**。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：本证据集**没有任何融资、并购、估值或人才流动的可引用证据**，因此在该维度上只能报告\"无显著变化（证据缺失）\"，不做推测性叙述。\n\n1. **生态信号（可核查）**：前沿实验室把外部评估机构纳入发布流程 [23]；第三方透明度指数形成年度化评估机制 [25]；能耗/碳核算成为独立论文议题 [6]。三者共同指向\"评估与审计\"正在成为一个有分工的生态位。\n2. **社区信号（弱）**：评测活动（CheckThat! 2025）吸引了以辩论协议为核心方法的参赛系统 [5]，说明 debate 类方法有社区实践，但规模与影响力无量化证据 `> 待核实`。\n3. **工具链生态缺口**：conformal prediction / 不确定性工具（MAPIE、TorchUQ、uncertainty-toolbox）与可扩展监督工具（weak-to-strong repo、ControlArena）在本证据集中**没有任何采用度数据**（star、下载、依赖数）`> 待核实`；因此无法判断哪一侧生态更活跃。\n4. **资本侧结论**：`> 待核实`。本报告拒绝在无来源情况下给出投资趋势判断。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n**一句话增量判断**：可验证的早期信号集中在\"方法代际更替\"与\"评估对抗化\"两点；所有预测均写成可证伪假设，并标注置信度。\n\n### 7.1 早期信号（已确证，带时间与引用）\n\n- **2024-07 / 2024-09**：PVG 与 debate 自博弈分别给出\"可训练化\"路径 [10][1]。\n- **2024-10**：weak-to-strong 出现集成式补强 [21]。\n- **2024-12**：系统卡把 preparedness/外部评估制度化 [23]；verbalized confidence 被系统研究 [27]。\n- **2025-04 → 期刊版**：judge 对抗鲁棒性从预印本升级为同行评审 [2][11]（本报告最高证据等级）。\n- **2025-07 / 2025-09**：辩论协议进入评测系统实现 [5]；置信度对抗脆弱性 [31] 与自生成干扰项校准 [30] 同期出现。\n- **2025-12**：透明度指数第三版 [25]。\n- **2026-01 / 2026-02 / 2026-09**：置信度的训练数据归因 [33]；PVG 进入\"代价缓解\"代 [12]；verbalized confidence 的**代际反转**结论 [28]。\n\n### 7.2 可证伪预测\n\n- **[P] 假设 1（置信度反转的可复现性）**：到 2027-06，若出现 ≥1 篇独立团队工作复现 [28] 的\"2025 后专有模型上 verbalized confidence 更稳健\"结论，则\"代际反转\"成立；若两次独立尝试均失败，则判定 [28] 的结论为模型特有伪影。**置信度：中**（依据：单来源、18 模型、三基准，但无第三方复现）[28]。\n- **[P] 假设 2（AI control 的可比化）**：到 2027-06，若出现 ≥3 个独立团队在**公开** sabotage/control 基准（ControlArena 类）上报告结果，则 AI control 从\"系统卡自评\"进入\"可比评测\"阶段。**置信度：中低**（依据：目前只有系统卡 [23]，无公开榜单证据）[23]。\n- **[P] 假设 3（校准与监督合流）**：到 2027-12，若出现把覆盖率保证（conformal）施加于**多步 agent 轨迹**而非单次输出的工作，则\"校准×可扩展监督\"交汇成立。**置信度：低**（依据：本证据集该方向零覆盖，属弱信号推断）`> 待核实`。\n- **[P] 假设 4（PVG 的收敛或饱和）**：若 2027 前出现\"PVG 在不损失准确率前提下达到人类可读性\"的 claim，则 legibility tax 被视为可消除，路线进入部署期 [12]；若连续两代工作仍以\"缓解税\"为题，则判定该权衡为结构性。**置信度：中**（依据：[10]→[12] 的问题迁移）[10][12]。\n- **[P] 假设 5（debate 的天花板）**：若到 2027-06 仍无\"judge 弱于 debater 时协议仍优于基线\"的公开实验，则 debate 的可扩展监督主张应被视为**未被验证**而非\"已被支持\"。**置信度：中高**（依据：现有 debate 证据仅覆盖任务检测与 judge 准确率 [1][5]）[1][5]。\n\n### 7.3 不确定性声明\n\n- 全部预测依赖预印本证据，**无一条经同行评审**（除 [11]）；样本偏小、缺第三方复现。\n- 传闻（[R]）：本证据集**未包含**任何可识别的未证实传闻，故不设 [R] 条目。\n- 争议（[Debated]）：**verbalized confidence 是否可靠**存在明确争议——2024 年共识倾向\"不可靠\" [27]，2026 年出现\"在顶级专有模型上更稳健\"的反向结论 [28]；本报告并列两种说法，不裁决。\n\n---\n\n## 参考来源\n\n**本报告实际引用的条目（13 条）**\n\n[1] Training Language Models to Win Debates with Self-Play Improves Judge Accuracy — http://arxiv.org/abs/2409.16636v1\n[2] Benchmarking Adversarial Robustness to Bias Elicitation in Large Language Models: Scalable Automated Assessment with LLM-as-a-Judge — http://arxiv.org/abs/2504.07887v2\n[4] LLM-as-a-Judge: Rapid Evaluation of Legal Document Recommendation for Retrieval-Augmented Generation — http://arxiv.org/abs/2509.12382v1\n[5] TurQUaz at CheckThat! 2025: Debating Large Language Models for Scientific Web Discourse Detection — http://arxiv.org/abs/2508.08265v1\n[6] A Holistic Assessment of the Carbon Footprint of Noor, a Very Large Arabic Language Model — http://arxiv.org/abs/2610.00223v1\n[8] SBASH: a Framework for Designing and Evaluating RAG vs. Prompt-Tuned LLM Honeypots — http://arxiv.org/abs/2510.21459v1\n[10] Prover-Verifier Games improve legibility of LLM outputs — http://arxiv.org/abs/2407.13692v2\n[11] Benchmarking adversarial robustness to bias elicitation in large language models: scalable automated assessment with LLM-as-a-judge — https://doi.org/10.1007/s10994-025-06862-6\n[12] Mitigating Legibility Tax with Decoupled Prover-Verifier Games — http://arxiv.org/abs/2602.23248v2\n[21] EnsemW2S: Enhancing Weak-to-Strong Generalization with Large Language Model Ensembles — http://arxiv.org/abs/2410.04571v3\n[23] OpenAI o1 System Card — http://arxiv.org/abs/2412.16720v2\n[25] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[27] On Verbalized Confidence Scores for LLMs — http://arxiv.org/abs/2412.14737v2\n[28] Rethinking Verbalized Confidence for LLM-as-a-Judge: A Compatibility Shift on Post-2025 Proprietary Models — http://arxiv.org/abs/2609.10996v1\n[30] Calibrating Verbalized Confidence with Self-Generated Distractors — http://arxiv.org/abs/2509.25532v2\n[31] On the Robustness of Verbal Confidence of LLMs in Adversarial Attacks — http://arxiv.org/abs/2507.06489v3\n[33] Influential Training Data Retrieval for Explaining Verbalized Confidence of LLMs — http://arxiv.org/abs/2601.10645v1\n\n**候选集中未作为论据使用的条目（检索噪声/主题无关，列出以保证引用编号可追溯）**\n\n[3] LoResLM 2025 Workshop Overview（低资源语言工作坊综述）\n[7] Enhancing Human-Like Responses in Large Language Models\n[9] Learning Dexterous In-Hand Manipulation（机器人操作，与对齐无关）\n[13] QCD and High Energy Interactions: Moriond 2018 Theory Summary（高能物理）\n[14] SRP-PHAT within the 2018 LOCATA challenge（声源定位）\n[15] The 2018 PIRM Challenge on Perceptual Image Super-resolution（图像超分）\n[16] Luminoso at SemEval-2018 Task 10（语义属性分类）\n[17] ML4H Workshop at NeurIPS 2018\n[18] Natural Language Inference over Interaction Space: ICLR 2018 Reproducibility Report\n[19] ETH-DS3Lab at SemEval-2018 Task 7（关系抽取）\n[20] DeepGlobe 2018（卫星图像解析）\n[22] arXiv Update September 2018（通讯）\n[24] VQualA 2025 Challenge on Engagement Prediction for Short Videos\n[26] The AudioMOS Challenge 2025\n[29] Annif at SemEval-2025 Task 5（XMTC）\n[32] CEA-LIST at CheckThat! 2025: Evaluating LLMs as Detectors of Bias and Opinion in Text（同评测活动但任务不同）\n[34] NTIRE 2025 Challenge on Image Super-Resolution (x4)\n\n> **待核实清单（必须补检索才能支撑正式结论）**：① conformal prediction 在 LLM/agent 上的 2024-2026 进展；② 语义熵的后续与成本分析；③ weak-to-strong 官方仓库与 ControlArena 的当前状态；④ EU AI Act GPAI 条款文本与生效时间；⑤ TruthfulQA / MMLU 校准子集 / SimpleQA 的最新榜单数字；⑥ Irving 2018、Christiano 2018、Burns 2023、Kuhn 2023 的可核查链接与引用数。\n\n---\n\n*Generated by research-bot · topic=`价值对齐与可扩展监督含校准与不确定性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=34 · duration=206s · 2026-10-21T22:28:24+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Training Language Models to Win Debates with Self-Play Improves Judge Accuracy",
+      "url": "http://arxiv.org/abs/2409.16636v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-09-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Benchmarking Adversarial Robustness to Bias Elicitation in Large Language Models: Scalable Automated Assessment with LLM-as-a-Judge",
+      "url": "http://arxiv.org/abs/2504.07887v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Overview of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025)",
+      "url": "http://arxiv.org/abs/2412.16365v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-12-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "LLM-as-a-Judge: Rapid Evaluation of Legal Document Recommendation for Retrieval-Augmented Generation",
+      "url": "http://arxiv.org/abs/2509.12382v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "TurQUaz at CheckThat! 2025: Debating Large Language Models for Scientific Web Discourse Detection",
+      "url": "http://arxiv.org/abs/2508.08265v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "A Holistic Assessment of the Carbon Footprint of Noor, a Very Large Arabic Language Model",
+      "url": "http://arxiv.org/abs/2610.00223v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-09-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Enhancing Human-Like Responses in Large Language Models",
+      "url": "http://arxiv.org/abs/2501.05032v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-01-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "SBASH: a Framework for Designing and Evaluating RAG vs. Prompt-Tuned LLM Honeypots",
+      "url": "http://arxiv.org/abs/2510.21459v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-10-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Learning Dexterous In-Hand Manipulation",
+      "url": "http://arxiv.org/abs/1808.00177v5",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-08-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Prover-Verifier Games improve legibility of LLM outputs",
+      "url": "http://arxiv.org/abs/2407.13692v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-07-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Benchmarking adversarial robustness to bias elicitation in large language models: scalable automated assessment with LLM-as-a-judge",
+      "url": "https://doi.org/10.1007/s10994-025-06862-6",
+      "kind": "paper",
+      "venue": "Machine Learning",
+      "published": "2025-10-15",
+      "citations": 10,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Mitigating Legibility Tax with Decoupled Prover-Verifier Games",
+      "url": "http://arxiv.org/abs/2602.23248v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-02-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "QCD and High Energy Interactions: Moriond 2018 Theory Summary",
+      "url": "http://arxiv.org/abs/1806.04982v2",
+      "kind": "paper",
+      "venue": "hep-ph",
+      "published": "2018-06-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Evaluation of an open-source implementation of the SRP-PHAT algorithm within the 2018 LOCATA challenge",
+      "url": "http://arxiv.org/abs/1812.05901v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2018-12-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "The 2018 PIRM Challenge on Perceptual Image Super-resolution",
+      "url": "http://arxiv.org/abs/1809.07517v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2018-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Luminoso at SemEval-2018 Task 10: Distinguishing Attributes Using Text Corpora and Relational Knowledge",
+      "url": "http://arxiv.org/abs/1806.01733v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2018-06-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Machine Learning for Health (ML4H) Workshop at NeurIPS 2018",
+      "url": "http://arxiv.org/abs/1811.07216v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2018-11-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Natural Language Inference over Interaction Space: ICLR 2018 Reproducibility Report",
+      "url": "http://arxiv.org/abs/1802.03198v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2018-02-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "ETH-DS3Lab at SemEval-2018 Task 7: Effectively Combining Recurrent and Convolutional Neural Networks for Relation Classification and Extraction",
+      "url": "http://arxiv.org/abs/1804.02042v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2018-04-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "DeepGlobe 2018: A Challenge to Parse the Earth through Satellite Images",
+      "url": "http://arxiv.org/abs/1805.06561v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2018-05-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "EnsemW2S: Enhancing Weak-to-Strong Generalization with Large Language Model Ensembles",
+      "url": "http://arxiv.org/abs/2410.04571v3",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-10-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "arXiv Update September 2018",
+      "url": "https://doi.org/10.65527/360av-fbz18",
+      "kind": "paper",
+      "venue": null,
+      "published": "2018-09-13",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "OpenAI o1 System Card",
+      "url": "http://arxiv.org/abs/2412.16720v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-12-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "The AudioMOS Challenge 2025",
+      "url": "http://arxiv.org/abs/2509.01336v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2025-09-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "On Verbalized Confidence Scores for LLMs",
+      "url": "http://arxiv.org/abs/2412.14737v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-12-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Rethinking Verbalized Confidence for LLM-as-a-Judge: A Compatibility Shift on Post-2025 Proprietary Models",
+      "url": "http://arxiv.org/abs/2609.10996v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-09-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+      "url": "http://arxiv.org/abs/2504.19675v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Calibrating Verbalized Confidence with Self-Generated Distractors",
+      "url": "http://arxiv.org/abs/2509.25532v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "On the Robustness of Verbal Confidence of LLMs in Adversarial Attacks",
+      "url": "http://arxiv.org/abs/2507.06489v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "CEA-LIST at CheckThat! 2025: Evaluating LLMs as Detectors of Bias and Opinion in Text",
+      "url": "http://arxiv.org/abs/2507.07539v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Influential Training Data Retrieval for Explaining Verbalized Confidence of LLMs",
+      "url": "http://arxiv.org/abs/2601.10645v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-01-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-21-价值对齐与可扩展监督含校准与不确定性.md",
+    "json": "report/2026/10/2026-10-21-价值对齐与可扩展监督含校准与不确定性.json"
+  }
+}
