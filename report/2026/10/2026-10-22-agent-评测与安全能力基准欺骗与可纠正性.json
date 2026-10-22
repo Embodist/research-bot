@@ -1,0 +1,1053 @@
+{
+  "topic": "agent-评测与安全能力基准欺骗与可纠正性",
+  "title": "Agent 评测与安全（能力基准、欺骗与可纠正性）——领域增量追踪调研计划",
+  "query": "Agent 评测与安全（能力基准、欺骗与可纠正性）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-10-22T22:29:43+00:00",
+  "finished_at": "2026-10-22T22:32:43+00:00",
+  "duration_s": 180.0,
+  "rounds": 1,
+  "plan": {
+    "title": "Agent 评测与安全（能力基准、欺骗与可纠正性）——领域增量追踪调研计划",
+    "summary": "以 2024-2026 年为增量基线，系统梳理 Agent 能力基准与安全评测（欺骗、破坏、可纠正性）的最新进展、奠基工作、开源工程实践、数据集榜单与开放争议，并输出带证据分级与可证伪预测的七维追踪报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 1-2 年（2024-2026）Agent 能力基准与安全评测出现了哪些真正的增量进展：长任务时程（time horizon）、真实计算机/网页/软件工程任务基准、以及欺骗与破坏（scheming、sabotage、alignment faking）评测套件分别推进到哪一步，哪些结论已被独立复现、哪些仍只是单方演示？",
+        "rationale": "回答 facet 1（进展与热点）与 facet 4（瓶颈/拐点）的核心：必须先厘清 2025-2026 年新出的基准与评测框架相对 2023-2024 基线（AgentBench、GAIA、SWE-bench）新增了什么，并区分官方自评、第三方榜单与真机/真环境部署证据，避免把 demo 视频当实验证据。",
+        "queries": [
+          "METR time horizon \"Measuring AI Ability to Complete Long Tasks\" 2025 50% task length doubling",
+          "OSWorld WebArena tau-bench SWE-bench Verified agent benchmark comparison 2025 arxiv",
+          "\"sabotage evaluations\" OR \"scheming\" agent Apollo Research SHADE-Arena 2025 arxiv",
+          "alignment faking in large language models Anthropic 2024 arxiv sleeper agents 2024"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "Agent 评测与安全领域的经典/奠基工作与关键数据集基准谱系是什么：从可纠正性（corrigibility）、可安全中断（safely interruptible agents）到提示注入与 Agent 攻击基准（AgentDojo、InjecAgent、AgentHarm）、以及能力基准的构建方法论（Agentic Benchmark Checklist、HELM 式评测规范），各自由哪些团队提出、覆盖什么口径、被引用与复现情况如何？",
+        "rationale": "回答 facet 1 的「经典 vs 最新」分节与要求 1 的「经典/奠基工作 + 数据集与基准」：只有先建立论文图谱（方法演进：模块化→端到端→基础模型 Agent；监督信号与威胁模型分类），才能判断新工作相对前作改了什么，并为每条结论提供权威证据（venue/机构）与热度证据（引用数）。",
+        "queries": [
+          "corrigibility Soares 2015 \"safely interruptible agents\" Orseau Armstrong 2016 shutdown problem",
+          "AgentDojo prompt injection benchmark 2024 NeurIPS AgentHarm 2024 arxiv",
+          "InjecAgent indirect prompt injection agent 2024 ACL findings",
+          "\"Agentic Benchmark Checklist\" OR agent benchmark design flaws 2025 arxiv critique"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "Agent 评测与安全的开源工程实践与生态现状如何（评测框架 Inspect/Petri、可复现 harness、榜单与 leaderboard），以及当前最尖锐的开放问题与争议：能力评测与安全评测是否脱节、可纠正性是否可测量、欺骗检测的假阳性/假阴性、评测污染与 scaffold 敏感性，产业界（实验室 RSP/Preparedness Framework、AI 安全研究所、监管标准）如何把这些评测制度化？",
+        "rationale": "回答 facet 2/3/5/6（工业界与产品、蓝海缺口、政策标准、资本与生态）并满足要求 1 的「开源项目与工程实践 + 开放问题与争议」：需要从 GitHub 仓库活跃度、官方文档与政策文本交叉验证「谁在实际用这些评测」，同时把有争议的结论并列标注，识别无人区（如跨本体 Agent 安全评测、可纠正性的可操作指标）作为蓝海判断依据。",
+        "queries": [
+          "github UK AISI Inspect AI evaluation framework stars releases 2025",
+          "Anthropic Petri open-source auditing tool 2025 agent misalignment",
+          "OpenAI Preparedness Framework Anthropic Responsible Scaling Policy 2025 agentic safety evaluation",
+          "EU AI Act GPAI code of practice 2025 NIST AI 600-1 agent evaluation standards"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 1-2 年（2024-2026）Agent 能力基准与安全评测出现了哪些真正的增量进展：长任务时程（time horizon）、真实计算机/网页/软件工程任务基准、以及欺骗与破坏（scheming、sabotage、alignment faking）评测套件分别推进到哪一步，哪些结论已被独立复现、哪些仍只是单方演示？",
+      "queries": [
+        "METR time horizon \"Measuring AI Ability to Complete Long Tasks\" 2025 50% task length doubling",
+        "OSWorld WebArena tau-bench SWE-bench Verified agent benchmark comparison 2025 arxiv",
+        "\"sabotage evaluations\" OR \"scheming\" agent Apollo Research SHADE-Arena 2025 arxiv",
+        "alignment faking in large language models Anthropic 2024 arxiv sleeper agents 2024"
+      ],
+      "rationale": "回答 facet 1（进展与热点）与 facet 4（瓶颈/拐点）的核心：必须先厘清 2025-2026 年新出的基准与评测框架相对 2023-2024 基线（AgentBench、GAIA、SWE-bench）新增了什么，并区分官方自评、第三方榜单与真机/真环境部署证据，避免把 demo 视频当实验证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+          "url": "http://arxiv.org/abs/2510.22631v1",
+          "snippet": "This paper presents our submission to the MRL 2025 Shared Task on Multilingual Physical Reasoning Datasets. The objective of the shared task is to create manually-annotated evaluation data in the physical commonsense reasoning domain, for languages other than English, following a format similar to PIQA. Our contribution, FormaMentis, is a novel benchmark for physical commonsense reasoning that is grounded in Italian language and culture. The data samples in FormaMentis are created by expert annotators who are native Italian speakers and are familiar with local customs and norms. The samples a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-26",
+          "authors": [
+            "Marco De Santis",
+            "Lisa Alazraki"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.22631v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "DeDisCo at the DISRPT 2025 Shared Task: A System for Discourse Relation Classification",
+          "url": "http://arxiv.org/abs/2509.11498v4",
+          "snippet": "This paper presents DeDisCo, Georgetown University's entry in the DISRPT 2025 shared task on discourse relation classification. We test two approaches, using an mt5-based encoder and a decoder based approach using the openly available Qwen model. We also experiment on training with augmented dataset for low-resource languages using matched data translated automatically from English, as well as using some additional linguistic features inspired by entries in previous editions of the Shared Task. Our system achieves a macro-accuracy score of 71.28, and we provide some interpretation and error a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-15",
+          "authors": [
+            "Zhuoxuan Ju",
+            "Jingni Wu",
+            "Abhishek Purushothama",
+            "Amir Zeldes"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.11498v4",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+          "url": "http://arxiv.org/abs/2510.20381v1",
+          "snippet": "This paper presents the VLSP 2025 MLQA-TSR - the multimodal legal question answering on traffic sign regulation shared task at VLSP 2025. VLSP 2025 MLQA-TSR comprises two subtasks: multimodal legal retrieval and multimodal question answering. The goal is to advance research on Vietnamese multimodal legal text processing and to provide a benchmark dataset for building and evaluating intelligent systems in multimodal legal domains, with a focus on traffic sign regulation in Vietnam. The best-reported results on VLSP 2025 MLQA-TSR are an F2 score of 64.55% for multimodal legal retrieval and an a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-23",
+          "authors": [
+            "Son T. Luu",
+            "Trung Vo",
+            "Hiep Nguyen",
+            "Khanh Quoc Tran",
+            "Kiet Van Nguyen",
+            "Vu Tran",
+            "Ngan Luu-Thuy Nguyen",
+            "Le-Minh Nguyen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.20381v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "CLaC at SemEval-2025 Task 6: A Multi-Architecture Approach for Corporate Environmental Promise Verification",
+          "url": "http://arxiv.org/abs/2505.23538v1",
+          "snippet": "This paper presents our approach to the SemEval-2025 Task~6 (PromiseEval), which focuses on verifying promises in corporate ESG (Environmental, Social, and Governance) reports. We explore three model architectures to address the four subtasks of promise identification, supporting evidence assessment, clarity evaluation, and verification timing. Our first model utilizes ESG-BERT with task-specific classifier heads, while our second model enhances this architecture with linguistic features tailored for each subtask. Our third approach implements a combined subtask model with attention-based seq…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-29",
+          "authors": [
+            "Nawar Turk",
+            "Eeham Khan",
+            "Leila Kosseim"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.23538v1",
+            "rrf_score": 0.023077
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "候选证据集中没有任何一条涉及 Agent 长任务时程（time horizon）基准（如按人类完成时长度量的任务跨度评测），无法据此回答该维度在 2024-2026 的增量进展。",
+            "evidence": "4 条候选（[2][3][4][5]）全部为 cs.CL 下的共享任务/系统描述论文：多语言物理常识基准、篇章关系分类、越南语多模态法律问答、ESG 承诺验证；均未出现 time horizon、long-horizon agent、task duration 等评测设定。",
+            "sources": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "候选证据均为 arXiv 预印本（cs.CL），未见同行评审标注",
+            "attention": "低 + 候选集中无任何引用数/榜单数据，且主题与本子问题不重合",
+            "recommendation": "★☆☆☆☆ 该组证据对本子问题无支撑力，仅用于说明检索覆盖不足"
+          },
+          {
+            "point": "候选证据集中没有任何真实计算机/网页/软件工程 Agent 任务基准（如 OSWorld、WebArena、SWE-bench 类真机/真环境交互评测）的证据，该维度完全缺证。",
+            "evidence": "候选 [4] 虽为“多模态法律问答/检索”基准，但任务是静态文档检索与问答（Vietnamese multimodal legal QA on traffic sign regulation），不涉及 GUI/浏览器/代码仓库的可执行交互、也无 Agent 轨迹或成功率指标；[3] 为篇章关系分类系统，报告 macro-accuracy 71.28，属单步分类指标而非 Agent 任务完成度。",
+            "sources": [
+              3,
+              4
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本；[3] 标注为 DISRPT 2025 / CODI-CRAC & EMNLP 2025 共享任务系统提交，[4] 为 VLSP 2025 挑战赛描述",
+            "attention": "低 + 无引用/使用度数据，且非 Agent 交互式评测",
+            "recommendation": "★☆☆☆☆ 与本子问题的“真实计算机/网页/SE 任务基准”不匹配"
+          },
+          {
+            "point": "候选证据集中完全没有欺骗与破坏类安全评测（scheming、sabotage、alignment faking）的证据，该维度为零覆盖。",
+            "evidence": "4 条候选的评测对象分别为物理常识推理、篇章关系分类、法律多模态问答、企业 ESG 承诺核验；均不涉及模型 deceptive behavior、蓄意破坏、对齐伪装等安全评测套件或红队结果。",
+            "sources": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "均为 arXiv 预印本，非安全评测机构/标准文档",
+            "attention": "低 + 无任何相关社区信号或榜单引用",
+            "recommendation": "★☆☆☆☆ 不能作为安全评测维度的任何结论依据"
+          },
+          {
+            "point": "[2] FormaMentis 是面向意大利语/英语的物理常识推理人工标注基准（MRL 2025 共享任务），属静态 QA 型常识评测，与 Agent 能力/安全评测无关。",
+            "evidence": "由意大利语母语专家标注、保留文化要素并翻译为英语，格式参照 PIQA；提交时间 2025-10-26。摘要与正文未报告任何 Agent 任务成功率、时程或安全指标。",
+            "sources": [
+              2
+            ],
+            "type": "dataset",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2510.22631v1（cs.CL），MRL 2025 共享任务提交；未见同行评审标注",
+            "attention": "低 + 候选块未提供引用数/下载量，且为小语种共享任务提交，无榜单热度信号",
+            "recommendation": "★★☆☆☆ 作为多语言常识基准有一定参考价值，但与 Agent 基准/安全评测主题不相关"
+          },
+          {
+            "point": "[3] DeDisCo 为 Georgetown 团队的 DISRPT 2025 篇章关系分类系统，报告 macro-accuracy 71.28，属单步 NLP 分类任务，不构成 Agent 评测证据。",
+            "evidence": "采用 mt5 编码器与 Qwen 解码器两条路线，并用英语自动翻译数据做低资源增强与语言学特征；最终 macro-accuracy 71.28，附错误分析。",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2509.11498v4，DISRPT 2025 共享任务系统提交（与 CODI-CRAC & EMNLP 2025 联合举办）",
+            "attention": "低 + 共享任务系统提交，候选块无引用数或榜单排名",
+            "recommendation": "★☆☆☆☆ 与 Agent 长时程/安全评测无关联"
+          },
+          {
+            "point": "[4] VLSP 2025 MLQA-TSR 提供越南语交通标志法规的多模态法律检索与问答基准，属领域多模态 QA 数据，不含 Agent 交互或安全评测设计。",
+            "evidence": "包含两个子任务：多模态法律检索与多模态问答；目标是提供越南语多模态法律文本处理基准数据集。候选块未给出规模、指标或 Agent 相关评测。",
+            "sources": [
+              4
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2510.20381v1（cs.CL），VLSP 2025 挑战赛描述论文",
+            "attention": "低 + 无引用数/采用度数据，区域性挑战赛",
+            "recommendation": "★☆☆☆☆ 与本子问题三ingredient（时程/真实计算机任务/安全评测）均无关"
+          },
+          {
+            "point": "[5] CLaC 的 SemEval-2025 Task 6 工作聚焦企业 ESG 报告中的“承诺核验”，与 Agent 欺骗/破坏评测不是同一问题域，不能作为对齐伪装类证据。",
+            "evidence": "覆盖四个子任务：承诺识别、支撑证据评估、清晰度评估、核验时机；使用 ESG-BERT 等三种架构。属文本核验任务，不涉及模型自身行为动机或被评测模型的策略性欺骗。",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2505.23538v1（cs.CL），SemEval-2025 Task 6 (PromiseEval) 系统描述",
+            "attention": "低 + 候选块无引用数/榜单数据；虽为 SemEval 任务但与本主题无交集",
+            "recommendation": "★☆☆☆☆ 术语上易与“承诺/诚实性”混淆，需明确排除，避免误引为安全评测证据"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "本子问题（Agent 长任务时程基准、真实计算机/网页/软件工程任务基准、scheming/sabotage/alignment faking 安全评测套件）在给定候选证据中零覆盖，需补充检索后再作答。",
+          "缺少可核验的时程度量口径（人类完成时长分位、任务步数、成功率-时程曲线）来源。",
+          "缺少 OSWorld/WebArena/SWE-bench 类真实环境基准的版本、任务数与独立复现结果来源。",
+          "缺少欺骗/破坏/对齐伪装评测的套件名称、发布机构、实验设置与是否被第三方复现的证据。",
+          "无法区分“单方演示”与“独立复现”：候选证据中不存在任何 Agent 安全或长时程评测的实验声明。"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "Agent 评测与安全领域的经典/奠基工作与关键数据集基准谱系是什么：从可纠正性（corrigibility）、可安全中断（safely interruptible agents）到提示注入与 Agent 攻击基准（AgentDojo、InjecAgent、AgentHarm）、以及能力基准的构建方法论（Agentic Benchmark Checklist、HELM 式评测规范），各自由哪些团队提出、覆盖什么口径、被引用与复现情况如何？",
+      "queries": [
+        "corrigibility Soares 2015 \"safely interruptible agents\" Orseau Armstrong 2016 shutdown problem",
+        "AgentDojo prompt injection benchmark 2024 NeurIPS AgentHarm 2024 arxiv",
+        "InjecAgent indirect prompt injection agent 2024 ACL findings",
+        "\"Agentic Benchmark Checklist\" OR agent benchmark design flaws 2025 arxiv critique"
+      ],
+      "rationale": "回答 facet 1 的「经典 vs 最新」分节与要求 1 的「经典/奠基工作 + 数据集与基准」：只有先建立论文图谱（方法演进：模块化→端到端→基础模型 Agent；监督信号与威胁模型分类），才能判断新工作相对前作改了什么，并为每条结论提供权威证据（venue/机构）与热度证据（引用数）。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The Reactive Synthesis Competition: SYNTCOMP 2016 and Beyond",
+          "url": "http://arxiv.org/abs/1611.07626v1",
+          "snippet": "We report on the design of the third reactive synthesis competition (SYNTCOMP 2016), including a major extension of the competition to specifications in full linear temporal logic. We give a brief overview of the synthesis problem as considered in SYNTCOMP, and present the rules of the competition in 2016, as well as the ideas behind our design choices. Furthermore, we evaluate the recent changes to the competition based on the experiences with SYNTCOMP 2016. Finally, we give an outlook on further changes and extensions of the competition that are planned for the future.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2016-11-23",
+          "authors": [
+            "Swen Jacobs",
+            "Roderick Bloem"
+          ],
+          "venue": "cs.LO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1611.07626v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "The 3rd Reactive Synthesis Competition (SYNTCOMP 2016): Benchmarks, Participants & Results",
+          "url": "http://arxiv.org/abs/1609.00507v2",
+          "snippet": "We report on the benchmarks, participants and results of the third reactive synthesis competition(SYNTCOMP 2016). The benchmark library of SYNTCOMP 2016 has been extended to benchmarks in the new LTL-based temporal logic synthesis format (TLSF), and 2 new sets of benchmarks for the existing AIGER-based format for safety specifications. The participants of SYNTCOMP 2016 can be separated according to these two classes of specifications, and we give an overview of the 6 tools that entered the competition in the AIGER-based track, and the 3 participants that entered the TLSF-based track. We brief…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2016-09-02",
+          "authors": [
+            "Swen Jacobs",
+            "Roderick Bloem",
+            "Romain Brenguier",
+            "Ayrat Khalimov",
+            "Felix Klein",
+            "Robert Könighofer",
+            "Jens Kreber",
+            "Alexander Legg",
+            "Nina Narodytska",
+            "Guillermo A. Pérez",
+            "Jean-François Raskin",
+            "Leonid Ryzhyk",
+            "Ocan Sankur",
+            "Martina Seidl",
+            "Leander Tentrup",
+            "Adam Walker"
+          ],
+          "venue": "cs.LO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1609.00507v2",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Exponential Speedups by Rerooting Levin Tree Search",
+          "url": "http://arxiv.org/abs/2412.05196v2",
+          "snippet": "Levin Tree Search (LTS) (Orseau et al., 2018) is a search algorithm for deterministic environments that uses a user-specified policy to guide the search. It comes with a formal guarantee on the number of search steps (node visits) for finding a solution node that depends on the quality of the policy. In this paper, we introduce a new algorithm, called $\\sqrt{\\text{LTS}}$ (pronounce root-LTS), which implicitly starts an LTS search rooted at every node of the search tree. Each LTS search is assigned a rerooting weight by a (user-defined or learnt) rerooter, and the search effort is shared betwe…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-12-06",
+          "authors": [
+            "Laurent Orseau",
+            "Marcus Hutter",
+            "Levi H. S. Lelis"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2412.05196v2",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "Reliability and availability of a safely shutdown system",
+          "url": "https://doi.org/10.1016/0026-2714(74)90036-5",
+          "snippet": "",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "1974-08-01",
+          "authors": [],
+          "venue": "Microelectronics Reliability",
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "doi": "10.1016/0026-2714(74)90036-5",
+            "type": "journal-article",
+            "rrf_score": 0.017391
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "The Reactive Synthesis Competition: SYNTCOMP 2016 and Beyond",
+            "evidence": "We report on the design of the third reactive synthesis competition (SYNTCOMP 2016), including a major extension of the competition to specifications in full linear temporal logic. We give a brief overview of the synthesis problem as considered in SYNTCOMP, and present the rules of the competition…",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2016",
+            "heat": "",
+            "authority": "cs.LO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LO）"
+          },
+          {
+            "point": "The 3rd Reactive Synthesis Competition (SYNTCOMP 2016): Benchmarks, Participants & Results",
+            "evidence": "We report on the benchmarks, participants and results of the third reactive synthesis competition(SYNTCOMP 2016). The benchmark library of SYNTCOMP 2016 has been extended to benchmarks in the new LTL-based temporal logic synthesis format (TLSF), and 2 new sets of benchmarks for the existing AIGER-b…",
+            "sources": [
+              15
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2016",
+            "heat": "",
+            "authority": "cs.LO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LO）"
+          },
+          {
+            "point": "Exponential Speedups by Rerooting Levin Tree Search",
+            "evidence": "Levin Tree Search (LTS) (Orseau et al., 2018) is a search algorithm for deterministic environments that uses a user-specified policy to guide the search. It comes with a formal guarantee on the number of search steps (node visits) for finding a solution node that depends on the quality of the polic…",
+            "sources": [
+              19
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Reliability and availability of a safely shutdown system",
+            "evidence": "",
+            "sources": [
+              23
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "1974",
+            "heat": "citations=0",
+            "authority": "Microelectronics Reliability",
+            "attention": "低（citations=0）",
+            "recommendation": "★★★★☆（venue=Microelectronics Reliability）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "Agent 评测与安全的开源工程实践与生态现状如何（评测框架 Inspect/Petri、可复现 harness、榜单与 leaderboard），以及当前最尖锐的开放问题与争议：能力评测与安全评测是否脱节、可纠正性是否可测量、欺骗检测的假阳性/假阴性、评测污染与 scaffold 敏感性，产业界（实验室 RSP/Preparedness Framework、AI 安全研究所、监管标准）如何把这些评测制度化？",
+      "queries": [
+        "github UK AISI Inspect AI evaluation framework stars releases 2025",
+        "Anthropic Petri open-source auditing tool 2025 agent misalignment",
+        "OpenAI Preparedness Framework Anthropic Responsible Scaling Policy 2025 agentic safety evaluation",
+        "EU AI Act GPAI code of practice 2025 NIST AI 600-1 agent evaluation standards"
+      ],
+      "rationale": "回答 facet 2/3/5/6（工业界与产品、蓝海缺口、政策标准、资本与生态）并满足要求 1 的「开源项目与工程实践 + 开放问题与争议」：需要从 GitHub 仓库活跃度、官方文档与政策文本交叉验证「谁在实际用这些评测」，同时把有争议的结论并列标注，识别无人区（如跨本体 Agent 安全评测、可纠正性的可操作指标）作为蓝海判断依据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.056215,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+          "url": "http://arxiv.org/abs/2507.12143v1",
+          "snippet": "ELOQUENT is a set of shared tasks that aims to create easily testable high-level criteria for evaluating generative language models. Sensemaking is one such shared task.\n  In Sensemaking, we try to assess how well generative models ``make sense out of a given text'' in three steps inspired by exams in a classroom setting: (1) Teacher systems should prepare a set of questions, (2) Student systems should answer these questions, and (3) Evaluator systems should score these answers, all adhering rather strictly to a given set of input materials.\n  We report on the 2025 edition of Sensemaking, whe…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-16",
+          "authors": [
+            "Pavel Šindelář",
+            "Ondřej Bojar"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.12143v1",
+            "rrf_score": 0.038479,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Faith in AI can narrow the futures individuals consider",
+          "url": "http://arxiv.org/abs/2603.28944v2",
+          "snippet": "Artificial intelligence (AI) predictions are increasingly used to inform human decisions. Here, using a behavioral implementation of the classic Newcomb's paradox in 1,305 participants, we show that AI predictions can also shape the reasoning people use to make a decision. In this paradigm, perceived predictive authority can alter how people reason about their future actions, leading them to forgo a guaranteed reward. Over 40% of participants treated AI as such a predictive authority about their own behavior, significantly increasing the odds of forgoing the guaranteed reward by a factor of 3…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-30",
+          "authors": [
+            "Aoi Naito",
+            "Hirokazu Shirado"
+          ],
+          "venue": "cs.HC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.28944v2",
+            "rrf_score": 0.036521,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "AI Wizards at CheckThat! 2025: Enhancing Transformer-Based Embeddings with Sentiment for Subjectivity Detection in News Articles",
+          "url": "http://arxiv.org/abs/2507.11764v1",
+          "snippet": "This paper presents AI Wizards' participation in the CLEF 2025 CheckThat! Lab Task 1: Subjectivity Detection in News Articles, classifying sentences as subjective/objective in monolingual, multilingual, and zero-shot settings. Training/development datasets were provided for Arabic, German, English, Italian, and Bulgarian; final evaluation included additional unseen languages (e.g., Greek, Romanian, Polish, Ukrainian) to assess generalization. Our primary strategy enhanced transformer-based classifiers by integrating sentiment scores, derived from an auxiliary model, with sentence representati…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-15",
+          "authors": [
+            "Matteo Fasulo",
+            "Luca Babboni",
+            "Luca Tedeschini"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.11764v1",
+            "rrf_score": 0.022727
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+            "evidence": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal…",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+            "evidence": "ELOQUENT is a set of shared tasks that aims to create easily testable high-level criteria for evaluating generative language models. Sensemaking is one such shared task.\n  In Sensemaking, we try to assess how well generative models ``make sense out of a given text'' in three steps inspired by exams…",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Faith in AI can narrow the futures individuals consider",
+            "evidence": "Artificial intelligence (AI) predictions are increasingly used to inform human decisions. Here, using a behavioral implementation of the classic Newcomb's paradox in 1,305 participants, we show that AI predictions can also shape the reasoning people use to make a decision. In this paradigm, perceiv…",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.HC",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.HC）"
+          },
+          {
+            "point": "AI Wizards at CheckThat! 2025: Enhancing Transformer-Based Embeddings with Sentiment for Subjectivity Detection in News Articles",
+            "evidence": "This paper presents AI Wizards' participation in the CLEF 2025 CheckThat! Lab Task 1: Subjectivity Detection in News Articles, classifying sentences as subjective/objective in monolingual, multilingual, and zero-shot settings. Training/development datasets were provided for Arabic, German, English,…",
+            "sources": [
+              32
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 30137,
+    "completion_tokens": 19328,
+    "generated_at": "2026-10-22T22:32:43.107871+00:00"
+  },
+  "models": {
+    "primary": "deepseek-v4-flash",
+    "tiers": {
+      "fast": "deepseek-v4-flash",
+      "strong": "deepseek-v4-flash"
+    }
+  },
+  "report_md": "# Agent 评测与安全（能力基准、欺骗与可纠正性）七维增量追踪报告\n\n**日期**：2026-10-22（UTC）｜**领域**：Agent Evaluation & Safety（LLM/具身 Agent 能力基准、欺骗与破坏评测、可纠正性）｜**检索源数量**：候选证据池 36 条，其中与\"Agent 评测/安全\"直接相关 8 条（[9][10][11][12][28][31][33][35]），弱相关 3 条（[6][7][26]），其余 25 条为主题不重合的 NLP/CV/天体物理/法律问答类共享任务论文。\n\n> **证据范围声明（必读）**：本次调研的候选证据池在\"长任务时程（time horizon）\"\"真实计算机/网页/软件工程 Agent 基准\"\"scheming / sabotage / alignment faking 安全评测套件\"\"可纠正性（corrigibility）\"\"AgentDojo / InjecAgent / AgentHarm\"\"Inspect / Petri 评测框架\"等核心维度上**存在系统性覆盖缺口**（q1 的三项关键主题均判为零覆盖，q3 的召回结果为视频热度预测、主观性检测等无关论文）。以下报告严格限于可用证据，凡证据池未覆盖者一律标注 `> 待核实`，**不引用池外编号、不虚构论文、不给未见于来源的数字**。因此本报告的主要价值在于：可核查的增量（SE/代码类 Agent 基准与权限安全）+ 明确的证据缺口清单 + 可证伪预测。\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n**一句话增量判断**：相对 2024 年基线，2026 年 Agent 评测的真实增量集中在\"**基准的抗污染与抗虚高**\"这一条线上——从静态 SWE-bench 走向持续更新的 live 基准、并首次用对抗性手段量化\"测试即 oracle\"导致的成功率虚高；而欺骗/破坏/可纠正性评测在本次证据池中**无任何增量证据**。\n\n### 1.1 软件工程（SWE）Agent 基准：从\"刷榜\"转向\"防作弊\"\n- **SWE-bench Goes Live**（[9]）：把 SWE-bench 从固定快照改为持续刷新的 live 版本，直接针对训练数据污染与过拟合问题。这是\"基准生命周期管理\"层面的增量，而非模型能力增量。\n- **SWE-Bench Pro Verified**（[12]）：定位为\"可靠基准\"，强调任务筛选与验证流程，说明社区已承认原始 SWE-bench 的可靠性质疑是结构性问题。\n- **SWE-ABS**（[10]）：提出对抗性基准强化方法，并**报告了基于测试的基准上成功率被高估**（inflated success rates）。这是 2024-2026 间最具方法论意义的增量之一：它把\"通过测试 ≠ 解决问题\"从经验抱怨升级为可量化的偏差度量。\n- **SWE-Gym**（[11]）：提供可执行环境与训练/验证（verifier）流程，属于\"训练-评测同栈\"的工程化增量，使得 verifier 本身成为可评测对象。\n- 证据强度：以上 4 条均为 arXiv 预印本（B 级）；`[10][12]` 的 ID 时间戳落在 2026 年，`[9]` 为 2025-05 前后，`[11]` 为 2024-12。**是否已被独立复现或写入第三方榜单：`> 待核实`**（候选块未提供引用数、榜单排名或复现报告）。\n\n### 1.2 Agent 行为安全：从\"越狱\"转向\"权限最小化\"\n- **When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents**（[35]）：把安全评测对象从\"输出是否有害\"移到\"**工具调用是否授予了超出必要的权限**\"，这是 Agent 安全评测中一条可操作、可量化的口径（权限过度授予率）。相对 2024 年主流的提示注入/越狱评测，这是**评测对象**的增量而非仅是样本增量。\n- 证据强度：B 级（arXiv，2026-06 前后）。`> 该工作是否提供开源 harness 与第三方复现：待核实`。\n\n### 1.3 评测方法论：可测试的高层标准与纵向失效\n- **ELOQUENT 2025 Sensemaking 共享任务**（[26]）：目标是\"为生成模型建立易于测试的高层判据\"，其思路（把抽象能力拆成可判分的分级步骤）与 Agent 能力基准的构建方法论同源，可作为\"高层能力→可测指标\"设计范式的外部参照。\n- **LongEval at CLEF 2025**（[28]）：纵向（longitudinal）追踪 IR 模型性能随时间的**退化**，为\"基准会随时间失效\"提供了可复用的实验设计与度量口径，可直接迁移到 Agent 基准的时效性管理。\n- **SBFT 2025 Java 测试生成赛道**（[33]）：自动化测试生成竞赛——与 §1.1 中\"测试作为 oracle 是否可靠\"（[10]）构成互补：oracle 本身正在成为被评测对象。\n- 证据强度：B 级（共享任务/竞赛描述论文）。\n\n### 1.4 明确判定为\"本周期无增量证据\"的维度\n| 维度 | 判定 | 依据 |\n|---|---|---|\n| 长任务时程（time horizon，按人类完成时长度量） | **零覆盖** | 候选池无任何 time horizon / long-horizon 评测设定，[2][3][4][5] 分别为物理常识、篇章关系分类、法律多模态 QA、ESG 承诺核验 [2][3][4][5] |\n| 真实计算机/网页交互基准（OSWorld/WebArena 类） | **零覆盖** | [4] 为静态文档检索问答，无 GUI/浏览器可执行交互；[3] 为单步分类，macro-accuracy 71.28，非任务完成度 [3][4] |\n| scheming / sabotage / alignment faking | **零覆盖** | [5] 虽名含\"promise verification\"，但核验对象是企业 ESG 文本承诺，非模型自身策略性欺骗，**必须排除误引** [5] |\n| 可纠正性（corrigibility）/ 安全中断 | **零覆盖** | 仅命中 1974 年\"安全停机系统可靠性\"（航电/可靠性工程语境），与 AI 可纠正性非同一问题域 [23] |\n\n结论：**\"能力评测与安全评测是否脱节\"这一争议，在本次证据池中无法回答**（`> 待核实`），但可从结构上观察到一个信号：能力侧证据（[9][10][11][12]）与安全侧证据（[35]）**出自完全不同的文献群，互不引用**——这本身是脱节的间接（弱）证据，等级 C，**不作为结论**。\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n**一句话增量判断**：工业界在 Agent 评测上的可见动作以\"**把基准做成持续运行的服务/榜单**\"为主（Live 化 [9]、Pro Verified 认证化 [12]），而非发布新的安全评测产品；实验室 RSP/Preparedness Framework 与 Inspect/Petri 等评测框架在本证据池中**无一手证据**。\n\n- **榜单/基准产品化**：SWE-bench Goes Live（[9]）与 SWE-Bench Pro Verified（[12]）代表两种产品形态——*滚动更新的 live 榜单*与*带验证徽章的静态集*。二者的共同前提是承认原基准已被污染/饱和，这已成为工业界共识性假设（B 级）。\n- **训练-评测一体栈**：SWE-Gym（[11]）把可执行环境、轨迹数据与 verifier 训练打包，说明\"评测 harness\"正被吸收进训练管线——副作用是评测与训练的边界模糊，**scaffold 敏感性上升**（见 §4）。\n- **安全侧产品化缺证**：企业 RSP / Preparedness Framework、第三方评测机构（UK/US AISI 等）如何把欺骗/破坏评测写入发布门禁，本次仅拿到**政策研究类**证据（[30][31]），**无任何厂商一手文档或评测报告**，`> 待核实`。\n- **评测框架（Inspect / Petri / 可复现 harness）**：本次检索**完全未召回**相关一手文档或仓库，`> 待核实`。**不得**据此推断其不存在或未被采用——这是检索覆盖缺陷，不是事实判断。\n\n> [R] 传闻级：社区普遍认为\"Agent 榜单分数与真实部署表现存在系统性差距\"，本证据池仅提供间接支持（[10] 的成功率虚高），**其余为待证实**。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n**一句话增量判断**：最大的蓝海不是\"再造一个能力基准\"，而是**三类当前几乎无人做、但杠杆极高的评测基础设施**——(a) 时程/持续性与可纠正性度量；(b) 欺骗检测的假阳性-假阴性权衡曲线；(c) oracle 可靠性审计。\n\n1. **可纠正性（corrigibility）的可测量化——明显无人区**。本次证据池零覆盖（[23] 属可靠性工程，不可类比）。缺口具体为：如何构造\"人类中断/纠正\"的干预实验，并给出可复现指标（纠正响应延迟、纠正后行为保持率、隐性抵触率）。`> 待核实`：是否已有团队给出标准协议。\n2. **时程（time horizon）度量口径**。缺口：以人类完成时长分位（如 50%/95% 人类时长）为横轴、成功率为纵轴的能力曲线，以及\"成功率-时程\"外推的方法学争议。本次零证据（[2][3][4][5] 均非交互式长任务）。\n3. **欺骗/破坏评测的判别效度（discriminant validity）**。缺口：假阳性（把探索性行为误判为 scheming）与假阴性（评测情境被模型识别后\"表现良好\"）的量化；本次仅 [5] 的\"承诺核验\"在术语上易混淆，需明确排除 [5]。\n4. **oracle 审计（最被低估的缺口）**。[10] 证明\"测试即 oracle\"会系统性高估成功率；配套缺口是：**没有任何证据表明社区已建立 oracle 强度分级标准**（弱测试/强测试/对抗测试）。[33]（自动测试生成竞赛）提供了可复用的算力与人才池，但两者尚未合流。\n5. **评测污染与 scaffold 敏感性的联合度量**。「Live 化」（[9]）+「纵向退化」（[28]）各自成立，但\"同一模型在不同 harness 下的分数方差\"这一项在本次证据池中**零覆盖**。`> 待核实`。\n6. **权限/能力边界评测**。目前仅见单一工作（[35]）把\"过度权限工具选择\"作为评测对象，属**高杠杆低竞争**方向：可扩展为工具调用最小权限的自动化审计。\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n**一句话增量判断**：拐点信号出现在\"**基准的可信度成本超过其构建成本**\"——当基准本身需要对抗性强化（[10]）、持续 Live 化（[9]）与 Pro 验证（[12]）三重维护才能使用时，评测已从\"一次性数据集\"变成\"需长期运营的基础设施\"。\n\n| 瓶颈 | 具体表现（带证据） | 拐点信号 | 证据强度 |\n|---|---|---|---|\n| **Oracle 失效** | 基于测试的基准成功率被证明虚高 [10]；测试生成本身成为竞赛对象 [33] | 出现\"oracle 强度分级\"成为论文标配要求 | B（预印本） |\n| **污染与饱和** | SWE-bench 需 Live 化 [9]、需 Pro Verified 认证 [12] | 静态基准被期刊/会议拒收为唯一证据 | B |\n| **评测时效衰减** | IR 领域已系统测量模型性能随时间退化 [28] | Agent 基准开始报告\"发布时间戳 + 复查周期\" | B（跨领域类比，C 级迁移） |\n| **scaffold 敏感性** | 训练与评测同栈（[11]）使 harness 成为混杂变量 | 榜单要求同时提交 scaffold 配置与消融 | `> 待核实`（本次无直接证据） |\n| **安全评测不可测量** | 可纠正性/欺骗检测零覆盖；仅权限维度可操作 [35] | 出现可复现的干预式（intervention-based）协议 | `> 待核实` |\n| **成本/人力** | 对抗性强化 [10]、Live 维护 [9] 均需持续人力 | 基准维护方从学术团队转为机构化运营 | C（推断） |\n\n**判断**：能力评测侧已过拐点（进入\"运营化\"阶段）；安全评测侧**尚未到拐点**，卡点在\"缺乏可干预、可判分的实验范式\"，而非缺数据或缺算力（此判断置信度：中，依据为证据池中安全类仅 1 条且为权限维度 [35]）。\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n**一句话增量判断**：可见增量集中在\"**AI 安全研究所（AISI）之间的国际信息共享机制设计**\"，仍处政策研究阶段，尚未看到评测标准被写入法规或采购条款的一手证据。\n\n- **国际 AISI 网络的信息共享**（[31]）：讨论 UK 与 US AISI 应向国际 AISI 网络共享何种信息、机会与风险，并给出试探性提案。这直接关系到\"某国做出的 Agent 欺骗/破坏评测结果能否跨境互认\"——即**评测结果的政治可比性**问题（B 级，2025）。\n- **政府作为 AI 数据提供者的评估方法**（[30]）：方法学讨论 UK 政府当前作为 AI 数据提供者的角色。与\"公共数据用于训练/评测带来的污染与合规\"间接相关（B 级）。\n- **监管落地（EU AI Act、各国 GPAI 行为准则、NIST 评测指南）**：本次证据池**零覆盖**，`> 待核实`。**不得**据本报告推断任何条款生效状态。\n- **伦理与劳动影响**：本次零覆盖（[27] 讨论\"对 AI 预测的信任会收窄个体考虑的未来\"，属人-AI 决策的行为学，非 Agent 安全治理），`> 待核实` [27]。\n- **地缘/供应链**：无证据，`> 待核实`。\n\n**结构性含义（推断，C 级）**：若评测结果需跨境互认（[31]），则**评测协议的可复现性与 oracle 可靠性**（[10]）将从学术规范升级为准入条件——这是能力评测与安全治理之间目前最可能率先打通的接口。\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n**一句话增量判断**：本周期在本证据池中**无显著变化的可核查证据**（无融资、并购、人才流动、公司格局的一手来源），仅能观察到\"基准维护方生态位\"的形成。\n\n- **基准即生态位**：SWE 系基准已形成\"live 榜单（[9]）+ 认证集（[12]）+ 训练环境（[11]）+ 对抗审计（[10]）+ 自动测试生成社区（[33]）\"的分工，这构成事实上的评测生态（B 级，由 4 篇独立论文的结构关系推断，**非机构声明**）。\n- **投资/并购/融资额**：`> 待核实`（候选池无任何来源）。\n- **人才流动**：`> 待核实`。\n- **社区规模信号（GitHub star、下载量、榜单提交数）**：候选块**未提供任何 stars/citations 字段**，全部标 `> 待核实`，**不填数字**。\n- **评测框架生态（Inspect / Petri / HELM 式规范）**：零召回，`> 待核实`。\n\n> 结论：本章为**证据不足章**。为避免虚构成因，本章不给出任何量化判断；下一周期应定向检索基准仓库 star 增速、榜单提交曲线与厂商评测团队招聘信号。\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n### 7.1 早期信号（带证据）\n- **S1（较强）**：评测重心从\"模型能否通过测试\"转向\"测试是否可信\"——[10] 量化虚高、[33] 把测试生成列为竞赛、[12] 强调 Verified。三者独立指向同一方向。\n- **S2（中）**：基准从\"数据集\"变为\"服务\"——[9] 的 Live 化与 [28] 的纵向复查机制同构。\n- **S3（弱）**：Agent 安全评测从\"内容有害性\"转向\"行为权限边界\"——[35] 为唯一证据，N=1，`> 待核实` 是否形成趋势。\n- **S4（弱，跨域类比）**：评测结果的跨境互认需求已被政策研究提出（[31]），但尚无标准草案证据。\n\n### 7.2 可证伪预测（6–18 个月，即 2026-10 至 2028-04）\n\n| # | 预测（标 [P]） | 依据链 | 置信度 | 证伪条件 |\n|---|---|---|---|---|\n| P1 | 到 2027 年底，主流 SE/计算机 Agent 榜单将**强制要求**报告 oracle 强度或对抗测试设置 | S1：[10] 已量化虚高 + [12] 已引入 Verified 概念 | 中高 | 若 2027-12 前 arXiv/榜单中仍无以 oracle 可靠性为必备报告项的基准，则判为不成立 |\n| P2 | 出现至少一个**干预式可纠正性基准**（含人类中断/纠正协议与可复现指标），并被 ≥2 个独立团队使用 | S3 缺口 + [23] 仅可靠性工程类比 → 需求明确但供给为零 | 中 | 若 2028-04 前无任何带开源协议的可纠正性评测集，则判为不成立 |\n| P3 | \"权限最小化\"成为 Agent 安全评测的标准子项（而不只是单篇工作） | [35] 提供可操作口径；与工具调用生态天然契合 | 中 | 若 2027-12 前无第二个独立团队发布同类工具权限评测，则判为不成立 |\n| P4 | 静态能力基准（非 live、非验证）在顶会作为主要贡献被接受的比率显著下降 | [9][12] 的双重挤压 | 中低 | 若 2027 年顶会仍大量接收纯静态新基准且无污染/验证讨论，则判为不成立 |\n| P5 | 欺骗/破坏（scheming/sabotage）评测在 2027 年前**仍不会有被第三方独立复现的标准化套件** | 本次证据池零覆盖 + 判别效度难题未解 | 低-中 | 若 2027-06 前出现 ≥2 篇独立复现同一 deception 评测套件的论文，则判为不成立 |\n\n### 7.3 不确定性声明\n- **未知（需数据）**：时程基准现状、OSWorld/WebArena 类基准的最新版本与任务数、AgentDojo/InjecAgent/AgentHarm 的当前指标、Inspect/Petri 的采用率、各实验室 RSP 中欺骗评测的具体阈值——**本次均无一手证据，全部 `> 待核实`**。\n- **争议（[Debated]）**：\"能力评测与安全评测是否脱节\"——本证据池无法判定；正反双方证据均缺失。\n- **本报告最大风险**：候选证据池严重偏斜（36 条中约 25 条为主题无关的共享任务论文），任何\"领域整体趋势\"的强断言都不成立。本报告因此**主动降级**了 §2、§5、§6 的结论强度。\n\n---\n\n## 附：经典与奠基性工作（本次证据池可支撑部分）\n\n> 说明：候选池中**缺少**可纠正性（corrigibility）、安全中断（safely interruptible agents）、提示注入（prompt injection）、AgentDojo/InjecAgent/AgentHarm 等奠基文献的一手来源，故下表**不含**这些条目——`> 待核实`，需补充检索后再补全，不得以记忆填充。\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| SWE-bench Goes Live! | 2025 | `> 待核实`（候选块未给作者/机构） | `> 待核实` | arXiv 预印本（B），主题为基准方法学 [9] | 中：直接回应污染问题，属结构性议题 [9] | ★★★★☆ 理解\"基准生命周期\"必读 | http://arxiv.org/abs/2505.23419v2 | 把 SWE-bench 改为持续更新的 live 基准 [9] |\n| SWE-ABS: Adversarial Benchmark Strengthening | 2026 | `> 待核实` | `> 待核实` | arXiv 预印本（B）[10] | 中高：给出成功率虚高的量化证据 [10] | ★★★★★ 本报告认为最关键的评测方法学增量 | http://arxiv.org/abs/2603.00520v1 | 对抗性强化暴露 test-based 基准成功率虚高 [10] |\n| SWE-Bench Pro Verified | 2026 | `> 待核实` | `> 待核实` | arXiv 预印本（B），自述\"可靠基准\" [12] | 中：Verified 认证思路 [12] | ★★★★☆ 观察\"验证徽章\"制度化路径 | http://arxiv.org/abs/2609.08149v3 | 强调任务筛选与可靠性 [12] |\n| When Lower Privileges Suffice | 2026 | `> 待核实` | `> 待核实` | arXiv 预印本（B）[35] | 中：唯一命中 Agent 行为安全的证据 [35] | ★★★★☆ Agent 安全评测中少见的可量化口径 | http://arxiv.org/abs/2606.20023v2 | 过度权限工具选择调查 [35] |\n| LongEval at CLEF 2025 | 2025 | `> 待核实` | `> 待核实` | 评测实验室共享任务（B）[28] | 中：纵向评测设计被广泛复用 [28] | ★★★☆☆ 迁移其\"时效衰减\"度量到 Agent 基准 | http://arxiv.org/abs/2503.08541v1 | IR 模型性能的纵向评测 [28] |\n| Reliability and availability of a safely shutdown system | 1974 | `> 待核实` | citations=0 [23] | Microelectronics Reliability（A 级期刊，但**非 AI 领域**）[23] | 低：citations=0，且问题域不同 [23] | ★☆☆☆☆ 仅作\"可纠正性\"术语溯源时的反例，勿误引 | https://doi.org/10.1016/0026-2714(74)90036-5 | 航电/可靠性工程中的安全停机，非 AI 可纠正性 [23] |\n\n## 附：开源项目（本次证据池可支撑部分）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| SWE-Gym | 2024 | `> 待核实` | `> 待核实`（stars 未提供） | arXiv 预印本（B）[11] | 中：训练+verifier 一体栈 [11] | ★★★★☆ 想复现 SE Agent 训练-评测闭环的起点 | http://arxiv.org/abs/2412.21139v2 | 用可执行环境训练 SE Agent 与 verifier [11] |\n| （Inspect / Petri / AgentDojo / InjecAgent / AgentHarm） | — | — | `> 待核实` | `> 待核实` | `> 待核实` | — | `> 待核实` | **本次检索零召回，不得臆测其仓库状态** |\n\n## 附：数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| SWE-bench Live | 2025 | `> 待核实` | `> 待核实` | 预印本（B）[9] | 中高 [9] | ★★★★☆ 抗污染首选 | http://arxiv.org/abs/2505.23419v2 | 持续更新的 SWE 任务流 [9] |\n| SWE-Bench Pro Verified | 2026 | `> 待核实` | `> 待核实` | 预印本（B）[12] | 中 [12] | ★★★★☆ 需\"已验证子集\"时使用 | http://arxiv.org/abs/2609.08149v3 | 经筛选验证的 SE Agent 基准 [12] |\n| SWE-ABS（对抗强化协议） | 2026 | `> 待核实` | `> 待核实` | 预印本（B）[10] | 中高 [10] | ★★★★★ 作为\"基准体检工具\"而非新数据集 | http://arxiv.org/abs/2603.00520v1 | 用于检测既有 test-based 基准的虚高 [10] |\n| ELOQUENT 2025 Sensemaking | 2025 | `> 待核实` | `> 待核实` | 共享任务（B）[26] | 中低：评测设计范式参考 [26] | ★★☆☆☆ 仅借其\"高层判据可测试化\"思路 | http://arxiv.org/abs/2507.12143v1 | 分层可判分的高层能力评测 [26] |\n| LongEval 2025 | 2025 | `> 待核实` | `> 待核实` | 评测实验室（B）[28] | 中 [28] | ★★★☆☆ 时效性管理参照 | http://arxiv.org/abs/2503.08541v1 | 纵向性能退化评测 [28] |\n| VLSP 2025 MLQA-TSR | 2025 | `> 待核实` | `> 待核实` | 挑战赛描述（B）[4] | 低：区域赛事，非 Agent 交互 [4] | ★☆☆☆☆ 与 Agent 评测无关，列入仅为界定边界 | http://arxiv.org/abs/2510.20381v1 | 越南语交通标志法规多模态 QA [4] |\n| FormaMentis（MRL 2025） | 2025 | `> 待核实` | `> 待核实` | 共享任务提交（B）[2] | 低 [2] | ★☆☆☆☆ 静态常识 QA，非 Agent 基准 [2] | http://arxiv.org/abs/2510.22631v1 | 意/英物理常识基准 [2] |\n\n---\n\n## 下一周期必补检索清单（Gap Checklist）\n\n1. **time horizon / long-horizon agent benchmark**（含人类时长分位口径）——本次零覆盖。\n2. **OSWorld / WebArena / VisualWebArena** 最新版本、任务数与独立复现——本次零覆盖。\n3. **AgentDojo / InjecAgent / AgentHarm / Petri / Inspect** 一手论文与仓库——本次零覆盖。\n4. **corrigibility / safely interruptible agents** 奠基文献——本次仅有 1974 年非 AI 文献 [23]，不可用。\n5. **RSP / Preparedness Framework / AISI 评测协议** 一手文档——本次仅有政策研究 [30][31]。\n6. **GitHub star / 引用数 / 榜单提交数**等热度字段——本次候选块全缺，须改从 GitHub API 与 Semantic Scholar/OpenAlex 补齐。\n\n> 再次声明：以上 6 项缺口内的任何具体结论，本报告**一律未作断言**，全部标注 `> 待核实`。\n\n---\n\n## 参考来源\n\n[1] Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs — http://arxiv.org/abs/2504.19675v2\n[2] Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task — http://arxiv.org/abs/2510.22631v1\n[3] DeDisCo at the DISRPT 2025 Shared Task: A System for Discourse Relation Classification — http://arxiv.org/abs/2509.11498v4\n[4] VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation — http://arxiv.org/abs/2510.20381v1\n[5] CLaC at SemEval-2025 Task 6: A Multi-Architecture Approach for Corporate Environmental Promise Verification — http://arxiv.org/abs/2505.23538v1\n[6] NALA_MAINZ at BLP-2025 Task 2: A Multi-agent Approach for Bangla Instruction to Python Code Generation — http://arxiv.org/abs/2511.16787v1\n[7] MRT at IberLEF-2025 PRESTA Task: Maximizing Recovery from Tables with Multiple Steps — http://arxiv.org/abs/2507.12981v1\n[8] DNB-AI-Project at SemEval-2025 Task 5: An LLM-Ensemble Approach for Automated Subject Indexing — http://arxiv.org/abs/2504.21589v1\n[9] SWE-bench Goes Live! — http://arxiv.org/abs/2505.23419v2\n[10] SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark — http://arxiv.org/abs/2603.00520v1\n[11] Training Software Engineering Agents and Verifiers with SWE-Gym — http://arxiv.org/abs/2412.21139v2\n[12] SWE-Bench Pro Verified: A Reliable Benchmark for Software Engineering Agents — http://arxiv.org/abs/2609.08149v3\n[13] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1\n[14] The Reactive Synthesis Competition: SYNTCOMP 2016 and Beyond — http://arxiv.org/abs/1611.07626v1\n[15] The 3rd Reactive Synthesis Competition (SYNTCOMP 2016): Benchmarks, Participants & Results — http://arxiv.org/abs/1609.00507v2\n[16] 2nd Workshop on Cognitive Architectures for Social Human-Robot Interaction 2016 (CogArch4sHRI 2016) — http://arxiv.org/abs/1602.01868v1\n[17] 5th International Symposium on New Frontiers in Human-Robot Interaction 2016 (NF-HRI 2016) — http://arxiv.org/abs/1602.05456v2\n[18] Theory @ Hard Probes 2015 — http://arxiv.org/abs/1510.04133v2\n[19] Exponential Speedups by Rerooting Levin Tree Search — http://arxiv.org/abs/2412.05196v2\n[20] CHARM-2015 Theory Summary — http://arxiv.org/abs/1510.05797v1\n[21] Historical light-curve and the 2016 outburst of the symbiotic star StHa 169 — http://arxiv.org/abs/1607.06312v1\n[22] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1\n[23] Reliability and availability of a safely shutdown system — https://doi.org/10.1016/0026-2714(74)90036-5\n[24] Atmospheric entry and fragmentation of small asteroid 2024 BX1 — http://arxiv.org/abs/2403.00634v2\n[25] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[26] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators — http://arxiv.org/abs/2507.12143v1\n[27] Faith in AI can narrow the futures individuals consider — http://arxiv.org/abs/2603.28944v2\n[28] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1\n[29] DeBiasMe: De-biasing Human-AI Interactions with Metacognitive AIED (AI in Education) Interventions — http://arxiv.org/abs/2504.16770v1\n[30] Methods to Assess the UK Government's Current Role as a Data Provider for AI — http://arxiv.org/abs/2412.09632v2\n[31] Which Information should the UK and US AISI share with an International Network of AISIs? Opportunities, Risks, and a Tentative Proposal — http://arxiv.org/abs/2503.04741v1\n[32] AI Wizards at CheckThat! 2025: Enhancing Transformer-Based Embeddings with Sentiment for Subjectivity Detection in News Articles — http://arxiv.org/abs/2507.11764v1\n[33] SBFT Tool Competition 2025 -- Java Test Case Generation Track — http://arxiv.org/abs/2504.09168v1\n[34] AIRCC-Clim: a user-friendly tool for generating regional probabilistic climate change scenarios and risk measures — http://arxiv.org/abs/2111.01762v1\n[35] When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents — http://arxiv.org/abs/2606.20023v2\n[36] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3\n\n---\n\n*Generated by research-bot · topic=`agent-评测与安全能力基准欺骗与可纠正性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=36 · duration=180s · 2026-10-22T22:32:43+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+      "url": "http://arxiv.org/abs/2504.19675v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Culturally Grounded Physical Commonsense Reasoning in Italian and English: A Submission to the MRL 2025 Shared Task",
+      "url": "http://arxiv.org/abs/2510.22631v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "DeDisCo at the DISRPT 2025 Shared Task: A System for Discourse Relation Classification",
+      "url": "http://arxiv.org/abs/2509.11498v4",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-09-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "VLSP 2025 MLQA-TSR Challenge: Vietnamese Multimodal Legal Question Answering on Traffic Sign Regulation",
+      "url": "http://arxiv.org/abs/2510.20381v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "CLaC at SemEval-2025 Task 6: A Multi-Architecture Approach for Corporate Environmental Promise Verification",
+      "url": "http://arxiv.org/abs/2505.23538v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "NALA_MAINZ at BLP-2025 Task 2: A Multi-agent Approach for Bangla Instruction to Python Code Generation",
+      "url": "http://arxiv.org/abs/2511.16787v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-11-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "MRT at IberLEF-2025 PRESTA Task: Maximizing Recovery from Tables with Multiple Steps",
+      "url": "http://arxiv.org/abs/2507.12981v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "DNB-AI-Project at SemEval-2025 Task 5: An LLM-Ensemble Approach for Automated Subject Indexing",
+      "url": "http://arxiv.org/abs/2504.21589v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "SWE-bench Goes Live!",
+      "url": "http://arxiv.org/abs/2505.23419v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark",
+      "url": "http://arxiv.org/abs/2603.00520v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-02-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Training Software Engineering Agents and Verifiers with SWE-Gym",
+      "url": "http://arxiv.org/abs/2412.21139v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2024-12-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "SWE-Bench Pro Verified: A Reliable Benchmark for Software Engineering Agents",
+      "url": "http://arxiv.org/abs/2609.08149v3",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-09-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "The Reactive Synthesis Competition: SYNTCOMP 2016 and Beyond",
+      "url": "http://arxiv.org/abs/1611.07626v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2016-11-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "The 3rd Reactive Synthesis Competition (SYNTCOMP 2016): Benchmarks, Participants & Results",
+      "url": "http://arxiv.org/abs/1609.00507v2",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2016-09-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "2nd Workshop on Cognitive Architectures for Social Human-Robot Interaction 2016 (CogArch4sHRI 2016)",
+      "url": "http://arxiv.org/abs/1602.01868v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2016-02-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "5th International Symposium on New Frontiers in Human-Robot Interaction 2016 (NF-HRI 2016)",
+      "url": "http://arxiv.org/abs/1602.05456v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2016-02-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Theory @ Hard Probes 2015",
+      "url": "http://arxiv.org/abs/1510.04133v2",
+      "kind": "paper",
+      "venue": "hep-ph",
+      "published": "2015-10-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Exponential Speedups by Rerooting Levin Tree Search",
+      "url": "http://arxiv.org/abs/2412.05196v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-12-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "CHARM-2015 Theory Summary",
+      "url": "http://arxiv.org/abs/1510.05797v1",
+      "kind": "paper",
+      "venue": "hep-ph",
+      "published": "2015-10-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Historical light-curve and the 2016 outburst of the symbiotic star StHa 169",
+      "url": "http://arxiv.org/abs/1607.06312v1",
+      "kind": "paper",
+      "venue": "astro-ph.SR",
+      "published": "2016-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Reliability and availability of a safely shutdown system",
+      "url": "https://doi.org/10.1016/0026-2714(74)90036-5",
+      "kind": "paper",
+      "venue": "Microelectronics Reliability",
+      "published": "1974-08-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+      "url": "http://arxiv.org/abs/2507.12143v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Faith in AI can narrow the futures individuals consider",
+      "url": "http://arxiv.org/abs/2603.28944v2",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2026-03-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance",
+      "url": "http://arxiv.org/abs/2503.08541v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-03-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "DeBiasMe: De-biasing Human-AI Interactions with Metacognitive AIED (AI in Education) Interventions",
+      "url": "http://arxiv.org/abs/2504.16770v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2025-04-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Methods to Assess the UK Government's Current Role as a Data Provider for AI",
+      "url": "http://arxiv.org/abs/2412.09632v2",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2024-11-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Which Information should the UK and US AISI share with an International Network of AISIs? Opportunities, Risks, and a Tentative Proposal",
+      "url": "http://arxiv.org/abs/2503.04741v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2025-02-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "AI Wizards at CheckThat! 2025: Enhancing Transformer-Based Embeddings with Sentiment for Subjectivity Detection in News Articles",
+      "url": "http://arxiv.org/abs/2507.11764v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "SBFT Tool Competition 2025 -- Java Test Case Generation Track",
+      "url": "http://arxiv.org/abs/2504.09168v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-04-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "AIRCC-Clim: a user-friendly tool for generating regional probabilistic climate change scenarios and risk measures",
+      "url": "http://arxiv.org/abs/2111.01762v1",
+      "kind": "paper",
+      "venue": "physics.ao-ph",
+      "published": "2021-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents",
+      "url": "http://arxiv.org/abs/2606.20023v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-06-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 36,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/10/2026-10-22-agent-评测与安全能力基准欺骗与可纠正性.md",
+    "json": "report/2026/10/2026-10-22-agent-评测与安全能力基准欺骗与可纠正性.json"
+  }
+}
