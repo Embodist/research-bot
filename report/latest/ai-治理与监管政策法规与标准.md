@@ -1,238 +1,47 @@
-# 全球 AI 治理与监管：相对 2024 基线的增量快照（2024-10 → 2026-10）
+# AI 治理与监管（政策、法规与标准） 前沿调研
 
-**元信息**｜日期：2026-10-23（UTC）｜领域：AI 治理与监管（政策 · 法规 · 标准 · 合规工程 · 评测基准）｜引用池：32 条来源，其中 18 条与本主题直接相关（[2][4][5][6][7][8][11][12][15][20][21][22][23][25][28][29][30][31]），另有 2 条边缘相关（[1][24]）｜检索源类型：以 arXiv cs.CY 预印本为主，另有 1 条带 DOI 的书章
+> 本报告在 LLM 不可用时由检索结果自动生成（降级模式），结论需人工复核。
 
-> **证据边界声明（须先读）**：本报告的引用池中**没有**任何官方一手文本的原文链接——EUR-Lex 条例全文、NIST AI RMF 文件本体、ISO/IEC 42001:2023 标准正文、中国/英国/日韩/新加坡的监管原文，均未入池。因此凡涉及“某条文于某日正式生效”“某标准条款编号”“某国立法名称与通过时间”的判断，本报告一律写为 `> 待核实`，仅陈述**学术文献对该文本的分析**，不替官方文本立论。引用池亦未覆盖美国联邦/州立法、中国生成式 AI 管理办法修订、英国 AI 法案、日韩 AI 基本法、新加坡治理框架、算力与芯片出口管制、融资并购数据——相关章节将明示“本引用池无增量证据”。
->
-> **证据等级**：除 [11] 为带 DOI 的书章（B/A 级，同行评审状态 `> 待核实`）外，其余均为 arXiv 预印本（B 级，**未见同行评审记录**）。所有 `citations=` 字段仅 [11] 取到（=0），其余热度数据缺失，按纪律写 `> 待核实`，**不编造引用数或榜单排名**。
+## 摘要
+AI 治理与监管（政策、法规与标准） — 领域增量追踪（变化/蓝海/产业/社会）（7 facet）
 
----
+## AI 治理与监管（政策、法规与标准）
+- Faith in AI can narrow the futures individuals consider [1]
+- Competing Visions of Ethical AI: A Case Study of OpenAI [3]
+- The New Shape of Search: How Conversational AI Recomposes Information Seeking [4]
+- Explaining and Proving Hybrid CRE for AI governance [14]
 
-## 1. 进展与热点（Progress & Hotspots）
+## AI 治理与监管（政策、法规与标准）
+- Faith in AI can narrow the futures individuals consider [1]
+- Competing Visions of Ethical AI: A Case Study of OpenAI [3]
+- The New Shape of Search: How Conversational AI Recomposes Information Seeking [4]
+- Explaining and Proving Hybrid CRE for AI governance [14]
 
-> **一句话增量判断**：相对 2024 年“立法竞速”基线，2025–2026 的增量不在“有没有法”，而在**三件事同时发生**——(a) 欧盟从条文走向“高风险义务可验证化”与“立法简化修订”双轨；(b) 标准侧收敛出**唯一可认证的 AIMS（ISO/IEC 42001）**，并开始与 NIST AI RMF、EU AI Act 做语义对齐；(c) 合规从“政策宣示”下沉为**需求工程、控制栈与审计可见性**的工程问题。
-
-### 1.1 欧盟：执法准备与“简化修订”并行的双轨期
-
-- **增量：AI Act 高风险义务已从“文本”进入“可验证性”研究阶段。** [30] 对 AI Act 第 III 章高风险要求做系统分析，把法律条文逆向映射为 **AI-specific risk sources**，这说明学界关注点已从“义务有哪些”转为“义务如何被分解为可测试的风险源”。[7] 进一步以需求工程（RE）视角综述“如何验证 AI Act 要求”，即把法条编译为可验证的需求条目。→ 这是相对 2024 年最实质的**方法论增量**：合规从法学命题变成工程命题。[7][30]
-- **增量：立法文本本身处于“被修订”状态。** [29] 以 **Digital Omnibus on AI** 为对象，讨论其**立法合法性（legislative legitimacy）**与 AI 监管的动态演化。这标志着 2026 年的欧盟议题已从“如何执行 AI Act”部分转向“**如何在 Omnibus 中修改/简化 AI Act**”，产生新的程序正当性争议。[29]　> 具体被修改的条款清单、生效时间表：`> 待核实`（引用池未含官方文本）。
-- **增量：适用范围（scope）成为独立争点。** [6] 专门讨论 AI Act 中的 **internal deployment**（内部部署）问题——即组织内部自用系统是否/如何落入义务范围。这类“边界条款”在 2024 年讨论中几乎不可见，2026 年成为独立论文主题，说明执法临近后**范围不确定性**才是企业首要风险。[6]
-- **争议：GPAI 的“系统性风险”阈值是否可跨模态移植。** [5] 主张把 **ESM3**（生物/科学基础模型）认定为具系统性风险的通用目的 AI 模型，实质是检验 AI Act 的系统性风险判定逻辑能否覆盖非语言、非通用对话类模型。这是一个 `[Debated]` 议题：形式阈值 vs. 能力实质。[5]
-
-### 1.2 标准与认证：从“三套框架并存”到“对齐分类学”
-
-- **增量：可认证性成为分层的关键判据。** [21] 明确指出三件工具在结构上异质：**ISO/IEC 42001:2023** 是首个**可认证**的 AI 管理体系（AIMS）标准；**NIST AI RMF 1.0** 是**自愿性**、社会—技术取向的框架；**EU AI Act** 是**具有约束力的法律**。三者被放进统一治理分类学（unified governance taxonomy）中调和。[21]
-- **增量：治理被形式化为“层”。** [31] 提出**五层框架**整合监管、标准与认证，把“法—标—证”关系显式结构化，而非并列罗列。[31]
-- **结论性判断**：截至引用池所能支撑的范围，**唯一具备第三方认证语义的 AI 管理体系载体是 ISO/IEC 42001**；NIST AI RMF 与 OECD/IEEE 类成果仍停留在框架/指南层。→ 此判断与 2024 基线相比是**收敛而非扩张**：标准数量没有爆炸，**可认证性**这一维度把标准分出了层级。[21][31]
-
-### 1.3 合规工程：从“义务”到“规范”再到“控制栈”
-
-- **增量一：义务→需求。** [7] 把 AI Act 义务转为可验证需求（RE 视角），是合规自动化的前置条件。[7]
-- **增量二：治理→运行时控制。** [23] 提出 **AI Governance Control Stack**，指出多数治理方法停留在**政策层（policy guidance）**而缺少**运行稳定性机制（operational stability）**，主张治理架构须能在系统运行时持续维持约束。[23]
-- **增量三：合规→审计可见性。** [22] 的 **CEDAR-42001** 针对 **AI-enabled cyber-physical systems（AI-CPS）**，指出 ISO/IEC 42001 的一致性（conformity）不足以支撑跨“感知—计算—控制—人类监督—治理”的保证链条，提出**架构感知（architecture-aware）、审计可见（audit-visible）**的保证姿态。[22] → **这是与具身智能/机器人最直接相关的一条治理增量。**
-
-### 1.4 评测、透明度与影响评估
-
-- **增量：透明度从“倡议”变为“可打分指数”。** [12]《2025 Foundation Model Transparency Index》延续对基础模型开发者透明度的年度量化评分。→ 相对 2024 的增量是**指数化与年度可比性**；具体分值、覆盖模型数、指标构成 `> 待核实`（引用池仅有标题级信息）。[12]
-- **增量：影响评估的“指标正当性”被问题化。** [15] 讨论 AI 影响评估中**指标如何被证成（justifying metrics）**，即“测什么”本身需要论证，而非默认采纳。这是对 2024 年“AIA 流程化”倾向的反思性增量。[15]
-- **边缘增量：合成内容检测出现年度化竞赛基准。** [24] NTIRE 2026 挑战赛聚焦**野外鲁棒 AI 生成图像检测**，说明内容溯源/检测正在形成可比的评测口径——与 AI Act 透明度义务、深伪治理间接相关，但**不能**直接等同于合规认证工具。[24]
-
-### 1.5 责任、对齐与话语竞争
-
-- **增量：对齐（alignment）开始被映射为法律义务类型。** [4] 讨论 **AI Alignment and Fiduciary Obligation**——当 AI 助手承担建议、决策支持、陪伴等长期角色时，现有对齐准则不足以规范关系，需引入**信义义务（fiduciary duty）**式的法律结构。[4] → 这是“责任分配”议题从伦理讨论转向**法律关系定性**的增量。
-- **增量：厂商伦理话语被实证解构。** [2] 以 OpenAI 为案例，分析其公共话语如何调用 ethics / safety / alignment 等概念，指出不同行动者对“AI 伦理”的框定存在竞争。[2]
-- **边缘增量：公众对 AI 预测的信任会影响其决策推理。** [1] 在 1,305 名参与者中做的行为实验显示，AI 预测会改变人们做决策时的推理方式（新组合悖论范式）。→ 与“人类监督/自主性”条款的正当性论证相关，但**不构成监管证据**。[1]
-
-### 1.6 与本主题直接相关的“最新进展 vs 经典工作”分界
-
-| 类别 | 时间边界 | 代表条目 |
-|---|---|---|
-| **最新进展（近 1–2 年，2025–2026）** | 2025-09 至 2026-09 | [6][7][12][15][21][22][23][25][29][30][31][5][4][2] |
-| **经典/较早基线（≤2024，作为对照）** | 2023 | [28]（AI 与 EU DMA 的“Bigness”风险分析） |
-| **本引用池未覆盖的经典奠基文献** | — | 模型卡/数据卡（Model Cards / Datasheets）、算法影响评估（AIA）原始文献、NIST AI RMF 1.0 原文、ISO/IEC 42001:2023 正文 → `> 待核实`（未入池，不引） |
-
----
-
-## 2. 工业界与产品（Industry & Product）
-
-> **一句话增量判断**：本引用池能支撑的增量是**“合规正在产品化”的三条线索**——管理体系认证（AIMS）、治理控制栈、审计可见性；但**没有任何厂商名称、产品名、部署量或收入数据入池**，因此本节只能做“品类级”判断，公司级事实全部 `> 待核实`。
-
-- **品类 1：AIMS 认证与咨询市场。** ISO/IEC 42001 作为**首个可认证的 AI 管理体系标准**，天然生成“认证—审计—咨询”的服务链条。[21] 同时 [20] 把 ISO 42001 与**监管暴露（regulatory exposure）**一起纳入 ROI 量化框架，提出“Risk-Adjusted Intelligence Dividend”，意味着企业侧已开始把合规投入当作**可计量的投资项**而非纯成本。[20] → 这是 2024 年基线中不存在的分析范式。
-- **品类 2：治理控制栈（Governance Control Stack）产品化。** [23] 主张治理需具备**运行稳定性机制**而非仅政策文本，指向一类“治理中间件/控制面”的产品形态（策略执行、持续监控、漂移与失效处置）。[23] → 具体商用产品与厂商 `> 待核实`。
-- **品类 3：面向 CPS/机器人的审计可见性产品。** [22] 指出 ISO/IEC 42001 的 conformity 在 **AI-CPS** 场景下不足，需要**架构感知**的证据采集，以覆盖 sensing→computation→control→human oversight→governance 全链。[22] → 对具身智能企业，这是**采购与投标时会遇到的合规证据要求**的雏形；但现有商用工具 `> 待核实`。
-- **品类 4：透明度作为市场信号。** [12] 的年度指数把“透明度”变成可对外披露、可横向比较的竞争维度。[12] → 是否已影响采购决策/融资条款：`> 待核实`（无一手数据）。
-- **明确缺口**：本引用池**无**任何关于厂商发布、开源权重策略、真机部署规模、量产或商业化的证据。所有“某公司已上线/已认证”的说法均不可写入。`> 待核实`
-
----
-
-## 3. 蓝海与缺口（Blue Ocean & Gaps）
-
-> **一句话增量判断**：2024 年的空白是“没有规则”；2026 年的空白变成**“规则有了，但缺可执行的证据链、缺跨框架语义、缺对自治系统的适配”**——这是更高杠杆的空白。
-
-1. **AI-CPS / 具身智能的架构级审计（最显著的蓝海）。** [22] 明确指出 AIMS 的 conformity 判定无法覆盖“感知—控制”链路上的保证需求，需要**架构感知、审计可见**的新方法。机器人/自动驾驶/工业 AI 的合规证据采集目前**没有成熟范式**。[22]
-2. **Agentic AI 的合规语义空白。** [25] 指出 AI agents（自主规划、调用外部工具、执行多步动作链、减少人类介入）正在企业职能中规模化部署，而现行法律框架对其**归责与义务分配**并无现成答案。[25] → “多步动作链的责任切分”“工具调用是否构成新的部署者角色”均属无人区。
-3. **跨框架语义对齐（ISO 42001 ↔ NIST RMF ↔ AI Act）。** [21] 已提出统一分类学的**必要性**，[31] 提出五层整合框架，但**可机读、可审计的映射表**仍是空白——这正是合规自动化的关键中间件。[21][31]
-4. **风险管理中的“自我评估循环”。** [11] 指出 AI Act 高风险系统的风险管理义务存在**偏见（bias）**：由提供者自行开展风险管理，形成“狐狸看守鸡舍”式的结构缺陷。[11] → “第三方风险管理/独立评估”因此是明确的制度性缺口。
-5. **指标正当性（metric justification）。** [15] 指出影响评估的核心难题是**为何测这个而不是那个**；目前缺乏对指标选择本身的论证规范。[15]
-6. **系统性风险阈值的跨模态适用。** [5] 以 ESM3 为例，暴露形式化阈值（算力/规模）与实质能力风险之间的错配；非语言模态的基础模型几乎无判定先例。[5]
-7. **本引用池无证据的缺口（须诚实标注）**：中小企业合规成本抑制、学术研究豁免、法域间互认（mutual recognition）、算力与芯片出口管制的地缘影响、责任保险产品设计 → `> 待核实`（均未入池）。
-
----
-
-## 4. 瓶颈与拐点（Bottleneck & Inflection）
-
-> **一句话增量判断**：瓶颈已从“立法不确定性”**迁移**为“**法律语义 → 工程规范 → 可审计证据**”三段链路上的转译损耗；拐点信号是审计工具开始进入 CPS 采购与 AIMS 认证需求形成规模。
-
-| 瓶颈 | 性质 | 证据 | 拐点信号（可观测） |
-|---|---|---|---|
-| 法律文本与风险源之间无标准转译 | 语义/工程 | [30][7] | 出现被广泛采纳的“条文→需求条目”公开映射库（当前 `> 待核实`） |
-| 三套框架术语不可机读对齐 | 标准/工程 | [21][31] | 出现跨 ISO 42001 / NIST RMF / AI Act 的可审计映射规范 |
-| 治理停留在政策层，缺运行时机制 | 工程 | [23] | 治理控制面成为 AI 平台的默认组件 |
-| 风险管理自我评估、缺独立性 | 制度 | [11] | 强制第三方评估或审计签字要求落地 |
-| 自治系统的义务主体不清 | 法律 | [25] | 出现针对 agent 的部署者/提供者角色解释或执法指引 |
-| 指标选择缺正当性论证 | 方法论 | [15] | 影响评估报告开始附指标选择论证章节 |
-| 立法文本本身在变动（Omnibus） | 政策 | [29] | **反向拐点**：修订窗口期内企业合规投入被推迟，形成“观望期” |
-
-- **成本瓶颈**：[20] 把合规纳入 ROI 计算，本身即反映企业需要一个**可量化的成本—收益叙事**才能持续投入；这侧面说明合规成本已成为决策约束。[20] → 具体成本量级 `> 待核实`。
-- **评测瓶颈**：[12] 的指数化与 [15] 的指标批判并存，说明**“有分数”与“分数有意义”之间的鸿沟**尚未弥合。[12][15]
-
----
-
-## 5. 社会·政策·国际（Society, Policy & Geopolitics）
-
-> **一句话增量判断**：增量集中在**“监管的程序正当性与民主审议”**以及**“治理视角的全球不均衡”**两个方向；地缘政治与出口管制维度在本引用池**完全缺失**。
-
-- **程序正当性成为新争议轴。** [29] 以 Digital Omnibus 为切口讨论 **legislative legitimacy**——即通过简化/打包立法修改 AI Act 是否损害立法程序的正当性。这是 2024 年“AI Act 通过”叙事之后才可能出现的新争点，属 `[Debated]`。[29]
-- **“全球多数（Global Majority）”视角进入主流讨论。** [11] 发表于 *AI from the Global Majority* 文集，从**风险管理义务的结构性偏见**切入，质疑由提供者自证的治理模式。[11] → 治理话语的地理中心开始被质疑，这是相对 2024 的实质增量。
-- **高风险场景的伦理落地（医疗）。** [8] 以**工作失能风险预测**与**阿尔茨海默病风险预测**两个医疗 AI 工具为案例，分析伦理与 AI Act 合规的交叠，说明抽象义务在具体临床场景中如何被解读，也暴露**风险预测类工具的分类困难**。[8]
-- **公众认知与自主性。** [1] 的行为实验显示 AI 预测会改变个体的决策推理路径（N=1,305），为“人类监督/知情同意”类条款提供**行为学依据**；但该研究属 cs.HC，非治理评估，**不能**直接作为政策效果证据。[1]
-- **厂商话语与公共信任。** [2] 对 OpenAI 伦理话语的案例分析，提示“ethics/safety/alignment”术语的**框定竞争**会影响公众与监管者的认知。[2]
-- **明确缺口**：算力/芯片出口管制、供应链、国际标准组织（ISO/IEC、OECD、IEEE）的**实际投票与发布动态**、中美欧监管互认 → 本引用池**无增量证据**，`> 待核实`。
-
----
-
-## 6. 资本与生态（Capital & Ecosystem）
-
-> **一句话增量判断**：本引用池**没有任何融资额、并购、估值、人才流动数据**；唯一可核的生态增量是**“合规被金融化/量化”的话语形成**——即合规从法务支出转为可计量投资。
-
-- **合规的 ROI 化。** [20] 提出 **Risk-Adjusted Intelligence Dividend**，把 AI 投资回报与 **ISO 42001 管理体系成熟度**、**监管暴露**同时纳入量化框架。这标志着生态中出现了“**合规即资产**”的叙事，为合规技术（RegTech）供给方提供了商业论证基础。[20] → 是否已被投资机构采纳为估值因子：`> 待核实`。
-- **透明度成为竞争性披露。** [12] 的年度指数构建了跨开发者的可比排名，形成“声誉—披露”激励结构。[12] → 具体排名与分值 `> 待核实`。
-- **学术生态的自我组织。** [31]（五层框架）、[21]（统一分类学）、[23]（控制栈）、[22]（CEDAR-42001）在 2025–2026 密集出现，显示 cs.CY 内部正在形成“**治理工程化**”这一子社群，其共同特征是把治理对象从“组织”下移到“系统架构”。[21][22][23][31]
-- **明确缺口**：投资/并购/人才/公司格局变化、开源治理工具仓库的 star 与采纳度 → 引用池**无数据**，`> 待核实`。本节**不得**据此推断市场规模。
-
----
-
-## 7. 信号与预测（Signals & Forecast）
-
-> **一句话增量判断**：最强的早期信号是**“治理对象从组织下沉到架构”**——四篇独立文献（[21][22][23][31]）在两年内不约而同地把治理拆成可映射、可监控、可审计的层，而不是停留在原则层。
-
-### 7.1 早期信号（可观测，已发生）
-
-| 信号 | 时间 | 证据 | 强度 |
-|---|---|---|---|
-| 出现“统一治理分类学”尝试（ISO 42001 / NIST RMF / AI Act 三方调和） | 2026 | [21] | 中（预印本，未见同行评审） |
-| 出现“五层监管—标准—认证”整合框架 | 2025-09 | [31] | 中 |
-| 治理被要求具备“运行时控制”能力 | 2026-04 | [23] | 中 |
-| 合规一致性被指出在 AI-CPS 场景下不足，转向“审计可见性” | 2026-06 | [22] | 中 |
-| AI Act 义务被系统映射为 AI 特定风险源 | 2026-09 | [30] | 中（最新） |
-| 立法文本本身进入修订议程（Digital Omnibus） | 2026-06 | [29] | 中高（政策事实，但文本细节待核实） |
-| 基础模型透明度被年度指数化 | 2025-12 | [12] | 中 |
-
-### 7.2 可证伪预测（[P]，附依据链与置信度）
-
-- **[P1]｜置信度：中｜若到 2027 年底出现被监管机构或主流认证机构引用的“AI Act 条文 ↔ 可验证需求条目”公开映射规范，则“合规工程化”判断成立。**
-  依据链：义务→需求转译已被明确提出 [7]，条文→风险源映射已完成初步系统化 [30]；缺口在于缺乏权威采纳方。若届时仍只有学术映射、无机构背书，则本判断**证伪**。
-- **[P2]｜置信度：中低｜若到 2027 年中出现面向机器人/具身系统的“架构感知审计”商用产品或认证附加条款，则 [22] 指出的 AI-CPS 保证缺口被市场确认。**
-  依据链：ISO/IEC 42001 的 conformity 语义被指不足以覆盖感知—控制链 [22]；但该方向目前只有框架级提案，无采纳证据。证伪条件：2027 年中仍无任何 CPS 专用审计条款/产品。
-- **[P3]｜置信度：低｜若 Digital Omnibus 修订在 2027 年前落地并改变高风险义务时间表，则 2026–2027 出现企业合规投入的“观望期”，表现为合规咨询需求前高后低。**
-  依据链：[29] 已把 Omnibus 的立法合法性问题化；法律不确定性通常推迟不可逆投入。[29] 证伪条件：修订未改变义务时间表，或合规投入无可见波动。→ 该预测所需的需求侧数据本引用池**完全没有**，故置信度标低。
-- **[P4]｜置信度：中｜“agentic AI 的义务主体缺口”将在 12–18 个月内成为独立监管议题**（解释性指引、执法案例或专门条款之一）。
-  依据链：[25] 已系统指出 AI agents 的自主规划、工具调用、多步执行与现行框架的不匹配。[25] 证伪条件：2028 年前无任何法域发布针对 agent 的解释或指引。
-- **[P5]｜置信度：低｜风险管理“自我评估循环”问题（[11]）将推动至少一个法域引入第三方评估要求。**
-  依据链：[11] 指出提供者自证的结构性偏见。[11] 证伪条件：无强制第三方评估条款出现。→ 该预测高度依赖政治意愿，证据薄弱，仅作线索。
-
-### 7.3 不确定性与争议清单
-
-- `[Debated]` **系统性风险判定：形式阈值 vs. 能力实质。** [5] 以 ESM3 为案例挑战阈值逻辑；反方立场（阈值可操作性优先）在引用池中无直接文献，`> 待核实`。
-- `[Debated]` **Digital Omnibus 的正当性。** [29] 提出质疑；支持方（简化负担、提升可执行性）论点在引用池中无独立来源，`> 待核实`。
-- `[R]` 关于“某法域已开始对 GPAI 执法”“某标准已开放认证申请”等传闻——引用池**无一手文本**，一律标 `> 待核实`，本报告不予采信。
-
----
-
-## 8. 奠基性文献与治理框架（表格）
-
-> 说明：本引用池**未包含**模型卡/数据卡、算法影响评估（AIA）原始文献、NIST AI RMF 1.0 与 ISO/IEC 42001:2023 **正文**。下表仅收录池内可核条目，缺口在表后明示。热度列凡标 `> 待核实` 者，均因未取到 citations/stars 数据。
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|---|---|---|---|---|---|---|---|---|
-| Bridging AI Risk Frameworks: ISO/IEC 42001 / NIST AI RMF / EU AI Act 统一治理分类学 | 2026 | 未披露（cs.CY 预印本） | `> 待核实` | 预印本，未见同行评审 [21] | 低（无可核热度信号） | ★★★★★ | [21] | 目前池内**最直接**回答“三套框架如何互操作”的文献，是本主题必读 |
-| A five-layer framework for AI governance: regulation, standards, certification | 2025 | 未披露（cs.CY 预印本） | `> 待核实` | 预印本 [31] | 低（无可核热度信号） | ★★★★☆ | [31] | 把“法—标—证”显式分层，适合作为报告骨架 |
-| From Legal Text to AI-specific Risk Sources: EU AI Act 高风险要求系统分析 | 2026 | 未披露（cs.CY 预印本） | `> 待核实` | 预印本 [30] | 低（最新，2026-09） | ★★★★★ | [30] | 条文→风险源的逆向工程，合规工程化的关键一步 |
-| From Obligation to Specification: 验证 EU AI Act 要求的 RE 综述 | 2026 | 未披露（cs.CY 预印本） | `> 待核实` | 预印本 [7] | 低 | ★★★★☆ | [7] | 需求工程视角，是“义务可测试化”的方法论入口 |
-| Fox Guarding the Chickens — 高风险 AI 风险管理义务中的偏见 | 2026 | 未披露（书章，DOI） | citations=0 [11] | 书章，同行评审状态 `> 待核实` [11] | 低（citations=0） | ★★★★☆ | [11] | 唯一带 DOI 的条目；对“自证式治理”的结构性批评最有分量 |
-| AI and the EU Digital Markets Act: Risks of Bigness in Generative AI | 2023 | 未披露（预印本） | `> 待核实` | 预印本（**早于 2024 基线**） [28] | 低 | ★★★☆☆ | [28] | 作为“结构性权力”视角的**经典对照**，非最新进展 |
-| AI Alignment and Fiduciary Obligation | 2026 | 未披露（cs.CY 预印本） | `> 待核实` | 预印本 [4] | 低 | ★★★★☆ | [4] | 把对齐映射为信义义务，责任分配议题的法律化尝试 |
-
-## 9. 合规工程方法与“开源项目”（表格）
-
-> **重要缺口**：本引用池**未包含任何具名开源合规工具仓库**（无 GitHub 链接、无 star 数）。下表列的是**方法论载体**，不等于开源实现；凡涉及“是否开源”一律 `> 待核实`。
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|---|---|---|---|---|---|---|---|---|
-| CEDAR-42001（架构感知、审计可见的保证姿态） | 2026 | 未披露（cs.CY 预印本） | `> 待核实` | 预印本 [22] | 低 | ★★★★★ | [22] | **与具身智能最相关**：指出 ISO 42001 conformity 在 AI-CPS 上不足；开源状态 `> 待核实` |
-| AI Governance Control Stack（运行稳定性治理） | 2026 | 未披露（cs.CY 预印本） | `> 待核实` | 预印本 [23] | 低 | ★★★★☆ | [23] | 治理从政策层下沉到运行时控制面；是否有参考实现 `> 待核实` |
-| Risk-Adjusted Intelligence Dividend（ISO 42001 + 监管暴露的 ROI 框架） | 2025 | 未披露（cs.CY 预印本） | `> 待核实` | 预印本 [20] | 低 | ★★★★☆ | [20] | 企业侧合规投入的量化叙事；公式可复现性 `> 待核实` |
-| AI Agents Under EU Law（自治系统合规分析） | 2026 | 未披露（cs.CY 预印本） | `> 待核实` | 预印本 [25] | 低 | ★★★★★ | [25] | 面向 agentic AI 的法教义学分析，是当前最稀缺的角度 |
-| The Digital Omnibus on AI（立法正当性分析） | 2026 | 未披露（cs.CY 预印本） | `> 待核实` | 预印本 [29] | 低 | ★★★★☆ | [29] | 修订窗口期的政治经济学；具体条款清单 `> 待核实` |
-
-## 10. 数据集、基准与指数（表格）
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|---|---|---|---|---|---|---|---|---|
-| 2025 Foundation Model Transparency Index | 2025 | 未披露（预印本） | `> 待核实` | 预印本 [12] | 中（年度指数，具横向可比性） | ★★★★★ | [12] | 本主题**唯一**可对标“治理评测榜”的载体；分值/覆盖模型数 `> 待核实` |
-| AI 影响评估的指标正当性（justifying metrics） | 2025 | 未披露（预印本） | `> 待核实` | 预印本 [15] | 低 | ★★★★☆ | [15] | 不是数据集，但提供“如何评价评测本身”的方法论 |
-| NTIRE 2026 Challenge on Robust AI-Generated Image Detection in the Wild | 2026 | 未披露（CVPR 2026 Workshop 挑战赛综述） | `> 待核实` | Workshop 挑战赛（同行评审强度 `> 待核实`） [24] | 中（竞赛类，参与面较广） | ★★★☆☆ | [24] | 与内容真实性/深伪治理间接相关；**不等同**合规认证基准 |
-| 与 AI 治理直接对应的**合规评测基准** | — | — | — | — | — | — | — | **本引用池无此类基准** → `> 待核实`（这是本领域公认的方法论空白，但需另行检索证实） |
-
----
-
-## 11. 自检与残余风险
-
-- ✅ 七章全部展开，未截断。
-- ✅ 所有论断均带 [n]；未引用不存在的编号；未编造 URL。
-- ✅ “最新进展（2025–2026）”与“经典/较早基线（[28]，2023）”已分节标注。
-- ✅ 四类证据（热度/权威/关注度/推荐度）在表格中逐条给出；**热度数据大规模缺失已如实标 `> 待核实`**，未编造引用数、star 数或榜单排名。
-- ⚠️ **残余风险 1**：引用池以 cs.CY 预印本为主，**无官方文本**，所有“已生效/已可认证/仍为草案”的判定只能基于文献转述，精度受限。
-- ⚠️ **残余风险 2**：法域覆盖**严重不足**——美国、中国、英国、日韩、新加坡、ISO/IEC 与 OECD 的实际发布动态均无入池证据。
-- ⚠️ **残余风险 3**：无任何产业/资本一手数据，第 2、6 章只能做“品类级”推断。
-
----
+## AI 治理与监管（政策、法规与标准） 最新进展 论文 SOTA 榜单 突破
+- Faith in AI can narrow the futures individuals consider [1]
+- Competing Visions of Ethical AI: A Case Study of OpenAI [3]
+- The New Shape of Search: How Conversational AI Recomposes Information Seeking [4]
+- Foundations of GenIR [2]
 
 ## 参考来源
-
-> 以下编号与正文引用一一对应，仅列出实际被引用的条目（未引用条目与本主题无直接关联，故不列入）。
-
-- [1] Faith in AI can narrow the futures individuals consider — http://arxiv.org/abs/2603.28944v2
-- [2] Competing Visions of Ethical AI: A Case Study of OpenAI — http://arxiv.org/abs/2601.16513v1
-- [4] AI Alignment and Fiduciary Obligation — http://arxiv.org/abs/2608.02660v3
-- [5] The Case for ESM3 as a General-Purpose AI Model with Systemic Risk Under the EU AI Act — http://arxiv.org/abs/2605.01611v1
-- [6] Internal Deployment in the AI Act — http://arxiv.org/abs/2512.05742v4
-- [7] From Obligation to Specification: A Survey on Validating EU AI Act Requirements in RE — http://arxiv.org/abs/2607.21608v1
-- [8] Ethics and EU AI Act in Cases of Work Disability Risk and Alzheimer's Disease Risk Prediction — http://arxiv.org/abs/2607.05402v1
-- [11] Fox Guarding the Chickens—Bias in Risk Management Obligations for High-Risk AI Systems under the EU AI Act — https://doi.org/10.1007/978-3-032-07830-8_5
-- [12] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
-- [15] Measuring the right thing: justifying metrics in AI impact assessments — http://arxiv.org/abs/2504.05007v1
-- [20] The Risk-Adjusted Intelligence Dividend: A Quantitative Framework for Measuring AI Return on Investment Integrating ISO 42001 and Regulatory Exposure — http://arxiv.org/abs/2511.21975v1
-- [21] Bridging AI Risk Frameworks: Reconciling ISO/IEC 42001, the NIST AI Risk Management Framework, and the EU AI Act into a Unified Governance Taxonomy — http://arxiv.org/abs/2608.07515v1
-- [22] CEDAR-42001: From ISO/IEC 42001 Conformity to Architecture-Aware, Audit-Visible Assurance Posture for AI Cyber-Physical Systems — http://arxiv.org/abs/2606.21276v1
-- [23] AI Governance Control Stack for Operational Stability: Achieving Hardened Governance in AI Systems — http://arxiv.org/abs/2604.03262v1
-- [24] NTIRE 2026 Challenge on Robust AI-Generated Image Detection in the Wild — http://arxiv.org/abs/2604.11487v1
-- [25] AI Agents Under EU Law — http://arxiv.org/abs/2604.04604v1
-- [28] AI and the EU Digital Markets Act: Addressing the Risks of Bigness in Generative AI — http://arxiv.org/abs/2308.02033v1
-- [29] The Digital Omnibus on AI, Legislative Legitimacy and the Dynamics of AI Regulation — http://arxiv.org/abs/2606.15662v1
-- [30] From Legal Text to AI-specific Risk Sources: A Systematic Analysis of the EU AI Act's High-Risk Requirements — http://arxiv.org/abs/2609.13535v1
-- [31] A five-layer framework for AI governance: integrating regulation, standards, and certification — http://arxiv.org/abs/2509.11332v1
+[1] Faith in AI can narrow the futures individuals consider — http://arxiv.org/abs/2603.28944v2
+[2] Foundations of GenIR — http://arxiv.org/abs/2501.02842v1
+[3] Competing Visions of Ethical AI: A Case Study of OpenAI — http://arxiv.org/abs/2601.16513v1
+[4] The New Shape of Search: How Conversational AI Recomposes Information Seeking — http://arxiv.org/abs/2607.04282v3
+[5] Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI — http://arxiv.org/abs/2308.12400v1
+[6] Meaningful human control: actionable properties for AI system development — http://arxiv.org/abs/2112.01298v2
+[7] Need of AI in Modern Education: in the Eyes of Explainable AI (xAI) — http://arxiv.org/abs/2408.00025v3
+[8] Beyond principlism: Practical strategies for ethical AI use in research practices — http://arxiv.org/abs/2401.15284v6
+[9] 城市更新进程中市政生态环境管理的难点与突破策略 — https://doi.org/10.37155/2717-557x-0610-22
+[10] 招投标新规下招标代理开展工程全过程管理的实施难点与对策 — https://doi.org/10.64216/3080-1508.26.08.087
+[11] 建筑工程监理行业标准化与规范化发展的探讨 — https://doi.org/10.69979/3029-2727.24.1.003
+[12] 新课标下道德与法治大单元教学设计与思考 — https://doi.org/10.37155/2705-0653-0705-54
+[13] 数字政府建设背景下营商环境与社会治理效能互动研究 — https://doi.org/10.5281/zenodo.23312290
+[14] Explaining and Proving Hybrid CRE for AI governance — https://doi.org/10.5281/zenodo.18521108
+[15] 市政工程监理现场规范化管理的困境与对策分析 — https://doi.org/10.26789/szgc.v7i4.878
+[16] 冶金机电设备安装监理标准化与规范化管理 — https://doi.org/10.37155/3041-0819-0202-28
+[17] 灌区标准化规范化运行管理探索与实践 — https://doi.org/10.37155/2717-5189-0620-49
 
 ---
 
-*Generated by research-bot · topic=`ai-治理与监管政策法规与标准` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=32 · duration=207s · 2026-10-23T22:36:09+00:00*
+*Generated by research-bot · topic=`ai-治理与监管政策法规与标准` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`deepseek-v4-flash` · sources=17 · duration=76s · 2026-10-24T22:18:19+00:00*
