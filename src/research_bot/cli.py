@@ -22,7 +22,8 @@ import sys
 
 from . import __version__
 from .config import DEFAULTS, find_home, load_config, load_dotenv
-from .emailer import is_configured, send_digest, send_report
+from .digest import build_digest, write_feed
+from .emailer import is_configured, send_digest, send_increment, send_report
 from .engine import DEPTH_PRESETS, DeepResearchEngine
 from .knowledge import build_knowledge_topic, evaluate_coverage, get_frame
 from .llm import LLM, LLMError
@@ -116,6 +117,7 @@ def cmd_run(args: argparse.Namespace) -> int:
 
     # ---- knowledge base (increment tracking + push dedup) ------------------
     increments: list[tuple[str, object]] = []
+    digests: dict[str, dict] = {}
     if getattr(cfg.kb, "enabled", False) or args.kb:
         cov_by_topic = {rec["topic"]: cov for (_, _, rec, _), cov in zip(saved, coverage, strict=False)}
         with open_store(home, cfg) as store:
@@ -139,6 +141,26 @@ def cmd_run(args: argparse.Namespace) -> int:
                     f"  kb[{result.topic}]: +{len(inc.new)} new, ~{len(inc.updated)} updated, {inc.known} known",
                     file=sys.stderr,
                 )
+                # A watch run is a subscription: build the delta (new works +
+                # trending) and write the feed. Only meaningful for `watch`.
+                if frame == "watch":
+                    digest = build_digest(
+                        store,
+                        tid,
+                        result,
+                        inc,
+                        run_url=record.get("run_url", ""),
+                        report_path=record.get("report_path", ""),
+                        window=int(getattr(cfg.kb, "trending_window", 7) or 7),
+                        max_items=int(getattr(cfg.kb, "digest_max_items", 12) or 12),
+                    )
+                    digests[result.topic] = digest
+                    if digest["increment"]["changed"] > 0 or digest["trending"]:
+                        feed_paths = write_feed(home, cfg, digest)
+                        print(
+                            f"  feed[{result.topic}]: {feed_paths['jsonl'].relative_to(home)}",
+                            file=sys.stderr,
+                        )
 
     # ---- email delivery -----------------------------------------------------
     push_requested = args.email or (cfg.email.enabled and not args.no_email)
@@ -157,7 +179,20 @@ def cmd_run(args: argparse.Namespace) -> int:
         push_requested = False
         print("  watch: no new/changed items — skipping email (dedup)", file=sys.stderr)
     if push_requested:
-        if getattr(cfg.email, "digest", False) and len(saved) > 1:
+        if frame == "watch" and digests:
+            # Increment subscription: send only new works + trending, never the
+            # full 7-facet snapshot (which stays in the archive).
+            for _, result, record, _ in saved:
+                digest = digests.get(result.topic)
+                if digest is None:
+                    continue
+                rec = send_increment(cfg.email, digest, dry_run=args.dry_run_email)
+                record_email(home, cfg, record, rec)
+                print(
+                    f"  email[{result.topic}] (增量): sent={rec['sent']} to={rec['to']} error={rec['error']}",
+                    file=sys.stderr,
+                )
+        elif getattr(cfg.email, "digest", False) and len(saved) > 1:
             paths = [p for _, _, _, p in saved]
             rec = send_digest(cfg.email, [r for _, r, _, _ in saved], report_paths=paths, dry_run=args.dry_run_email)
             for _, _, record, _ in saved:

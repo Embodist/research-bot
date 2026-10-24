@@ -114,6 +114,10 @@ DEFAULTS: dict[str, Any] = {
         # For `watch` runs: if a run adds nothing new and changes nothing, skip the
         # email so the same knowledge is not delivered again ("减少重复触达").
         "skip_email_when_unchanged": True,
+        # Increment digest: "trending" = items recurring in the last N reports;
+        # cap how many works/trending rows each digest carries.
+        "trending_window": 7,
+        "digest_max_items": 12,
     },
     "email": {
         "enabled": False,

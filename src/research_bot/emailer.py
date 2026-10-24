@@ -150,6 +150,87 @@ def send_report(
     return record
 
 
+def _smtp_send(cfg: Any, msg: EmailMessage, recipients: list[str]) -> str | None:
+    """Deliver ``msg``; return an error string or ``None`` on success."""
+    try:
+        port = int(cfg.smtp_port)
+        if cfg.smtp_ssl:
+            with smtplib.SMTP_SSL(cfg.smtp_host, port, timeout=30, context=ssl.create_default_context()) as server:
+                server.login(cfg.username, cfg.password)
+                server.send_message(msg, from_addr=cfg["from"], to_addrs=recipients)
+        else:
+            with smtplib.SMTP(cfg.smtp_host, port, timeout=30) as server:
+                server.ehlo()
+                server.starttls(context=ssl.create_default_context())
+                server.login(cfg.username, cfg.password)
+                server.send_message(msg, from_addr=cfg["from"], to_addrs=recipients)
+        return None
+    except Exception as exc:  # noqa: BLE001
+        log.error("email delivery failed: %s", exc)
+        return str(exc)
+
+
+def send_increment(cfg: Any, digest: dict[str, Any], *, dry_run: bool = False) -> dict[str, Any]:
+    """Send the compact increment digest (new works + trending). Never raises.
+
+    Deliberately does **not** attach or inline the full snapshot: a watch run is a
+    subscription for what changed, and the full report stays in the archive.
+    """
+    from .digest import render_markdown
+
+    recipients = _recipients(cfg)
+    day = str(digest.get("generated_at", ""))[:10]
+    record: dict[str, Any] = {
+        "sent": False,
+        "to": recipients,
+        "ts": now_utc().replace(microsecond=0).isoformat(),
+        "error": None,
+        "dry_run": dry_run,
+        "kind": "increment",
+    }
+    if not cfg.enabled and not dry_run:
+        record["error"] = "email disabled"
+        return record
+    if not recipients:
+        record["error"] = "no recipients configured"
+        return record
+
+    body = render_markdown(digest)
+    works = len(digest.get("new_works") or [])
+    trend = len(digest.get("trending") or [])
+    subject = (
+        f"{cfg.subject_prefix} [增量] {digest.get('title') or digest.get('topic')}"
+        f" · 新作 {works} · 趋势 {trend} ({day})"
+    )
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = cfg["from"]
+    msg["To"] = ", ".join(recipients)
+    msg.set_content(body)
+    msg.add_alternative(
+        f"<html><body style='font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6'>"
+        f"{_markdown_to_html(body)}</body></html>",
+        subtype="html",
+    )
+
+    if dry_run or not is_configured(cfg):
+        if not is_configured(cfg) and not dry_run:
+            record["error"] = "smtp not fully configured"
+            return record
+        log.info("[dry-run] would send %r to %s", subject, recipients)
+        record["sent"] = True
+        record["dry_run"] = True
+        return record
+
+    err = _smtp_send(cfg, msg, recipients)
+    if err:
+        record["error"] = err
+    else:
+        record["sent"] = True
+        log.info("increment email sent to %s", recipients)
+    return record
+
+
 def send_digest(cfg: Any, results: list[ResearchResult], *, report_paths: list[Path] | None = None, dry_run: bool = False) -> dict[str, Any]:
     """Merge several reports into one digest email."""
     recipients = _recipients(cfg)

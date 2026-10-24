@@ -267,6 +267,7 @@ class KnowledgeStore:
                 "title": item.get("title", ""),
                 "kind": item.get("kind", ""),
                 "url": item.get("url", ""),
+                "payload": item.get("payload") or {},
             }
             row = self.conn.execute(
                 "SELECT payload_hash FROM items WHERE topic_id = ? AND norm_key = ?", (topic_id, key)
@@ -307,6 +308,32 @@ class KnowledgeStore:
             "SELECT norm_key, title, kind, url, first_seen_report, seen_count FROM items"
             " WHERE topic_id = ? AND seen_count = 1 ORDER BY last_seen_report DESC LIMIT ?",
             (topic_id, limit),
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+    def trending(
+        self,
+        topic_id: int,
+        *,
+        window: int = 7,
+        min_seen: int = 2,
+        limit: int = 12,
+    ) -> list[dict[str, Any]]:
+        """Items recurring across the last ``window`` reports — the "trending" signal.
+
+        An item trends when it keeps reappearing (``seen_count >= min_seen``) and was
+        seen within the recent window, so a one-off mention never ranks as a trend.
+        """
+        row = self.conn.execute(
+            "SELECT COALESCE(MAX(id), 0) AS hi FROM reports WHERE topic_id = ?", (topic_id,)
+        ).fetchone()
+        hi = int(row["hi"] or 0)
+        lo = max(1, hi - max(1, window) + 1)
+        rows = self.conn.execute(
+            "SELECT norm_key, title, kind, url, payload, seen_count, first_seen_report, last_seen_report"
+            " FROM items WHERE topic_id = ? AND last_seen_report >= ? AND seen_count >= ?"
+            " ORDER BY seen_count DESC, last_seen_report DESC LIMIT ?",
+            (topic_id, lo, max(1, min_seen), limit),
         ).fetchall()
         return [dict(r) for r in rows]
 

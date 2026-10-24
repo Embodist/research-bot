@@ -32,6 +32,7 @@ ROS 2** 的前沿进展、经典论文、开源项目与数据集。它基于 [`
 | **HTTP 服务** | ✅ `rb serve`（stdlib `http.server`，异步任务 API）；离线测试覆盖，见 `docs/service.md` |
 | **跨领域知识体系** | ✅ 两套固定骨架（`knowledge` 学习 / `watch` 增量）+ 确定性覆盖度评估（`mode=knowledge\|watch`、`rb run --knowledge\|--watch`），见 `docs/knowledge-framework.md` |
 | **SQLite 知识库** | ✅ 多级 topic + 条目去重 + 增量 diff + 推送台账（不存地址）；`rb kb` / `rb run --kb`；CI 用 `actions/cache` 持久化，见 `docs/knowledge-base.md` |
+| **增量订阅（新作 + 趋势）** | ✅ `watch --kb` 只发增量摘要（🆕新作 / 📈Trending，非全量），并写可订阅 `report/feed/<topic>.{json,xml,jsonl}`（Atom 可直接进阅读器）；全量快照只归档 |
 | Docker base 镜像 | ✅ `Dockerfile` + `image.yml` 发布到 `ghcr.io/embodist/research-bot-base:py3.12`；daily 工作流在该容器内跑，**容器内全链路已实测转绿**（run `36999238952`，2026-10-02：install → doctor → research → 回提交 → artifact 全 success） |
 
 > **Docker base 镜像**：只烤环境（Python 3.12 + `git` + `httpx/PyYAML/pytest/ruff/hatchling/editables`），
@@ -78,7 +79,8 @@ src/research_bot/     Python 包（产品本体）
   engine.py           编排器（plan/retrieve/extract/critique/synthesize）
   serve.py            HTTP 服务（stdlib：异步任务 API + 可选 bearer token）
   knowledge.py        跨领域固定骨架（knowledge 学习 / watch 增量）+ 覆盖率评估
-  store.py            SQLite 知识库（多级 topic / 报告历史 / 条目去重 / 推送台账）
+  store.py            SQLite 知识库（多级 topic / 报告历史 / 条目去重 / 推送台账 / 趋势）
+  digest.py           watch 增量摘要（新作 + 趋势）+ 可订阅 feed（JSON / Atom / JSONL）
   search/             engines.py（各引擎）+ router.py（RRF 融合 + 引擎权重）+ base.py
   config.py llm.py fetch.py skills.py topics.py report.py emailer.py cli.py util.py
 skills/               本地技能（SKILL.md，含 knowledge-framework、frontier-watch）
@@ -121,9 +123,12 @@ docs/                 architecture / deep-research / service / knowledge-framewo
 - **单次**：`.venv/bin/rb run --topic vla --depth standard [--email]`
 - **全部 + 邮件**：`.venv/bin/rb run --topic all --email`
 - **知识地图（方向1：学习）**：`.venv/bin/rb run --knowledge --query "C++ RAII 的核心思想" --depth quick`（打印 coverage + gaps）
-- **增量追踪（方向2：变化/蓝海/产业/社会）**：`.venv/bin/rb run --watch --query "具身智能世界模型" --depth quick`
+- **增量追踪（方向2：变化/蓝海/产业/社会）**：`.venv/bin/rb run --watch --query "具身智能世界模型" --depth quick --kb --email`
+  ——`--kb` 下邮件是**增量订阅**（🆕新作 + 📈趋势，非全量快照），并写可订阅的 `report/feed/<topic>.{json,xml,jsonl}`
+  （Atom 可直接进阅读器）；完整快照仍归档 `report/` 但不随邮件发。
 - **知识库**：`.venv/bin/rb kb init|stats|topics|recent|new`；`rb run ... --kb` 会把本次 run 入库并打印增量
-  `+N new, ~M updated, K known`。watch 且无新增/变化时默认**跳过邮件**（`kb.skip_email_when_unchanged`）。
+  `+N new, ~M updated, K known`。watch 且无新增/变化时默认**跳过邮件且不写 feed**（`kb.skip_email_when_unchanged`）。
+  趋势回看期 `kb.trending_window`（默认 7）、每份增量最大条数 `kb.digest_max_items`（默认 12）。
 - **HTTP 服务**：`.venv/bin/rb serve --host 0.0.0.0 --port 8080 --workers 2`（`make serve` / `docker compose up`）；
   `POST /research` 传 `query`/`topic`（+ `mode=knowledge|watch`），轮询 `GET /research/{id}`；可选 `RESEARCH_BOT_API_TOKEN` 鉴权。
   详见 [`docs/service.md`](service.md)。
@@ -147,6 +152,9 @@ report/
   push-log.jsonl      邮件投递追加审计（**gitignore，不入库**；仅作为 CI artifact 上传）
   latest/<topic>.md   每个 topic 的最新报告
   2026/10/2026-10-02-<topic>.md / .json   带引用报告 + 完整结构化记录
+  feed/<topic>.json   watch 增量：最新一期（新作 + 趋势），随报告入库
+  feed/<topic>.xml    同上，Atom feed（可直接订阅）
+  feed/<topic>.jsonl  增量历史（每次有变化追加一行）
 ```
 
 ## 9. 网络与推送（**重要，容易卡住**）

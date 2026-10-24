@@ -86,10 +86,15 @@ docker run --rm -v "$PWD":/app -w /app \
 
 > **每日增量（watch）**：`Run watch increments` 步骤**只在 schedule 事件**运行，对 `WATCH_QUERIES` 的每条查询跑
 > `rb run --watch --query ... --kb --email`。领域清单**收敛到快变前沿**并作为工作流默认值提交在 git 里
-> （可用同名仓库 Variable 覆盖）。`--kb` 让每次增量入库；若本次既无新增也无变化，邮件被**去重跳过**
-> （见 [`docs/knowledge-base.md`](knowledge-base.md)）。知识库 `report/knowledge.db` 由 `actions/cache`
-> 跨天持久化（不提交进 git）。**首个领域的首次 watch** 即建立基线（都是 "new"），之后才是真增量——
-> 所以"初始"不必进流水线，按需手动触发即可。
+> （可用同名仓库 Variable 覆盖）。
+>
+> **邮件是增量订阅，不是每日全量**：只发「🆕最近新作 + 📈Trending」（见
+> [`docs/knowledge-base.md`](knowledge-base.md) §4.1）；完整七维快照仍归档到 `report/` 但不随邮件发送。
+> 每次有变化的 run 还会写可订阅的 `report/feed/<topic>.{json,xml,jsonl}`（Atom 可直接进阅读器），
+> 随报告一起由 CI 提交。若本次既无新增也无变化，邮件被**去重跳过**、feed 也不写。
+>
+> 知识库 `report/knowledge.db` 由 `actions/cache` 跨天持久化（不提交进 git）。**首个领域的首次 watch**
+> 即建立基线（都是 "new"），之后才是真增量——所以"初始"不必进流水线，按需手动触发即可。
 
 ## Schedule
 

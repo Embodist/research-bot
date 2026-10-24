@@ -280,17 +280,22 @@ report/
   latest/<topic>.md   # newest report per topic
   2026/10/02-vla.md   # dated, cited Markdown report
   2026/10/02-vla.json # full structured record incl. references + per-sub-question extraction
+  feed/<topic>.json   # watch increment: latest delta (new works + trending) — subscribable
+  feed/<topic>.xml    # same, as an Atom feed (add it to any RSS/Atom reader)
+  feed/<topic>.jsonl  # append-only history of increments
 ```
 
-`rb report list` prints the ledger; `rb report show <id>` prints a report.
+`rb report list` prints the ledger; `rb report show <id>` prints a report. A `watch --kb` run emails an
+**increment digest** (new works + trending) and refreshes `report/feed/`, never the full snapshot.
 
 ## Daily automation (GitHub Actions)
 
 Workflows:
 
 - **`.github/workflows/daily-research.yml`** (`Daily Watch`) — the daily schedule runs the **incremental
-  watch only**: one `rb run --watch` per converged core domain, emailing just the new/changed items (KB
-  dedup), committing reports back and uploading artifacts. One-off **research** (survey a topic) and
+  watch only**: one `rb run --watch` per converged frontier, emailing an **increment digest** (new works +
+  trending, not the full snapshot) and writing a subscribable `report/feed/<topic>.{json,xml,jsonl}`,
+  committing reports back and uploading artifacts. One-off **research** (survey a topic) and
   **knowledge** (build a domain map) runs are **not scheduled** — trigger them on demand via
   `workflow_dispatch`. Runs **inside the prebuilt base image** below, so no Python/dependency setup happens
   per run.

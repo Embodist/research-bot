@@ -65,6 +65,34 @@
   默认**跳过邮件**（`kb.skip_email_when_unchanged: true`），避免同一知识重复触达；
   需要"心跳邮件"可把它设为 `false`。
 
+### 4.1 增量摘要：watch 只发"新作 + 趋势"，不发全量
+
+`watch --kb` 的邮件**不是**七日快照，而是一份**增量订阅**（`digest.py`）：
+
+- **🆕 最近新作**：本次首次出现的 `key_papers` / `key_projects` / `key_datasets`（按年份排序，带四轴证据）。
+- **📈 Trending**：近 `kb.trending_window`（默认 7）期内**重复出现**（`seen_count≥2`）的条目；
+  早期还没有重复时，退化为本期带热度信号的条目。
+
+完整七维快照仍落盘 `report/`，但**不随增量邮件发送**（也不再作为附件）。
+
+### 4.2 可订阅的 feed
+
+每次**有变化**的 watch run 会写 `report/feed/<topic>.{json,xml,jsonl}`：
+
+- `.json` / `.jsonl`：机器可读（最新一期 / 追加历史，用于下游消费或二次订阅）；
+- `.xml`：**Atom**，可直接加进任意 RSS/Atom 阅读器。仓库公开时的订阅 URL 形如
+  `https://raw.githubusercontent.com/<owner>/<repo>/main/report/feed/<topic>.xml`。
+
+无新增且无趋势的当天**不写 feed、不发邮件**。feed 文件随报告一起由 CI `git add report/` 提交。
+
+### 4.3 调参
+
+| 配置 | 默认 | 作用 |
+| --- | --- | --- |
+| `kb.trending_window` | `7` | "趋势"回看最近几期报告 |
+| `kb.digest_max_items` | `12` | 每份增量摘要里新作 / 趋势的最大条数 |
+| `kb.skip_email_when_unchanged` | `true` | 无变化当天是否跳过邮件 |
+
 ## 5. CI 持久化（不提交二进制）
 
 库是二进制、且 `pushes` 含**收件人数**，故 **`.gitignore` 排除 `report/knowledge.db`**

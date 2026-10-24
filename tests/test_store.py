@@ -65,6 +65,19 @@ def test_push_ledger_dedup_and_no_pii(tmp_path):
     s.close()
 
 
+def test_trending_requires_recurrence(tmp_path):
+    s = _store(tmp_path)
+    tid = s.upsert_topic("demo")
+    r1 = s.record_report(tid, report_key="k1")
+    r2 = s.record_report(tid, report_key="k2")
+    alpha = {"title": "Alpha", "kind": "paper", "payload": {"year": 2024}}
+    s.record_items(tid, r1, [alpha])
+    s.record_items(tid, r2, [alpha, {"title": "Beta", "kind": "paper", "payload": {"year": 2025}}])
+    titles = [t["title"] for t in s.trending(tid, window=7, min_seen=2)]
+    assert titles == ["Alpha"]  # Beta has only been seen once
+    s.close()
+
+
 def test_hierarchy_links_children(tmp_path):
     s = _store(tmp_path)
     parent = s.upsert_topic("music")

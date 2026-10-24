@@ -25,7 +25,21 @@ class _FakeEngine:
         self.skills = [SimpleNamespace(name="deep-research")]
 
     def run(self, topic, query="", depth=None, rounds=None, progress=None):
-        return SimpleNamespace(topic=topic.name, title=topic.title, report_md="# report")
+        return SimpleNamespace(
+            topic=topic.name,
+            title=topic.title,
+            report_md="# report",
+            references=[{"n": 1, "title": "src", "url": "https://example.org"}],
+            subquestions=[
+                SimpleNamespace(
+                    extraction={
+                        "key_papers": [
+                            {"title": "Paper A", "url": "https://a", "year": "2025", "heat": "10 cites"}
+                        ]
+                    }
+                )
+            ],
+        )
 
 
 @pytest.fixture
@@ -72,3 +86,45 @@ def test_without_email_flag_disabled_config_sends_nothing(patched):
     assert cli.cmd_run(_namespace(email=False)) == 0
     assert cfg.email.enabled is False
     assert calls == []
+
+
+def test_watch_run_sends_increment_digest_and_writes_feed(monkeypatch, tmp_path):
+    cfg = _wrap(copy.deepcopy(DEFAULTS))
+    cfg.email.enabled = False
+    cfg.kb.enabled = False
+    cfg.kb.path = str(tmp_path / "kb.db")
+
+    monkeypatch.setattr(cli, "load_config", lambda *a, **k: (cfg, tmp_path))
+    monkeypatch.setattr(cli, "DeepResearchEngine", _FakeEngine)
+    monkeypatch.setattr(cli, "git_metadata", lambda home: {})
+    monkeypatch.setattr(
+        cli,
+        "save_report",
+        lambda home, cfg, result, run_meta=None: (
+            {
+                "id": f"2026-10-04-{result.topic}",
+                "topic": result.topic,
+                "depth": "quick",
+                "report_path": f"report/latest/{result.topic}.md",
+                "json_path": "",
+                "sources": 1,
+                "findings": 1,
+                "duration_s": 1.0,
+                "run_url": "",
+            },
+            home / f"report/latest/{result.topic}.md",
+        ),
+    )
+    monkeypatch.setattr(cli, "record_email", lambda *a, **k: None)
+    sent: list[dict] = []
+
+    def fake_increment(cfg_email, digest, dry_run=False):
+        sent.append(digest)
+        return {"sent": True, "to": ["x@y.z"], "error": None, "dry_run": dry_run, "kind": "increment"}
+
+    monkeypatch.setattr(cli, "send_increment", fake_increment)
+
+    assert cli.cmd_run(_namespace(email=True, watch=True, query="demo", kb=True)) == 0
+    assert sent and sent[0]["topic"] == "demo"
+    assert sent[0]["new_works"][0]["title"] == "Paper A"
+    assert list((tmp_path / "report" / "feed").glob("*.json"))
