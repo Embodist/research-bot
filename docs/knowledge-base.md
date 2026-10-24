@@ -70,6 +70,7 @@
 `watch --kb` 的邮件**不是**七日快照，而是一份**增量订阅**（`digest.py`）：
 
 - **🆕 最近新作**：本次首次出现的 `key_papers` / `key_projects` / `key_datasets`（按年份排序，带四轴证据）。
+- **🆕 新发现**：本次首次出现的 `findings`（LLM 抽取的关键发现），单列成节——很多天只有发现、没有新作品。
 - **📈 Trending**：近 `kb.trending_window`（默认 7）期内**重复出现**（`seen_count≥2`）的条目；
   早期还没有重复时，退化为本期带热度信号的条目。
 

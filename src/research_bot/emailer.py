@@ -197,10 +197,11 @@ def send_increment(cfg: Any, digest: dict[str, Any], *, dry_run: bool = False) -
 
     body = render_markdown(digest)
     works = len(digest.get("new_works") or [])
+    findings = len(digest.get("new_findings") or [])
     trend = len(digest.get("trending") or [])
     subject = (
         f"{cfg.subject_prefix} [增量] {digest.get('title') or digest.get('topic')}"
-        f" · 新作 {works} · 趋势 {trend} ({day})"
+        f" · 新作 {works} · 发现 {findings} · 趋势 {trend} ({day})"
     )
     msg = EmailMessage()
     msg["Subject"] = subject

@@ -104,7 +104,16 @@ def build_digest(
 ) -> dict[str, Any]:
     """Assemble the increment payload for one watch run."""
     new_works: list[dict[str, Any]] = []
+    new_findings: list[dict[str, Any]] = []
     for item in increment.new:
+        if item.get("kind") == "finding":
+            text = str(item.get("title") or "").strip()
+            payload = item.get("payload") or {}
+            if text:
+                new_findings.append(
+                    {"key": item.get("norm_key", ""), "text": text, "evidence": str(payload.get("evidence") or "")}
+                )
+            continue
         if item.get("kind") not in _WORK_KINDS:
             continue
         payload = item.get("payload") or {}
@@ -127,6 +136,7 @@ def build_digest(
         )
     new_works.sort(key=lambda w: (w["_year"], w["title"]), reverse=True)
     new_works = new_works[:max_items]
+    new_findings = new_findings[:max_items]
 
     trending: list[dict[str, Any]] = []
     if topic_id is not None:
@@ -159,6 +169,7 @@ def build_digest(
             "changed": increment.changed,
         },
         "new_works": new_works,
+        "new_findings": new_findings,
         "trending": trending,
         "sources": len(getattr(result, "references", []) or []),
     }
@@ -173,6 +184,7 @@ def render_markdown(digest: dict[str, Any]) -> str:
     day = str(digest.get("generated_at", ""))[:10]
     inc = digest.get("increment", {})
     works = digest.get("new_works") or []
+    findings = digest.get("new_findings") or []
     trending = digest.get("trending") or []
     lines = [
         f"# {digest.get('title') or digest.get('topic')} · 增量 {day}",
@@ -196,6 +208,11 @@ def render_markdown(digest: dict[str, Any]) -> str:
             )
     else:
         lines.append("_本期没有首次出现的新论文 / 项目 / 数据集。_")
+    if findings:
+        lines += ["", f"## 🆕 新发现（{len(findings)}）", ""]
+        for f in findings:
+            text = str(f.get("text", ""))
+            lines.append(f"- {text[:180] + '…' if len(text) > 180 else text}")
     lines += ["", f"## 📈 Trending（{len(trending)}）", ""]
     if trending:
         lines.append("| 名称 | 类型 | 出现次数 | 链接 | 说明 |")
@@ -233,6 +250,16 @@ def render_atom(digest: dict[str, Any], *, feed_url: str = "") -> str:
         }
         for w in digest.get("new_works") or []
     ]
+    for f in digest.get("new_findings") or []:
+        text = str(f.get("text", ""))
+        entries.append(
+            {
+                "id": f"urn:research-bot:{topic}:finding:{f.get('key') or slugify(text, 120)}",
+                "title": text[:120],
+                "url": "",
+                "summary": str(f.get("evidence") or ""),
+            }
+        )
     if not entries:
         entries = [
             {

@@ -294,7 +294,7 @@ Workflows:
 
 - **`.github/workflows/daily-research.yml`** (`Daily Watch`) — the daily schedule runs the **incremental
   watch only**: one `rb run --watch` per converged frontier, emailing an **increment digest** (new works +
-  trending, not the full snapshot) and writing a subscribable `report/feed/<topic>.{json,xml,jsonl}`,
+  new findings + trending, not the full snapshot) and writing a subscribable `report/feed/<topic>.{json,xml,jsonl}`,
   committing reports back and uploading artifacts. One-off **research** (survey a topic) and
   **knowledge** (build a domain map) runs are **not scheduled** — trigger them on demand via
   `workflow_dispatch`. Runs **inside the prebuilt base image** below, so no Python/dependency setup happens

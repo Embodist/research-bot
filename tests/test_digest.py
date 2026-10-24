@@ -9,12 +9,15 @@ from research_bot.emailer import send_increment
 from research_bot.store import KnowledgeStore, items_from_result
 
 
-def _result(topic: str, papers: list[dict]) -> SimpleNamespace:
+def _result(topic: str, papers: list[dict], findings: list[dict] | None = None) -> SimpleNamespace:
+    extraction: dict = {"key_papers": papers}
+    if findings:
+        extraction["findings"] = findings
     return SimpleNamespace(
         topic=topic,
         title=f"{topic} report",
         references=[{}],
-        subquestions=[SimpleNamespace(extraction={"key_papers": papers})],
+        subquestions=[SimpleNamespace(extraction=extraction)],
     )
 
 
@@ -31,15 +34,17 @@ def test_build_digest_splits_new_works_and_trending(tmp_path):
     r1 = store.record_report(tid, report_key="k1")
     store.record_items(tid, r1, items_from_result(_result("demo", [alpha])))
     r2 = store.record_report(tid, report_key="k2")
-    inc = store.record_items(tid, r2, items_from_result(_result("demo", [alpha, beta])))
+    run2 = _result("demo", [alpha, beta], findings=[{"point": "Gamma finding", "evidence": "e", "sources": [1]}])
+    inc = store.record_items(tid, r2, items_from_result(run2))
 
-    digest = build_digest(store, tid, _result("demo", [alpha, beta]), inc)
+    digest = build_digest(store, tid, run2, inc)
     assert [w["title"] for w in digest["new_works"]] == ["Beta"]
+    assert any("Gamma finding" in f["text"] for f in digest["new_findings"])
     assert "Alpha" in [t["title"] for t in digest["trending"]]
-    assert digest["increment"] == {"new": 1, "updated": 0, "known": 1, "changed": 1}
+    assert digest["increment"] == {"new": 2, "updated": 0, "known": 1, "changed": 2}
 
     md = render_markdown(digest)
-    assert "最近新作" in md and "Trending" in md and "Beta" in md and "Alpha" in md
+    assert "最近新作" in md and "Trending" in md and "Beta" in md and "Alpha" in md and "Gamma finding" in md
     root = ET.fromstring(render_atom(digest))
     assert root.tag.endswith("feed")
     store.close()
