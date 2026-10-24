@@ -93,7 +93,7 @@ Dockerfile            base 镜像定义（`python:3.12-slim`，只烤环境不�
 docker-compose.yml    即用即起地跑 HTTP 服务（挂载仓库 + 装 editable + 起 `rb serve`）
 .github/workflows/    daily-research.yml（每日，容器内跑）、image.yml（发布 base 镜像）、ci.yml（lint+test）
 scripts/              bootstrap.sh、run_daily.sh、import_skill.sh、set_github_secrets.py
-docs/                 architecture / deep-research / service / knowledge-framework / knowledge-base / email / github-actions / scheduling / skills-and-sources / intelligence_governance_final_report（长期研究蓝图：World→Value→Decision→Governance 闭环，指导 watch 领域收敛）/ HANDOVER
+docs/                 architecture / deep-research / service / knowledge-framework / knowledge-base / email / github-actions / scheduling / skills-and-sources / intelligence_governance_final_report（长期研究蓝图：World→Value→Decision→Governance 闭环，指导 watch 领域收敛）/ research-maintenance（日/周/季维护与跟进）/ HANDOVER
 ```
 
 ## 6. 配置与密钥（**不要提交任何密钥**）

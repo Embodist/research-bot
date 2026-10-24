@@ -388,7 +388,9 @@ Layout: `src/research_bot/` (package) · `skills/` · `topics/` · `config/` · 
 [`docs/HANDOVER.md`](docs/HANDOVER.md), [`docs/deep-research.md`](docs/deep-research.md) (tech core +
 architecture), [`docs/service.md`](docs/service.md) (HTTP service), [`docs/knowledge-framework.md`](docs/knowledge-framework.md)
 (cross-domain knowledge framework), [`docs/architecture.md`](docs/architecture.md),
-[`docs/github-actions.md`](docs/github-actions.md), [`docs/email.md`](docs/email.md),
+[`docs/github-actions.md`](docs/github-actions.md), [`docs/knowledge-base.md`](docs/knowledge-base.md)
+(increment digest + subscribable feed), [`docs/research-maintenance.md`](docs/research-maintenance.md)
+(day/week/quarter maintenance & follow-up), [`docs/email.md`](docs/email.md),
 [`docs/scheduling.md`](docs/scheduling.md) and [`docs/skills-and-sources.md`](docs/skills-and-sources.md).
 
 ## Troubleshooting
