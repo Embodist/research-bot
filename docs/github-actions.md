@@ -81,7 +81,7 @@ docker run --rm -v "$PWD":/app -w /app \
 | `LLM_MODEL` | `deepseek-v4-flash` | override the model id |
 | `LLM_BASE_URL` | `https://api.deepseek.com/v1` | OpenAI-compatible base URL (this repo is set to the whnetsea gateway) |
 | `SEARXNG_URL` | `http://43.155.145.78:58881` | your SearXNG (JSON or HTML) |
-| `WATCH_QUERIES` | *(workflow default — the converged frontiers)* | 增量追踪的领域：逗号/换行分隔。**不设**则用工作流里已提交的默认清单（具身智能/VLA/机器人 + 价值对齐 / Agent 评测与安全 / AI 治理）；条目不要含 ASCII 逗号（查询里的顿号 `、` 安全） |
+| `WATCH_QUERIES` | *(workflow default — the converged frontiers)* | 增量追踪的领域：逗号/换行分隔。**不设**则用工作流里已提交的默认清单（具身智能/VLA/机器人 + 价值对齐 / Agent 评测与安全 / AI 治理 / 网络安全）；条目不要含 ASCII 逗号（查询里的顿号 `、` 安全） |
 | `WATCH_DEPTH` | `quick` | watch 步骤的深度 |
 
 > **每日增量（watch）**：`Run watch increments` 步骤**只在 schedule 事件**运行，对 `WATCH_QUERIES` 的每条查询跑

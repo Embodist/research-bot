@@ -134,7 +134,7 @@ docs/                 architecture / deep-research / service / knowledge-framewo
   详见 [`docs/service.md`](service.md)。
 - **Makefile**：`make run TOPIC=vla DEPTH=quick` / `make run-all` / `make serve` / `make doctor` / `make test` / `make lint`
 - **GitHub Actions（`Daily Watch`）**：**定时 `0 22 * * *` UTC 只跑增量 watch**——对收敛后的快变前沿
-  （默认 6 条：具身智能/VLA/机器人 + 价值对齐 / Agent 评测与安全 / AI 治理；作为工作流默认值提交在 git，
+  （默认 7 条：具身智能/VLA/机器人 + 价值对齐 / Agent 评测与安全 / AI 治理 / 网络安全；作为工作流默认值提交在 git，
   可用仓库 Variable `WATCH_QUERIES` 覆盖）逐条
   `rb run --watch --query ... --kb --email`，回提交报告。**调研（research/topic）与初始（knowledge 建知识地图）
   不进流水线**，改为按需手动：Actions → Daily Watch → Run workflow（`mode=research|knowledge|watch` 配
