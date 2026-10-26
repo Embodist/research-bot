@@ -178,6 +178,9 @@ topic 的**种子资源**、**可引用来源列表**（`[n] 标题 — URL`）�
   ——七维 knowledge/watch 报告很长，用 8192 会在第 3 维被截断。综合 prompt 要求"写完所有章节，宁可精炼不可截断"；
   若回复**仍**缺章节，`synthesize` 会再发一次**受限的补写请求**（`_complete_sections`，只写缺失章节），并把结果
   插到"参考来源"之前（`_splice_before_refs`）；补写失败则保留截断并记 `synthesis truncated` 警告。
+- **引文补全**：综合完成后若引用率 < 50%，再做**一次**有界补引用（`_repair_citations`，只补 `[n]`、不改结论）；
+  仅当引用率提升、章节不丢、篇幅不缩时采纳，否则保留原文。开关 `llm.citation_repair`（默认 true）。
+  knowledge/watch 还会把 frame 的**要素词**（如 watch 的 增量/不确定/风险/预测）写进 prompt 强制出现。
 - **模型兜底**：主模型报 `model_not_found` / `no available channel` / `does not exist` / `unknown model` 时，
   自动尝试 `fallback_models`（默认 `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning`）。注意：**额度不足
   （`insufficient_user_quota`）不属于模型兜底**，所有档位都会失败，最终产出的只是确定性兜底报告。

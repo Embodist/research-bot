@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from types import SimpleNamespace
 
 from research_bot.config import load_config
 from research_bot.engine import DeepResearchEngine, SourceRegistry, SubQuestion
@@ -221,4 +222,30 @@ def test_splice_before_refs_inserts_before_reference_list():
 def test_splice_without_refs_appends():
     out = DeepResearchEngine._splice_before_refs("# T\nbody", "## 7. 关联与元层\nx")
     assert out.rstrip().endswith("## 7. 关联与元层\nx")
+
+
+def test_sourced_ratio_simple_counts_claim_lines():
+    engine = _engine()
+    topic = load_topic_file(REPO / "topics" / "vla.yaml")
+    text = "# H\n第一行没有引用\n第二行有 [1]\n| a | b |\n| --- | --- |\n"
+    assert round(engine._sourced_ratio(topic, text), 2) == 0.33
+
+
+def test_citation_repair_adopts_improvement(monkeypatch):
+    engine = _engine()
+    topic = load_topic_file(REPO / "topics" / "vla.yaml")
+    text = "# T\n## A\n这是没有引用的句子。\n第二行也没有。\n## 参考来源\n[1] A — u\n"
+    improved = "# T\n## A\n这是有引用的句子 [1]。\n第二行也有 [1]。\n## 参考来源\n[1] A — u\n"
+    monkeypatch.setattr(engine, "llm", SimpleNamespace(chat=lambda *a, **k: improved))
+    out = engine._repair_citations(topic, text, ["[1] A — u"], ["A", "参考来源"], 1000)
+    assert out == improved.strip()
+
+
+def test_citation_repair_rejects_no_gain(monkeypatch):
+    engine = _engine()
+    topic = load_topic_file(REPO / "topics" / "vla.yaml")
+    text = "# T\n## A\n没有引用的一句话。\n"
+    monkeypatch.setattr(engine, "llm", SimpleNamespace(chat=lambda *a, **k: text))
+    out = engine._repair_citations(topic, text, ["[1] A — u"], ["A"], 1000)
+    assert out == text
 

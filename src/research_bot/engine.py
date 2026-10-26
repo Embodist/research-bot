@@ -609,6 +609,17 @@ class DeepResearchEngine:
             "六、趋势、争议与开放问题",
             "七、建议关注清单（Watchlist）",
         ]
+        # For knowledge/watch runs, the frame declares required element words the
+        # coverage evaluator will look for; name them explicitly so they land.
+        elements: list[str] = []
+        frame = (getattr(topic, "raw", None) or {}).get("frame")
+        if frame:
+            try:
+                from .knowledge import get_frame
+
+                elements = list(get_frame(frame).elements)
+            except Exception:  # noqa: BLE001 - unknown frame must not block synthesis
+                elements = []
         messages = [
             {"role": "system", "content": self._system("报告撰写者（synthesizer）")},
             {
@@ -623,7 +634,9 @@ class DeepResearchEngine:
                     + "\n".join(f"- {s}" for s in sections)
                     + "\n\n写作要求：\n"
                     "1. 报告以 `# 标题` 开头，随后是元信息行（日期、领域、检索源数量）。\n"
-                    "2. 每个关键论断必须带 [n] 引用；不得引用不存在的编号；不得编造 URL。\n"
+                    "2. 引用是硬性要求：**每一个陈述句、列表项、表格数据行都必须至少带一个 [n]**；"
+                    "禁止出现没有任何 [n] 的论断段落。确实无来源的判断写成 `> 待核实：……`（不计为论断）。"
+                    "不得引用不存在的编号；不得编造 URL。\n"
                     "3. “经典与奠基性工作”“开源项目”“数据集与基准”用 Markdown 表格呈现"
                     "（列：名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明）。\n"
                     "4. 明确区分“最新进展（近1-2年）”与“经典工作”。\n"
@@ -636,7 +649,12 @@ class DeepResearchEngine:
                     "7. 结尾附“参考来源”编号列表（可直接复用上面的来源列表）。\n"
                     "8. **必须逐条写完上面列出的全部章节，一个都不能省略**；若内容过多，压缩每章篇幅"
                     "（每章给出精炼要点即可），而不是省略靠后的章节。宁可精炼，不可截断。\n"
-                    "只输出 Markdown 报告正文。"
+                    + (
+                        f"9. 报告正文必须明确出现以下要素词（覆盖度核验会检查）：{'、'.join(elements)}。\n"
+                        if elements
+                        else ""
+                    )
+                    + "只输出 Markdown 报告正文。"
                 ),
             },
         ]
@@ -656,7 +674,7 @@ class DeepResearchEngine:
                     extra = self._complete_sections(messages, missing, budget)
                     if extra:
                         text = self._splice_before_refs(text, extra)
-                return text
+                return self._repair_citations(topic, text, ref_lines, sections, budget)
         except LLMError as exc:
             log.warning("synthesis LLM failed (%s); emitting deterministic report", exc)
         return self._fallback_report(topic, plan, subquestions, refs)
@@ -700,6 +718,88 @@ class DeepResearchEngine:
         head, tail = "\n".join(lines[:idx]).rstrip(), "\n".join(lines[idx:])
         return f"{head}\n\n{extra}\n\n{tail}\n"
 
+    def _sourced_ratio(self, topic: Topic, text: str) -> float:
+        """Fraction of claim lines carrying a ``[n]`` citation (deterministic).
+
+        For knowledge/watch runs this reuses the coverage evaluator so the repair
+        targets exactly what will be scored; otherwise it uses a simple line ratio.
+        """
+        frame = (getattr(topic, "raw", None) or {}).get("frame")
+        if frame:
+            try:
+                from types import SimpleNamespace
+
+                from .knowledge import evaluate_coverage
+
+                return evaluate_coverage(SimpleNamespace(report_md=text), frame=frame).sourced_ratio
+            except Exception:  # noqa: BLE001 - fall back to the simple ratio
+                pass
+        total = sourced = 0
+        for line in text.splitlines():
+            s = line.strip()
+            if not s or s.startswith("#") or s.startswith(">"):
+                continue
+            if s.startswith("|") and set(s) <= set("|-: "):
+                continue  # table separator row
+            total += 1
+            if re.search(r"\[\d+\]", s):
+                sourced += 1
+        return (sourced / total) if total else 0.0
+
+    def _repair_citations(
+        self, topic: Topic, text: str, ref_lines: list[str], sections: list[str], budget: int
+    ) -> str:
+        """One bounded "add [n] citations" pass when the report under-cites.
+
+        Adopted only if it raises the sourced ratio, keeps every section, and does
+        not shrink the report materially; otherwise the original is returned.
+        """
+        if not getattr(self.cfg.llm, "citation_repair", True):
+            return text
+        before = self._sourced_ratio(topic, text)
+        if before >= 0.5:
+            return text
+        before_markers = len(re.findall(r"\[\d+\]", text))
+        instruction = (
+            "下面是一份已写好的报告。**不要改变结论、不要增删事实**，只做一件事：为每一条缺少引用标记的论断"
+            "补上 [n]（只能使用“来源列表”里的编号）；无法对应来源的判断改写为 `> 待核实：……`。"
+            "保留原有章节标题与顺序，结尾保留“参考来源”列表。只输出修订后的完整 Markdown。\n\n"
+            "来源列表：\n" + "\n".join(ref_lines) + "\n\n报告：\n" + text
+        )
+        try:
+            fixed = self.llm.chat(
+                [
+                    {"role": "system", "content": self._system("报告撰写者（synthesizer）")},
+                    {"role": "user", "content": instruction},
+                ],
+                tier="strong",
+                temperature=0.2,
+                max_tokens=budget,
+            )
+        except LLMError as exc:
+            log.warning("citation repair failed (%s); keeping original", exc)
+            return text
+        fixed = (fixed or "").strip()
+        if not fixed:
+            return text
+        after = self._sourced_ratio(topic, fixed)
+        if after < before + 0.05 or self._missing_sections(fixed, sections) or len(fixed) < 0.8 * len(text):
+            log.warning(
+                "citation repair not adopted (sourced %.2f -> %.2f, chars %d -> %d)",
+                before,
+                after,
+                len(text),
+                len(fixed),
+            )
+            return text
+        log.info(
+            "citation repair adopted (sourced %.2f -> %.2f, markers %d -> %d)",
+            before,
+            after,
+            before_markers,
+            len(re.findall(r"\[\d+\]", fixed)),
+        )
+        return fixed
 
     def _fallback_report(self, topic: Topic, plan: dict[str, Any], subquestions: list[SubQuestion], refs: list[dict[str, Any]]) -> str:
         lines = [f"# {plan.get('title') or topic.title}", ""]

@@ -22,6 +22,9 @@ llm:
   # Synthesis (the final report) gets its own, larger budget: a 7-facet
   # knowledge/watch report is long and would otherwise be cut off mid-way.
   max_tokens_report: ${LLM_MAX_TOKENS_REPORT:-16384}
+  # If the synthesised report cites too little, one bounded "add [n] citations"
+  # pass is made and adopted only when it measurably improves coverage.
+  citation_repair: true
   timeout: 240
   max_retries: 3
   # Named tiers used by the pipeline (fast for extraction, strong for synthesis)

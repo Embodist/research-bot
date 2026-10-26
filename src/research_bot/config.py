@@ -63,6 +63,9 @@ DEFAULTS: dict[str, Any] = {
         "temperature": 0.3,
         "max_tokens": 8192,
         "max_tokens_report": "${LLM_MAX_TOKENS_REPORT:-16384}",
+        # After synthesis, if the report's citation rate is low, make ONE bounded
+        # "add [n] citations" pass and adopt it only if it measurably improves.
+        "citation_repair": True,
         "timeout": 240,
         "max_retries": 3,
         "tiers": {
