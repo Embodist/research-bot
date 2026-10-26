@@ -6,16 +6,17 @@
 
 # ---------------------------------------------------------------------------
 # LLM (OpenAI-compatible chat completions)
-# Defaults to the DeepSeek official API. `deepseek-v4-flash` is the canonical id
-# served by https://api.deepseek.com (override `model` for another gateway).
+# Defaults to the project's NVIDIA Nemotron gateway (OpenAI-compatible).
+# `nvidia/nemotron-3-ultra-550b-a55b` is the primary model; point base_url/model
+# at another OpenAI-compatible gateway to switch.
 # ---------------------------------------------------------------------------
 llm:
-  base_url: ${LLM_BASE_URL:-https://api.deepseek.com/v1}
+  base_url: ${LLM_BASE_URL:-http://43.155.145.78:65432/v1}
   api_key: ${LLM_API_KEY:-}
-  model: ${LLM_MODEL:-deepseek-v4-flash}
+  model: ${LLM_MODEL:-nvidia/nemotron-3-ultra-550b-a55b}
   # If the primary model id is not served, these are tried next.
   fallback_models:
-    - ${LLM_MODEL_FALLBACK:-deepseek-flash}
+    - ${LLM_MODEL_FALLBACK:-nvidia/nemotron-3-nano-omni-30b-a3b-reasoning}
   temperature: 0.3
   max_tokens: 8192
   # Synthesis (the final report) gets its own, larger budget: a 7-facet
@@ -25,8 +26,8 @@ llm:
   max_retries: 3
   # Named tiers used by the pipeline (fast for extraction, strong for synthesis)
   tiers:
-    fast: ${LLM_MODEL_FAST:-deepseek-v4-flash}
-    strong: ${LLM_MODEL_STRONG:-deepseek-v4-flash}
+    fast: ${LLM_MODEL_FAST:-nvidia/nemotron-3-ultra-550b-a55b}
+    strong: ${LLM_MODEL_STRONG:-nvidia/nemotron-3-ultra-550b-a55b}
 
 # ---------------------------------------------------------------------------
 # Search backends. Everything is local/free; no paid API keys required.

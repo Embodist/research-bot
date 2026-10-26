@@ -127,10 +127,11 @@ Key knobs (`config/config.example.yaml` is fully commented):
 
 ```yaml
 llm:
-  base_url: ${LLM_BASE_URL:-https://api.deepseek.com/v1}   # DeepSeek official API
+  base_url: ${LLM_BASE_URL:-http://43.155.145.78:65432/v1}   # OpenAI-compatible gateway
   api_key: ${LLM_API_KEY}
-  model: deepseek-v4-flash      # DeepSeek's canonical id (alias: deepseek-flash)
-  tiers: { fast: deepseek-v4-flash, strong: deepseek-v4-flash }
+  model: nvidia/nemotron-3-ultra-550b-a55b
+  fallback_models: [nvidia/nemotron-3-nano-omni-30b-a3b-reasoning]
+  tiers: { fast: nvidia/nemotron-3-ultra-550b-a55b, strong: nvidia/nemotron-3-ultra-550b-a55b }
 
 research:
   depth: standard               # quick | standard | deep
@@ -148,11 +149,10 @@ email:
   # smtp_* + to: [...]
 ```
 
-> **Model note.** The LLM defaults to the **DeepSeek official API**
-> (`https://api.deepseek.com/v1`). `deepseek-v4-flash` is DeepSeek's canonical model id (alias
-> `deepseek-flash`), which is the default. Point `llm.base_url` at any OpenAI-compatible gateway and set
-> `llm.model` to an id that gateway serves. If the primary model is missing, the client automatically
-> retries the ids in `llm.fallback_models`.
+> **Model note.** The LLM defaults to **`nvidia/nemotron-3-ultra-550b-a55b`** on an OpenAI-compatible
+> gateway (`http://43.155.145.78:65432/v1`), with `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` as the
+> fallback. Point `llm.base_url` at any OpenAI-compatible gateway and set `llm.model` to an id it serves; if
+> the primary id is missing, the client automatically retries `llm.fallback_models`.
 >
 > **Search note.** A local/remote **SearXNG is used when reachable** (JSON or HTML mode); the other eight
 > engines need no keys. Blocked engines are dropped per-run by a circuit breaker, so a restricted network
@@ -398,7 +398,7 @@ architecture), [`docs/service.md`](docs/service.md) (HTTP service), [`docs/knowl
 
 | Symptom | Fix |
 | --- | --- |
-| `model_not_found` | set `llm.model` to an id your gateway serves (`deepseek-v4-flash` is the default) |
+| `model_not_found` | set `llm.model` to an id your gateway serves (`nvidia/nemotron-3-ultra-550b-a55b` is the default) |
 | Some engines show `FAIL` in `rb doctor` | expected on restricted networks; the remaining engines still run |
 | `searxng not reachable` | start a local SearXNG on `SEARXNG_URL`, or ignore — it is optional |
 | Empty report / few sources | widen `search.engines`, set `GITHUB_TOKEN`, or raise `research.max_subquestions` |

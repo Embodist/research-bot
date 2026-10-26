@@ -170,15 +170,17 @@ topic 的**种子资源**、**可引用来源列表**（`[n] 标题 — URL`）�
 
 ### 1.8 LLM 客户端
 
-`llm.py`。极简 OpenAI 兼容客户端（默认指向 DeepSeek 官网 `https://api.deepseek.com/v1`），做了加固：
+`llm.py`。极简 OpenAI 兼容客户端（默认指向项目自有端点 `http://43.155.145.78:65432/v1`），做了加固：
 
-- **tiers**：`fast`（抽取）与 `strong`（规划/评审/综合）两档映射到具体 model id；默认都是 `deepseek-v4-flash`。
+- **tiers**：`fast`（抽取）与 `strong`（规划/评审/综合）两档映射到具体 model id；默认都是
+  `nvidia/nemotron-3-ultra-550b-a55b`。
 - **报告输出预算**：抽取/规划用 `max_tokens`（8192）；**综合另用 `max_tokens_report`**（默认 16384，`LLM_MAX_TOKENS_REPORT`）
   ——七维 knowledge/watch 报告很长，用 8192 会在第 3 维被截断。综合 prompt 要求"写完所有章节，宁可精炼不可截断"；
   若回复**仍**缺章节，`synthesize` 会再发一次**受限的补写请求**（`_complete_sections`，只写缺失章节），并把结果
   插到"参考来源"之前（`_splice_before_refs`）；补写失败则保留截断并记 `synthesis truncated` 警告。
 - **模型兜底**：主模型报 `model_not_found` / `no available channel` / `does not exist` / `unknown model` 时，
-  自动尝试 `fallback_models`（默认 `deepseek-flash`）。
+  自动尝试 `fallback_models`（默认 `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning`）。注意：**额度不足
+  （`insufficient_user_quota`）不属于模型兜底**，所有档位都会失败，最终产出的只是确定性兜底报告。
 - **JSON 强制**：`json()` 用 `response_format={"type":"json_object"}`；解析失败时把上次回复回灌并要求"只输出合法 JSON"，
   最多重试 `retries` 次。`util.extract_json` 容忍 code fence、前后散文、尾逗号。
 - **重试**：429/5xx 指数退避（`min(2**attempt,8)`）重试 `max_retries`；鉴权/校验错误快速失败。

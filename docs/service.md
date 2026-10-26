@@ -83,7 +83,7 @@ curl -s localhost:8080/topics -H "Authorization: Bearer $RESEARCH_BOT_API_TOKEN"
 嵌套或点号写法等价，随后 `deep_merge ← expand_env`，绝不 eval：
 
 ```json
-{"query": "C++ RAII", "config": {"llm.model": "deepseek-v4-flash", "research": {"depth": "deep"}}}
+{"query": "C++ RAII", "config": {"llm.model": "nvidia/nemotron-3-ultra-550b-a55b", "research": {"depth": "deep"}}}
 ```
 
 ### `GET /research/{id}` — 轮询状态

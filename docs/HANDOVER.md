@@ -188,9 +188,10 @@ git push origin main
    官方文档）、**关注度**（高/中/低 + 依据）、**推荐度**（★1-5 + 理由）。抽取与综合 prompt 强制要求，报告证据表
    列为 `名称|年份|机构/作者|热度|权威|关注度|推荐度|链接|说明`；取不到的写 `> 待核实`，**不得编造数字**。
    降级抽取（LLM 不可用）用 `_attention_text` / `_recommendation_text` 从 citations/stars/venue 确定性推导。
-3. **模型 id**：默认网关是 DeepSeek 官网（`https://api.deepseek.com/v1`），canonical id 为
-   `deepseek-v4-flash`（别名 `deepseek-flash`）；换网关时改 `llm.base_url` / `llm.model`（走 `${LLM_BASE_URL}` /
-   `${LLM_MODEL}`）。
+3. **模型 id**：默认网关是项目自有的 OpenAI 兼容端点 `http://43.155.145.78:65432/v1`，默认模型
+   `nvidia/nemotron-3-ultra-550b-a55b`，fallback `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning`；换网关时改
+   `llm.base_url` / `llm.model`（走 `${LLM_BASE_URL}` / `${LLM_MODEL}`）。**注意该端点余额受账户额度限制**：
+   额度耗尽时会返回 `insufficient_user_quota`，引擎退化为确定性兜底报告（见 §10.12）。
 4. **`deer-flow/` 子模块**：直接 `ruff check .` 会报 100+ 错，**全在子模块内**，不在 `src tests` 范围内，忽略即可。
 5. **`set_github_secrets.py` 只写 Secrets**，不写 Variables（见 §6）。
 6. **降级行为**：LLM 不可用时仍会产出「源码接地」的降级报告；搜索引擎被墙则按熔断逐个剔除——CI 不会因网络
@@ -217,6 +218,11 @@ git push origin main
    `if not cfg.enabled: "email disabled"` 会直接拦下。CI 无 `config.yaml`（默认 `enabled:false`），故线上
    即使传了 `--email` 也**只回提交报告、不发邮件**（日志里 `sent=False error=email disabled`）。修复：
    `args.email` 为真时强制 `cfg.email.enabled=True`（回归测试 `tests/test_cli.py`）；本地/CI 均恢复正常发信。
+12. **LLM 额度耗尽会静默降级（2026-10-25）**：网关账户余额不足时返回 `insufficient_user_quota`
+   （此前可能先报 `model_not_found` 503），planner/extraction/synthesis 全部失败，引擎输出**确定性兜底报告**
+   ——而 **CI 仍显示绿**。日志特征：`synthesis LLM failed` / `using seed-query fallback plan` /
+   `emitting deterministic report`，报告通常只有 1–2 维、coverage 大量 gap。处理：充值或更换
+   `LLM_API_KEY` / `LLM_BASE_URL`；额度不足期间产出的报告**不可信**。建议加 `--strict-llm` 让 CI 显式失败。
 
 ## 11. 待办 / 下一步
 
@@ -233,7 +239,8 @@ git push origin main
 | 症状 | 处理 |
 | --- | --- |
 | `git push` 超时 | github 直连被墙，走 §9 的代理 |
-| `model_not_found` | 把 `llm.model` 改成你的网关所服务的 id（默认 `deepseek-v4-flash`） |
+| `model_not_found` | 把 `llm.model` 改成你的网关所服务的 id（默认 `nvidia/nemotron-3-ultra-550b-a55b`） |
+| 日志 `insufficient_user_quota` / `emitting deterministic report` | 网关账户余额耗尽，报告为兜底产物；充值或换 key（见 §10.12） |
 | `rb doctor` 里部分引擎 FAIL | 受限网络下的预期行为，其余引擎仍会跑 |
 | 新报告来源很少 / 空 | 扩大 `search.engines`、设 `GITHUB_TOKEN`、或提高 `research.max_subquestions` |
 | 邮件未发送 | `rb doctor` 看 `configured=True`，核对 SMTP Secrets / `config.yaml` |

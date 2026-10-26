@@ -56,16 +56,19 @@ def _wrap(value: Any) -> Any:
 
 DEFAULTS: dict[str, Any] = {
     "llm": {
-        "base_url": "${LLM_BASE_URL:-https://api.deepseek.com/v1}",
+        "base_url": "${LLM_BASE_URL:-http://43.155.145.78:65432/v1}",
         "api_key": "${LLM_API_KEY:-}",
-        "model": "${LLM_MODEL:-deepseek-v4-flash}",
-        "fallback_models": ["${LLM_MODEL_FALLBACK:-deepseek-flash}"],
+        "model": "${LLM_MODEL:-nvidia/nemotron-3-ultra-550b-a55b}",
+        "fallback_models": ["${LLM_MODEL_FALLBACK:-nvidia/nemotron-3-nano-omni-30b-a3b-reasoning}"],
         "temperature": 0.3,
         "max_tokens": 8192,
         "max_tokens_report": "${LLM_MAX_TOKENS_REPORT:-16384}",
         "timeout": 240,
         "max_retries": 3,
-        "tiers": {"fast": "${LLM_MODEL_FAST:-deepseek-v4-flash}", "strong": "${LLM_MODEL_STRONG:-deepseek-v4-flash}"},
+        "tiers": {
+            "fast": "${LLM_MODEL_FAST:-nvidia/nemotron-3-ultra-550b-a55b}",
+            "strong": "${LLM_MODEL_STRONG:-nvidia/nemotron-3-ultra-550b-a55b}",
+        },
     },
     "search": {
         "engines": [

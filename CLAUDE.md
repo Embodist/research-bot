@@ -39,6 +39,7 @@ make help                             # 全部管理目标
 ## 环境
 
 - Python ≥ 3.10；运行时依赖仅 `httpx` + `PyYAML`（不要引入重依赖，见 AGENTS.md）。
-- LLM 网关默认 `https://api.deepseek.com/v1`（DeepSeek 官网）；**可用模型 id 是 `deepseek-v4-flash`**
-  （官网 canonical id，别名 `deepseek-flash`）；可用 `${LLM_BASE_URL}` / `${LLM_MODEL}` 覆盖。
+- LLM 网关默认 `http://43.155.145.78:65432/v1`（OpenAI 兼容）；**默认模型 id 是
+  `nvidia/nemotron-3-ultra-550b-a55b`**（fallback：`nvidia/nemotron-3-nano-omni-30b-a3b-reasoning`）；
+  可用 `${LLM_BASE_URL}` / `${LLM_MODEL}` 覆盖。密钥只走环境变量 / GitHub Secrets。
 - `deer-flow/` 是 pinned git submodule，**不要在其中编辑**；引擎在子模块缺失时也必须能跑。
