@@ -1,154 +1,161 @@
-# 具身智能与视觉-语言-动作（VLA）前沿：七维增量快照（2024-2026）
+# 具身智能与视觉-语言-动作（VLA）前沿调研报告
 
-**日期**：2026-10-27（UTC） | **领域**：Embodied AI / VLA / Robotics | **检索源数量**：34 条可引用来源
+**日期**：2026-10-28 | **领域**：Embodied AI / Vision-Language-Action (VLA) / Robotics | **检索源数量**：34
 
 ---
 
 ## 1. 进展与热点
 
-### 1.1 最新模型架构与 SOTA 进展（近 1-2 年）
+### 1.1 最新架构范式与算法突破（2025-2026 增量）
 
 | 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
 |------|------|-----------|----------|----------|--------|--------|------|------|
-| TinyVLA | 2024 | 未标注机构 | citations=485 [12] | IEEE RA-L（同行评审期刊）[12] | 高——引用数 485 且发表于机器人主流期刊 [12] | ★★★★☆——直接针对 VLA 真机部署核心痛点（推理速度与数据效率）[12] | [12] | 提出紧凑型 VLA 架构，消除大规模预训练需求，实现快速推理与数据高效学习 [12] |
-| Xiaomi-Robotics-1 | 2026 | Xiaomi Robotics | > 待核实 | arXiv cs.RO（预印本）[25] | 中——新发布大规模真机轨迹数据集支撑的基础模型 [25] | ★★★★☆——100K+ 小时真机轨迹规模属业界罕见 [25] | [25] | 基于超 10 万小时真机轨迹训练的 VLA 基础模型，支持零样本泛化与少样本适配 [25] |
-| Inference-Time Attention Steering | 2026 | 未标注机构 | > 待核实 | arXiv cs.CV（预印本）[27] | 中——针对 VLA 驾驶模型的推理时注意力干预 [27] | ★★★☆☆——解决安全关键场景下的注意力重定向问题 [27] | [27] | 提出有界加性 pre-softmax 注意力偏置，无需重训练即可在推理时引导关注安全关键目标 [27] |
-| RT-K | 2026 | 未标注机构 | citations=0 [31] | Biomimetic Intelligence and Robotics（期刊）[31] | 低——刚发表、引用为 0 [31] | ★★★☆☆——关键点感知 Transformer 框架，聚焦高效视觉-语言机器人控制 [31] | [31] | 基于关键点感知的 Transformer 框架，旨在提升视觉-语言机器人控制效率 [31] |
-| RT-2 综述 | 2025 | 未标注机构 | citations=3 [34] | Advances in Engineering Technology Research（期刊）[34] | 低——引用数 3，属二手综述 [34] | ★★★☆☆——系统梳理 RT-2 将互联网规模多模态模型迁移至机器人控制的范式 [34] | [34] | 全面回顾 Google DeepMind RT-2 的架构、迁移学习机制与泛化能力 [34] |
+| Inference-Time Attention Steering (ITAS) | 2026 | Alpamayo-R1 / Qwen3-VL backbone | arXiv 2026 预印本，引用数 > 待核实 | arXiv cs.CV 预印本 [2] | 中 — 针对 VLA 驾驶安全关键场景的新范式 [2] | ★★★★☆ — 解决推理时可控性痛点，无需重训练 [2] | [2] | 双阶段架构（推理阶段+扩散轨迹解码器），通过有界加性 pre-softmax 注意力偏置实现 fail-open 前向 pre-hook 干预 [2] |
+| Compositional Context Fine-Tuning (CCFT) | 2026 | 未明确机构 | arXiv 2026 预印本，引用数 > 待核实 | arXiv cs.CV 预印本 [7] | 中 — 面向复杂装配动作理解的 VLM 微调新范式 [7] | ★★★☆☆ — 为精细操作语义分解提供思路，但侧重理解而非生成 [7] | [7] | 将装配动作分解为 Verb/Object/Tool 语义元素，适配 VLM 用于人机协作装配 [7] |
+| LingBot-VLA 2.0 / Pragmatic VLA Foundation Model | 2026 | LingBot 团队 | arXiv 2026 预印本 (v4)，引用数 > 待核实 | arXiv cs.RO 预印本 [13, 21] | 中高 — 强调实用化、跨任务/跨平台泛化与成本效率 [13, 21] | ★★★★☆ — 从基础模型走向应用的工程化尝试 [13] | [13, 21] | 在三大功能域改进 LingBot-VLA，关注真机部署落地 [13, 21] |
+| Robotic VLA + Motion Image Diffusion | 2025 | 未明确机构 | arXiv 2025 预印本，引用数 > 待核实 | arXiv cs.RO 预印本 [14] | 中 — 引入运动图像扩散联合学习，增强预测性运动推理 [14] | ★★★★☆ — 解决 VLA 仅模仿专家轨迹缺乏推理的问题 [14] | [14] | 通过联合学习运动图像扩散，赋予 VLA 预测性运动推理能力 [14] |
+| Running VLAs at Real-time Speed (π0-FAST) | 2025 | Physical Intelligence | arXiv 2025-10 提交，近期关注度高 [15] | arXiv cs.RO 预印本 [15] | 高 — 单张消费级 GPU 实现 30Hz/480Hz 实时推理，真机 100% 成功率 [15] | ★★★★★ — VLA 工程落地关键突破，官方开源代码 [15, 32] | [15, 32] | 全流式推理框架，配套 OpenPI 代码开源，验证真机抓取掉落笔任务 [15] |
+| VLA-Adapter | 2025 | 17 人作者团队 | arXiv 2025-09 提交，关注度中等 [25] | arXiv cs.RO 预印本 [25] | 中 — 轻量化适配器降低训练成本，适合小规模模型快速迁移 [25] | ★★★☆☆ — 训练端创新，部署端无直接贡献 [25] | [25] | 提出有效范式减少大规模预训练依赖，降低训练开销 [25] |
 
-**增量判断**：2024-2026 年 VLA 架构演进呈现两大主线——**（1）轻量化与数据高效化**：TinyVLA [12] 消除预训练阶段、大幅提升推理速度，直接攻克真机部署延迟痛点；**（2）大规模真机数据驱动的基础模型**：Xiaomi-Robotics-1 [25] 以 100K+ 小时真机轨迹推动零样本泛化与少样本适配。同时出现推理时干预（Attention Steering [27]）与关键点感知架构（RT-K [31]）等细粒度控制创新。
+> **增量判断**：相对 2024 年基线，2025-2026 年核心增量在于 **(1) 推理时干预范式 (ITAS [2]) 解决安全可控性；(2) 实时推理框架 (π0-FAST [15]) 打破部署延迟瓶颈；(3) 联合生成式建模 (Motion Image Diffusion [14]) 增强运动推理；(4) 实用化基础模型 (LingBot-VLA [13, 21]) 与轻量化适配器 [25] 推动工程落地。**
 
-> 待核实：Xiaomi-Robotics-1 与 Open X-Embodiment、DROID 等公开数据集的基准对比结果；TinyVLA 在多任务、多本体上的泛化上限。
-
-### 1.2 经典与奠基性工作（2023 年及以前）
+### 1.2 经典与奠基性工作（基线参考）
 
 | 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
 |------|------|-----------|----------|----------|--------|--------|------|------|
-| RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control | 2023 | Google DeepMind | > 待核实 | arXiv cs.RO（预印本）[26] | 高——VLA 领域里程碑式工作，开创互联网规模 VLM 迁移至机器人控制范式 [26] | ★★★★★——必读奠基性论文，确立 VLA 基础模型范式 [26] | [26] | 首次将预训练视觉-语言模型（PaLI-X/PaLM-E）与机器人动作空间对齐，实现语义推理与动作生成的统一 [26] |
-| RT-1: Robotics Transformer for Real-World Control at Scale | 2022 | Google Robotics | > 待核实 | arXiv / CoRL | 高——大规模真机数据训练的端到端策略基线 [26] | ★★★★☆——RT-2 的直接前身，建立 Transformer 策略在真机规模化的可行性 | - | 以 Token 序列建模动作，7 亿参数在 13 万真机轨迹上训练，奠定后续 VLA 架构基础 |
+| Octo: Open-Source Generalist Robot Policy | 2024 | Octo 团队 | GitHub Stars > 待核实，引用数 > 待核实 | arXiv cs.RO 预印本 [1] | 高 — 通用机器人策略开源基石 [1, 34] | ★★★★★ — 多任务、多本体开源基准 [1] | [1] | 统一 Transformer 架构，支持多模态输入与动作分块预测 [1, 34] |
+| RT-2 / RT-1 / PaLM-E | 2022-2023 | Google DeepMind | 引用数极高（RT-2 > 2k+），业界标杆 > 待核实 | 顶会/期刊 (RSS/CoRL/ICRA) > 待核实 | 极高 — VLA 领域奠基性工作 [34] | ★★★★★ — 必读经典，确立 VLM+Policy 范式 [34] | [34] | 博客 [34] 系统梳理：RT-1 端到端，RT-2 引入 VLM 共同嵌入，PaLM-E 具身多模态语言模型 [34] |
+| OpenVLA | 2024 | Stanford / UC Berkeley 等 | GitHub Stars > 待核实，HuggingFace 下载量高 > 待核实 | 顶会 (ICRA/CoRL) > 待核实 | 高 — 开源 7B VLA 模型，基于 Prismatic-7B + Open X-Embodiment [34] | ★★★★★ — 学术界复现 RT-2 主流选择 [34] | [34] | 博客 [34] 介绍：开源权重、数据、代码，支持微调 [34] |
+| π0 (pi0) | 2024 | Physical Intelligence | 官方博客/技术报告，闭源权重 > 待核实 | 技术报告/官方博客 [32, 34] | 高 — 流式动作分块、多视角、高频控制 [15, 34] | ★★★★★ — 实时控制架构参考标杆 [15, 34] | [15, 32, 34] | 博客 [34] 介绍：流式动作专家，后经 [15] 实现消费级 GPU 实时化 [15] |
+| Decision Transformer / Perceiver-Actor | 2021-2022 | Facebook AI / DeepMind | 引用数高，RL/序列建模基石 > 待核实 | 顶会 (ICML/NeurIPS) > 待核实 | 高 — 离线 RL 与感知编码器经典范式 > 待核实 | ★★★★☆ — 理解 VLA 序列建模根源必读 > 待核实 | > 待核实 | 当前检索源未直接覆盖原文，仅通过 [34] 间接提及，需补全一手文献 |
 
-> 待核实：RT-1/RT-2 的完整引用数据、官方开源仓库星标数、SimplerEnv/LIBERO 基准上的具体数字。
-
-### 1.3 真机部署进展
-
-- TinyVLA [12] 明确以“真机部署推理慢、预训练数据需求大”为切入点，提出无需预训练的紧凑架构，在机械臂操作任务上验证了更快推理速度与更高数据效率。
-- Xiaomi-Robotics-1 [25] 声称支持“在未见环境中零样本执行多样移动操作任务”，并能“以最少微调高效适配新下游任务”，但**未见独立第三方真机复现报告**。
-- Robot Trains Robot [17] 探索人形机器人从仿真策略到真机的自动适配与实地学习，属于**真机 RL 适配**方向的早期尝试 [17]。
+> **注**：经典工作部分信息源自综述性博客 [34]（二手来源，证据等级 C），核心指标（引用数、Stars、Venue）标注 `> 待核实`，需后续补全一手论文来源。
 
 ---
 
 ## 2. 工业界与产品
 
-| 产品/项目 | 机构 | 年份/状态 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
-|-----------|------|-----------|----------|----------|--------|--------|------|------|
-| Xiaomi-Robotics-1 基础模型 | 小米机器人 | 2026（预印本）[25] | > 待核实 | arXiv cs.RO [25] | 中——百万级真机数据规模属业界少见 [25] | ★★★★☆——若开源权重/数据将显著降低行业门槛 [25] | [25] | 100K+ 小时真机轨迹训练的 VLA 基础模型，面向移动操作与泛化 |
-| RT-2 / RT-1 | Google DeepMind | 2023/2022 | > 待核实 | 顶会/预印本 [26] | 高——行业标杆，引发大厂跟进 [26] | ★★★★★——定义了 VLA 范式的工业级实现 [26] | [26] | 互联网规模 VLM 迁移机器人控制，闭源但影响力最大 |
-| NimbRo-OP / NimbRo-OP2 开源人形平台 | 德国波恩大学 | 2018/2018 [15][19] | > 待核实 | 学术开源平台 [15][19] | 中——长期维护的开源人形硬件/软件栈 [15] | ★★★★☆——ROS 原生、3D 打印开源硬件，适合科研迁移 [15] | [15][19] | 提供完整 ROS 软件框架 [15] 与成熟硬件设计 [19]，支撑人形运动学/控制研究 |
-| Towards Miniature Humanoid Tele-Loco-Manipulation | 未标注机构 | 2026 [18] | > 待核实 | arXiv cs.RO [18] | 低——微型人形 VR 遥操作 + RL 平衡的新尝试 [18] | ★★★☆☆——低成本人形遥操作数据采集路径 [18] | [18] | 结合 VR 上身遥操作与 RL 下身平衡，面向微型人形的 loco-manipulation 数据采集 |
+### 2.1 主要玩家与产品进展
 
-**增量判断**：工业界呈现“**大厂闭源大模型**（Google RT-2）与**垂直领域开源平台**（NimbRo-OP）并行**态势。小米发布百万小时级真机数据模型 [25] 标志着国产厂商进入 VLA 基础模型竞赛，但权重/数据开放程度**待核实**。微型人形遥操作平台 [18] 为低成本高质量数据采集提供新范式。
+| 公司/项目 | 产品/模型 | 关键进展 (2024-2026) | 证据来源 | 部署形态 | 备注 |
+|-----------|-----------|----------------------|----------|----------|------|
+| Physical Intelligence | π0 / π0-FAST / OpenPI | 官方开源 OpenPI 训练管线 [32]；实时推理框架单消费级 GPU 30Hz/480Hz [15]；真机抓取任务 100% 成功率 [15] | [15, 32] | 真机部署 (实时推理) | 官方出品，代码开源，工程成熟度高 [15, 32] |
+| LingBot (灵伴) | LingBot-VLA / LingBot-VLA 2.0 | 提出 Pragmatic VLA Foundation Model [21]；v2.0 面向应用改进三大功能域 [13] | [13, 21] | 实验室/原型机 | 强调跨任务泛化与成本效率，论文为预印本 [13, 21] |
+| Alpamayo (推测) | Alpamayo-R1 (驾驶 VLA) | 提出 ITAS 推理时注意力引导，Qwen3-VL 骨干 [2] | [2] | 仿真/合成数据验证 | 驾驶垂类 VLA，安全干预创新 [2] |
+| 其他 (Figure, Tesla, 1X, Agility 等) | 未在证据中覆盖 | 无直接证据 | > 待核实 | > 待核实 | **缺口**：主流人形/具身公司最新产品进展、量产节点、Sim2Real 细节在当前 34 条来源中缺失 |
+
+> **增量判断**：Physical Intelligence 通过 [15, 32] 实现了 **从闭源演示到开源实时推理框架** 的关键增量；LingBot 通过 [13, 21] 推进 **实用化基础模型** 落地；驾驶垂类出现 **推理时安全干预** 新范式 [2]。**风险**：多数进展仍停留在论文/预印本或受控实验，规模化量产证据缺失。
 
 ---
 
 ## 3. 蓝海与缺口
 
-| 蓝海方向 | 核心缺口描述 | 相关证据 | 潜在杠杆 |
-|----------|--------------|----------|----------|
-| **统一多本体、多任务 VLA 架构** | 现有模型多针对单一本体（机械臂/移动底盘/人形）训练，缺乏统一动作空间与跨本体泛化能力 | TinyVLA [12] 仅在机械臂验证；Xiaomi-Robotics-1 [25] 面向移动操作；RT-K [31] 针对关键点控制 | ★★★★★——若攻克统一动作 Token 化与跨本体对齐，将解锁通用具身智能 |
-| **真机数据规模化与低成本采集** | 100K+ 小时真机轨迹 [25] 仍属少数大厂专有，中小团队缺乏可规模化复用的数据采集管线 | Robot Trains Robot [17] 尝试自动真机适配；Miniature Humanoid VR 遥操作 [18] 降低采集门槛 | ★★★★☆——VR+RL 混合遥操作、仿真到真机自动迁移管线为高杠杆切入点 |
-| **推理时安全/可控性机制** | VLA 驾驶/操作模型在推理时缺乏显式安全干预接口，注意力不可控 | Inference-Time Attention Steering [27] 首次提出无需重训练的注意力偏置干预 | ★★★★☆——面向 L3/L4 自动驾驶与协作机器人的合规性刚需 |
-| **数据高效/无预训练 VLA** | 主流 VLA 依赖海量预训练，数据获取成本高、环境迁移慢 | TinyVLA [12] 消除预训练阶段，实现数据高效端到端学习 | ★★★★☆——若能在保持泛化的前提下大幅降低数据门槛，将改变行业准入门槛 |
-| **长时程任务推理与规划融合** | 当前 VLA 多为短时程动作生成，缺乏显式长时程推理、子目标分解与错误恢复能力 | 无直接来源覆盖 | > 待核实：需结合 LLM 规划器与 VLA 执行器的层级架构最新进展 |
+| 缺口维度 | 具体描述 | 证据支撑 | 优先级 |
+|----------|----------|----------|--------|
+| **Sim2Real 与真机泛化验证不足** | ITAS [2] 仅在合成数据集 (50 变道场景) 验证；π0-FAST [15] 仅单任务真机演示；缺乏多任务、多本体、长时真机基准 | [2, 15, q1-open_problems] | ⭐⭐⭐⭐⭐ |
+| **Scaling Law 系统性研究缺失** | 候选证据中未覆盖 VLA 专用 Scaling Law (数据/模型/算力三要素) 系统实验 | [q1-open_problems] | ⭐⭐⭐⭐ |
+| **语义理解到动作生成的端到端桥接** | CCFT [7] 仅做动作理解分解，未接动作生成头；缺乏 "语义元素 → 连续动作" 统一架构 | [7, q1-open_problems] | ⭐⭐⭐⭐ |
+| **工程化标准化缺失 (ROS2/硬件/实时)** | OpenVLA、Octo、GR-1、RoboKit 等主流项目 ROS2 节点、硬件驱动适配、ONNX/TensorRT 量化、多相机同步、安全停止无成熟最佳实践 | [q3-open_problems] | ⭐⭐⭐⭐⭐ |
+| **第三方独立复现与基准测试缺失** | 不同 GPU/CPU 组合下吞吐率、端到端延迟、成功率统计无社区公认基准 | [q3-open_problems] | ⭐⭐⭐⭐ |
+| **多任务/多本体推理时干预通用性** | ITAS [2] 仅验证驾驶变道场景，通用操作任务、灵巧手、移动底盘迁移未验证 | [2, q1-open_problems] | ⭐⭐⭐ |
+| **数据集多样性与质量** | 依赖 Open X-Embodiment、DROID 等现有数据集，合成数据 [2] 真机迁移价值未知；精细操作高质量数据稀缺 | [2, 15, 34] | ⭐⭐⭐⭐ |
+
+> **不确定**：上述缺口是否在近 3 个月内被新工作 (如 CoRL 2026 / RSS 2026 新论文) 部分填补，当前检索源截止 2026-08/09，**需持续追踪**。
 
 ---
 
 ## 4. 瓶颈与拐点
 
-| 瓶颈维度 | 现状与证据 | 拐点信号 | 判断 |
-|----------|------------|----------|------|
-| **推理延迟与实时性** | TinyVLA [12] 明确指出现有 VLA 推理慢、难满足真机实时控制环；RT-K [31] 以关键点感知提升效率 | 轻量化架构（TinyVLA）、关键点稀疏表示（RT-K）、推理时注意力剪枝（Attention Steering [27]）并行涌现 | **较大概率**在 1-2 年内出现满足 10-20Hz 真机控制的轻量 VLA |
-| **真机数据获取成本与覆盖** | Xiaomi-Robotics-1 [25] 依赖 100K+ 小时专有数据；Open X-Embodiment 等公开数据集规模/质量仍有限 | Robot Trains Robot [17] 自动真机适配；VR 遥操作 [18] 低成本采集；仿真生成数据（AeroGen 等扩散模型 [22]）辅助 | **推测**：混合“仿真生成+少量真机校准+VR 遥操作”管线将成主流，但**完全摆脱真机数据仍需时日** |
-| **泛化与分布外鲁棒性** | RT-2 [26] 依赖互联网先验迁移，但在未见物体/环境/任务组合上仍易失效 | 多任务微调、上下文学习、世界模型辅助规划等方向探索中 | **不确定**——缺乏统一的 OOD 基准与第三方大规模评测 |
-| **评测基准碎片化** | LIBERO、SimplerEnv、RoboArena、Open X-Embodiment 并存，任务/本体/指标不统一 | 社区呼吁统一基准，但无权威整合进展 | > 待核实：是否有新基准整合倡议（如 RoboVerse、OpenVLA Bench） |
-| **算力与部署成本** | 大模型（RT-2 级）需多 GPU 推理，边缘部署困难 | TinyVLA [12]、RT-K [31] 等轻量化方向；模型蒸馏/量化/剪枝工程化 | **确定**——边缘端部署将倒逼模型压缩与专用加速器协同设计 |
+| 瓶颈 | 现状与证据 | 拐点信号与时间窗口 | 置信度 |
+|------|------------|---------------------|--------|
+| **推理延迟与实时性** | 传统 VLA 推理 >100ms，难满足高频控制；π0-FAST [15] 在单张消费级 GPU (RTX 4090 级) 实现 30Hz 帧率 / 480Hz 轨迹频率，**拐点已现** | 2025-Q4 论文 [15] + 代码开源 [32] → 2026-H1 社区复现与移植 → 2026-H2 成为部署标配 | 高 (有真机实测 [15]) |
+| **训练成本与数据饥渴** | 7B+ VLA 全微调需百张 A100 天级；VLA-Adapter [25] 提出轻量化适配，**早期信号** | 2025-Q3 论文 [25] → 2026 适配器/LoRA/蒸馏技术成熟 → 单卡/少卡微调常态化 | 中 (仅单篇预印本 [25]) |
+| **安全性与可控性** | 端到端 VLA 黑盒，难保证安全关键行为；ITAS [2] 提出推理时注意力引导，**范式创新** | 2026-Q3 论文 [2] → 2026-Q4 扩展至操作任务 → 2027 形成 "推理时对齐" 标准流程 | 中高 (原理通用，但仅驾驶验证 [2]) |
+| **运动推理与规划能力** | 纯模仿学习缺乏预测性推理；Motion Image Diffusion 联合学习 [14] 引入生成式运动先验，**架构演进** | 2025-Q4 论文 [14] → 2026 世界模型/扩散策略融合 VLA 主流化 | 中 (需更多独立验证) |
+| **评测基准碎片化** | LIBERO、SimplerEnv、DROID、Open X-Embodiment 并存，指标不统一；RT-Bench [17] 关注实时性而非任务成功率 | 2026 亟需统一 "真机泛化基准"，预测 CoRL/RSS 2026 将有新基准发布 | 预测 [P] |
+
+> **拐点总结**：**实时推理 [15] 与推理时干预 [2] 是确信度最高的两个拐点**，分别解决 "能不能跑得动" 与 "敢不敢用"；轻量化训练 [25] 与生成式运动推理 [14] 为跟进信号。
 
 ---
 
 ## 5. 社会·政策·国际
 
-| 维度 | 关键信号与证据 | 影响判断 |
-|------|----------------|----------|
-| **基础模型透明度与合规** | 2025 Foundation Model Transparency Index [14] 第三版发布，量化头部基础模型开发者的透明度实践演进 | **确定**：监管端（EU AI Act、美行政令）将透明度、风险评估、数据治理纳入硬性要求，VLA 作为具身基础模型**必受波及** |
-| **数据主权与跨境流动** | 机器人真机数据涉及场景隐私、工业机密，跨国数据合规成本上升 | **推测**：本地化数据采集与联邦学习/隐私计算将成刚需，**有利于拥有本地部署能力的厂商** |
-| **地缘政治与供应链** | 高端 GPU/传感器/精密减速器供应链集中度高，出口管制风险持续 | **确定**：国产算力（华为昇腾等）、国产传感器/本体的适配验证将成 VLA 落地关键路径 |
-| **劳动替代与伦理** | 通用人形机器人加速进入工厂/家庭，引发就业结构与人机交互伦理讨论 | **较大概率**：政策将出台“人机协作安全标准”“机器人税/转岗培训”配套措施，**影响商业化节奏** |
-
-> 待核实：中国、欧盟、美国针对具身智能/人形机器人的专项政策文件最新进展（2025-2026）。
+> **待核实**：当前 34 条检索来源 **均无覆盖** 监管政策、出口管制、数据合规、劳动替代伦理、国际标准 (ISO/TC 299)、地缘政治供应链 (GPU/传感器/本体) 等维度信息。
+> **建议**：需补充检索：中国《新一代人工智能治理专项》、欧盟《AI Act》机器人附件、美国 NIST 机器人标准、中美实体清单对算力/传感器影响、IFR 世界机器人报告 2024/2025。
 
 ---
 
 ## 6. 资本与生态
 
-| 信号类别 | 观测到的变化 | 证据支撑 | 判断 |
-|----------|--------------|----------|------|
-| **大模型独角兽融资** | 具身智能/人形机器人赛道持续吸引大额融资（Figure、1X、Apptronik、国内多家独角兽） | 无直接来源覆盖 | > 待核实：需引用 2024-2026 年融资公开数据（PitchBook/IT桔子/官方公告） |
-| **开源生态活跃度** | Open X-Embodiment、HuggingFace LeRobot、OpenVLA、TinyVLA [12] 等开源模型/数据/工具链涌现 | TinyVLA 开源代码/权重 [12]；NimbRo-OP 长期维护 [15] | **确定**：开源生态显著降低入门门槛，但**核心大模型权重多为闭源**（RT-2、Xiaomi-Robotics-1） |
-| **人才流动** | 顶会（CoRL/RSS/ICRA）VLA 相关论文激增，博士/博后流向大厂具身智能实验室与创业公司 | 无直接来源覆盖 | > 待核实：需引用领英/学术圈人才流向报告 |
-| **标准化与互操作** | ROS 2 成为事实标准；OPC UA、VDI 2570 等工业标准向机器人技能描述延伸 | NimbRo-OP 基于 ROS [15] | **较大概率**：技能描述语言（RDL、Behavior Trees）与 VLA 接口标准化将成生态锁定点 |
+### 6.1 开源生态版图 (基于可核实来源)
+
+| 项目 | 维护方 | 代码/权重开源度 | 社区热度 (Stars/Forks) | ROS2/硬件适配现状 | 证据 |
+|------|--------|-----------------|------------------------|-------------------|------|
+| **OpenPI** | Physical Intelligence (官方) | 训练管线代码开源 [32]；π0 权重闭源，π0-FAST 近似实现 [15] | 近期发布，关注度快速上升 > 待核实 | 官方仓库文档待细读，论文 [15] 未详述 ROS2 集成 | [15, 32] |
+| **Octo** | Octo 团队 | 代码、权重、数据全开源 [1] | GitHub Stars > 待核实 | 基于 JAX/Flax，ROS2 桥接需社区自行实现 > 待核实 | [1, 34] |
+| **OpenVLA** | Stanford 等 | 代码、权重 (7B/13B)、微调脚本开源 > 待核实 | HuggingFace 下载量高 > 待核实 | PyTorch 实现，ROS2 适配社区贡献为主 > 待核实 | [34] |
+| **GR-1 / RoboKit** | 未在证据中覆盖 | > 待核实 | > 待核实 | > 待核实 | > 待核实 |
+
+### 6.2 投融资与人才信号
+> **待核实**：当前来源无融资轮次、估值、并购、高管流动数据。Physical Intelligence 融资背景 (公开报道数亿美金) 需补查；LingBot 团队融资情况未见。
+
+### 6.3 生态协作与标准化
+- **碎片化风险**：各项目自行实现 ROS2 Control / MoveIt 2 集成，缺乏统一 `vla_msgs` / `vla_controller_interface` 标准 [q3-open_problems]。
+- **数据许可**：Open X-Embodiment 等数据集许可证 (CC-BY-4.0 等) 商用合规性需法务审查 > 待核实。
 
 ---
 
 ## 7. 信号与预测
 
-| 早期信号 | 来源/时间 | 可证伪预测（假设） | 置信度 | 不确定性标注 |
-|----------|-----------|---------------------|--------|--------------|
-| **轻量化 VLA 成为真机部署主流** | TinyVLA [12] 2024；RT-K [31] 2026 | **假设**：到 2027 年 Q2，≥ 50% 的真机演示论文使用参数量 < 1B 的 VLA 或蒸馏模型 | 较大概率 | 取决于边缘算力能效比提升速度与蒸馏技术成熟度 |
-| **百万小时真机数据集开源** | Xiaomi-Robotics-1 [25] 2026 预印本 | **假设**：到 2027 年底，至少有一个 ≥ 500K 小时的多本体真机数据集以宽松许可证全量开源 | 推测 | 企业数据资产化倾向强，开源意愿**不确定** |
-| **推理时安全干预机制标准化** | Attention Steering [27] 2026 | **假设**：ISO/SAE 将在 2028 前发布“具身基础模型推理时安全干预接口”技术规范 | 推测 | 标准制定周期长，依赖主机厂/一级供应商推动 |
-| **仿真生成数据占比超真机数据** | AeroGen [22] 等扩散生成；Robot Trains Robot [17] 仿真到真机 | **假设**：2027 年主流 VLA 训练数据中，仿真/生成数据占比 > 60% | 推测 | Sim2Real Gap 能否在精细操作任务上彻底闭环仍**存在争议 [Debated]** |
-| **VLA 与世界模型融合** | 无直接来源 | **假设**：2026-2027 出现显式世界模型（预测未来观测/奖励）作为 VLA 规划头的主流架构 | 推测 | 依赖视频生成模型（Sora 类）在物理一致性上的突破，**高不确定性** |
+| # | 早期信号 (来源) | 预测假设 (可证伪) | 置信度 | 验证窗口与指标 |
+|---|-----------------|-------------------|--------|----------------|
+| 1 | π0-FAST 单消费级 GPU 实时推理 [15] + OpenPI 开源 [32] | **假设**：至 2026-Q4，≥3 个开源项目 (OpenVLA/Octo/GR-1 等) 合并或复现 π0-FAST 流式推理内核，在 RTX 4090/5090 上跑通 30Hz+ 多视角真机闭环。 | 较大概率 | 指标：GitHub PR 合并记录、社区复现报告、ROS2 驱动发布 |
+| 2 | ITAS 推理时注意力引导无需重训练干预行为 [2] | **假设**：至 2027-Q1，出现通用 "VLA Safety Shield" 开源库，支持通过自然语言/检测器触发注意力偏置，覆盖 ≥5 种本体 (机械臂/灵巧手/移动/人形/驾驶)。 | 推测 | 指标：arXiv 新论文引用 [2]、GitHub 专用仓库 Stars > 500 |
+| 3 | VLA-Adapter 轻量化适配器范式 [25] | **假设**：至 2026-Q4，HuggingFace Hub 上出现 ≥20 个基于 OpenVLA/Octo/π0-FAST 的 LoRA/Adapter 微调权重，单卡 24GB 显存可在 4h 内完成新任务适配。 | 较大概率 | 指标：HF Model Card 标签、微调教程、社区 Benchmark |
+| 4 | LingBot-VLA 2.0 强调跨平台泛化与成本效率 [13, 21] | **假设**：至 2026-Q4，LingBot 发布技术报告展示在 ≥3 种商用机械臂 (Franka/UR/国产) + 移动底盘上零样本/少样本完成 ≥10 个长时任务，成功率 > 80%。 | 推测 | 指标：官方博客/技术报告/视频、第三方邀请测评 |
+| 5 | 世界模型/扩散策略与 VLA 融合趋势 [14] | **假设**：CoRL 2026 / RSS 2026 将有 ≥5 篇论文显式融合 "VLA + 视频扩散/世界模型"，且在真机长时任务上显著优于纯 VLA 基线。 | 预测 [P] | 指标：会议录用列表、OpenReview 讨论、开源代码 |
 
-**风险提示**：以上预测均基于当前可观测信号外推，**不构成投资建议**；关键变量包括算力出口管制、基础模型开源策略转向、真机数据合规成本、Sim2Real 理论突破等。
+> **不确定性声明**：上述预测基于当前 34 条来源的 **早期信号外推**，受算力供给、数据版权、人才流动、宏观资本环境等外部因素影响大，**需滚动更新**。
 
 ---
 
 ## 参考来源
 
-[1] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1  
-[2] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1  
-[3] Atmospheric entry and fragmentation of small asteroid 2024 BX1 — http://arxiv.org/abs/2403.00634v2  
-[4] ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024 — http://arxiv.org/abs/2407.12038v2  
-[5] Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge — http://arxiv.org/abs/2406.10598v1  
-[6] Users' Perception on Appropriateness of Robotic Coaching Assistant's Disclosure Behaviors — http://arxiv.org/abs/2410.10550v1  
-[7] Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge — http://arxiv.org/abs/2101.02842v1  
-[8] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2  
-[9] JENGA: Exploiting Counter-Based RowHammer Countermeasures — http://arxiv.org/abs/2609.01077v1  
-[10] Design, Development and Deployment of an Underwater Cellular Network — https://doi.org/10.1109/OCEANS55160.2024.10754077  
-[11] Overview of the 2024 ALTA Shared Task — http://arxiv.org/abs/2412.17848v1  
-[12] TinyVLA: Toward Fast, Data-Efficient Vision-Language-Action Models for Robotic Manipulation — https://arxiv.org/abs/2409.12514  
-[13] VQualA 2025 Challenge on Engagement Prediction for Short Videos — http://arxiv.org/abs/2509.02969v1  
-[14] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1  
-[15] A ROS-based Software Framework for the NimbRo-OP Humanoid Open Platform — http://arxiv.org/abs/1809.11051v1  
-[16] Learning Getting-Up Policies for Real-World Humanoid Robots — http://arxiv.org/abs/2502.12152v2  
-[17] Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids — http://arxiv.org/abs/2508.12252v2  
-[18] Towards Miniature Humanoid Tele-Loco-Manipulation Using Virtual Reality and Reinforcement Learning — http://arxiv.org/abs/2607.20399v1  
-[19] NimbRo-OP2: Grown-up 3D Printed Open Humanoid Platform for Research — http://arxiv.org/abs/1809.11144v1  
-[20] Data Encoding for Byzantine-Resilient Distributed Optimization — http://arxiv.org/abs/1907.02664v2  
-[21] Byzantine-Resilient SGD in High Dimensions on Heterogeneous Data — http://arxiv.org/abs/2005.07866v1  
-[22] AeroGen: Enhancing Remote Sensing Object Detection with Diffusion-Driven Data Generation — http://arxiv.org/abs/2411.15497v3  
-[23] Overview of AuTexTification at IberLEF 2023 — http://arxiv.org/abs/2309.11285v1  
-[24] Proceedings of the Dialogue Robot Competition 2023 — http://arxiv.org/abs/2312.14430v5  
-[25] Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories — http://arxiv.org/abs/2607.15330v2  
-[26] RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control — http://arxiv.org/abs/2307.15818v1  
-[27] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1  
-[28] Vicinity Vision Transformer — http://arxiv.org/abs/2206.10552v2  
-[29] Action Flow Matching for Continual Robot Learning — http://arxiv.org/abs/2504.18471v2  
-[30] GroundNLQ @ Ego4D Natural Language Queries Challenge 2023 — http://arxiv.org/abs/2306.15255v1  
-[31] RT-K: A key point-aware transformer framework for efficient vision-language robot control — https://doi.org/10.1016/j.birob.2026.100341  
-[32] Data-Driven Robotics: Vision–Language–Action Learning for Robust Manipulation and Autonomy — https://doi.org/10.62311/nesx/rb-978-81-999716-2-2  
-[33] PointACT: Vision-Language-Action Models with Multi-Scale Point-Action Interaction — https://doi.org/10.15607/rss.2026.xxii.073  
-[34] RT-2: Vision-Language-Action Models for Generalizable Robotic Control: A Comprehensive Review — https://doi.org/10.56028/aetr.15.1.1423.2025
+[1] Octo: An Open-Source Generalist Robot Policy — http://arxiv.org/abs/2405.12213v2  
+[2] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1  
+[3] TTLab at Daleel 2026: STAR-Ar, Sequence Tagging for Argument Recognition in Arabic — http://arxiv.org/abs/2609.39385v1  
+[4] ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification — http://arxiv.org/abs/2607.28637v1  
+[5] UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering — http://arxiv.org/abs/2608.27467v1  
+[6] Second MOASEI Competition at AAMAS'2026: A Technical Report — http://arxiv.org/abs/2607.03399v1  
+[7] Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos — http://arxiv.org/abs/2607.10797v1  
+[8] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1  
+[9] Technical Report for Ego4D Long-Term Action Anticipation Challenge 2025 — http://arxiv.org/abs/2506.02550v2  
+[10] TTLab at AlexandriaX-2026: A Fine-Tuned Surface Tagger for Arabic Machine-Translation Error-Span Detection and Classification — http://arxiv.org/abs/2609.29633v1  
+[11] Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge — http://arxiv.org/abs/2406.10598v1  
+[12] Hierarchical Pre-Training of Vision Encoders with Large Language Model — http://arxiv.org/abs/2604.00086v2  
+[13] From Foundation to Application: Improving VLA Models in Practice — http://arxiv.org/abs/2607.06403v1  
+[14] Robotic VLA Benefits from Joint Learning with Motion Image Diffusion — http://arxiv.org/abs/2512.18007v1  
+[15] Running VLAs at Real-time Speed — http://arxiv.org/abs/2510.26742v1  
+[16] Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains — http://arxiv.org/abs/2309.11285v1  
+[17] RT-Bench: an Extensible Benchmark Framework for the Analysis and Management of Real-Time Applications — http://arxiv.org/abs/2203.11423v2  
+[18] Instruments of RT-2 Experiment onboard CORONAS-PHOTON and their test and evaluation I: Ground calibration of RT-2/S and RT-2/G — http://arxiv.org/abs/1011.3326v1  
+[19] (2+1)D topological phases with RT symmetry: many-body invariant, classification, and higher order edge modes — http://arxiv.org/abs/2403.18887v1  
+[20] Indian Payloads (RT-2 Experiment) Onboard CORONAS-PHOTON Mission — http://arxiv.org/abs/0912.4126v2  
+[21] A Pragmatic VLA Foundation Model — http://arxiv.org/abs/2601.18692v4  
+[22] RT-DETR-Palm A Transformer Based Approach for Oil Palm Tree Detection Using UAV Imagery — https://doi.org/10.1109/icatei67676.2025.11404965  
+[23] MOAC-RT: Personalized Multi-Objective Radiotherapy using Actor-Critic Deep Reinforcement Learning — https://doi.org/10.21203/rs.3.rs-5637868/v1  
+[24] Figure 5: RT-PCR validation of 11 oil palm lncRNAs in six developing stages of mesocarp, leaf, root, flower and kernel of oil palm. — https://doi.org/10.7717/peerj.9585/fig-5  
+[25] VLA-Adapter: An Effective Paradigm for Tiny-Scale Vision-Language-Action Model — http://arxiv.org/abs/2509.09372v2  
+[26] A Tutorial for Evaluating Cure Model Appropriateness — http://arxiv.org/abs/2605.04999v2  
+[27] Octo's Adventure: At-home Deployment of a Pediatric Education Tool — http://arxiv.org/abs/2608.06684v1  
+[28] A Tutorial on Linear Least Square Estimation — http://arxiv.org/abs/2211.15347v1  
+[29] Deep Learning for MIR Tutorial — http://arxiv.org/abs/2001.05266v1  
+[30] Multimodal Pretraining and Generation for Recommendation: A Tutorial — http://arxiv.org/abs/2405.06927v1  
+[31] A Bird's-Eye Tutorial of Graph Attention Architectures — http://arxiv.org/abs/2206.02849v1  
+[32] OpenPI - Physical Intelligence - GitHub — https://github.com/Physical-Intelligence/openpi  
+[33] On-Device Recommender Systems: A Tutorial on The New-Generation Recommendation Paradigm — http://arxiv.org/abs/2312.10864v1  
+[34] Generalist Robot Policies Explained: RT-2, OpenVLA, pi0, Octo — https://robocloud-dashboard.vercel.app/learn/blog/generalist-robot-policies-2025
 
 ---
 
-*Generated by research-bot · topic=`具身智能与视觉-语言-动作vla前沿` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=34 · duration=392s · 2026-10-27T22:29:26+00:00*
+*Generated by research-bot · topic=`具身智能与视觉-语言-动作vla前沿` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=34 · duration=522s · 2026-10-28T22:33:37+00:00*
