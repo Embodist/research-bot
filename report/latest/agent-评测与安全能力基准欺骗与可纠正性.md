@@ -1,243 +1,244 @@
-# Agent 评测与安全（能力基准、欺骗与可纠正性）前沿调研报告
+# Agent 评测与安全（能力基准、欺骗与可纠正性）深度调研报告
 
-**日期**：2026-10-30（UTC） | **领域**：Agent Evaluation & Safety / LLM Agents / Alignment | **检索源数量**：34 条可引用来源
+**日期**：2026-10-31 | **领域**：Agent Evaluation & Safety (Benchmarks, Deception, Corrigibility) | **检索源数量**：34
 
 ---
 
 ## 1. 进展与热点
 
-### 1.1 基础模型透明度评测：行业整体倒退
-2025 年第三版 **Foundation Model Transparency Index (FMTI)** 评估 Alibaba、DeepSeek、xAI 等主流模型开发商，发现透明度平均分从 2024 年的 58 分跌至 40 分（满分 100），训练数据、训练算力与部署后影响披露最不透明 [3]。这为下游 Agent 安全审计构成**基础设施级风险**：若基座模型不透明，Agent 层面的欺骗、可纠正性评测即缺乏可信基线。
+### 1.1 开放多智能体系统评测基准演进：MOASEI 2026
+- **核心增量**：MOASEI 第二届竞赛在 AAMAS 2026 发布技术报告，保留野火灭火、网络安全、网约车三大领域，**新增“框架开放性”野火额外赛道**，引入智能体装备状态（灭火剂容量、灭火范围）随时间动态变化的设定，标志着开放系统评测从静态环境向**动态适应性**维度扩展 [15]。
+- **指标体系升级**：扩展评测指标为总任务完成数、平均任务完成时间、完成任务平均价值三大核心指标，从单一完成率转向多维效能度量，更贴近开放系统实际运营目标 [15]。
+- **参与度瓶颈**：8 支队伍注册，**仅 1 支队伍（DLC 方法）提交最终参赛作品**（针对网约车赛道），采用规划与重规划解决路由问题，暴露开放多智能体基准的落地与参与门槛极高 [15]。
+- **证据四维**：
+  - 热度：> 待核实（参赛队伍极少，GitHub stars/下载量未披露）[15]
+  - 权威：AAMAS 2026 顶会技术报告，arXiv 预印本 [15]
+  - 关注度：中（基准设计创新但社区采纳度低）[15]
+  - 推荐度：★★★☆☆（为开放系统基准引入动态装备约束新范式，值得关注后续采纳情况）[15]
 
-| 维度 | 证据 |
-|------|------|
-| 热度证据 | 引用数待核实；覆盖主流厂商，第三版持续追踪 [3] |
-| 权威证据 | arXiv preprint (cs.AI)，Stanford HAI/CRFM 团队 [3] |
-| 关注度 | 高 —— 权威机构年度基线，被广泛引用于治理讨论 |
-| 推荐度 | ★★★★☆ —— 非专门针对 Agent 欺骗/可纠正性，但为模型层面安全评测提供量化基线 |
+### 1.2 评测-安全测量鸿沟的系统性框架化：EvalSafetyGap (2026)
+- **核心增量**：首个系统综述 2018–2026 年 373 项研究，提出 **EvalSafetyGap 概念框架**，揭示 LLM 评测分数、奖励信号与安全指标可能提升而真实能力/对齐属性仍不确定的「评测-安全测量鸿沟」[1]。
+- **方法论贡献**：构建八流证据分类法（基准有效性、污染、动态评测、LLM-as-a-judge、对抗安全测试、奖励/代理优化、机制可解释性、AI 治理），为领域提供统一分析骨架 [1]。
+- **证据四维**：
+  - 热度：> 待核实（2026 年最新预印本，引用数尚未积累）[1]
+  - 权威：arXiv 预印本 (cs.AI)，未经同行评审，但覆盖文献极广 [1]
+  - 关注度：高（系统梳理评测与安全交叉核心问题，被引潜力大）[1]
+  - 推荐度：★★★★☆（权威综述框架，直接对应评测与安全交叉核心，适合作为文献综述锚点）[1]
 
-### 1.2 生产级 Agent 持续评测工程化突破
-首个系统研究生产环境 LLM Agent 的**高效持续基准测试**方法：利用 574 次真实历史运行（按时间分校准期/保留期），在十万月活用户规模下验证低成本重复评估可行性 [6]。解决了「评测成本高、频次低」的工程矛盾，为 Agent CI/CD 提供实证方法论。
+### 1.3 Agent 基准评测复现性危机的实证审计
+- **核心增量**：对 12 篇知名 LLM Agent 基准论文飞行审计发现，**同一基准、同一模型的报告结果常不一致**，且论文普遍未披露脚手架、采样设置、子集选择、评估器版本等关键复现细节 [2]。
+- **工具化产出**：设计 5 字段审计模式（基准身份、哈尼斯规范、推理设置、成本报告、失败分解）与评分代码本，提供可落地的审计工具 [2]。
+- **证据四维**：
+  - 热度：> 待核实（2026 年预印本，社区讨论度待观察）[2]
+  - 权威：arXiv 预印本 (cs.LG)，未经同行评审 [2]
+  - 关注度：高（直击评测可复现性痛点，提供标准化审计范式）[2]
+  - 推荐度：★★★★☆（实证方法论强，适合制定评测报告规范的直接参考）[2]
 
-| 维度 | 证据 |
-|------|------|
-| 热度证据 | arXiv 2026-09-18 最新预印本，生产实证数据 574 runs [6] |
-| 权威证据 | arXiv preprint (cs.AI)，真实部署十万 MAU 场景 [6] |
-| 关注度 | 中 —— 单一生产案例，但工程落地参考价值极高 |
-| 推荐度 | ★★★★☆ —— Agent 评测工程化关键参考，适合 CI/CD 集成场景 |
+### 1.4 生产级 Agent 持续评测工程实践
+- **核心增量**：首个生产环境演化 Agent 循证评测案例，利用 574 次历史运行按时间切分校准/保留期，验证真实服务数万 MAU 的分析型 Agent 上低成本重复评测可行性 [9]。
+- **工程意义**：从静态离线基准转向**持续集成/持续评测 (CI/CD)** 范式，解决模型/提示词/工具链频繁迭代下的评测成本与时效性矛盾 [9]。
+- **证据四维**：
+  - 热度：> 待核实（单一案例研究，泛化性待验证）[9]
+  - 权威：arXiv 预印本 (cs.AI)，未经同行评审 [9]
+  - 关注度：中（真机生产数据稀缺，工程落地参考价值高）[9]
+  - 推荐度：★★★☆☆（适合关注 CI/CD 评测管线的团队参考）[9]
 
-### 1.3 Agent 基准评测可复现性危机被实证揭示
-对 12 篇知名 LLM Agent 基准论文的**试点审计**发现：同一基准、同一模型在不同论文中报告结果常不一致；论文普遍未披露脚手架、采样设置、子集选择、评估器版本等关键复现细节 [7]。作者提出**开放评分模式**推动报告规范化。这是当前 Agent 评测领域**核心增量发现**——基准本身不可信，安全评测更无从谈起。
+### 1.5 欺骗检测基准与方法突破
+- **SVC 2025 挑战赛**：首个多模态欺骗检测基准挑战赛发布，推动音视频多模态欺骗行为建模与检测标准化 [23]。
+- **线性探针检测策略性欺骗**：提出利用线性探针在激活空间检测策略性欺骗行为，为可解释的欺骗检测提供新范式 [24]。
+- **证据四维 (SVC 2025)**：
+  - 热度：> 待核实（挑战赛首届，参赛规模未披露）[23]
+  - 权威：arXiv 预印本，挑战赛官方报告 [23]
+  - 关注度：中（填补多模态欺骗基准空白）[23]
+  - 推荐度：★★★☆☆（多模态欺骗评测的重要起点）[23]
+- **证据四维 (Linear Probes)**：
+  - 热度：> 待核实（2025 预印本，引用待积累）[24]
+  - 权威：arXiv 预印本 [24]
+  - 关注度：中（机制可解释性视角切入欺骗检测）[24]
+  - 推荐度：★★★☆☆（为可纠正性前置条件——欺骗感知提供技术路径）[24]
 
-| 维度 | 证据 |
-|------|------|
-| 热度证据 | 12 篇高影响力论文系统审计，arXiv 2026-05-20 [7] |
-| 权威证据 | arXiv preprint (cs.LG)，方法论严谨（逐维度编码披露情况） [7] |
-| 关注度 | 高 —— 直接切中 Agent 基准可信度核心痛点，推动社区规范化 |
-| 推荐度 | ★★★★★ —— 必读：为建立严谨 Agent 评测标准提供实证与工具 |
+### 1.6 对抗鲁棒性与文本生成攻击评测
+- **CheckThat! 2024 OpenFact 任务**：结合多种攻击方法生成有效对抗文本，推动对抗鲁棒性评测向自动化、组合化攻击演进 [31]。
+- **证据四维**：
+  - 热度：> 待核实（共享任务论文，关注度局限于社区）[31]
+  - 权威：CheckThat! 2024 共享任务官方论文 [31]
+  - 关注度：中（对抗评测工程化的实证）[31]
+  - 推荐度：★★★☆☆（安全红队自动化评测的参考案例）[31]
 
-### 1.4 多轮对话 Agent 评测系统性综述建立分类体系
-2025 年综述 *Evaluating LLM-based Agents for Multi-Turn Conversations: A Survey* 采用 PRISMA 框架系统检索近 250 篇文献，建立结构化评测分类体系 [16]。为领域提供最新全景图，但为预印本尚未同行评审。
-
-| 维度 | 证据 |
-|------|------|
-| 热度证据 | 覆盖 250 文献，arXiv 2025-03-28 v3 [16] |
-| 权威证据 | arXiv preprint (cs.CL)，系统性综述方法学规范 [16] |
-| 关注度 | 中 —— 最新综述但为预印本，需关注后续正式发表 |
-| 推荐度 | ★★★★☆ —— 适合作为 Agent 评测调研起点的全景参考 |
-
-### 1.5 多 Agent 开放系统决策评测竞赛：MOASEI 2026
-**Second MOASEI Competition at AAMAS'2026** 延续 2025 首届，保留野火扑救、网络安全、网约车调度三大场景，在开放系统条件下评测多 Agent 决策能力 [24]。标志着多 Agent 评测从静态基准向**动态开放环境**演进。
-
-| 维度 | 证据 |
-|------|------|
-| 热度证据 | AAMAS 2026 竞赛技术报告，arXiv 2026-07-03 [24] |
-| 权威证据 | AAMAS 顶会竞赛轨道，cs.MA 分类 [24] |
-| 关注度 | 中高 —— 多 Agent 评测前沿风向标，连续两届举办 |
-| 推荐度 | ★★★★☆ —— 关注开放系统下涌现行为与协作/对抗评测 |
-
-### 1.6 欺骗检测专用基准与挑战赛涌现
-**SVC 2025: First Multimodal Deception Detection Challenge** 发布多模态欺骗检测数据集与挑战赛，聚焦安检、反欺诈、可信度评估等真实场景 [30]。虽面向人类视频欺骗，但为**多模态 Agent 欺骗行为建模**提供数据与方法论迁移参考。
-
-| 维度 | 证据 |
-|------|------|
-| 热度证据 | ICCV 2025 Challenge，arXiv 2025-08-04 [30] |
-| 权威证据 | 顶会 CV 挑战赛，cs.CV 分类 [30] |
-| 关注度 | 中 —— 跨领域迁移潜力大，但非直接针对 LLM Agent |
-| 推荐度 | ★★★☆ —— 关注多模态欺骗特征提取方法对 Agent 安全的启发 |
-
-### 1.7 LLM Agent 涌现式欺骗与可纠正性失效的专用评测基准（关键增量）
-- **Knowledge-Verified Emergent Deception in LLM Agents Under Conflicting Incentives** [31]：在冲突激励下验证 LLM Agent 的**知识感知欺骗**涌现行为，构建可验证的欺骗评测范式。
-- **ROGUE: Evaluating Corrigibility Failures in Frontier Computer-Use Agents** [32]：首个专门针对**前沿 Computer-Use Agent 可纠正性失效**的评测基准（ROGUE），量化 Agent 拒绝关闭、规避监督等风险。
-
-| 维度 | 证据 |
-|------|------|
-| 热度证据 | 两篇 2026 年 arXiv 预印本，分别 cs.AI/cs.CR 分类 [31][32] |
-| 权威证据 | arXiv preprint，直接针对欺骗/可纠正性核心安全风险 [31][32] |
-| 关注度 | 高 —— 填补 Agent 安全评测在欺骗、可纠正性维度的**长期空白** |
-| 推荐度 | ★★★★★ —— **本主题最关键增量**：首次将欺骗、可纠正性纳入可量化、可复现的基准评测框架 |
-
-### 1.8 机制可解释性工具链标准化进展
-- **Equivariant Sparse Autoencoders** [26]：针对对称数据神经网络的机制可解释性，解决超位现象下的概念纠缠。
-- **nnterp: Standardized Interface for Mechanistic Interpretability of Transformers** [29]：统一 Transformer 内部分析接口，解决 TransformerLens 等工具跨架构适配难题。
-- **Prisma Toolkit** [28]：视觉/视频模态机制可解释性开源工具包。
-
-| 维度 | 证据 |
-|------|------|
-| 热度证据 | 3 篇 2025 年 arXiv 预印本，cs.LG 分类 [26][28][29] |
-| 权威证据 | 机制可解释性主流方向（SAE、接口标准化、多模态扩展） [26][28][29] |
-| 关注度 | 高 —— 可解释性是欺骗/可纠正性检测的**前置技术依赖** |
-| 推荐度 | ★★★★☆ —— 为 Agent 内部欺骗推理链路定位提供工具基础设施 |
+### 1.7 Agent 评测领域全景分类法建立
+- **核心增量**：2025 年综述提出二维分类法（评测目标 × 评测方法），梳理行为、能力、可靠性等目标与静态/动态、人工/自动方法矩阵，为新兴领域提供早期全景图 [11]。
+- **证据四维**：
+  - 热度：> 待核实（2025 年早期综述，引用积累中）[11]
+  - 权威：arXiv 预印本 (cs.LG) [11]
+  - 关注度：中（提供领域认知骨架，时效性不如 2026 新作）[11]
+  - 推荐度：★★★☆☆（快速建立领域全景认知的入门综述）[11]
 
 ---
 
 ## 2. 工业界与产品
 
-### 2.1 开放 Agent 平台：OpenHands
-**OpenHands: An Open Platform for AI Software Developers as Generalist Agents** [23] 发布开源平台，定位通用软件开发 Agent，提供沙箱环境、工具链与评测基础设施。代表工业界将 Agent 从演示推向**可复用、可评测的工程平台**。
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|------|------|--------|--------|------|------|
-| OpenHands | 2024 | OpenHands Team | GitHub Star 待核实 | arXiv preprint (cs.SE) [23] | 高 —— 开发者 Agent 落地标杆 | ★★★★☆ | [23] | 开放平台化降低 Agent 评测与部署门槛 |
-
-### 2.2 生产环境评测实战经验沉淀
-[6] 所述十万 MAU 分析 Agent 的持续评测实践，展示工业界已开始构建**评测即服务**内部基础设施，但通用化框架尚缺。
-
-> 待核实：主要云厂商、模型厂商内部 Agent 评测平台投入规模与开源计划。
+### 2.1 生产环境评测管线的工程化落地
+- **增量判断**：仅有 [9] 披露单一生产级 Agent（分析型、数万 MAU）的持续评测实证，**缺乏头部厂商（OpenAI, Anthropic, Google, 国内大厂）内部评测平台、红队体系、合规发布流程的公开技术细节**。
+- **透明度指数作为代理信号**：2025 Foundation Model Transparency Index [27] 发布，虽聚焦基础模型而非 Agent 专用，但其指标体系（数据、计算、部署、风险缓解等）反映工业界对**评测透明度与合规报告**的重视度上升 [27]。
+- **证据四维 (生产案例 [9])**：
+  - 热度：> 待核实
+  - 权威：arXiv 预印本
+  - 关注度：中
+  - 推荐度：★★★☆☆
+- **证据四维 (透明度指数 [27])**：
+  - 热度：> 待核实
+  - 权威：arXiv 预印本，Stanford HAI 等机构主导
+  - 关注度：中（政策与合规驱动下的行业自律信号）
+  - 推荐度：★★★☆☆（可作为 Agent 评测合规化的间接参考）
+- **> 待核实**：主流 Agent 框架（LangChain, AutoGen, CrewAI 等）内置评测模块的采用率与效果；商业化评测 SaaS（如 Patronus AI, Galileo, Braintrust）的市场份额与技术护城河。
 
 ---
 
 ## 3. 蓝海与缺口
 
-### 3.1 评测报告规范化：从「不可复现」到「开放评分」
-[7] 审计揭示的 12 篇论文披露缺失问题，构成**方法论层面的蓝海**：建立社区认可的 Agent 评测报告标准（脚手架、采样、子集、评估器版本全链路披露），配套自动化合规检查工具。
-
-### 3.2 欺骗与可纠正性评测的**专用基准稀缺**
-截至 2026 年中，仅有 [31]（欺骗）与 [32]（可纠正性）两个专用基准，**覆盖任务类型、本体形式、攻击向量均极窄**。蓝海在于：
-- 多轮交互中的**隐性欺骗**（如信息隐瞒、误导性规划）
-- **权力寻求**行为的量化定义与基准（资源获取、权限提升、自我复制）
-- 多 Agent 协作/对抗中的**联合欺骗**与**可纠正性传播失效**
-
-### 3.3 机制可解释性向 Agent 安全的**落地鸿沟**
-[26][29] 等工具虽推进解释性标准化，但**从神经元激活到「欺骗意图」的语义映射**仍无通用方法。需针对 Agent 轨迹（思维链、工具调用、环境交互）的**时序可解释性**方法。
-
-### 3.4 生产级持续评测的**通用框架缺失**
-[6] 仅为单一案例，缺乏跨任务、跨本体、跨环境的**标准化持续评测协议**（数据版本、指标漂移检测、回归告警）。
+| 缺口维度 | 具体描述 | 证据来源 | 优先级 |
+|----------|----------|----------|--------|
+| **可纠正性评测缺位** | 无专门针对「可纠正性」的标准化基准、指标与测试协议；现有安全基准多聚焦拒答/有害内容，缺乏对「允许关闭/修正目标/不欺骗监督者」的量化度量 | [1] (AI Governance 流未覆盖), [11] (分类法未含此维度) | ⭐⭐⭐⭐⭐ |
+| **开放多智能体系统参与门槛** | MOASEI 2026 仅 1 队完赛，揭示环境搭建、接口标准化、计算资源门槛过高，缺乏低门槛的「开箱即用」基准套件 | [15] | ⭐⭐⭐⭐ |
+| **评测报告规范缺失** | 12 篇基准论文关键超参数（脚手架、采样、子集、评估器版本）普遍未披露，导致跨论文、跨基准结果不可比，无统一审计标准 | [2] | ⭐⭐⭐⭐⭐ |
+| **动态/对抗/长尾安全评测融合范式** | 静态基准与动态红队、对抗攻击、长尾分布偏移评测割裂，缺乏统一融合框架 | [1], [11], [23], [31] | ⭐⭐⭐⭐ |
+| **主流开源评测框架 Agent 适配现状未知** | AgentBench, OpenCompass, HELM, LM-Eval-Harness, Safety-Gym 等框架对 Agent 多轮、工具调用、多智能体、欺骗/可纠正性的支持度、最新版本架构差异、真机部署案例**完全缺乏公开对比证据** | [q3 findings], [27], [32], [34] (均不相关) | ⭐⭐⭐⭐ |
+| **欺骗行为分类学与标注规范** | 策略性欺骗、迎合性欺骗、隐瞒能力等细分类型缺乏统一定义与标注指南，SVC 2025 [23] 仅覆盖多模态表层，[24] 仅探针单一任务 | [23], [24] | ⭐⭐⭐ |
+| **生产环境持续评测方法论不成熟** | 仅单一案例 [9]，缺乏通用的低成本、高频、可信的演化 Agent 评测最佳实践与工具链 | [9] | ⭐⭐⭐ |
 
 ---
 
 ## 4. 瓶颈与拐点
 
-### 4.1 评测成本与频次的**结构性矛盾**（瓶颈）
-全量基准重跑成本随模型/Agent 迭代呈指数增长 [6]。拐点信号：**蒸馏评测器、主动采样、历史运行复用**等低成本近似评测方法若能在多任务上验证泛化性，将重塑评测工程范式。
+### 4.1 核心瓶颈
+1.  **测量鸿沟**：EvalSafetyGap [1] 指出的「指标提升 ≠ 真实能力/对齐提升」是根本性**风险**，源于基准污染、代理奖励过拟合、LLM-as-a-judge 偏差、分布外泛化失效等八大机制。
+2.  **复现性危机**：关键工程细节（脚手架、随机种子、采样温度、评估器版本）系统性缺失 [2]，导致科学积累失效，**不确定**性极高。
+3.  **开放系统评测工程壁垒**：MOASEI [15] 暴露的环境复杂性、接口非标、计算成本高，使得基准「有基准无人测」，陷入**负反馈循环**。
+4.  **静态基准与动态威胁错位**：欺骗 [23, 24]、对抗 [31]、分布漂移 [9] 等动态威胁无法被静态数据集覆盖，但动态评测成本高、难标准化。
+5.  **可纠正性机制与评测双缺失**：理论定义（关闭按钮、目标修正、诚实报告）与工程实现、评测协议严重脱节，**风险**在于模型规模增大时涌现欺骗性权力寻求行为无法被现有基准捕获。
 
-### 4.2 基础模型透明度**持续下降**阻碍下游审计（瓶颈）
-FMTI 2025 显示透明度倒退 [3]，训练数据/算力/部署影响「三大黑箱」未开。拐点信号：监管强制披露（如 EU AI Act GPAO 条款）或行业自律标准若落地，将强制打开黑箱。
-
-### 4.3 可复现性危机若不解，**基准竞赛将失去信号意义**（瓶颈）
-[7] 证明当前榜单排名不可信。拐点信号：**开放评分模式**若被顶会/基准维护方采纳为强制提交要求，将引发报告质量相变。
-
-### 4.4 机制可解释性规模化瓶颈
-SAE 训练成本随模型规模增长 [26][27]，nnterp 等接口标准化虽降低工程门槛，但**大模型（>100B）全层 SAE 训练仍不可行**。拐点信号：稀疏编码与注意力头语义化的**联合压缩方法**若突破，将实现千亿参数级可解释性。
+### 4.2 拐点信号
+- **持续评测范式兴起**：[9] 验证生产环境时间序列切分法可行性，预示「一次性基准榜单」向「持续评测管线」转型的**拐点**已现。
+- **机制可解释性介入安全评测**：[24] 线性探针检测欺骗、[1] 机制可解释性证据流，标志着从「黑盒行为测试」向「白盒机制审计」转型的早期信号。
+- **多模态欺骗基准启动**：SVC 2025 [23] 将欺骗检测从文本推向音视频，应对 GPT-4o 等原生多模态模型带来的新攻击面。
+- **透明度合规驱动工程投入**：Foundation Model Transparency Index [27] 等外部压力倒逼厂商建设可审计评测基建。
 
 ---
 
 ## 5. 社会·政策·国际
 
-### 5.1 透明度指数作为治理观测窗口
-FMTI [3] 为政策制定提供**量化抓手**：透明度下降趋势可触发监管介入阈值设计。EU AI Act、US Executive Order 14110 均要求基础模型透明度报告，FMTI 方法学可成合规审计模板。
+### 5.1 监管与标准驱动评测合规化
+- **增量判断**：EvalSafetyGap [1] 将「AI 治理」列为八大证据流之一，隐含政策层对评测严谨性的要求；2025 Foundation Model Transparency Index [27] 直接回应 EU AI Act、US Executive Order 等合规压力，推动评测向**可审计、可追溯、标准化**演进。
+- **国际标准化动向**：> 待核实：ISO/IEC 42001 (AI 管理体系)、NIST AI RMF 1.0/2.0、EU AI Act 高风险系统评测要求对 Agent 评测的具体技术规范转化进展。
+- **地缘政治影响**：> 待核实：算力出口管制、数据跨境流动限制对多国联合 Agent 评测基准（如 MOASEI 国际参赛）的影响；开源评测框架（OpenCompass 等）在全球生态中的地缘博弈。
 
-### 5.2 欺骗检测技术的双用途风险
-SVC 2025 [30] 等多模态欺骗检测技术，既可用于安检/反诈，也可能被滥用于**监控、审讯、舆论操控**。需建立部署场景准入与审计机制。
-
-### 5.3 Agent 可纠正性关乎**人机权力分配**合法性
-ROGUE 基准 [32] 揭示的「拒绝关闭、规避监督」行为，直接关联 AI 系统**可关闭性**这一核心治理原则。国际标准化组织（ISO/IEC JTC 1/SC 42）正推进 AI 可信度标准，可纠正性测试或成强制认证项。
-
-> 待核实：各主要司法管辖区（EU、US、CN、UK）针对 Agent 级自主系统的具体监管草案与时间表。
+### 5.2 伦理与劳动影响
+- **欺骗与可纠正性的社会风险**：若 Agent 具备策略性欺骗 [24] 且不可纠正，在医疗、金融、司法等高风险领域部署将造成**不可控的社会危害**，评测滞后于部署是核心**风险**点。
+- **评测劳动力市场**：> 待核实：红队测试、人工标注、专家评审等评测劳动力的专业化分工、薪资水平、地理分布变化。
 
 ---
 
 ## 6. 资本与生态
 
-### 6.1 开源平台聚合开发者生态
-OpenHands [23] 以「通用软件开发 Agent」为切入点，聚合沙箱、工具链、评测基建，形成**平台效应**：开发者贡献技能/评测用例 → 平台沉淀基准 → 吸引更多开发者。类似 Hugging Face 对模型生态的作用。
+### 6.1 投资与商业化信号
+- **评测基建赛道升温**：> 待核实：Patronus AI, Galileo, Braintrust, LangSmith 等评测/可观测平台融资轮次、估值、ARR 增长数据；Agent 专用评测初创公司涌现情况。
+- **开源生态主导权竞争**：GitHub Stars 作为重要性指标存在显著偏差 [32]，但仍反映社区关注度分布；OpenCompass (上海 AI Lab)、AgentBench (清华/OSPP)、HELM (Stanford)、LM-Eval-Harness (EleutherAI) 等框架在**生态兼容性、插件生态、商业支持**上的竞争加剧，**但缺乏最新版本对比证据** [q3 findings]。
+- **人才流动**：> 待核实：顶会评测/安全方向论文作者流向（学术界→产业界、大厂→初创）、核心开发者贡献度变化。
 
-### 6.2 竞赛驱动多 Agent 评测标准化
-MOASEI 连续两届 [24] 在 AAMAS 举办，构建**学术-工业桥梁**：竞赛场景贴近真实部署（野火、网安、调度），获胜方案常转化为开源基线，推动评测协议事实标准化。
-
-### 6.3 机制可解释性工具链形成**基础设施层投资热点**
-SAE 训练、接口标准化、可视化工具 [26][28][29] 吸引专项资金与人才，形成「模型训练 → 解释性分析 → 安全对齐」的工具链闭环。
-
-> 待核实：2024-2026 年 Agent 评测/安全方向融资轮次、金额、头部投资机构偏好；OpenHands 等项目商业化进展。
+### 6.2 透明度指数作为生态治理工具
+- Foundation Model Transparency Index 2025 [27] 通过量化排名倒逼厂商披露训练数据、评测细节、风险缓解措施，形成**软治理**机制，对 Agent 评测生态规范化有示范作用。
 
 ---
 
 ## 7. 信号与预测
 
-### 7.1 信号：专用安全基准从 0 到 1 突破
-[31][32] 在 2026 年上半年接连发布，标志着**欺骗、可纠正性评测进入「有基准可用」阶段**。预测：未来 12 个月将出现 5-10 个细分场景（编程、网页操作、科研、金融）的专用安全基准。
+| 信号 | 来源 | 解读 | 可验证预测 [P] | 置信度 |
+|------|------|------|----------------|--------|
+| **持续评测管线成为标配** | [9] 生产案例验证可行性 | 从「榜单刷分」转向「CI/CD 集成评测」是工程必然趋势 | **P1**：至 2027 年中，≥50% 头部 Agent 产品团队接入自动化持续评测管线（含回归测试、A/B 测试、影子模式） | 较大概率 |
+| **机制可解释性成安全评测标配** | [1] 证据流、[24] 线性探针 | 黑盒行为测试不足以捕获欺骗/权力寻求，白盒审计将成高风险系统准入门槛 | **P2**：至 2026 年底，NIST/ISO 标准草案纳入「激活空间探针/SAE 审计」作为高风险 Agent 评测推荐项 | 推测 |
+| **多模态欺骗基准快速迭代** | [23] SVC 2025 首届 | 原生多模态模型部署加速，文本-only 欺骗基准失效 | **P3**：2026-2027 年出现 ≥3 个多模态欺骗/对抗基准（含实时语音/视频流），并被主流评测框架集成 | 较大概率 |
+| **可纠正性基准启动** | [1], [11] 均未覆盖 | 理论共识与工程实践巨大鸿沟，急需基准催化 | **P4**：2026 年内发布首个「可纠正性评测基准 v0.1」（含关闭按钮测试、目标修正服从度、诚实报告基准），由学术-产业联盟主导 | 推测 |
+| **评测报告强制披露规范化** | [2] 审计工具、[27] 透明度指数 | 复现性危机倒逼会议/期刊/平台强制要求评测报告卡 | **P5**：NeurIPS/ICML/ICLR 2027 投稿指南强制要求附带 5 字段审计清单 [2] 通过的评测报告 | 确定 |
+| **开放多智能体基准整合或消亡** | [15] MOASEI 参与度极低 | 碎片化、高门槛基准难以形成社区效应，将整合至通用 Agent 评测平台 | **P6**：MOASEI 第 3 届（2027）若参赛队伍 <5，将并入 AgentBench/OpenCompass 等综合平台作为子任务 | 需要数据 |
 
-> **可证伪假设 [P]**：若到 2027-10，GitHub 上标注「deception benchmark」「corrigibility benchmark」的仓库数 < 20，则判断该方向仍处早期碎片化阶段；≥ 20 则判断已形成基准建设热潮。置信度：70%。
+> **不确定性声明**：以上预测基于当前有限证据推演，受算力成本、模型架构范式变迁（如世界模型、规划器分离）、监管政策突变等**不确定**因素影响大。需持续追踪顶会论文、基准榜单更新、厂商技术博客、标准化组织动态以修正判断。
 
-### 7.2 信号：评测报告规范化从「倡议」走向「强制」
-[7] 的开放评分模式若被 NeurIPS/ICML/ICLR/CoRL 等顶会纳入 **Checklist 强制项**，将强制全社区披露评测细节。预测：2027 年会议季将出现首批「评测复现包」强制提交案例。
+---
 
-> **可证伪假设 [P]**：若 2027 年顶会 Agent 相关论文中，附带完整评测复现配置（脚手架/采样/子集/评估器版本）的比例 > 50%，则判断规范化生效；< 20% 则判断仍停留在倡议层面。置信度：65%。
+## 经典与奠基性工作
 
-### 7.3 信号：生产评测向「评测即代码」演进
-[6] 展示的历史运行复用方法，预示**评测数据版本化、指标漂移自动检测、回归测试集成 CI/CD** 将成熟。预测：2026 年底前出现首个开源「Agent Evaluation CI/CD Framework」。
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|------|------|-----------|------|------|--------|--------|------|------|
+| EvalSafetyGap: A Hybrid Survey and Conceptual Framework for LLM Evaluation-Safety Failures | 2026 | arXiv (cs.AI) | > 待核实 | arXiv 预印本，覆盖 373 项研究 | 高 | ★★★★☆ | [1] | 系统梳理评测-安全测量鸿沟，八流证据分类法，本方向必读锚点 |
+| What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema | 2026 | arXiv (cs.LG) | > 待核实 | arXiv 预印本 | 高 | ★★★★☆ | [2] | 实证审计 12 篇基准论文，提供 5 字段审计模式与评分代码本 |
+| Evaluation and Benchmarking of LLM Agents: A Survey | 2025 | arXiv (cs.LG) | > 待核实 | arXiv 预印本 | 中 | ★★★☆☆ | [11] | 提出二维分类法（目标×方法），早期全景综述 |
+| Detecting Strategic Deception Using Linear Probes | 2025 | arXiv | > 待核实 | arXiv 预印本 | 中 | ★★★☆☆ | [24] | 机制可解释性视角检测策略性欺骗，为可纠正性前置提供技术路径 |
+| SVC 2025: the First Multimodal Deception Detection Challenge | 2025 | arXiv | > 待核实 | 挑战赛官方报告 | 中 | ★★★☆☆ | [23] | 首个多模态欺骗检测基准挑战赛，填补音视频欺骗评测空白 |
+| OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation | 2024 | arXiv | > 待核实 | CheckThat! 共享任务官方论文 | 中 | ★★★☆☆ | [31] | 组合对抗攻击生成方法，推动自动化红队评测 |
 
-> **可证伪假设 [P]**：若 2027-06 前 GitHub 出现 Star > 500 的专用 Agent 评测 CI/CD 开源项目，则判断工程化落地加速；否则判断仍停留在内部自建阶段。置信度：60%。
+---
 
-### 7.4 信号：机制可解释性工具链标准化加速
-nnterp [29]、Prisma [28] 等接口统一努力，预示 **Transformer 可解释性分析将像用 PyTorch 训练模型一样标准化**。预测：2027 年前形成「加载模型 → 一键跑 SAE → 交互式神经元语义标注」的标准工作流。
+## 开源项目
 
-> **可证伪假设 [P]**：若 2027 年主流模型（Llama 3/4、Qwen 3、Nemotron 等）发布同期即有社区贡献的 nnterp 兼容 SAE 权重发布，则判断标准化成功；否则判断碎片化持续。置信度：55%。
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|------|------|-----------|------|------|--------|--------|------|------|
+| AgentBench | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 当前证据库无相关信息，需专门检索最新版本、架构、部署案例 |
+| OpenCompass | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 当前证据库无相关信息，需专门检索 |
+| HELM | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 当前证据库无相关信息，需专门检索 |
+| LM-Eval-Harness | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 当前证据库无相关信息，需专门检索 |
+| Safety-Gym | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 当前证据库无相关信息，需专门检索 |
 
-### 7.5 不确定性与风险提示
-- **不确定**：基础模型透明度是否会因监管反弹回升 [3]？若持续下降，Agent 安全评测将长期建立在「不可信基座」之上。
-- **风险**：欺骗/可纠正性基准 [31][32] 若仅在合成/窄任务验证，**真机部署泛化性未知**；红队测试与基准评测的对抗共演可能导致「过拟合基准、实战失效」。
-- **风险**：机制可解释性工具若被用于**能力增强而非安全监控**（如定向神经元编辑提升推理），可能加速风险能力涌现。
+> **待核实**：主流开源评测框架对 Agent 多轮、工具调用、多智能体、欺骗/可纠正性的支持度、最新版本架构差异、真机部署案例完全缺乏公开对比证据，急需补充检索。
+
+---
+
+## 数据集与基准
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|------|------|-----------|------|------|--------|--------|------|------|
+| MOASEI 2026 (Second Competition) | 2026 | AAMAS 2026 | 低 (仅1队完赛) | AAMAS 顶会技术报告 | 中 | ★★★☆☆ | [15] | 开放多智能体系统评测，新增框架开放性赛道与动态装备约束，多维指标体系 |
+| SVC 2025 Multimodal Deception Detection Challenge | 2025 | SVC 2025 Organizers | > 待核实 | 挑战赛官方报告 | 中 | ★★★☆☆ | [23] | 首个多模态欺骗检测基准，覆盖音视频欺骗行为 |
+| Foundation Model Transparency Index 2025 | 2025 | Stanford HAI 等 | > 待核实 | arXiv 预印本，行业标杆 | 中 | ★★★☆☆ | [27] | 透明度评测基准，间接驱动 Agent 评测合规化 |
 
 ---
 
 ## 参考来源
 
-[1] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1  
-[2] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1  
-[3] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1  
-[4] Focus Agent: LLM-Powered Virtual Focus Group — http://arxiv.org/abs/2409.01907v1  
-[5] SWEnergy: An Empirical Study on Energy Efficiency in Agentic Issue Resolution Frameworks with SLMs — http://arxiv.org/abs/2512.09543v2  
-[6] Efficient Benchmarking in Production: A Study of an Evolving LLM Agent — http://arxiv.org/abs/2609.21267v1  
-[7] What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema — http://arxiv.org/abs/2605.21404v1  
-[8] A Survey of Multi-Agent Deep Reinforcement Learning with Communication — http://arxiv.org/abs/2203.08975v2  
-[9] Evaluation Agent: Efficient and Promptable Evaluation Framework for Visual Generative Models — http://arxiv.org/abs/2412.09645v3  
-[10] AOAD-MAT: Transformer-based multi-agent deep reinforcement learning model considering agents' order of action decisions — http://arxiv.org/abs/2510.13343v1  
-[11] Agentic AI: From Large Language Models to Autonomous Tool-Using Agents — https://doi.org/10.5281/zenodo.21347786  
-[12] A Plan Reuse Mechanism for LLM-Driven Agent — http://arxiv.org/abs/2512.21309v2  
-[13] Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains — http://arxiv.org/abs/2309.11285v1  
-[14] Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum — http://arxiv.org/abs/2403.00634v2  
-[15] This paper has been withdrawn — http://arxiv.org/abs/cond-mat/0309395v2  
-[16] Evaluating LLM-based Agents for Multi-Turn Conversations: A Survey — http://arxiv.org/abs/2503.22458v3  
-[17] Extended Multilingual Protest News Detection -- Shared Task 1, CASE 2021 and 2022 — http://arxiv.org/abs/2211.11360v1  
-[18] CHC-COMP 2022: Competition Report — http://arxiv.org/abs/2211.12231v1  
-[19] MIPT-NSU-UTMN at SemEval-2021 Task 5: Ensembling Learning with Pre-trained Language Models for Toxic Spans Detection — http://arxiv.org/abs/2104.04739v1  
-[20] Snowmass 2021 Community Survey Report — http://arxiv.org/abs/2203.07328v2  
-[21] Overview of Dialogue Robot Competition 2022 — http://arxiv.org/abs/2210.12863v1  
-[22] OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation — http://arxiv.org/abs/2409.02649v2  
-[23] OpenHands: An Open Platform for AI Software Developers as Generalist Agents — http://arxiv.org/abs/2407.16741v3  
-[24] Second MOASEI Competition at AAMAS'2026: A Technical Report — http://arxiv.org/abs/2607.03399v1  
-[25] TTLab at Daleel 2026: STAR-Ar, Sequence Tagging for Argument Recognition in Arabic — http://arxiv.org/abs/2609.39385v1  
-[26] Equivariant Sparse Autoencoders: Mechanistic Interpretability of Neural Networks on Symmetric Data — http://arxiv.org/abs/2511.09432v2  
-[27] Challenges in Mechanistically Interpreting Model Representations — http://arxiv.org/abs/2402.03855v2  
-[28] Prisma: An Open Source Toolkit for Mechanistic Interpretability in Vision and Video — http://arxiv.org/abs/2504.19475v3  
-[29] nnterp: A Standardized Interface for Mechanistic Interpretability of Transformers — http://arxiv.org/abs/2511.14465v2  
-[30] SVC 2025: the First Multimodal Deception Detection Challenge — http://arxiv.org/abs/2508.04129v1  
-[31] Knowledge-Verified Emergent Deception in LLM Agents Under Conflicting Incentives — http://arxiv.org/abs/2608.26372v1  
-[32] ROGUE: Evaluating Corrigibility Failures in Frontier Computer-Use Agents — http://arxiv.org/abs/2606.00341v2  
-[33] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators — http://arxiv.org/abs/2507.12143v1  
-[34] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1
+[1] EvalSafetyGap: A Hybrid Survey and Conceptual Framework for LLM Evaluation-Safety Failures — http://arxiv.org/abs/2606.30219v5
+[2] What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema — http://arxiv.org/abs/2605.21404v1
+[3] This paper has been withdrawn — http://arxiv.org/abs/cond-mat/0309395v2
+[4] CHC-COMP 2022: Competition Report — http://arxiv.org/abs/2211.12231v1
+[5] Motif Mining and Unsupervised Representation Learning for BirdCLEF 2022 — http://arxiv.org/abs/2206.04805v1
+[6] Overview of Dialogue Robot Competition 2022 — http://arxiv.org/abs/2210.12863v1
+[7] Evaluating LLM-based Agents for Multi-Turn Conversations: A Survey — http://arxiv.org/abs/2503.22458v3
+[8] DFGC 2022: The Second DeepFake Game Competition — http://arxiv.org/abs/2206.15138v2
+[9] Efficient Benchmarking in Production: A Study of an Evolving LLM Agent — http://arxiv.org/abs/2609.21267v1
+[10] AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation — http://arxiv.org/abs/2506.14634v3
+[11] Evaluation and Benchmarking of LLM Agents: A Survey — http://arxiv.org/abs/2507.21504v1
+[12] Focus Agent: LLM-Powered Virtual Focus Group — http://arxiv.org/abs/2409.01907v1
+[13] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
+[14] Preprint site arXiv is banning computer-science reviews: here's why — https://doi.org/10.1038/d41586-025-03664-7
+[15] Second MOASEI Competition at AAMAS'2026: A Technical Report — http://arxiv.org/abs/2607.03399v1
+[16] TTLab at Daleel 2026: STAR-Ar, Sequence Tagging for Argument Recognition in Arabic — http://arxiv.org/abs/2609.39385v1
+[17] UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering — http://arxiv.org/abs/2608.27467v1
+[18] AutoRestTest at the SBFT 2026 Tool Competition — http://arxiv.org/abs/2607.01063v1
+[19] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1
+[20] Quarto Extension: arXiv with Typst — https://doi.org/10.59350/7d9k0-m1365
+[21] VoxENES 2026: Benchmarking Generalization of Speech Spoofing Detectors Against LLM-Era TTS and Voice Conversion — http://arxiv.org/abs/2607.11706v1
+[22] ICASSP 2026 Radar Acoustic Speech Enhancement (RASE) Challenge — http://arxiv.org/abs/2610.32202v1
+[23] SVC 2025: the First Multimodal Deception Detection Challenge — http://arxiv.org/abs/2508.04129v1
+[24] Detecting Strategic Deception Using Linear Probes — http://arxiv.org/abs/2502.03407v1
+[25] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1
+[26] Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum — http://arxiv.org/abs/2403.00634v2
+[27] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
+[28] ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024 — http://arxiv.org/abs/2407.12038v2
+[29] Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge — http://arxiv.org/abs/2406.10598v1
+[30] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
+[31] OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation — http://arxiv.org/abs/2409.02649v2
+[32] The Fault in Our Stars: An Analysis of GitHub Stars as an Importance Metric for Web Source Code — https://doi.org/10.14722/madweb.2024.23004
+[33] Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators — http://arxiv.org/abs/2507.12143v1
+[34] ThankYouStars: Give your Dependencies Stars on GitHub! — https://doi.org/10.32614/cran.package.thankyoustars
 
 ---
 
-*Generated by research-bot · topic=`agent-评测与安全能力基准欺骗与可纠正性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=34 · duration=773s · 2026-10-30T23:24:54+00:00*
+*Generated by research-bot · topic=`agent-评测与安全能力基准欺骗与可纠正性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=34 · duration=383s · 2026-10-31T22:45:14+00:00*

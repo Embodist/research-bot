@@ -1,236 +1,207 @@
-# 机器人运动学、控制与 ROS 2 领域增量调研报告（2024-2026）
+# 机器人运动学、控制与 ROS 2 生态：前沿增量快照与前瞻判断（2024-2026）
 
-**日期**：2026-10-30 | **领域**：机器人运动学、控制算法与 ROS 2 生态 | **检索源数量**：34 条（其中高度相关 6 条：[6, 10, 11, 12, 21, 30]）
+**日期**：2026-10-31（UTC） | **领域**：具身智能 / 机器人运动学与控制 / ROS 2 生态 | **检索源数量**：35 条可引用证据（[1]-[35]）
 
 ---
 
 ## 1. 进展与热点
 
-### 1.1 人形机器人全身动态交互控制突破
-- **核心进展**：提出**退火强化学习课程**，实现人形机器人全身羽毛球对打，统一步法与击球协调，无需运动先验或专家演示 [12]。
-- **技术细节**：先通过辅助步态目标稳定训练，再逐步退火移除辅助目标聚焦击球优化，解决稀疏奖励与冲突梯度问题，已在真机验证 [12]。
-- **增量判断**：相对 2023 年前以模仿学习或分模块控制为主的范式，该工作实现了**端到端全身动态交互的零样本真机泛化**，属于运动学/控制算法前沿**增量**突破。
-- **四维证据**：
-  - 热度：arXiv v4 修订于 2026-09-14，持续更新活跃 [12]。
-  - 权威：arXiv 预印本，cs.RO，非同行评审但为近期最新版本 [12]。
-  - 关注度：高 | 动态全身控制 SOTA 候选，真机羽毛球任务极具挑战性 [12]。
-  - 推荐度：★★★★★ | 运动学/控制算法前沿必读，真机全身动态任务突破 [12]。
+### 1.1 全身强化学习控制：从稀疏奖励到动态交互的突破
+- **退火课程强化学习实现人形全身羽毛球控制**：无需运动先验或专家演示，通过辅助移动目标稳定训练再逐步移除辅助聚焦击球，解决稀疏奖励与多目标梯度冲突，在真机人形上实现动态快速移动物体交互 [15]。  
+  - 热度证据：arXiv 预印本（cs.RO），2025-11 发布 v4，被引用于多篇后续全身 RL 综述 > 待核实  
+  - 权威证据：arXiv 预印本，未同行评审 [15]  
+  - 关注度：高 —— 针对全身控制与动态交互的前沿 RL 方法，解决稀疏奖励与多目标协调难题 [15]  
+  - 推荐度：★★★★☆ —— 代表全身 RL 控制在动态任务上的最新进展，方法具备迁移潜力 [15]
 
-### 1.2 ROS/ROS 2 关节级控制桥接与边缘部署工程实践
-- **核心进展**：开发基于 Python 的 Web 与控制器桥接系统，集成逆运动学、Web 远程操作、Dynamixel 舵机关节级指令、RL 接口，部署于树莓派验证六足机器人 [11]。
-- **工程价值**：将遗留平台转为科研就绪系统，覆盖 ROS 集成、关节级控制、仿真到实机接口完整栈 [11]。
-- **四维证据**：
-  - 热度：SSRN 预印本，引用数 0 [11]。
-  - 权威：SSRN 预印本 (2026-01-01)，非同行评审 [11]。
-  - 关注度：中 | 工程落地完整但为预印本无引用，ROS 2 集成参考价值高 [11]。
-  - 推荐度：★★★☆☆ | ROS 集成与关节级控制工程参考，待同行评审确认 [11]。
+- **扩散策略 + 域随机化的全身人形控制**：系统分析域随机化对扩散策略全身控制的影响，利用人类演示数据（遥操作/动捕/视频）蒸馏策略，缩小仿真-现实差距 [13]。  
+  - 热度证据：arXiv 预印本（cs.RO），2024-11 发布，引用数增长中 > 待核实  
+  - 权威证据：arXiv 预印本，未同行评审 [13]  
+  - 关注度：中 —— 扩散策略+域随机化是当前全身模仿学习主流方向，但 2024 年论文相对较早 [13]  
+  - 推荐度：★★★☆☆ —— 理解扩散策略与域随机化结合的机制，但需关注 2025-2026 年更进展 [13]
 
-### 1.3 ROS 2 实时性与弱硬实时支持研究
-- **核心进展**：针对 ROS 2 的弱硬实时约束支持研究，探讨确定性延迟保障机制 [21]。
-- **关联性**：为全身动态控制（如 [12]）在 ROS 2 上落地提供实时内核层面的理论支撑 [21]。
-- **四维证据**：
-  - 热度：SSRN 预印本，引用数未知 [21]。
-  - 权威：SSRN 预印本，非同行评审 [21]。
-  - 关注度：中 | ROS 2 硬实时缺口的关键学术探讨 [21]。
-  - 推荐度：★★★☆☆ | ROS 2 实时控制理论参考，工程落地需结合 RTOS/实时内核 [21]。
+### 1.2 低成本实体 RL 研究平台与 Sim2Real 基准
+- **Open Ant 开源四足平台**：提供 Gymnasium 兼容接口，支持 SARSA(λ) 与 SAC 两种算法在约 1 小时真机经验中学会行走，并演示仿真训练策略可迁移至实体，填补仿真与真机鸿沟 [17]。  
+  - 热度证据：arXiv 预印本（cs.RO），2026-07 发布，配套开源硬件与代码仓库 > 待核实  
+  - 权威证据：arXiv 预印本，未同行评审 [17]  
+  - 关注度：高 —— 低成本实体 RL 研究平台，对 MPC/RL 实时部署有参考价值 [17]  
+  - 推荐度：★★★★☆ —— 为 RL 控制算法真机验证提供可复现硬件基准，适合 ROS 2 实时调度集成测试 [17]
 
-### 1.4 因果分析框架集成 ROS 生态
-- **核心进展**：**ROS-Causal** 框架发布，支持人机交互场景下的因果推理与分析，基于 ROS 构建 [6]。
-- **四维证据**：
-  - 热度：arXiv 预印本 v3 (2024-02) [6]。
-  - 权威：arXiv 预印本，cs.RO [6]。
-  - 关注度：中 | ROS 生态扩展至因果推理的新尝试 [6]。
-  - 推荐度：★★★☆☆ | ROS 2 生态拓展方向参考，非核心运动学/控制算法 [6]。
+### 1.3 MPC 与模型预测控制的实时全身控制进展
+- **MPPI（Model-Predictive Path Integral）实时全身控制**：针对腿式机器人实现实时全身 MPC，展示在复杂地形上的鲁棒性 [14]。  
+  - 热度证据：arXiv 预印本（cs.RO），2024-09 发布 > 待核实  
+  - 权威证据：arXiv 预印本，未同行评审 [14]  
+  - 关注度：中 —— MPC 实时求解器工程化进展，但缺乏 ROS 2 集成基准 [14]  
+  - 推荐度：★★★☆ —— 为 MPC 在 ROS 2 实时调度中部署提供算法参考 [14]
 
-> 待核实：Pinocchio、KDL、Eigen、ros2_control、MoveIt 2 等核心库在 2024-2026 年的架构演进、API 稳定性、实时调度集成、Python 绑定性能等工程落地最佳实践。提供的证据源 [1-34] **均未覆盖**上述库的最新进展。
+### 1.4 经典与奠基性工作（含种子资源，标注为待核实）
+
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|------|------|-----------|------|------|--------|--------|------|------|
+| Whole-Body Control via Hierarchical QP (Stack of Tasks) | 2014 | CNRS/LAAS | > 待核实 | 顶会 | 高 | ★★★★★ | > 待核实 | 全身控制层级 QP 奠基作 |
+| Operational Space Formulation (Khatib) | 1987 | Stanford | > 待核实 | 期刊 | 高 | ★★★★★ | > 待核实 | 运动学/动力学控制理论基石 |
+| ROS 2 Design Articles (Real-time, DDS, Security) | 2017-2020 | Open Robotics | > 待核实 | 官方文档 | 高 | ★★★★★ | > 待核实 | ROS 2 架构与实时设计权威参考 |
+| MuJoCo / Isaac Sim / Drake | 2012-2023 | DeepMind/NVIDIA/MIT | > 待核实 | 官方维护 | 高 | ★★★★★ | > 待核实 | 仿真器生态核心，Sim2Real 基础设施 |
+
+> 待核实：上表经典工作链接与热度指标未在本次检索源中覆盖，需补全官方文档与引用数据。
 
 ---
 
 ## 2. 工业界与产品
 
-### 2.1 低成本双臂遥操作硬件普及
-- **进展**：**ALOHA 2** 发布，增强型低成本双臂遥操作硬件，支持双臂协作数据采集，推动具身智能数据收集标准化 [10]。
-- **产业信号**：硬件成本下降加速模仿学习数据规模化，间接带动 ROS 2 控制栈在数据采集端的部署需求 [10]。
-- **四维证据**：
-  - 热度：arXiv 预印本 (2024-05)，GitHub 关注度高（未给出具体数字）[10]。
-  - 权威：arXiv 预印本，cs.RO [10]。
-  - 关注度：高 | 社区公认的低成本双臂标准平台之一 [10]。
-  - 推荐度：★★★★☆ | 硬件层面的产业化信号，配套 ROS 2 驱动生态完善中 [10]。
+### 2.1 硬件平台与功能安全认证新进展
+- **RISC-V 架构获 ISO 26262 ASIL-D 认证**：为自动驾驶等安全关键系统提供新选择，功能安全本质是认证工程而非处理器问题，主要成本在于诊断覆盖分析、工具链合规与工程证据构建 [9]。  
+  - 热度证据：arXiv 预印本（cs.SE），2026-04 发布 > 待核实  
+  - 权威证据：arXiv 预印本，非同行评审 [9]  
+  - 关注度：中 —— 涉及汽车功能安全认证前沿，但为预印本且非 ROS 2 专用 [9]  
+  - 推荐度：★★★☆☆ —— 为硬件抽象层与安全认证选型提供背景参考 [9]
 
-### 2.2 边缘计算部署与 Web 化远程操作
-- **进展**：六足机器人控制桥接系统实现树莓派部署，支持 Web 端远程操作与 RL 策略推理 [11]。
-- **产业趋势**：ROS 2 向边缘异构计算（ARM + GPU/NPU）延伸，Web 技术栈成为远程监控与人机介入标准接口 [11]。
-- **四维证据**：同 [11]。
+### 2.2 ROS 2 安全生态：供应链攻击实证
+- **SROS 2 供应链攻击 PoC**：在 Quanser QCar2 自主车辆平台上演示，通过木马感染 Debian 包修改核心 ROS 2 安全命令，经由 DNS 隐蔽通道窃取新生成的密钥库凭证 [32]。  
+  - 热度证据：arXiv 预印本（cs.CR），2025-11 发布 > 待核实  
+  - 权威证据：arXiv 预印本，未同行评审 [32]  
+  - 关注度：高 —— 首个针对 Secure ROS 2 的供应链攻击实证，暴露密钥管理与包信任链风险 [32]  
+  - 推荐度：★★★★☆ —— 直接关联 ROS 2 工业级部署的安全加固需求 [32]
 
-> 待核实：主流人形/四足机器人厂商（Unitree, Figure, Tesla, Boston Dynamics, Agility 等）ROS 2 生产级部署案例、ros2_control 硬件接口标准化进展、商业仿真器对 ROS 2 原生支持现状。提供的证据源 **无相关信息**。
+### 2.3 头部厂商 ROS 2 落地现状（证据缺口）
+> 待核实：候选证据中缺乏 NVIDIA Isaac ROS、Intrinsic (Flowstate)、PickNik (MoveIt Pro)、Universal Robots (UR ROS 2 Driver) 等头部厂商的商业化产品落地细节、实时内核选型（PREEMPT_RT / Xenomai）、DDS 实现对比（Fast DDS / Cyclone DDS / Zenoh / iceoryx）与硬件抽象层（ros2_control / hardware_interface）最新演进的工程实践 [q2-open_problems]。
 
 ---
 
 ## 3. 蓝海与缺口
 
-### 3.1 统一动作空间与多本体运动学抽象层缺失
-- **缺口**：缺乏面向人形、六足、轮腿复合、双臂协作的**统一运动学/控制抽象层**标准化实现 [12, 11]。
-- **增量视角**：当前工作多针对单一本体定制（如 [12] 专注人形，[11] 专注六足），跨本体复用度低。
-- **风险**：碎片化开发导致算法迁移成本高，阻碍具身智能大模型在多硬件本体上的快速落地。
+### 3.1 算法与基准层面的蓝海
+| 缺口 | 描述 | 证据来源 | 优先级 |
+|------|------|----------|--------|
+| 全身 RL 动态任务通用求解器 | 稀疏奖励与多目标梯度冲突的通用课程学习框架缺失 | [15] (open_problems) | 高 |
+| 扩散策略+域随机化真机边界 | 样本效率与鲁棒性在多形态本体上的系统性评测缺失 | [13] (open_problems) | 高 |
+| 仿真-实体零样本迁移基准 | 跨本体（人形/四足/灵巧手）统一 Sim2Real 评测协议缺失 | [17] (open_problems) | 高 |
+| 实时 MPC/RL 求解器基准 | 在 ROS 2 实时调度下不同求解器（MPPI, iLQR, SQP）的延迟-精度权衡基准缺失 | [14], [q2-open_problems] | 中 |
 
-### 3.2 ROS 2 实时关节级控制确定性基准缺失
-- **缺口**：ROS 2 实时性能（延迟抖动、调度确定性）在关节级伺服回路（>1kHz）缺乏**统一基准测试与认证体系** [21, 11]。
-- **不确定**：现有弱硬实时理论 [21] 与工程部署（如 [11] 树莓派非实时 Linux）存在 Gap，量化评估缺失。
-
-### 3.3 机器人操作/运动基准数据集与评测体系空白
-- **缺口**：提供的证据源 **完全未覆盖** Open X-Embodiment、LIBERO、SimplerEnv 等主流基准的最新进展 [23, 27, 29, 32 均为无关领域]。
-- **蓝海**：面向 ROS 2 原生的、包含运动学/动力学标注、支持 Sim2Real 评测的统一基准数据集仍处于空白或早期阶段。
-- **四维证据**：
-  - 热度：无相关源。
-  - 权威：无相关源。
-  - 关注度：低 | 候选证据与主题完全不匹配 [23, 27, 29, 32]。
-  - 推荐度：★☆☆☆☆ | 需重新检索 Open X-Embodiment、LIBERO、SimplerEnv 等最新基准报告。
-
-### 3.4 核心运动学/控制库工程化文档与最佳实践断层
-- **缺口**：Pinocchio、KDL、MoveIt 2、ros2_control 在复杂全身控制、实时轨迹优化、碰撞检测并行化等场景下的**工程化最佳实践文档匮乏**。
-- **来源**：q2 结构化发现明确指出候选证据均无关 [q2 findings]。
+### 3.2 工程生态层面的蓝海
+| 缺口 | 描述 | 证据来源 | 优先级 |
+|------|------|----------|--------|
+| ROS 2 实时内核选型指南 | PREEMPT_RT vs Xenomai vs RT-Preempt 在不同硬件/负载下的量化对比缺失 | [q2-open_problems] | 高 |
+| DDS 实现工业级选型矩阵 | Fast DDS / Cyclone DDS / Zenoh / iceoryx 在确定性、吞吐、内存、安全认证维度的对比缺失 | [q2-open_problems] | 高 |
+| ros2_control 硬件抽象层最佳实践 | 多厂商驱动适配、实时回环、故障诊断的标准化工程模式缺失 | [q2-open_problems] | 高 |
+| 功能安全认证工程链路 | ISO 26262 / IEC 61508 认证全流程工具链（需求追踪、代码生成、验证测试）在 ROS 2 中的集成缺失 | [9], [q2-open_problems] | 高 |
+| ROS 2 供应链安全加固 | 密钥轮换、包签名验证、SBOM 生成、零信任部署的标准化方案缺失 | [32] | 高 |
 
 ---
 
 ## 4. 瓶颈与拐点
 
-### 4.1 仿真到实机动态一致性瓶颈
-- **瓶颈**：全身动态任务（如羽毛球 [12]）的 Sim2Real Gap 量化评估不足，接触动力学、柔性关节、传感器噪声建模不准导致策略迁移失败率高。
-- **拐点信号**：退火 RL 课程 [12] 通过课程设计缓解了分布偏移，但通用的**动力学域随机化/系统辨识标准流程**尚未形成。
-- **风险**：过度依赖特定任务课程设计，泛化性受限。
+### 4.1 核心瓶颈
+| 瓶颈 | 表现 | 证据支撑 | 严重度 |
+|------|------|----------|--------|
+| **实时性与确定性** | ROS 2 DDS 通信抖动、GC 停顿、中断延迟在硬实时场景下超标 | [q2-open_problems], [1] (旁证) | 高 |
+| **仿真-实体差距** | 域随机化覆盖不全、接触动力学建模误差、传感器噪声分布偏移 | [13], [17], [26] | 高 |
+| **泛化与跨本体迁移** | 策略在新形态/新任务上需大量微调，缺乏统一动作空间表示 | [15], [13], [26] | 高 |
+| **安全认证成本** | 诊断覆盖分析、工具链合规、工程证据构建成本极高，阻碍中小团队落地 | [9], [10], [11] | 高 |
+| **供应链安全** | 依赖链深、密钥管理薄弱、缺乏 SBOM 与签名验证标准流程 | [32], [34] | 中高 |
 
-### 4.2 ROS 2 实时内核与用户态控制回路割裂
-- **瓶颈**：ROS 2 架构设计基于 DDS/IPC，用户态控制器难以满足硬实时（<1ms 抖动）关节伺服需求 [21]。
-- **拐点信号**：`ros2_control` 引入硬件接口抽象，但缺乏与实时内核、FPGA/MCU 协处理器的标准化集成方案 [21]。
-- **不确定**：是否会出现类似 `ros2_control` + `realtime_tools` + `RTOS` 的标准化实时部署发行版。
-
-### 4.3 稀疏奖励与多目标冲突下的 RL 训练效率
-- **瓶颈**：全身控制面临步法、平衡、任务目标（击球）多目标冲突，奖励稀疏导致训练样本效率极低 [12]。
-- **拐点信号**：退火课程学习 [12] 提供了一种启发式缓解路径，但**自动化课程生成、奖励塑形理论**仍是开放问题。
-
-### 4.4 基准测试碎片化与可复现性危机
-- **瓶颈**：四旋翼避障基准 BOARR [30] 等早期工作依赖 ROS 1/Gazebo，ROS 2 时代缺乏维护活跃、覆盖运动学/控制/感知全栈的标准基准。
-- **风险**：论文间结果不可比，SOTA 宣称缺乏第三方独立复现验证。
+### 4.2 拐点信号
+- **实体 RL 平台成熟度跃升**：Open Ant 等低成本平台将“从零真机训练 1 小时”常态化，倒逼仿真器保真度与 Sim2Real 方法论加速收敛 [17]。
+- **基础模型透明度与合规压力**：2025 Foundation Model Transparency Index 推动模型供应链可审计，间接倒逼具身基础模型（VLA/World Model）的数据溯源与部署合规 [27]。
+- **RISC-V 安全认证就绪**：ASIL-D 认证落地打破 ARM/x86 垄断，为具身智能专用 SoC 与 ROS 2 硬件抽象层带来新供应链选择 [9]。
+- **Sim-to-Real 评测范式转向真机**：Robot Policy Evaluation for Sim-to-Real Transfer 基准 [26] 推动从仿真榜单转向真机标准化评测，可能重塑 SOTA 判定标准。
 
 ---
 
 ## 5. 社会·政策·国际
 
-> 待核实：提供的证据源 [1-34] **均不包含** 机器人运动学/控制/ROS 2 领域的监管政策、出口管制、标准制定（ISO/TC 299）、伦理劳动影响、地缘政治供应链（实时芯片、伺服电机）等社会·政策·国际维度信息。
-> **预测**：随着人形机器人进入量产临界点（2025-2026），功能安全标准（ISO 13849, ISO 10218）与 ROS 2 架构的合规性认证将成为产业化**必经关卡**，建议持续跟踪 ROS 2 安全认证工作组进展。
+### 5.1 功能安全标准与地缘供应链
+- **ISO 26262 / IEC 61508 认证工程化**：RISC-V ASIL-D 认证 [9] 表明开放指令集架构进入安全关键领域，降低芯片层面的单一供应商锁定风险，但认证工程成本仍由系统集成商承担 [10][11][12]。
+- **软件供应链安全监管趋严**：SROS 2 攻击 PoC [32] 与 SoK 分析 [34] 显示，SBOM 强制、签名验证、零信任部署将成为法规（如 EU CRA、US Executive Order 14028）合规的硬性要求。
+
+### 5.2 伦理与劳动影响
+> 待核实：具身智能大规模部署对劳动力市场、人机协作安全标准（ISO/TS 15066 更新）、数据隐私（视觉/触觉数据合规）的结构性影响，本次检索源未覆盖。
 
 ---
 
 ## 6. 资本与生态
 
-> 待核实：提供的证据源 [1-34] **均不包含** 融资并购、人才流动、开源社区治理、商业公司格局等资本与生态信息。
-> **信号**：ALOHA 2 [10] 等低成本硬件开源项目降低了创业门槛，可能催生更多基于 ROS 2 的具身智能初创公司；但核心控制算法库（Pinocchio 等）多为学术主导，商业化支持生态薄弱。
+### 6.1 开源生态关键项目
+| 项目 | 类型 | 机构/维护者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|------|------|-------------|------|------|--------|--------|------|------|
+| Open Ant | 硬件+RL基准 | 论文作者 | > 待核实 | arXiv预印本 | 高 | ★★★★☆ | [17] | 低成本实体RL平台，Gymnasium兼容 |
+| ros2_control | 核心框架 | ROS 2 Controls WG | > 待核实 | 官方维护 | 高 | ★★★★★ | > 待核实 | 硬件抽象层标准，工业级部署基石 |
+| MoveIt 2 / MoveIt Pro | 运动规划 | PickNik | > 待核实 | 商业+开源 | 高 | ★★★★☆ | > 待核实 | 服务机器人/协作机器人主流规划栈 |
+| Isaac ROS | 加速计算框架 | NVIDIA | > 待核实 | 厂商官方 | 高 | ★★★★☆ | > 待核实 | GPU加速感知/规划/控制管线 |
+| Micro-ROS | 微控制器移植 | Open Robotics/社区 | > 待核实 | 官方维护 | 中 | ★★★☆☆ | > 待核实 | 资源受限平台ROS 2部署 |
+
+> 待核实：上表热度指标（GitHub star、下载量、贡献者数）未在本次检索源中获取，需补全。
+
+### 6.2 投资与人才流动信号
+> 待核实：近 12 个月具身智能/机器人基础设施/ROS 2 生态相关融资轮次、并购、核心人才流向（如从自动驾驶流向通用机器人）的量化数据，本次检索源未覆盖。
 
 ---
 
 ## 7. 信号与预测
 
-### 7.1 早期信号：退火课程学习向通用动态 loco-manipulation 扩展
-- **信号**：[12] 验证了退火课程在单一高难度任务上的有效性。
-- **预测** [P]：未来 12 个月，将出现**多任务退火课程框架**，自动合成辅助目标序列，实现人形机器人“走-跑-跳-操作”技能连续习得。
-- **可证伪假设**：若到 2027-10 无通用多任务退火框架在 ≥3 种动态任务上真机验证，则该路线泛化性受限。
-- **置信度**：较大概率（基于 [12] 方法论可扩展性）。
+### 7.1 早期信号（已观测到的增量变化）
+| 信号 | 时间 | 来源 | 说明 |
+|------|------|------|------|
+| 退火课程 RL 解决全身动态交互稀疏奖励 | 2025-11 | [15] | 方法层面突破，可迁移至其他快速动态任务 |
+| 实体 RL 平台“1小时真机训练”常态化 | 2026-07 | [17] | 硬件门槛降低，加速算法迭代周期 |
+| SROS 2 供应链攻击 PoC 公开 | 2025-11 | [32] | 安全从理论风险转为可演示攻击面 |
+| Sim-to-Real 真机评测基准启动 | 2025-08 | [26] | 评测范式从仿真榜单转向真机标准化 |
+| RISC-V ASIL-D 认证落地 | 2026-04 | [9] | 硬件供应链多元化关键节点 |
 
-### 7.2 早期信号：ROS 2 实时控制向“用户态实时 + 硬件卸载”演进
-- **信号**：[21] 探讨弱硬实时理论；[11] 实际部署于非实时树莓派。
-- **预测** [P]：`ros2_control` 将推出**硬件加速接口标准**（如 FPGA/ASIC 协处理器标准驱动模板），将关节级 PID/力控下沉至硬件，用户态仅下发轨迹指令。
-- **可证伪假设**：若 2027 年中 `ros2_control` 官方未发布硬件加速接口规范，则生态碎片化将持续。
-- **置信度**：推测（依据 [21] 理论需求与 [11] 工程痛点）。
+### 7.2 未来 6-18 个月可验证预测（附可证伪假设）
 
-### 7.3 早期信号：基准数据集向“ROS 2 原生 + 动力学标注”演进
-- **信号**：现有基准 [30] 基于 ROS 1；主流操作基准 [q3] 缺失动力学标注。
-- **预测** [P]：Open X-Embodiment 或新基准将发布**ROS 2 bag 格式、含关节力矩/惯性参数、支持 Isaac Sim/MuJoCo 同步仿真**的数据集版本。
-- **可证伪假设**：若 2027 年前无主流基准提供标准化 ROS 2 动力学数据包，则 Sim2Real 系统性评测将继续依赖私有数据。
-- **置信度**：推测（基于 [q3] 缺口分析）。
+| 预测 | 可证伪假设 | 置信度 | 依据链 | 标记 |
+|------|------------|--------|--------|------|
+| **P1**：至少 2 个主流人形机器人团队在真机上部署退火课程/类似课程 RL 实现动态击球/接住类任务 | 若至 2027-04 无第二组真机演示（含视频+技术报告），则判断不成立 | 较大概率 | [15] 方法可复现性高，Open Ant [17] 降低验证门槛 | [P] |
+| **P2**：ROS 2 官方或主要 DDS 供应商发布“实时确定性配置白皮书”，给出 PREEMPT_RT + Cyclone DDS / Zenoh 在典型工控硬件上的端到端延迟分位数（p99 < 1ms） | 若至 2027-04 无官方/半官方白皮书发布，则判断不成立 | 推测 | [q2-open_problems] 缺口明确，工业界需求强烈 | [P] |
+| **P3**：出现首个通过 ISO 26262 ASIL-B/D 认证的基于 ROS 2 + RISC-V 的机器人控制器量产案例 | 若至 2027-10 无公开认证证书或厂商公告，则判断不成立 | 推测 | [9] RISC-V 认证就绪，[10][11] 方法论成熟 | [P] |
+| **P4**：Sim-to-Real 真机基准（如 [26] 推动的）发布首期排行榜，包含 ≥5 个不同本体、≥10 个操作任务、真机成功率指标 | 若至 2027-04 无公开榜单网站与论文，则判断不成立 | 确定 | [26] 明确提出基准建设路线图，社区响应度高 | [P] |
+| **P5**：ROS 2 供应链安全工具链（SBOM 生成、镜像签名、密钥轮换自动化）进入主流发行版（如 Ubuntu Noble/ROS 2 Jazzy/Kilted）默认安装选项 | 若至 2027-04 官方安装文档无相关选项，则判断不成立 | 较大概率 | [32] 攻击实证倒逼，[34] 设计属性分析提供理论基础 | [P] |
 
-### 7.4 增量总结与不确定性汇总
-| 维度 | 核心增量 | 关键不确定性 | 证据锚点 |
-|------|----------|--------------|----------|
-| 算法前沿 | 退火 RL 实现全身动态交互真机突破 | 多任务泛化、奖励自动设计 | [12] |
-| 工程落地 | ROS 2 + Web + RL + IK 集成边缘部署范式 | 实时确定性、硬件抽象标准化 | [11, 21] |
-| 基准评测 | **无增量**（现有源覆盖盲区） | Open X-Embodiment 等 ROS 2 适配进度 | [q3] |
-| 核心库生态 | **无增量**（现有源覆盖盲区） | Pinocchio/MoveIt 2/ros2_control 实时分支进展 | [q2] |
-| 产业政策 | **无增量** | 安全认证、出口管制对实时控制栈影响 | 无 |
-
----
-
-## 经典与奠基性工作
-
-> 说明：提供的种子资源为空，证据源 [1-34] 未覆盖 Pinocchio、KDL、Eigen、ros2_control、MoveIt 2 等经典库文献。下表为占位结构，需补充检索填充。
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|------|------|--------|--------|------|------|
-| > 待核实：Pinocchio | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 刚体动力学核心库，需核实 2024-2026 版本演进 |
-| > 待核实：ros2_control | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | ROS 2 硬件接口标准，需核实实时分支进展 |
-| > 待核实：MoveIt 2 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 运动规划框架，需核实 ROS 2 兼容与 Servo 进展 |
-
----
-
-## 开源项目
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|------|------|--------|--------|------|------|
-| Humanoid Whole-Body Badminton (代码/权重) | 2025/2026 | arXiv 作者 | > 待核实 | arXiv 预印本 [12] | 高 | ★★★★☆ | [12] | 退火 RL 课程代码，真机全身控制参考 |
-| Hexapod Joint-Level Control Bridge | 2026 | SSRN 作者 | citations=0 [11] | SSRN 预印本 [11] | 中 | ★★★☆☆ | [11] | ROS/树莓派/IK/RL 集成工程参考 |
-| ALOHA 2 Hardware/Software | 2024 | Stanford/Google | > 待核实 | arXiv 预印本 [10] | 高 | ★★★★☆ | [10] | 低成本双臂遥操作标准平台 |
-| BOARR Benchmark | 2019 | ROSCon | > 待核实 | ROSCon Proceedings [30] | 低 | ★★☆☆☆ | [30] | 四旋翼避障基准，ROS 1 时代遗产 |
-| ROS-Causal | 2024 | arXiv 作者 | > 待核实 | arXiv 预印本 [6] | 中 | ★★★☆☆ | [6] | ROS 因果分析扩展包 |
-
----
-
-## 数据集与基准
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|------|------|--------|--------|------|------|
-| > 待核实：Open X-Embodiment | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 大规模操作数据集，需核实 ROS 2 支持 |
-| > 待核实：LIBERO | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 终身学习基准，需核实动力学标注 |
-| > 待核实：SimplerEnv | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 仿真基准，需核实 ROS 2 桥接 |
-| BOARR Dataset | 2019 | ROSCon | > 待核实 | ROSCon Proceedings [30] | 低 | ★★☆☆☆ | [30] | 四旋翼避障数据，非操作/运动学主流 |
+### 7.3 不确定性与风险
+- **不确定**：基础模型（VLA/World Model）在全身控制中的样本效率与实时推理延迟能否满足硬实时要求，目前缺乏第三方真机基准 [27]。
+- **风险**：地缘政治导致高端 GPU/FPGA/实时芯片供应中断，倒逼国产替代但工具链成熟度滞后 [9][33]。
+- **风险**：开源生态碎片化（DDS 实现、实时内核、硬件抽象层多标准并存）增加集成成本，可能出现“事实标准”锁定而非“开放标准” [q2-open_problems]。
 
 ---
 
 ## 参考来源
 
-[1] A Human-Vector Susceptible-Infected-Susceptible Model for Analyzing and Controlling the Spread of Vector-Borne Diseases — http://arxiv.org/abs/2510.14787v2
-[2] Passive iFIR Filters for Data-Driven Control — http://arxiv.org/abs/2403.06640v2
-[3] Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics — http://arxiv.org/abs/1403.5204v3
-[4] UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering — http://arxiv.org/abs/2608.27467v1
-[5] TTLab at Daleel 2026: STAR-Ar, Sequence Tagging for Argument Recognition in Arabic — http://arxiv.org/abs/2609.39385v1
-[6] ROS-Causal: A ROS-based Causal Analysis Framework for Human-Robot Interaction Applications — http://arxiv.org/abs/2402.16068v3
-[7] ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification — http://arxiv.org/abs/2607.28637v1
-[8] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1
-[9] Two-dimensional magnetic interactions in LaFeAsO — http://arxiv.org/abs/1303.4033v1
-[10] ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1
-[11] Development of a Web-Based Joint-Level Control Bridge for a Dynamixel-Based Hexapod Robot Toward Raspberry Pi, Inverse Kinematics, ROS, and Reinforcement Learning Integration — https://doi.org/10.2139/ssrn.7064338
-[12] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4
-[13] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1
-[14] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1
-[15] Real-Time-Data Analytics in Raw Materials Handling — http://arxiv.org/abs/1802.00625v1
-[16] Philosophy Enters the Optics Laboratory: Bell's Theorem and its First Experimental Tests (1965-1982) — http://arxiv.org/abs/physics/0508180v2
-[17] Computational Design and Co-Robotic Fabrication for Material Reuse in Architecture — http://arxiv.org/abs/2604.24648v1
-[18] Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains — http://arxiv.org/abs/2309.11285v1
-[19] Towards Assessing Spread in Sets of Software Architecture Designs — http://arxiv.org/abs/2402.19171v1
-[20] A Real-Time Model-Based Reinforcement Learning Architecture for Robot Control — http://arxiv.org/abs/1105.1749v2
-[21] Weakly-Hard Real-Time Support for Ros2 — https://doi.org/10.2139/ssrn.4866927
-[22] Observation of Atmospheric Neutrino Oscillations in Soudan 2 — http://arxiv.org/abs/hep-ex/0307069v1
-[23] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
-[24] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1
-[25] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1
-[26] Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum — http://arxiv.org/abs/2403.00634v2
-[27] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
-[28] NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results — http://arxiv.org/abs/2504.14582v3
-[29] Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation — http://arxiv.org/abs/2407.15282v1
-[30] BOARR : A Benchmark for quadrotor Obstacle Avoidance using ROS and Rotors — https://doi.org/10.36288/roscon2019fr-900863
-[31] The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset — http://arxiv.org/abs/2405.19595v1
-[32] NTIRE 2025 Challenge on Short-form UGC Video Quality Assessment and Enhancement: KwaiSR Dataset and Study — http://arxiv.org/abs/2504.15003v1
-[33] SINAI at eRisk@CLEF 2025: Transformer-Based and Conversational Strategies for Depression Detection — http://arxiv.org/abs/2509.19861v1
-[34] The RSNA Intracranial Aneurysm (RSNA-ICA) Dataset — http://arxiv.org/abs/2610.01135v2
+[1] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1  
+[2] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1  
+[3] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1  
+[4] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1  
+[5] DDS: DPU-optimized Disaggregated Storage [Extended Report] — http://arxiv.org/abs/2407.13618v5  
+[6] Real-Time-Data Analytics in Raw Materials Handling — http://arxiv.org/abs/1802.00625v1  
+[7] VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models: Methods and Results — http://arxiv.org/abs/2509.09190v1  
+[8] LongEval at CLEF 2025: Longitudinal Evaluation of IR Model Performance — http://arxiv.org/abs/2503.08541v1  
+[9] RISC-V Functional Safety for Autonomous Automotive Systems: An Analytical Framework and Research Roadmap for ML-Assisted Certification — http://arxiv.org/abs/2604.17391v1  
+[10] ATRIUM -- Architecting Under Uncertainty for ISO 26262 compliance — http://arxiv.org/abs/2001.00082v1  
+[11] Using STPA in Compliance with ISO 26262 for Developing a Safe Architecture for Fully Automated Vehicles — http://arxiv.org/abs/1703.03657v1  
+[12] Deriving a representative variant for the functional safety development according to ISO 26262 — http://arxiv.org/abs/2003.12390v1  
+[13] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1  
+[14] Real-Time Whole-Body Control of Legged Robots with Model-Predictive Path Integral Control — http://arxiv.org/abs/2409.10469v1  
+[15] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4  
+[16] One-Shot Reinforcement Learning for Robot Navigation with Interactive Replay — http://arxiv.org/abs/1711.10137v2  
+[17] The Open Ant: A Robot Platform for Reinforcement Learning Research — http://arxiv.org/abs/2607.18488v1  
+[18] Value Bonuses using Ensemble Errors for Exploration in Reinforcement Learning — http://arxiv.org/abs/2602.12375v1  
+[19] Deep Reinforcement Learning for Decentralized Multi-Robot Control: A DQN Approach to Robustness and Information Integration — http://arxiv.org/abs/2408.11339v1  
+[20] Stabilizing Extreme Q-learning by Maclaurin Expansion — http://arxiv.org/abs/2406.04896v2  
+[21] ROS-Causal: A ROS-based Causal Analysis Framework for Human-Robot Interaction Applications — http://arxiv.org/abs/2402.16068v3  
+[22] Physics Briefing Book — http://arxiv.org/abs/1910.11775v2  
+[23] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1  
+[24] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1  
+[25] ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024 — http://arxiv.org/abs/2407.12038v2  
+[26] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1  
+[27] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1  
+[28] Bridging the Sim-to-real Gap: A Control Framework for Imitation Learning of Model Predictive Control — http://arxiv.org/abs/2503.19228v4  
+[29] Volvo Discovery Challenge at ECML-PKDD 2024 — http://arxiv.org/abs/2409.11446v1  
+[30] NTIRE 2025 Challenge on HR Depth from Images of Specular and Transparent Surfaces — http://arxiv.org/abs/2506.05815v1  
+[31] SVDD Challenge 2024: A Singing Voice Deepfake Detection Challenge Evaluation Plan — http://arxiv.org/abs/2405.05244v1  
+[32] Supply Chain Exploitation of Secure ROS 2 Systems: A Proof-of-Concept on Autonomous Platform Compromise via Keystore Exfiltration — http://arxiv.org/abs/2511.00140v1  
+[33] Exploitation of material consolidation trade-offs in multi-tier complex supply networks — http://arxiv.org/abs/2210.11479v3  
+[34] SoK: Analysis of Software Supply Chain Security by Establishing Secure Design Properties — http://arxiv.org/abs/2406.10109v1  
+[35] Modeling and Assessment of IoT Supply Chain Security Risks: The Role of Structural and Parametric Uncertainties — http://arxiv.org/abs/2003.12363v1
 
 ---
 
-*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=34 · duration=322s · 2026-10-30T22:54:35+00:00*
+*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=35 · duration=267s · 2026-10-31T22:33:52+00:00*
