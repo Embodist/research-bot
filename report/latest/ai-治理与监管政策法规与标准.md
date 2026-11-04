@@ -1,264 +1,260 @@
-# AI 治理与监管（政策、法规与标准）增量快照报告（2024-2026）
+# AI 治理与监管（政策、法规与标准）增量追踪调研报告
 
-**日期**：2026-11-03（UTC） | **领域**：AI Governance & Regulation | **检索源数量**：26 条可核查证据源（arXiv 预印本、顶会 Workshop、技术报告）
-
----
-
-## 1. 进展与热点（Progress & Hotspots）
-
-### 1.1 欧盟 AI Act：高风险系统落地与条款解释争议
-- **EU AI Act 将医疗 AI 预测工具（工伤残疾风险、阿尔茨海默病风险）判定为高风险系统**，从研究环境推向生产部署需完成大量合规工作（合规性评估、基本权利影响评估、事件通报等）[14]。  
-  - 热度证据：arXiv 预印本，BAI'26 会议论文，提交于 2026-06-07 [14]  
-  - 权威证据：arXiv (cs.CY)，会议同行评审  
-  - 关注度：中等——EU AI Act 合规是当前欧盟 AI 监管核心，医疗高风险场景关注度高 [14]  
-  - 推荐度：★★★★☆——直接涉及 EU AI Act 实操合规，对理解高风险系统落地要求有参考价值 [14]
-
-- **EU AI Act 第 2 条对“内部部署”是否纳入监管范围存在解释分歧**，学界梳理了支持与反对的多种解释路径，面向欧盟委员会、提供者、部署者、法院及政策社区提供解释选项[7]。  
-  - 热度证据：arXiv 预印本 v4，2025-12-05 提交 [7]  
-  - 权威证据：arXiv (cs.CY)，法律学术备忘录  
-  - 关注度：中等——内部部署范围界定直接影响企业合规成本，法律界与政策圈关注 [7]  
-  - 推荐度：★★★★☆——聚焦 AI Act 关键条款歧义，为合规策略提供多角度参考 [7]
-
-- **前沿生物基础模型 ESM3 被纳入 EU AI Act 系统性风险 GPAI 评估框架**，首次探讨生物模态模型的系统性风险判定逻辑[8]。  
-  - 热度证据：arXiv 预印本，2026-05 提交 [8]  
-  - 权威证据：arXiv (cs.CY)  
-  - 关注度：中等——法规适用范围向新模态扩展的前沿探讨 [8]  
-  - 推荐度：★★★☆☆——展示最新法规如何应对新型模型，间接反映风险分级原则的演进 [8]
-
-### 1.2 头部实验室伦理话语策略与治理互动
-- **OpenAI 面向大众与学术受众的公开话语中，“伦理/安全/对齐”框架随时间演变且存在差异**，反映行业头部企业对监管预期的策略性表达[2]。  
-  - 热度证据：arXiv 预印本，2026-01-23 提交 [2]  
-  - 权威证据：arXiv (cs.CY)，结构化语料库分析  
-  - 关注度：中等——头部企业话语策略研究被政策与治理研究引用，间接反映美式自律与立法互动 [2]  
-  - 推荐度：★★★☆☆——提供企业话语视角，辅助理解美式治理语境下的行业自律与立法预期 [2]
-
-### 1.3 合成媒体检测技术基准与标准化
-- **CVPR 2026 举办 NTIRE 2026 挑战赛，聚焦“野外鲁棒 AI 生成图像检测”**，旨在开发能在真实变换（裁剪、压缩、模糊等）下区分真实与生成图像的模型，推动技术标准/基准建设[15]。  
-  - 热度证据：CVPR 2026 Workshop 挑战赛论文，同行评审 [15]  
-  - 权威证据：CVPR 顶会 Workshop（同行评审）  
-  - 关注度：高——生成式 AI 扩散下合成媒体检测是国际标准化与平台治理共同关注热点 [15]  
-  - 推荐度：★★★★★——顶会权威基准，直接服务于技术标准与内容治理工具链建设 [15]
-
-### 1.4 红队测试方法论演进与智能体层面评估
-- **Agentic AI 系统的红队测试需区分模型层面与智能体层面漏洞**；论文对比 GPT-OSS-20B 在独立模型模式与智能体循环模式下的红队结果，提出 AgentSeer 可观测性框架将智能体系统分解为粒度动作与组件，应用 HarmBench 有害目标进行迭代攻击[22]。  
-  - 热度证据：arXiv 预印本 (cs.AI)，2025-09 提交 [22]  
-  - 权威证据：arXiv 预印本  
-  - 关注度：中——新颖的对比红队方法论，针对智能体系统的安全评估缺口 [22]  
-  - 推荐度：★★★★☆——为智能体 AI 红队测试提供了系统性框架与实证对比，工程参考价值高 [22]
-
-- **当前 AI 红队实践存在方法论偏差：过度聚焦发现离散漏洞，偏离红队作为批判性思维练习的初衷**；论文批判性回顾红队从军事到网络安全再到 AI 的演变，指出实践与原始意图的显著差距[23]。  
-  - 热度证据：arXiv 预印本 v2，2025-07 提交 [23]  
-  - 权威证据：arXiv 预印本 (cs.AI)  
-  - 关注度：中——对红队方法论的元反思，引发社区对评估范式的讨论 [23]  
-  - 推荐度：★★★★☆——有助于校准红队工程实践的目标与边界，避免工具化陷阱 [23]
-
-### 1.5 AI 预测权威感对人类决策自主性的实证风险
-- **1,305 人行为实验显示 40%+ 参与者将 AI 视为预测权威，导致放弃确定收益，效应在预测反复失败后仍存续**，提示治理框架需关注人机交互层面的认知风险[1]。  
-  - 热度证据：arXiv 预印本 (cs.HC)，2026-03 提交 v2 [1]  
-  - 权威证据：arXiv 预印本，大规模行为实验  
-  - 关注度：中——行为实证揭示 AI 系统部署中的人类自主性侵蚀风险，呼应 IEEE EAD 等框架中的人类福祉原则 [1]  
-  - 推荐度：★★★☆☆——为治理框架中人类能动性保护条款提供实证支撑 [1]
-
-> **增量判断**：2024-2026 年学术前沿聚焦于 **EU AI Act 具体条款的落地解释**（高风险医疗、内部部署、系统性风险外延）、**头部实验室话语策略的实证分析**、**合成媒体检测基准化**，以及 **红队测试从模型级向智能体级的方法论跃迁与元反思**。美国联邦/州立法、中国算法备案、英国白皮书落地、ISO/IEC JTC1 SC42 标准进展等在候选证据中**缺失**，需补充检索。
+**日期**：2026-11-04 | **领域**：AI Governance & Regulation | **检索源数量**：32 条（arXiv 预印本、技术报告、共识文件等）
 
 ---
 
-## 2. 工业界与产品（Industry & Product）
+## 1. 进展与热点
 
-### 2.1 红队测试工具链与平台生态
-- **PyRIT：面向生成式 AI 系统的安全风险识别与红队测试框架**，微软开源，支持多模态攻击与评分[20]。  
-  - 热度证据：arXiv 预印本，2024-10 提交 [20]  
-  - 权威证据：arXiv 预印本，微软官方维护  
-  - 关注度：中高——工业界主流红队工具之一，GitHub 活跃度高 [20]  
-  - 推荐度：★★★★☆——生产级红队工程化框架，支持自动化攻击流程 [20]
+### 1.1 EU AI Act 合规落地工程化为核心热点
+- **合规检查工具实证评估**：首批系统性评估现有 EU AI Act 合规检查工具，揭示中小企业与开发者面临工具可用性缺口 [28]。
+- **机器可读合规证据架构**：提出基于 OSCAL（Open Security Controls Assessment Language）的三层 Compliance-as-Code 架构，覆盖 EU AI Act、ISO/IEC 42001、NIST AI RMF 三大框架，定义 16 个属性扩展实现互操作 [27]。
+- **监管沙箱运行化挑战**：实证分析成员国建立国家级 AI 监管沙箱面临的“三重挑战”——能力约束、协调缺口、提供方吸引力不足 [29]。
+- **生成式 AI 辅助合规**：探讨生成式 AI 在自动驾驶感知等安全关键场景下支持 EU AI Act 合规的潜力 [30]。
+- **对抗鲁棒性与合规联动**：针对 LLM 的 EU AI Act 合规性与对抗鲁棒性联合保障方法 [25]。
 
-- **ViolentUTF：面向生成式 AI 红队测试的可访问平台**，提供图形化界面降低红队门槛[24]。  
-  - 热度证据：arXiv 预印本 v2，2025-04 提交 [24]  
-  - 权威证据：arXiv 预印本，演示论文  
-  - 关注度：中——降低红队实践门槛的工程化产品 [24]  
-  - 推荐度：★★★☆——面向非专家的红队平台，推动红队实践普及 [24]
+> **热度证据**：arXiv 2025-2026 年密集涌现 5+ 篇聚焦 EU AI Act 落地的预印本 [25, 27, 28, 29, 30]。
+> **权威证据**：均为 arXiv 预印本（cs.CY, cs.AI, cs.CR），未经同行评审 [27, 28, 29]。
+> **关注度**：高 | 依据：EU AI Act 为全球首部综合性 AI 法规，合规工程化为当前核心增量。
+> **推荐度**：★★★★☆ | 理由：直接对应“核心法规落地最新进展”，虽为预印本但紧扣实施细节。
 
-- **AgentSeer：智能体系统可观测性框架**，支持将智能体循环分解为粒度动作图，配合红队测试实现模型级与智能体级对比[22]。  
-  - 热度证据：arXiv 预印本，2025-09 提交 [22]  
-  - 权威证据：arXiv 预印本  
-  - 关注度：中——智能体 AI 红队工程的新型基础设施 [22]  
-  - 推荐度：★★★★☆——智能体层面安全评估的关键工程组件 [22]
+### 1.2 运行层治理框架新提案涌现
+- **OADA 框架**：提出 Operational AI Deployment Assurance，强调治理状态编排、阈值敏感部署条件下的整改进展与升级机制，填补“静态指标上报”到“部署就绪直接治理”空白 [14]。
+- **五层治理框架**：将高层监管原则、标准、认证机制整合为结构化层级，解决“法规到合规落地”转化鸿沟 [15]。
+- **Governance Control Stack**：针对高风险决策环境，从策略指导转向运行稳定性机制，关注可审计性与长期问责 [16]。
+- **多层级治理框架 (2023)**：较早提出多层级治理结构，为后续五层框架提供理论基座 [13]。
 
-### 2.2 合规工程工具链（模型卡片、数据血缘、水印、SBOM）现状
-> **待核实**：候选证据中**未覆盖**模型卡片、数据血缘、水印、审计日志、SBOM for AI 等合规工具链组件在 2024-2025 年的工程成熟度、生产级采纳案例与互操作性标准[18][26]。需补充检索 MLCommons Croissant、Hugging Face Model Cards、DataProvenance、C2PA、SPDX AI、OpenSSF 等项目进展。
+> **热度证据**：4 篇 2025-2026 年预印本集中提出运行层框架 [13, 14, 15, 16]。
+> **权威证据**：arXiv 预印本（cs.AI, cs.CY），无同行评审 [14, 15, 16]。
+> **关注度**：中 | 依据：新预印本，无独立复现/榜单验证，但填补了运行保障视角空白。
+> **推荐度**：★★★☆☆ | 理由：为高风险部署运行保障提供新视角，适合跟踪后续发展。
 
-### 2.3 文档处理与数据合规基础设施
-- **Docling：高效开源 AI 驱动文档转换工具包**，支持 PDF 等非结构化文档转结构化表示，为数据血缘与合规审计提供基础设施[18]。  
-  - 热度证据：arXiv 预印本，2025-01 提交 [18]  
-  - 权威证据：arXiv 预印本，IBM Research 开源  
-  - 关注度：中——数据预处理合规链路的基础组件 [18]  
-  - 推荐度：★★★☆——合规数据管线的上游工具，间接服务于数据血缘与审计 [18]
+### 1.3 国际共识与专用领域治理推进
+- **新加坡共识**：发布全球 AI 安全研究优先级共识，汇聚国际专家意见 [7]。
+- **核能领域 AI 观测站**：提出面向核能领域的前瞻性治理工具 [21]。
+- **临床决策治理失效分析**：实证揭示全球 AI 治理框架在临床决策点失效，呼吁非洲本土化方案 [22]。
+- **企业级治理对象重构**：概念视角重新审视企业 AI 决策系统的治理对象 [23]。
 
----
+> **热度证据**：跨领域共识文件与专用领域治理论文 2024-2025 年出现 [7, 21, 22, 23]。
+> **权威证据**：arXiv 预印本、SSRN 工作论文、共识文件 [7, 21, 22, 23]。
+> **关注度**：中 | 依据：共识文件具参考性，专用领域治理为增量方向。
+> **推荐度**：★★★☆☆ | 理由：展示治理向垂直领域、全球南方延伸的趋势。
 
-## 3. 蓝海与缺口（Blue Ocean & Gaps）
+### 1.4 人机交互实证对治理的启示
+- **AI 预测权威信任实验**：1,305 人实验发现超 40% 参与者视 AI 为个人行为预测权威，导致放弃确定性奖励，收益下降 10.7-42.9%，揭示“人在环”治理面临自动化偏见风险 [2]。
 
-| 缺口维度 | 具体缺口描述 | 证据支撑 | 优先级 |
-|----------|--------------|----------|--------|
-| **多司法管辖区立法同步追踪** | 缺乏 2024-2026 年美国（联邦/州立法、行政命令、NIST 标准）、中国（算法备案、标准体系、数据出境）、英国（AI 监管白皮书落地、DSIT 指引）、国际组织（ISO/IEC JTC1 SC42、OECD、G7 广岛进程、联合国咨询机构）的立法、执法指引、技术标准进展与分歧系统性对比 | q1.open_problems[0] | ★★★★★ |
-| **EU AI Act 细则与实施时间表** | 委员会授权法案、协调标准、成员国执法指引的最新文本与实施时间表未在候选证据中出现 | q1.open_problems[1] | ★★★★★ |
-| **核心分歧点官方表态** | 各司法管辖区对“基础模型/通用 AI”“高风险判定标准”“开源豁免”“跨境执法互认”等核心分歧点的官方表态与谈判进展缺失 | q1.open_problems[2] | ★★★★★ |
-| **经典框架在新法规中的引用/修正** | Asilomar、OECD AI Principles、IEEE EAD 等奠基性框架在 EU AI Act、美国行政令、中国《生成式人工智能服务管理暂行办法》等最新法规中的具体引用条款与修正细节缺乏系统性对比研究 | q2.open_problems[0] | ★★★★☆ |
-| **原则向法律义务的转化路径差异** | 透明度、问责制、人类自主性等原则向合规性评估、基本权利影响评估、事件通报等具体法律义务的转化路径在不同司法管辖区的差异分析缺失 | q2.open_problems[1] | ★★★★☆ |
-| **合规工具链成熟度系统性评估** | 模型卡片、数据血缘、水印、审计日志、SBOM for AI 等组件在 2024-2025 年的工程成熟度、生产级采纳案例与互操作性标准缺乏公开系统性评估 | q3.open_problems[0] | ★★★★★ |
-| **智能体 AI 红队标准化** | 智能体 AI 系统的红队测试标准化流程、自动化工具链与持续集成最佳实践尚未形成共识 | q3.open_problems[1] | ★★★★☆ |
-| **红队-审计-SBOM 工程联动** | 红队测试与合规审计、模型卡片生成、SBOM 生成的工程化联动机制缺失 | q3.open_problems[2] | ★★★★☆ |
-
-> **蓝海机会图谱核心**：**跨司法管辖区合规对齐平台**、**智能体 AI 安全评估标准化工具链**、**合规工程组件（模型卡片/水印/SBOM）的互操作性中间件**、**原则到法律义务的可执行映射知识库**。
+> **热度证据**：arXiv:2603.28944v2 (cs.HC)，大样本行为实验 [2]。
+> **权威证据**：arXiv 预印本，实证方法严谨 [2]。
+> **关注度**：中 | 依据：为治理机制设计提供行为学证据。
+> **推荐度**：★★★☆☆ | 理由：量化了“过度信任 AI”对人类监督有效性的侵蚀。
 
 ---
 
-## 4. 瓶颈与拐点（Bottleneck & Inflection）
+## 2. 工业界与产品
 
-### 4.1 法规解释与执行的不确定性瓶颈
-- **EU AI Act 关键条款（如第 2 条范围、附件 III 高风险清单、GPAI 系统性风险阈值）存在多重解释路径**，导致企业合规策略面临**不确定**风险，需等待委员会授权法案与协调标准落地[7][8]。  
-  - 拐点信号：协调标准（Harmonised Standards）发布将显著降低解释歧义，预计 2025-2026 陆续出台[7]。
+### 2.1 合规工具链雏形与认证框架
+- **EU AI Act 合规检查器生态**：实证研究显示现有工具多为原型，中小企业适用性差，工程化产品尚缺 [28]。
+- **UG AIMS 非洲认证框架**：提出可扩展的 AI 治理与认证框架，面向非洲语境工程落地 [20]。
+- **生成式 AI 全生命周期工具包**：聚焦 LLM 应用质量提升的工程工具包，含合规相关模块 [6]。
+- **Docling 文档转换工具**：开源文档处理工具链，可支持合规文档自动化 [5]。
 
-### 4.2 红队测试方法论与工程化的双重瓶颈
-- **方法论层面**：红队实践异化为“漏洞挖掘”，偏离批判性思维初衷，缺乏系统性风险建模能力[23]。  
-- **工程层面**：智能体系统红队测试缺乏标准化流程、自动化工具链与 CI/CD 集成最佳实践[22][q3.open_problems[1]]。  
-  - 拐点信号：AgentSeer 等可观测性框架与 HarmBench 等基准的结合，可能催生**智能体级红队标准化协议**[22]。
+> **热度证据**：合规检查器研究 [28]、非洲认证框架 [20]、通用工具包 [5, 6] 均为 2024-2026 年产出。
+> **权威证据**：arXiv 预印本、Zenodo 存档、GitHub 开源项目 [5, 6, 20, 28]。
+> **关注度**：中 | 依据：合规工具链处于早期原型阶段，尚无成熟商业产品广泛采用。
+> **推荐度**：★★★☆☆ | 理由：反映工业界从“文档合规”向“工具化合规”过渡的早期信号。
 
-### 4.3 人类自主性侵蚀的认知风险瓶颈
-- **AI 预测权威感导致人类决策自主性让渡**（40%+ 参与者放弃确定收益），且效应在失败后仍存续，现有治理框架缺乏针对性缓解机制[1]。  
-  - 拐点信号：EU AI Act 第 14 条（人工监督）与基本权利影响评估（FRIA）可能被解释为要求部署“认知自主性保护措施”，但尚无技术标准[1][14]。
-
-### 4.4 新模态模型对风险分级框架的挑战
-- **生物基础模型（如 ESM3）、多模态生成模型等新模态**对现有风险分级框架（EU AI Act 附件 III、GPAI 系统性风险标准）构成挑战，需动态修正[8]。  
-  - 拐点信号：International AI Safety Report 2026 等国际协调机制可能推动跨司法管辖区风险分类法的趋同[17]。
+> 待核实：主流红队测试框架（如 Garak, PyRIT）、模型卡/数据卡标准化库（如 Hugging Face Model Cards, Data Cards Playbook）的最新版本与采用情况，提供的证据源未覆盖 [q3 findings]。
 
 ---
 
-## 5. 社会·政策·国际（Society, Policy & Geopolitics）
+## 3. 蓝海与缺口
 
-### 5.1 欧盟：AI Act 实施为核心驱动力
-- **EU AI Act 于 2024-08-01 生效，分阶段实施（禁止性做法 2025-02、GPAI 义务 2025-08、高风险系统 2026-08/2027-08）**，当前处于**协调标准制定与成员国执法机构建设**关键窗口期[14][7]。  
-  - 证据：医疗高风险案例实证[14]、内部部署解释争议[7]、生物模型系统性风险外延[8]。
+| 缺口领域 | 具体描述 | 证据来源 | 优先级 |
+|----------|----------|----------|--------|
+| 跨司法管辖区互操作 | EU AI Act、NIST AI RMF、ISO 42001、中国算法备案等框架缺乏统一技术标准与互认机制 | [27, q1] | 高 |
+| 机器可读合规证据标准 | OSCAL 扩展等交换格式尚未形成行业共识或官方采纳 | [27] | 高 |
+| 监管沙箱能力建设 | 成员国层面能力不足、跨境协调缺失、提供方激励机制缺失 | [29] | 高 |
+| 中小企业合规工具门槛 | 高风险 AI 系统合规工具链可用性低，缺乏低门槛工程化产品 | [28] | 高 |
+| 监管风险敞口量化 | 算法故障、对抗攻击、监管责任等风险纳入投资决策的标准化方法论缺失 | [24] | 中 |
+| 经典奠基文献缺失 | OECD AI Principles (2019)、UNESCO Recommendation (2021)、Asilomar Principles (2017) 等未在证据集覆盖 | [q2] | 中 |
+| 开源审计/红队工具链 | 合规审计工具链、红队测试框架、模型卡/数据卡库的最新可用版本与采用情况无证据 | [q3] | 高 |
+| 事件治理标准化 | AI 事件治理的开放问题（分类、报告、响应）缺乏通用标准 | [18] | 高 |
+| 全球南方参与度 | 国际 AI 治理中“全球多数”话语权不足，非洲等地区本土化框架起步晚 | [19, 20] | 中 |
+| 临床/高风险领域落地 | 通用框架在临床决策等高风险点失效，缺乏领域化实施规范 | [22] | 高 |
+| 可复现性治理 | 治理过程本身的可复现性（数据、代码、证据链）尚未形成规范 | [17] | 中 |
 
-### 5.2 美国：行政命令与 NIST 标准双轨推进（候选证据缺失，需补充）
-> **待核实**：候选证据未覆盖 2024-2026 年美国联邦行政命令（EO 14110 后续）、NIST AI RMF 1.0/2.0 更新、州级立法（加州 SB 1047 等）、自愿承诺与立法博弈进展。OpenAI 话语策略研究[2]侧向反映行业对美式监管预期的响应。
-
-### 5.3 中国：算法备案与标准体系建设（候选证据缺失，需补充）
-> **待核实**：候选证据未覆盖《生成式人工智能服务管理暂行办法》落地、算法备案最新进展、TC260/全国 AI 标准化总体组标准发布、数据出境安全评估与 AI 治理联动。
-
-### 5.4 国际协调：ISO/IEC JTC1 SC42、G7 广岛进程、联合国咨询机构（候选证据缺失，需补充）
-> **待核实**：候选证据未覆盖 ISO/IEC 42001 认证推广、G7 广岛进程行为准则落地、联合国 AI 高级别咨询机构报告、International AI Safety Report 2026[17] 等国际协调进展。
-
-### 5.5 合成媒体治理的全球技术标准竞争
-- **NTIRE 2026 挑战赛（CVPR 2026）推动“野外鲁棒 AI 生成图像检测”基准建设**，直接服务于 C2PA、内容凭证等国际技术标准与平台治理工具链[15]。  
-  - 地缘维度：中美欧在水印、溯源、检测技术标准上的专利布局与标准必要专利（SEP）博弈加剧[15]。
-
----
-
-## 6. 资本与生态（Capital & Ecosystem）
-
-### 6.1 红队与安全评估工具链生态初步形成
-| 项目/平台 | 机构/维护方 | 发展阶段 | 关键特征 | 证据 |
-|-----------|-------------|----------|----------|------|
-| PyRIT | Microsoft | 生产级开源 | 多模态攻击、自动化评分、可扩展插件 | [20] |
-| ViolentUTF | 学术/社区 | 演示/早期 | 图形化界面、降低红队门槛 | [24] |
-| AgentSeer | 学术/社区 | 研究原型 | 智能体可观测性、动作图分解、配合红队 | [22] |
-| HarmBench | 学术/社区 | 基准/数据集 | 有害目标标准化、支持迭代攻击评估 | [22] |
-
-- **生态信号**：从单点攻击脚本向**可观测性+基准+自动化平台**的工程化栈演进，但**商业化产品与合规认证联动尚弱**[20][22][24]。
-
-### 6.2 合规工程基础设施投资方向（推测）
-> **待核实**：候选证据未覆盖 2024-2026 年 AI 治理合规赛道融资、并购、独角兽企业（如 OneTrust、TrustArc、Credo AI、Holistic AI 等）最新动态。Docling[18] 等数据预处理工具被大厂开源，暗示**数据合规上游基建**受关注。
-
-### 6.3 人才与社区流动
-- **红队测试、AI 安全评估、合规工程**成为高需求岗位；学术界向产业界人才流动加速（如 PyRIT 核心作者、AgentSeer 作者多为产业实验室背景）[20][22]。  
-- **标准制定参与度**成为大厂竞争新维度（ISO/IEC JTC1 SC42、C2PA、MLCommons 等）[15]。
+> **热度证据**：上述缺口均源自 2024-2026 年文献明确指出的开放问题 [17, 18, 19, 20, 22, 24, 27, 28, 29, q1, q2, q3]。
+> **权威证据**：arXiv 预印本、共识文件、工作论文 [17, 18, 19, 20, 22, 24, 27, 28, 29]。
+> **关注度**：高 | 依据：覆盖技术、法律、地缘政治多维度，为高杠杆切入点。
+> **推荐度**：★★★★★ | 理由：直接指导后续研究与工程投入方向。
 
 ---
 
-## 7. 信号与预测（Signals & Forecast）
+## 4. 瓶颈与拐点
 
-| 信号 | 来源/依据 | 预测（可证伪假设） | 置信度 | 不确定性标注 |
-|------|-----------|---------------------|--------|--------------|
-| EU AI Act 协调标准 2025-2026 密集发布 | [7][14] 立法时间表 | **假设**：至 2026-12，至少 5 项高风险 AI 协调标准（EN 标准）发布为正式欧洲标准（EN），企业可依据“推定合规”路径大幅降低合规成本 | 较大概率 | 标准化进程受技术复杂度与利益协调影响可能延期 |
-| 智能体 AI 红队测试形成行业基准协议 | [22] AgentSeer + HarmBench | **假设**：至 2026-06，MLCommons 或类似机构发布首个 Agentic AI Red Teaming Benchmark v1.0，包含可观测性接口规范、攻击目标分类法与评分协议 | 推测 | 需多方利益相关者共识，竞争性基准可能并存 |
-| 合规工具链互操作性标准（模型卡片/水印/SBOM）出现首个融合规范 | [q3.open_problems[0]] 缺口分析 | **假设**：至 2026-12，SPDX AI Profile 与 C2PA Manifest、MLCommons Croissant 形成至少一套端到端互操作演示，被 3 家以上头部模型厂商采纳 | 推测 | 标准碎片化严重，厂商锁定效应强 |
-| 美国联邦 AI 立法在 2026 年中期选举前无实质性进展 | [2] OpenAI 话语策略侧写 | **假设**：2026 年美国联邦层面无综合性 AI 法案通过，监管以 NIST AI RMF 更新、行政命令指引、州级立法为主 | 推测 | 两党共识可能因特定事件（重大安全事故）突变 |
-| 中国算法备案与标准体系加速“出海”互认 | [q1.open_problems[0]] 缺口 | **假设**：至 2026-12，中国与东盟/金砖/“一带一路”国家达成至少 2 项 AI 算法/模型合规评估互认安排 | 推测 | 地缘政治波动性大，技术标准互认需法律协定支撑 |
-| 国际 AI 安全研究所网络（AISI Network）发布首份联合评估报告 | [17] International AI Safety Report 2026 | **假设**：2026 年底前，AISI Network（美英日加新等）发布针对前沿模型能力阈值的联合红队评估方法论 v1.0 | 较大概率 | 成员国监管理念差异可能导致方法论妥协化 |
+### 4.1 核心瓶颈
+- **静态合规与动态运行脱节**：现有治理多停留在政策指导/事后审计层面，缺乏运行时状态编排与阈值敏感整改机制 [14, 16]。
+- **监管沙箱“三重困境”**：能力建设滞后、跨境协调机制缺失、提供方参与动力不足，制约创新友好监管落地 [29]。
+- **合规工具链碎片化**：检查器、证据生成、红队测试等工具割裂，缺乏 Compliance-as-Code 统一基础设施 [27, 28]。
+- **人类监督有效性受侵蚀**：实证显示人类对 AI 预测权威的过度信任显著窄化决策空间，挑战“人在环”假设 [2]。
+- **原则到实践的“最后一公里”**：高层原则（公平、透明等）到具体阈值、指标、认证的可量化映射缺失 [15, 22, 31]。
+- **可复现性危机延伸至治理**：治理证据链（数据、模型、审计日志）自身缺乏可复现性标准 [17]。
 
-> **关键风险提示**：上述预测均为**基于当前信号的推演**，受地缘政治、技术突发性突破、监管理念冲突等**不确定**因素影响大。需持续追踪：协调标准发布节奏、AISI Network 运作实况、头部厂商合规工具链开源/闭源策略、重大 AI 安全事故的政策窗口效应。
+### 4.2 拐点信号
+- **Compliance-as-Code 基础设施成型**：OSCAL 扩展与三层架构提出，标志着合规从“文档工作”向“代码化基础设施”转型 [27]。
+- **运行层框架竞争涌现**：OADA、五层框架、Control Stack 同期出现，预示运行保障将成标准化竞争焦点 [14, 15, 16]。
+- **监管沙箱强制落地倒逼能力建设**：EU AI Act 强制要求成员国建立沙箱，将迫使协调机制与激励设计在 2025-2026 年实质化 [29]。
+- **全球南方自主框架崛起**：UG AIMS 等非洲本土框架发布，打破欧美主导叙事，推动多极治理格局形成 [19, 20]。
+
+> **热度证据**：瓶颈与拐点均提炼自 2024-2026 年最新文献的实证分析与框架提案 [2, 14, 15, 16, 17, 22, 27, 29]。
+> **权威证据**：arXiv 预印本、共识文件 [2, 14, 15, 16, 17, 22, 27, 29]。
+> **关注度**：高 | 依据：直接关联法规生效时间表与工程落地可行性。
+> **推荐度**：★★★★☆ | 理由：识别出“合规工程化”与“运行保障”双轨并行的关键拐点窗口。
 
 ---
 
-## 经典与奠基性工作（Classic & Foundational Works）
+## 5. 社会·政策·国际
+
+### 5.1 欧盟主导全球监管基准
+- EU AI Act (2024/1689) 为全球首部综合性 AI 法规，其合规要求、风险分级、监管沙箱机制成为事实上的国际基准，驱动全球合规工程化投入 [26, 27, 28, 29, 30, 31]。
+- EC 提出简化 EU MDR/IVDR 与 AI Act 衔接，信号监管协调复杂度上升 [32]。
+
+### 5.2 美国 NIST 路线：自愿框架+技术标准
+- NIST AI RMF 与 OSCAL（FedRAMP 标准）结合，推动机器可读合规证据技术路线，影响联邦采购与行业实践 [27]。
+
+### 5.3 国际标准化组织（ISO/IEC）桥梁作用
+- ISO/IEC 42001 (AI 管理体系) 成为连接法规与工程实践的锚点，被纳入 ROI 量化框架与机器可读证据架构 [24, 27]。
+
+### 5.4 全球南方与多极治理诉求
+- “全球多数”倡议呼吁重构国际治理话语权，非洲 UG AIMS 提出本土化认证框架，挑战单极标准输出 [19, 20]。
+- 新加坡共识聚焦 AI 安全研究优先级，展示中小国家主导专议题共识能力 [7]。
+
+### 5.5 垂直领域专用治理萌芽
+- 核能领域 AI 观测站 [21]、临床决策治理失效分析 [22]、自动驾驶感知合规 [30]、企业决策系统治理对象重构 [23]，显示治理向专用领域渗透。
+
+> **热度证据**：多司法管辖区法规/标准/共识文件 2024-2026 年密集发布 [7, 19, 20, 21, 22, 23, 26, 27, 29, 30, 31, 32]。
+> **权威证据**：官方法规 (EU AI Act)、官方标准 (NIST, ISO)、共识文件、arXiv/SSRN 预印本 [7, 19, 20, 21, 22, 23, 26, 27, 29, 30, 31, 32]。
+> **关注度**：高 | 依据：地缘政治与监管竞争直接塑造合规成本与市场准入。
+> **推荐度**：★★★★★ | 理由：必须建立多司法管辖区合规映射表作为工程基线。
+
+---
+
+## 6. 资本与生态
+
+### 6.1 合规成本内部化与投资决策量化
+- **风险调整智能红利框架**：将 ISO 42001 与监管风险敞口（算法故障、对抗攻击、监管责任）纳入 AI 项目 ROI 量化，反映资本对合规成本显性定价趋势 [24]。
+
+### 6.2 开源生态早期形态
+- 合规检查器、文档转换 (Docling [5])、LLM 应用全生命周期工具包 [6] 等开源工具涌现，但红队框架、模型卡库等核心治理基础设施在证据集中缺失 [q3]。
+- 非洲 UG AIMS [20]、新加坡共识 [7] 等非商业生态节点形成。
+
+### 6.3 人才与认证体系缺口
+- 证据集未覆盖 AI 治理专业认证（如 AIGP）、人才流动、融资并购等资本层面数据 > 待核实。
+
+> **热度证据**：量化 ROI 框架 [24]、开源工具 [5, 6] 为 2024-2026 年产出。
+> **权威证据**：arXiv 预印本、GitHub 开源项目 [5, 6, 24]。
+> **关注度**：中 | 依据：资本侧量化合规风险为早期信号，生态工具链尚不成熟。
+> **推荐度**：★★★☆☆ | 理由：关注“合规即服务”赛道雏形与风险定价模型演进。
+
+---
+
+## 7. 信号与预测
+
+| 信号 | 来源 | 可证伪预测 (6-18个月) | 置信度 | 不确定性说明 |
+|------|------|------------------------|--------|--------------|
+| OSCAL 成为合规证据交换事实标准 | [27] | **假设**：至 2027 年 Q2，至少 3 家主流 GRC 厂商或云厂商原生支持 OSCAL-AI 扩展导入/导出。 | 中 | 依赖 NIST/ISO 官方背书与 EU 监管机构认可，当前仅为预印本提案 [27]。 |
+| 运行层治理框架 (OADA/Control Stack) 进入标准化竞争 | [14, 16] | **假设**：ISO/IEC JTC 1/SC 42 或 IEEE SA 启动“AI 运行治理”工作组，引用 OADA/Control Stack 概念。 | 中高 | 框架同期涌现表明需求明确，但标准化周期长，可能止步于技术报告。 |
+| EU AI Act 监管沙箱在 ≥15 成员国实质运行 | [29] | **假设**：至 2026 年底，EU 官方沙箱名录显示 ≥15 成员国有活跃项目（>0 入驻提供方）。 | 中 | 当前面临“三重挑战” [29]，政治意愿与财政投入为关键变量。 |
+| AI 事件报告强制化扩散至非 EU 司法管辖区 | [18] | **假设**：美国 (联邦/州)、英国、加拿大、韩国、新加坡中 ≥3 个出台强制 AI 事件报告法规/指引。 | 中 | [18] 指出开放问题，但立法滞后性大，可能止步于自愿指南。 |
+| 全球南方自主认证框架获国际互认 | [19, 20] | **假设**：UG AIMS 或同类框架与 ISO 42001 / EU AI Act 合规路径建立映射互认试点。 | 低 | 地缘政治与标准霸权博弈激烈，互认阻力大 [19]。 |
+| Compliance-as-Code 开源基础设施成熟 | [27, 28] | **假设**：GitHub 上出现 Star > 500 的开源“AI 合规编译器/运行时”项目，支持策略即代码、证据自动采集。 | 中高 | 工程需求刚性强 [27, 28]，但需厂商投入维护。 |
+| 人类监督有效性量化指标纳入高风险 AI 认证 | [2] | **假设**：EU AI Act 高风险 AI 合规指引新增“人机交互可靠性测试”要求（含自动化偏见测量）。 | 低 | 当前法规文本未细化至行为学指标，修订周期长 [2, 26]。 |
+
+> **热度证据**：预测基于 2024-2026 年文献明确的技术路线、政策文本与实证发现 [2, 14, 16, 18, 19, 20, 27, 28, 29]。
+> **权威证据**：arXiv 预印本、官方法规、共识文件 [2, 14, 16, 18, 19, 20, 27, 28, 29]。
+> **关注度**：高 | 依据：均为可观测、可证伪的工程/政策里程碑。
+> **推荐度**：★★★★☆ | 理由：提供了具体的跟踪指标与验证节点，便于滚动更新追踪框架。
+
+---
+
+## 经典与奠基性工作
 
 | 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
 |------|------|-----------|------|------|--------|--------|------|------|
-| Asilomar AI Principles | 2017 | Future of Life Institute | 高（广泛引用） | 非正式宣言，社区共识 | 高 | ★★★★☆ | https://futureoflife.org/ai-principles/ | AI 治理早期共识基石，后续 OECD/IEEE 等框架主要参考源 |
-| OECD AI Principles | 2019/2024 更新 | OECD | 高（46 国采纳） | 政府间协议，软法 | 高 | ★★★★★ | https://oecd.ai/en/ai-principles | 首个政府间 AI 原则，G20 认可，各国立法核心参考 |
-| IEEE Ethically Aligned Design (EAD) | 2019 v1 / 2023 更新 | IEEE Global Initiative | 高（标准化前驱） | 专业协会共识，影响 IEEE 7000 系列标准 | 高 | ★★★★★ | https://standards.ieee.org/industry-connections/ec/ead.html | 系统性伦理工程框架，直接映射至技术标准 |
-| EU AI Act (Regulation 2024/1689) | 2024 | European Union | 极高（硬法） | 欧盟法规，直接效力 | 极高 | ★★★★★ | https://eur-lex.europa.eu/eli/reg/2024/1689/oj | 全球首部综合性 AI 硬法，治理范式锚点 |
-| NIST AI Risk Management Framework (AI RMF 1.0) | 2023 | NIST | 高（美联邦指引） | 美国联邦标准机构，自愿性框架 | 高 | ★★★★★ | https://www.nist.gov/itl/ai-risk-management-framework | 美式治理核心工具，影响全球企业合规实践 |
-| ISO/IEC 42001:2023 | 2023 | ISO/IEC JTC1 SC42 | 中高（认证标准） | 国际标准，可认证 | 中高 | ★★★★☆ | https://www.iso.org/standard/81230.html | 首个 AI 管理体系国际标准，合规认证基础 |
-| 《生成式人工智能服务管理暂行办法》 | 2023 | CAC/中国网信办 | 高（中国硬法） | 部门规章，强制执行 | 高 | ★★★★★ | http://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm | 中国生成式 AI 合规核心法规，备案制雏形 |
+| OECD AI Principles | 2019 | OECD | > 待核实 | 官方政府间组织原则 | 高 | ★★★★★ | https://www.oecd.org/ai/principles/ | 全球 AI 治理基石性软法，后续法规通用引用源。 |
+| UNESCO AI Ethics Recommendation | 2021 | UNESCO | > 待核实 | 联合国教科文组织规范性文书 | 高 | ★★★★★ | https://unesdoc.unesco.org/ark:/48223/pf0000377897 | 首个全球性 AI 伦理政府间协议。 |
+| Asilomar AI Principles | 2017 | Future of Life Institute | > 待核实 | 学术/产业共识声明 | 高 | ★★★★☆ | https://futureoflife.org/ai-principles/ | 早期产学研共识，影响后续原则制定。 |
+| Montreal Declaration for Responsible AI | 2018 | Univ. Montreal | > 待核实 | 学术主导宣言 | 中 | ★★★★☆ | https://reponsibleai.montrealdeclaration.org/ | 强调责任与包容，补充 Asilomar。 |
+| A multilevel framework for AI governance | 2023 | arXiv:2307.03198v2 | > 待核实 | arXiv 预印本 | 中 | ★★★☆☆ | [13] | 提供多层级治理结构理论基座，被后续框架引用。 |
+| Navigating the EU AI Act: A Methodological Approach to Compliance for Safety-critical Products | 2024 | arXiv:2403.16808v2 | > 待核实 | arXiv 预印本 | 高 | ★★★★☆ | [26] | 早期系统性合规方法论，工程落地参考。 |
+| The Singapore Consensus on Global AI Safety Research Priorities | 2025 | arXiv:2506.20702v2 | > 待核实 | 国际专家共识文件 | 高 | ★★★★☆ | [7] | 全球 AI 安全研究议程设定，影响资助方向。 |
 
-> 注：经典工作表链接为官方权威来源，非候选证据编号，供读者自查。
+> 注：OECD/UNESCO/Asilomar/Montreal 等经典文献不在提供的 32 条证据源中，标注为 `> 待核实`，需补全引用。表中仅 [13, 26, 7] 来自证据源。
 
 ---
 
-## 开源项目与工具链（Open-Source Projects & Toolchains）
+## 开源项目与工程实践
 
 | 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
 |------|------|-----------|------|------|--------|--------|------|------|
-| PyRIT | 2024 | Microsoft | 高 | 官方维护，生产级 | 高 | ★★★★★ | https://github.com/Azure/PyRIT | 生成式 AI 红队自动化框架，支持多模态、评分、报告 |
-| ViolentUTF | 2025 | 社区/学术 | 中 | 演示论文开源 | 中 | ★★★☆☆ | https://github.com/violentutf/violentutf | 图形化红队平台，降低实践门槛 |
-| AgentSeer | 2025 | 学术/社区 | 中 | 研究原型开源 | 中 | ★★★★☆ | https://github.com/agentseer/agentseer | 智能体可观测性框架，动作图分解，配合红队评估 |
-| Docling | 2025 | IBM Research | 中高 | 官方开源，Apache 2.0 | 中 | ★★★★☆ | https://github.com/docling-project/docling | 文档转换工具包，服务数据血缘与合规审计上游 |
-| HarmBench | 2024 | 学术/社区 | 中 | 基准数据集开源 | 中 | ★★★★☆ | https://github.com/harmbench/harmbench | 标准化有害目标集，支持红队迭代攻击评估 |
+| Docling | 2025 | IBM Research | > 待核实 | arXiv 预印本 / GitHub | 中 | ★★★☆☆ | [5] | 高效文档转换工具链，支持合规文档自动化预处理。 |
+| Generative AI Toolkit | 2024 | arXiv:2412.14215v1 | > 待核实 | arXiv 预印本 | 中 | ★★★☆☆ | [6] | LLM 应用全生命周期质量保障框架，含合规相关模块。 |
+| UG AIMS | 2024 | Zenodo:10.5281/zenodo.20723049 | > 待核实 | Zenodo 存档 | 低 | ★★★☆☆ | [20] | 面向非洲的可扩展 AI 治理与认证框架原型。 |
+| EU AI Act Compliance Checkers (各类原型) | 2025-2026 | 多个研究组 | > 待核实 | arXiv:2609.36228v1 评估对象 | 高 | ★★★☆☆ | [28] | 实证研究评估对象，工程化程度参差，无统一主流库。 |
+| 红队测试框架 / 模型卡库 | - | - | > 待核实 | - | 高 | ★★★★★ | > 待核实 | **证据集未覆盖**，需补全 Garak, PyRIT, HF Model Cards 等主流工具现状。 |
+
+> 注：核心治理工具链（红队、模型卡/数据卡标准化库）在提供证据中缺失，标注为 `> 待核实`。
 
 ---
 
-## 数据集与基准（Datasets & Benchmarks）
+## 数据集与评测基准
 
 | 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
 |------|------|-----------|------|------|--------|--------|------|------|
-| NTIRE 2026 Robust AI-Generated Image Detection | 2026 | CVPR Workshop | 高 | 顶会同行评审挑战赛 | 高 | ★★★★★ | https://github.com/ntire2026/robust-ai-generated-detection | 野外鲁棒合成图像检测基准，推动 C2PA/内容凭证技术标准 |
-| HarmBench | 2024 | 学术/社区 | 中 | 学术基准，开源 | 中 | ★★★★☆ | https://github.com/harmbench/harmbench | 红队攻击目标标准化基准，覆盖多类别有害意图 |
-| International AI Safety Report 2026 基准套件 | 2026 | AISI Network | 中高 | 政府间科学报告配套 | 中高 | ★★★★☆ | https://www.aisafetyreport.org/ | 前沿模型能力与风险评估基准，国际协调产物 |
-| Hugging Face Dataset Cards 大规模分析语料 | 2024 | 学术 | 中 | 学术分析语料 | 中 | ★★★☆☆ | https://huggingface.co/datasets | 数据文档化现状实证研究基础 [26] |
+| AI Incident Database (AIID) | 持续更新 | Partnership on AI | > 待核实 | 非营利组织维护 | 高 | ★★★★★ | https://incidentdatabase.ai/ | 核心事件治理数据源，[18] 指出其治理价值。 |
+| EU AI Act Compliance Benchmark | - | - | > 待核实 | - | 高 | ★★★★☆ | > 待核实 | 证据集未覆盖，[28] 评估检查器隐含基准需求。 |
+| LLM Safety/Red-teaming Benchmarks (e.g., HarmBench, SafetyBench) | 2023-2024 | 多机构 | > 待核实 | 顶会论文 | 高 | ★★★★★ | > 待核实 | 证据集未覆盖，合规评测核心依据。 |
+| Model Card / Data Card 采用率数据集 | - | - | > 待核实 | - | 中 | ★★★☆☆ | > 待核实 | 证据集未覆盖，衡量透明度落地关键指标。 |
+
+> 注：提供的 32 条证据源中无专门的 AI 治理数据集/基准（[1, 3, 4, 8, 9, 10, 11, 12] 均为非治理领域挑战赛/工具），上表为领域已知核心资源，均标注 `> 待核实`。
 
 ---
 
-## 参考来源（Reference Sources）
+## 参考来源
 
-[1] Faith in AI can narrow the futures individuals consider — http://arxiv.org/abs/2603.28944v2  
-[2] Competing Visions of Ethical AI: A Case Study of OpenAI — http://arxiv.org/abs/2601.16513v1  
-[3] Beyond principlism: Practical strategies for ethical AI use in research practices — http://arxiv.org/abs/2401.15284v6  
-[4] Foundations of GenIR — http://arxiv.org/abs/2501.02842v1  
-[5] Actionable Guidance for High-Consequence AI Risk Management: Towards Standards Addressing AI Catastrophic Risks — http://arxiv.org/abs/2206.08966v3  
-[6] Towards Assuring EU AI Act Compliance and Adversarial Robustness of LLMs — http://arxiv.org/abs/2410.05306v1  
-[7] Internal Deployment in the AI Act — http://arxiv.org/abs/2512.05742v4  
-[8] The Case for ESM3 as a General-Purpose AI Model with Systemic Risk Under the EU AI Act — http://arxiv.org/abs/2605.01611v1  
-[9] Conformity Assessments and Post-market Monitoring: A Guide to the Role of Auditing in the Proposed European AI Regulation — http://arxiv.org/abs/2111.05071v1  
-[10] The 4th Reactive Synthesis Competition (SYNTCOMP 2017): Benchmarks, Participants & Results — http://arxiv.org/abs/1711.11439v1  
-[11] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1  
-[12] Ghosts of Jupiter's past: is 2017 UV43 a relative of comet Shoemaker-Levy 9? — http://arxiv.org/abs/1712.03230v2  
-[13] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1  
-[14] Ethics and EU AI Act in Cases of Work Disability Risk and Alzheimer's Disease Risk Prediction — http://arxiv.org/abs/2607.05402v1  
-[15] NTIRE 2026 Challenge on Robust AI-Generated Image Detection in the Wild — http://arxiv.org/abs/2604.11487v1  
-[16] Robustness and Cybersecurity in the EU Artificial Intelligence Act — http://arxiv.org/abs/2502.16184v4  
-[17] International AI Safety Report 2026 — http://arxiv.org/abs/2602.21012v1  
-[18] Docling: An Efficient Open-Source Toolkit for AI-driven Document Conversion — http://arxiv.org/abs/2501.17887v1  
-[19] Real-Time 4K Super-Resolution of Compressed AVIF Images. AIS 2024 Challenge Survey — http://arxiv.org/abs/2404.16484v1  
-[20] PyRIT: A Framework for Security Risk Identification and Red Teaming in Generative AI System — http://arxiv.org/abs/2410.02828v1  
-[21] Red Teaming for Large Language Models At Scale: Tackling Hallucinations on Mathematics Tasks — http://arxiv.org/abs/2401.00290v1  
-[22] Mind the Gap: Comparing Model- vs Agentic-Level Red Teaming with Action-Graph Observability on GPT-OSS-20B — http://arxiv.org/abs/2509.17259v1  
-[23] Red Teaming AI Red Teaming — http://arxiv.org/abs/2507.05538v2  
-[24] Demo: ViolentUTF as An Accessible Platform for Generative AI Red Teaming — http://arxiv.org/abs/2504.10603v2  
-[25] Learning diverse attacks on large language models for robust red-teaming and safety tuning — http://arxiv.org/abs/2405.18540v3  
-[26] Navigating Dataset Documentations in AI: A Large-Scale Analysis of Dataset Cards on Hugging Face — http://arxiv.org/abs/2401.13822v1
+[1] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1
+[2] Faith in AI can narrow the futures individuals consider — http://arxiv.org/abs/2603.28944v2
+[3] Real-Time 4K Super-Resolution of Compressed AVIF Images. AIS 2024 Challenge Survey — http://arxiv.org/abs/2404.16484v1
+[4] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1
+[5] Docling: An Efficient Open-Source Toolkit for AI-driven Document Conversion — http://arxiv.org/abs/2501.17887v1
+[6] Generative AI Toolkit -- a framework for increasing the quality of LLM-based applications over their whole life cycle — http://arxiv.org/abs/2412.14215v1
+[7] The Singapore Consensus on Global AI Safety Research Priorities — http://arxiv.org/abs/2506.20702v2
+[8] GR-NLP-TOOLKIT: An Open-Source NLP Toolkit for Modern Greek — http://arxiv.org/abs/2412.08520v1
+[9] Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation — http://arxiv.org/abs/2407.15282v1
+[10] Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum — http://arxiv.org/abs/2403.00634v2
+[11] Developing a 21st Century Global Library for Mathematics Research — http://arxiv.org/abs/1404.1905v1
+[12] Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge — http://arxiv.org/abs/2406.10598v1
+[13] A multilevel framework for AI governance — http://arxiv.org/abs/2307.03198v2
+[14] Operational AI Deployment Assurance: Governance-State Orchestration Under Threshold-Sensitive Deployment Conditions -- A Governance Framework for High-Stakes AI Systems — http://arxiv.org/abs/2605.27827v1
+[15] A five-layer framework for AI governance: integrating regulation, standards, and certification — http://arxiv.org/abs/2509.11332v1
+[16] AI Governance Control Stack for Operational Stability: Achieving Hardened Governance in AI Systems — http://arxiv.org/abs/2604.03262v1
+[17] Reproducibility: The New Frontier in AI Governance — http://arxiv.org/abs/2510.11595v1
+[18] Open Problems in AI Incident Governance — http://arxiv.org/abs/2607.05163v1
+[19] The Global Majority in International AI Governance — http://arxiv.org/abs/2601.17191v1
+[20] UG AIMS: A Scalable AI Governance and Certification Framework for Africa — https://doi.org/10.5281/zenodo.20723049
+[21] Towards an AI Observatory for the Nuclear Sector: A tool for anticipatory governance — http://arxiv.org/abs/2504.12358v1
+[22] From Principles to Practice: Why Global AI Governance Frameworks Fail at the Point of Clinical Decision-Making and What Africa Needs Instead — https://doi.org/10.2139/ssrn.6765739
+[23] Beyond AI Governance: Rethinking the Governance Object in Enterprise AI A Conceptual Perspective on Enterprise Decision Systems — https://doi.org/10.2139/ssrn.7108858
+[24] The Risk-Adjusted Intelligence Dividend: A Quantitative Framework for Measuring AI Return on Investment Integrating ISO 42001 and Regulatory Exposure — http://arxiv.org/abs/2511.21975v1
+[25] Towards Assuring EU AI Act Compliance and Adversarial Robustness of LLMs — http://arxiv.org/abs/2410.05306v1
+[26] Navigating the EU AI Act: A Methodological Approach to Compliance for Safety-critical Products — http://arxiv.org/abs/2403.16808v2
+[27] Making AI Compliance Evidence Machine-Readable — http://arxiv.org/abs/2604.13767v1
+[28] An Empirical Study and Assessment of EU AI Act Compliance Checkers — http://arxiv.org/abs/2609.36228v1
+[29] Operationalising AI Regulatory Sandboxes under the EU AI Act: The Triple Challenge of Capacity, Coordination and Attractiveness to Providers — http://arxiv.org/abs/2509.05985v1
+[30] How Could Generative AI Support Compliance with the EU AI Act? A Review for Safe Automated Driving Perception — http://arxiv.org/abs/2408.17222v1
+[31] An Analysis of the New EU AI Act and A Proposed Standardization Framework for Machine Learning Fairness — http://arxiv.org/abs/2510.01281v1
+[32] EC's Proposal for Simplification of EU MDR/IVDR Regulation in relation to the EU AI Act 2024/1689 — https://openalex.org/W7134993431
 
 ---
 
-*Generated by research-bot · topic=`ai-治理与监管政策法规与标准` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=26 · duration=345s · 2026-11-03T03:46:40+00:00*
+*Generated by research-bot · topic=`ai-治理与监管政策法规与标准` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=32 · duration=332s · 2026-11-04T02:46:05+00:00*
