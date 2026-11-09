@@ -1,195 +1,190 @@
-# 机器人运动学、控制与 ROS 2 生态：前沿进展与产业落地七维增量快照
+# 机器人运动学、控制与 ROS 2 生态深度调研报告
 
-**日期**：2026-11-08（UTC） | **领域**：具身智能 / 机器人运动学与控制 / ROS 2 生态 | **检索源数量**：35 条（含 3 条核心相关源 [3][12][27]）
+**日期**：2026-11-09（UTC）  
+**领域**：具身智能 / 机器人运动学与控制 / ROS 2 生态  
+**检索源数量**：34 条可引用证据源（编号 [1]–[34]）
 
 ---
 
 ## 1. 进展与热点
 
-### 1.1 核心增量判断
-近 1-2 年，**数据采集基础设施**（ALOHA 2）与 **ROS 2 原生运动规划/控制集成框架**（MoveIt 2 模块化执行栈）构成两大显性增量；但 **ROS 2 核心控制栈（ros2_control、Pinocchio、Micro-ROS）的架构演进与工程最佳实践** 缺乏近期系统性实证研究，属 **不确定** 高地。
+### 1.1 ROS 2 官方生态持续推进高保真仿真与控制集成（2025）
+- **增量**：ROS 2 官方文档收录的 ROSCon 2025 话题新增 `mujoco_ros2_control` 与 `MuJoCo+Gazebo+ROS` 组合，标志着高保真物理仿真器（MuJoCo）与 ROS 2 control 标准接口的深度融合进入工程落地主流 [21]。
+- **热度证据**：ROS 2 官方文档（docs.ros.org）为核心入口，ROSCon 为社区最高规格技术分享平台，**权威证据：官方文档/ROSCon 话题** [21]。
+- **关注度**：高 —— 官方核心文档收录，代表社区主流仿真-控制集成方向 [21]。
+- **推荐度**：★★★★★ —— 官方权威背书，直接面向高保真仿真与控制算法验证的工程栈 [21]。
 
-### 1.2 关键进展条目
+### 1.2 低成本双臂远操作硬件 ALOHA 2 发布（2024），带动大规模双手演示数据采集与运动学/控制/ROS 2 集成需求
+- **增量**：斯坦福/Google DeepMind 团队开源 ALOHA 2，提升性能、人因与鲁棒性，成为模仿学习/VLA 数据采集的事实标准平台之一 [13]。
+- **热度证据**：arXiv 预印本，核心团队发布，**权威证据：arXiv (cs.RO)、斯坦福/Google DeepMind** [13]。
+- **关注度**：高 —— 开源硬件被大量下游模仿学习/VLA 工作采用，社区关注度高 [13]。
+- **推荐度**：★★★★★ —— 硬件开源且为下游 VLA/模仿学习提供关键数据基础设施，间接驱动运动学控制算法与 ROS 2 部署发展 [13]。
 
-| 进展 | 时间 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 来源 |
-|------|------|-----------|----------|----------|--------|--------|------|
-| **ALOHA 2：低成本双臂遥操作硬件平台** | 2024-02 | Stanford / Google DeepMind (Chelsea Finn, Pete Florence 等) | arXiv 预印本，核心团队发布，GitHub 关注度高（>2k star 估算） | arXiv cs.RO，开源硬件设计/教程/MuJoCo 模型/系统辨识参数 | **高**：直接解决 VLA/模仿学习大规模双手数据采集瓶颈 | ★★★★☆：数据侧关键基建，强烈建议复现硬件与仿真模型 | [3] |
-| **ROS 2 + MoveIt 2 模块化 Pick-and-Place 执行框架** | 2026 | TMU (Alexander Wojtkowski, Sup. Reza Faieghi) | 学位论文，引用数 0，属最新工程实现案例 | TMUshare 本科生研究论文集（DOI: 10.32920/32288082），航空航天工程学科，导师把关 | **中**：新发布一手工程落地案例，覆盖任务分解、容错扩展设计 | ★★★☆☆：工程参考价值高，学术影响力待观察 | [12] |
+### 1.3 面向教学/原型的 ROS + MoveIt 机械臂控制系统集成实践（2025）
+- **增量**：2025 WAIE 会议论文报道基于 ROS 与 MoveIt 的机械臂控制系统教学实践，反映 MoveIt 在 ROS 生态中运动规划与控制集成的工程现状 [24]。
+- **热度证据**：citations=0（刚发表），**权威证据：2025 WAIE (IEEE Xplore)** [24]。
+- **关注度**：中 —— 权威会议录用但引用未积累，反映教学与工程入门层面的实践 [24]。
+- **推荐度**：★★★☆☆ —— 适合了解 ROS+MoveIt 在教学/原型开发层面的最新集成范式 [24]。
 
-### 1.3 经典与奠基性工作（补全基线）
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|------|------|--------|--------|------|------|
-| MoveIt 2 (ROS 2 Port) | 2020+ | PickNik / Open Robotics | GitHub > 1.5k stars (MoveIt2 总计) | ROS 2 官方规划栈，持续维护 | 高 | ★★★★★ | `github.com/moveit/moveit2` | 运动规划标准栈，ROS 2 原生重写 |
-| ros2_control | 2019+ | ROS 2 Control WG / Bosch / PickNik | GitHub > 800 stars | ROS 2 实时控制框架标准 | 高 | ★★★★★ | `github.com/ros-controls/ros2_control` | 硬件抽象/控制器管理/实时执行核心 |
-| Pinocchio | 2019+ | INRIA / LAAS-CNRS | GitHub > 2k stars, 论文引用 > 1k | 顶会 (ICRA/IROS/RSS) 多篇奠基论文 | 高 | ★★★★★ | `github.com/stack-of-tasks/pinocchio` | 高性能刚体动力学/运动学 C++ 库，Header-only |
-| Micro-ROS | 2020+ | Open Robotics / eProsima / EU OFERA | GitHub > 500 stars | ISO/ROS 2 标准扩展，嵌入式官方栈 | 中高 | ★★★★☆ | `github.com/micro-ROS` | 微控制器上运行 ROS 2 节点 |
-
-> 待核实：近 1-2 年 `ros2_control`/`Pinocchio`/`Micro-ROS` 的重大架构重构、实时性能基准（如 deterministic latency < 1ms 实测数据）、复现难度对比缺乏公开系统性评测报告。输入证据 [14]-[17] 与该主题无关，需补齐检索。
+### 1.4 ROS 2 控制器架构向模块化、机器人无关参考生成演进（2026）
+- **增量**：最新 arXiv 工作提出模块化架构，引入专门的 Reference Generator 组件，解耦参考获取/验证/插值逻辑与控制律，复用 ros2_control 链机制 [30]。
+- **热度证据**：2026 年最新预印本，**权威证据：arXiv (cs.RO)** [30]。
+- **关注度**：中 —— 直接针对 ROS 2 核心控制栈工程痛点，工程落地相关性强 [30]。
+- **推荐度**：★★★★☆ —— 必读：ROS 2 控制工程落地关键进展 [30]。
 
 ---
 
 ## 2. 工业界与产品
 
-### 2.1 核心增量判断
-**汽车供应链（Tier 1）正主导 ROS 2 产业化验证**：ZF Group 以量产工程师需求为基线，系统对标 ROS 2 Jazzy 与 AUTOSAR Adaptive R24-11，标志着 ROS 2 从“实验室原型”进入“车规级中间件选型”阶段。但 **功能安全（ASIL-D）与网络安全（UN R155）双认证量产交付案例仍为零公开披露**，属高 **风险** 缺口。
+| 产品/项目 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
+|-----------|------|-----------|----------|----------|--------|--------|------|------|
+| ALOHA 2 | 2024 | Stanford / Google DeepMind | 开源硬件被广泛采用 | arXiv (cs.RO) [13] | 高 | ★★★★★ | [13] | 低成本双臂远操作平台，推动大规模双手演示数据采集 |
+| mujoco_ros2_control | 2025 | ROS 2 社区/ROSCon | 官方文档收录 | ROS 2 官方文档/ROSCon [21] | 高 | ★★★★★ | [21] | 高保真物理仿真器集成 ROS 2 control，仿真-实机一致性控制栈前沿 |
+| MuJoCo+Gazebo+ROS | 2025 | ROS 2 社区/ROSCon | 官方文档收录 | ROS 2 官方文档/ROSCon [21] | 高 | ★★★★☆ | [21] | 结合 MuJoCo 物理引擎与 Gazebo 可视化的最先进操作仿真方案 |
+| ROS + MoveIt 教学系统 | 2025 | WAIE 会议作者 | citations=0 (刚发表) | IEEE Xplore [24] | 中 | ★★★☆☆ | [24] | 面向教学的机械臂运动规划与控制集成实践 |
 
-### 2.2 关键产业案例与标准进展
-
-| 项目/案例 | 时间 | 主体 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 来源 |
-|-----------|------|------|----------|----------|--------|--------|------|
-| **ROS 2 Jazzy vs AUTOSAR Adaptive R24-11 工业需求对标研究** | 2026-04 | 学术界 + ZF Group (Tier 1) | arXiv 预印本 (cs.SE)，提交 2026-04-24 | 一手汽车工程师需求 elicitation，对比实时性/安全/供应链成熟度 | **高**：唯一公开的 Tier 1 驱动对标文献 | ★★★★☆：核心参考，建议全文精读 | [27] |
-| **ROS 2 在软件定义汽车 (SDV) 中间件选型中的地位** | 2026 | ZF / 行业联盟 | 同 [27] 衍生趋势 | 论文目标为“满足主要汽车供应商实际工程需求的程度” | 中 | ★★★☆☆：趋势信号，需结合量产车型落地进一步验证 | [27] |
-
-### 2.3 开源项目与商业化生态（表格）
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|------|------|--------|--------|------|------|
-| ALOHA 2 Hardware | 2024 | Stanford / Google DeepMind | GitHub 高关注 (估算 >2k) | arXiv 开源硬件/仿真/教程全套 | 高 | ★★★★☆ | `http://arxiv.org/abs/2405.02292v1` | 双手操作数据采集标准平台 |
-| Intrinsic (Alphabet) Flowstate | 2023+ | Intrinsic / Google | 商业闭源，社区讨论度中 | 官方产品文档，基于 ROS 2 | 中 | ★★★☆☆ | `intrinsic.ai` | 面向工业部署的 ROS 2 可视化开发/仿真平台 |
-| ROS 2 LTS (Iron/Iron/Jazzy) | 2023-2026 | Open Robotics / ROS 2 TSC | 官方分发统计，下载量大 | 官方标准发布流程，5 年维护 | 高 | ★★★★★ | `docs.ros.org` | 产业级版本锚点 |
+> **待核实**：除上述项目外，主流工业级机器人厂商（如 ABB、KUKA、Fanuc、Universal Robots）在 ROS 2 原生支持、MoveIt 2 适配、实时内核部署等方面的最新产品化进展，当前证据源未覆盖，需补充官方发布说明与 ROS-Industrial 进展。
 
 ---
 
 ## 3. 蓝海与缺口
 
-### 3.1 核心增量判断
-存在三大 **无人区/高杠杆机会**：
-1.  **ROS 2 控制栈统一基准**：缺乏覆盖 `ros2_control` + `MoveIt 2` + `Pinocchio` + `Micro-ROS` 端到端的 **实时性/确定性/Sim2Real 一致性** 标准基准（q2 空白）。
-2.  **车规级 ROS 2 安全认证工具链**：ISO 26262 ASIL-D + UN R155/ISO 21434 双认证的 **开源/商用工具链缺失**（q3 open_problems）。
-3.  **低成本双臂硬件的长时可靠性与仿真-实物差距量化**：ALOHA 2 等平台的 **标定漂移、线缆疲劳、触觉反馈缺失** 的系统性评测数据缺失（q1 open_problems）。
-
-### 3.2 缺口清单（带证据标注）
-
-| 缺口描述 | 所属维度 | 证据来源 | 优先级 |
-|----------|----------|----------|--------|
-| ROS 2 核心控制栈（ros2_control/Pinocchio/Micro-ROS）架构演进与复现难度系统性研究缺失 | 学术/工程基建 | q2 findings 为空，[14]-[17] 无关 | **最高** |
-| 真实非结构化环境下 ROS 2 + MoveIt 2 容错性/鲁棒性大规模基准缺失 | 算法验证 | q1 open_problems | 高 |
-| 低成本双臂遥操作硬件长时运行可靠性/仿真-实物差距社区评测缺失 | 硬件/数据 | q1 open_problems, [3] | 高 |
-| ROS 2 功能安全(ASIL-D)与网络安全(UN R155)双认证量产交付公开案例为零 | 产业/标准 | q3 open_problems, [27] | **最高** |
-| 跨供应链 ROS 2 版本锁定/LTS/安全补丁分发行业共识缺失 | 供应链/运维 | q3 open_problems | 高 |
+| 蓝海/缺口 | 说明 | 来源/依据 | 证据等级 |
+|-----------|------|-----------|----------|
+| ROS 2 control 与 MoveIt 2 在复杂双臂/全身协同运动学求解与实时控制上的工程成熟度与最佳实践尚需社区沉淀 | 当前缺乏跨本体、跨任务的统一集成范式与性能基准 | q1 open_problems [21, 13, 24] | C（社区共识类） |
+| 高保真仿真 (MuJoCo/Gazebo) 与实机部署的 Sim2Gap 在运动学标定、动力学参数辨识上的系统性基准缺失 | 仿真-实机一致性评测缺乏标准化流程与公开基准 | q1 open_problems [21] | C |
+| 低成本双臂平台 (如 ALOHA 2) 的运动学标定自动化、柔顺控制与 ROS 2 实时控制回路的集成方案尚无统一标准 | 硬件普及快，但配套软件栈标准化滞后 | q1 open_problems [13] | C |
+| 面向 VLA/模仿学习的大规模演示数据采集硬件与 ROS 2 控制栈的标准化接口定义仍在演进中 | 数据采集-策略训练-实机部署链路的接口碎片化 | q1 open_problems [13, 21] | C |
+| ROS 2 模块化控制器架构在真机多本体（机械臂/灵巧手/移动基座/人形）上的集成验证与性能基准缺失 | 新架构 [30] 尚缺大规模真机验证数据 | q3 open_problems [30] | C |
+| VLA/具身智能专用工程工具链（仿真-实机迁移、数据闭环、策略部署、安全监管）的开源标准化程度仍低 | 缺乏统一基准对比与最佳实践文档 | q3 open_problems [26, 30] | C |
+| AI Agent 通用工程挑战在机器人实时性、安全性、硬件异构约束下的具体表现与缓解方案尚未系统梳理 | 通用 Agent 工程研究 [26] 与机器人专用约束存在鸿沟 | q3 open_problems [26] | C |
 
 ---
 
 ## 4. 瓶颈与拐点
 
-### 4.1 核心瓶颈（当前硬约束）
-
-| 瓶颈 | 表现 | 证据支撑 | 拐点信号 |
+### 4.1 核心瓶颈
+| 瓶颈 | 表现 | 证据来源 | 严重程度 |
 |------|------|----------|----------|
-| **Sim2Real 一致性验证工程化缺口** | 整车级 OTA 升级场景下仿真-实车一致性缺乏标准化工具链 | q3 open_problems, [27] 隐含 | ISAE/ASAM 标准化进程、NVIDIA Isaac Sim / ROS 2 集成成熟度提升 |
-| **实时性与确定性上界量产数据缺失** | 车规内核 + rmw_cyclonedds/fastrtps 确定性延迟上界无公开量产数据 | q3 open_problems | PREEMPT_RT 入主线、ROS 2 Real-Time WG 基准测试发布 |
-| **人才与生态碎片化** | ROS 2 控制栈文档分散、最佳实践依赖部落知识、入门曲线陡峭 | q2 空白、社区共识 | ROS 2 控制栈教程官方化、Intrinsic 等商业工具降低门槛 |
-| **数据采集硬件标准化** | ALOHA 2 等平台虽开源，但标定/维护/触觉集成非标准化 | [3], q1 open_problems | 触觉传感器低成本化、标准化夹具接口 (ISO 9409) 普及 |
+| **Sim2Real 运动学/动力学一致性** | 高保真仿真参数与实机差异导致策略部署失败率高，缺乏系统性辨识与补偿标准流程 | [21] (ROSCon 仿真方案), q1 open_problems | 高 |
+| **ROS 2 实时控制栈跨平台复用性** | 控制器中参考处理代码大量重复，跨本体移植成本高 | [30] (模块化架构动机) | 高 |
+| **双臂/全身协同运动学求解实时性** | 复杂本体下 IK/全身控制求解延迟难满足 kHz 级控制回路 | q1 open_problems, [24] (MoveIt 现状) | 中高 |
+| **数据采集-训练-部署链路碎片化** | 硬件接口、数据格式、控制接口缺乏统一标准，闭环周期长 | [13] (ALOHA 2), q1 open_problems | 高 |
+| **安全与合规工程工具链缺失** | 具身智能真机部署缺乏功能安全（ISO 13849/ISO 10218）集成的开源工具链 | > 待核实：当前证据源未覆盖安全标准落地 | 高 |
 
-### 4.2 拐点预判
-- **实时内核主线化 (PREEMPT_RT merged in Linux 6.12+)** 将在 2026-2027 显著降低 ROS 2 实时部署门槛 **[P, 置信度 0.8]**。  
-- **ROS 2 Safety (安全认证工作组) 输出 ASIL-B/D 参考架构** 若在 2026 年底前发布，将引发车规落地加速 **[P, 置信度 0.6]**。  
-- **VLA 模型对高频控制回路的直接部署** 若解决推理延迟 (<10ms)，可能绕过传统运动规划栈，引发架构重构 **[P, 置信度 0.5, Debated]**。
+### 4.2 拐点信号
+- **拐点 1：ROS 2 control 模块化架构落地** —— 若 [30] 提出的 Reference Generator 架构被主线合并并形成生态工具链，将显著降低跨本体控制开发成本，**预测**：2026-2027 年内进入 ROS 2 Rolling/主线分支 [P, 置信度 0.7]。
+- **拐点 2：MuJoCo 成为 ROS 2 仿真事实标准** —— ROSCon 官方收录 `mujoco_ros2_control` 与 `MuJoCo+Gazebo+ROS` 组合 [21]，预示物理引擎统一化趋势，**预测**：2026 年底前主流操作任务仿真基准迁移至 MuJoCo-based 管线 [P, 置信度 0.75]。
+- **拐点 3：低成本双臂硬件普及驱动软件栈标准化** —— ALOHA 2 等平台普及 [13] 倒逼运动学标定、柔顺控制、数据接口标准化，**预测**：2027 年前出现社区维护的「双臂操作 ROS 2 元功能包」 [P, 置信度 0.65]。
 
 ---
 
 ## 5. 社会·政策·国际
 
-### 5.1 核心增量判断
-**地缘政治与供应链自主可控** 正成为 ROS 2 产业化的隐性驱动力：欧美汽车供应链（ZF 等）推动 ROS 2 与 AUTOSAR 对标，本质是减少对专有中间件厂商的锁定；中国汽车产业（Apollo/ROS 2 本土发行版）同步推进国产化替代。但 **出口管制（实时OS/加密/传感器）对 ROS 2 硬件抽象层实现的影响** 仍属 **不确定** 领域。
+> **待核实**：当前证据源 [1]–[34] 未覆盖监管政策、标准制定（ISO/TC 299、IEEE RAS）、地缘政治供应链（实时内核、FPGA/SoC 芯片）、伦理与劳动影响等维度。需补充：
+- 中国《机器人产业发展行动计划》、欧盟《机器法案》、美国 NIST 机器人标准进展
+- ROS-Industrial 国际合作与出口管制影响
+- 具身智能数据合规（GDPR、中国《数据安全法》）、人机协作安全标准（ISO/TS 15066）落地情况
 
-### 5.2 关键信号（带标注）
-
-| 维度 | 信号描述 | 证据/依据 | 标注 |
-|------|----------|-----------|------|
-| **功能安全标准** | ISO 26262 ASIL-D 认证要求倒逼 ROS 2 架构（执行管理/资源隔离/监控）重构 | q3 open_problems, 行业常识 | [R] 待核实具体认证进展 |
-| **网络安全法规** | UN R155 / ISO 21434 强制车辆全生命周期网络安全管理，ROS 2 DDS 安全插件 (Access Control/Logging) 成刚需 | q3 open_problems | [R] 待核实 ROS 2 Security WG 进展 |
-| **供应链主权** | 欧盟《芯片法案》、美国《芯片与科学法案》驱动关键 MCU/SoC (STM32, TI, NXP, 国产替代) 上 Micro-ROS 适配竞赛 | 行业趋势 | [P] 预测：2026-2027 国产 MCU Micro-ROS 支持度追平 |
-| **劳动伦理与标准** | ISO/TC 299 机器人安全标准演进，人机协作场景下 ROS 2 实时避障/力控合规性成审查焦点 | 标准化动态 | [R] 待核实最新标准版本 |
-
-> 待核实：ROS 2 官方或 Open Robotics 是否发布针对 ISO 26262/UN R155 的合规白皮书或参考实现。
+**风险提示**：缺乏政策/合规维度证据可能导致工程落地合规性评估盲区，**建议**后续专项检索。
 
 ---
 
 ## 6. 资本与生态
 
-### 6.1 核心增量判断
-**资本关注点从“算法模型”下沉至“数据基建与部署工具链”**：ALOHA 2 类低成本硬件开源降低数据采集门槛；Intrinsic (Alphabet)、PickNik、Foxglove 等商业公司围绕 ROS 2 可视化开发、仿真、车队管理构建变现闭环。但 **ROS 2 核心维护资金长期依赖少数大厂赞助**，存在单点故障 **风险**。
+> **待核实**：当前证据源未覆盖融资并购、人才流动、公司格局变化。已知信号：
+- **开源生态**：ROS 2 官方文档/ROSCon 持续沉淀核心工具链 [21]，社区贡献者结构向仿真-控制一体化聚焦。
+- **硬件开源带动生态**：ALOHA 2 [13] 等低成本平台降低入门门槛，催生数据采集服务商与标定工具初创公司。
+- **人才需求**：ROS 2 control、MoveIt 2、MuJoCo 仿真、实时内核调优等复合技能岗位薪资上涨（来源：招聘平台公开数据，**待核实**）。
 
-### 6.2 生态关键节点（表格）
-
-| 实体/项目 | 角色 | 资本/资源信号 | 热度/权威 | 关注度 | 来源/备注 |
-|-----------|------|---------------|-----------|--------|-----------|
-| **Open Robotics / ROS 2 TSC** | 核心治理/发行 | 依赖会员费/赞助 (AWS, NVIDIA, Bosch, Toyota 等) | 官方标准制定者 | 高 | 官网公开会员名单 |
-| **Intrinsic (Alphabet)** | 商业化平台 | Alphabet 战略投资，Flowstate 平台商业化 | 啐业落地标杆 | 高 | 公开新闻/官网 |
-| **PickNik Robotics** | MoveIt/ros2_control 主维护/商业服务 | 系列融资，提供企业级支持/培训 | 核心维护者商业化 | 高 | Crunchbase/官网 |
-| **ALOHA 2 / Stanford IRIS Lab** | 开源硬件/数据基建 | 学术经费 (NSF/DARPA/企业捐赠) 驱动开源 | 学术高影响力 | 高 | [3] |
-| **Foxglove / Rerun** | 可视化/调试工具 | VC 融资 (Sequoia 等)，SaaS 化 | 开发者工具链新贵 | 高 | 公开融资新闻 |
-
-> 待核实：2025-2026 年 ROS 2 生态初创公司融资总额、并购案例、人才流动方向（如从自动驾驶转向具身智能/通用机器人）。
+**不确定**：资本投向是否从「纯算法模型」转向「仿真-数据-部署全链工具链」，需追踪 2025-2026 年具身智能赛道融资轮次结构变化。
 
 ---
 
 ## 7. 信号与预测
 
-### 7.1 早期信号（Weak Signals）
+| 信号 | 来源 | 可证伪假设 (6-18 月) | 置信度 | 标记 |
+|------|------|----------------------|--------|------|
+| ROS 2 control 模块化架构 (Reference Generator) 获得社区讨论与 PR 活动 | [30] (2026 arXiv) | **假设**：至 2027-06，该架构或同等设计被合并入 ros2_control 主线，且出现 ≥3 个主流机械臂驱动适配案例 | 0.7 | [P] |
+| MuJoCo 成为 ROS 2 操作仿真主流物理引擎 | [21] (ROSCon 2025 官方收录) | **假设**：至 2026-12，Open Robotics 官方教程/文档将 MuJoCo 列为「推荐仿真后端」且 Gazebo Classic 维护模式明确 | 0.75 | [P] |
+| 双臂/灵巧手标准化 ROS 2 接口规范 (如 `bimanual_msgs`、`dexterous_hand_msgs`) 发布首个 REP | [13] (ALOHA 2 普及), q1 open_problems | **假设**：至 2027-03，ROS 2 社区发布针对双臂/灵巧手的消息/服务/动作接口 REP 草案并进入 Last Call | 0.6 | [P] |
+| Sim2Real 系统性基准 (含运动学标定、动力学辨识、策略迁移成功率) 在 SimplerEnv/LIBERO 等榜单上线 | q1 open_problems, [21] | **假设**：至 2026-12，SimplerEnv 或 LIBERO 增加「Sim2Real 迁移」分榜单，包含 ≥5 个真机验证任务 | 0.55 | [P] |
+| 具身智能功能安全开源工具链 (ISO 13849/ISO 10218 集成) 出现首个可用版本 | > 待核实 | **假设**：至 2027-06，GitHub 出现 star ≥200 的 ROS 2 功能安全工具包（含安全监控器、安全状态机、诊断聚合） | 0.4 | [P] |
 
-| 信号 | 观测依据 | 潜在含义 |
-|------|----------|----------|
-| **ROS 2 Control + Pinocchio 紧耦合教程增多** | 社区 PR/Issue 讨论热度上升 | 动力学一致性成为高性能控制共识前提 |
-| **Micro-ROS 在 RISC-V MCU (ESP32-C3, BL808, 国产 MCU) 上跑通实时控制回路** | GitHub 仓库/论坛帖子激增 | 边缘智能/低成本本体普及加速 |
-| **VLA 模型 (RT-X, π0, Octo) 发布 ROS 2 部署 Docker/脚本** | HuggingFace/GitHub Release 附带 ROS 2 推理节点 | 端到端策略绕过传统规划栈趋势显现 |
+**关键不确定性**：
+- [P] 标记均为预测，依据当前技术趋势外推，**需以实际合并/发布/榜单上线为准**。
+- 资本/政策/地缘政治变量可能加速或延缓上述拐点，**建议**建立季度追踪机制。
 
-### 7.2 未来 6-18 月可验证预测
+---
 
-| 预测假设 (可证伪) | 依据链 | 置信度 | 验证指标/截止期 |
-|-------------------|--------|--------|-----------------|
-| **[P1] ROS 2 Jazzy/Iron 成为主流车企 SDV 中间件 PoC 标准选型** | [27] ZF 已完成对标，Tier 1 扩散效应 | 0.75 | 2027-06 前 ≥3 家 OEM 公开确认 ROS 2 用于量产项目前装 |
-| **[P2] ros2_control + Pinocchio 形成“实时动力学控制”参考架构并被 MoveIt 2 官方采纳** | 社区 RFC 趋势、实时性需求倒逼 | 0.65 | 2026-12 前 MoveIt 2 官方文档包含 Pinocchio 动力学求解器插件教程 |
-| **[P3] ALOHA 2 衍生平台 (含触觉/力控) 单价降至 $15k 以下且标定自动化** | [3] 开源 BOM 约 $20k，规模效应/供应链优化 | 0.60 | 2027-06 前 GitHub 开源分支 BOM < $15k 且含自动标定脚本 |
-| **[P4] 首个 ROS 2 基础平台通过 ISO 26262 ASIL-B 产品级认证 (非仅流程级)** | [27] 行业需求、Safety WG 推进 | 0.45 | 2027-12 前 TÜV/DEKRA 官网公示证书 |
+## 经典与奠基性工作
 
-### 7.3 核心不确定性与风险
-- **不确定**：VLA 大模型推理延迟能否在嵌入式 GPU (Jetson Orin/Thor) 上稳定 < 20ms，决定是否替代传统运动规划栈。
-- **风险**：ROS 2 核心维护者倦怠/商业公司抽离导致 LTS 版本安全补丁延迟。
-- **风险**：地缘政治导致 DDS 实现 (Fast DDS/Cyclone DDS) 出口管制或供应链断供，迫使国产 DDS (如 eProsima 中国团队/自研) 加速替代。
+| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
+|------|------|-----------|----------|----------|--------|--------|------|------|
+| A Real-Time Model-Based Reinforcement Learning Architecture for Robot Control | 2011 | arXiv (cs.AI) | 早期预印本，引用数据缺失 | arXiv preprint [3] | 低 | ★★☆☆☆ | [3] | 早期探索实时模型 RL 用于机器人控制，历史参考价值 |
+| Real time state monitoring and fault diagnosis system for motor based on LabVIEW | 2018 | arXiv (eess.SP) | 工程应用论文，引用数据缺失 | arXiv preprint [2] | 低 | ★★☆☆☆ | [2] | 传统工业电机监测工程实现，非具身智能核心架构 |
+| Robowflex: Robot Motion Planning with MoveIt Made Easy | 2021 | arXiv (cs.RO) | 简化 MoveIt 使用的工具库 | arXiv preprint [9] | 中 | ★★★☆☆ | [9] | MoveIt 生态工程易用性改进代表作 |
+| Evaluating Guiding Spaces for Motion Planning | 2022 | arXiv (cs.RO) | 运动规划基准评测方法 | arXiv preprint [10] | 中 | ★★★☆☆ | [10] | 规划算法评测方法论贡献 |
+| Local Planner Bench: Benchmarking for Local Motion Planning | 2022 | arXiv (cs.RO) | 局部规划器基准测试框架 | arXiv preprint [34] | 中 | ★★★☆☆ | [34] | 局部规划评测标准化探索 |
+
+> **不确定/待核实**：当前证据源**缺乏**具身智能/VLA 领域公认的经典奠基性论文（如 RT-1/RT-2、OpenVLA、ACT、Diffusion Policy、Open X-Embodiment、DROID 等），无法梳理核心架构演进脉络。需补充检索 Vision-Language-Action 模型、端到端策略、大规模机器人数据集、仿真到实机迁移等核心主题的经典文献。
+
+---
+
+## 开源项目
+
+| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
+|------|------|-----------|----------|----------|--------|--------|------|------|
+| mujoco_ros2_control | 2025 | ROS 2 社区/ROSCon | 官方文档收录 | ROS 2 官方文档/ROSCon [21] | 高 | ★★★★★ | [21] | 高保真物理仿真器集成 ROS 2 control |
+| MuJoCo+Gazebo+ROS | 2025 | ROS 2 社区/ROSCon | 官方文档收录 | ROS 2 官方文档/ROSCon [21] | 高 | ★★★★☆ | [21] | 最先进机器人操作仿真方案 |
+| ALOHA 2 | 2024 | Stanford / Google DeepMind | 开源硬件被广泛采用 | arXiv (cs.RO) [13] | 高 | ★★★★★ | [13] | 低成本双臂远操作硬件平台 |
+| ROSBLOCKS: A Visual Programming Interface for ROS2 Robots | 2024 | 会议论文 | 可视化编程降低 ROS 2 门槛 | DOI: 10.5220/... [33] | 中 | ★★★☆☆ | [33] | 面向 ROS 2 的可视化编程接口 |
+
+---
+
+## 数据集与基准
+
+> **待核实**：当前证据源 [1]–[34] **未包含**机器人运动学/控制/ROS 2 领域的核心数据集与基准（如 Open X-Embodiment、DROID、LIBERO、SimplerEnv、RoboArena、RoboSet 等）。需补充检索并纳入后续版本。
 
 ---
 
 ## 参考来源
 
-[1] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1  
-[2] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1  
-[3] ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1  
-[4] Atmospheric entry and fragmentation of small asteroid 2024 BX1... — http://arxiv.org/abs/2403.00634v2  
-[5] Two-dimensional magnetic interactions in LaFeAsO — http://arxiv.org/abs/1303.4033v1  
-[6] Observation of Atmospheric Neutrino Oscillations in Soudan 2 — http://arxiv.org/abs/hep-ex/0307069v1  
-[7] Search for the Proton Decay Mode proton to neutrino K+ in Soudan 2 — http://arxiv.org/abs/hep-ex/9803030v1  
-[8] A Study of Cosmic Ray Composition in the Knee Region... — http://arxiv.org/abs/hep-ex/9612004v2  
-[9] Search for nucleon decay into lepton + K0 final states using Soudan 2 — http://arxiv.org/abs/hep-ex/9910026v2  
-[10] The Atmospheric Neutrino Flavor Ratio from a 3.9 Fiducial Kiloton-Year Exposure of Soudan 2 — http://arxiv.org/abs/hep-ex/9901024v1  
-[11] The Observation of a Shadow of the Moon in the Underground muon flux in the Soudan 2 detector — http://arxiv.org/abs/hep-ex/9905036v1  
-[12] Development of a Modular Pick-and-Place Execution Framework in ROS 2 with MoveIt 2 — https://doi.org/10.32920/32288082  
-[13] This paper has been withdrawn — http://arxiv.org/abs/cond-mat/0309395v2  
-[14] Computational Design and Co-Robotic Fabrication for Material Reuse in Architecture — http://arxiv.org/abs/2604.24648v1  
-[15] On Controller Design for Systems on Manifolds in Euclidean Space — http://arxiv.org/abs/1807.03475v1  
-[16] Towards Assessing Spread in Sets of Software Architecture Designs — http://arxiv.org/abs/2402.19171v1  
-[17] Control of a Rigid Wing Pumping Airborne Wind Energy System in all Operational Phases — http://arxiv.org/abs/2006.11141v1  
-[18] Faster Consensus via a Sparser Controller — http://arxiv.org/abs/2302.01021v2  
-[19] On the infeasibility of entanglement generation in Gaussian quantum systems via classical control — http://arxiv.org/abs/1107.3174v1  
-[20] Koopman-based control using sum-of-squares optimization... — http://arxiv.org/abs/2411.03875v6  
-[21] Local Planner Bench: Benchmarking for Local Motion Planning — http://arxiv.org/abs/2210.06033v1  
-[22] Robowflex: Robot Motion Planning with MoveIt Made Easy — http://arxiv.org/abs/2103.12826v2  
-[23] Quantum Information Science and Technology for Nuclear Physics... — http://arxiv.org/abs/2303.00113v1  
-[24] HDDL 2.1: Towards Defining a Formalism and a Semantics for Temporal HTN Planning — http://arxiv.org/abs/2306.07353v1  
-[25] Stress Flow Guided Non-Planar Print Trajectory Optimization... — http://arxiv.org/abs/2301.04999v3  
-[26] Metarobotics for Industry and Society: Vision, Technologies, and Opportunities — http://arxiv.org/abs/2404.00797v2  
-[27] A Comparison of ROS 2 and AUTOSAR Adaptive Platform Against Industry-Elicited Automotive Middleware Requirements — http://arxiv.org/abs/2604.22576v1  
-[28] Grain refinement of stainless steel in ultrasound-assisted additive manufacturing — http://arxiv.org/abs/2008.04485v3  
-[29] VQualA 2025 Challenge on Engagement Prediction for Short Videos... — http://arxiv.org/abs/2509.02969v1  
-[30] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1  
-[31] Time-Series Classification in Smart Manufacturing Systems... — http://arxiv.org/abs/2310.02812v2  
-[32] ROS-Causal: A ROS-based Causal Analysis Framework for Human-Robot Interaction Applications — http://arxiv.org/abs/2402.16068v3  
-[33] Efficient Deployment of Machine Learning Models in Manufacturing and Industrial Environments using ROS — https://doi.org/10.1016/j.procir.2024.10.074  
-[34] Hidden Manufacturing Variability in Multi-Site Automotive Fatigue Testing... — https://doi.org/10.2139/ssrn.7387339  
-[35] Enhancing Supply Chain Resilience Using Machine Learning in SAP IBP... — https://doi.org/10.22541/au.174526474.42516139/v1
+[1] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1  
+[2] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1  
+[3] A Real-Time Model-Based Reinforcement Learning Architecture for Robot Control — http://arxiv.org/abs/1105.1749v2  
+[4] On $\ell_2$-performance of weakly-hard real-time control systems — http://arxiv.org/abs/2305.07875v3  
+[5] Duality-based Convex Optimization for Real-time Obstacle Avoidance between Polytopes with Control Barrier Functions — http://arxiv.org/abs/2107.08360v4  
+[6] Real-Time-Data Analytics in Raw Materials Handling — http://arxiv.org/abs/1802.00625v1  
+[7] Computational Design and Co-Robotic Fabrication for Material Reuse in Architecture — http://arxiv.org/abs/2604.24648v1  
+[8] Erasure Coding and Congestion Control for Interactive Real-Time Communication — http://arxiv.org/abs/1207.2863v1  
+[9] Robowflex: Robot Motion Planning with MoveIt Made Easy — http://arxiv.org/abs/2103.12826v2  
+[10] Evaluating Guiding Spaces for Motion Planning — http://arxiv.org/abs/2210.08640v1  
+[11] Data-Efficient Learning of High-Quality Controls for Kinodynamic Planning used in Vehicular Navigation — http://arxiv.org/abs/2201.02254v1  
+[12] A Framework for Joint Grasp and Motion Planning in Confined Spaces — http://arxiv.org/abs/2505.07259v1  
+[13] ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1  
+[14] Two-dimensional magnetic interactions in LaFeAsO — http://arxiv.org/abs/1303.4033v1  
+[15] Observation of Atmospheric Neutrino Oscillations in Soudan 2 — http://arxiv.org/abs/hep-ex/0307069v1  
+[16] Search for the Proton Decay Mode proton to neutrino K+ in Soudan 2 — http://arxiv.org/abs/hep-ex/9803030v1  
+[17] A Study of Cosmic Ray Composition in the Knee Region using Multiple Muon Events in the Soudan 2 Detector — http://arxiv.org/abs/hep-ex/9612004v2  
+[18] Search for nucleon decay into lepton + K0 final states using Soudan 2 — http://arxiv.org/abs/hep-ex/9910026v2  
+[19] The Atmospheric Neutrino Flavor Ratio from a 3.9 Fiducial Kiloton-Year Exposure of Soudan 2 — http://arxiv.org/abs/hep-ex/9901024v1  
+[20] The Observation of a Shadow of the Moon in the Underground muon flux in the Soudan 2 detector — http://arxiv.org/abs/hep-ex/9905036v1  
+[21] ROSCon talks — ROS 2 Documentation: Rolling documentation — https://docs.ros.org/en/rolling/The-ROS2-Project/ROSCon-Content.html  
+[22] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1  
+[23] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1  
+[24] Robotic Arm Control System based on ROS and MoveIt: A Practical Educational Approach — https://doi.org/10.1109/waie67422.2025.11381096  
+[25] On the Popularity of GitHub Applications: A Preliminary Note — http://arxiv.org/abs/1507.00604v3  
+[26] What Challenges Do Developers Face in AI Agent Systems? An Empirical Study on Stack Overflow & GitHub Issues — http://arxiv.org/abs/2510.25423v2  
+[27] Designing controllers with predefined convergence-time bound using bounded time-varying gains — http://arxiv.org/abs/2311.02473v1  
+[28] Reinforcement Learning Controllers for Soft Robots using Learned Environments — http://arxiv.org/abs/2410.18519v2  
+[29] Emotional Contagion in Code: How GitHub Emoji Reactions Shape Developer Collaboration — http://arxiv.org/abs/2511.02515v1  
+[30] Simplifying ROS2 controllers with a modular architecture for robot-agnostic reference generation — http://arxiv.org/abs/2601.08514v3  
+[31] Family of Controllers for Attitude Synchronization on the Sphere — http://arxiv.org/abs/1503.06326v5  
+[32] GitSkills: A Dataset of Agent Skills on GitHub — http://arxiv.org/abs/2608.10906v3  
+[33] ROSBLOCKS: A Visual Programming Interface for ROS2 Robots — https://doi.org/10.5220/0013714000003982  
+[34] Local Planner Bench: Benchmarking for Local Motion Planning — http://arxiv.org/abs/2210.06033v1
 
 ---
 
-*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=35 · duration=457s · 2026-11-08T01:19:12+00:00*
+*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=34 · duration=379s · 2026-11-09T01:35:06+00:00*
