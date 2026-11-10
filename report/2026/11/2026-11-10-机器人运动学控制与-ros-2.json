@@ -1,0 +1,917 @@
+{
+  "topic": "机器人运动学控制与-ros-2",
+  "title": "机器人运动学、控制与 ROS 2 领域增量追踪深度调研计划",
+  "query": "机器人运动学、控制与 ROS 2",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-10T04:12:41+00:00",
+  "finished_at": "2026-11-10T04:23:58+00:00",
+  "duration_s": 676.5,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人运动学、控制与 ROS 2 领域增量追踪深度调研计划",
+    "summary": "系统梳理近 1-2 年机器人运动学、控制算法与 ROS 2 生态的前沿进展、经典奠基工作、工程落地现状、基准数据集、核心瓶颈与蓝海机会，输出覆盖 7 维增量骨架的可执行调研报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近 1-2 年（2024-2026）运动学建模、实时控制与 ROS 2 原生框架在仿真/真机上的 SOTA 进展、新基准与代表性 VLA/基础模型集成案例有哪些？",
+        "rationale": "对应 frontier-watch 的 Progress & Hotspots 与 Dataset/Benchmark 维度，锁定最新算法突破（如整体优化、微分动力学、VLA 闭环）、新发布基准（Open X-Embodiment ROS 2 分支、SimplerEnv/Isaac Lab 任务集）与关键指标（延迟、频率、成功率），为后续缺口分析建立基线。",
+        "queries": [
+          "ROS 2 Control real-time latency benchmark 2024 2025 ICRA RSS",
+          "robot kinematics differentiable optimization foundation model VLA ROS 2 2025",
+          "Open X-Embodiment ROS 2 benchmark manipulation simulation real 2024",
+          "MoveIt 2 Servo reactive planning performance comparison 2024"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar",
+          "github"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "运动学/控制核心库（KDL, Pinocchio, Crocoddyl, OROCOS）、ROS 2 Control 架构演进、MoveIt 2 与主流仿真器的工程成熟度、头部企业真机落地架构有哪些可复用的最佳实践？",
+        "rationale": "覆盖经典/奠基工作与开源项目/工程实践维度，梳理从 ROS 1 迁移到 ROS 2 的关键架构变更（ros2_control 接口、实时执行器、硬件抽象层）、主流运动学/最优控制库的 ROS 2 绑定现状，以及 BMW、Toyota、Figure、Agility 等头部厂商的公开技术栈选型与贡献回流。",
+        "queries": [
+          "ros2_control architecture migration guide real-time executor 2023 2024",
+          "Pinocchio Crocoddyl ROS 2 binding performance comparison 2024",
+          "MoveIt 2 motion planning benchmark industrial deployment case study 2024",
+          "Isaac Sim ROS 2 bridge MuJoCo ROS 2 sim2real control pipeline 2025"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "当前运动学/控制/ROS 2 核心瓶颈（实时性、Sim2Real、标定、安全认证）、蓝海缺口（全身协同、灵巧手高频控制、异构本体统一接口）、政策标准（ISA 62443、ISO 10218、数据跨境）与资本/人才流向信号如何？",
+        "rationale": "对应 Bottleneck & Inflection、Blue Ocean & Gaps、Society/Policy/Geopolitics、Capital & Ecosystem、Signals & Forecast 五大维度，识别‘无人区’（如 1kHz+ 全身 MPC、零样本跨本体迁移）、认证落地痛点、地缘供应链对实时内核/芯片的影响、近 4 季度融资/并购/人才流动热点，形成可证伪的 6-18 月预判假设。",
+        "queries": [
+          "ROS 2 real-time kernel PREEMPT_RT gap analysis safety certification 2025",
+          "humanoid whole-body MPC 1kHz ROS 2 challenge sim2real 2024 2025",
+          "ISA 62443 ROS 2 security certification industrial robot 2025",
+          "robotics control stack investment M&A talent flow 2024 2025 ROS 2"
+        ],
+        "prefer": [
+          "bing",
+          "arxiv",
+          "github",
+          "openalex"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近 1-2 年（2024-2026）运动学建模、实时控制与 ROS 2 原生框架在仿真/真机上的 SOTA 进展、新基准与代表性 VLA/基础模型集成案例有哪些？",
+      "queries": [
+        "ROS 2 Control real-time latency benchmark 2024 2025 ICRA RSS",
+        "robot kinematics differentiable optimization foundation model VLA ROS 2 2025",
+        "Open X-Embodiment ROS 2 benchmark manipulation simulation real 2024",
+        "MoveIt 2 Servo reactive planning performance comparison 2024"
+      ],
+      "rationale": "对应 frontier-watch 的 Progress & Hotspots 与 Dataset/Benchmark 维度，锁定最新算法突破（如整体优化、微分动力学、VLA 闭环）、新发布基准（Open X-Embodiment ROS 2 分支、SimplerEnv/Isaac Lab 任务集）与关键指标（延迟、频率、成功率），为后续缺口分析建立基线。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.0393,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Technical Report for ICRA 2025 GOOSE 3D Semantic Segmentation Challenge: Adaptive Point Cloud Understanding for Heterogeneous Robotic Systems",
+          "url": "http://arxiv.org/abs/2506.06995v1",
+          "snippet": "This technical report presents the implementation details of the winning solution for the ICRA 2025 GOOSE 3D Semantic Segmentation Challenge. This challenge focuses on semantic segmentation of 3D point clouds from diverse unstructured outdoor environments collected from multiple robotic platforms. This problem was addressed by implementing Point Prompt Tuning (PPT) integrated with Point Transformer v3 (PTv3) backbone, enabling adaptive processing of heterogeneous LiDAR data through platform-specific conditioning and cross-dataset class alignment strategies. The model is trained without requir…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-08",
+          "authors": [
+            "Xiaoya Zhang"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.06995v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.017647
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "运动学/控制核心库（KDL, Pinocchio, Crocoddyl, OROCOS）、ROS 2 Control 架构演进、MoveIt 2 与主流仿真器的工程成熟度、头部企业真机落地架构有哪些可复用的最佳实践？",
+      "queries": [
+        "ros2_control architecture migration guide real-time executor 2023 2024",
+        "Pinocchio Crocoddyl ROS 2 binding performance comparison 2024",
+        "MoveIt 2 motion planning benchmark industrial deployment case study 2024",
+        "Isaac Sim ROS 2 bridge MuJoCo ROS 2 sim2real control pipeline 2025"
+      ],
+      "rationale": "覆盖经典/奠基工作与开源项目/工程实践维度，梳理从 ROS 1 迁移到 ROS 2 的关键架构变更（ros2_control 接口、实时执行器、硬件抽象层）、主流运动学/最优控制库的 ROS 2 绑定现状，以及 BMW、Toyota、Figure、Agility 等头部厂商的公开技术栈选型与贡献回流。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Blog - ROS-Industrial",
+          "url": "https://rosindustrial.org/news",
+          "snippet": "Nov 11, 2024 ... This mode exposes CANopen devices directly as hardware interfaces for the broader ROS 2 control framework. To interface with your hardware, the ...",
+          "engine": "searxng",
+          "kind": "web",
+          "published": null,
+          "authors": [],
+          "venue": null,
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "rrf_score": 0.017405,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+          "url": "http://arxiv.org/abs/1806.09998v1",
+          "snippet": "Motor is the most widely used production equipment in industrial field. In order to realize the real-time state monitoring and multi-fault pre-diagnosis of three-phase motor, this paper presents a design of three-phase motor state monitoring and fault diagnosis system based on LabVIEW.\n  The multi-dimensional vibration acceleration, rotational speed, temperature, current and voltage signals of the motor are collected with NI cDAQ acquisition equipment in real time and high speed. At the same time, the model of motor health state and fault state is established. The order analysis algorithm is…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-06-25",
+          "authors": [
+            "S. Q. Liu",
+            "Z. S. Ji",
+            "Y Wang",
+            "Z. C. Zhang"
+          ],
+          "venue": "eess.SP",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1806.09998v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "A Real-Time Model-Based Reinforcement Learning Architecture for Robot Control",
+          "url": "http://arxiv.org/abs/1105.1749v2",
+          "snippet": "Reinforcement Learning (RL) is a method for learning decision-making tasks that could enable robots to learn and adapt to their situation on-line. For an RL algorithm to be practical for robotic control tasks, it must learn in very few actions, while continually taking those actions in real-time. Existing model-based RL methods learn in relatively few actions, but typically take too much time between each action for practical on-line learning. In this paper, we present a novel parallel architecture for model-based RL that runs in real-time by 1) taking advantage of sample-based approximate pl…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2011-05-09",
+          "authors": [
+            "Todd Hester",
+            "Michael Quinlan",
+            "Peter Stone"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1105.1749v2",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "ROS-Industrial 披露 CANopen 设备可直接作为硬件接口接入 ROS 2 Control 框架",
+            "evidence": "ROS-Industrial 博客提到：\"This mode exposes CANopen devices directly as hardware interfaces for the broader ROS 2 control framework\"，表明 ROS 2 Control 已支持通过标准化硬件接口层对接工业总线设备。",
+            "sources": [
+              10
+            ],
+            "type": "news",
+            "confidence": "medium",
+            "year": "2024",
+            "heat": "",
+            "authority": "ROS-Industrial 官方博客（行业联盟官方渠道）",
+            "attention": "中：来自 ROS-Industrial 官方新闻，属于工程落地一手信息源，但无法量化点击/讨论热度",
+            "recommendation": "★★★☆☆：官方渠道确认 ROS 2 Control 对 CANopen 的原生支持，对工程选型有参考价值，但缺乏性能指标与复现细节"
+          },
+          {
+            "point": "现有候选证据未覆盖 KDL、Pinocchio、Crocoddyl、OROCOS 等运动学/控制核心库的对比与成熟度信息",
+            "evidence": "四条候选证据分别为：车辆边缘计算卸载论文[5]、ROS-Industrial 博客[10]、LabVIEW 电机监测论文[4]、2011 年基于模型的 RL 机器人控制论文[7]，均未涉及上述库的 API 稳定性、实时性能或生态集成情况。",
+            "sources": [
+              5,
+              10,
+              4,
+              7
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "基于候选证据的穷举性检查",
+            "attention": "高：直接关系到子问题能否被证据支撑，属于证据缺口判定",
+            "recommendation": "★★★★☆：必须在后续检索中补齐 Pinocchio/Crocoddyl/OROCOS/KDL 的官方文档、GitHub 活跃度、ROS 2 Control 集成案例及真机部署报告"
+          },
+          {
+            "point": "现有候选证据未覆盖 MoveIt 2 与主流仿真器的工程成熟度信息",
+            "evidence": "候选证据中无 MoveIt 2、Gazebo/Ignition、Isaac Sim、MuJoCo 等仿真器的版本迭代、插件生态、真实感基准或 CI/CD 通过率等工程指标。",
+            "sources": [
+              5,
+              10,
+              4,
+              7
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "基于候选证据的穷举性检查",
+            "attention": "高：MoveIt 2 与仿真器成熟度是子问题核心维度，证据完全缺失",
+            "recommendation": "★★★★☆：需补充 MoveIt 2 官方 Roadmap、Gazebo Harmonic/Iron 发布说明、Isaac Sim 2024.x 发行注记及第三方复现报告"
+          },
+          {
+            "point": "现有候选证据未覆盖头部企业真机落地架构的可复用最佳实践",
+            "evidence": "候选证据中无 Boston Dynamics、Figure、1X、Apptronik、Agility、特斯拉 Optimus、Unitree、优必选、云鲸、追觅等企业的架构白皮书、技术博客、开源仓库或会议分享记录。",
+            "sources": [
+              5,
+              10,
+              4,
+              7
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "基于候选证据的穷举性检查",
+            "attention": "高：产业界架构复用是子问题落地导向的关键产出，证据完全缺失",
+            "recommendation": "★★★★☆：后续需定向检索 ROSCon/IROS/ICRA 产业论坛演讲、企业工程博客、开源仓库（如 ros-industrial/universal_robot、apptronik/apollo 等）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [
+          {
+            "name": "ROS-Industrial",
+            "url": "https://rosindustrial.org/news",
+            "why": "ROS 2 Control 与工业总线（CANopen/EtherCAT）集成的官方推进组织，博客披露硬件接口层最新进展",
+            "heat": "",
+            "authority": "ROS-Industrial Consortium（跨国产业联盟，官方维护）",
+            "attention": "中：官方新闻渠道，但无法量化社区关注度",
+            "recommendation": "★★★☆☆：作为 ROS 2 Control 工业落地的权威信息源值得持续跟踪，但需配合具体仓库与性能数据使用"
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "KDL/Pinocchio/Crocoddyl/OROCOS 在 ROS 2 Control 实时控制回路中的延迟、数值稳定性与插件化集成对比缺乏公开基准",
+          "MoveIt 2 在复杂灵巧手/双臂协作场景下的规划成功率、计算时延与仿真-实机 Gap 的量化评测缺失",
+          "主流仿真器对高频力控、触觉传感、软体动力学的保真度尚无统一基准测试套件",
+          "头部企业真机架构中实时内核选型、DDS QoS 调优、硬件抽象层分层、安全认证流程等工程细节多为闭源，缺乏可复用参考实现"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "当前运动学/控制/ROS 2 核心瓶颈（实时性、Sim2Real、标定、安全认证）、蓝海缺口（全身协同、灵巧手高频控制、异构本体统一接口）、政策标准（ISA 62443、ISO 10218、数据跨境）与资本/人才流向信号如何？",
+      "queries": [
+        "ROS 2 real-time kernel PREEMPT_RT gap analysis safety certification 2025",
+        "humanoid whole-body MPC 1kHz ROS 2 challenge sim2real 2024 2025",
+        "ISA 62443 ROS 2 security certification industrial robot 2025",
+        "robotics control stack investment M&A talent flow 2024 2025 ROS 2"
+      ],
+      "rationale": "对应 Bottleneck & Inflection、Blue Ocean & Gaps、Society/Policy/Geopolitics、Capital & Ecosystem、Signals & Forecast 五大维度，识别‘无人区’（如 1kHz+ 全身 MPC、零样本跨本体迁移）、认证落地痛点、地缘供应链对实时内核/芯片的影响、近 4 季度融资/并购/人才流动热点，形成可证伪的 6-18 月预判假设。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "RISC-V Functional Safety for Autonomous Automotive Systems: An Analytical Framework and Research Roadmap for ML-Assisted Certification",
+          "url": "http://arxiv.org/abs/2604.17391v1",
+          "snippet": "RISC-V is emerging as a viable platform for automotive-grade embedded computing, with recent ISO 26262 ASIL-D certifications demonstrating readiness for safety-critical deployment in autonomous driving systems. However, functional safety in automotive systems is fundamentally a certification problem rather than a processor problem. The dominant costs arise from diagnostic coverage analysis, toolchain qualification, fault injection campaigns, safety-case generation, and compliance with ISO 26262, ISO 21448 (SOTIF), and ISO/SAE 21434.\n  This paper analyzes the role of RISC-V in automotive funct…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-04-19",
+          "authors": [
+            "Nick Andreasyan",
+            "Mikhail Struve",
+            "Alexey Popov",
+            "Maksim Nikolaev",
+            "Vadim Vashkelis"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2604.17391v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+          "url": "http://arxiv.org/abs/2508.18904v1",
+          "snippet": "The Event-Enriched Image Analysis (EVENTA) Grand Challenge, hosted at ACM Multimedia 2025, introduces the first large-scale benchmark for event-level multimodal understanding. Traditional captioning and retrieval tasks largely focus on surface-level recognition of people, objects, and scenes, often overlooking the contextual and semantic dimensions that define real-world events. EVENTA addresses this gap by integrating contextual, temporal, and semantic information to capture the who, when, where, what, and why behind an image. Built upon the OpenEvents V1 dataset, the challenge features two…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-26",
+          "authors": [
+            "Thien-Phuc Tran",
+            "Minh-Quang Nguyen",
+            "Minh-Triet Tran",
+            "Tam V. Nguyen",
+            "Trong-Le Do",
+            "Duy-Nam Ly",
+            "Viet-Tham Huynh",
+            "Khanh-Duy Le",
+            "Mai-Khiem Tran",
+            "Trung-Nghia Le"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.18904v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.023077
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "自动驾驶功能安全认证的核心瓶颈在于认证工程成本而非处理器架构，需满足 ISO 26262 ASIL-D、ISO 21448 (SOTIF)、ISO/SAE 21434 多标准合规，主导成本来自诊断覆盖率分析、工具链资质认定、故障注入实验与安全论证生成。",
+            "evidence": "论文分析 RISC-V 在汽车功能安全中的角色，指出近期已有 ISO 26262 ASIL-D 认证案例，但核心挑战在于认证流程成本，涉及 ISO 26262、ISO 21448、ISO/SAE 21434 多标准合规。",
+            "sources": [
+              20
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.SE)",
+            "attention": "中 - 关注汽车级功能安全认证流程与 RISC-V 应用的学术界讨论",
+            "recommendation": "★★★★☆ - 权威梳理了自动驾驶功能安全认证的标准体系与成本结构，为机器人安全认证提供参考，但领域为汽车而非通用机器人/ROS 2"
+          },
+          {
+            "point": "车辆边缘计算场景下，实时性约束（严格截止时间、动态网络条件、带宽与算力双重受限）下的任务卸载与资源分配是核心难题，提出 SARound 算法求解 Deadline-Constrained Task Offloading and Resource Allocation Problem (DOAP)。",
+            "evidence": "论文建模 DOAP 问题，针对网络带宽、计算资源受限、截止时间严格、网络条件动态变化的场景设计自适应卸载控制策略，旨在最大化车辆总效用。",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.DC)",
+            "attention": "中 - 边缘计算实时调度方向的算法研究",
+            "recommendation": "★★★☆☆ - 涉及实时性约束下的资源调度与卸载控制，对机器人云边协同实时控制有方法论参考，但未直接涉及 ROS 2 或运动学控制"
+          },
+          {
+            "point": "候选证据集合中缺乏针对运动学/控制/ROS 2 核心瓶颈（实时性、Sim2Real、标定、安全认证）、蓝海缺口（全身协同、灵巧手高频控制、异构本体统一接口）、机器人专用政策标准（ISA 62443、ISO 10218、数据跨境）及资本/人才流向的直接相关文献。",
+            "evidence": "提供的 4 篇候选文献分别聚焦于车辆边缘计算实时卸载 [5]、汽车功能安全认证 [20]、多媒体事件级理解基准 [21]、短视频互动预测挑战 [13]，均未覆盖机器人运动学控制、ROS 2 架构、Sim2Real、灵巧手控制、工业机器人安全标准或投融资人才信号。",
+            "sources": [
+              5,
+              13,
+              20,
+              21
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "基于候选证据的覆盖性分析",
+            "attention": "高 - 直接指出证据缺口，指导后续检索方向",
+            "recommendation": "★★★★★ - 必须补充检索：ROS 2 实时性/确定性执行、Sim2Real 迁移、机器人标定基准、ISA 62443/ISO 10218 认证案例、Open-RMF/异构本体接口、灵巧手高频控制（>1kHz）、具身智能投融资与人才流动报告"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "RISC-V Functional Safety for Autonomous Automotive Systems: An Analytical Framework and Research Roadmap for ML-Assisted Certification",
+            "url": "http://arxiv.org/abs/2604.17391v1",
+            "why": "系统梳理 ISO 26262 ASIL-D 等汽车功能安全认证流程与成本结构，为机器人安全认证提供跨域参考",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.SE)",
+            "attention": "中 - 汽车功能安全认证学术讨论",
+            "recommendation": "★★★★☆ - 权威性强但领域偏汽车，需结合机器人标准（ISO 10218/ISO 13482）迁移阅读"
+          },
+          {
+            "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+            "url": "http://arxiv.org/abs/2512.14002v1",
+            "why": "研究严格截止时间约束下的边缘计算任务卸载与资源分配，方法论可迁移至机器人云边协同实时控制",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.DC)",
+            "attention": "中 - 边缘实时调度算法研究",
+            "recommendation": "★★★☆☆ - 实时性建模有参考价值，但未涉及 ROS 2 执行引擎或运动学控制回路"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "ROS 2 实时性与确定性执行在复杂运动学链上的工程落地瓶颈",
+          "Sim2Real 迁移中动力学参数辨识、接触建模与传感器噪声域差距的系统性解法",
+          "多本体（机械臂/灵巧手/移动底盘/人形）全身协同的统一控制接口与实时调度架构",
+          "灵巧手高频（>1kHz）力位混合控制的通信总线、总线协议与实时内核协同设计",
+          "工业机器人安全认证中 ISA 62443（工控网络安全）、ISO 10218/ISO 13482（机器人安全）、数据跨境合规的工程化证据链构建",
+          "具身智能领域资本与人才流向的量化追踪：头部公司融资轮次、核心人才迁徙图谱、开源生态贡献度分布"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 7,
+    "prompt_tokens": 59157,
+    "completion_tokens": 33244,
+    "generated_at": "2026-11-10T04:23:58.279934+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# 机器人运动学、控制与 ROS 2 前沿调研报告\n\n**日期**：2026-11-10 | **领域**：具身智能 / 机器人运动学控制 / ROS 2 生态 | **检索源数量**：26 条（其中高相关性证据约 8 条）\n\n---\n\n## 1. 进展与热点\n\n### 1.1 近 1-2 年核心进展（有证据支撑）\n- **ROS 2 Control 硬件接口层原生支持 CANopen**：ROS-Industrial 官方博客披露，CANopen 设备可直接作为硬件接口接入 ROS 2 Control 框架，标志着工业总线与 ROS 2 实时控制回路的标准化对接取得工程级进展 [10]。\n- **ROS 2 执行器实时性强化**：提出面向空间应用的环形缓冲区 ROS 2 执行器，降低调度抖动；另一项工作给出执行器-线程-核映射优化框架，保证确定性执行 [11][12]。\n- **弱硬实时控制理论新进展**：针对弱硬实时约束（允许偶尔截止时间错失）的 $\\ell_2$ 性能分析方法发布，为运动控制回路在非理想调度下的鲁棒性提供理论工具 [15]。\n- **基于控制屏障函数（CBF）的实时避障**：提出基于对偶凸优化的多面体间实时避障算法，兼顾安全证书与计算效率，适配高频控制回路 [18]。\n- **人形机器人全身强化学习**：利用退火课程学习实现人形机器人全身羽毛球击打，展示仿真训练到真机部署的全身协同潜力 [24]。\n\n### 1.2 关键缺口（证据缺失，需补齐）\n> 待核实：2024-2026 年运动学建模（如可微分运动学、几何结构保持集成）、实时 MPC/全身控制器在 ROS 2 Control 中的插件化集成案例、VLA/基础模型（如 RT-X, π0, GR-1）与 ROS 2 实时回路的端到端集成基准。现有候选证据均未覆盖上述内容 [q2-finding-2][q3-finding-2]。\n\n| 进展条目 | 时间 | 机构/来源 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 说明 |\n|---|---|---|---|---|---|---|---|\n| ROS 2 Control CANopen 硬件接口原生支持 | 2024 | ROS-Industrial | > 待核实 | 官方博客 [10] | 中 | ★★★☆☆ | 工程落地关键节点，缺性能基准 |\n| Ring-buffer ROS 2 Executor | 2023 | IEEE SCC | > 待核实 | 同行评审会议 [11] | 中 | ★★★★☆ | 空间级实时验证，可迁移地面机器人 |\n| Executor-Thread-Core 映射优化框架 | 2024 | IJRMEET | > 待核实 | 期刊论文 [12] | 低 | ★★★☆☆ | 确定性调度工程参考 |\n| 弱硬实时 $\\ell_2$ 性能分析 | 2023 | arXiv | > 待核实 | 预印本 [15] | 中 | ★★★★☆ | 理论贡献，指导控制回路容忍度设计 |\n| CBF 实时避障（对偶凸优化） | 2021/2024 | arXiv | > 待核实 | 预印本 v4 [18] | 中 | ★★★★☆ | 高频回路可用，数值稳定性强 |\n| 人形全身羽毛球 RL (Annealed Curriculum) | 2025 | arXiv | > 待核实 | 预印本 v4 [24] | 高 | ★★★★★ | 全身协同 Sim2Real 里程碑式演示 |\n\n---\n\n## 2. 工业界与产品\n\n### 2.1 已确证进展\n- **ROS-Industrial 联盟推动工业总线标准化**：作为跨国产业联盟，其官方渠道发布 ROS 2 Control 硬件接口层对接 CANopen 进展，确认产业界对 ROS 2 原生实时控制栈的采纳 [10]。\n- **ROS 1 时代人形平台框架沉淀**：NimbRo-OP 开源平台基于 ROS 构建软件框架，为后续 ROS 2 迁移提供代码基线 [25]。\n\n### 2.2 头部企业真机架构证据缺失\n> 待核实：Boston Dynamics、Figure、1X、Apptronik、Agility、特斯拉 Optimus、Unitree、优必选、云鲸、追觅等企业的实时内核选型、DDS QoS 调优、硬件抽象层分层、安全认证流程等工程细节多为闭源，现有证据库中无任何一手架构白皮书或技术博客 [q2-finding-4]。\n\n| 项目/产品 | 机构 | 年份/状态 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 说明 |\n|---|---|---|---|---|---|---|---|\n| ROS-Industrial Consortium | 产业联盟 | 持续 | > 待核实 | 官方新闻 [10] | 中 | ★★★☆☆ | ROS 2 Control 工业落地风向标 |\n| NimbRo-OP ROS Framework | 波恩大学 | 2018 | > 待核实 | arXiv [25] | 低 | ★★★☆☆ | 经典人形 ROS 架构参考 |\n| ros2_control / MoveIt 2 | Open Robotics / PickNik | 活跃 | > 待核实 | GitHub 官方仓库 | 高 | ★★★★★ | 核心中间件，**指标待核实** |\n\n---\n\n## 3. 蓝海与缺口\n\n### 3.1 经证据确认的结构性缺口\n- **核心库对比基准缺失**：KDL、Pinocchio、Crocoddyl、OROCOS 在 ROS 2 Control 实时回路中的延迟、数值稳定性、插件化集成度缺乏公开对标数据 [q2-finding-2]。\n- **MoveIt 2 复杂场景成熟度未量化**：双臂协作、灵巧手规划成功率、计算时延、Sim2Real Gap 无统一基准测试报告 [q2-finding-3]。\n- **仿真器保真度基准缺位**：Gazebo Harmonic/Iron、Isaac Sim 2024.x、MuJoCo 对高频力控、触觉、软体动力学无统一测试套件 [q2-finding-3]。\n- **异构本体统一接口缺失**：Open-RMF 等中间层在全身协同（机械臂/灵巧手/移动底盘/人形）实时调度层面的工程化案例未见公开 [q3-open_problems]。\n- **灵巧手高频控制协同设计空白**：>1kHz 力位混合控制对总线协议（CAN FD/EtherCAT）、实时内核、通信调度的协同设计无开源参考实现 [q3-open_problems]。\n\n### 3.2 潜在蓝海方向（预测标注）\n- **统一动作空间的跨本体运动学求解器**：面向 VLA 部署的统一运动学/动力学后端 [P]。\n- **仿真器原生可微分物理引擎集成**：支持梯度回传的系统辨识与策略优化闭环 [P]。\n- **安全认证就绪的 ROS 2 实时发行版**：预集成 PREEMPT_RT、DDS 安全插件、故障注入测试套件 [P]。\n\n| 缺口条目 | 领域 | 证据来源 | 严重度 | 可行性 | 说明 |\n|---|---|---|---|---|---|\n| 核心库实时性能对标 | 运动学/动力学 | [q2-finding-2] | 高 | 中 | 需联合学术/产业发起基准赛 |\n| MoveIt 2 复杂场景基准 | 运动规划 | [q2-finding-3] | 高 | 中 | 依赖仿真器标准化场景 |\n| 仿真器力控/触觉保真度 | 仿真 | [q2-finding-3] | 高 | 低 | 涉及物理引擎内核差异大 |\n| 异构本体统一实时接口 | 系统架构 | [q3-open_problems] | 极高 | 低 | 需产业联盟推标准 |\n| 灵巧手 >1kHz 协同设计 | 硬件/固件/OS | [q3-open_problems] | 高 | 低 | 跨层优化，专有总线壁垒大 |\n\n---\n\n## 4. 瓶颈与拐点\n\n### 4.1 核心瓶颈（有证据支撑）\n- **ROS 2 确定性执行工程瓶颈**：复杂运动学链下执行器调度抖动、内存锁定、中断亲和性配置仍需深度内核工程能力 [11][12][15]。\n- **功能安全认证成本主导**：自动驾驶领域证实，ISO 26262 ASIL-D、ISO 21448 (SOTIF)、ISO/SAE 21434 多标准合规的主导成本在于诊断覆盖率分析、工具链资质、故障注入实验与论证生成，而非处理器架构本身 [20]。\n- **Sim2Real 系统性域差距**：动力学参数辨识、接触建模、传感器噪声分布差异缺乏系统性解法，导致高频控制策略迁移失效 [q3-open_problems]。\n- **车辆边缘计算实时卸载难题**：严格截止时间、动态网络、带宽算力双受限下的任务卸载（DOAP 问题）仍为开放问题，机器人云边协同面临同构挑战 [5]。\n\n### 4.2 拐点信号\n- **ML 辅助安全认证**：RISC-V 功能安全论文提出机器学习辅助认证流程（故障树生成、测试用例合成），若工具链成熟将大幅降低机器人安全认证门槛 [20] [P]。\n- **弱硬实时理论落地**：允许有界截止时间错失的控制理论 [15] 与 ROS 2 执行器优化 [11][12] 结合，可能打破“硬实时或全失败”的二元工程范式 [P]。\n- **全身 RL Sim2Real 闭环**：人形羽毛球案例 [24] 展示退火课程+域随机化可跨越动力学鸿沟，预示全身策略真机部署拐点临近 [P]。\n\n| 瓶颈/拐点 | 类型 | 证据 | 影响面 | 置信度 | 备注 |\n|---|---|---|---|---|---|\n| ROS 2 确定性执行工程复杂度 | 瓶颈 | [11][12][15] | 全栈 | 高 | 需发行版级解决方案 |\n| 安全认证工程成本 | 瓶颈 | [20] | 落地/商业化 | 高 | 跨域参考汽车经验 |\n| Sim2Real 动力学/接触域差距 | 瓶颈 | [q3-open_problems] | 策略迁移 | 高 | 缺统一基准量化 |\n| ML 辅助认证工具链 | 拐点信号 | [20] | 认证流程 | 中 | [P] 需开源工具验证 |\n| 弱硬实时范式转换 | 拐点信号 | [11][12][15] | OS/中间件 | 中 | [P] 需生态配套 |\n| 全身 RL 真机泛化 | 拐点信号 | [24] | 具身智能 | 中高 | [P] 单任务验证，泛化待证 |\n\n---\n\n## 5. 社会·政策·国际\n\n### 5.1 标准与合规（证据不足，标注待核实）\n> 待核实：机器人专用标准 **ISA 62443**（工控网络安全）、**ISO 10218 / ISO 13482**（工业/服务机器人安全）、**数据跨境合规**（GDPR/中国数据安全法）在 ROS 2 部署层面的工程化证据链构建现状。现有证据库无直接相关文献 [q3-finding-2]。\n\n### 5.2 跨域标准迁移参考\n- **汽车功能安全标准体系** 已形成 ISO 26262 (ASIL-D)、ISO 21448 (SOTIF)、ISO/SAE 21434 (网络安全) 三位一体合规范式，认证成本结构清晰，为机器人安全认证提供成熟参考模板 [20]。\n\n### 5.3 地缘与供应链风险\n> 待核实：实时内核（PREEMPT_RT 上游合并进展）、DDS 实现（Fast DDS / Cyclone DDS / Zenoh）的出口管制、供应链自主可控替代方案成熟度。无证据支撑。\n\n| 标准/政策 | 域 | 状态 | 证据 | 对 ROS 2 落地影响 | 备注 |\n|---|---|---|---|---|---|\n| ISO 26262 / 21448 / 21434 | 汽车/跨域 | 强制/成熟 | [20] | 认证流程可迁移，工具链缺口大 | 参考价值高 |\n| ISA 62443 | 工控安全 | 推荐/趋强制 | > 待核实 | 网络层加密/认证需集成 DDS Security | 无直接证据 |\n| ISO 10218 / 13482 | 机器人安全 | 国际标准 | > 待核实 | 协作机器人功能安全设计依据 | 无直接证据 |\n| 数据跨境/安全法 | 法规 | 生效执行 | > 待核实 | 云边协同数据流合规架构设计 | 无直接证据 |\n\n---\n\n## 6. 资本与生态\n\n### 6.1 可观测生态信号\n- **ROS-Industrial 联盟持续运作**：成员费驱动的跨国产业联盟维护 ROS 2 Control 工业化路线图，博客更新频度反映工业界投入节奏 [10]。\n- **核心中间件开源社区活跃**：ros2_control、MoveIt 2、Nav2 等核心仓库在 GitHub 上保持高频提交与 Issue 响应（> 待核实：具体 Star/Fork/PR 数据未在证据库中）。\n\n### 6.2 资本与人才流向（证据完全缺失）\n> 待核实：具身智能/机器人基础设施层（实时控制、仿真器、运动学库）近 1 年融资轮次、估值、并购案例；核心开发者人才流动（大厂→初创、学术→产业）趋势。现有证据库无任何投融资报告、招聘数据或人才白皮书 [q3-finding-2]。\n\n| 生态维度 | 信号强度 | 证据 | 判断依据 | 不确定性 |\n|---|---|---|---|---|\n| 产业联盟投入 | 中 | [10] | 官方新闻持续更新 | 无法量化资金规模 |\n| 核心库开源活跃度 | 高 | > 待核实 | 社区常识 | 缺 GitHub 指标支撑 |\n| 融资/并购事件 | 无 | 无 | 证据库空白 | **高** |\n| 人才流动趋势 | 无 | 无 | 证据库空白 | **高** |\n\n---\n\n## 7. 信号与预测\n\n### 7.1 早期信号\n1. **ROS 2 执行器进入空间级验证**：Ring-buffer 执行器 [11] 与线程核映射优化 [12] 表明实时性强化已超越实验室走向苛刻工程场景。\n2. **安全认证引入 ML 辅助**：RISC-V 功能安全路线图 [20] 提出 ML 生成故障树/测试用例，若开源工具链落地将重塑认证经济性。\n3. **全身 RL 仿真训练真机零样本迁移**：羽毛球人形案例 [24] 证明退火课程+域随机化可处理高维接触动力学，信号指向“仿真训练为主、真机微调为辅”范式成熟。\n\n### 7.2 可验证预测假设（未来 6-18 月）\n| # | 预测假设 (可证伪) | 依据链 | 置信度 | 验证指标/截止期 |\n|---|---|---|---|---|\n| P1 | **ROS 2 Control 成为主流工业机器人硬件抽象层（HAL）标准**，至少 3 家头部控制器厂商发布原生 ros2_control 硬件接口驱动。 | [10] CANopen 接口原生化 + ROS-I 推动 | 较大概率 | 2026-Q4 前厂商发布页/ROSCon 演讲 |\n| P2 | **开源弱硬实时 ROS 2 发行版（含 PREEMPT_RT 内核、优化执行器、CBF 安全层）发布 1.0 版本**，并在 ≥2 个真机平台上跑通 1kHz 全身控制。 | [11][12][15][18] 技术栈就绪 | 推测 | 2027-Q1 前 GitHub Release / ICRA 2027 论文 |\n| P3 | **ML 辅助功能安全认证工具链（故障树自动生成/测试用例合成）出现首个开源可用版本**，并通过某认证机构试点评估。 | [20] 提出路线图 | 推测 | 2027-Q2 前开源仓库 / 认证机构白皮书 |\n| P4 | **统一动作空间 VLA 模型（如 π0/GR-1 后继者）在 ROS 2 Control 实时回路（≥500Hz）闭环部署**，并在 Open X-Embodiment 基准上刷新真机成功率 SOTA。 | [24] 全身 RL 真机迁移 + VLA 趋势 | 推测 | 2026-Q4 前 arXiv / CoRL 2026 论文 |\n| P5 | **ISA 62443 / ISO 10218 认证就绪的 ROS 2 发行版（含 DDS Security、安全启动、审计日志）由主流 Linux 发行商或机器人厂商发布**。 | 标准趋强制 + 产品化需求 | 推测 | 2027-Q1 前产品发布页 |\n\n### 7.3 风险与不确定性\n- **风险**：实时内核上游合并延迟、DDS 实现碎片化导致互操作性倒退、安全认证工具链闭源垄断、Sim2Real 基准作弊（Overfitting to Benchmarks）。\n- **不确定**：地缘政治导致开源核心依赖（DDS、内核、编译器）供应链断供概率；资本退潮导致基础设施层开源维护断档。\n\n---\n\n## 经典与奠基性工作\n\n| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Pinocchio | 2019+ | INRIA / Stack-of-Tasks | > 待核实 | 论文/文档 | 高 | ★★★★★ | https://github.com/stack-of-tasks/pinocchio | 现代 C++ 刚体动力学标杆，**指标待核实** |\n| KDL (Kinematics and Dynamics Library) | 2000s+ | KU Leuven / ROS | > 待核实 | ROS 1 核心库 | 中 | ★★★☆☆ | https://github.com/orocos/orocos_kinematics_dynamics | 经典但维护缓慢，**指标待核实** |\n| Crocoddyl | 2021+ | INRIA | > 待核实 | 论文/文档 | 中高 | ★★★★☆ | https://github.com/loco-3d/crocoddyl | 微分动态规划求解器，**指标待核实** |\n| OROCOS Toolchain | 2000s+ | KU Leuven | > 待核实 | 实时控制框架 | 中 | ★★★☆☆ | https://www.orocos.org/ | 实时组件模型鼻祖，**指标待核实** |\n| MoveIt / MoveIt 2 | 2013/2020+ | PickNik / Willow Garage | > 待核实 | ROS 核心规划库 | 高 | ★★★★★ | https://moveit.ros.org/ | 运动规划标准，**指标待核实** |\n| ROS 2 Control | 2020+ | Open Robotics / ROS-I | > 待核实 | 官方架构文档 | 高 | ★★★★★ | https://control.ros.org/ | 实时控制框架核心，**指标待核实** |\n| Model-Based RL for Robot Control | 2011 | Hester et al. | > 待核实 | arXiv [7] | 低 | ★★★☆☆ | [7] | 早期实时 MBRL 架构参考 |\n\n---\n\n## 开源项目\n\n| 名称 | 年份/状态 | 维护机构 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| ros2_control | 活跃 | Open Robotics / ROS-I | > 待核实 | 官方仓库 | 高 | ★★★★★ | https://github.com/ros-controls/ros2_control | 核心实时控制框架 |\n| MoveIt 2 | 活跃 | PickNik | > 待核实 | 官方仓库 | 高 | ★★★★★ | https://github.com/moveit/moveit2 | 运动规划集成 |\n| ROS-Industrial | 活跃 | Consortium | > 待核实 | 官网 [10] | 中 | ★★★☆☆ | https://rosindustrial.org/ | 工业落地推进组织 |\n| Pinocchio | 活跃 | INRIA | > 待核实 | 官方仓库 | 高 | ★★★★★ | https://github.com/stack-of-tasks/pinocchio | 动力学计算后端 |\n| Crocoddyl | 活跃 | INRIA | > 待核实 | 官方仓库 | 中高 | ★★★★☆ | https://github.com/loco-3d/crocoddyl | 最优控制求解器 |\n| NimbRo-OP Framework | 2018 | Uni Bonn | > 待核实 | arXiv [25] | 低 | ★★★☆☆ | [25] | 人形 ROS 架构早期案例 |\n\n---\n\n## 数据集与基准\n\n| 名称 | 年份 | 机构 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Open X-Embodiment | 2023 | Google DeepMind / 合作机构 | > 待核实 | 论文/网站 | 高 | ★★★★★ | https://open-x-embodiment.github.io/ | 跨本体数据集标杆，**指标待核实** |\n| DROID | 2024 | Stanford / Google | > 待核实 | 论文/网站 | 高 | ★★★★★ | https://droid-dataset.github.io/ | 大规模真机操作数据，**指标待核实** |\n| LIBERO | 2023 | UT Austin / NVIDIA | > 待核实 | 论文/网站 | 高 | ★★★★☆ | https://libero-project.github.io/ | 终身学习基准，**指标待核实** |\n| SimplerEnv | 2024 | UCSD / NVIDIA | > 待核实 | 论文/网站 | 中高 | ★★★★☆ | https://simpler-env.github.io/ | 统一仿真评测环境，**指标待核实** |\n| RoboArena | 2024 | 合作机构 | > 待核实 | 网站 | 中 | ★★★☆☆ | https://roboarena.org/ | 真机竞技评测，**指标待核实** |\n\n---\n\n## 参考来源\n\n[1] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1  \n[2] Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes — http://arxiv.org/abs/2409.08956v1  \n[3] Atmospheric entry and fragmentation of small asteroid 2024 BX1 — http://arxiv.org/abs/2403.00634v2  \n[4] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1  \n[5] Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing — http://arxiv.org/abs/2512.14002v1  \n[6] Overview of AuTexTification at IberLEF 2023 — http://arxiv.org/abs/2309.11285v1  \n[7] A Real-Time Model-Based Reinforcement Learning Architecture for Robot Control — http://arxiv.org/abs/1105.1749v2  \n[8] Real-Time-Data Analytics in Raw Materials Handling — http://arxiv.org/abs/1802.00625v1  \n[9] PINOCCHIO and the hierarchical build-up of dark matter haloes — http://arxiv.org/abs/astro-ph/0109324v1  \n[10] Blog - ROS-Industrial — https://rosindustrial.org/news  \n[11] The ring-buffer ROS2 executor: a novel approach for real-time ROS2 Space applications — https://doi.org/10.1109/scc57168.2023.00021  \n[12] A Framework to Optimize Executor-Thread-Core Mapping in ROS2 to Guarantee Real-Time Performance — https://doi.org/10.63345/ijrmeet.org.v12.i12.17  \n[13] VQualA 2025 Challenge on Engagement Prediction for Short Videos — http://arxiv.org/abs/2509.02969v1  \n[14] Technical Report for ICRA 2025 GOOSE 3D Semantic Segmentation Challenge — http://arxiv.org/abs/2506.06995v1  \n[15] On $\\ell_2$-performance of weakly-hard real-time control systems — http://arxiv.org/abs/2305.07875v3  \n[16] A Human-Vector Susceptible-Infected-Susceptible Model — http://arxiv.org/abs/2510.14787v2  \n[17] Passive iFIR Filters for Data-Driven Control — http://arxiv.org/abs/2403.06640v2  \n[18] Duality-based Convex Optimization for Real-time Obstacle Avoidance between Polytopes with Control Barrier Functions — http://arxiv.org/abs/2107.08360v4  \n[19] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1  \n[20] RISC-V Functional Safety for Autonomous Automotive Systems — http://arxiv.org/abs/2604.17391v1  \n[21] Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025 — http://arxiv.org/abs/2508.18904v1  \n[22] TRUST 2025: SCRITA and RTSS @ RO-MAN 2025 — http://arxiv.org/abs/2509.11402v1  \n[23] NTIRE 2025 Challenge on Image Super-Resolution (x4) — http://arxiv.org/abs/2504.14582v3  \n[24] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4  \n[25] A ROS-based Software Framework for the NimbRo-OP Humanoid Open Platform — http://arxiv.org/abs/1809.11051v1  \n[26] ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024 — http://arxiv.org/abs/2407.12038v2\n\n---\n\n*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=26 · duration=677s · 2026-11-10T04:23:58+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "A Real-Time Model-Based Reinforcement Learning Architecture for Robot Control",
+      "url": "http://arxiv.org/abs/1105.1749v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2011-05-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Real-Time-Data Analytics in Raw Materials Handling",
+      "url": "http://arxiv.org/abs/1802.00625v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-02-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "PINOCCHIO and the hierarchical build-up of dark matter haloes",
+      "url": "http://arxiv.org/abs/astro-ph/0109324v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2001-09-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Blog - ROS-Industrial",
+      "url": "https://rosindustrial.org/news",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "The ring-buffer ROS2 executor: a novel approach for real-time ROS2 Space applications",
+      "url": "https://doi.org/10.1109/scc57168.2023.00021",
+      "kind": "paper",
+      "venue": "2023 IEEE Space Computing Conference (SCC)",
+      "published": "2023-07-01",
+      "citations": 3,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "A Framework to Optimize Executor-Thread-Core Mapping in ROS2 to Guarantee Real-Time Performance",
+      "url": "https://doi.org/10.63345/ijrmeet.org.v12.i12.17",
+      "kind": "paper",
+      "venue": "International Journal of Research in Modern Engineering &amp; Emerging Technology",
+      "published": "2024-12-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Technical Report for ICRA 2025 GOOSE 3D Semantic Segmentation Challenge: Adaptive Point Cloud Understanding for Heterogeneous Robotic Systems",
+      "url": "http://arxiv.org/abs/2506.06995v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-06-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "On $\\ell_2$-performance of weakly-hard real-time control systems",
+      "url": "http://arxiv.org/abs/2305.07875v3",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2023-05-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "A Human-Vector Susceptible-Infected-Susceptible Model for Analyzing and Controlling the Spread of Vector-Borne Diseases",
+      "url": "http://arxiv.org/abs/2510.14787v2",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Passive iFIR Filters for Data-Driven Control",
+      "url": "http://arxiv.org/abs/2403.06640v2",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2024-03-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Duality-based Convex Optimization for Real-time Obstacle Avoidance between Polytopes with Control Barrier Functions",
+      "url": "http://arxiv.org/abs/2107.08360v4",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2021-07-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "RISC-V Functional Safety for Autonomous Automotive Systems: An Analytical Framework and Research Roadmap for ML-Assisted Certification",
+      "url": "http://arxiv.org/abs/2604.17391v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-04-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Event-Enriched Image Analysis Grand Challenge at ACM Multimedia 2025",
+      "url": "http://arxiv.org/abs/2508.18904v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "TRUST 2025: SCRITA and RTSS @ RO-MAN 2025",
+      "url": "http://arxiv.org/abs/2509.11402v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+      "url": "http://arxiv.org/abs/2511.11218v4",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "A ROS-based Software Framework for the NimbRo-OP Humanoid Open Platform",
+      "url": "http://arxiv.org/abs/1809.11051v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2018-09-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024",
+      "url": "http://arxiv.org/abs/2407.12038v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-07-01",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-10-机器人运动学控制与-ros-2.md",
+    "json": "report/2026/11/2026-11-10-机器人运动学控制与-ros-2.json"
+  }
+}
