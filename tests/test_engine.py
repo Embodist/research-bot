@@ -249,3 +249,28 @@ def test_citation_repair_rejects_no_gain(monkeypatch):
     out = engine._repair_citations(topic, text, ["[1] A — u"], ["A"], 1000)
     assert out == text
 
+
+def test_prune_references_drops_uncited_and_renumbers():
+    text = (
+        "# T\n\n正文一 [3]，正文二 [1]，正文三 [3]。\n\n## 参考来源\n"
+        "[1] One — u1\n[2] Offtopic — u2\n[3] Three — u3\n"
+    )
+    out = DeepResearchEngine._prune_references(text)
+    assert "[2] Offtopic" not in out          # never cited -> dropped
+    assert "正文一 [1]" in out and "正文二 [2]" in out and "正文三 [1]" in out
+    assert "[1] Three — u3" in out and "[2] One — u1" in out
+    assert out.count("\n[") < text.count("\n[")
+
+
+def test_prune_references_uses_registry_to_fix_dangling():
+    text = "# T\n\n论断 [1]，另一条 [9]。\n\n## 参考来源\n[1] One — u1\n"
+    refs = [{"n": 1, "title": "One", "url": "u1"}, {"n": 9, "title": "Nine", "url": "u9"}]
+    out = DeepResearchEngine._prune_references(text, refs)
+    assert "另一条 [2]" in out              # dangling [9] now resolves
+    assert "[2] Nine — u9" in out           # registry entry recovered
+
+
+def test_prune_references_noop_when_too_few_cited():
+    text = "# T\n\n只有引用 [1]。\n\n## 参考来源\n[1] One — u1\n[2] Two — u2\n"
+    assert DeepResearchEngine._prune_references(text) == text
+

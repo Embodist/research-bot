@@ -674,7 +674,8 @@ class DeepResearchEngine:
                     extra = self._complete_sections(messages, missing, budget)
                     if extra:
                         text = self._splice_before_refs(text, extra)
-                return self._repair_citations(topic, text, ref_lines, sections, budget)
+                text = self._repair_citations(topic, text, ref_lines, sections, budget)
+                return self._prune_references(text, refs)
         except LLMError as exc:
             log.warning("synthesis LLM failed (%s); emitting deterministic report", exc)
         return self._fallback_report(topic, plan, subquestions, refs)
@@ -800,6 +801,68 @@ class DeepResearchEngine:
             len(re.findall(r"\[\d+\]", fixed)),
         )
         return fixed
+
+    @staticmethod
+    def _prune_references(text: str, refs: list[dict[str, Any]] | None = None) -> str:
+        """Keep only the sources the report actually cites, and renumber.
+
+        Models routinely dump the whole source registry into the reference list,
+        which drags in uncited (and sometimes off-topic) entries; they also cite
+        numbers that never made it into their own list. When the authoritative
+        registry is available it is used to rebuild the list, which fixes both.
+        Deterministic and conservative: if fewer than two citations resolve, the
+        text is returned unchanged.
+        """
+        lines = text.splitlines()
+        idx = next(
+            (
+                i
+                for i, ln in enumerate(lines)
+                if re.match(r"^#{1,6}\s*(参考来源|References?)\b", ln.strip(), re.IGNORECASE)
+            ),
+            None,
+        )
+        if idx is None:
+            return text
+        body = "\n".join(lines[:idx])
+        head, tail = lines[idx], lines[idx + 1 :]
+
+        registry: dict[int, str] = {}
+        for ref in refs or []:
+            try:
+                registry[int(ref["n"])] = f"{ref.get('title', '')} — {ref.get('url', '')}".strip(" —")
+            except (KeyError, TypeError, ValueError):
+                continue
+
+        if len(registry) >= 2:
+            titles = registry
+        else:  # no registry: fall back to whatever the model listed
+            titles = {}
+            for ln in tail:
+                m = re.match(r"^\s*\[(\d+)\]\s*(.+?)\s*$", ln)
+                if m:
+                    titles[int(m.group(1))] = m.group(2)
+        if len(titles) < 2:
+            return text
+
+        order: list[int] = []
+        for num in re.findall(r"\[(\d+)\]", body):
+            n = int(num)
+            if n in titles and n not in order:
+                order.append(n)
+        if len(order) < 2:
+            return text
+
+        mapping = {old: new for new, old in enumerate(order, start=1)}
+
+        def renumber(m: re.Match[str]) -> str:
+            n = int(m.group(1))
+            return f"[{mapping[n]}]" if n in mapping else m.group(0)
+
+        out = [re.sub(r"\[(\d+)\]", renumber, body).rstrip(), "", head]
+        out += [f"[{mapping[n]}] {titles[n]}" for n in order]
+        log.info("references pruned to %d cited source(s) of %d available", len(order), len(titles))
+        return "\n".join(out) + "\n"
 
     def _fallback_report(self, topic: Topic, plan: dict[str, Any], subquestions: list[SubQuestion], refs: list[dict[str, Any]]) -> str:
         lines = [f"# {plan.get('title') or topic.title}", ""]
