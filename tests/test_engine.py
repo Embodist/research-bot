@@ -274,3 +274,10 @@ def test_prune_references_noop_when_too_few_cited():
     text = "# T\n\n只有引用 [1]。\n\n## 参考来源\n[1] One — u1\n[2] Two — u2\n"
     assert DeepResearchEngine._prune_references(text) == text
 
+
+
+def test_prune_references_handles_cjk_heading_without_separator():
+    text = "# T\n\n论断 [1]，另一条 [2]。\n\n## 参考来源编号列表\n[1] One — u1\n[2] Two — u2\n[3] Uncited — u3\n"
+    out = DeepResearchEngine._prune_references(text)
+    assert "[3] Uncited" not in out
+    assert "[2] Two — u2" in out

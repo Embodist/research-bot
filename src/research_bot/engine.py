@@ -717,7 +717,7 @@ class DeepResearchEngine:
         """Insert ``extra`` just before the trailing reference list (or at the end)."""
         lines = text.splitlines()
         idx = next(
-            (i for i, ln in enumerate(lines) if re.match(r"^#{1,6}\s*(参考来源|References?)\b", ln.strip(), re.IGNORECASE)),
+            (i for i, ln in enumerate(lines) if re.match(r"^#{1,6}\s*(参考来源|References?\b)", ln.strip(), re.IGNORECASE)),
             None,
         )
         if idx is None:
@@ -824,7 +824,7 @@ class DeepResearchEngine:
             (
                 i
                 for i, ln in enumerate(lines)
-                if re.match(r"^#{1,6}\s*(参考来源|References?)\b", ln.strip(), re.IGNORECASE)
+                if re.match(r"^#{1,6}\s*(参考来源|References?\b)", ln.strip(), re.IGNORECASE)
             ),
             None,
         )
