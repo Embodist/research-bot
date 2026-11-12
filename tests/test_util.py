@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import timedelta
 
 import pytest
 
@@ -9,6 +10,7 @@ from research_bot.util import (
     html_to_text,
     is_recent,
     norm_url,
+    now_utc,
     parse_date,
     slugify,
     stable_id,
@@ -59,8 +61,12 @@ def test_stable_id_deterministic():
 
 def test_parse_date_and_recent():
     assert parse_date("2026-10-02").year == 2026
-    assert is_recent("2026-10-01", 30) is True
-    assert is_recent("2001-01-01", 30) is False
+    # Relative to today so the assertion never rots as the clock advances.
+    today = now_utc()
+    fresh = (today - timedelta(days=1)).strftime("%Y-%m-%d")
+    stale = (today - timedelta(days=400)).strftime("%Y-%m-%d")
+    assert is_recent(fresh, 30) is True
+    assert is_recent(stale, 30) is False
     assert is_recent(None, 30) is True
 
 

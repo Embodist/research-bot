@@ -241,8 +241,8 @@ Skills configured in `research.skills` are injected into every planner/researche
 A topic = a standing research beat. Each `topics/<name>.yaml` combines seed queries, target venues, and a
 curated seed catalogue (classic papers / projects / datasets) so a useful report is possible even when the
 network is restricted. Ships with: `vla`, `embodied-ai`, `kinematics`, `cpp-robotics`, `ros2`,
-`cybersecurity`, `ai`, `music-audio`, and embodied sub-directions `embodied-humanoid`,
-`embodied-manipulation`, `embodied-world-models`.
+`cybersecurity`, `agentguard` (LLM guardrails + agent security), `ai`, `music-audio`, and embodied
+sub-directions `embodied-humanoid`, `embodied-manipulation`, `embodied-world-models`.
 
 Add your own:
 
@@ -327,9 +327,9 @@ Required repository secrets (**Settings → Secrets and variables → Actions**)
 | `GITHUB_TOKEN` | provided automatically; used for higher GitHub API rate limits |
 
 The schedule is `cron: '0 22 * * *'` (22:00 UTC = 06:00 Asia/Shanghai) and runs **only the incremental
-watch**. The tracked domains are committed as the `WATCH_QUERIES` default in the workflow — seven fast-moving
-frontiers: the Embodied AI · VLA · robotics core plus value alignment, agent evaluation & safety, AI
-governance, and cybersecurity (CVEs, ATT&CK TTPs, trends, impact, defences) — and can be overridden with a
+watch**. The tracked domains are committed as the `WATCH_QUERIES` default in the workflow — eight fast-moving
+frontiers: the Embodied AI · VLA · robotics core plus value alignment, agent evaluation, AI governance,
+cybersecurity, and AgentGuard (LLM guardrails + agent security) — and can be overridden with a
 repo Variable of the same name. One-off runs (research / knowledge)
 are triggered on demand from the Actions tab: `mode` (`research`/`knowledge`/`watch`), `topic` or `query`,
 `depth`, `send_email`.
