@@ -167,7 +167,7 @@ email:
 
 | Command | Purpose |
 | --- | --- |
-| `rb run [--topic X] [--query "..."] [--knowledge\|--watch] [--depth quick\|standard\|deep] [--rounds N] [--no-fetch] [--email] [--dry-run-email] [--json] [--kb]` | run the deep-research pipeline (`--knowledge` = 7-facet knowledge map; `--watch` = 7-facet increment snapshot; `--kb` = record into the knowledge base) |
+| `rb run [--topic X] [--query "..."] [--knowledge\|--watch] [--depth quick\|standard\|deep] [--rounds N] [--no-fetch] [--email] [--dry-run-email] [--allow-degraded] [--json] [--kb]` | run the deep-research pipeline (`--knowledge` = 7-facet knowledge map; `--watch` = 7-facet increment snapshot; `--kb` = record into the knowledge base). If the LLM is unavailable the run is marked **degraded**: the retrieval-only report is archived as `*-degraded` but not emailed/recorded, and the run exits non-zero (override with `--allow-degraded`) |
 | `rb serve [--host H] [--port P] [--workers N]` | run the HTTP research service (async job API) |
 | `rb doctor` | check LLM, every search engine, skills/topics, email config |
 | `rb skills [list\|show <name>]` | inspect skills (local + DeerFlow submodule) |

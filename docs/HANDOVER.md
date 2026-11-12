@@ -218,11 +218,15 @@ git push origin main
    `if not cfg.enabled: "email disabled"` 会直接拦下。CI 无 `config.yaml`（默认 `enabled:false`），故线上
    即使传了 `--email` 也**只回提交报告、不发邮件**（日志里 `sent=False error=email disabled`）。修复：
    `args.email` 为真时强制 `cfg.email.enabled=True`（回归测试 `tests/test_cli.py`）；本地/CI 均恢复正常发信。
-12. **LLM 额度耗尽会静默降级（2026-10-25）**：网关账户余额不足时返回 `insufficient_user_quota`
-   （此前可能先报 `model_not_found` 503），planner/extraction/synthesis 全部失败，引擎输出**确定性兜底报告**
-   ——而 **CI 仍显示绿**。日志特征：`synthesis LLM failed` / `using seed-query fallback plan` /
-   `emitting deterministic report`，报告通常只有 1–2 维、coverage 大量 gap。处理：充值或更换
-   `LLM_API_KEY` / `LLM_BASE_URL`；额度不足期间产出的报告**不可信**。建议加 `--strict-llm` 让 CI 显式失败。
+12. **LLM 额度耗尽会静默降级（2026-10-25）→ 已加硬门控（2026-11-12）**：网关余额不足/超时时，
+   planner/extraction/synthesis 失败，引擎会输出**确定性兜底报告**。此前这报告**照样发邮件、照样入库、
+   覆盖 `latest/`**，而 CI 仍显示绿。现修复：
+   - `ResearchResult.degraded` 标记降级；CLI **不投递**降级报告（不发邮件、不入 KB、不写 feed），
+     并**以非零退出**让 CI 变红（`--allow-degraded` 可显式接受）；
+   - 降级报告另存为 `<date>-<topic>-degraded.md`，**不覆盖** `latest/` 与正式归档；
+   - `llm.timeout` 默认 240s → **600s**（550B 模型写长报告易超时），且**超时最多重试 1 次**
+     （避免 4×600s 拖死流水线）。
+   日志特征仍是 `emitting deterministic report` + `DEGRADED:`。
 
 ## 11. 待办 / 下一步
 

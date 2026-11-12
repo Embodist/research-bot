@@ -128,3 +128,70 @@ def test_watch_run_sends_increment_digest_and_writes_feed(monkeypatch, tmp_path)
     assert sent and sent[0]["topic"] == "demo"
     assert sent[0]["new_works"][0]["title"] == "Paper A"
     assert list((tmp_path / "report" / "feed").glob("*.json"))
+
+
+def _degraded_engine(monkeypatch, tmp_path):
+    class _DegradedEngine(_FakeEngine):
+        def run(self, topic, query="", depth=None, rounds=None, progress=None):
+            return SimpleNamespace(
+                topic=topic.name,
+                title=topic.title,
+                report_md="# degraded\n> 本报告在 LLM 不可用时由检索结果自动生成（降级模式）",
+                references=[{"n": 1, "title": "src", "url": "https://example.org"}],
+                subquestions=[],
+                degraded=True,
+                degraded_reason="synthesis failed: timed out",
+            )
+
+    cfg = _wrap(copy.deepcopy(DEFAULTS))
+    cfg.email.enabled = False
+    cfg.kb.enabled = False
+    cfg.kb.path = str(tmp_path / "kb.db")
+    monkeypatch.setattr(cli, "load_config", lambda *a, **k: (cfg, tmp_path))
+    monkeypatch.setattr(cli, "DeepResearchEngine", _DegradedEngine)
+    monkeypatch.setattr(cli, "git_metadata", lambda home: {})
+    monkeypatch.setattr(
+        cli,
+        "save_report",
+        lambda home, cfg, result, run_meta=None: (
+            {
+                "id": f"2026-11-12-{result.topic}",
+                "topic": result.topic,
+                "depth": "quick",
+                "report_path": f"report/latest/{result.topic}.md",
+                "json_path": "",
+                "sources": 1,
+                "findings": 0,
+                "duration_s": 1.0,
+                "run_url": "",
+            },
+            home / f"report/latest/{result.topic}.md",
+        ),
+    )
+    monkeypatch.setattr(cli, "record_email", lambda *a, **k: None)
+    calls: list[str] = []
+    monkeypatch.setattr(
+        cli,
+        "send_report",
+        lambda *a, **k: calls.append("sent") or {"sent": True, "to": ["x@y.z"], "error": None},
+    )
+    monkeypatch.setattr(
+        cli,
+        "send_increment",
+        lambda *a, **k: calls.append("inc") or {"sent": True, "to": ["x@y.z"], "error": None},
+    )
+    return calls
+
+
+def test_degraded_run_is_not_emailed_and_fails(monkeypatch, tmp_path):
+    calls = _degraded_engine(monkeypatch, tmp_path)
+    rc = cli.cmd_run(_namespace(email=True, watch=True, query="demo", kb=True))
+    assert rc == 1            # CI must not report success
+    assert calls == []        # nothing delivered
+    assert not (tmp_path / "report" / "feed").exists()  # no feed written
+
+
+def test_degraded_run_can_be_accepted_explicitly(monkeypatch, tmp_path):
+    _degraded_engine(monkeypatch, tmp_path)
+    rc = cli.cmd_run(_namespace(email=True, watch=True, query="demo", kb=True, allow_degraded=True))
+    assert rc == 0

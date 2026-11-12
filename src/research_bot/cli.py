@@ -102,6 +102,12 @@ def cmd_run(args: argparse.Namespace) -> int:
             f"{record['duration_s']}s)",
             file=sys.stderr,
         )
+        if getattr(result, "degraded", False):
+            print(
+                f"  ! DEGRADED: {getattr(result, 'degraded_reason', 'LLM unavailable')} — "
+                "report archived but will not be emailed or recorded",
+                file=sys.stderr,
+            )
 
     # ---- knowledge / watch coverage ---------------------------------------
     coverage: list[dict] = []
@@ -122,6 +128,8 @@ def cmd_run(args: argparse.Namespace) -> int:
         cov_by_topic = {rec["topic"]: cov for (_, _, rec, _), cov in zip(saved, coverage, strict=False)}
         with open_store(home, cfg) as store:
             for _, result, record, _ in saved:
+                if getattr(result, "degraded", False):
+                    continue  # never let a fallback report pollute the knowledge base
                 tid = store.upsert_topic(result.topic, title=result.title, mode=frame or "research")
                 rid = store.record_report(
                     tid,
@@ -169,6 +177,10 @@ def cmd_run(args: argparse.Namespace) -> int:
     # Without it, CI (no config.yaml, so email.enabled defaults false) never sends.
     if args.email:
         cfg.email.enabled = True
+    degraded_topics = [r.topic for _, r, _, _ in saved if getattr(r, "degraded", False)]
+    if degraded_topics:
+        # A fallback report is retrieval-only and unvetted; never deliver it.
+        print(f"  degraded: {', '.join(degraded_topics)} — skipped email/KB/feed", file=sys.stderr)
     if (
         push_requested
         and frame == "watch"
@@ -183,6 +195,8 @@ def cmd_run(args: argparse.Namespace) -> int:
             # Increment subscription: send only new works + trending, never the
             # full 7-facet snapshot (which stays in the archive).
             for _, result, record, _ in saved:
+                if getattr(result, "degraded", False):
+                    continue
                 digest = digests.get(result.topic)
                 if digest is None:
                     continue
@@ -193,13 +207,21 @@ def cmd_run(args: argparse.Namespace) -> int:
                     file=sys.stderr,
                 )
         elif getattr(cfg.email, "digest", False) and len(saved) > 1:
-            paths = [p for _, _, _, p in saved]
-            rec = send_digest(cfg.email, [r for _, r, _, _ in saved], report_paths=paths, dry_run=args.dry_run_email)
-            for _, _, record, _ in saved:
-                record_email(home, cfg, record, rec)
-            print(f"  email(digest): sent={rec['sent']} to={rec['to']} error={rec['error']}", file=sys.stderr)
+            deliverable = [(t, r, rec, p) for t, r, rec, p in saved if not getattr(r, "degraded", False)]
+            if not deliverable:
+                push_requested = False
+            else:
+                paths = [p for _, _, _, p in deliverable]
+                rec = send_digest(
+                    cfg.email, [r for _, r, _, _ in deliverable], report_paths=paths, dry_run=args.dry_run_email
+                )
+                for _, _, record, _ in deliverable:
+                    record_email(home, cfg, record, rec)
+                print(f"  email(digest): sent={rec['sent']} to={rec['to']} error={rec['error']}", file=sys.stderr)
         else:
             for _, result, record, md_path in saved:
+                if getattr(result, "degraded", False):
+                    continue
                 rec = send_report(cfg.email, result, report_path=md_path, dry_run=args.dry_run_email)
                 record_email(home, cfg, record, rec)
                 print(f"  email[{result.topic}]: sent={rec['sent']} to={rec['to']} error={rec['error']}", file=sys.stderr)
@@ -212,6 +234,13 @@ def cmd_run(args: argparse.Namespace) -> int:
         print(json.dumps(records, ensure_ascii=False, indent=2))
     if failed:
         print(f"failed topics: {', '.join(failed)}", file=sys.stderr)
+    if degraded_topics and not getattr(args, "allow_degraded", False):
+        print(
+            "  ! run DEGRADED: LLM unavailable — failing the run so CI cannot report success "
+            "(pass --allow-degraded to accept a retrieval-only report)",
+            file=sys.stderr,
+        )
+        return 1
     return 0 if saved or not topics else 1
 
 
@@ -463,6 +492,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--email", action="store_true", help="force email even if disabled in config")
     p_run.add_argument("--no-email", action="store_true", help="never send email")
     p_run.add_argument("--dry-run-email", action="store_true", help="render email but do not send")
+    p_run.add_argument(
+        "--allow-degraded",
+        action="store_true",
+        help="accept a retrieval-only report when the LLM is unavailable (default: fail the run)",
+    )
     p_run.add_argument("--json", action="store_true", help="print the run records as JSON")
     p_run.add_argument("--knowledge", action="store_true", help="build a 7-facet knowledge map (learn a domain) instead of a topic run")
     p_run.add_argument("--watch", action="store_true", help="build a 7-facet increment report (changes/blue-ocean/industry/society) instead of a topic run")

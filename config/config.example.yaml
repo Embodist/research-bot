@@ -25,7 +25,9 @@ llm:
   # If the synthesised report cites too little, one bounded "add [n] citations"
   # pass is made and adopted only when it measurably improves coverage.
   citation_repair: true
-  timeout: 240
+  # A 550B model writing a long report can exceed a short timeout; 600s is
+  # generous enough to avoid spurious synthesis failures.
+  timeout: ${LLM_TIMEOUT:-600}
   max_retries: 3
   # Named tiers used by the pipeline (fast for extraction, strong for synthesis)
   tiers:

@@ -66,7 +66,7 @@ DEFAULTS: dict[str, Any] = {
         # After synthesis, if the report's citation rate is low, make ONE bounded
         # "add [n] citations" pass and adopt it only if it measurably improves.
         "citation_repair": True,
-        "timeout": 240,
+        "timeout": "${LLM_TIMEOUT:-600}",
         "max_retries": 3,
         "tiers": {
             "fast": "${LLM_MODEL_FAST:-nvidia/nemotron-3-ultra-550b-a55b}",

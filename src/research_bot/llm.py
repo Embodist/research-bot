@@ -97,6 +97,7 @@ class LLM:
         url = f"{self.base_url}/chat/completions"
         headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
         last: Exception | None = None
+        timeouts = 0
         for attempt in range(self.max_retries + 1):
             try:
                 resp = httpx.post(url, headers=headers, json=payload, timeout=self.timeout)
@@ -123,6 +124,12 @@ class LLM:
                 # Don't waste retries on a definitively missing model.
                 if "model_not_found" in str(exc).lower() or "no available channel" in str(exc).lower():
                     raise LLMError(str(exc)) from exc
+                # A long-running generation that times out is unlikely to be
+                # transient, and each retry costs the full timeout: retry once.
+                if isinstance(exc, httpx.TimeoutException):
+                    timeouts += 1
+                    if timeouts > 1:
+                        raise LLMError(f"chat timed out after {self.timeout:.0f}s (retried once)") from exc
                 if attempt < self.max_retries:
                     time.sleep(min(2**attempt, 8))
                     continue

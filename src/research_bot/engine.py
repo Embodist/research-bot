@@ -223,6 +223,10 @@ class ResearchResult:
     skills: list[str] = field(default_factory=list)
     llm_stats: dict[str, Any] = field(default_factory=dict)
     models: dict[str, str] = field(default_factory=dict)
+    # Set when the report was produced without a working LLM (deterministic
+    # fallback). Such a report must not be emailed or recorded as knowledge.
+    degraded: bool = False
+    degraded_reason: str = ""
 
     def to_dict(self, include_sources: bool = True) -> dict[str, Any]:
         data: dict[str, Any] = {
@@ -274,6 +278,7 @@ class DeepResearchEngine:
         self.skills: list[Skill] = select_skills(self.all_skills, skill_names)
         # Populated per-run from the topic; drives the relevance gate.
         self._topic_keywords: set[str] = set()
+        self._degraded_reason: str = ""
 
     # ------------------------------------------------------------------ utils
     def _say(self, progress: Progress | None, message: str) -> None:
@@ -678,6 +683,7 @@ class DeepResearchEngine:
                 return self._prune_references(text, refs)
         except LLMError as exc:
             log.warning("synthesis LLM failed (%s); emitting deterministic report", exc)
+            self._degraded_reason = f"synthesis failed: {exc}"
         return self._fallback_report(topic, plan, subquestions, refs)
 
     @staticmethod
@@ -970,7 +976,12 @@ class DeepResearchEngine:
             subquestions.extend(new_subs)
 
         self._say(progress, "[synthesize] writing report")
+        self._degraded_reason = ""
         report_md = self.synthesize(topic, plan, subquestions, registry)
+        if not self._degraded_reason and not any(
+            (s.extraction.get("findings") or []) for s in subquestions
+        ):
+            self._degraded_reason = "no findings extracted (LLM extraction unavailable)"
         finished = now_utc()
         result = ResearchResult(
             topic=topic.name,
@@ -991,6 +1002,8 @@ class DeepResearchEngine:
             skills=[s.name for s in self.skills],
             llm_stats=self.llm.stats(),
             models={"primary": self.llm.model, "tiers": dict(self.llm.tiers)},
+            degraded=bool(self._degraded_reason),
+            degraded_reason=self._degraded_reason,
         )
         return result
 

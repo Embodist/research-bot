@@ -34,7 +34,9 @@ def report_paths(home: Path, cfg: Any, result: ResearchResult) -> tuple[Path, Pa
     date = date_stamp()
     parts = date.split("-")
     dated_dir = base / parts[0] / parts[1]
-    stem = f"{date}-{result.topic}"
+    # A degraded (LLM-unavailable) report must never overwrite a real one.
+    suffix = "-degraded" if getattr(result, "degraded", False) else ""
+    stem = f"{date}-{result.topic}{suffix}"
     return dated_dir / f"{stem}.md", dated_dir / f"{stem}.json"
 
 
@@ -96,7 +98,7 @@ def save_report(home: Path, cfg: Any, result: ResearchResult, *, run_meta: dict[
         }
         json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    if cfg.report.keep_latest:
+    if cfg.report.keep_latest and not getattr(result, "degraded", False):
         latest = _report_dir(home, cfg) / "latest" / f"{result.topic}.md"
         latest.parent.mkdir(parents=True, exist_ok=True)
         latest.write_text(result.report_md, encoding="utf-8")
@@ -122,6 +124,8 @@ def save_report(home: Path, cfg: Any, result: ResearchResult, *, run_meta: dict[
         "report_path": str(md_path.relative_to(home)),
         "json_path": str(json_path.relative_to(home)),
         "summary": truncate(result.plan.get("summary", ""), 400),
+        "degraded": bool(getattr(result, "degraded", False)),
+        "degraded_reason": getattr(result, "degraded_reason", ""),
         "email": {"sent": False, "to": [], "ts": None, "error": None},
         "git": (run_meta or {}).get("git", {}),
         "run_url": (run_meta or {}).get("run_url", ""),
