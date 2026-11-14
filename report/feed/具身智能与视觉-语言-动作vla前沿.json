@@ -1,103 +1,83 @@
 {
   "topic": "具身智能与视觉-语言-动作vla前沿",
-  "title": "具身智能与视觉-语言-动作（VLA）前沿增量追踪深度调研计划",
-  "generated_at": "2026-11-13T02:21:51+00:00",
-  "run_url": "https://github.com/Embodist/research-bot/actions/runs/43350395806",
-  "report_path": "report/2026/11/2026-11-13-具身智能与视觉-语言-动作vla前沿.md",
+  "title": "具身智能与视觉-语言-动作（VLA）前沿增量追踪报告",
+  "generated_at": "2026-11-14T02:20:22+00:00",
+  "run_url": "https://github.com/Embodist/research-bot/actions/runs/43543143452",
+  "report_path": "report/2026/11/2026-11-14-具身智能与视觉-语言-动作vla前沿.md",
   "increment": {
-    "new": 26,
-    "updated": 7,
+    "new": 21,
+    "updated": 9,
     "known": 0,
-    "changed": 33
+    "changed": 30
   },
   "new_works": [
     {
-      "key": "performance-analysis-of-vision-language-action-models-evaluating-turkish-command-understanding-in-openvla",
-      "title": "Performance Analysis of Vision-Language-Action Models: Evaluating Turkish Command Understanding in OpenVLA",
-      "kind": "paper",
-      "url": "https://doi.org/10.1109/siu71813.2026.11636432",
-      "year": "2026",
-      "_year": 2026,
-      "why": "首次在学术会议上系统评测 OpenVLA 的多语言(土耳其语)指令理解能力",
-      "heat": "citations=0",
-      "authority": "SIU 2026 会议论文",
-      "attention": "低，刚发表",
-      "recommendation": "★★★☆☆ 追踪多语言 VLA 评测基准建设"
-    },
-    {
-      "key": "alpamayo-r1",
-      "title": "Alpamayo-R1",
-      "kind": "project",
-      "url": "",
+      "key": "libero-perm",
+      "title": "LIBERO-PeRM",
+      "kind": "dataset",
+      "url": "http://arxiv.org/abs/2610.22372v1",
       "year": "",
       "_year": 0,
-      "why": "基于 Qwen3-VL 的 VLA 驾驶模型，支持推理时注意力干预，在 Physical AI World Model Synthetic 数据集验证",
+      "why": "个性化机器人操作基准数据集，包含任务完成与偏好满足的分离标注",
       "heat": "",
-      "authority": "arXiv 预印本项目，非官方开源仓库",
-      "attention": "中，新方法原型系统",
-      "recommendation": "★★★☆☆ 关注其开源进展与真车部署情况"
+      "authority": "LIBERO 团队发布，arXiv 预印本",
+      "attention": "中 - 新发布基准，使用度待观察",
+      "recommendation": "★★★★☆ - 填补个性化操作评测空白"
+    },
+    {
+      "key": "libero-para",
+      "title": "LIBERO-Para",
+      "kind": "dataset",
+      "url": "http://arxiv.org/abs/2603.28301v3",
+      "year": "",
+      "_year": 0,
+      "why": "VLA 指令改写鲁棒性诊断基准，提供改写指令集合与评测指标",
+      "heat": "",
+      "authority": "LIBERO 团队发布，arXiv 预印本",
+      "attention": "中 - 针对 VLA 关键痛点的专项基准",
+      "recommendation": "★★★★☆ - 直接服务于 VLA 真机泛化评测需求"
     }
   ],
   "new_findings": [
     {
-      "key": "vla驾驶模型将推理阶段与基于扩散的轨迹解码器耦合但在推理时缺乏无需重训练即可将注意力重定向至安全关键参与者的直接机制",
-      "text": "VLA驾驶模型将推理阶段与基于扩散的轨迹解码器耦合，但在推理时缺乏无需重训练即可将注意力重定向至安全关键参与者的直接机制。",
-      "evidence": "论文提出在Alpamayo-R1的Qwen3-VL骨干网络上，对检测器定位的交通参与者视觉token施加有界加性pre-softmax注意力偏置，实现推理时注意力引导。"
+      "key": "vla-驾驶模型可在推理阶段通过注意力偏向机制无需重训练即可将视觉注意力重定向至安全关键交通参与者",
+      "text": "VLA 驾驶模型可在推理阶段通过注意力偏向机制，无需重训练即可将视觉注意力重定向至安全关键交通参与者",
+      "evidence": "论文提出在 Alpamayo-R1 的 Qwen3-VL 主干上施加有界加性 pre-softmax 注意力偏置，作用于检测器定位的交通参与者视觉 token，实现推理时的注意力引导"
     },
     {
-      "key": "vla导航模型虽在语义动作预测上表现强劲但根本受限于视觉推理幻觉导致的轨迹偏离然而模型内部已存在可用于路径偏离检测的注意力头无需训练外部分类器",
-      "text": "VLA导航模型虽在语义动作预测上表现强劲，但根本受限于视觉推理幻觉导致的轨迹偏离；然而模型内部已存在可用于路径偏离检测的注意力头，无需训练外部分类器。",
-      "evidence": "论文发现VLA模型固有的注意力头可直接用于路径偏离检测，避免了传统方法需训练外部分类器的开销。"
+      "key": "现有-vla-模型内部已存在可用于路径偏离检测的注意力头无需额外训练即可缓解视觉推理幻觉导致的轨迹偏移",
+      "text": "现有 VLA 模型内部已存在可用于路径偏离检测的注意力头，无需额外训练即可缓解视觉推理幻觉导致的轨迹偏移",
+      "evidence": "研究发现 VLA 模型固有的注意力头可直接用于路径偏离检测，传统做法需训练外部模块，该发现可简化部署流程"
     },
     {
-      "key": "当前vla驾驶模型在推理阶段无法灵活干预注意力分布以聚焦安全关键目标需重训练或外部模块属于部署层面的瓶颈",
-      "text": "当前VLA驾驶模型在推理阶段无法灵活干预注意力分布以聚焦安全关键目标，需重训练或外部模块，属于部署层面的瓶颈。",
-      "evidence": "论文[9]明确指出VLA驾驶模型\"do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining\"。"
+      "key": "lerobot-是一个面向端到端机器人学习的开源库整合了从低级控制到高层策略的完整机器人学习栈",
+      "text": "LeRobot 是一个面向端到端机器人学习的开源库，整合了从低级控制到高层策略的完整机器人学习栈",
+      "evidence": "论文指出 LeRobot 整合了整个机器人学习栈，从低级中间件到数据收集、训练、评估与部署，旨在解决工具碎片化、闭源的问题"
     },
     {
-      "key": "vla模型在导航任务中普遍存在视觉推理幻觉导致轨迹偏离这是阻碍其可靠部署的根本算法瓶颈",
-      "text": "VLA模型在导航任务中普遍存在视觉推理幻觉导致轨迹偏离，这是阻碍其可靠部署的根本算法瓶颈。",
-      "evidence": "论文[10]指出VLA模型\"fundamentally hindered by visual-reasoning hallucinations that lead to trajectory deviations\"。"
+      "key": "已在单张消费级-gpu-上实现-pi0-级多视角-vla-的-30hz-帧率与最高-480hz-轨迹频率实时推理",
+      "text": "已在单张消费级 GPU 上实现 pi0 级多视角 VLA 的 30Hz 帧率与最高 480Hz 轨迹频率实时推理",
+      "evidence": "论文展示了一组消除模型推理开销的策略，使大型 VLA 能在动态实时任务中运行，真机实验验证了 pi0 策略的实时性能"
     },
     {
-      "key": "近期vla研究呈现关注注意力机制可解释性与推理时干预的趋势旨在无需重训练提升安全性",
-      "text": "近期VLA研究呈现关注注意力机制可解释性与推理时干预的趋势，旨在无需重训练提升安全性。",
-      "evidence": "论文[9]提出推理时注意力引导，论文[10]挖掘现有注意力头用于偏离检测，均聚焦注意力层面的安全增强。"
+      "key": "vla-adapter-提出微小规模-vla-模型范式通过适配器高效桥接视觉语言表征到动作空间大幅降低训练成本",
+      "text": "VLA-Adapter 提出微小规模 VLA 模型范式，通过适配器高效桥接视觉语言表征到动作空间，大幅降低训练成本",
+      "evidence": "论文研究如何有效连接 VL 表征与动作，引入 VLA-Adapter 范式，在保持性能的前提下减少大规模预训练开销"
     },
     {
-      "key": "rt-2-是-google-deepmind-提出的奠基性-vla-模型将机器人动作建模为符号语言实现从网络规模数据到低层操作的知识迁移",
-      "text": "RT-2 是 Google DeepMind 提出的奠基性 VLA 模型，将机器人动作建模为符号语言，实现从网络规模数据到低层操作的知识迁移",
-      "evidence": "RT-2 通过动作标记化与联合微调，实现了零样本泛化、涌现推理能力与真机部署能力的显著提升"
+      "key": "推理阶段注意力引导技术可在不重训练情况下将-vla-驾驶模型的视觉注意力偏向安全关键交通参与者",
+      "text": "推理阶段注意力引导技术可在不重训练情况下，将 VLA 驾驶模型的视觉注意力偏向安全关键交通参与者",
+      "evidence": "在 Alpamayo-R1 的 Qwen3-VL 主干上施加有界加性 pre-softmax 注意力偏置，实现零权重变更的即插即用安全增强，车道变更场景下横向位移达 ~140 cm"
     },
     {
-      "key": "openvla-作为开源-vla-模型被用于多语言指令理解评测土耳其语指令",
-      "text": "OpenVLA 作为开源 VLA 模型被用于多语言指令理解评测（土耳其语指令）",
-      "evidence": "2026 年 SIU 会议论文对 OpenVLA 进行土耳其语指令理解的性能分析，说明 OpenVLA 已成为社区评测基准模型之一"
+      "key": "libero-perm-引入了个性化机器人操作基准旨在将任务完成与偏好满足分离评估",
+      "text": "LIBERO-PeRM 引入了个性化机器人操作基准，旨在将任务完成与偏好满足分离评估",
+      "evidence": "LIBERO-PeRM 是一个用于具身智能中偏好学习的基准，解决通用机器人向家庭环境过渡时的个性化需求，提供受控环境分离任务完成度与用户偏好满足度"
     },
     {
-      "key": "vla-驾驶模型采用推理阶段与扩散轨迹解码器耦合架构且可在推理时通过注意力偏向机制重定向视觉注意力",
-      "text": "VLA 驾驶模型采用推理阶段与扩散轨迹解码器耦合架构，且可在推理时通过注意力偏向机制重定向视觉注意力",
-      "evidence": "Alpamayo-R1 基于 Qwen3-VL 主干，在 Physical AI World Model Synthetic 数据集的 50 个变道场景中，通过有界加性 pre-softmax 注意力偏置实现约 17 cm 平均横向位移、最高 ~140 cm 侧向偏移"
-    },
-    {
-      "key": "rt-dc-robotics-transformer-distillationcontrol-存在相关演示视频暗示-rt-系列有后续变体",
-      "text": "RT-DC (Robotics Transformer - Distillation/Control?) 存在相关演示视频，暗示 RT 系列有后续变体",
-      "evidence": "eLife 期刊补充材料包含 \"Video 1. RT-DC in action\"，表明 RT 系列模型有实际运行演示"
-    },
-    {
-      "key": "候选证据中缺乏直接针对-vlavision-language-action开源工程实践产业落地与生态演变信号的文献",
-      "text": "候选证据中缺乏直接针对 VLA（Vision-Language-Action）开源工程实践、产业落地与生态演变信号的文献",
-      "evidence": "提供的 4 篇候选文献分别涉及：短视频互动预测挑战 [2]、基础模型透明度指数 [1]、机器人策略仿真到实机迁移基准视角 [24]、真实机器人挑战赛的抓取与运动规划 [23]，均未覆盖 VLA 模型的开源工程栈、商业化部署案例、融资/政策/人才流动等生态信号。"
-    },
-    {
-      "key": "机器人策略评测基准正从纯仿真转向仿真-实机迁移评测强调泛化性基准的缺失",
-      "text": "机器人策略评测基准正从纯仿真转向仿真-实机迁移评测，强调泛化性基准的缺失",
-      "evidence": "论文 [24] 指出当前视觉机器人仿真基准已显著推动研究，但面向真实世界应用的通用策略评测滞后，讨论了设计通用机器人操作策略基准的挑战与期望。"
-    },
-    {
-      "key": "真实机器人挑战赛为灵巧手操作提供了标准化竞赛平台与基准",
-      "text": "真实机器人挑战赛为灵巧手操作提供了标准化竞赛平台与基准",
-      "evidence": "论文 [23] 描述了 Real Robot Challenge 三阶段灵巧操作竞赛，基于 TriFinger 平台操作矩形物体，结合运动规划与运动基元的方法获得冠军。"
+      "key": "libero-para-提出了针对-vla-模型指令改写鲁棒性的诊断基准与指标",
+      "text": "LIBERO-Para 提出了针对 VLA 模型指令改写鲁棒性的诊断基准与指标",
+      "evidence": "VLA 模型在下游微调时因数据有限易过拟合特定指令表述，LIBERO-Para 系统性评估模型对改写指令的鲁棒性，提供诊断性指标"
     }
   ],
   "trending": [
@@ -106,49 +86,65 @@
       "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
       "kind": "paper",
       "url": "http://arxiv.org/abs/2608.17095v1",
-      "seen_count": 41,
-      "why": "提出推理时通过注意力偏置干预 VLA 驾驶模型行为的新范式，无需重新训练"
+      "seen_count": 43,
+      "why": "推理时注意力干预实现 VLA 行为安全引导，无需重训练，工程集成友好"
     },
     {
-      "key": "physical-ai-world-model-synthetic-dataset",
-      "title": "Physical AI World Model Synthetic dataset",
-      "kind": "dataset",
-      "url": "",
-      "seen_count": 8,
-      "why": "用于验证 VLA 驾驶模型推理时注意力干预效果的合成数据集，包含 50 个变道场景"
+      "key": "running-vlas-at-real-time-speed",
+      "title": "Running VLAs at Real-time Speed",
+      "kind": "paper",
+      "url": "http://arxiv.org/abs/2510.26742v1",
+      "seen_count": 12,
+      "why": "首次在单张消费级 GPU 上实现 30Hz/480Hz 实时 VLA 推理，提供完整工程优化包"
+    },
+    {
+      "key": "lerobot-an-open-source-library-for-end-to-end-robot-learning",
+      "title": "LeRobot: An Open-Source Library for End-to-End Robot Learning",
+      "kind": "paper",
+      "url": "http://arxiv.org/abs/2602.22818v1",
+      "seen_count": 10,
+      "why": "机器人学习全栈开源框架，涵盖数据、训练、评估、部署，直接对应工程化部署栈构建"
     },
     {
       "key": "your-vision-language-action-model-already-has-attention-heads-for-path-deviation-detection",
       "title": "Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection",
       "kind": "paper",
       "url": "http://arxiv.org/abs/2603.13782v1",
-      "seen_count": 8,
-      "why": "发现VLA模型内部已编码路径偏离检测能力，无需外部分类器即可缓解幻觉导致的轨迹偏离"
+      "seen_count": 9,
+      "why": "发现 VLA 内部注意力头可直接用于路径偏离检测，为缓解视觉推理幻觉提供零样本方案"
     },
     {
-      "key": "robot-policy-evaluation-for-sim-to-real-transfer-a-benchmarking-perspective",
-      "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
-      "kind": "paper",
-      "url": "http://arxiv.org/abs/2508.11117v1",
-      "seen_count": 6,
-      "why": "系统讨论通用机器人策略在仿真到实机迁移中的评测挑战，为 VLA 模型的基准建设提供方法论参考"
+      "key": "lerobot",
+      "title": "LeRobot",
+      "kind": "project",
+      "url": "http://arxiv.org/abs/2602.22818v1",
+      "seen_count": 5,
+      "why": "Hugging Face 主导的端到端机器人学习开源库，覆盖数据采集、训练、评估、部署全流程"
     },
     {
-      "key": "rt-2-vision-language-action-models-for-generalizable-robotic-control-a-comprehensive-review",
-      "title": "RT-2: Vision-Language-Action Models for Generalizable Robotic Control: A Comprehensive Review",
+      "key": "vla-adapter-an-effective-paradigm-for-tiny-scale-vision-language-action-model",
+      "title": "VLA-Adapter: An Effective Paradigm for Tiny-Scale Vision-Language-Action Model",
       "kind": "paper",
-      "url": "https://doi.org/10.56028/aetr.15.1.1423.2025",
+      "url": "http://arxiv.org/abs/2509.09372v2",
       "seen_count": 4,
-      "why": "系统梳理 RT-2 架构、训练方法与零样本泛化能力，是理解 VLA 奠基工作 RT-2 的权威综述"
+      "why": "提出轻量化 VLA 适配器范式，降低训练/部署资源门槛"
     },
     {
-      "key": "grasp-and-motion-planning-for-dexterous-manipulation-for-the-real-robot-challenge",
-      "title": "Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge",
+      "key": "libero-para-a-diagnostic-benchmark-and-metrics-for-paraphrase-robustness-in-vla-models",
+      "title": "LIBERO-Para: A Diagnostic Benchmark and Metrics for Paraphrase Robustness in VLA Models",
       "kind": "paper",
-      "url": "http://arxiv.org/abs/2101.02842v1",
+      "url": "http://arxiv.org/abs/2603.28301v3",
       "seen_count": 2,
-      "why": "真实机器人挑战赛获胜方案，展示基于规划的灵巧操作基准，作为 VLA 端到端方法的对比基线"
+      "why": "系统性评估 VLA 对指令改写的鲁棒性，暴露微调过拟合问题，提供诊断指标"
+    },
+    {
+      "key": "libero-perm-benchmarking-personalized-robotic-manipulation",
+      "title": "LIBERO-PeRM: Benchmarking Personalized Robotic Manipulation",
+      "kind": "paper",
+      "url": "http://arxiv.org/abs/2610.22372v1",
+      "seen_count": 2,
+      "why": "首个将任务完成与偏好满足分离的个性化操作基准，推动家庭机器人个性化研究"
     }
   ],
-  "sources": 26
+  "sources": 30
 }
