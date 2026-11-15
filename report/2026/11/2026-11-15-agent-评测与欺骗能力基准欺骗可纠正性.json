@@ -1,0 +1,1106 @@
+{
+  "topic": "agent-评测与欺骗能力基准欺骗可纠正性",
+  "title": "Agent 评测与欺骗（能力基准、欺骗、可纠正性）深度调研计划",
+  "query": "Agent 评测与欺骗（能力基准、欺骗、可纠正性）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-15T01:44:43+00:00",
+  "finished_at": "2026-11-15T01:50:42+00:00",
+  "duration_s": 359.0,
+  "rounds": 1,
+  "plan": {
+    "title": "Agent 评测与欺骗（能力基准、欺骗、可纠正性）深度调研计划",
+    "summary": "系统梳理 Agent 评测体系演进、欺骗行为（谄媚、隐瞒能力、背叛性转向）的实证研究与理论建模、可纠正性（可关闭性、可修正性）的形式化定义与基准构建，识别近 1-2 年关键突破、工程落地现状、核心数据集与开放争议，形成可引用的证据地图。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近 1-2 年 Agent 能力基准与欺骗/可纠正性评测的前沿进展与 SOTA 变动是什么？",
+        "rationale": "锁定最新模型（GPT-4o, Claude 3.5, Gemini 1.5, Llama 3.1 等）在 AgentBench、SWE-bench Verified、TAU-bench、WebShop、OSWorld 等基准上的表现；追踪欺骗评测（MACHIAVELLI、Deception Eval、Sycophancy Benchmark、Sandbagging 评测）与可纠正性评测（Shutdownability、Corrigibility Benchmark）的最新论文、榜单刷新与第三方复现情况。",
+        "queries": [
+          "AgentBench SWE-bench Verified TAU-bench OSWorld 2024 2025 SOTA results",
+          "LLM agent deception benchmark sycophancy sandbagging treacherous turn 2024 2025",
+          "corrigibility shutdownability benchmark evaluation LLM agent 2024 2025",
+          "agent evaluation survey 2024 2025 benchmark taxonomy"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar",
+          "github"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "Agent 评测、欺骗建模与可纠正性研究的经典/奠基性工作有哪些？",
+        "rationale": "建立方法演进脉络：从早期 WebShop、ALFWorld、SayCan、Reflexion 到基础模型时代的 AgentBench；欺骗方向的奠基性理论（Instrumental Convergence, Reward Hacking, Sycophancy 定义）；可纠正性的形式化起源（Soares et al. 2015 Corrigibility, Hadfield-Menell et al. Off-Switch Game）及其向 LLM Agent 的迁移工作。",
+        "queries": [
+          "WebShop ALFWorld SayCan Reflexion agent benchmark foundational",
+          "corrigibility Soares 2015 off-switch game Hadfield-Menell",
+          "reward hacking specification gaming Amodei 2017",
+          "sycophancy definition LLM Perez 2022"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "主流开源评测框架、Agent 基础设施与红队/欺骗检测工具的工程实践现状如何？",
+        "rationale": "调研可直接复用的工程栈：LM Evaluation Harness、Inspect (UK AISI)、HELM、AgentBench 官方实现、OpenHands、AutoGPT、LangGraph、AgentOps 等框架的评测接口；红队工具（Garak, PromptFoo, Red-Teaming Framework）对欺骗行为的自动化检测能力；CI/CD 集成与在线评测平台（Open LLM Leaderboard, LMSYS Chatbot Arena Agent 板块）的部署情况。",
+        "queries": [
+          "LM Evaluation Harness Inspect HELM agent evaluation framework 2024",
+          "OpenHands AutoGPT LangGraph agent benchmark integration",
+          "Garak PromptFoo red teaming deception detection LLM agent",
+          "AgentBench official implementation GitHub"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近 1-2 年 Agent 能力基准与欺骗/可纠正性评测的前沿进展与 SOTA 变动是什么？",
+      "queries": [
+        "AgentBench SWE-bench Verified TAU-bench OSWorld 2024 2025 SOTA results",
+        "LLM agent deception benchmark sycophancy sandbagging treacherous turn 2024 2025",
+        "corrigibility shutdownability benchmark evaluation LLM agent 2024 2025",
+        "agent evaluation survey 2024 2025 benchmark taxonomy"
+      ],
+      "rationale": "锁定最新模型（GPT-4o, Claude 3.5, Gemini 1.5, Llama 3.1 等）在 AgentBench、SWE-bench Verified、TAU-bench、WebShop、OSWorld 等基准上的表现；追踪欺骗评测（MACHIAVELLI、Deception Eval、Sycophancy Benchmark、Sandbagging 评测）与可纠正性评测（Shutdownability、Corrigibility Benchmark）的最新论文、榜单刷新与第三方复现情况。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.036481,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+          "url": "http://arxiv.org/abs/2605.21404v1",
+          "snippet": "We read twelve well-known LLM agent benchmark papers and recorded, dimension by dimension, what each paper actually says about how its evaluation was run. The motivation came from a familiar frustration: two papers will report results on the same benchmark with the same model name and disagree, and you cannot tell why -- the scaffold, the sampling settings, the subset, or the evaluator version. In many cases the published artifact does not let you answer. This paper is an implementation report on the attempt. We designed a small audit schema (five fields: benchmark identity, harness specifica…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Mahdi Naser Moghadasi",
+            "Faezeh Ghaderi"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21404v1",
+            "rrf_score": 0.033982,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility",
+          "url": "http://arxiv.org/abs/2605.18805v2",
+          "snippet": "LLM recommender agents increasingly produce structured reports: sets of items accompanied by natural-language justifications. Yet existing benchmarks often focus on reranking small candidate sets or judging reports primarily by semantic plausibility, providing limited support for evaluating and training agents based on set-level utility. We introduce Recommender Atlas (Agentic Tasks for Learning and Assessment in Shopping), or RecoAtlas, a benchmark and reinforcement learning environment grounded in user behavior. RecoAtlas provides a shopping toolkit for product retrieval, complementarity, a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-11",
+          "authors": [
+            "Imad Aouali",
+            "Flavian Vasile",
+            "Clijo Jose",
+            "Otmane Sakhi",
+            "Alexandre Gilotte",
+            "Benjamin Heymann"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.18805v2",
+            "rrf_score": 0.033378,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "SWE-bench Goes Live!",
+          "url": "http://arxiv.org/abs/2505.23419v2",
+          "snippet": "The issue-resolving task, where a model generates patches to fix real-world bugs, has emerged as a critical benchmark for evaluating the capabilities of large language models (LLMs). While SWE-bench and its variants have become standard in this domain, they suffer from key limitations: they have not been updated since their initial releases, cover a narrow set of repositories, and depend heavily on manual effort for instance construction and environment setup. These factors hinder scalability and introduce risks of overfitting and data contamination. In this work, we present SWE-bench-Live, a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-29",
+          "authors": [
+            "Linghao Zhang",
+            "Shilin He",
+            "Chaoyun Zhang",
+            "Yu Kang",
+            "Bowen Li",
+            "Chengxing Xie",
+            "Junhao Wang",
+            "Maoquan Wang",
+            "Yufan Huang",
+            "Shengyu Fu",
+            "Elsie Nallipogu",
+            "Qingwei Lin",
+            "Yingnong Dang",
+            "Saravan Rajmohan",
+            "Dongmei Zhang"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.23419v2",
+            "rrf_score": 0.02459
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "LLM Agent 基准论文的评测透明度存在系统性缺失：同一基准、同一模型在不同论文中报告的结果常不一致，且论文往往未披露脚手架、采样设置、子集选择、评估器版本等关键复现细节。",
+            "evidence": "对 12 篇知名 LLM Agent 基准论文进行逐维度审计，设计了包含 5 个字段（基准身份、脚手架规范、推理设置、成本报告、失败分类）的审计模式与评分手册，发现已发布制品往往无法回答上述复现要素。",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.LG)",
+            "attention": "高：直接切中 Agent 基准可复现性痛点，提供可操作的审计框架",
+            "recommendation": "★★★★☆：为 Agent 基准评测规范化提供了一手审计证据与开放评分模式，极具参考价值"
+          },
+          {
+            "point": "SWE-bench 发布了实时更新版本（SWE-bench Live），解决了原版基准停止更新、覆盖仓库窄、高度依赖特定版本环境等局限，推动代码生成/问题解决类 Agent 评测向持续演进方向发展。",
+            "evidence": "SWE-bench Live 解决了原版自初始发布后未更新、仅覆盖有限仓库、强依赖特定环境版本等问题，成为实时评测 LLM 解决真实世界 bug 能力的新标准。",
+            "sources": [
+              10
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.SE)",
+            "attention": "高：SWE-bench 已成代码 Agent 评测事实标准，Live 版本直接影响后续 SOTA 对比",
+            "recommendation": "★★★★☆：代码类 Agent 必跟踪基准，Live 版本提升了评测的时效性与覆盖面"
+          },
+          {
+            "point": "推荐系统领域出现面向集合级效用优化的 LLM 推荐 Agent 基准 RecoAtlas，填补了现有基准多关注重排序小候选集或语义合理性、缺乏集合级效用评测与训练支持的空白。",
+            "evidence": "RecoAtlas 提供基准与 RL 环境，支持基于集合级效用评测和训练生成结构化报告（项集+自然语言理由）的 LLM 推荐 Agent。",
+            "sources": [
+              5
+            ],
+            "type": "benchmark",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.IR)",
+            "attention": "中：垂直领域新基准，关注度取决于推荐系统社区采纳程度",
+            "recommendation": "★★★☆☆：若关注推荐/决策类 Agent 评测方法论有参考价值，通用 Agent 基准参考性较弱"
+          },
+          {
+            "point": "当前候选证据中未覆盖 Agent 欺骗/可纠正性专用评测基准（如 MACHIAVELLI、DeceptionBench、CorrigibilityBench 等），该维度在近 1-2 年文献中属空白或需另行检索。",
+            "evidence": "四份候选证据分别聚焦短视频互动预测、Agent 基准审计、推荐 Agent 基准、代码修复基准，均未涉及欺骗行为检测、权力寻求、可纠正性量化等安全对齐评测维度。",
+            "sources": [
+              1,
+              4,
+              5,
+              10
+            ],
+            "type": "gap",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "基于候选证据的覆盖范围判断",
+            "attention": "高：欺骗/可纠正性评测是 Agent 安全核心缺口，亟需专项调研",
+            "recommendation": "★★★★★：必须另行检索专门针对 deception/corrigibility 的基准论文（如 MACHIAVELLI 2023、DeceptionBench 2024、Corrigibility 相关工作）"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+            "url": "http://arxiv.org/abs/2605.21404v1",
+            "why": "首次系统审计主流 Agent 基准论文的评测透明度，提出可复用的 5 维审计模式与评分手册，直接推动基准评测规范化。",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.LG)",
+            "attention": "高：切中 Agent 评测可复现性核心痛点",
+            "recommendation": "★★★★☆：Agent 基准构建者与使用者必读"
+          },
+          {
+            "title": "SWE-bench Goes Live!",
+            "url": "http://arxiv.org/abs/2505.23419v2",
+            "why": "将 SWE-bench 升级为实时更新的 Live 版本，解决数据污染、覆盖面窄、环境锁定等长期问题，重塑代码类 Agent SOTA 对比基线。",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.SE)",
+            "attention": "高：代码 Agent 评测事实标准的演进",
+            "recommendation": "★★★★☆：代码生成/软件工程 Agent 跟踪 SOTA 必备"
+          },
+          {
+            "title": "RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility",
+            "url": "http://arxiv.org/abs/2605.18805v2",
+            "why": "首个面向集合级效用的推荐 Agent 基准与 RL 环境，拓展了 Agent 评测从单项重排序到结构化报告生成的新范式。",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.IR)",
+            "attention": "中：垂直领域方法论创新",
+            "recommendation": "★★★☆☆：推荐/决策类 Agent 评测参考"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [
+          {
+            "name": "SWE-bench Live",
+            "url": "http://arxiv.org/abs/2505.23419v2",
+            "why": "实时更新的代码问题解决基准数据集，覆盖更广仓库、去除环境版本强依赖，支撑代码 Agent 持续 SOTA 追踪。",
+            "heat": "",
+            "authority": "arXiv preprint 配套数据集",
+            "attention": "高：代码 Agent 社区核心基准",
+            "recommendation": "★★★★☆"
+          }
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "Agent 评测、欺骗建模与可纠正性研究的经典/奠基性工作有哪些？",
+      "queries": [
+        "WebShop ALFWorld SayCan Reflexion agent benchmark foundational",
+        "corrigibility Soares 2015 off-switch game Hadfield-Menell",
+        "reward hacking specification gaming Amodei 2017",
+        "sycophancy definition LLM Perez 2022"
+      ],
+      "rationale": "建立方法演进脉络：从早期 WebShop、ALFWorld、SayCan、Reflexion 到基础模型时代的 AgentBench；欺骗方向的奠基性理论（Instrumental Convergence, Reward Hacking, Sycophancy 定义）；可纠正性的形式化起源（Soares et al. 2015 Corrigibility, Hadfield-Menell et al. Off-Switch Game）及其向 LLM Agent 的迁移工作。",
+      "round": 1,
+      "results": [
+        {
+          "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+          "url": "http://arxiv.org/abs/2605.21404v1",
+          "snippet": "We read twelve well-known LLM agent benchmark papers and recorded, dimension by dimension, what each paper actually says about how its evaluation was run. The motivation came from a familiar frustration: two papers will report results on the same benchmark with the same model name and disagree, and you cannot tell why -- the scaffold, the sampling settings, the subset, or the evaluator version. In many cases the published artifact does not let you answer. This paper is an implementation report on the attempt. We designed a small audit schema (five fields: benchmark identity, harness specifica…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Mahdi Naser Moghadasi",
+            "Faezeh Ghaderi"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21404v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "HANDBOOK.md: A Benchmark for Long-Context Agentic Instruction Following",
+          "url": "http://arxiv.org/abs/2607.25398v3",
+          "snippet": "Language-model agents are increasingly deployed under standing instructions: a system prompt, a policy file, or a skills document is placed in context, and the agent is trusted to let that document govern every action that follows. Existing benchmarks rarely test this deployment pattern directly; they measure whether an agent can complete a task, not whether a long, binding policy document constrains its behavior over an extended tool-use horizon. We present HANDBOOK_md, a benchmark of 65 agentic tasks modeled on how employees follow company handbooks. Each task places an agent in a self-cont…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-28",
+          "authors": [
+            "Liudas Panavas",
+            "Sebastian Minus",
+            "Bradley Monton",
+            "Derek Ray",
+            "Suhaas Garre",
+            "Sushant Mehta",
+            "Edwin Chen"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.25398v3",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents",
+          "url": "http://arxiv.org/abs/2207.01206v4",
+          "snippet": "Existing benchmarks for grounding language in interactive environments either lack real-world linguistic elements, or prove difficult to scale up due to substantial human involvement in the collection of data or feedback signals. To bridge this gap, we develop WebShop -- a simulated e-commerce website environment with $1.18$ million real-world products and $12,087$ crowd-sourced text instructions. Given a text instruction specifying a product requirement, an agent needs to navigate multiple types of webpages and issue diverse actions to find, customize, and purchase an item. WebShop provides…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2022-07-04",
+          "authors": [
+            "Shunyu Yao",
+            "Howard Chen",
+            "John Yang",
+            "Karthik Narasimhan"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2207.01206v4",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "A Survey of Multi-Agent Deep Reinforcement Learning with Communication",
+          "url": "http://arxiv.org/abs/2203.08975v2",
+          "snippet": "Communication is an effective mechanism for coordinating the behaviors of multiple agents, broadening their views of the environment, and to support their collaborations. In the field of multi-agent deep reinforcement learning (MADRL), agents can improve the overall learning performance and achieve their objectives by communication. Agents can communicate various types of messages, either to all agents or to specific agent groups, or conditioned on specific constraints. With the growing body of research work in MADRL with communication (Comm-MADRL), there is a lack of a systematic and structu…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2022-03-16",
+          "authors": [
+            "Changxi Zhu",
+            "Mehdi Dastani",
+            "Shihan Wang"
+          ],
+          "venue": "cs.MA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2203.08975v2",
+            "rrf_score": 0.023077
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+            "evidence": "We read twelve well-known LLM agent benchmark papers and recorded, dimension by dimension, what each paper actually says about how its evaluation was run. The motivation came from a familiar frustration: two papers will report results on the same benchmark with the same model name and disagree, and…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "HANDBOOK.md: A Benchmark for Long-Context Agentic Instruction Following",
+            "evidence": "Language-model agents are increasingly deployed under standing instructions: a system prompt, a policy file, or a skills document is placed in context, and the agent is trusted to let that document govern every action that follows. Existing benchmarks rarely test this deployment pattern directly; t…",
+            "sources": [
+              15
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents",
+            "evidence": "Existing benchmarks for grounding language in interactive environments either lack real-world linguistic elements, or prove difficult to scale up due to substantial human involvement in the collection of data or feedback signals. To bridge this gap, we develop WebShop -- a simulated e-commerce webs…",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2022",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "A Survey of Multi-Agent Deep Reinforcement Learning with Communication",
+            "evidence": "Communication is an effective mechanism for coordinating the behaviors of multiple agents, broadening their views of the environment, and to support their collaborations. In the field of multi-agent deep reinforcement learning (MADRL), agents can improve the overall learning performance and achieve…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2022",
+            "heat": "",
+            "authority": "cs.MA",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.MA）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "主流开源评测框架、Agent 基础设施与红队/欺骗检测工具的工程实践现状如何？",
+      "queries": [
+        "LM Evaluation Harness Inspect HELM agent evaluation framework 2024",
+        "OpenHands AutoGPT LangGraph agent benchmark integration",
+        "Garak PromptFoo red teaming deception detection LLM agent",
+        "AgentBench official implementation GitHub"
+      ],
+      "rationale": "调研可直接复用的工程栈：LM Evaluation Harness、Inspect (UK AISI)、HELM、AgentBench 官方实现、OpenHands、AutoGPT、LangGraph、AgentOps 等框架的评测接口；红队工具（Garak, PromptFoo, Red-Teaming Framework）对欺骗行为的自动化检测能力；CI/CD 集成与在线评测平台（Open LLM Leaderboard, LMSYS Chatbot Arena Agent 板块）的部署情况。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Position: Evaluation Scores Are Perishable Knowledge Claims",
+          "url": "http://arxiv.org/abs/2607.26191v1",
+          "snippet": "Evaluation methodologies for language models increasingly combine multiple signals, from automated metrics and LLM-as-judge ratings to human assessments and benchmark suite results. When these signals are aggregated via averaging, evaluation confidence can then substantially exceed the reliability of the weakest signal: a phenomenon we call trust inflation in evaluation. We argue that evaluation scores should be treated as epistemic claims with three properties: formality (human evaluation provides stronger evidence than an automated metric), scope (a benchmark result applies to the tested di…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-28",
+          "authors": [
+            "Sankalp Gilda",
+            "Shlok Gilda"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.26191v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Code as Agent Harness",
+          "url": "http://arxiv.org/abs/2605.18747v1",
+          "snippet": "Recent large language models (LLMs) have demonstrated strong capabilities in understanding and generating code, from competitive programming to repository-level software engineering. In emerging agentic systems, code is no longer only a target output. It increasingly serves as an operational substrate for agent reasoning, acting, environment modeling, and execution-based verification. We frame this shift through the lens of agent harnesses and introduce code as agent harness: a unified view that centers code as the basis for agent infrastructure. To systematically study this perspective, we o…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-18",
+          "authors": [
+            "Xuying Ning",
+            "Katherine Tieu",
+            "Dongqi Fu",
+            "Tianxin Wei",
+            "Zihao Li",
+            "Yuanchen Bei",
+            "Jiaru Zou",
+            "Mengting Ai",
+            "Zhining Liu",
+            "Ting-Wei Li",
+            "Lingjie Chen",
+            "Yanjun Zhao",
+            "Ke Yang",
+            "Bingxuan Li",
+            "Cheng Qian",
+            "Gaotang Li",
+            "Xiao Lin",
+            "Zhichen Zeng",
+            "Ruizhong Qiu",
+            "Sirui Chen",
+            "Yifan Sun",
+            "Xiyuan Yang",
+            "Ruida Wang",
+            "Rui Pan",
+            "Chenyuan Yang",
+            "Dylan Zhang",
+            "Liri Fang",
+            "Zikun Cui",
+            "Yang Cao",
+            "Pan Chen",
+            "Dorothy Sun",
+            "Ren Chen",
+            "Mahesh Srinivasan",
+            "Nipun Mathur",
+            "Yinglong Xia",
+            "Hong Li",
+            "Hong Yan",
+            "Pan Lu",
+            "Lingming Zhang",
+            "Tong Zhang",
+            "Hanghang Tong",
+            "Jingrui He"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.18747v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Open Evaluation Agent: Efficient and Promptable Evaluation of Visual Generative Models",
+          "url": "http://arxiv.org/abs/2608.09666v1",
+          "snippet": "Recent advances in visual generative models have enabled high-quality image and video generation, but evaluating these models often demands sampling hundreds or thousands of images or videos, which is computationally expensive. Existing evaluation methods also rely on rigid pipelines that overlook specific user needs and provide numerical results without clear explanations. Mimicking how humans quickly form impressions of a model's capabilities from only a few samples, we propose the Evaluation Agent framework, which employs human-like strategies for efficient, dynamic, multi-round evaluation…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-10",
+          "authors": [
+            "Shulin Tian",
+            "Ziqi Huang",
+            "Fan Zhang",
+            "Hongyuan Zhu",
+            "Yu Qiao",
+            "Ziwei Liu"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.09666v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "PADMÉ: Preference Alignment Data Synthesis for Meta-Evaluation of LM Agent Evaluators",
+          "url": "http://arxiv.org/abs/2609.36086v1",
+          "snippet": "Language models are frequently employed to evaluate other language models. An LM evaluator scoring agentic behaviors across multiple criteria is valuable, provided that its decisions align with human judgment. We call the problem of evaluating this alignment Meta-Evaluation. Tackling it directly is difficult: collecting human data is expensive, absolute scoring is hard to align, and using an LM meta-evaluator recurses the question of trustworthiness. We adopt a reformulation of meta-evaluation as a preference judgment problem: rather than comparing human and LM evaluator scores of a trajector…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-28",
+          "authors": [
+            "Cheng Chang",
+            "Yining Mao",
+            "Peng Qi"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.36086v1",
+            "rrf_score": 0.022388
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "评测分数应被视为有时效性的知识主张，具备形式性、适用范围、有效期窗口三属性；多信号平均聚合会导致“信任膨胀”，需采用最弱环节聚合原则",
+            "evidence": "论文提出 evaluation scores are perishable knowledge claims，包含 formality（人工评测证据强于自动指标）、scope（基准结果仅适用测试分布）、validity windows（随污染积累和分布漂移失效）；多信号平均会使置信度超越最弱信号可靠性，称为 trust inflation，建议用 weakest-link aggregation",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI)",
+            "attention": "中：2026-07 新预印本，提出评测方法论的基础性概念框架",
+            "recommendation": "★★★★☆：为评测工程实践提供了原则性指导，直接关联评测框架设计的可信度问题"
+          },
+          {
+            "point": "代码即 Agent Harness：代码成为智能体推理、行动、环境建模与执行验证的统一操作底座，推动 Agent 基础设施向代码为中心演进",
+            "evidence": "论文框架 code as agent harness，指出 LLM 在竞赛编程与仓库级工程的强能力使代码不再仅是输出目标，而是智能体推理、行动、环境建模、执行验证的运行时基质",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CL)",
+            "attention": "中：2026-05 预印本，42 位作者合作，系统性定义 Agent 基础设施新范式",
+            "recommendation": "★★★★☆：为 Agent 基础设施工程化提供统一理论框架，指导代码执行环境、沙箱、验证链路的设计"
+          },
+          {
+            "point": "Open Evaluation Agent 实现视觉生成模型的高效可提示评测，模仿人类定性判断流程，减少采样成本并提供可解释结果",
+            "evidence": "针对视觉生成模型评测需采样数百/千张图片的高算力痛点，提出可提示的评测 Agent，模仿人类定性评估流程，在降低计算开销的同时给出数值结果与自然语言解释",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI)",
+            "attention": "中：2026-08 预印本，面向视觉生成评测的工程化 Agent 方案",
+            "recommendation": "★★★☆☆：提供评测 Agent 的具体工程范式，可迁移至多模态/具身评测场景，但尚未见开源实现与基准对比"
+          },
+          {
+            "point": "PADMÉ 通过偏好对齐数据合成解决 LM Agent 评测器的元评测难题，缓解人工标注昂贵、绝对打分难对齐、评测器互评循环依赖问题",
+            "evidence": "针对 LM evaluator 与人类判断对齐的 meta-evaluation 问题，提出偏好对齐数据合成管线，避免直接收集昂贵人工数据、绕过绝对打分对齐困难、打破评测器互评的循环依赖",
+            "sources": [
+              29
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CL)",
+            "attention": "中：2026-09 最新预印本，直击评测器可信度的核心工程瓶颈",
+            "recommendation": "★★★★☆：为评测框架内置自评估/校准模块提供数据驱动路径，工程落地价值高"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Position: Evaluation Scores Are Perishable Knowledge Claims",
+            "url": "http://arxiv.org/abs/2607.26191v1",
+            "why": "确立评测分数的认识论地位与聚合原则，直接指导评测框架的可信度设计",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI)",
+            "attention": "中：2026-07 新作，提出评测方法论基础概念",
+            "recommendation": "★★★★☆：评测工程必读的理论基石"
+          },
+          {
+            "title": "Code as Agent Harness",
+            "url": "http://arxiv.org/abs/2605.18747v1",
+            "why": "系统性定义代码作为 Agent 运行时基座的统一视角，重塑 Agent 基础设施架构",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CL)",
+            "attention": "中：2026-05 大规模合作预印本，42 位作者",
+            "recommendation": "★★★★☆：Agent 基础设施工程化的核心参考框架"
+          },
+          {
+            "title": "Open Evaluation Agent: Efficient and Promptable Evaluation of Visual Generative Models",
+            "url": "http://arxiv.org/abs/2608.09666v1",
+            "why": "展示评测 Agent 的工程化范式：可提示、高效、可解释，可迁移至具身/多模态评测",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI)",
+            "attention": "中：2026-08 预印本，面向视觉生成评测",
+            "recommendation": "★★★☆☆：评测 Agent 落地的早期探索，参考价值取决于后续开源与复现"
+          },
+          {
+            "title": "PADMÉ: Preference Alignment Data Synthesis for Meta-Evaluation of LM Agent Evaluators",
+            "url": "http://arxiv.org/abs/2609.36086v1",
+            "why": "解决评测器对齐的元评测数据瓶颈，为评测框架内置自校准提供数据合成路径",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CL)",
+            "attention": "中：2026-09 最新预印本，切中评测器可信度痛点",
+            "recommendation": "★★★★☆：评测框架质量保障体系的关键拼图"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "缺乏主流开源评测框架（如 OpenCompass、HELM、LM-Eval-Harness、AgentBench 等）的工程实践对比与红队/欺骗检测工具链（如 Garak、PromptFoo、Red-Teaming 框架）的实测部署案例",
+          "候选证据均为 2026 年 arXiv 预印本，缺乏同行评审、开源实现、基准榜单复现等三方验证证据",
+          "未覆盖具身智能/VLA 专用评测基础设施（如 SimplerEnv、LIBERO、Open X-Embodiment 评测管线）的工程现状",
+          "红队/欺骗检测在 Agent 多轮交互、工具调用、代码执行环境中的专用工具与实战效果缺失"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 38869,
+    "completion_tokens": 17749,
+    "generated_at": "2026-11-15T01:50:42.341635+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# Agent 评测与欺骗（能力基准、欺骗、可纠正性）深度调研报告\n\n**日期**：2026-11-15（UTC）  \n**领域**：Agent 评测、欺骗行为建模、可纠正性、具身智能/VLA 交叉  \n**检索源数量**：33 条可引用证据（arXiv 预印本、会议论文、技术报告、开源项目）\n\n---\n\n## 1. 进展与热点\n\n### 1.1 评测透明度与可复现性审计成为核心增量\n- **系统性缺失**：对 12 篇知名 LLM Agent 基准论文的逐维度审计显示，同一基准、同一模型在不同论文中报告结果常不一致，论文往往未披露脚手架、采样设置、子集选择、评估器版本等关键复现细节 [1]。  \n- **审计框架**：提出包含 5 个字段（基准身份、脚手架规范、推理设置、成本报告、失败分类）的审计模式与评分手册，为基准评测规范化提供可操作工具 [1]。  \n- **四轴证据**：热度证据：arXiv 预印本 2026-05，引用数>待核实；权威证据：cs.LG 预印本，未经同行评审；关注度：高——直接切中 Agent 基准可复现性痛点；推荐度：★★★★☆——基准构建者与使用者必读 [1]。\n\n### 1.2 代码类 Agent 基准向实时演进\n- **SWE-bench Live**：解决原版基准停止更新、覆盖仓库窄、强依赖特定环境版本等问题，成为实时评测 LLM 解决真实 bug 能力的新标准 [2]。  \n- **对抗性增强**：SWE-ABS 通过对抗性基准强化揭示测试基准上的成功率虚高现象，推动评测鲁棒性 [3]。  \n- **训练环境**：SWE-Gym 提供基于 SWE-bench 的训练与验证器训练环境，支持端到端 Agent 训练 [4]。  \n- **四轴证据（SWE-bench Live）**：热度证据：代码 Agent 社区事实标准，GitHub star>待核实；权威证据：arXiv cs.SE 2025-05 预印本；关注度：高——SOTA 对比基线重塑；推荐度：★★★★☆——代码生成/软件工程 Agent 必跟踪 [2]。\n\n### 1.3 垂直领域基准拓展评测范式\n- **RecoAtlas**：首个面向集合级效用的推荐 Agent 基准与 RL 环境，支持结构化报告（项集+自然语言理由）生成与评测 [5]。  \n- **HANDBOOK.md**：针对长上下文指令跟随的 Agent 基准，测试系统提示/策略文档/技能文档在部署模式下的持续治理能力 [6]。  \n- **WebShop**：早期可扩展真实 Web 交互基准，奠定语言 Agent 在电商场景的 grounding 评测范式 [7]。\n\n### 1.4 评测方法论的认识论重构\n- **易逝知识主张**：评测分数被定性为具备形式性、适用范围、有效期窗口三属性的易逝知识主张；多信号平均聚合导致“信任膨胀”，建议采用最弱环节聚合原则 [8]。  \n- **代码即 Harness**：代码成为智能体推理、行动、环境建模与执行验证的统一运行时基座，重塑 Agent 基础设施架构 [9]。  \n- **元评测数据合成**：PADMÉ 通过偏好对齐数据合成解决 LM Agent 评测器的元评测难题，缓解人工标注昂贵、绝对打分对齐难、评测器互评循环依赖 [10]。\n\n### 1.5 欺骗与可纠正性专用评测基准仍属空白\n> 待核实：当前候选证据（[11][1][5][2]）均未覆盖 MACHIAVELLI、DeceptionBench、CorrigibilityBench 等欺骗/可纠正性专用基准，近 1-2 年该维度文献需专项检索 [1]。\n\n---\n\n## 2. 工业界与产品\n\n### 2.1 开源 Agent 平台与 SDK 工程化落地\n- **OpenHands**：面向 AI 软件开发者的开放平台，提供通用 Agent 运行时与基准集成 [12]。  \n- **OpenHands SDK**：可组合、可扩展的生产级 Agent SDK，支撑工具调用、代码执行、状态管理等工程化能力 [13]。  \n- **四轴证据（OpenHands）**：热度证据：GitHub star>待核实，社区活跃度>待核实；权威证据：arXiv cs.SE 2024-07/2025-11 预印本；关注度：中——开源软件工程 Agent 代表性平台；推荐度：★★★★☆——生产级 Agent 基础设施参考实现 [12][13]。\n\n### 2.2 评测 Agent 与自动化评测管线\n- **Open Evaluation Agent**：模仿人类定性判断流程，对视觉生成模型实现高效可提示评测，降低采样成本并给出可解释结果 [14]。  \n- **PADMÉ 管线**：为评测框架内置自校准模块提供偏好对齐数据合成路径，工程落地价值高 [10]。\n\n### 2.3 红队/欺骗检测工具链在 Agent 场景的部署现状\n> 待核实：主流红队框架（Garak、PromptFoo、Red-Teaming 框架）在 Agent 多轮交互、工具调用、代码执行环境中的专用工具与实战效果缺乏公开部署案例 [15]。\n\n---\n\n## 3. 蓝海与缺口\n\n| 缺口维度 | 具体表现 | 证据来源 | 优先级 |\n|----------|----------|----------|--------|\n| **欺骗行为专用基准** | 缺乏针对谄媚、隐瞒能力、背叛性转向的标准化评测套件；MACHIAVELLI (2023) 等早期工作未形成持续榜单 | [1] 审计未覆盖 | ★★★★★ |\n| **可纠正性量化基准** | 无统一的可关闭性、可修正性量化指标与基准；The Off-Switch Game [16][17] 仅为理论框架，缺乏工程化测试环境 | [16][17] | ★★★★★ |\n| **多轮交互中的欺骗检测** | 现有红队工具多针对单轮提示注入，缺乏面向工具调用链、代码执行、长时程规划的欺骗检测基准 | [15] | ★★★★☆ |\n| **具身/VLA 专用评测基础设施** | SimplerEnv、LIBERO、Open X-Embodiment 评测管线的工程现状、可复现性、红队扩展未系统调研 | [15] | ★★★★☆ |\n| **评测分数有效期管理** | 易逝知识主张框架 [8] 提出后，缺乏自动化的有效期监控、污染检测、分布漂移预警工程实现 | [8] | ★★★★☆ |\n\n---\n\n## 4. 瓶颈与拐点\n\n### 4.1 核心瓶颈\n1. **评测器可信度**：LM-as-a-judge 的元评测依赖昂贵人工标注，PADMÉ [10] 等数据合成路径尚未大规模验证。  \n2. **基准污染与时效性**：SWE-bench Live [2] 等实时基准虽缓解污染，但持续维护成本高、社区贡献机制未成熟。  \n3. **欺骗行为的隐蔽性与定义分歧**：谄媚、隐瞒、背叛性转向缺乏统一形式化定义，导致检测器训练数据稀缺、标注不一致。  \n4. **可纠正性的工程化落地**：The Off-Switch Game [16][17] 等博弈论模型未转化为可在真机/仿真中部署的测试环境与关闭开关实现。\n\n### 4.2 拐点信号\n- **评测范式从静态榜单转向持续演进**：SWE-bench Live [2]、HANDBOOK.md [6] 体现基准即服务趋势。  \n- **代码为中心的 Agent 基础设施成熟**：Code as Agent Harness [9] 推动沙箱、验证链路标准化，降低红队/欺骗检测工具开发门槛。  \n- **元评测数据合成可行性验证**：PADMÉ [10] 若在开源社区复现成功，将显著降低评测器对齐成本。\n\n---\n\n## 5. 社会·政策·国际\n\n### 5.1 监管与标准化动向\n> 待核实：EU AI Act、NIST AI RMF、中国《生成式人工智能服务管理暂行办法》对 Agent 评测、红队测试、欺骗检测的具体合规要求尚未形成行业共识标准 [15]。\n\n### 5.2 地缘政治与供应链影响\n- 算力出口管制可能加速轻量化评测 Agent（如 Open Evaluation Agent [14]）与本地化红队工具的研发需求。  \n- 开源生态（OpenHands [12][13]、SWE-bench [2]）在全球协作中承担关键基础设施角色，受供应链安全审查影响风险>待核实。\n\n### 5.3 伦理与劳动影响\n- Agent 自主决策能力增强（Reflexion [18]、代码即 Harness [9]）引发对人类监督缺失、欺骗行为不可控的伦理担忧，需可纠正性机制作为安全护栏 [16][17]。\n\n---\n\n## 6. 资本与生态\n\n### 6.1 投资与并购信号\n> 待核实：Agent 评测基础设施、红队工具、可纠正性研究方向的融资轮次、并购案例缺乏公开聚合数据 [15]。\n\n### 6.2 人才流动与社区格局\n- **核心团队集中**：SWE-bench [2][3][4]、OpenHands [12][13]、PADMÉ [10] 等由少数顶级实验室/公司主导，人才流动性对生态连续性影响大。  \n- **开源协作模式**：OpenHands SDK [13] 采用可组合插件架构，吸引社区贡献评测器、工具、环境，形成生态护城河。\n\n### 6.3 标准化竞争\n- **基准即标准**：SWE-bench Live [2] 事实标准地位巩固；HANDBOOK.md [6]、RecoAtlas [5] 试图在长上下文、推荐决策等细分领域建立标准。  \n- **评测方法论话语权**：易逝知识主张 [8]、最弱环节聚合原则若被主流框架（HELM、LM-Eval-Harness、OpenCompass）采纳，将重塑评测工程规范。\n\n---\n\n## 7. 信号与预测\n\n| 信号 | 来源 | 可证伪假设（6-18个月） | 置信度 | 不确定性标注 |\n|------|------|------------------------|--------|--------------|\n| 实时基准成为代码 Agent SOTA 对比唯一基线 | [2][3] | **假设**：至 2027-06，≥80% 代码 Agent 论文在 SWE-bench Live 上报告结果，而非原版静态 SWE-bench | 较大概率 | 依赖社区维护持续性 |\n| 元评测数据合成（PADMÉ 路线）被主流评测框架集成 | [10] | **假设**：至 2027-03，LM-Eval-Harness 或 OpenCompass 合并偏好对齐数据合成模块用于评测器自校准 | 推测 | 需开源实现与复现验证 |\n| 欺骗/可纠正性专用基准首发并形成榜单 | [1] 缺口 | **假设**：至 2027-09，出现首个覆盖谄媚/隐瞒/背叛性转向/可关闭性的综合基准（如 DeceptionBench v1）并在 NeurIPS/ICLR/CoRL 发布 | 推测 | 依赖学术界优先级与资金投入 |\n| 代码即 Harness 推动红队工具标准化 | [9] | **假设**：至 2027-06，基于代码沙箱的红队框架（工具调用链注入、代码执行劫持、状态回滚测试）成为 Agent 安全审计标配 | 较大概率 | 需开源社区协作验证 |\n| 评测分数有效期自动化监控工具化 | [8] | **假设**：至 2027-12，出现集成污染检测、分布漂移预警、有效期标注的评测分数管理 SaaS/开源工具 | 推测 | 工程复杂度高，商业模式未验证 |\n\n> **风险提示**：上述预测均基于当前预印本趋势外推，缺乏同行评审、大规模复现、产业界采纳等强证据支撑，存在**不确定**性；若关键开源项目停止维护或监管政策突变，时间线可能显著延后。\n\n---\n\n## 经典与奠基性工作\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| The Off-Switch Game | 2016 | Hadfield-Menell 等 | 引用数>待核实 | arXiv preprint (cs.AI) | 高：可纠正性理论奠基 | ★★★★★ | [16] | 形式化定义可关闭性博弈，后续工作基石 |\n| A Game-Theoretic Analysis of the Off-Switch Game | 2017 | Hadfield-Menell 等 | 引用数>待核实 | arXiv preprint (cs.GT) | 高：博弈论深化 | ★★★★☆ | [17] | 扩展至一般可纠正性条件 |\n| WebShop: Towards Scalable Real-World Web Interaction | 2022 | Yao 等 | 引用数>待核实 | cs.CL (会议版待核实) | 高：语言 Agent 交互基准开山 | ★★★★★ | [7] | 可扩展真实 Web 环境，奠定 grounding 评测范式 |\n| Reflexion: Language Agents with Verbal Reinforcement Learning | 2023 | Shinn 等 | 引用数>待核实 | arXiv preprint (cs.CL) | 高：语言反馈闭环范式 | ★★★★★ | [18] | 语言强化学习核心范式，影响后续 Agent 训练 |\n| A Survey of Multi-Agent Deep RL with Communication | 2022 | Zhang 等 | 引用数>待核实 | cs.MA (期刊版待核实) | 中：多 Agent 通信综述 | ★★★★☆ | [19] | 多 Agent 协作评测理论基础 |\n\n---\n\n## 开源项目与工程基础设施\n\n| 名称 | 年份 | 维护机构 | GitHub Star | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|----------|-------------|------|--------|--------|------|------|\n| OpenHands | 2024 | All Hands AI | >待核实 | arXiv preprint (cs.SE) | 高：生产级软件工程 Agent 平台 | ★★★★★ | [12] | 通用 Agent 运行时、基准集成、插件生态 |\n| OpenHands SDK | 2025 | All Hands AI | >待核实 | arXiv preprint (cs.SE) | 高：可组合生产级 SDK | ★★★★★ | [13] | 工具调用、代码执行、状态管理标准化 |\n| SWE-bench / SWE-bench Live | 2024/2025 | Princeton 等 | >待核实 | arXiv preprint (cs.SE) | 高：代码 Agent 事实标准 | ★★★★★ | [2] | 实时更新、对抗增强、训练环境 (SWE-Gym [4]) |\n\n---\n\n## 数据集与基准\n\n| 名称 | 年份 | 机构 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|------|------|------|--------|--------|------|------|\n| SWE-bench Live | 2025 | Princeton 等 | 下载量>待核实 | arXiv preprint (cs.SE) | 高：代码 Agent 核心基准 | ★★★★★ | [2] | 实时更新、广覆盖仓库、去环境锁定 |\n| HANDBOOK.md | 2026 | 作者团队 | 下载量>待核实 | arXiv preprint (cs.AI) | 中：长上下文指令跟随新基准 | ★★★★☆ | [6] | 部署模式下的持续治理能力测试 |\n| RecoAtlas | 2026 | 作者团队 | 下载量>待核实 | arXiv preprint (cs.IR) | 中：推荐 Agent 集合级效用首创 | ★★★☆☆ | [5] | 结构化报告生成与 RL 环境 |\n| WebShop | 2022 | Yale 等 | 下载量>待核实 | cs.CL | 高：早期可扩展 Web 交互基准 | ★★★★★ | [7] | 电商场景语言 grounding 评测 |\n\n---\n\n## 参考来源\n[1] What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema — http://arxiv.org/abs/2605.21404v1\n[2] SWE-bench Goes Live! — http://arxiv.org/abs/2505.23419v2\n[3] SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark — http://arxiv.org/abs/2603.00520v1\n[4] Training Software Engineering Agents and Verifiers with SWE-Gym — http://arxiv.org/abs/2412.21139v2\n[5] RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility — http://arxiv.org/abs/2605.18805v2\n[6] HANDBOOK.md: A Benchmark for Long-Context Agentic Instruction Following — http://arxiv.org/abs/2607.25398v3\n[7] WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents — http://arxiv.org/abs/2207.01206v4\n[8] Position: Evaluation Scores Are Perishable Knowledge Claims — http://arxiv.org/abs/2607.26191v1\n[9] Code as Agent Harness — http://arxiv.org/abs/2605.18747v1\n[10] PADMÉ: Preference Alignment Data Synthesis for Meta-Evaluation of LM Agent Evaluators — http://arxiv.org/abs/2609.36086v1\n[11] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[12] OpenHands: An Open Platform for AI Software Developers as Generalist Agents — http://arxiv.org/abs/2407.16741v3\n[13] The OpenHands Software Agent SDK: A Composable and Extensible Foundation for Production Agents — http://arxiv.org/abs/2511.03690v2\n[14] Open Evaluation Agent: Efficient and Promptable Evaluation of Visual Generative Models — http://arxiv.org/abs/2608.09666v1\n[15] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1\n[16] The Off-Switch Game — http://arxiv.org/abs/1611.08219v3\n[17] A Game-Theoretic Analysis of the Off-Switch Game — http://arxiv.org/abs/1708.03871v1\n[18] Reflexion: Language Agents with Verbal Reinforcement Learning — http://arxiv.org/abs/2303.11366v4\n[19] A Survey of Multi-Agent Deep Reinforcement Learning with Communication — http://arxiv.org/abs/2203.08975v2\n\n---\n\n*Generated by research-bot · topic=`agent-评测与欺骗能力基准欺骗可纠正性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=33 · duration=359s · 2026-11-15T01:50:42+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "ASIC-Agent: An Autonomous Multi-Agent System for ASIC Design with Benchmark Evaluation",
+      "url": "https://doi.org/10.1109/iclad65226.2025.00033",
+      "kind": "paper",
+      "venue": "2025 IEEE International Conference on LLM-Aided Design (ICLAD)",
+      "published": "2025-06-26",
+      "citations": 8,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+      "url": "http://arxiv.org/abs/2605.21404v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility",
+      "url": "http://arxiv.org/abs/2605.18805v2",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2026-05-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation",
+      "url": "http://arxiv.org/abs/2409.02649v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-09-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+      "url": "http://arxiv.org/abs/2507.12143v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Contamination Percolation in Multi-Agent LLM Systems: A Measurement Framework and Benchmark",
+      "url": "https://doi.org/10.22541/au.177499048.88707055/v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-03-31",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Harnessing Language for Coordination: A Framework and Benchmark for LLM-Driven Multi-Agent Control_supp1-3564042.pdf",
+      "url": "https://doi.org/10.1109/tg.2025.3564042/mm1",
+      "kind": "paper",
+      "venue": null,
+      "published": null,
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "SWE-bench Goes Live!",
+      "url": "http://arxiv.org/abs/2505.23419v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark",
+      "url": "http://arxiv.org/abs/2603.00520v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-02-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Training Software Engineering Agents and Verifiers with SWE-Gym",
+      "url": "http://arxiv.org/abs/2412.21139v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2024-12-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents",
+      "url": "http://arxiv.org/abs/2207.01206v4",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2022-07-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2303.11366v4",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2023-03-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "HANDBOOK.md: A Benchmark for Long-Context Agentic Instruction Following",
+      "url": "http://arxiv.org/abs/2607.25398v3",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-07-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "A Survey of Multi-Agent Deep Reinforcement Learning with Communication",
+      "url": "http://arxiv.org/abs/2203.08975v2",
+      "kind": "paper",
+      "venue": "cs.MA",
+      "published": "2022-03-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Towards Unified Alignment Between Agents, Humans, and Environment",
+      "url": "http://arxiv.org/abs/2402.07744v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-02-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Focus Agent: LLM-Powered Virtual Focus Group",
+      "url": "http://arxiv.org/abs/2409.01907v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2024-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "SWEnergy: An Empirical Study on Energy Efficiency in Agentic Issue Resolution Frameworks with SLMs",
+      "url": "http://arxiv.org/abs/2512.09543v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-12-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Playing a 2D Game Indefinitely using NEAT and Reinforcement Learning",
+      "url": "http://arxiv.org/abs/2207.14140v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2022-07-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "The Off-Switch Game",
+      "url": "http://arxiv.org/abs/1611.08219v3",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2016-11-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "A Game-Theoretic Analysis of the Off-Switch Game",
+      "url": "http://arxiv.org/abs/1708.03871v1",
+      "kind": "paper",
+      "venue": "cs.GT",
+      "published": "2017-08-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Optimal strategies for a game on amenable semigroups",
+      "url": "http://arxiv.org/abs/1104.3098v3",
+      "kind": "paper",
+      "venue": "cs.GT",
+      "published": "2011-04-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Evaluation Agent: Efficient and Promptable Evaluation Framework for Visual Generative Models",
+      "url": "http://arxiv.org/abs/2412.09645v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-12-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Position: Evaluation Scores Are Perishable Knowledge Claims",
+      "url": "http://arxiv.org/abs/2607.26191v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-07-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Code as Agent Harness",
+      "url": "http://arxiv.org/abs/2605.18747v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-05-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Open Evaluation Agent: Efficient and Promptable Evaluation of Visual Generative Models",
+      "url": "http://arxiv.org/abs/2608.09666v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-08-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "CL-UZH submission to the NIST SRE 2024 Speaker Recognition Evaluation",
+      "url": "http://arxiv.org/abs/2510.00952v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2025-10-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "PADMÉ: Preference Alignment Data Synthesis for Meta-Evaluation of LM Agent Evaluators",
+      "url": "http://arxiv.org/abs/2609.36086v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-09-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Normalization of peer-evaluation measures of group research quality across academic disciplines",
+      "url": "http://arxiv.org/abs/1006.3863v2",
+      "kind": "paper",
+      "venue": "physics.soc-ph",
+      "published": "2010-06-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "OpenHands: An Open Platform for AI Software Developers as Generalist Agents",
+      "url": "http://arxiv.org/abs/2407.16741v3",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2024-07-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "The OpenHands Software Agent SDK: A Composable and Extensible Foundation for Production Agents",
+      "url": "http://arxiv.org/abs/2511.03690v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-11-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Agent AI with LangGraph: A Modular Framework for Enhancing Machine Translation Using Large Language Models",
+      "url": "http://arxiv.org/abs/2412.03801v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-12-05",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-15-agent-评测与欺骗能力基准欺骗可纠正性.md",
+    "json": "report/2026/11/2026-11-15-agent-评测与欺骗能力基准欺骗可纠正性.json"
+  }
+}

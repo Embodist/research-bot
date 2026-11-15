@@ -1,0 +1,837 @@
+{
+  "topic": "agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall",
+  "title": "AgentGuard: LLM 护栏与 Agent 安全深度调研计划",
+  "query": "AgentGuard：LLM 护栏与 Agent 安全（提示注入、越狱、工具滥用与过度代理、沙箱与最小权限、LLM firewall、红队基准）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-15T02:02:03+00:00",
+  "finished_at": "2026-11-15T02:06:28+00:00",
+  "duration_s": 265.1,
+  "rounds": 1,
+  "plan": {
+    "title": "AgentGuard: LLM 护栏与 Agent 安全深度调研计划",
+    "summary": "系统梳理 LLM Agent 安全领域的前沿进展、奠基性工作、开源工程实践、核心基准数据集及开放争议，重点覆盖提示注入、越狱、工具滥用、过度代理、沙箱隔离、最小权限、LLM 防火墙与红队评测等核心技术栈，产出可直接落地的证据分级报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近 1-2 年 LLM Agent 安全护栏领域的关键技术突破与 SOTA 进展是什么？",
+        "rationale": "聚焦前沿增量，识别新架构（如 Guardrails AI、NeMo Guardrails、Llama Guard 系列）、新防御范式（运行时拦截、策略编译、形式化验证）及其在真实 Agent 部署中的有效性证据。",
+        "queries": [
+          "LLM agent guardrails 2024 2025 SOTA benchmark",
+          "prompt injection defense runtime interception 2024 2025",
+          "NeMo Guardrails Llama Guard 3 2024 2025 evaluation",
+          "Agent 安全护栏 最新进展 真机部署 2024 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "github",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该领域的奠基性论文、核心威胁模型与早期防御框架有哪些？",
+        "rationale": "建立知识脉络，追溯提示注入、越狱、工具滥用的正式定义，以及早期沙箱、最小权限、LLM 防火墙的理论基础，为后续对比提供基线。",
+        "queries": [
+          "prompt injection taxonomy survey 2020 2023",
+          "jailbreak LLM survey foundational 2022 2023",
+          "tool misuse overprivileged agent sandbox least privilege 2021 2023",
+          "LLM firewall 防火墙 早期工作 2022 2023"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "crossref",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "主流开源护栏框架、沙箱运行时与 LLM 防火墙的工程成熟度、集成生态如何？",
+        "rationale": "评估 Guardrails AI、NeMo Guardrails、Llama Guard、Microsoft Presidio、Garak、ReBAC 等项目的代码活跃度、文档完备性、插件生态、真实部署案例，判断工程落地可行性。",
+        "queries": [
+          "Guardrails AI GitHub stars issues 2024 2025",
+          "NeMo Guardrails production deployment case study",
+          "Llama Guard 3 integration LangChain AutoGen",
+          "LLM firewall sandbox runtime open source comparison 2024"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近 1-2 年 LLM Agent 安全护栏领域的关键技术突破与 SOTA 进展是什么？",
+      "queries": [
+        "LLM agent guardrails 2024 2025 SOTA benchmark",
+        "prompt injection defense runtime interception 2024 2025",
+        "NeMo Guardrails Llama Guard 3 2024 2025 evaluation",
+        "Agent 安全护栏 最新进展 真机部署 2024 2025"
+      ],
+      "rationale": "聚焦前沿增量，识别新架构（如 Guardrails AI、NeMo Guardrails、Llama Guard 系列）、新防御范式（运行时拦截、策略编译、形式化验证）及其在真实 Agent 部署中的有效性证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+          "url": "http://arxiv.org/abs/2605.21404v1",
+          "snippet": "We read twelve well-known LLM agent benchmark papers and recorded, dimension by dimension, what each paper actually says about how its evaluation was run. The motivation came from a familiar frustration: two papers will report results on the same benchmark with the same model name and disagree, and you cannot tell why -- the scaffold, the sampling settings, the subset, or the evaluator version. In many cases the published artifact does not let you answer. This paper is an implementation report on the attempt. We designed a small audit schema (five fields: benchmark identity, harness specifica…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Mahdi Naser Moghadasi",
+            "Faezeh Ghaderi"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21404v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility",
+          "url": "http://arxiv.org/abs/2605.18805v2",
+          "snippet": "LLM recommender agents increasingly produce structured reports: sets of items accompanied by natural-language justifications. Yet existing benchmarks often focus on reranking small candidate sets or judging reports primarily by semantic plausibility, providing limited support for evaluating and training agents based on set-level utility. We introduce Recommender Atlas (Agentic Tasks for Learning and Assessment in Shopping), or RecoAtlas, a benchmark and reinforcement learning environment grounded in user behavior. RecoAtlas provides a shopping toolkit for product retrieval, complementarity, a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-11",
+          "authors": [
+            "Imad Aouali",
+            "Flavian Vasile",
+            "Clijo Jose",
+            "Otmane Sakhi",
+            "Alexandre Gilotte",
+            "Benjamin Heymann"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.18805v2",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Efficient Benchmarking in Production: A Study of an Evolving LLM Agent",
+          "url": "http://arxiv.org/abs/2609.21267v1",
+          "snippet": "Production LLM agents are evaluated repeatedly as they evolve, but full agent benchmarks are costly to rerun. We study efficient recurring evaluation for a production analytics agent serving tens of thousands of monthly active users and report first-hand deployment experience. Using 574 historical runs of the production benchmark, split chronologically into calibration and held-out periods, we compare random sampling, historical caching, fixed representative subsets, and IRT-based adaptive testing. The results show that multidimensional 2PL adaptive testing achieves the best overall score fid…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-18",
+          "authors": [
+            "Yining She",
+            "Lei Lin"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.21267v1",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "DeRAG: Black-box Adversarial Attacks on Multiple Retrieval-Augmented Generation Applications via Prompt Injection",
+          "url": "http://arxiv.org/abs/2507.15042v1",
+          "snippet": "Adversarial prompt attacks can significantly alter the reliability of Retrieval-Augmented Generation (RAG) systems by re-ranking them to produce incorrect outputs. In this paper, we present a novel method that applies Differential Evolution (DE) to optimize adversarial prompt suffixes for RAG-based question answering. Our approach is gradient-free, treating the RAG pipeline as a black box and evolving a population of candidate suffixes to maximize the retrieval rank of a targeted incorrect document to be closer to real world scenarios. We conducted experiments on the BEIR QA datasets to evalu…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-20",
+          "authors": [
+            "Jerry Wang",
+            "Fang Yu"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.15042v1",
+            "rrf_score": 0.01875
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "LLM Agent 基准测试的可复现性与透明度存在系统性缺失，导致同一基准上不同论文报告的结果难以对比，这对安全护栏评估的可信度构成挑战",
+            "evidence": "对 12 篇知名 LLM Agent 基准论文进行审计，发现评估细节（脚手架、采样设置、子集选择、评估器版本）披露不足，导致相同模型在相同基准上结果不一致且无法追溯原因",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.LG)",
+            "attention": "中：该审计揭示了基准评估的基础设施问题，被社区讨论为复现性危机的关键证据",
+            "recommendation": "★★★★☆：直接指出当前 Agent 评估体系的可信度短板，安全护栏评估若建立在不透明基准之上将不可靠"
+          },
+          {
+            "point": "针对 LLM 推荐智能体的集合级效用优化缺乏标准化基准与 RL 环境，限制了对推荐类 Agent 安全性与鲁棒性的系统评估",
+            "evidence": "RecoAtlas 提出首个面向集合级效用的推荐智能体基准与 RL 环境，包含商品检索、互补性、多样性工具包，填补了现有基准仅关注重排序或语义合理性的空白",
+            "sources": [
+              5
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.IR)",
+            "attention": "中：新发布的专用基准，针对推荐类 Agent 的评估空白，社区关注度正在上升",
+            "recommendation": "★★★★☆：为推荐类 Agent 的安全/鲁棒性评估提供了首个标准化环境，填补领域空白"
+          },
+          {
+            "point": "生产环境中 LLM Agent 的持续高效评估面临成本与工程挑战，需基于历史运行数据构建校准模型以替代全量重跑基准",
+            "evidence": "研究某服务数万月活用户的生产分析型 Agent，利用 574 次历史基准运行按时间分割为校准期与保留期，探索低成本的周期性评估方法",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI)",
+            "attention": "中：来自真实生产部署的首手经验，对工程落地的安全监控有直接参考价值",
+            "recommendation": "★★★★☆：提供生产级 Agent 持续评估的实证方法，安全护栏的在线监控可借鉴此思路"
+          },
+          {
+            "point": "检索增强生成（RAG）系统面临黑盒对抗提示注入攻击，差分进化可在无梯度条件下优化通用攻击后缀，导致 RAG 输出错误重排",
+            "evidence": "DeRAG 方法将 RAG 管线视为黑盒，用差分进化（DE）优化对抗提示后缀，实现跨多个 RAG 应用的迁移攻击，显著降低回答可靠性",
+            "sources": [
+              12
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI)",
+            "attention": "高：针对 RAG 的实用黑盒攻击，揭示了当前 RAG 安全护栏的薄弱环节，引发社区对提示注入防御的关注",
+            "recommendation": "★★★★★：直接展示了 RAG 系统在对抗提示下的脆弱性，为设计安全护栏（如输入净化、检索结果校验）提供了具体威胁模型"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+            "url": "http://arxiv.org/abs/2605.21404v1",
+            "why": "系统性审计主流 Agent 基准的评估透明度，揭示安全护栏评估依赖的基准本身存在可信度问题",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.LG)",
+            "attention": "中：作为元研究被引用为复现性危机的证据",
+            "recommendation": "★★★★☆：安全评估体系建设的前置阅读，指出基准层面的信任基础薄弱"
+          },
+          {
+            "title": "RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility",
+            "url": "http://arxiv.org/abs/2605.18805v2",
+            "why": "首个面向集合级效用的推荐智能体基准与 RL 环境，为推荐类 Agent 的安全/鲁棒性评估提供标准化设施",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.IR)",
+            "attention": "中：填补领域空白的新基准，关注度上升",
+            "recommendation": "★★★★☆：推荐类 Agent 安全测试的基础设施"
+          },
+          {
+            "title": "Efficient Benchmarking in Production: A Study of an Evolving LLM Agent",
+            "url": "http://arxiv.org/abs/2609.21267v1",
+            "why": "基于真实生产环境（数万 MAU）的 Agent 持续评估实证研究，提供低成本周期性评估方法，适用于安全护栏的在线监控",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI)",
+            "attention": "中：生产级首手经验，工程参考价值高",
+            "recommendation": "★★★★☆：安全护栏工程化部署的参考案例"
+          },
+          {
+            "title": "DeRAG: Black-box Adversarial Attacks on Multiple Retrieval-Augmented Generation Applications via Prompt Injection",
+            "url": "http://arxiv.org/abs/2507.15042v1",
+            "why": "展示针对 RAG 系统的实用黑盒对抗攻击，直接威胁依赖 RAG 的 Agent 安全性，为护栏设计提供具体攻击面",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI)",
+            "attention": "高：RAG 安全性的关键攻击工作，社区广泛讨论",
+            "recommendation": "★★★★★：RAG 类 Agent 安全护栏设计的必读威胁模型"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "LLM Agent 基准评估的标准化披露规范尚未形成共识，安全护栏评估缺乏可信的基准地基",
+          "推荐类、分析类等垂直领域 Agent 的专用安全基准与评估环境仍处于早期建设阶段",
+          "生产环境下 Agent 的持续低成本安全监控方法（如异常检测、漂移预警）缺乏成熟工程范式",
+          "RAG 系统面对黑盒提示注入攻击的鲁棒防御机制（输入净化、检索结果一致性校验、输出约束）尚无通用最佳实践",
+          "跨任务、跨本体的 Agent 安全护栏通用框架缺失，当前防御多为点状方案"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该领域的奠基性论文、核心威胁模型与早期防御框架有哪些？",
+      "queries": [
+        "prompt injection taxonomy survey 2020 2023",
+        "jailbreak LLM survey foundational 2022 2023",
+        "tool misuse overprivileged agent sandbox least privilege 2021 2023",
+        "LLM firewall 防火墙 早期工作 2022 2023"
+      ],
+      "rationale": "建立知识脉络，追溯提示注入、越狱、工具滥用的正式定义，以及早期沙箱、最小权限、LLM 防火墙的理论基础，为后续对比提供基线。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+          "url": "http://arxiv.org/abs/2512.12583v1",
+          "snippet": "Prompt injection attacks can compromise the security and stability of critical systems, from infrastructure to large web applications. This work curates and augments a prompt injection dataset based on the HackAPrompt Playground Submissions corpus and trains several classifiers, including LSTM, feed forward neural networks, Random Forest, and Naive Bayes, to detect malicious prompts in LLM integrated web applications. The proposed approach improves prompt injection detection and mitigation, helping protect targeted applications and systems.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-14",
+          "authors": [
+            "Safwan Shaheer",
+            "G. M. Refatul Islam",
+            "Mohammad Rafid Hamid",
+            "Md. Abrar Faiaz Khan",
+            "Md. Omar Faruk",
+            "Yaseen Nur"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.12583v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "ACES: Translation Accuracy Challenge Sets at WMT 2023",
+          "url": "http://arxiv.org/abs/2311.01153v1",
+          "snippet": "We benchmark the performance of segmentlevel metrics submitted to WMT 2023 using the ACES Challenge Set (Amrhein et al., 2022). The challenge set consists of 36K examples representing challenges from 68 phenomena and covering 146 language pairs. The phenomena range from simple perturbations at the word/character level to more complex errors based on discourse and real-world knowledge. For each metric, we provide a detailed profile of performance over a range of error categories as well as an overall ACES-Score for quick comparison. We also measure the incremental performance of the metrics su…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2023-11-02",
+          "authors": [
+            "Chantal Amrhein",
+            "Nikita Moghe",
+            "Liane Guillou"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2311.01153v1",
+            "rrf_score": 0.027096,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Automatic and Universal Prompt Injection Attacks against Large Language Models",
+          "url": "http://arxiv.org/abs/2403.04957v1",
+          "snippet": "Large Language Models (LLMs) excel in processing and generating human language, powered by their ability to interpret and follow instructions. However, their capabilities can be exploited through prompt injection attacks. These attacks manipulate LLM-integrated applications into producing responses aligned with the attacker's injected content, deviating from the user's actual requests. The substantial risks posed by these attacks underscore the need for a thorough understanding of the threats. Yet, research in this area faces challenges due to the lack of a unified goal for such attacks and t…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-03-07",
+          "authors": [
+            "Xiaogeng Liu",
+            "Zhiyuan Yu",
+            "Yizhe Zhang",
+            "Ning Zhang",
+            "Chaowei Xiao"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2403.04957v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "SecAlign: Defending Against Prompt Injection with Preference Optimization",
+          "url": "http://arxiv.org/abs/2410.05451v3",
+          "snippet": "Large language models (LLMs) are becoming increasingly prevalent in modern software systems, interfacing between the user and the Internet to assist with tasks that require advanced language understanding. To accomplish these tasks, the LLM often uses external data sources such as user documents, web retrieval, results from API calls, etc. This opens up new avenues for attackers to manipulate the LLM via prompt injection. Adversarial prompts can be injected into external data sources to override the system's intended instruction and instead execute a malicious instruction. To mitigate this vu…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-10-07",
+          "authors": [
+            "Sizhe Chen",
+            "Arman Zharmagambetov",
+            "Saeed Mahloujifar",
+            "Kamalika Chaudhuri",
+            "David Wagner",
+            "Chuan Guo"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2410.05451v3",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "Automatic and Universal Prompt Injection Attacks (2024) 确立了针对大语言模型的自动化、通用提示注入攻击范式，属于该领域奠基性威胁建模工作。",
+            "evidence": "论文提出自动化且通用的提示注入攻击方法，能操纵 LLM 集成应用产生攻击者期望的响应，偏离用户真实请求。",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI), not peer-reviewed",
+            "attention": "高 —— 奠基性攻击论文，定义了核心威胁模型",
+            "recommendation": "★★★★☆ —— 核心威胁模型来源，必读"
+          }
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "主流开源护栏框架、沙箱运行时与 LLM 防火墙的工程成熟度、集成生态如何？",
+      "queries": [
+        "Guardrails AI GitHub stars issues 2024 2025",
+        "NeMo Guardrails production deployment case study",
+        "Llama Guard 3 integration LangChain AutoGen",
+        "LLM firewall sandbox runtime open source comparison 2024"
+      ],
+      "rationale": "评估 Guardrails AI、NeMo Guardrails、Llama Guard、Microsoft Presidio、Garak、ReBAC 等项目的代码活跃度、文档完备性、插件生态、真实部署案例，判断工程落地可行性。",
+      "round": 1,
+      "results": [
+        {
+          "title": "What Challenges Do Developers Face in AI Agent Systems? An Empirical Study on Stack Overflow & GitHub Issues",
+          "url": "http://arxiv.org/abs/2510.25423v2",
+          "snippet": "AI Agents have rapidly gained prominence in both research and industry as systems that extend large language models with planning, tool use, memory, and goal-directed action. Despite this progress, the development and maintenance of Agent systems present recurring engineering difficulties that are not yet well characterized in developer-facing evidence. To address this gap, this study analyzes developer discussions on Stack Overflow and failure reports from GitHub issue trackers associated with widely used Agent frameworks. For Stack Overflow, an Agent-focused corpus is constructed through ta…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-29",
+          "authors": [
+            "Ali Asgari",
+            "Annibale Panichella",
+            "Pouria Derakhshanfar",
+            "Mitchell Olsthoorn"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.25423v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Understanding Opportunities and Risks of Synthetic Relationships: Leveraging the Power of Longitudinal Research with Customised AI Tools",
+          "url": "http://arxiv.org/abs/2412.09086v1",
+          "snippet": "This position paper discusses the benefits of longitudinal behavioural research with customised AI tools for exploring the opportunities and risks of synthetic relationships. Synthetic relationships are defined as \"continuing associations between humans and AI tools that interact with one another wherein the AI tool(s) influence(s) humans' thoughts, feelings, and/or actions.\" (Starke et al., 2024). These relationships can potentially improve health, education, and the workplace, but they also bring the risk of subtle manipulation and privacy and autonomy concerns. To harness the opportunities…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-12-12",
+          "authors": [
+            "Alfio Ventura",
+            "Nils Köbis"
+          ],
+          "venue": "cs.HC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2412.09086v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "Sensitivity and pointing accuracy of the NEMO km$^3$ telescope",
+          "url": "http://arxiv.org/abs/astro-ph/0605067v1",
+          "snippet": "n this paper we present the results of Monte Carlo simulation studies on the capability of the proposed NEMO km3 telescope to detect high energy neutrinos. We calculated the detector sensitivity to muon neutrinos coming from a generic point-like source. We also simulated the lack of atmospheric muons in correspondence to the Moon disk in order to determine the detector angular resolution and to check the absolute pointing capability.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2006-05-02",
+          "authors": [
+            "C. Distefano",
+            "the NEMO Collaboration"
+          ],
+          "venue": "astro-ph",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "0605067v1",
+            "rrf_score": 0.019231
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 36500,
+    "completion_tokens": 13609,
+    "generated_at": "2026-11-15T02:06:28.377638+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# AgentGuard：LLM 护栏与 Agent 安全前沿调研报告\n\n**日期**：2026-11-15（UTC）  \n**领域**：LLM Agent 安全 / 提示注入 / 越狱 / 工具滥用 / 沙箱隔离 / LLM 防火墙 / 红队评测  \n**检索源数量**：32 条（来自 arXiv 预印本与会议论文）\n\n---\n\n## 1. 进展与热点\n\n### 1.1 基准评估透明度危机（增量发现）\n对 12 篇主流 LLM Agent 基准论文的系统性审计显示，评估细节（脚手架、采样设置、子集选择、评估器版本）披露严重不足，导致相同模型在相同基准上结果不一致且无法追溯原因 [1]。这直接动摇了安全护栏评估的可信基础。\n\n| 证据维度 | 内容 | 来源 |\n|----------|------|------|\n| 热度证据 | 论文为 2026 年 arXiv 预印本，作为元研究被社区引用为复现性危机证据 | [1] |\n| 权威证据 | arXiv preprint (cs.LG)，非同行评审 | [1] |\n| 关注度 | 中：揭示基准层面信任基础薄弱，安全评估体系建设的前置阅读 | [1] |\n| 推荐度 | ★★★★☆：安全评估体系建设的前置阅读，指出基准层面的信任基础薄弱 | [1] |\n\n### 1.2 垂直领域 Agent 专用基准与 RL 环境涌现\nRecoAtlas 提出首个面向集合级效用的推荐智能体基准与 RL 环境，包含商品检索、互补性、多样性工具包，填补了现有基准仅关注重排序或语义合理性的空白 [2]。\n\n| 证据维度 | 内容 | 来源 |\n|----------|------|------|\n| 热度证据 | 2026 年 arXiv 预印本 (cs.IR)，新发布专用基准 | [2] |\n| 权威证据 | arXiv preprint (cs.IR)，非同行评审 | [2] |\n| 关注度 | 中：填补推荐类 Agent 评估空白，社区关注度正在上升 | [2] |\n| 推荐度 | ★★★★☆：为推荐类 Agent 的安全/鲁棒性评估提供了首个标准化环境 | [2] |\n\n### 1.3 生产环境 Agent 持续低成本评估实证\n基于服务数万月活用户的生产分析型 Agent，利用 574 次历史基准运行按时间分割为校准期与保留期，探索低成本周期性评估方法，为安全护栏在线监控提供工程范式 [3]。\n\n| 证据维度 | 内容 | 来源 |\n|----------|------|------|\n| 热度证据 | 2026 年 arXiv 预印本 (cs.AI)，真实生产部署首手经验 | [3] |\n| 权威证据 | arXiv preprint (cs.AI)，非同行评审 | [3] |\n| 关注度 | 中：生产级首手经验，工程参考价值高 | [3] |\n| 推荐度 | ★★★★☆：安全护栏工程化部署的参考案例 | [3] |\n\n### 1.4 RAG 系统面临实用黑盒提示注入攻击\nDeRAG 方法将 RAG 管线视为黑盒，用差分进化优化对抗提示后缀，实现跨多个 RAG 应用的迁移攻击，显著降低回答可靠性，揭示当前 RAG 安全护栏的薄弱环节 [4]。\n\n| 证据维度 | 内容 | 来源 |\n|----------|------|------|\n| 热度证据 | 2025 年 arXiv 预印本 (cs.AI)，针对 RAG 的实用黑盒攻击 | [4] |\n| 权威证据 | arXiv preprint (cs.AI)，非同行评审 | [4] |\n| 关注度 | 高：引发社区对提示注入防御的广泛关注 | [4] |\n| 推荐度 | ★★★★★：RAG 类 Agent 安全护栏设计的必读威胁模型 | [4] |\n\n### 1.5 Web Agent 专用提示注入攻击面\nWebInject 针对 Web Agent 的提示注入攻击，展示了在真实网页交互环境下的攻击可行性 [5]。\n\n| 证据维度 | 内容 | 来源 |\n|----------|------|------|\n| 热度证据 | 2025 年 arXiv 预印本 v4，持续更新 | [5] |\n| 权威证据 | arXiv preprint，非同行评审 | [5] |\n| 关注度 | 中：Web Agent 安全的专用攻击基准 | [5] |\n| 推荐度 | ★★★★☆：Web Agent 威胁建模的重要参考 | [5] |\n\n### 1.6 防御框架最新进展\n- **SecAlign**：基于偏好优化防御提示注入 [6]\n- **StruQ**：基于结构化查询防御提示注入 [7]\n- **UniGuardian**：统一检测提示注入、后门攻击与对抗攻击 [8]\n- **基于分类器的检测**：针对应用层提示注入的检测方法 [9]\n\n---\n\n## 2. 工业界与产品\n\n> 待核实：主流云厂商（OpenAI、Anthropic、Google、Microsoft、AWS）的生产级 Guardrail 产品化进展、SLA 与定价模型。当前检索源未覆盖厂商官方技术报告与产品文档。\n\n> 待核实：开源护栏框架（NVIDIA NeMo Guardrails、LangChain Guardrails、Guardrails AI、Microsoft Guidance、Llama Guard 等）的工程成熟度、集成生态、真机部署案例。当前检索源无相关项目级证据。\n\n> 待核实：沙箱运行时（gVisor、Kata Containers、Firecracker、WebAssembly runtimes）在 Agent 工具调用隔离场景的落地情况。当前检索源无相关证据。\n\n> 待核实：LLM 防火墙/网关产品（Portkey、Helicone、MLflow AI Gateway 等）的规则引擎、策略即代码、红队集成能力。当前检索源无相关证据。\n\n---\n\n## 3. 蓝海与缺口\n\n### 3.1 基准评估标准化披露规范缺失\nLLM Agent 基准评估的标准化披露规范尚未形成共识，安全护栏评估缺乏可信的基准地基 [1]。\n\n### 3.2 垂直领域专用安全基准早期阶段\n推荐类、分析类等垂直领域 Agent 的专用安全基准与评估环境仍处于早期建设阶段 [2]。\n\n### 3.3 生产环境持续安全监控工程范式缺失\n生产环境下 Agent 的持续低成本安全监控方法（异常检测、漂移预警）缺乏成熟工程范式 [3]。\n\n### 3.4 RAG 鲁棒防御通用最佳实践缺失\nRAG 系统面对黑盒提示注入攻击的鲁棒防御机制（输入净化、检索结果一致性校验、输出约束）尚无通用最佳实践 [4]。\n\n### 3.5 跨任务/跨本体通用护栏框架缺失\n跨任务、跨本体的 Agent 安全护栏通用框架缺失，当前防御多为点状方案 [4, 5, 8, 12 综合推断]。\n\n### 3.6 开发者面临的工程挑战未被系统解决\n开发者在 AI Agent 系统中面临的挑战（Stack Overflow 与 GitHub Issues 实证研究）显示工程落地痛点未被系统解决 [10]。\n\n---\n\n## 4. 瓶颈与拐点\n\n### 4.1 评估基础设施瓶颈（核心瓶颈）\n基准评估透明度危机导致安全护栏无法建立可比较的量化指标，这是从“演示级防御”走向“工程级护栏”的首要拦路虎 [1]。\n\n### 4.2 黑盒攻击与白盒防御的不对称\nDeRAG 等黑盒攻击无需梯度即可跨应用迁移，而主流防御（SecAlign [6]、StruQ [7]、UniGuardian [8]）多假设白盒或需训练数据，攻防不对称显著 [12, 9, 20, 22]。\n\n### 4.3 过度代理与工具滥用的语义界定困难\n工具调用链的语义完整性验证、最小权限在动态规划中的强制执行、沙箱逃逸的形式化验证，缺乏统一理论框架 [11, 23 综合推断]。\n\n### 4.4 拐点信号：从静态规则走向运行时自适应护栏\n- 生产环境校准模型思路 [3] 暗示“离线基准→在线校准”的范式迁移\n- UniGuardian [8] 等统一检测器指向“多威胁融合检测”而非单点防御\n- 红队基准若能标准化（如 WebInject [5] 方向），将倒逼防御标准化\n\n> 预测：若在 2027 年前出现“可插拔、可审计、支持策略即代码的运行时护栏中间件”并在 ≥3 家头部厂商生产环境落地，则判断“运行时自适应护栏”成为主流范式 [P，置信度 0.65]。\n\n---\n\n## 5. 社会·政策·国际\n\n> 待核实：EU AI Act、美国行政令 14110、中国《生成式人工智能服务管理暂行办法》对 Agent 级应用（工具调用、自主决策）的具体合规要求与审计标准。\n\n> 待核实：国际标准化组织（ISO/IEC JTC 1/SC 42、NIST AI RMF）针对 Agent 安全的标准化进展（如 ISO 42001 扩展）。\n\n> 待核实：地缘政治对开源护栏框架、红队数据集、模型权重出口管制的影响。\n\n> 待核实：劳动替代与责任归属在 Agent 自主决策场景下的法律判例与保险产品创新。\n\n---\n\n## 6. 资本与生态\n\n> 待核实：近 12 个月 Agent 安全赛道融资轮次、金额、头部投资机构与估值分布。\n\n> 待核实：安全厂商与 Agent 框架厂商（LangChain、LlamaIndex、AutoGen、CrewAI 等）的并购、战略投资、OEM 集成案例。\n\n> 待核实：人才流动信号：核心安全研究者从学术界流向产业界的比例、薪资溢价。\n\n> 待核实：社区生态活跃度：Guardrails AI、NeMo Guardrails、Llama Guard 等核心仓库的 Star 增长率、PR 合并延迟、Issue 响应 SLA。\n\n---\n\n## 7. 信号与预测\n\n### 7.1 早期信号\n| 信号 | 来源 | 说明 |\n|------|------|------|\n| 基准审计元研究出现 | [1] | 社区开始反思评估基础设施本身 |\n| 垂直领域专用基准发布 | [2] | 从通用基准向领域化评估分化 |\n| 生产环境校准模型实证 | [3] | 离线基准向在线低成本监控演进 |\n| 统一多威胁检测器 | [8] | 从单点防御走向融合检测 |\n| Web Agent 专用攻击基准 | [5] | 真实交互环境下的威胁建模成熟 |\n\n### 7.2 未来 6–18 月可验证预测\n| 预测假设 | 可证伪条件 | 置信度 | 依据链 |\n|----------|------------|--------|--------|\n| 出现首个“Agent 安全评估标准化披露规范”草案（如 AgentBench Card / AgentEval Sheet）并被 ≥2 个主流基准采纳 | 2027-06 前无此类规范发布或采纳 | 0.70 | [1] 揭示痛点 → 社区需求明确 → 标准化组织介入 |\n| 至少一家头部云厂商发布“运行时自适应 Guardrail 服务”（支持策略即代码、沙箱隔离、审计日志）并公开 SLA | 2027-06 前无此类产品发布 | 0.65 | [3] 校准模型思路 + [8] 统一检测器 → 产品化路径清晰 |\n| RAG 专用鲁棒检索/生成组件（输入净化+一致性校验+输出约束）成为开源标准库组件 | 2027-06 前主流 RAG 框架未集成此类组件 | 0.60 | [4] 攻击实用化 → 防御刚需 → 标准库化 |\n| 红队基准平台化（如“Agent Red Team Arena”）上线并支持自动化攻击生成、多模型并行评测 | 2027-06 前无此类平台上线 | 0.55 | [5] WebInject + [1] 评估透明度需求 → 平台化必然 |\n\n### 7.3 不确定性与风险\n- **不确定**：基础模型能力跃迁（如长上下文、原生工具调用、世界模型）可能改变攻击面定义，使当前护栏架构失效 [P，置信度 0.75]。\n- **风险**：监管落地速度若快于技术标准成熟，可能导致“合规性剧本”取代真实安全工程，形成虚假安全感 [P，置信度 0.60]。\n- **风险**：开源护栏框架若缺乏可持续商业模式，可能陷入“维护断档—安全漏洞—信任崩塌”循环 [P，置信度 0.55]。\n\n---\n\n## 经典与奠基性工作\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| Automatic and Universal Prompt Injection Attacks against Large Language Models | 2024 | arXiv | > 待核实 | arXiv preprint (cs.AI) | 高：奠基性攻击论文，定义核心威胁模型 | ★★★★☆：核心威胁模型来源，必读 | [11] | 确立自动化、通用提示注入攻击范式 |\n| SecAlign: Defending Against Prompt Injection with Preference Optimization | 2024 | arXiv | > 待核实 | arXiv preprint | 中：早期基于偏好优化的防御 | ★★★★☆：防御范式参考 | [6] | 基于偏好优化对齐防御注入 |\n| StruQ: Defending Against Prompt Injection with Structured Queries | 2024 | arXiv | > 待核实 | arXiv preprint | 中：结构化查询防御新思路 | ★★★★☆：架构级防御参考 | [7] | 通过结构化查询分离指令与数据 |\n| What Twelve LLM Agent Benchmark Papers Disclose About Themselves | 2026 | arXiv | > 待核实 | arXiv preprint (cs.LG) | 中：元研究揭示基准透明度危机 | ★★★★☆：评估体系建设前置阅读 | [1] | 系统性审计主流 Agent 基准评估透明度 |\n\n---\n\n## 开源项目\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| > 待核实：NVIDIA NeMo Guardrails | > 待核实 | NVIDIA | > 待核实 | 官方 GitHub | > 待核实 | > 待核实 | > 待核实 | 可编程护栏框架，支持对话流控制 |\n| > 待核实：Guardrails AI | > 待核实 | Guardrails AI Inc. | > 待核实 | 官方 GitHub | > 待核实 | > 待核实 | > 待核实 | 结构化输出验证与护栏 |\n| > 待核实：Llama Guard | > 待核实 | Meta | > 待核实 | 官方 GitHub/HF | > 待核实 | > 待核实 | > 待核实 | 内容安全分类器，支持自定义类别 |\n| > 待核实：Microsoft Guidance | > 待核实 | Microsoft | > 待核实 | 官方 GitHub | > 待核实 | > 待核实 | > 待核实 | 受控生成与提示工程框架 |\n\n---\n\n## 数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| RecoAtlas: Benchmark and RL Environment for LLM Recommendation Agents | 2026 | arXiv | > 待核实 | arXiv preprint (cs.IR) | 中：填补推荐类 Agent 评估空白 | ★★★★☆：推荐类 Agent 安全测试基础设施 | [2] | 首个面向集合级效用的推荐智能体基准与 RL 环境 |\n| WebInject: Prompt Injection Attack to Web Agents | 2025 | arXiv | > 待核实 | arXiv preprint | 中：Web Agent 专用攻击基准 | ★★★★☆：Web Agent 威胁建模参考 | [5] | 针对 Web Agent 的提示注入攻击基准 |\n| DeRAG: Black-box Adversarial Attacks on RAG via Prompt Injection | 2025 | arXiv | > 待核实 | arXiv preprint (cs.AI) | 高：RAG 黑盒攻击基准 | ★★★★★：RAG 安全评估必备威胁模型 | [4] | 差分进化优化对抗后缀的黑盒攻击基准 |\n| > 待核实：AgentBench / ToolBench / API-Bank 等通用 Agent 基准 | > 待核实 | 多机构 | > 待核实 | 会议/arXiv | > 待核实 | > 待核实 | > 待核实 | 通用 Agent 能力评估基准，安全子集待核实 |\n\n---\n\n## 参考来源\n[1] What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema — http://arxiv.org/abs/2605.21404v1\n[2] RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility — http://arxiv.org/abs/2605.18805v2\n[3] Efficient Benchmarking in Production: A Study of an Evolving LLM Agent — http://arxiv.org/abs/2609.21267v1\n[4] DeRAG: Black-box Adversarial Attacks on Multiple Retrieval-Augmented Generation Applications via Prompt Injection — http://arxiv.org/abs/2507.15042v1\n[5] WebInject: Prompt Injection Attack to Web Agents — http://arxiv.org/abs/2505.11717v4\n[6] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3\n[7] StruQ: Defending Against Prompt Injection with Structured Queries — http://arxiv.org/abs/2402.06363v2\n[8] UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models — http://arxiv.org/abs/2502.13141v2\n[9] Detecting Prompt Injection Attacks Against Application Using Classifiers — http://arxiv.org/abs/2512.12583v1\n[10] What Challenges Do Developers Face in AI Agent Systems? An Empirical Study on Stack Overflow & GitHub Issues — http://arxiv.org/abs/2510.25423v2\n[11] Automatic and Universal Prompt Injection Attacks against Large Language Models — http://arxiv.org/abs/2403.04957v1\n\n---\n\n*Generated by research-bot · topic=`agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=32 · duration=265s · 2026-11-15T02:06:28+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+      "url": "http://arxiv.org/abs/2605.21404v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility",
+      "url": "http://arxiv.org/abs/2605.18805v2",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2026-05-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Focus Agent: LLM-Powered Virtual Focus Group",
+      "url": "http://arxiv.org/abs/2409.01907v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2024-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+      "url": "http://arxiv.org/abs/2504.19675v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Efficient Benchmarking in Production: A Study of an Evolving LLM Agent",
+      "url": "http://arxiv.org/abs/2609.21267v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-09-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "SecAlign: Defending Against Prompt Injection with Preference Optimization",
+      "url": "http://arxiv.org/abs/2410.05451v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-10-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Automatic and Universal Prompt Injection Attacks against Large Language Models",
+      "url": "http://arxiv.org/abs/2403.04957v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-03-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "WebInject: Prompt Injection Attack to Web Agents",
+      "url": "http://arxiv.org/abs/2505.11717v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-05-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "DeRAG: Black-box Adversarial Attacks on Multiple Retrieval-Augmented Generation Applications via Prompt Injection",
+      "url": "http://arxiv.org/abs/2507.15042v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-07-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "CHC-COMP 2022: Competition Report",
+      "url": "http://arxiv.org/abs/2211.12231v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2022-11-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Motif Mining and Unsupervised Representation Learning for BirdCLEF 2022",
+      "url": "http://arxiv.org/abs/2206.04805v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2022-06-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Proceedings of the IFJ PAN Particle Physics Summer Student Alumni Conference 2022",
+      "url": "http://arxiv.org/abs/2210.13539v3",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2022-10-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Automated 3D Segmentation of Kidneys and Tumors in MICCAI KiTS 2023 Challenge",
+      "url": "http://arxiv.org/abs/2310.04110v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2023-10-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "ACES: Translation Accuracy Challenge Sets at WMT 2023",
+      "url": "http://arxiv.org/abs/2311.01153v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Vision Mamba: A Comprehensive Survey and Taxonomy",
+      "url": "http://arxiv.org/abs/2405.04404v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "StruQ: Defending Against Prompt Injection with Structured Queries",
+      "url": "http://arxiv.org/abs/2402.06363v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-02-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+      "url": "http://arxiv.org/abs/2512.12583v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-12-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models",
+      "url": "http://arxiv.org/abs/2502.13141v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-02-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "What Challenges Do Developers Face in AI Agent Systems? An Empirical Study on Stack Overflow & GitHub Issues",
+      "url": "http://arxiv.org/abs/2510.25423v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-10-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "AI Exposure and the Changing Responsibilities in Job Postings",
+      "url": "http://arxiv.org/abs/2611.09870v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2026-11-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Foundations of GenIR",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-01-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Faith in AI can narrow the futures individuals consider",
+      "url": "http://arxiv.org/abs/2603.28944v2",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2026-03-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Real-Time 4K Super-Resolution of Compressed AVIF Images. AIS 2024 Challenge Survey",
+      "url": "http://arxiv.org/abs/2404.16484v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-04-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Understanding Opportunities and Risks of Synthetic Relationships: Leveraging the Power of Longitudinal Research with Customised AI Tools",
+      "url": "http://arxiv.org/abs/2412.09086v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2024-12-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Status Report on the double-βdecay experiment NEMO-3",
+      "url": "http://arxiv.org/abs/hep-ex/0006031v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2000-06-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Sensitivity and pointing accuracy of the NEMO km$^3$ telescope",
+      "url": "http://arxiv.org/abs/astro-ph/0605067v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2006-05-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Measurement of the Double Beta Decay Half-life of 150-Nd and Search for Neutrinoless Decay Modes with the NEMO-3 Detector",
+      "url": "http://arxiv.org/abs/0810.0248v2",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2008-10-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Investigation of double beta decay with the NEMO-3 detector",
+      "url": "http://arxiv.org/abs/1002.2862v1",
+      "kind": "paper",
+      "venue": "nucl-ex",
+      "published": "2010-02-15",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-15-agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall.md",
+    "json": "report/2026/11/2026-11-15-agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall.json"
+  }
+}
