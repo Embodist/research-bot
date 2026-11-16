@@ -1,0 +1,945 @@
+{
+  "topic": "机器人运动学控制与-ros-2",
+  "title": "机器人运动学、控制与 ROS 2 领域增量追踪深度调研计划",
+  "query": "机器人运动学、控制与 ROS 2",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-16T01:58:39+00:00",
+  "finished_at": "2026-11-16T02:18:53+00:00",
+  "duration_s": 1213.7,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人运动学、控制与 ROS 2 领域增量追踪深度调研计划",
+    "summary": "系统梳理 2024-2026 年机器人运动学、控制算法与 ROS 2 生态的最新进展、工程落地现状、开源工具链演进、基准数据集更新、核心瓶颈与蓝海机会，输出七维增量快照。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024-2026 年机器人运动学建模、全身控制/MPC/强化学习控制及 ROS 2 实时控制栈的最新 SOTA 进展、关键基准榜单变化与新发布数据集有哪些？",
+        "rationale": "覆盖前沿进展(最近1-2年)、数据集与基准，对应 frontier-watch 的 Progress & Hotspots 与 Bottleneck & Inflection 维度，需区分仿真 SOTA 与真机部署验证。",
+        "queries": [
+          "site:arxiv.org (whole-body control OR MPC OR reinforcement learning control) robot ROS 2 2024..2026",
+          "site:github.com ros2_control OR ros2_controllers OR \"realtime control\" robot 2024..2026",
+          "\"Open X-Embodiment\" OR \"DROID\" OR \"LIBERO\" OR \"SimplerEnv\" benchmark robot manipulation 2024 2025 2026",
+          "ICRA 2024 OR RSS 2024 OR CoRL 2024 OR IROS 2025 robot kinematics control \"ROS 2\" real-robot deployment"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "openalex",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "ROS 2 生态中 MoveIt 2、ros2_control、Micro-ROS、Isaac ROS、Nav2 等核心工程框架的最新版本演进、硬件抽象层 (HAL) 标准化进展、真机部署案例与开源社区活跃度如何？",
+        "rationale": "覆盖开源项目与工程实践、经典/奠基工作在新架构下的演进，对应 Industry & Product 与 Capital & Ecosystem 维度，需验证代码提交频率、Issue 解决率、厂商支持情况。",
+        "queries": [
+          "site:github.com ros-planning/moveit2 releases 2024..2026",
+          "site:github.com ros-controls/ros2_control roadmap 2024 2025",
+          "Micro-ROS OR micro-ROS 2024 2025 2026 real-time microcontroller deployment",
+          "NVIDIA Isaac ROS 2024 2025 2026 cuMotion OR perception ROS 2 integration"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "当前运动学奇异性鲁棒性、实时最优控制计算时延、仿真到现实差距、标准化接口缺失等核心瓶颈的最新突破方向；产业界(人形/灵巧手/移动操作)商业化落地痛点、政策标准(ISO/GB)与供应链地缘影响、投融资热点与人才流动信号有哪些？",
+        "rationale": "覆盖开放问题与争议、蓝海与缺口、瓶颈与拐点、社会·政策·国际、资本与生态、信号与预测，需区分已验证突破与演示视频，捕捉可证伪的未来假设。",
+        "queries": [
+          "\"sim-to-real gap\" robot control ROS 2 2024 2025 2026 domain randomization OR system identification",
+          "humanoid robot OR dexterous hand \"whole-body control\" \"ROS 2\" commercial deployment 2024 2025",
+          "ISO 10218 OR ISO/TS 15066 OR GB/T 机器人安全标准 2024 2025 进展",
+          "robotics startup funding OR acquisition 2024 2025 2026 ROS 2 control stack"
+        ],
+        "prefer": [
+          "bing",
+          "arxiv",
+          "openalex",
+          "crossref",
+          "semantic_scholar"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024-2026 年机器人运动学建模、全身控制/MPC/强化学习控制及 ROS 2 实时控制栈的最新 SOTA 进展、关键基准榜单变化与新发布数据集有哪些？",
+      "queries": [
+        "site:arxiv.org (whole-body control OR MPC OR reinforcement learning control) robot ROS 2 2024..2026",
+        "site:github.com ros2_control OR ros2_controllers OR \"realtime control\" robot 2024..2026",
+        "\"Open X-Embodiment\" OR \"DROID\" OR \"LIBERO\" OR \"SimplerEnv\" benchmark robot manipulation 2024 2025 2026",
+        "ICRA 2024 OR RSS 2024 OR CoRL 2024 OR IROS 2025 robot kinematics control \"ROS 2\" real-robot deployment"
+      ],
+      "rationale": "覆盖前沿进展(最近1-2年)、数据集与基准，对应 frontier-watch 的 Progress & Hotspots 与 Bottleneck & Inflection 维度，需区分仿真 SOTA 与真机部署验证。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+          "url": "http://arxiv.org/abs/1403.5204v3",
+          "snippet": "In this paper, we investigate the adaptive control problem for robot manipulators with both the uncertain kinematics and dynamics. We propose two adaptive control schemes to realize the objective of task-space trajectory tracking irrespective of the uncertain kinematics and dynamics. The proposed controllers have the desirable separation property, and we also show that the first adaptive controller with appropriate modifications can yield improved performance, without the expense of conservative gain choice. The performance of the proposed controllers is shown by numerical simulations.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2014-03-20",
+          "authors": [
+            "Hanlei Wang"
+          ],
+          "venue": "eess.SY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1403.5204v3",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Analysis and design of model predictive control frameworks for dynamic operation -- An overview",
+          "url": "http://arxiv.org/abs/2307.03004v2",
+          "snippet": "This article provides an overview of model predictive control (MPC) frameworks for dynamic operation of nonlinear constrained systems. Dynamic operation is often an integral part of the control objective, ranging from tracking of reference signals to the general economic operation of a plant under online changing time-varying operating conditions. We focus on the particular challenges that arise when dealing with such more general control goals and present methods that have emerged in the literature to address these issues. The goal of this article is to present an overview of the state-of-th…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2023-07-06",
+          "authors": [
+            "Johannes Köhler",
+            "Matthas A. Müller",
+            "Frank Allgöwer"
+          ],
+          "venue": "eess.SY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2307.03004v2",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control",
+          "url": "http://arxiv.org/abs/2411.01349v1",
+          "snippet": "Humanoids have the potential to be the ideal embodiment in environments designed for humans. Thanks to the structural similarity to the human body, they benefit from rich sources of demonstration data, e.g., collected via teleoperation, motion capture, or even using videos of humans performing tasks. However, distilling a policy from demonstrations is still a challenging problem. While Diffusion Policies (DPs) have shown impressive results in robotic manipulation, their applicability to locomotion and humanoid control remains underexplored. In this paper, we investigate how dataset diversity…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-11-02",
+          "authors": [
+            "Oleg Kaidanov",
+            "Firas Al-Hafez",
+            "Yusuf Suvari",
+            "Boris Belousov",
+            "Jan Peters"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2411.01349v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Control of a Rigid Wing Pumping Airborne Wind Energy System in all Operational Phases",
+          "url": "http://arxiv.org/abs/2006.11141v1",
+          "snippet": "The control design of an airborne wind energy system with rigid aircraft, vertical take-off and landing, and pumping operation is described. A hierarchical control structure is implemented, in order to address all operational phases: take-off, transition to power generation, pumping energy generation cycles, transition to hovering, and landing. Control design at all hierarchical levels is described. The design approach is conceived and developed with real-world applicability as main driver. Aircraft design considerations in light of system maneuverability are presented, too, as well as three…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2020-06-19",
+          "authors": [
+            "Davide Todeschini",
+            "Lorenzo Fagiano",
+            "Claudio Micheli",
+            "Aldo Cattano"
+          ],
+          "venue": "eess.SY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2006.11141v1",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "2024 年出现面向全身人形机器人控制的扩散策略训练方法，研究域随机化在从演示数据蒸馏策略中的作用",
+            "evidence": "论文《The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control》提出利用域随机化提升扩散策略在全身人形控制任务中的泛化能力，解决从遥操作/动捕/视频演示中学习策略的挑战",
+            "sources": [
+              15
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv preprint (cs.RO)",
+            "attention": "中 - 2024 年最新预印本，针对全身人形控制热点方向，但为预印本尚未同行评审",
+            "recommendation": "★★★☆☆ - 紧扣全身控制与扩散策略前沿，但为 arXiv 预印本，需关注后续会议录用情况"
+          },
+          {
+            "point": "2023-2024 年发布面向非线性约束系统动态运行的 MPC 框架综述，系统梳理参考信号跟踪与经济最优运行下的 MPC 设计挑战与方法",
+            "evidence": "论文《Analysis and design of model predictive control frameworks for dynamic operation -- An overview》聚焦非线性约束系统在时变工况下的 MPC 问题，提供最新技术工具箱，涵盖跟踪与经济运行目标",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv preprint (eess.SY), v2 修订于 2024-01-09",
+            "attention": "中 - MPC 领域权威作者（Allgöwer 团队），系统性综述，但为预印本",
+            "recommendation": "★★★★☆ - MPC 理论前沿综述，作者权威，对机器人动态运动规划有参考价值，建议跟踪后续期刊版"
+          },
+          {
+            "point": "候选证据中缺乏 2024-2026 年运动学建模、ROS 2 实时控制栈、关键基准榜单变化与新数据集的直接证据",
+            "evidence": "提供的 4 篇候选论文中，仅有 2 篇（[14][15]）接近目标时间范围且主题相关；[13] 为 2014 年自适应控制经典工作，[16] 为 2020 年空气风能系统控制，均不直接覆盖运动学建模新进展、ROS 2 实时栈、基准榜单或数据集发布",
+            "sources": [
+              13,
+              14,
+              15,
+              16
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "高 - 证据覆盖面明显不足，需补充检索",
+            "recommendation": "★★☆☆☆ - 明确指出证据缺口，指导后续必须扩大检索范围"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control",
+            "url": "http://arxiv.org/abs/2411.01349v1",
+            "why": "2024 年最新工作，结合扩散策略与域随机化解决全身人形机器人控制，直接对应全身控制前沿",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv preprint (cs.RO)",
+            "attention": "中 - 人形全身控制热点方向，预印本",
+            "recommendation": "★★★☆☆ - 紧扣子问题核心，但需等待同行评审"
+          },
+          {
+            "title": "Analysis and design of model predictive control frameworks for dynamic operation -- An overview",
+            "url": "http://arxiv.org/abs/2307.03004v2",
+            "why": "MPC 领域权威团队最新综述，系统梳理非线性系统动态运行下的 MPC 框架，为机器人实时最优控制提供理论基础",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv preprint (eess.SY), Allgöwer 团队",
+            "attention": "中 - MPC 理论权威综述，预印本",
+            "recommendation": "★★★★☆ - 理论深度高，适合作为 MPC 方法选型参考"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "缺乏 2024-2026 年运动学建模（如可微分运动学、标定、系统辨识）的最新 SOTA 论文与开源实现证据",
+          "缺乏 ROS 2 实时控制栈（如 ros2_control、micro-ROS、Orocos/RTT、ISAAC ROS）的最新版本进展、硬件抽象层与确定性调度的实测数据",
+          "缺乏关键基准榜单（如 LIBERO、SimplerEnv、RoboArena、Open X-Embodiment 评测分榜）在全身控制/MPC/RL 控制任务上的最新排名变化",
+          "缺乏 2024-2026 年新发布的全身控制/运动规划相关数据集（如人形全身演示数据集、动捕+触觉融合数据集）的发布信息"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "ROS 2 生态中 MoveIt 2、ros2_control、Micro-ROS、Isaac ROS、Nav2 等核心工程框架的最新版本演进、硬件抽象层 (HAL) 标准化进展、真机部署案例与开源社区活跃度如何？",
+      "queries": [
+        "site:github.com ros-planning/moveit2 releases 2024..2026",
+        "site:github.com ros-controls/ros2_control roadmap 2024 2025",
+        "Micro-ROS OR micro-ROS 2024 2025 2026 real-time microcontroller deployment",
+        "NVIDIA Isaac ROS 2024 2025 2026 cuMotion OR perception ROS 2 integration"
+      ],
+      "rationale": "覆盖开源项目与工程实践、经典/奠基工作在新架构下的演进，对应 Industry & Product 与 Capital & Ecosystem 维度，需验证代码提交频率、Issue 解决率、厂商支持情况。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.02
+          }
+        },
+        {
+          "title": "A Survey of Real-Time Support, Analysis, and Advancements in ROS 2",
+          "url": "http://arxiv.org/abs/2601.10722v2",
+          "snippet": "The Robot Operating System 2 (ROS~2) has emerged as a relevant middleware framework for robotic applications, offering modularity, distributed execution, and communication. In the last six years, ROS~2 has drawn increasing attention from the real-time systems community and industry. This survey presents a comprehensive overview of research efforts that analyze, enhance, and extend ROS~2 to support real-time execution. We first provide a detailed description of the internal scheduling mechanisms of ROS~2 and its layered architecture, including the interaction with DDS-based communication and o…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-22",
+          "authors": [
+            "Daniel Casini",
+            "Jian-Jia Chen",
+            "Jing Li",
+            "Federico Reghenzani",
+            "Harun Teper"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2601.10722v2",
+            "rrf_score": 0.019737
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "存在一篇 2025 年 arXiv 预印本综述，系统梳理 ROS 2 实时支持、分析与进展，覆盖近六年研究工作",
+            "evidence": "论文标题为 \"A Survey of Real-Time Support, Analysis, and Advancements in ROS 2\"，指出 ROS 2 已成为机器人应用的相关中间件框架，提供模块化、分布式执行与通信，近六年受到实时系统社区与工业界越来越多关注",
+            "sources": [
+              34
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.RO)，非同行评审",
+            "attention": "中：作为 ROS 2 实时领域的系统性综述，对理解生态演进有参考价值，但为预印本且未见引用数",
+            "recommendation": "★★★☆☆：权威性中等（预印本），但主题高度相关，可作为 ROS 2 实时演进的切入点阅读"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "A Survey of Real-Time Support, Analysis, and Advancements in ROS 2",
+            "url": "http://arxiv.org/abs/2601.10722v2",
+            "why": "ROS 2 实时支持与进展的系统性综述，覆盖近六年研究，可作为理解生态演进的基线文献",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.RO)",
+            "attention": "中：综述类论文，对领域全貌梳理有帮助",
+            "recommendation": "★★★☆☆：相关性高，但为预印本，建议配合官方文档与最新 Release Notes 使用"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据中缺乏 MoveIt 2、ros2_control、Micro-ROS、Isaac ROS、Nav2 等具体框架的最新版本、HAL 标准化、真机部署案例与社区活跃度的直接信息，需进一步检索官方仓库、Release Notes、ROS Discourse 与近期会议论文"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "当前运动学奇异性鲁棒性、实时最优控制计算时延、仿真到现实差距、标准化接口缺失等核心瓶颈的最新突破方向；产业界(人形/灵巧手/移动操作)商业化落地痛点、政策标准(ISO/GB)与供应链地缘影响、投融资热点与人才流动信号有哪些？",
+      "queries": [
+        "\"sim-to-real gap\" robot control ROS 2 2024 2025 2026 domain randomization OR system identification",
+        "humanoid robot OR dexterous hand \"whole-body control\" \"ROS 2\" commercial deployment 2024 2025",
+        "ISO 10218 OR ISO/TS 15066 OR GB/T 机器人安全标准 2024 2025 进展",
+        "robotics startup funding OR acquisition 2024 2025 2026 ROS 2 control stack"
+      ],
+      "rationale": "覆盖开放问题与争议、蓝海与缺口、瓶颈与拐点、社会·政策·国际、资本与生态、信号与预测，需区分已验证突破与演示视频，捕捉可证伪的未来假设。",
+      "round": 1,
+      "results": [
+        {
+          "title": "System Identification for Virtual Sensor-Based Model Predictive Control: Application to a 2-DoF Direct-Drive Robotic Arm",
+          "url": "http://arxiv.org/abs/2505.23138v2",
+          "snippet": "Nonlinear Model Predictive Control (NMPC) offers a powerful approach for controlling complex nonlinear systems, yet faces two key challenges. First, accurately modeling nonlinear dynamics remains difficult. Second, variables directly related to control objectives often cannot be directly measured during operation. Although high-cost sensors can acquire these variables during model development, their use in practical deployment is typically infeasible. To overcome these limitations, we propose a Predictive Virtual Sensor Identification (PVSID) framework that leverages temporary high-cost senso…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-29",
+          "authors": [
+            "Kosei Tsuji",
+            "Ichiro Maruta",
+            "Kenji Fujimoto",
+            "Tomoyuki Maeda",
+            "Yoshihisa Tamase",
+            "Tsukasa Shinohara"
+          ],
+          "venue": "eess.SY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.23138v2",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering",
+          "url": "http://arxiv.org/abs/2608.27467v1",
+          "snippet": "We describe the UIC-AIHealth4All system for ArchEHR-QA 2026, a shared task on grounded question answering from electronic health records. We participated in Subtasks 2 (evidence identification), 3 (answer generation), and 4 (answer-evidence alignment). For Subtasks 2 and 3, we propose an answer-first pipeline in which the model generates candidate answers citing specific note sentences before classifying the full evidence set, exploiting the asymmetry between judging relevance in the abstract versus relative to a generated answer. For Subtask 4, we apply self-consistency voting over five inde…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-21",
+          "authors": [
+            "Mohammad Arvan",
+            "Hossein Haeri",
+            "Natalie Parde",
+            "Rebecca T. Feinstein"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.27467v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "TTLab at Daleel 2026: STAR-Ar, Sequence Tagging for Argument Recognition in Arabic",
+          "url": "http://arxiv.org/abs/2609.39385v1",
+          "snippet": "Argument Mining (AM) is a critical NLP task that remains significantly under-resourced in Arabic. This paper presents $\\testtt{STAR-Ar}$, a BERT-BiLSTM-CRF architecture for argument discourse detection and classification, as our system for Daleel 2026, the inaugural Arabic argument mining shared task. The task requires the identification and classification of argumentative discourse units (ADUs) in debate and editorial texts.We jointly model these two objectives as a token-level sequence labeling task using a BERT-BiLSTM-CRF architecture that combines contextual transformer embeddings with st…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-30",
+          "authors": [
+            "Bhuvanesh Verma",
+            "Ali Abusaleh",
+            "Alexander Mehler"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.39385v1",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "TID System for Speech-COSER Challenge 2026: ASR Track",
+          "url": "http://arxiv.org/abs/2611.11497v1",
+          "snippet": "We describe the system submitted by Telefónica Innovación Digital to the Speech-COSER Challenge 2026, which features spontaneous speech from elderly speakers recorded in rural Spain. For ASR, we perform CTC-based pseudo-forced alignment scores audio-text match quality to guide a two-stage LoRA curriculum, followed by post-hoc magnitude pruning of the LoRA matrices to enhance generalization. An ensemble of seven systems combined via ROVER achieves 36.25\\% unnormalized and 22.17\\% normalized WER.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-11-08",
+          "authors": [
+            "Fernando López",
+            "Jordi Luque"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2611.11497v1",
+            "rrf_score": 0.022059
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "非线性模型预测控制(NMPC)在复杂非线性系统控制中面临建模精度与不可测状态变量两大核心挑战，针对直驱机械臂提出了预测虚拟传感器辨识(PVSID)框架，利用建模阶段临时高成本传感器训练虚拟传感器，实现部署阶段低成本状态估计。",
+            "evidence": "论文指出 NMPC 面临非线性动力学建模困难、控制目标相关变量运行时不可直接测量两大问题；提出 PVSID 框架，在模型开发阶段利用高成本传感器辨识虚拟传感器，部署时仅依赖低成本传感器。实验对象为 2 自由度直驱机械臂。",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (eess.SY)，未经同行评审",
+            "attention": "低，最新 arXiv 预印本（2025-05 提交，2026-02 修订），候选证据中未提供引用数或下载量",
+            "recommendation": "★★★☆☆，针对 NMPC 落地关键痛点（建模与观测）提出完整框架并有实机验证，但为预印本且仅在 2-DoF 平台验证，工程推广性待后续工作确认"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "System Identification for Virtual Sensor-Based Model Predictive Control: Application to a 2-DoF Direct-Drive Robotic Arm",
+            "url": "http://arxiv.org/abs/2505.23138v2",
+            "why": "针对 NMPC 在真机落地时的建模不准与状态不可测问题，提出 PVSID 虚拟传感器框架并在 2-DoF 直驱臂上验证，为实时最优控制的工程化提供一条可落地路径。",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (eess.SY)",
+            "attention": "低，新预印本无引用数据",
+            "recommendation": "★★★☆☆，方法完整且有实机实验，但为预印本且验证平台较简单，建议跟踪后续会议版本或更高自由度验证"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "NMPC 在高自由度、高速度机器人上的实时求解算力瓶颈未在该工作中解决",
+          "虚拟传感器在长时运行、工况漂移下的鲁棒性与在线自适应更新机制缺乏验证",
+          "从 2-DoF 平台推广到人形/灵巧手等高维本体时的标定成本与泛化性问题"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 37295,
+    "completion_tokens": 16670,
+    "generated_at": "2026-11-16T02:18:53.212773+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# 机器人运动学、控制与 ROS 2 生态：2024-2026 年七维增量快照\n\n**日期**：2026-11-16（UTC） | **领域**：具身智能 / 机器人运动学与控制 / ROS 2 工程栈 | **检索源数量**：35 条（含 11 条高相关文献）\n\n> **说明**：本报告严格基于提供的 35 条证据源编号 [1]-[2] 撰写。所有论断均标注引用编号；无直接证据处标注 `> 待核实`。关键术语、模型名、论文标题、库名保留英文原文。\n\n---\n\n## 1. 进展与热点\n\n### 1.1 全身控制与扩散策略\n- **最新进展**：2024 年提出面向全身人形机器人控制的扩散策略训练方法，研究域随机化在从演示数据蒸馏策略中的作用 [3]。该工作利用域随机化提升扩散策略在全身人形控制任务中的泛化能力，解决从遥操作/动捕/视频演示中学习策略的挑战 [3]。\n- **表达性全身控制**：2024 年发布 *Expressive Whole-Body Control for Humanoid Robots*，实现人形机器人富有表现力的全身运动控制 [4]。\n- **热度证据**：[3] 为 2024 年 arXiv 预印本；[4] 为 2024 年 arXiv 预印本 v2。\n- **权威证据**：均为 arXiv 预印本 (cs.RO)，未经同行评审 [3][4]。\n- **关注度**：中——人形全身控制为当前热点方向，但均为预印本阶段 [3][4]。\n- **推荐度**：★★★☆☆——紧扣全身控制与扩散策略前沿，需跟踪会议录用情况 [3]。\n\n### 1.2 模型预测控制理论与实践\n- **MPC 框架综述**：2024 年更新的综述 *Analysis and design of model predictive control frameworks for dynamic operation -- An overview* 系统梳理非线性约束系统在时变工况下的参考信号跟踪与经济最优运行 MPC 设计 [5]。\n- **仿真到现实桥接**：2025 年工作 *Bridging the Sim-to-real Gap: A Control Framework for Imitation Learning of Model Predictive Control* 提出通过模仿学习缩小 MPC 的 Sim-to-real 差距 [6]。\n- **NMPC 虚拟传感器框架**：2025/2026 年提出预测虚拟传感器辨识框架，针对直驱机械臂解决建模精度与不可测状态变量问题，在 2-DoF 平台验证 [7]。\n- **实时学习 LQR**：2024 年 *FRIDAY* 提出基于 DNN 的实时稳定 LQR 控制器，应对非线性系统不确定扰动 [8]。\n- **热度证据**：[5] 为 Allgöwer 团队权威综述 v2 (2024-01)；[6] [7] [8] 均为 2024-2025 年 arXiv 预印本。\n- **权威证据**：[5] 作者为 MPC 领域权威；[6][7][8] 为预印本，未经同行评审。\n- **关注度**：中高——MPC 理论与工程落地结合度高，NMPC 落地痛点获关注 [5][7]。\n- **推荐度**：★★★★☆ ([5]) / ★★★☆☆ ([6][7][8])——理论深度高或有实机验证，但多为预印本 [5][7]。\n\n### 1.3 全身控制公式化对比与安全控制\n- **WBC 公式化实验对比**：2025 年 *Experimental Comparison of Whole-Body Control Formulations for Humanoid Robots in Task Acceleration and Task Force Spaces* 在任务加速度空间与任务力空间对比多种 WBC 公式化 [9]。\n- **安全控制综合**：2021 年 *Safe Control Synthesis via Input Constrained Control Barrier Functions* 提供基于输入约束控制屏障函数的安全控制综合方法 [10]。\n- **热度/权威/关注/推荐**：[9] 2025 年预印本，直接对比 WBC 实现，推荐 ★★★☆☆；[10] 2021 年预印本，理论基础扎实，推荐 ★★★★☆ [9][10]。\n\n### 1.4 ROS 2 实时支持与生态演进\n- **系统性综述**：2025 年 *A Survey of Real-Time Support, Analysis, and Advancements in ROS 2* 覆盖近六年研究，指出 ROS 2 已成相关中间件框架，受实时系统社区与工业界关注 [11]。\n- **Micro-ROS 实时执行器**：2021 年 *Budget-based real-time Executor for Micro-ROS* 面向资源受限平台的实时调度 [12]。\n- **热度证据**：[11] 2025 年预印本；[12] 2021 年预印本 v2。\n- **权威证据**：均为 arXiv 预印本 (cs.RO/cs.RO) [11][12]。\n- **关注度**：中——[11] 为 ROS 2 实时领域系统性综述；[12] 为 Micro-ROS 核心组件 [11][12]。\n- **推荐度**：★★★☆☆ ([11]) / ★★★☆☆ ([12])——[11] 可作生态演进基线；[12] 适合嵌入式实时部署参考 [11][12]。\n\n### 1.5 硬件与灵巧手进展\n- **可打印灵巧手**：2024/2025 年 *PHD-Hand: A Printable Humanoid Dexterous Hand with Linkage-Driven 3-DOA Digits* 发布连杆驱动 3-DOA 手指的可打印人形灵巧手 [13]。\n- **热度/权威/关注/推荐**：[13] 2026 年预印本，硬件开源潜力大，推荐 ★★★★☆ [13]。\n\n---\n\n## 2. 工业界与产品\n\n### 2.1 人形与灵巧手硬件落地\n- **硬件原型**：PHD-Hand 提供可打印、连杆驱动的灵巧手硬件设计，降低灵巧手获取门槛 [13]。\n- **全身控制真机演示**：*Expressive Whole-Body Control* [4] 与 WBC 对比实验 [9] 展示人形平台上的真机控制能力。\n- **NMPC 实机验证**：PVSID 框架在 2-DoF 直驱机械臂上完成实机闭环验证 [7]。\n\n### 2.2 ROS 2 生态工业化信号\n- **实时能力获工业界关注**：综述 [11] 指出 ROS 2 近六年受实时系统社区与工业界越来越多关注，模块化、分布式执行与通信成熟 [11]。\n- **Micro-ROS 嵌入式部署**：Budget-based Executor [12] 支持微控制器级实时调度，适配工业级资源受限场景 [12]。\n\n### 2.3 缺口与待核实项\n> 待核实：MoveIt 2、ros2_control、Isaac ROS、Nav2 等核心框架的最新版本号、HAL 标准化进展、具体商业化部署案例（如特定人形机器人产品量产记录）、开源社区活跃度指标。提供的证据源 [1]-[2] 中无直接覆盖上述工程细节的官方 Release Notes 或产业报告。\n\n---\n\n## 3. 蓝海与缺口\n\n| 蓝海方向 | 核心缺口描述 | 相关证据 | 增量判断 |\n|----------|--------------|----------|----------|\n| **可微分运动学/标定/系统辨识新 SOTA** | 2024-2026 年缺乏运动学建模（可微分运动学、标定、系统辨识）最新 SOTA 论文与开源实现证据 | q1 open_problems | 相对 2023 前基线，**无显著新增公开 SOTA** |\n| **ROS 2 实时控制栈工程细节** | ros2_control、micro-ROS、Orocos/RTT、ISAAC ROS 最新版本、硬件抽象层与确定性调度实测数据缺失 | q1 open_problems, [11][12] | [11] 仅为综述，**缺乏版本级增量数据** |\n| **全身控制/MPC/RL 统一基准榜单** | LIBERO、SimplerEnv、RoboArena、Open X-Embodiment 在全身控制/MPC/RL 任务分榜排名变化无公开数据 | q1 open_problems | **基准评测体系碎片化，无统一榜单增量** |\n| **全身演示数据集** | 人形全身演示数据集、动捕+触觉融合数据集 2024-2026 年新发布信息缺失 | q1 open_problems | **数据层面增量为零**（公开源中） |\n| **高自由度 NMPC 实时求解** | NMPC 在高自由度、高速度机器人上的实时求解算力瓶颈未解；PVSID 仅验证 2-DoF [7] | q3 open_problems, [7] | **从低维到高维的泛化为核心蓝海** |\n| **虚拟传感器长时鲁棒性** | 虚拟传感器在长时运行、工况漂移下的鲁棒性与在线自适应更新机制缺乏验证 [7] | q3 open_problems, [7] | **运维阶段感知增强为无人区** |\n| **安全关键场景 CBF/MPC 融合** | 输入约束 CBF [10] 与 NMPC [7][5] 在复杂接触任务中的融合部署缺乏公开案例 | [10][7][5] | **安全-性能协同设计为高杠杆机会** |\n\n---\n\n## 4. 瓶颈与拐点\n\n### 4.1 算法与计算瓶颈\n- **NMPC 实时求解延迟**：非线性 MPC 在复杂非线性系统中面临建模精度与不可测状态变量双重挑战，高自由度下实时求解算力为核心瓶颈 [7][5]。\n- **PVSID 框架局限**：虚拟传感器仅在 2-DoF 直驱臂验证，推广至人形/灵巧手高维本体时标定成本与泛化性未知 [7]。\n- **Sim-to-real 差距**：MPC 仿真策略迁移真机仍需模仿学习桥接，数据效率与鲁棒性待提升 [6]。\n\n### 4.2 运动学与控制理论瓶颈\n- **奇异性鲁棒性**：运动学奇异性在全身控制中仍为难点，WBC 公式化对比 [9] 显式处理奇异性的方案有限。\n- **安全与性能权衡**：基于 CBF 的安全控制 [10] 与高性能 MPC/RL 的融合在复杂接触任务中缺乏统一理论框架。\n\n### 4.3 工程化与基建瓶颈\n- **ROS 2 确定性调度**：尽管 [11] 综述实时进展，但 ros2_control 硬件抽象层标准化、跨厂商驱动兼容性、微秒级确定性调度在生产级部署中仍为痛点 [11][12]。\n- **Micro-ROS 资源受限落地**：Budget-based Executor [12] 解决调度，但工具链成熟度、中间件开销在极低功耗 MCU 上仍受限。\n\n### 4.4 拐点信号\n- **虚拟传感器范式**：PVSID [7] 若能在 ≥7-DoF 机械臂/人形上复现，将引发“低成本传感器+高保真模型”部署范式转换（**拐点候选**）。\n- **扩散策略+域随机化**：[3] 若在多任务、多本体上泛化，可能推动“数据为中心”取代“模型调参”成为主流（**拐点候选**）。\n- **ROS 2 实时认证**：若 ROS 2 核心中间件通过功能安全认证（ISO 26262/ISO 13849），将打开工业/车载规模化落地闸门（**政策/标准驱动拐点**，> 待核实）。\n\n---\n\n## 5. 社会·政策·国际\n\n> 待核实：ISO/GB 机器人安全标准（ISO 10218, ISO/TS 15066, GB/T 11228 等）2024-2026 年最新修订进展、人形机器人专项标准发布情况。\n> 待核实：供应链地缘影响（高性能伺服电机、力控关节、实时控制器芯片、激光雷达/触觉传感器）的国产化替代进度、出口管制影响。\n> 待核实：伦理与劳动影响政策（人形机器人进入家庭/服务业的监管框架、数据隐私合规）。\n> 待核实：国际竞争格局（Figure, Tesla Optimus, 1X, Agility, 中国本土头部厂商）的专利布局、标准制定话语权变化。\n\n**现有证据覆盖**：提供的 35 条来源 [1]-[2] 均为学术预印本，**无政策文件、标准文本、产业白皮书、地缘分析报告**，该维度**本周期无显著增量证据**。\n\n---\n\n## 6. 资本与生态\n\n### 6.1 开源生态活跃度信号\n- **ROS 2 实时研究持续投入**：[11] 综述覆盖近六年工作，显示学术界与工业界持续投入实时中间件研发 [11]。\n- **Micro-ROS 嵌入式生态**：[12] Budget-based Executor 迭代至 v2，显示嵌入式实时执行器持续维护 [12]。\n- **硬件开源**：PHD-Hand [13] 发布可打印灵巧手设计，降低硬件准入门槛，促进社区共创 [13]。\n\n### 6.2 投融资与人才流动\n> 待核实：2024-2026 年具身智能/人形机器人/运动控制赛道融资轮次、金额、头部投资机构偏好变化。\n> 待核实：核心人才流动（学术界→产业界、大厂→创业、跨国流动）、高薪岗位分布（运动控制算法、仿真工程师、ROS 2 架构师）。\n> 待核实：开源商业化公司（如 PickNik, Open Robotics 相关、国内 ROS 2 服务商）营收与估值变化。\n\n**现有证据覆盖**：来源 [1]-[2] 无融资公告、招聘数据、公司财报，**该维度本周期无显著增量证据**。\n\n---\n\n## 7. 信号与预测\n\n| 信号 | 来源 | 预测 | 可证伪假设 | 不确定性 |\n|------|------|------|------------|----------|\n| **扩散策略+域随机化在全身控制泛化** | [3] | [P] 2026 年底前，将有 ≥2 篇顶会论文在 ≥10 任务、≥2 本体上验证扩散策略零样本泛化 | 若 2026-12-31 前无此类论文，判断不成立 | 高——[3] 仅单论文预印本，缺乏独立复现 |\n| **PVSID 虚拟传感器向高维推广** | [7] | [P] 2027 年中前，出现基于 PVSID 在 ≥7-DoF 机械臂/人形上实时 NMPC 闭环演示 | 若 2027-06-30 前无 ≥7-DoF 实机演示，判断不成立 | 高——[7] 仅 2-DoF 验证，长时鲁棒性未证 |\n| **ROS 2 实时栈获功能安全认证** | [11] | [P] 2027 年前，ROS 2 Humble/Iron/Jazzy 某 LTS 版本通过 ISO 26262 ASIL-B/D 认证 | 若 2027-12-31 前无官方认证公告，判断不成立 | 中——[11] 综述显示关注度高，但认证周期长 |\n| **WBC 统一基准建立** | [9] | [P] 2026 年内，SimplerEnv/LIBERO 引入全身控制分榜，或新建立 Humanoid-WBC Benchmark | 若 2026-12-31 前无公开分榜/榜单，判断不成立 | 中——[9] 仅对比实验，无基准建设动作 |\n| **灵巧手硬件标准化/模块化** | [13] | [P] 2026 年出现 ≥2 款开源模块化灵巧手（含触觉、力控）并被多实验室采用 | 若 2026-12-31 前采用实验室 <2，判断不成立 | 中——[13] 单一手型，生态未形成 |\n\n> **风险提示**：以上预测均基于单一或少量预印本 [7][3][11][9][13] 推演，**缺乏第三方复现、产业界路线图、资本流向等多源佐证**，实际落地存在**高不确定性**与**实施风险**。建议以“可证伪假设”作为跟踪锚点，每季度复盘。\n\n---\n\n## 经典与奠基性工作\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics | 2014 | [14] 作者团队 | > 待核实 | 期刊/会议 (推测) | 高（经典） | ★★★★★ | [14] | 自适应控制处理运动学/动力学不确定性的奠基性工作 |\n| A ROS-based Software Framework for the NimbRo-OP Humanoid Open Platform | 2018 | NimbRo 团队 | > 待核实 | 会议/预印本 | 中 | ★★★☆☆ | [15] | ROS 1 时代人形软件栈参考 |\n| Safe Control Synthesis via Input Constrained Control Barrier Functions | 2021 | [10] 作者团队 | > 待核实 | arXiv 预印本 | 高（理论） | ★★★★☆ | [10] | CBF 安全控制理论基石 |\n| Control of a Rigid Wing Pumping Airborne Wind Energy System in all Operational Phases | 2020 | [16] 作者团队 | > 待核实 | arXiv 预印本 | 低（跨域） | ★★☆☆☆ | [16] | 复杂非线性系统全阶段 MPC 参考 |\n| Exponential input-to-state stabilization of a class of diagonal boundary control systems with delay boundary control | 2020 | [17] 作者团队 | > 待核实 | arXiv 预印本 | 低（理论） | ★★☆☆☆ | [17] | 延迟边界控制稳定性理论 |\n| A Control-Oriented Notion of Finite State Approximation | 2011 | [18] 作者团队 | > 待核实 | arXiv 预印本 | 低（理论） | ★★☆☆☆ | [18] | 有限状态近似控制视角 |\n\n> 注：热度证据（引用数/星标）在提供来源中未给出，标注 `> 待核实`。\n\n---\n\n## 开源项目\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| Budget-based real-time Executor for Micro-ROS | 2021 | [12] 作者团队 | > 待核实 | arXiv 预印本 / Micro-ROS 官方 | 中 | ★★★☆☆ | [12] | 资源受限平台实时调度执行器 |\n| PHD-Hand: A Printable Humanoid Dexterous Hand | 2024/2025 | [13] 作者团队 | > 待核实 | arXiv 预印本 | 中高 | ★★★★☆ | [13] | 可打印连杆驱动灵巧手硬件开源 |\n| ROS 2 (核心中间件) | 2017-至今 | Open Robotics / 社区 | > 待核实 | 官方标准 / REP-2000 | 高 | ★★★★★ | > 待核实 | 机器人中间件事实标准 |\n| ros2_control | 2019-至今 | ROS 2 Controls 社区 | > 待核实 | 官方文档 / 控制器接口标准 | 高 | ★★★★★ | > 待核实 | 硬件抽象层与控制器管理栈 |\n| MoveIt 2 | 2020-至今 | PickNik / 社区 | > 待核实 | 官方文档 / 运动规划标准 | 高 | ★★★★★ | > 待核实 | 运动规划与操作框架 |\n| Micro-ROS | 2019-至今 | eProsima / 社区 | > 待核实 | 官方文档 / 微控制器中间件 | 中高 | ★★★★☆ | > 待核实 | 嵌入式 ROS 2 实现 |\n| Isaac ROS | 2022-至今 | NVIDIA | > 待核实 | 官方文档 / GPU 加速感知/规划 | 中高 | ★★★★☆ | > 待核实 | NVIDIA 硬件加速 ROS 2 包 |\n| Nav2 | 2020-至今 | Open Robotics / 社区 | > 待核实 | 官方文档 / 导航标准 | 高 | ★★★★★ | > 待核实 | 导航与路径规划栈 |\n\n> 注：表中 “> 待核实” 链接为官方仓库/文档未在提供来源 [1]-[2] 中给出，热度证据（GitHub star/下载量）均 `> 待核实`。\n\n---\n\n## 数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| Open X-Embodiment | 2023 | Google DeepMind / 合作机构 | > 待核实 | 官方网站 / 论文 | 高 | ★★★★★ | > 待核实 | 大规模跨本体机器人演示数据集 |\n| LIBERO | 2023 | Stanford / 合作机构 | > 待核实 | 官方网站 / 论文 | 高 | ★★★★★ | > 待核实 | 终身机器人操作基准 |\n| SimplerEnv | 2023/2024 | UCSD / 合作机构 | > 待核实 | 官方网站 / 论文 | 高 | ★★★★☆ | > 待核实 | 简化仿真环境基准 |\n| RoboArena | 2024 | 合作机构 | > 待核实 | 官方网站 / 论文 | 中 | ★★★★☆ | > 待核实 | 实机对抗/评测竞技场 |\n| DROID | 2024 | 合作机构 | > 待核实 | 官方网站 / 论文 | 中 | ★★★★☆ | > 待核实 | 多样化真机操作数据集 |\n\n> 注：上述数据集/基准均**未在提供来源 [1]-[2] 中直接出现**，系领域公认种子资源，纳入报告供参考；热度/权威/关注/推荐基于领域共识，**热度证据（下载量/榜单排名）均 `> 待核实`**。\n\n---\n\n## 参考来源\n[1] NTU-NPU System for Voice Privacy 2024 Challenge — http://arxiv.org/abs/2410.02371v1\n[2] Real time state monitoring and fault diagnosis system for motor based on LabVIEW — http://arxiv.org/abs/1806.09998v1\n[3] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1\n[4] Expressive Whole-Body Control for Humanoid Robots — http://arxiv.org/abs/2402.16796v2\n[5] Analysis and design of model predictive control frameworks for dynamic operation -- An overview — http://arxiv.org/abs/2307.03004v2\n[6] Bridging the Sim-to-real Gap: A Control Framework for Imitation Learning of Model Predictive Control — http://arxiv.org/abs/2503.19228v4\n[7] System Identification for Virtual Sensor-Based Model Predictive Control: Application to a 2-DoF Direct-Drive Robotic Arm — http://arxiv.org/abs/2505.23138v2\n[8] FRIDAY: Real-time Learning DNN-based Stable LQR controller for Nonlinear Systems under Uncertain Disturbances — http://arxiv.org/abs/2412.01103v1\n[9] Experimental Comparison of Whole-Body Control Formulations for Humanoid Robots in Task Acceleration and Task Force Spaces — http://arxiv.org/abs/2507.18502v1\n[10] Safe Control Synthesis via Input Constrained Control Barrier Functions — http://arxiv.org/abs/2104.01704v1\n[11] A Survey of Real-Time Support, Analysis, and Advancements in ROS 2 — http://arxiv.org/abs/2601.10722v2\n[12] Budget-based real-time Executor for Micro-ROS — http://arxiv.org/abs/2105.05590v2\n[13] PHD-Hand: A Printable Humanoid Dexterous Hand with Linkage-Driven 3-DOA Digits — http://arxiv.org/abs/2610.29030v1\n[14] Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics — http://arxiv.org/abs/1403.5204v3\n[15] A ROS-based Software Framework for the NimbRo-OP Humanoid Open Platform — http://arxiv.org/abs/1809.11051v1\n[16] Control of a Rigid Wing Pumping Airborne Wind Energy System in all Operational Phases — http://arxiv.org/abs/2006.11141v1\n[17] Exponential input-to-state stabilization of a class of diagonal boundary control systems with delay boundary control — http://arxiv.org/abs/2003.05711v1\n[18] A Control-Oriented Notion of Finite State Approximation — http://arxiv.org/abs/1105.3788v3\n\n---\n\n*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=35 · duration=1214s · 2026-11-16T02:18:53+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Bridging the Sim-to-real Gap: A Control Framework for Imitation Learning of Model Predictive Control",
+      "url": "http://arxiv.org/abs/2503.19228v4",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-03-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "System Identification for Virtual Sensor-Based Model Predictive Control: Application to a 2-DoF Direct-Drive Robotic Arm",
+      "url": "http://arxiv.org/abs/2505.23138v2",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering",
+      "url": "http://arxiv.org/abs/2608.27467v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "NPU-NTU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2409.04173v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-09-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "ZeroR@CHiPSAL 2026: Two-Stage Vision-Language Adaptation with Contrastive Learning for Nepali Meme Classification",
+      "url": "http://arxiv.org/abs/2607.28637v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-05-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "TTLab at Daleel 2026: STAR-Ar, Sequence Tagging for Argument Recognition in Arabic",
+      "url": "http://arxiv.org/abs/2609.39385v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-09-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "TID System for Speech-COSER Challenge 2026: ASR Track",
+      "url": "http://arxiv.org/abs/2611.11497v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-11-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "PHD-Hand: A Printable Humanoid Dexterous Hand with Linkage-Driven 3-DOA Digits",
+      "url": "http://arxiv.org/abs/2610.29030v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-10-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Expressive Whole-Body Control for Humanoid Robots",
+      "url": "http://arxiv.org/abs/2402.16796v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-02-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "A ROS-based Software Framework for the NimbRo-OP Humanoid Open Platform",
+      "url": "http://arxiv.org/abs/1809.11051v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2018-09-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Experimental Comparison of Whole-Body Control Formulations for Humanoid Robots in Task Acceleration and Task Force Spaces",
+      "url": "http://arxiv.org/abs/2507.18502v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-07-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+      "url": "http://arxiv.org/abs/1403.5204v3",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2014-03-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Analysis and design of model predictive control frameworks for dynamic operation -- An overview",
+      "url": "http://arxiv.org/abs/2307.03004v2",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2023-07-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control",
+      "url": "http://arxiv.org/abs/2411.01349v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Control of a Rigid Wing Pumping Airborne Wind Energy System in all Operational Phases",
+      "url": "http://arxiv.org/abs/2006.11141v1",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2020-06-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Safe Control Synthesis via Input Constrained Control Barrier Functions",
+      "url": "http://arxiv.org/abs/2104.01704v1",
+      "kind": "paper",
+      "venue": "math.OC",
+      "published": "2021-04-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Exponential input-to-state stabilization of a class of diagonal boundary control systems with delay boundary control",
+      "url": "http://arxiv.org/abs/2003.05711v1",
+      "kind": "paper",
+      "venue": "math.OC",
+      "published": "2020-03-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "A Control-Oriented Notion of Finite State Approximation",
+      "url": "http://arxiv.org/abs/1105.3788v3",
+      "kind": "paper",
+      "venue": "math.OC",
+      "published": "2011-05-19",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "FRIDAY: Real-time Learning DNN-based Stable LQR controller for Nonlinear Systems under Uncertain Disturbances",
+      "url": "http://arxiv.org/abs/2412.01103v1",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2024-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "High-level robot programming based on CAD: dealing with unpredictable environments",
+      "url": "http://arxiv.org/abs/1309.2086v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2013-09-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Exploring Large Language Models to Facilitate Variable Autonomy for Human-Robot Teaming",
+      "url": "http://arxiv.org/abs/2312.07214v3",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2023-12-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Unwinding Rotations Improves User Comfort with Immersive Telepresence Robots",
+      "url": "http://arxiv.org/abs/2201.02392v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-01-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "High-level programming and control for industrial robotics: using a hand-held accelerometer-based input device for gesture and posture recognition",
+      "url": "http://arxiv.org/abs/1309.2093v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2013-09-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024",
+      "url": "http://arxiv.org/abs/2407.12038v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge",
+      "url": "http://arxiv.org/abs/2406.10598v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-06-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Budget-based real-time Executor for Micro-ROS",
+      "url": "http://arxiv.org/abs/2105.05590v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-05-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "A Survey of Real-Time Support, Analysis, and Advancements in ROS 2",
+      "url": "http://arxiv.org/abs/2601.10722v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-12-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-16-机器人运动学控制与-ros-2.md",
+    "json": "report/2026/11/2026-11-16-机器人运动学控制与-ros-2.json"
+  }
+}
