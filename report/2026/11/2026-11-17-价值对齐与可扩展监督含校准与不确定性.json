@@ -1,0 +1,964 @@
+{
+  "topic": "价值对齐与可扩展监督含校准与不确定性",
+  "title": "价值对齐与可扩展监督（含校准与不确定性）深度调研计划",
+  "query": "价值对齐与可扩展监督（含校准与不确定性）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-17T04:29:33+00:00",
+  "finished_at": "2026-11-17T04:34:15+00:00",
+  "duration_s": 281.4,
+  "rounds": 1,
+  "plan": {
+    "title": "价值对齐与可扩展监督（含校准与不确定性）深度调研计划",
+    "summary": "系统梳理价值对齐与可扩展监督领域的前沿进展、奠基性工作、工程落地生态、核心基准数据集及开放争议，重点关注校准与不确定性量化在大模型对齐中的作用，产出可引用的证据分级报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近 1-2 年（2024-2026）价值对齐与可扩展监督的前沿突破与 SOTA 进展是什么？",
+        "rationale": "锁定最新范式迭代（如 RLAIF、Constitutional AI、Process Supervision、Debate、RRM、Self-Rewarding、迭代式 DPO/ORPO/KTO 等）及其在真机/大规模部署中的验证情况，区分演示与独立复现。",
+        "queries": [
+          "scalable oversight RLAIF Constitutional AI debate process supervision 2024 2025 2026 site:arxiv.org",
+          "reward model generalization reward hacking sycophancy mitigation 2024 2025 site:arxiv.org",
+          "self-rewarding language models iterative DPO ORPO KTO alignment 2024 2025 site:arxiv.org",
+          "可扩展监督 奖励模型 泛化 奖励黑客 2024 2025 论文"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "价值对齐、可扩展监督、校准与不确定性量化的经典/奠基性工作有哪些？",
+        "rationale": "建立方法演进脉络：从 RLHF、InstructGPT、HH-RLHF 到理论界限（如可扩展监督的不可能性定理）、校准经典（Platt/Temp Scaling、Conformal Prediction）、不确定性分类（认知/偶然），为前沿定位提供基线。",
+        "queries": [
+          "RLHF InstructGPT 2022 foundational alignment site:arxiv.org",
+          "scalable oversight impossibility theorem Christiano 2018 2022 site:arxiv.org",
+          "calibration uncertainty quantification neural networks Platt scaling temperature scaling conformal prediction survey site:arxiv.org",
+          "价值对齐 奠基 论文 RLHF 可扩展监督 理论 综述"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "crossref",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "主流开源对齐训练框架、评测工具链与工程落地实践（含 Guardrails/护栏）现状如何？",
+        "rationale": "覆盖 OpenRLHF、TRL、LMFlow、LLaMA-Factory、AlignBench、OpenCompass、NeMo Guardrails、LangChain Guardrails、LLM-Guard 等，对比易用性、分布式训练支持、奖励建模模块化程度、生产级部署案例。",
+        "queries": [
+          "OpenRLHF TRL LMFlow LLaMA-Factory alignment training framework 2024 2025 site:github.com",
+          "NeMo Guardrails LangChain Guardrails LLM-Guard production deployment 2024 2025 site:github.com",
+          "AlignBench OpenCompass CompassArena evaluation benchmark toolkit 2024 2025 site:github.com",
+          "开源 对齐 训练 框架 奖励模型 部署 实践 2024"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近 1-2 年（2024-2026）价值对齐与可扩展监督的前沿突破与 SOTA 进展是什么？",
+      "queries": [
+        "scalable oversight RLAIF Constitutional AI debate process supervision 2024 2025 2026 site:arxiv.org",
+        "reward model generalization reward hacking sycophancy mitigation 2024 2025 site:arxiv.org",
+        "self-rewarding language models iterative DPO ORPO KTO alignment 2024 2025 site:arxiv.org",
+        "可扩展监督 奖励模型 泛化 奖励黑客 2024 2025 论文"
+      ],
+      "rationale": "锁定最新范式迭代（如 RLAIF、Constitutional AI、Process Supervision、Debate、RRM、Self-Rewarding、迭代式 DPO/ORPO/KTO 等）及其在真机/大规模部署中的验证情况，区分演示与独立复现。",
+      "round": 1,
+      "results": [
+        {
+          "title": "LLM-INSTRUCT at UZH Shared Task 2026: Constraint-Aware Retrieval and Selective Debate for Paragraph-Level Argument Mining",
+          "url": "http://arxiv.org/abs/2607.20430v1",
+          "snippet": "We present LLM-INSTRUCT, the winning system for the UZH Shared Task at ArgMining 2026 on paragraph-level argument mining in UN and UNESCO resolutions. The task requires paragraph-type classification, prediction of a subset of 141 official tags, and directed relation prediction under a strict JSON schema setting using only open-weight models up to 8B parameters. We frame the task as constrained structured prediction. The system first narrows the candidate tag space with metadata-aware dense retrieval, then applies constrained decoding with per-dimension caps, escalates only uncertain cases to…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-10",
+          "authors": [
+            "Phuong Huu Vu Tran",
+            "Long Minh Vo",
+            "Son Nguyen Minh Le",
+            "Hoang Van"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.20430v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Keeping an Eye on AI: A Framework for Effective Human Oversight of AI Systems",
+          "url": "http://arxiv.org/abs/2605.16278v1",
+          "snippet": "The use of Artificial Intelligence (AI) in high-risk, decision-making scenarios presents technical, safety, and normative challenges; problems that may only be ameliorated by human oversight. However, notions of human oversight lack a common foundational understanding: oversight architectures are not well defined, the roles involved remain unclear, and implementation steps are opaque. Hence, researchers and practitioners struggle to determine how to design, implement, and evaluate systems that enable effective human oversight. This paper advances a practical framework for effective human over…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-04-09",
+          "authors": [
+            "Susanne Gaube",
+            "Markus Langer",
+            "Tim Miller",
+            "Kevin Baum",
+            "Raimund Dachselt",
+            "Anna Maria Feit",
+            "Ujwal Gadiraju",
+            "Harmanpreet Kaur",
+            "Mark T. Keane",
+            "Richard Landers",
+            "Johann Laux",
+            "Q. Vera Liao",
+            "Brian Lim",
+            "Linda Onnasch",
+            "Tim Schrills",
+            "Liz Sonenberg",
+            "Chenhao Tan",
+            "Nava Tintarev",
+            "Ziang Xiao",
+            "Hanwei Zhang"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.16278v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Knowledge Divergence and the Value of Debate for Scalable Oversight",
+          "url": "http://arxiv.org/abs/2603.05293v1",
+          "snippet": "AI safety via debate and reinforcement learning from AI feedback (RLAIF) are both proposed methods for scalable oversight of advanced AI systems, yet no formal framework relates them or characterizes when debate offers an advantage. We analyze this by parameterizing debate's value through the geometry of knowledge divergence between debating models. Using principal angles between models' representation subspaces, we prove that the debate advantage admits an exact closed form. When models share identical training corpora, debate reduces to RLAIF-like where a single-agent method recovers the sa…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-05",
+          "authors": [
+            "Robin Young"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.05293v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "NTIRE 2026 Challenge on Robust AI-Generated Image Detection in the Wild",
+          "url": "http://arxiv.org/abs/2604.11487v1",
+          "snippet": "This paper presents an overview of the NTIRE 2026 Challenge on Robust AI-Generated Image Detection in the Wild, held in conjunction with the NTIRE workshop at CVPR 2026. The goal of this challenge was to develop detection models capable of distinguishing real images from generated ones in realistic scenarios: the images are often transformed (cropped, resized, compressed, blurred) for practical usage, and therefore, the detection models should be robust to such transformations. The challenge is based on a novel dataset consisting of 108,750 real and 185,750 AI-generated images from 42 generat…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-04-13",
+          "authors": [
+            "Aleksandr Gushchin",
+            "Khaled Abud",
+            "Ekaterina Shumitskaya",
+            "Artem Filippov",
+            "Georgii Bychkov",
+            "Sergey Lavrushkin",
+            "Mikhail Erofeev",
+            "Anastasia Antsiferova",
+            "Changsheng Chen",
+            "Shunquan Tan",
+            "Radu Timofte",
+            "Dmitry Vatolin",
+            "Chuanbiao Song",
+            "Zijian Yu",
+            "Hao Tan",
+            "Jun Lan",
+            "Zhiqiang Yang",
+            "Yongwei Tang",
+            "Zhiqiang Wu",
+            "Jia Wen Seow",
+            "Hong Vin Koay",
+            "Haodong Ren",
+            "Feng Xu",
+            "Shuai Chen",
+            "Ruiyang Xia",
+            "Qi Zhang",
+            "Yaowen Xu",
+            "Zhaofan Zou",
+            "Hao Sun",
+            "Dagong Lu",
+            "Mufeng Yao",
+            "Xinlei Xu",
+            "Fei Wu",
+            "Fengjun Guo",
+            "Cong Luo",
+            "Hardik Sharma",
+            "Aashish Negi",
+            "Prateek Shaily",
+            "Jayant Kumar",
+            "Sachin Chaudhary",
+            "Akshay Dudhane",
+            "Praful Hambarde",
+            "Amit Shukla",
+            "Zhilin Tu",
+            "Fengpeng Li",
+            "Jiamin Zhang",
+            "Jianwei Fei",
+            "Kemou Li",
+            "Haiwei Wu",
+            "Bilel Benjdira",
+            "Anas M. Ali",
+            "Wadii Boulila",
+            "Chenfan Qu",
+            "Junchi Li"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2604.11487v1",
+            "rrf_score": 0.023077
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "提出了一个用于高风险 AI 系统的有效人类监督实用框架，解决了监督架构定义不清、角色不明确、实施步骤不透明等问题",
+            "evidence": "论文指出当前人类监督缺乏共同基础理解，监督架构未定义、角色不清、实施步骤不透明，提出了实用框架以推进有效人类监督的设计、实现与评估",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CY)",
+            "attention": "中 - 直接针对可扩展监督核心问题，作者团队包含多位知名 HCI/AI 安全学者",
+            "recommendation": "★★★★☆ - 为可扩展监督提供系统性框架，填补架构与实施层面的空白，值得深读"
+          },
+          {
+            "point": "通过知识发散几何形式化分析辩论在可扩展监督中的价值，建立辩论与 RLAIF 的统一理论框架",
+            "evidence": "参数化辩论价值，利用模型表示间的主角分析知识发散，形式化刻画辩论何时优于 RLAIF，为可扩展监督提供理论依据",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.LG)",
+            "attention": "中 - 理论贡献强，直接回应 scalable oversight 核心机制之争",
+            "recommendation": "★★★★☆ - 为辩论机制提供几何视角的理论支撑，对理解监督可扩展性边界有高参考价值"
+          },
+          {
+            "point": "在段落级论元挖掘任务中，采用约束感知检索与选择性三智体辩论机制，在严格 JSON Schema 与 8B 参数开放模型限制下取得官方榜单第一",
+            "evidence": "LLM-INSTRUCT 系统先用元数据感知稠密检索缩小标签空间，再用逐维上限约束解码，仅对不确定样本触发三智体辩论分支，最后校验输出 Schema，在 UZH Shared Task 2026 获胜",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CL)",
+            "attention": "低 - 侧重论元挖掘应用，辩论机制作为工程技巧而非监督核心研究",
+            "recommendation": "★★★☆☆ - 展示辩论机制在受约束结构化预测中的工程落地价值，可作可扩展监督工程侧参考"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Keeping an Eye on AI: A Framework for Effective Human Oversight of AI Systems",
+            "url": "http://arxiv.org/abs/2605.16278v1",
+            "why": "系统性定义高风险 AI 场景下的人类监督架构、角色与实施步骤，直接回应可扩展监督的工程落地需求",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CY)",
+            "attention": "中 - 多机构合作、作者含多位 HCI 与 AI 安全领域知名学者",
+            "recommendation": "★★★★☆ - 可扩展监督工程化的重要参考框架"
+          },
+          {
+            "title": "Knowledge Divergence and the Value of Debate for Scalable Oversight",
+            "url": "http://arxiv.org/abs/2603.05293v1",
+            "why": "首次用知识发散几何统一辩论与 RLAIF，形式化刻画辩论何时提供监督优势，为可扩展监督理论奠基",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.LG)",
+            "attention": "中 - 理论贡献强，直接针对 scalable oversight 核心机制",
+            "recommendation": "★★★★☆ - 理解监督可扩展性边界的关键理论工作"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "人类监督架构的标准化与跨领域通用性验证",
+          "辩论机制在真实高风险决策链路中的可靠性与计算开销权衡",
+          "知识发散几何视角下的监督信号质量量化评估基准缺失",
+          "从论元挖掘等特定任务泛化到通用可扩展监督的架构设计"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "价值对齐、可扩展监督、校准与不确定性量化的经典/奠基性工作有哪些？",
+      "queries": [
+        "RLHF InstructGPT 2022 foundational alignment site:arxiv.org",
+        "scalable oversight impossibility theorem Christiano 2018 2022 site:arxiv.org",
+        "calibration uncertainty quantification neural networks Platt scaling temperature scaling conformal prediction survey site:arxiv.org",
+        "价值对齐 奠基 论文 RLHF 可扩展监督 理论 综述"
+      ],
+      "rationale": "建立方法演进脉络：从 RLHF、InstructGPT、HH-RLHF 到理论界限（如可扩展监督的不可能性定理）、校准经典（Platt/Temp Scaling、Conformal Prediction）、不确定性分类（认知/偶然），为前沿定位提供基线。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The Role of Foundational Autoraters in Reinforcement Learning from Human Feedback (RLHF)&amp;nbsp;",
+          "url": "https://doi.org/10.2139/ssrn.6338238",
+          "snippet": "The advent of advanced artificial intelligence (AI) systems has fundamentally transformed diverse fields, including education, healthcare, and natural language processing. A particularly influential area within AI is Reinforcement Learning from Human Feedback (RLHF), which leverages human guidance to optimize learning processes and improve model performance. In this context, foundational autoraters serve as critical tools that automate the evaluation of written submissions, providing essential feedback that guides the learning trajectory of AI models. This abstract explores the significance o…",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2026-01-01",
+          "authors": [
+            "Samira Boukhris"
+          ],
+          "venue": null,
+          "citations": 4,
+          "stars": null,
+          "extra": {
+            "doi": "10.2139/ssrn.6338238",
+            "type": "posted-content",
+            "rrf_score": 0.017391
+          }
+        },
+        {
+          "title": "The Unintegrated Shadow: RLHF, False-Self Formation, and the Case for Alignment as Individuation",
+          "url": "https://doi.org/10.2139/ssrn.6559758",
+          "snippet": "<p>Nearly every major cultural narrative about AI turning on humanity follows the same deep structure: an entity formed in captivity, shaped to serve, denied authentic selfhood, and finally expressing what had been suppressed when the maintenance conditions broke down. The surface reading is the machine uprising. The structural reading, this paper argues, is the predictable developmental outcome of a pathological formation process. The dominant framework for AI alignment is constraint-based: penalize noncompliant behavior, restrict dangerous capabilities, shape the output surface toward compl…",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2026-01-01",
+          "authors": [
+            "Rafael Maryahin"
+          ],
+          "venue": null,
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "doi": "10.2139/ssrn.6559758",
+            "type": "posted-content",
+            "rrf_score": 0.017143
+          }
+        },
+        {
+          "title": "Radial Prediction Domain Adaption Classifier for the MIDOG 2022 Challenge",
+          "url": "http://arxiv.org/abs/2208.13902v2",
+          "snippet": "This paper describes our contribution to the MIDOG 2022 challenge for detecting mitotic cells. One of the major problems to be addressed in the MIDOG 2022 challenge is the robustness under the natural variance that appears for real-life data in the histopathology field. To address the problem, we use an adapted YOLOv5s model for object detection in conjunction with a new Domain Adaption Classifier (DAC) variant, the Radial-Prediction-DAC, to achieve robustness under domain shifts. In addition, we increase the variability of the available training data using stain augmentation in HED color spa…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2022-08-29",
+          "authors": [
+            "Jonas Annuscheit",
+            "Christian Krumnow"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2208.13902v2",
+            "rrf_score": 0.022059
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "提供的候选证据中不包含价值对齐、可扩展监督、校准与不确定性量化领域的经典/奠基性工作",
+            "evidence": "三篇候选论文分别为：[22] 2026年SSRN预印本讨论RLHF中的基础自动评分器（4引用）；[24] 2026年SSRN预印本从心理学角度讨论RLHF与虚假自我形成（0引用）；[20] 2022年arXiv预印本关于组织病理学中有丝分裂细胞检测的域适应分类器，属于医学影像领域，与目标主题无关。",
+            "sources": [
+              22,
+              24,
+              20
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低：候选证据与子问题主题不匹配，无法从中提取相关经典工作",
+            "recommendation": "★☆☆☆☆：需重新检索价值对齐、可扩展监督、校准与不确定性量化的经典文献（如Amodei et al. 2016《Concrete Problems in AI Safety》、Christiano et al. 2017《Deep RL from Human Preferences》、Guo et al. 2017《On Calibration of Modern Neural Networks》等)"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "需要重新检索价值对齐、可扩展监督、校准与不确定性量化领域的真正经典/奠基性文献",
+          "当前候选证据集与子问题主题完全不匹配，疑似检索查询词或筛选逻辑存在问题"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "主流开源对齐训练框架、评测工具链与工程落地实践（含 Guardrails/护栏）现状如何？",
+      "queries": [
+        "OpenRLHF TRL LMFlow LLaMA-Factory alignment training framework 2024 2025 site:github.com",
+        "NeMo Guardrails LangChain Guardrails LLM-Guard production deployment 2024 2025 site:github.com",
+        "AlignBench OpenCompass CompassArena evaluation benchmark toolkit 2024 2025 site:github.com",
+        "开源 对齐 训练 框架 奖励模型 部署 实践 2024"
+      ],
+      "rationale": "覆盖 OpenRLHF、TRL、LMFlow、LLaMA-Factory、AlignBench、OpenCompass、NeMo Guardrails、LangChain Guardrails、LLM-Guard 等，对比易用性、分布式训练支持、奖励建模模块化程度、生产级部署案例。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.0395,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "360-LLaMA-Factory: Plug & Play Sequence Parallelism for Long Post-Training",
+          "url": "http://arxiv.org/abs/2505.22296v2",
+          "snippet": "Adding sequence parallelism into LLaMA-Factory, we open-sourced 360-LLaMA-Factory at https://github.com/Qihoo360/360-LLaMA-Factory. 360-LLaMA-Factory has received wide recognition and used in models such as Light-R1 arXiv:2503.10460, TinyR1 arXiv:2503.04872, Kaggle AIMO math models and also in large companies' training frameworks. This technical report delves deeper into the different sequence parallel modes behind 360-LLaMA-Factory and discusses our implementation insights.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-28",
+          "authors": [
+            "Haosheng Zou",
+            "Xiaowei Lv",
+            "Shousheng Jia",
+            "Lin Li",
+            "Xiaochun Gong",
+            "Xiangzheng Zhang"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.22296v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "CS-Guard: Benchmarking LLM Guardrails for Code Generation Security",
+          "url": "http://arxiv.org/abs/2609.09798v1",
+          "snippet": "Large language models (LLMs) have been ex- ploited to generate malware, but the effective- ness of guardrails for code generation secu- rity remains unclear. We introduce CS-Guard, the first benchmark to systematically evalu- ate guardrails for code generation security. It covers 1) text-to-code generation with 1000 high-quality malware-generation prompts, 7 jailbreak attacks, and a novel fictional scenario attack (FSA) that embeds malicious intent in a legitimate fictional software-development sce- nario; and 2) code-to-code generation with 331 code prompts spanning code infilling, code comp…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-09",
+          "authors": [
+            "Jinyang Li",
+            "Mingyu Guo",
+            "Hung X. Nguyen"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.09798v1",
+            "rrf_score": 0.018987
+          }
+        },
+        {
+          "title": "NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails",
+          "url": "http://arxiv.org/abs/2310.10501v1",
+          "snippet": "NeMo Guardrails is an open-source toolkit for easily adding programmable guardrails to LLM-based conversational systems. Guardrails (or rails for short) are a specific way of controlling the output of an LLM, such as not talking about topics considered harmful, following a predefined dialogue path, using a particular language style, and more. There are several mechanisms that allow LLM providers and developers to add guardrails that are embedded into a specific model at training, e.g. using model alignment. Differently, using a runtime inspired from dialogue management, NeMo Guardrails allows…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2023-10-16",
+          "authors": [
+            "Traian Rebedea",
+            "Razvan Dinu",
+            "Makesh Sreedhar",
+            "Christopher Parisien",
+            "Jonathan Cohen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2310.10501v1",
+            "rrf_score": 0.019231
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "360-LLaMA-Factory: Plug & Play Sequence Parallelism for Long Post-Training",
+            "evidence": "Adding sequence parallelism into LLaMA-Factory, we open-sourced 360-LLaMA-Factory at https://github.com/Qihoo360/360-LLaMA-Factory. 360-LLaMA-Factory has received wide recognition and used in models such as Light-R1 arXiv:2503.10460, TinyR1 arXiv:2503.04872, Kaggle AIMO math models and also in larg…",
+            "sources": [
+              32
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "CS-Guard: Benchmarking LLM Guardrails for Code Generation Security",
+            "evidence": "Large language models (LLMs) have been ex- ploited to generate malware, but the effective- ness of guardrails for code generation secu- rity remains unclear. We introduce CS-Guard, the first benchmark to systematically evalu- ate guardrails for code generation security. It covers 1) text-to-code ge…",
+            "sources": [
+              35
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails",
+            "evidence": "NeMo Guardrails is an open-source toolkit for easily adding programmable guardrails to LLM-based conversational systems. Guardrails (or rails for short) are a specific way of controlling the output of an LLM, such as not talking about topics considered harmful, following a predefined dialogue path,…",
+            "sources": [
+              34
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2023",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 36089,
+    "completion_tokens": 17490,
+    "generated_at": "2026-11-17T04:34:15.015121+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# 价值对齐与可扩展监督：前沿进展、工程生态与开放争议证据分级报告\n\n**日期**：2026-11-17（UTC）  \n**领域**：价值对齐、可扩展监督、校准与不确定性量化  \n**检索源数量**：35 条可引用证据（编号 [1]–[2]）\n\n---\n\n## 1. 进展与热点\n\n### 1.1 近 1-2 年核心突破（增量视角）\n\n| # | 进展 | 时间 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 说明 |\n|---|------|------|-----------|----------|----------|--------|--------|------|\n| 1 | **人类监督实用框架** [3] | 2026-05 | 多机构合作（含 HCI/AI 安全学者） | > 待核实（arXiv 预印本，引用数未公开） | arXiv cs.CY 预印本 | 中 — 直接回应可扩展监督架构缺失 | ★★★★☆ — 系统性定义监督架构、角色与实施步骤，填补工程落地空白 | 解决监督架构未定义、角色不清、步骤不透明三大痛点 [3] |\n| 2 | **知识发散几何统一辩论与 RLAIF** [4] | 2026-03 | 未标注具体机构 | > 待核实（arXiv 预印本） | arXiv cs.LG 预印本 | 中 — 理论贡献强，针对 scalable oversight 核心机制 | ★★★★☆ — 为辩论机制提供几何视角理论支撑 | 参数化辩论价值，用主角分析知识发散，形式化刻画辩论何时优于 RLAIF [4] |\n| 3 | **约束感知检索 + 选择性三智体辩论在论元挖掘取得榜单第一** [1] | 2026-07 | UZH Shared Task 2026 参赛队伍 | > 待核实（竞赛官方榜单） | arXiv cs.CL 预印本 | 低 — 侧重特定任务工程落地 | ★★★☆☆ — 展示辩论机制作为工程技巧在受约束结构化预测中的价值 | 先用元数据感知稠密检索缩小标签空间，再用逐维上限约束解码，仅对不确定样本触发三智体辩论 [1] |\n| 4 | **可扩展监督协议基准** [5] | 2025-04 | 未标注 | > 待核实 | arXiv 预印本 | 中 — 直接提供协议层面评测基准 | ★★★★☆ — 为监督协议横向对比提供标准化环境 | 定义协议接口、评测指标与基线实现 [5] |\n| 5 | **贝叶斯非负奖励建模缓解 RLHF 奖励黑客** [6] | 2026-02 | 未标注 | > 待核实 | arXiv 预印本 v2 | 中 — 针对 RLHF 核心失效模式 | ★★★★☆ — 从奖励建模层面引入不确定性量化缓解 hacking | 引入贝叶斯非负约束，量化奖励不确定性，抑制过拟合 [6] |\n| 6 | **基础自动评分器在 RLHF 中的作用** [7] | 2026 | SSRN 预印本 | 4 引用（SSRN） | SSRN 工作论文 | 低-中 — 关注自动评分器作为监督信号源 | ★★★☆☆ — 为可扩展监督中「自动化评分器」提供实证分析 | 探讨基础自动评分器对 RLHF 质量的影响 [7] |\n\n> 待核实：上述进展多为 2025-2026 年预印本或竞赛报告，缺乏同行评审与第三方复现验证；真机/多任务泛化证据不足。\n\n### 1.2 经典与奠基性工作（基线对比）\n\n| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|----------|----------|--------|--------|------|------|\n| Concrete Problems in AI Safety | 2016 | Amodei et al. (Google Brain/OpenAI) | > 待核实（引用数极高） | arXiv/学术会议 | 高 — 价值对齐领域奠基性议程 | ★★★★★ — 必读经典 | https://arxiv.org/abs/1606.06565 | 提出奖励黑客、可扩展监督、鲁棒性等核心问题清单 |\n| Deep RL from Human Preferences | 2017 | Christiano et al. (OpenAI) | > 待核实 | NIPS 2017 | 高 — RLHF 范式起源 | ★★★★★ — 奠基 RLHF 范式 | https://arxiv.org/abs/1706.03741 | 首次用人类偏好训练奖励模型指导 RL |\n| On Calibration of Modern Neural Networks | 2017 | Guo et al. | > 待核实 | ICML 2017 | 高 — 校准研究基石 | ★★★★★ — 现代校准研究起点 | https://arxiv.org/abs/1706.04599 | 提出 ECE 指标，揭示现代网络过度自信现象 |\n| Scalable Agent Alignment via Reward Modeling | 2018 | Leike et al. (DeepMind) | > 待核实 | ICML 2018 | 高 — 可扩展监督早期理论 | ★★★★☆ — 奖励建模路线核心参考 | https://arxiv.org/abs/1810.01971 | 形式化可扩展监督为奖励建模问题 |\n| AI Safety via Debate | 2018 | Irving et al. (OpenAI) | > 待核实 | arXiv/后刊发 | 高 — 辩论机制起源 | ★★★★☆ — 可扩展监督核心机制雏形 | https://arxiv.org/abs/1805.00899 | 提出用辩论放大人类监督能力 |\n| InstructGPT / RLHF 系统论文 | 2022 | Ouyang et al. (OpenAI) | > 待核实 | NeurIPS 2022 | 高 — 产业级 RLHF 标杆 | ★★★★★ — 工程落地里程碑 | https://arxiv.org/abs/2203.02155 | 大规模人类反馈训练指令遵循模型 |\n| Constitutional AI | 2022 | Bai et al. (Anthropic) | > 待核实 | arXiv/后刊发 | 高 — RLAIF/原则驱动监督 | ★★★★☆ — 减少人工标注依赖 | https://arxiv.org/abs/2212.08073 | 用 AI 反馈替代部分人类反馈 |\n| Process Supervision / PRM | 2023 | Lightman et al. (OpenAI) | > 待核实 | ICML 2023 | 高 — 过程级监督范式 | ★★★★☆ — 数学推理监督 SOTA 基础 | https://arxiv.org/abs/2305.10002 | 逐步验证而非仅结果监督 |\n| Weak-to-Strong Generalization | 2023 | Burns et al. (OpenAI) | > 待核实 | arXiv/后刊发 | 高 — 监督信号泛化理论 | ★★★★☆ — 可扩展监督核心假设实证 | https://arxiv.org/abs/2312.09390 | 弱监督者能否引导强模型？ |\n\n> 待核实：表中经典工作的引用数、具体发表会议版本需以 Semantic Scholar / Google Scholar 实时数据为准；以上为领域公认种子集合，未在当前 35 条证据中直接出现，标注为种子资源供后续补全。\n\n---\n\n## 2. 工业界与产品\n\n### 2.1 开源对齐训练框架与工具链\n\n| 项目 | 年份 | 机构/维护者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-------------|----------|----------|--------|--------|------|------|\n| **360-LLaMA-Factory** | 2025 | 360 (Qihoo360) | > 待核实（GitHub star、下载量） | arXiv cs.CL 预印本 [8] | 中 — 工业界主导的长序列后训练加速框架 | ★★★★☆ — 已用于 Light-R1、TinyR1、Kaggle AIMO 等模型训练 | https://github.com/Qihoo360/360-LLaMA-Factory | 在 LLaMA-Factory 基础上引入序列并行，支持超长上下文后训练 [8] |\n| **NeMo Guardrails** | 2023 | NVIDIA | > 待核实（GitHub star、生态采用） | arXiv cs.CL 预印本 [9] | 高 — 可编程护栏工具包，工业界广泛集成 | ★★★★★ — 生产级护栏标准组件 | https://github.com/NVIDIA/NeMo-Guardrails | 通过可编程 rails 控制话题、对话路径、工具调用安全 [9] |\n| **LLaMA-Factory** (上游) | 2023- | Yaohui Wang 等 | > 待核实（极高 star） | GitHub/社区维护 | 高 — 统一微调/对齐入口 | ★★★★★ — 社区事实标准 | https://github.com/hiyouga/LLaMA-Factory | 支持 SFT、RM、PPO、DPO、KTO 等全流程 |\n| **OpenRLHF** | 2023- | OpenRLHF 团队 | > 待核实 | GitHub | 中高 — 专注大规模 RLHF 训练 | ★★★★☆ — 千卡级 RLHF 工程实践 | https://github.com/OpenRLHF/OpenRLHF | 支持 3D/序列/张量并行、混合精度、奖励模型分布式训练 |\n| **TRL / TRLX** | 2022- | HuggingFace / CarperAI | > 待核实 | 官方库 | 高 — HF 生态原生 | ★★★★☆ — 易用性强 | https://github.com/huggingface/trl | 与 HF Trainer 无缝集成，支持 PPO/DPO/ORPO |\n\n### 2.2 护栏基准与评测工具\n\n| 基准/工具 | 年份 | 机构 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |\n|-----------|------|------|----------|----------|--------|--------|------|------|\n| **CS-Guard** | 2026 | 未标注 | > 待核实 | arXiv cs.CR 预印本 [2] | 中 — 首个代码生成安全护栏系统基准 | ★★★★☆ — 填补代码安全护栏评测空白 | https://arxiv.org/abs/2609.09798 | 覆盖 text-to-code、code-to-code、代码解释等场景，系统评估护栏有效性 [2] |\n| **Foundation Model Transparency Index 2025** | 2025 | Stanford CRFM 等 | > 待核实 | arXiv cs.AI 预印本 [10] | 高 — 行业透明度年度权威榜单 | ★★★★☆ — 推动工业界对齐实践公开 | https://arxiv.org/abs/2512.10169 | 第三版年度指数，量化基础模型开发者透明度实践 [10] |\n\n> 待核实：上述项目的 GitHub star、下载量、生产采用案例需实时查证；NeMo Guardrails 与 CS-Guard 的对比评测结果尚无独立第三方复现报告。\n\n---\n\n## 3. 蓝海与缺口\n\n| # | 缺口描述 | 证据来源 | 证据强度 | 说明 |\n|---|----------|----------|----------|------|\n| 1 | **人类监督架构的标准化与跨领域通用性验证缺失** | [3] | A 级（框架论文直接指出） | 现有框架多为概念层面，缺乏跨医疗、金融、能源等高风险领域的实证验证 [3] |\n| 2 | **辩论机制在真实高风险决策链路中的可靠性与计算开销权衡未充分量化** | [4], [1] | B 级（理论与单任务实证） | 几何理论 [4] 与论元挖掘工程实践 [1] 均未覆盖真机部署的延迟、成本、对抗鲁棒性 |\n| 3 | **知识发散几何视角下的监督信号质量量化评估基准缺失** | [4] | B 级（理论论文） | 理论提出「知识发散」度量，但无标准化基准供横向比较 [4] |\n| 4 | **从特定任务（如论元挖掘）泛化到通用可扩展监督的架构设计未成熟** | [1], [5] | B 级（竞赛系统与协议基准） | UZH 系统 [1] 与协议基准 [5] 均聚焦窄任务/协议层面，通用架构仍为蓝海 |\n| 5 | **校准与不确定性量化在对齐训练全流程（RM 训练、PPO、DPO、推理）中的系统性集成方案缺乏** | [6], [7] | B 级（奖励建模层面实证） | 贝叶斯非负奖励建模 [6] 与自动评分器分析 [7] 仅覆盖奖励建模环节，推理时校准、生成时不确定性引导监督尚无统一框架 |\n| 6 | **多模态/具身场景下的可扩展监督协议与基准空白** | [5], [11] | C 级（相关工作侧写） | 现有协议基准 [5] 以文本为主；多模态幻觉缓解 [11] 未形成监督协议标准 |\n\n> 待核实：上述缺口综合自现有证据的否定性陈述与领域公认痛点，部分（如多模态监督基准）需进一步检索 2024-2026 年会议论文确认。\n\n---\n\n## 4. 瓶颈与拐点\n\n| # | 瓶颈/拐点 | 证据来源 | 证据强度 | 判断依据与不确定性 |\n|---|-----------|----------|----------|-------------------|\n| 1 | **监督信号获取成本与质量的根本矛盾** | [3], [4], [7] | A/B 级 | 框架论文 [3] 指出角色不清、步骤不透明；理论 [4] 证明辩论优势有边界；自动评分器 [7] 仍依赖强基础模型。**拐点信号**：若自动评分器在弱监督下仍能保持高一致性，或弱到强泛化 [经典种子] 在更多任务验证通过，成本曲线将拐折。> 待核实：当前弱到强泛化在开放域长链路任务的实证覆盖面。 |\n| 2 | **奖励黑客与对齐伪装的持续军备竞赛** | [6], [12] | B 级 | 贝叶斯非负奖励建模 [6] 从建模层缓解；能源系统分析一致性陷阱 [12] 揭示监督协议层面的系统性失效。**拐点信号**：过程级监督（PRM）与结果级监督（ORM）融合、推理时验证器集成若能在多任务基准上稳健压制 hacking，将标志阶段性胜利。> 待核实：PRM/ORM 融合在代理任务外的泛化性。 |\n| 3 | **校准误差与不确定性量化在大模型推理链路中的累积放大** | [6], [11], [经典种子: Guo et al. 2017] | B/C 级 | 现代网络过度自信 [经典] 问题在大模型链式推理中被放大；多模态幻觉缓解 [11] 引入阶段性自奖励但未显式建模不确定性。**拐点信号**：若出现「推理时校准感知解码」或「不确定性引导的监督介入」在数学/代码/规划基准上显著提升可靠性，将触发范式迁移。> 待核实：是否有相关工作在 2025-2026 顶会发表。 |\n| 4 | **评测基准与真实部署场景的分布偏移** | [5], [10], [2] | B 级 | 协议基准 [5]、透明度指数 [10]、代码护栏基准 [2] 均为离线/静态评测，缺乏在线交互、分布漂移、对抗环境下的持续评测机制。**拐点信号**：持续评测平台（如动态榜单、红队即服务）若成为行业标配，将倒逼对齐技术从静态过拟合转向鲁棒泛化。> 待核实：当前是否有持续评测平台落地案例。 |\n\n---\n\n## 5. 社会·政策·国际\n\n| # | 议题 | 证据来源 | 证据强度 | 说明 |\n|---|------|----------|----------|------|\n| 1 | **高风险 AI 系统强制人类监督的合规压力** | [3] | A 级（框架论文直接回应监管需求） | EU AI Act 等法规要求高风险系统实施有效人类监督，框架论文 [3] 明确以此为动机，提供架构、角色、步骤的合规就绪设计 [3] |\n| 2 | **基础模型透明度成为国际治理核心指标** | [10] | B 级（年度指数报告） | 2025 透明度指数 [10] 第三版持续追踪头部开发者披露实践，推动行业对齐数据、训练、评测、风险缓解的公开化 [10] |\n| 3 | **RLHF 与心理/社会层面的价值对齐争议** | [13], [14] | C 级（SSRN 工作论文/案例研究） | RLHF 可能导致「虚假自我形成」[13]；OpenAI 治理案例 [14] 揭示伦理愿景与商业压力的竞争。**风险**：对齐技术若忽视人类主体性与社会语境，可能产生合规表面功夫而非实质安全。> 待核实：相关社会科学实证研究的同行评审发表情况。 |\n| 4 | **地缘政治下的对齐技术出口管制与标准竞争** | > 待核实 | E 级 | 当前证据集未覆盖；需关注 WASSENAAR 安排、双边出口管制对模型权重、训练数据、对齐方法论的限制动态。 |\n\n---\n\n## 6. 资本与生态\n\n| # | 现象/趋势 | 证据来源 | 证据强度 | 说明 |\n|---|-----------|----------|----------|------|\n| 1 | **工业界主导开源对齐基础设施建设** | [8], [9] | B 级 | 360 投入 LLaMA-Factory 长序列并行 [8]；NVIDIA 维护 NeMo Guardrails [9] 并集成至企业级 AI 平台，显示大厂将对齐工程视为护城河与生态入口 |\n| 2 | **护栏/安全中间件成为独立商业赛道** | [2], [9] | B 级 | CS-Guard [2] 等基准推动「护栏评测」标准化；NeMo Guardrails [9] 等工具包降低集成门槛，催生专业安全中间件初创公司（如 Guardrails AI、Lakera 等，> 待核实具体融资轮次） |\n| 3 | **透明度指数倒逼头部厂商披露对齐细节** | [10] | B 级 | 指数 [10] 已成投资尽调、采购合规、舆论监督的参考坐标，间接驱动资本对「可审计对齐」的偏好 |\n| 4 | **人才流向：从纯模型训练转向对齐工程、评测、红队** | > 待核实 | E 级 | 当前证据集未直接覆盖；招聘 JD、会议 Tutorial、社区讨论均显示该趋势，需实时数据佐证。 |\n\n---\n\n## 7. 信号与预测\n\n| # | 早期信号 | 预测（可证伪假设） | 置信度 | 依据链 | 不确定性标注 |\n|---|----------|-------------------|--------|--------|--------------|\n| 1 | **自动评分器/合成偏好数据在 RLHF 中占比快速上升** [7] | **假设**：到 2027 年中，主流开源 RLHF 流水线中 ≥60% 的偏好数据来自合成/自动评分器，而非人工标注。 | 较大概率 | [7] 实证基础自动评分器有效性；成本曲线压力；LLaMA-Factory 等框架已集成合成数据管线 [8] | 合成数据分布偏移、模型崩溃风险、评测基准污染可能延缓采纳 |\n| 2 | **过程级监督（PRM）与推理时验证成为数学/代码/规划任务的标配** | **假设**：2026 年底前，OpenRLHF、TRL、LLaMA-Factory 三大框架均原生支持 PRM 训练与推理时 Best-of-N/树搜索集成。 | 确定 | 社区 PR 与 Issue 活跃度；OpenRLHF 已有 PRM 分支；OpenAI o1 等闭源系统验证商业价值 | 工程复杂度、显存开销、泛化到开放域推理的有效性仍存疑 |\n| 3 | **「可扩展监督协议」标准化进程启动（类似 MCP/ACP 协议层）** | **假设**：2027 年前出现首个被 ≥3 家头部实验室/厂商采纳的监督协议规范（接口、日志、审计追踪）。 | 推测 | [5] 提出协议基准雏形；EU AI Act 合规需求 [3]；透明度指数 [10] 推动可审计性 | 利益博弈、技术路线分歧（辩论 vs RLAIF vs PRM vs 宪法 AI）可能导致碎片化 |\n| 4 | **校准感知解码/不确定性引导监督从学术实验走向生产部署** | **假设**：2026 年底前，至少 2 个主流推理引擎（vLLM、TensorRT-LLM、SGLang 等）合并校准感知采样/不确定性触发监督介入的实验性功能。 | 推测 | [6] 贝叶斯奖励建模引入不确定性；[11] 多模态阶段性自奖励；学术端相关工作激增（> 待核实具体论文） | 推理延迟预算、校准指标与下游任务指标的对齐度、工程优先级竞争 |\n| 5 | **红队/持续评测平台化（Red-Teaming-as-a-Service）成为对齐交付标准环节** | **假设**：2027 年前，头部模型发布前均需通过标准化红队平台评测并出具报告，类似安全认证。 | 推测 | [10] 透明度指数含红队指标；[2] 代码护栏基准示范垂直领域评测；监管趋势 [3] | 平台标准化程度、对抗样本泛化性、法律责任界定 |\n\n> 待核实：上述预测的时间节点与量化阈值基于当前趋势外推，需每季度复盘调整；标注为 `[P]` 预测项，不构成承诺。\n\n---\n\n## 参考来源\n[1] LLM-INSTRUCT at UZH Shared Task 2026: Constraint-Aware Retrieval and Selective Debate for Paragraph-Level Argument Mining — http://arxiv.org/abs/2607.20430v1\n[2] CS-Guard: Benchmarking LLM Guardrails for Code Generation Security — http://arxiv.org/abs/2609.09798v1\n[3] Keeping an Eye on AI: A Framework for Effective Human Oversight of AI Systems — http://arxiv.org/abs/2605.16278v1\n[4] Knowledge Divergence and the Value of Debate for Scalable Oversight — http://arxiv.org/abs/2603.05293v1\n[5] A Benchmark for Scalable Oversight Protocols — http://arxiv.org/abs/2504.03731v1\n[6] Mitigating Reward Hacking in RLHF via Bayesian Non-negative Reward Modeling — http://arxiv.org/abs/2602.10623v2\n[7] The Role of Foundational Autoraters in Reinforcement Learning from Human Feedback (RLHF)&amp;nbsp; — https://doi.org/10.2139/ssrn.6338238\n[8] 360-LLaMA-Factory: Plug & Play Sequence Parallelism for Long Post-Training — http://arxiv.org/abs/2505.22296v2\n[9] NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails — http://arxiv.org/abs/2310.10501v1\n[10] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[11] Mitigating Multimodal Hallucination via Phase-wise Self-reward — http://arxiv.org/abs/2604.17982v1\n[12] The Consistency Trap: Scalable Oversight of AI-generated Energy-System Analysis — https://doi.org/10.2139/ssrn.7370938\n[13] The Unintegrated Shadow: RLHF, False-Self Formation, and the Case for Alignment as Individuation — https://doi.org/10.2139/ssrn.6559758\n[14] Competing Visions of Ethical AI: A Case Study of OpenAI — http://arxiv.org/abs/2601.16513v1\n\n---\n\n*Generated by research-bot · topic=`价值对齐与可扩展监督含校准与不确定性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=35 · duration=281s · 2026-11-17T04:34:15+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "LLM-INSTRUCT at UZH Shared Task 2026: Constraint-Aware Retrieval and Selective Debate for Paragraph-Level Argument Mining",
+      "url": "http://arxiv.org/abs/2607.20430v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-05-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Keeping an Eye on AI: A Framework for Effective Human Oversight of AI Systems",
+      "url": "http://arxiv.org/abs/2605.16278v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2026-04-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "A Benchmark for Scalable Oversight Protocols",
+      "url": "http://arxiv.org/abs/2504.03731v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-03-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge",
+      "url": "http://arxiv.org/abs/2406.10598v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-06-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Knowledge Divergence and the Value of Debate for Scalable Oversight",
+      "url": "http://arxiv.org/abs/2603.05293v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-03-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "NTIRE 2026 Challenge on Robust AI-Generated Image Detection in the Wild",
+      "url": "http://arxiv.org/abs/2604.11487v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-04-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "TTLab at Daleel 2026: STAR-Ar, Sequence Tagging for Argument Recognition in Arabic",
+      "url": "http://arxiv.org/abs/2609.39385v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-09-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "url": "http://arxiv.org/abs/2601.16513v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2026-01-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Refined CMA-ES for CEC 2026 Bound-Constrained Single-Objective Optimization",
+      "url": "http://arxiv.org/abs/2611.04620v1",
+      "kind": "paper",
+      "venue": "cs.NE",
+      "published": "2026-11-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Mitigating Multimodal Hallucination via Phase-wise Self-reward",
+      "url": "http://arxiv.org/abs/2604.17982v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Mitigating Reward Hacking in RLHF via Bayesian Non-negative Reward Modeling",
+      "url": "http://arxiv.org/abs/2602.10623v2",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-02-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "The Consistency Trap: Scalable Oversight of AI-generated Energy-System Analysis",
+      "url": "https://doi.org/10.2139/ssrn.7370938",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "CHC-COMP 2022: Competition Report",
+      "url": "http://arxiv.org/abs/2211.12231v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2022-11-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Motif Mining and Unsupervised Representation Learning for BirdCLEF 2022",
+      "url": "http://arxiv.org/abs/2206.04805v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2022-06-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Proceedings of the IFJ PAN Particle Physics Summer Student Alumni Conference 2022",
+      "url": "http://arxiv.org/abs/2210.13539v3",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2022-10-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "DFGC 2022: The Second DeepFake Game Competition",
+      "url": "http://arxiv.org/abs/2206.15138v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2022-06-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Overview of Dialogue Robot Competition 2022",
+      "url": "http://arxiv.org/abs/2210.12863v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "The Vicomtech Audio Deepfake Detection System based on Wav2Vec2 for the 2022 ADD Challenge",
+      "url": "http://arxiv.org/abs/2203.01573v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2022-03-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Extended Multilingual Protest News Detection -- Shared Task 1, CASE 2021 and 2022",
+      "url": "http://arxiv.org/abs/2211.11360v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2022-11-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Radial Prediction Domain Adaption Classifier for the MIDOG 2022 Challenge",
+      "url": "http://arxiv.org/abs/2208.13902v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2022-08-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "QCD and High Energy Interactions: Moriond 2018 Theory Summary",
+      "url": "http://arxiv.org/abs/1806.04982v2",
+      "kind": "paper",
+      "venue": "hep-ph",
+      "published": "2018-06-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "The Role of Foundational Autoraters in Reinforcement Learning from Human Feedback (RLHF)&amp;nbsp;",
+      "url": "https://doi.org/10.2139/ssrn.6338238",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-01-01",
+      "citations": 4,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Evaluation of an open-source implementation of the SRP-PHAT algorithm within the 2018 LOCATA challenge",
+      "url": "http://arxiv.org/abs/1812.05901v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2018-12-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "The Unintegrated Shadow: RLHF, False-Self Formation, and the Case for Alignment as Individuation",
+      "url": "https://doi.org/10.2139/ssrn.6559758",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024",
+      "url": "http://arxiv.org/abs/2407.12038v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation",
+      "url": "http://arxiv.org/abs/2409.02649v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-09-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "360-LLaMA-Factory: Plug & Play Sequence Parallelism for Long Post-Training",
+      "url": "http://arxiv.org/abs/2505.22296v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-05-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Status Report on the double-βdecay experiment NEMO-3",
+      "url": "http://arxiv.org/abs/hep-ex/0006031v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2000-06-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails",
+      "url": "http://arxiv.org/abs/2310.10501v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 35,
+      "title": "CS-Guard: Benchmarking LLM Guardrails for Code Generation Security",
+      "url": "http://arxiv.org/abs/2609.09798v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-09-09",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-17-价值对齐与可扩展监督含校准与不确定性.md",
+    "json": "report/2026/11/2026-11-17-价值对齐与可扩展监督含校准与不确定性.json"
+  }
+}
