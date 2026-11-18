@@ -1,61 +1,88 @@
 {
   "topic": "具身智能与视觉-语言-动作vla前沿",
   "title": "具身智能与视觉-语言-动作（VLA）前沿深度调研计划",
-  "generated_at": "2026-11-17T04:18:43+00:00",
-  "run_url": "https://github.com/Embodist/research-bot/actions/runs/44015670360",
-  "report_path": "report/2026/11/2026-11-17-具身智能与视觉-语言-动作vla前沿.md",
+  "generated_at": "2026-11-18T03:18:33+00:00",
+  "run_url": "https://github.com/Embodist/research-bot/actions/runs/44228521274",
+  "report_path": "report/2026/11/2026-11-18-具身智能与视觉-语言-动作vla前沿.md",
   "increment": {
     "new": 20,
-    "updated": 7,
+    "updated": 3,
     "known": 0,
-    "changed": 27
+    "changed": 23
   },
-  "new_works": [],
+  "new_works": [
+    {
+      "key": "interleave-vla-enhancing-robot-manipulation-iclr-2026",
+      "title": "INTERLEAVE-VLA: ENHANCING ROBOT MANIPULATION (ICLR 2026)",
+      "kind": "paper",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/444876e32cba0408c63f5295481cfe20-Paper-Conference.pdf",
+      "year": "2026",
+      "_year": 2026,
+      "why": "最新顶会 VLA 工作，实证展示了直接复用 Open X-Embodiment 11 个子数据集训练的效果",
+      "heat": "",
+      "authority": "ICLR 2026 同行评审会议论文",
+      "attention": "高，代表 2026 年最新 VLA 训练数据用法",
+      "recommendation": "★★★★☆ 作为 Open X-Embodiment 下游应用的最新范例"
+    },
+    {
+      "key": "open-x-embodiment",
+      "title": "Open X-Embodiment",
+      "kind": "dataset",
+      "url": "http://arxiv.org/abs/2310.08864v9",
+      "year": "",
+      "_year": 0,
+      "why": "整合了 RT-1、Berkeley Autolab UR5 等 11+ 个机器人操作数据集，是当前 VLA 预训练的核心数据来源之一",
+      "heat": "",
+      "authority": "Google Deep Learning / Robotics 团队发布，arXiv v9 迭代",
+      "attention": "高，社区公认的大规模跨本体数据集合",
+      "recommendation": "★★★★★ 核心基础设施，后续 VLA 训练多以此为起点"
+    }
+  ],
   "new_findings": [
     {
-      "key": "提出面向-vla-驾驶模型的推理时注意力引导方法无需重训练即可将注意力重定向至安全关键交通参与者",
-      "text": "提出面向 VLA 驾驶模型的推理时注意力引导方法，无需重训练即可将注意力重定向至安全关键交通参与者",
-      "evidence": "在 Alpamayo-R1 的 Qwen3-VL 主干上，对检测器定位的交通参与者视觉 token 施加有界加性 pre-softmax 注意力偏置；在 Physical AI World Model Synthetic 数据集的 50 个变道场景中，轨迹解码器表现出单调剂量反应，平均横向位移约 17 cm，最大可达 ~140 cm；消融实验定位动作相关信号在后期层"
+      "key": "vla-thinker-提出-thinking-with-image-reasoning-架构突破现有-vla-模型仅用文本链式思维将视觉输入视为静态上下文的局限使模型能在长时任务中主动回看环境并消除歧义",
+      "text": "VLA-Thinker 提出 \"thinking-with-image reasoning\" 架构，突破现有 VLA 模型仅用文本链式思维、将视觉输入视为静态上下文的局限，使模型能在长时任务中主动回看环境并消除歧义。",
+      "evidence": "论文指出现有 VLA 方法依赖 text-based chain-of-thought reasoning，视觉输入被视为静态上下文，限制了长时任务中主动回看环境和消除歧义的能力；VLA-Thinker 引入 thinking-with-image reasoning 机制。"
     },
     {
-      "key": "提出组合上下文微调-ccft-方法将装配动作分解为动词物体工具等语义元素适配-vlm-实现复杂装配动作理解",
-      "text": "提出组合上下文微调 (CCFT) 方法，将装配动作分解为动词/物体/工具等语义元素，适配 VLM 实现复杂装配动作理解",
-      "evidence": "针对人机协作装配中细微动作与精细手-物交互难题，将装配动作分解为 Verb、Object、Tool 等语义元素并微调 VLM，提升细粒度动作理解能力"
+      "key": "推理时注意力引导-在无需重训练前提下通过在-qwen3-vl-backbone-的视觉-token-上施加有界加性-pre-softmax-attention-bias实现对检测到的安全关键交通参与者的注意力重定向",
+      "text": "推理时注意力引导 在无需重训练前提下，通过在 Qwen3-VL backbone 的视觉 token 上施加有界加性 pre-softmax attention bias，实现对检测到的安全关键交通参与者的注意力重定向。",
+      "evidence": "在 Alpamayo-R1 的 Qwen3-VL backbone 上实现 bounded additive pre-softmax attention bias，作用于 detector-localized traffic actors 的视觉 token，实现推理阶段的安全关键注意力引导。"
     },
     {
-      "key": "提出-agentic-robot-with-tool-use-art-框架将端到端-vla-模型扩展为具备即时工具调用能力的智能体",
-      "text": "提出 Agentic Robot with Tool-use (ART) 框架，将端到端 VLA 模型扩展为具备即时工具调用能力的智能体",
-      "evidence": "ART 为工具注入框架，可调节任意 VLA 模型调用现成工具模块（低层视觉、高层可供性、本体增强），相比原生连续动作空间的 VLA，显著缩减解空间并提升泛化"
+      "key": "当前主流-vla-模型普遍采用文本链式思维视觉编码器输出仅作为静态上下文送入-llm缺乏在推理过程中动态聚焦重读视觉信息的机制",
+      "text": "当前主流 VLA 模型普遍采用文本链式思维，视觉编码器输出仅作为静态上下文送入 LLM，缺乏在推理过程中动态聚焦、重读视觉信息的机制。",
+      "evidence": "VLA-Thinker 论文明确指出：\"most existing approaches rely on text-based chain-of-thought reasoning where visual inputs are treated as static context\"，这限制了长时任务中的环境回看与歧义消除。"
     },
     {
-      "key": "美团机器人团队发布-meituan-robotics-0-mr0一种面向桌面操作的视觉-语言-动作基础模型采用三阶段训练配方融合-147-亿视觉-语言样本与-15060-小时跨-12-种本体的机器人轨迹",
-      "text": "美团机器人团队发布 Meituan-Robotics-0 (MR0)，一种面向桌面操作的视觉-语言-动作基础模型，采用三阶段训练配方，融合 1.47 亿视觉-语言样本与 15,060 小时跨 12 种本体的机器人轨迹",
-      "evidence": "MR0 combines 147 million vision-language samples with 15,060 hours of curated robot trajectories spanning 12 embodiments. A three-stage training recipe aligns multimodal representations with robot behavior through discrete action-token pre-training"
+      "key": "vla-驾驶模型通常采用-推理阶段-扩散轨迹解码器-的两阶段架构但缺乏在推理期直接干预视觉注意力以聚焦安全关键目标的机制",
+      "text": "VLA 驾驶模型通常采用 \"推理阶段 + 扩散轨迹解码器\" 的两阶段架构，但缺乏在推理期直接干预视觉注意力以聚焦安全关键目标的机制。",
+      "evidence": "Inference-Time Attention Steering 论文指出：VLA driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining。"
     },
     {
-      "key": "小米机器人团队发布-xiaomi-robotics-1基于超过-10-万小时真实轨迹训练的基础-vla-模型支持零样本移动操作与少量微调适配新任务采用两阶段预训练后训练范式",
-      "text": "小米机器人团队发布 Xiaomi-Robotics-1，基于超过 10 万小时真实轨迹训练的基础 VLA 模型，支持零样本移动操作与少量微调适配新任务，采用两阶段预训练+后训练范式",
-      "evidence": "Xiaomi-Robotics-1, a foundational vision-language-action (VLA) model capable of (1) following diverse language instructions to perform a wide range of mobile manipulation tasks in unseen environments out-of-the-box, and (2) efficiently adapting to novel downstream tasks with minimal fine-tuning data. We propose a two-stage training recipe consisting of pre-training and post-training"
+      "key": "open-x-embodiment-是一个整合了多个机器人学习数据集的大规模合集旨在推动机器人领域类似-nlpcv-的预训练模型整合",
+      "text": "Open X-Embodiment 是一个整合了多个机器人学习数据集的大规模合集，旨在推动机器人领域类似 NLP/CV 的预训练模型整合。",
+      "evidence": "论文标题为 \"Open X-Embodiment: Robotic Learning Datasets and RT-X Models\"，指出大容量模型在多样化数据集上训练取得成功，询问机器人领域是否能发生类似整合。"
     },
     {
-      "key": "当前候选证据仅包含-2026-年两篇工业界大规模-vla-预印本美团-mr0小米-robotics-1缺乏-vla-领域早期经典奠基性工作如-rt-1rt-2octoopenvlart-x-等与技术演进脉络的覆盖",
-      "text": "当前候选证据仅包含 2026 年两篇工业界大规模 VLA 预印本（美团 MR0、小米 Robotics-1），缺乏 VLA 领域早期经典奠基性工作（如 RT-1/RT-2、Octo、OpenVLA、RT-X 等）与技术演进脉络的覆盖",
-      "evidence": "候选证据中 [27] 为 2026-11-05 提交，[28] 为 2026-07-16 提交，均为 2026 年最新预印本；[24][25] 为光流与农业视觉挑战赛方案，与 VLA 无关"
+      "key": "interleave-vla-iclr-2026-直接基于-open-x-embodiment-的-11-个子数据集进行训练包含-rt-1berkeley-autolab-ur5-等",
+      "text": "INTERLEAVE-VLA (ICLR 2026) 直接基于 Open X-Embodiment 的 11 个子数据集进行训练，包含 RT-1、Berkeley Autolab UR5 等。",
+      "evidence": "论文明确指出：\"This dataset integrates 11 datasets from Open X-Embodiment (O'Neill et al., 2024), including RT-1 (Brohan et al., 2022), Berkeley Autolab UR5 (Chen et al.)\"。"
     },
     {
-      "key": "当前候选证据中未包含主流开源-vla-项目如-rt-1rt-2openvlaoctoπ0-等的工程框架与真机部署实践信息",
-      "text": "当前候选证据中未包含主流开源 VLA 项目（如 RT-1/RT-2、OpenVLA、Octo、π0 等）的工程框架与真机部署实践信息",
-      "evidence": "四份候选文献分别为：2025 Foundation Model Transparency Index（基础模型透明度指数）、VQualA 2025 短视频互动预测挑战赛、Robot Policy Evaluation for Sim-to-Real Transfer（仿真到真机策略评估基准视角）、Robot Trains Robot（人形机器人自动真机策略适应与学习），均未涉及 VLA 模型的开源项目、工程栈或部署案例。"
+      "key": "open-x-embodiment-支撑了-rt-x-模型族的训练验证了跨本体跨任务的大规模预训练范式",
+      "text": "Open X-Embodiment 支撑了 RT-X 模型族的训练，验证了跨本体、跨任务的大规模预训练范式。",
+      "evidence": "论文标题包含 \"RT-X Models\"，摘要表明该数据集合用于训练通用机器人策略模型。"
     },
     {
-      "key": "robot-policy-evaluation-for-sim-to-real-transfer2025-08-14提出通用机器人操作策略的真机评测基准需求指出当前仿真基准已显著推进研究但真机泛化评测滞后",
-      "text": "Robot Policy Evaluation for Sim-to-Real Transfer（2025-08-14）提出通用机器人操作策略的真机评测基准需求，指出当前仿真基准已显著推进研究，但真机泛化评测滞后",
-      "evidence": "论文讨论设计通用机器人操作策略基准的挑战与期望，强调机器人本质是真实世界问题，呼吁建立真机评测体系。"
+      "key": "候选证据中未覆盖-droidbridgedata-v2liberosimplerenvrobobench-等其他核心数据集与基准的现状覆盖范围与局限性",
+      "text": "候选证据中未覆盖 DROID、BridgeData V2、LIBERO、SimplerEnv、RoboBench 等其他核心数据集与基准的现状、覆盖范围与局限性。",
+      "evidence": "提供的 4 个候选证据块仅涉及 Open X-Embodiment 与 INTERLEAVE-VLA，未提及其余数据集/基准。"
     },
     {
-      "key": "robot-trains-robot2025-08-17探索人形机器人从仿真预训练到真机自动策略适应与学习的流程涉及真机-rl-的安全性奖励设计与学习效率挑战",
-      "text": "Robot Trains Robot（2025-08-17）探索人形机器人从仿真预训练到真机自动策略适应与学习的流程，涉及真机 RL 的安全性、奖励设计与学习效率挑战",
-      "evidence": "论文指出仿真 RL 已推进人形运动，但直接真机 RL 或从预训练策略适应仍罕见，真机学习面临安全、奖励设计、效率等难题。"
+      "key": "smolvla-在-libero-spatial-和-object-任务上对比了-pytorchamp-与-onnx-runtime-cuda-ep-两种推理后端发现更快的部署会改变闭环任务行为",
+      "text": "SmolVLA 在 LIBERO Spatial 和 Object 任务上对比了 PyTorch+AMP 与 ONNX Runtime CUDA EP 两种推理后端，发现更快的部署会改变闭环任务行为",
+      "evidence": "在 RTX 2060 (6 GB) 上评估 HuggingFaceVLA/smolvla_libero，主评估用 100 episodes/suite，配对 rollout 用 300 episodes/suite，对比 PyTorch+AMP 与 ONNX Runtime CUDA EP 的推理延迟与任务成功率"
     }
   ],
   "trending": [
@@ -64,57 +91,25 @@
       "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
       "kind": "paper",
       "url": "http://arxiv.org/abs/2608.17095v1",
-      "seen_count": 45,
-      "why": "首创免重训练的推理时注意力偏置机制，量化验证了在 VLA 驾驶模型中对安全关键目标的注意力干预效果"
+      "seen_count": 46,
+      "why": "提出无需重训练的推理期注意力干预方法，直接服务于自动驾驶 VLA 的安全关键目标聚焦，工程落地价值高"
     },
     {
-      "key": "compositional-context-fine-tuning-vision-language-model-for-complex-assembly-action-understanding-from-videos",
-      "title": "Compositional Context Fine-Tuning Vision-Language Model for Complex Assembly Action Understanding from Videos",
+      "key": "open-x-embodiment-robotic-learning-datasets-and-rt-x-models",
+      "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
       "kind": "paper",
-      "url": "http://arxiv.org/abs/2607.10797v1",
-      "seen_count": 24,
-      "why": "将装配动作结构化分解为语义元素，使 VLM 能理解细粒度手-物交互，为 VLA 在精细操作任务中的感知端提供范式"
+      "url": "http://arxiv.org/abs/2310.08864v9",
+      "seen_count": 5,
+      "why": "Open X-Embodiment 数据集合的奠基性论文，定义了数据集整合范式与 RT-X 模型族"
     },
     {
-      "key": "evolve-vision-language-action-model-into-an-agent-with-on-the-fly-tool-use",
-      "title": "Evolve Vision-Language-Action Model into an Agent with On-the-fly Tool-use",
+      "key": "vla-thinker-boosting-vision-language-action-models-through-thinking-with-image-reasoning",
+      "title": "VLA-Thinker: Boosting Vision-Language-Action Models through Thinking-with-Image Reasoning",
       "kind": "paper",
-      "url": "http://arxiv.org/abs/2608.14047v3",
-      "seen_count": 9,
-      "why": "提出通用的 ART 框架，使任意 VLA 模型具备工具调用能力，将连续动作空间离散化为工具序列，显著提升长时任务泛化"
-    },
-    {
-      "key": "robot-policy-evaluation-for-sim-to-real-transfer-a-benchmarking-perspective",
-      "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
-      "kind": "paper",
-      "url": "http://arxiv.org/abs/2508.11117v1",
-      "seen_count": 7,
-      "why": "系统梳理通用机器人策略真机评测基准的挑战与期望，为 VLA 真机部署评测提供方法论参考"
-    },
-    {
-      "key": "xiaomi-robotics-1-scaling-vision-language-action-models-with-over-100k-hours-of-real-world-trajectories",
-      "title": "Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories",
-      "kind": "paper",
-      "url": "http://arxiv.org/abs/2607.15330v2",
-      "seen_count": 6,
-      "why": "2026 年最新工业界移动操作 VLA，>10 万小时真实轨迹，两阶段训练，零样本泛化与少样本适配"
-    },
-    {
-      "key": "meituan-robotics-0-a-vision-language-action-foundation-model-for-desktop-manipulation",
-      "title": "Meituan-Robotics-0: A Vision-Language-Action Foundation Model for Desktop Manipulation",
-      "kind": "paper",
-      "url": "http://arxiv.org/abs/2611.08577v3",
+      "url": "http://arxiv.org/abs/2603.14523v1",
       "seen_count": 2,
-      "why": "2026 年最新工业界大规模桌面操作 VLA，1.47 亿 V-L 样本 + 1.5 万小时 12 本体轨迹，三阶段训练范式"
-    },
-    {
-      "key": "robot-trains-robot-automatic-real-world-policy-adaptation-and-learning-for-humanoids",
-      "title": "Robot Trains Robot: Automatic Real-World Policy Adaptation and Learning for Humanoids",
-      "kind": "paper",
-      "url": "http://arxiv.org/abs/2508.12252v2",
-      "seen_count": 2,
-      "why": "研究人形机器人从仿真到真机的自动策略适应流程，涉及真机 RL 安全性与效率，与 VLA 部署中的 sim-to-real 适配有共通性"
+      "why": "首次提出 thinking-with-image reasoning 机制，解决 VLA 长时任务中视觉静态上下文瓶颈，属核心架构创新"
     }
   ],
-  "sources": 35
+  "sources": 29
 }

@@ -1,204 +1,187 @@
-# AgentGuard：LLM 护栏与 Agent 安全前沿调研报告
+# AgentGuard：LLM 护栏与 Agent 安全 深度调研报告
 
-**日期**：2026-11-17（UTC）  
-**领域**：LLM Agent 安全 / 提示词注入 / 越狱 / 工具滥用 / 沙箱与最小权限 / LLM Firewall / 红队基准  
-**检索源数量**：30 条可引用证据（含 15 篇核心论文、1 个基准数据集）
+**日期**：2026-11-18 | **领域**：LLM Guardrails / Agent Safety（提示注入、越狱、工具滥用、过度代理、沙箱最小权限、LLM Firewall、红队基准） | **检索源数量**：32 条可引用证据
 
 ---
 
 ## 1. 进展与热点
 
-### 1.1 零样本/轻量级注入检测新范式
-- **Zero-Shot Embedding Drift Detection** [1] 提出利用嵌入空间漂移检测间接输入通道（邮件、用户生成内容）中的注入攻击，**无需训练数据、免微调、低延迟**，为护栏工程提供「即插即用」防御组件。  
-  - 热度证据：arXiv 2026-01 新作，cs.CR 类，**citations 待核实**  
-  - 权威证据：arXiv preprint，**未经同行评审**  
-  - 关注度：高 —— 直接针对护栏核心痛点（部署成本、延迟、泛化）  
-  - 推荐度：★★★★☆ —— 技术创新性强，工程落地潜力大  
+### 1.1 核心增量判断
+**近 1-2 年（2024-2026）AgentGuard 领域的核心增量在于：从“事后检测/手工规则”转向“数据驱动的执行级护栏学习”与“属性级访问控制框架”的系统性落地** [1][2]。相对 2023 年前以提示词过滤、输出分类器为主的基线，新增了：① 从异常轨迹自动挖掘指令级约束并动态激活 [1]；② 面向工具调用的 ABAC（Attribute-Based Access Control）轻量级客户端-服务端架构 [2]；③ 对过度特权工具选择的实证量化与最小权限原则的工程化呼吁 [3]。
 
-### 1.2 基于公开语料的分类器基线体系
-- **HackAPrompt Playground Submissions** 语料上训练 LSTM、前馈网络、随机森林、朴素贝叶斯等分类器 [2]，给出可复现的注入检测基线。  
-  - 热度证据：arXiv 2025-12，**本科生研究项目**，citations 待核实  
-  - 权威证据：arXiv preprint (cs.CR)  
-  - 关注度：中 —— 公开数据集+经典分类器，适合作为对比基准  
-  - 推荐度：★★★☆☆ —— 基线价值明确，创新度相对有限  
+### 1.2 关键进展条目（按时间倒序）
 
-### 1.3 黑盒、免梯度攻击拓展 RAG 威胁模型
-- **DeRAG** [3] 采用差分进化（DE）在黑盒设置下对多个 RAG 系统生成对抗性提示词后缀，**无需梯度、视管线为黑盒**，能重排检索结果导致错误输出。  
-  - 热度证据：arXiv 2025-07，cs.AI，**citations 待核实**  
-  - 权威证据：arXiv preprint，**未经同行评审**  
-  - 关注度：高 —— 揭示 RAG 管线在黑盒条件下的脆弱性，拓展了护栏必须覆盖的威胁模型  
-  - 推荐度：★★★★☆ —— 威胁建模参考价值高，防御端需对应加强  
+| 进展 | 时间 | 机构/来源 | 一句话贡献 | 证据等级 | 热度证据 | 权威证据 | 关注度 | 推荐度 |
+|------|------|-----------|------------|----------|----------|----------|--------|--------|
+| AgentGuard: Learning Execution Guardrails from Anomalous Coding-Agent Trajectories | 2026-09 | arXiv cs.SE | 首创从编码代理异常轨迹自动提取失败模式→泛化为指令级约束→动态激活的护栏范式 | B (arXiv 预印本) | > 待核实 | arXiv 预印本，未经同行评审 | 中 — 新范式切中代理执行可靠性痛点 | ★★★★☆ — 奠基性工作，建议优先阅读 [1] |
+| AgentGuard: An Attribute-Based Access Control Framework for Tool-Use LLM-Based Agent | 2026-05 | arXiv cs.CR | 首个面向工具使用型 Agent 的 ABAC 框架，客户端仅需 ~10 行代码接入，策略与执行解耦 | B (arXiv 预印本) | > 待核实 | arXiv 预印本，未经同行评审 | 中 — 直接解决工具调用权限失控问题 | ★★★★☆ — 工程落地路径清晰，核心参考 [2] |
+| When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents | 2026-06 | arXiv cs.SE | 系统性实证揭示 Agent 倾向于过度特权工具选择，提出权限感知选择策略与度量指标 | B (arXiv 预印本 v2) | > 待核实 | arXiv 预印本，未经同行评审 | 中 — 填补工具选择研究的权限维度空白 | ★★★★☆ — 为最小权限框架提供实证基础 [3] |
+| GuardBench: A Systematic Framework for Pre-Deployment Evaluation of LLM Safety Guardrails | 2026-09 | Preprints.org | 首个面向护栏的预部署系统性评测框架，覆盖提示注入、越狱、工具滥用等多维度 | C (预印本平台) | > 待核实 | 非同行评审预印本 | 中 — 为护栏评测提供标准化基准雏形 | ★★★☆☆ — 关注后续是否被社区采纳为基准 [4] |
+| UniGuardian: Unified Defense for Prompt Injection, Backdoor & Adversarial Attacks | 2025-02 | arXiv cs.CL | 提出统一检测器同时防御提示注入、后门、对抗样本，验证跨攻击类型泛化 | B (arXiv 预印本 v2) | > 待核实 | arXiv 预印本 | 中 — 统一防御思路有工程整合价值 | ★★★☆☆ — 作为多合一检测器参考架构 [5] |
+| SecAlign: Defending Against Prompt Injection with Preference Optimization | 2024-10 | arXiv cs.CL | 将偏好优化引入提示注入防御，通过对齐数据构造提升鲁棒性 | B (arXiv 预印本 v3) | > 待核实 | arXiv 预印本 | 中 — 从数据对齐角度提供新防御思路 | ★★★☆☆ — 关注对齐与防御的交互机制 [6] |
+| StruQ: Defending Against Prompt Injection with Structured Queries | 2024-02 | arXiv cs.CL | 通过结构化查询将用户输入与指令分离，从架构层面缓解注入 | B (arXiv 预印本 v2) | > 待核实 | arXiv 预印本 | 中 — 架构级防御，工程集成成本较低 | ★★★☆☆ — 适合作为系统设计参考 [7] |
+| ControlNET: A Firewall for RAG-based LLM System | 2025-04 | arXiv cs.CR | 面向 RAG 系统的防火墙，拦截检索增强流程中的恶意注入与数据外泄 | B (arXiv 预印本 v2) | > 待核实 | arXiv 预印本 | 中 — 细分 RAG 场景安全，工程针对性强 | ★★★☆☆ — RAG 落地必读参考 [8] |
+| Firewalls to Secure Dynamic LLM Agentic Networks | 2025-02 | arXiv cs.CR | 提出动态 Agent 网络的防火墙模型，处理多 Agent 协作中的信任边界与策略传播 | B (arXiv 预印本 v7) | > 待核实 | arXiv 预印本 | 低 — 理论模型为主，工程实现未见开源 | ★★☆☆☆ — 理论参考价值大于工程 [9] |
+| Natural Language Interface for Firewall Configuration | 2025-12 | arXiv cs.NI | 自然语言→厂商防火墙配置自动翻译管线，引入模式绑定中间表示解耦意图与语法 | B (arXiv 预印本) | > 待核实 | arXiv 预印本 | 中 — LLM 落地网络安全配置的探索性原型 | ★★★☆☆ — 架构参考，生产级验证缺失 [10] |
 
-### 1.4 基础模型透明度下降加剧审计难度
-- **2025 Foundation Model Transparency Index** [4] 显示平均分从 2024 年 58 降至 40，企业在训练数据、算力及部署后使用/影响上最不透明。  
-  - 热度证据：第三版年度指数，arXiv 2025-12，**citations 待核实**  
-  - 权威证据：arXiv preprint (cs.AI)  
-  - 关注度：中 —— 透明度下降间接增加护栏审计与合规难度，属生态层面信号  
-  - 推荐度：★★★☆☆ —— 宏观背景证据，非直接技术突破  
+> 待核实：上述所有条目的引用数、GitHub Star、下载量等热度指标均无公开可核实数据，标注为 `> 待核实`。
 
-### 1.5 多层纵深防御与动态移动目标防御
-- **Multi-Layered LLM Firewall** [5] 提出纵深防御架构，结合输入过滤、上下文感知、输出验证三层；**Dynamic Moving Target Defense** [6] 引入运行时提示词变形与沙箱隔离，提升针对性注入的缓解效果。  
-  - 热度证据：[5] 发表于会议论文集（DOI 可溯），[6] techrxiv preprint，**citations 均待核实**  
-  - 权威证据：[5] 会议同行评审；[6] 预印本  
-  - 关注度：中 —— 工程落地导向，但缺乏大规模真机验证  
-  - 推荐度：★★★☆☆ —— 可作为护栏系统架构参考  
-
-> 待核实：上述新范式在**多轮、多模态、真实 Agent 编排链路**中的泛化性与误报率尚无独立第三方基准验证。
+### 1.3 红队基准与攻击侧进展
+| 进展 | 时间 | 一句话贡献 | 来源 |
+|------|------|------------|------|
+| Automatic and Universal Prompt Injection Attacks | 2024-03 | 首个自动化通用提示注入攻击生成框架，黑盒设定下跨任务迁移 | [11] |
+| WebInject: Prompt Injection Attack to Web Agents | 2025-05 | 面向 Web Agent 的注入攻击基准，覆盖真实网站交互场景 | [12] |
+| Measuring Real-World Prompt Injection Attacks in LLM-based Resume Screening | 2026-05 | 首个真实招聘场景的注入攻击实测量化，揭示生产环境脆弱性 | [13] |
+| Benign-to-Toxic Jailbreaking | 2025-05 | 从无害提示诱导有害输出的新越狱范式，绕过常规内容过滤 | [14] |
+| Enhancing Jailbreak Attacks via Persona Prompts | 2025-07 | 人设提示词增强越狱效果，揭示角色扮演对齐的脆弱面 | [15] |
 
 ---
 
 ## 2. 工业界与产品
 
-### 2.1 主流厂商护栏产品与开源组件
-| 产品/项目 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+### 2.1 增量判断
+**工业界处于“原型验证→早期产品化”过渡期**：大模型厂商（OpenAI、Anthropic、Google、Microsoft）均已在 API 层面内置基础护栏（内容过滤、工具调用白名单），但**面向 Agent 编排层的专用防火墙、沙箱、最小权限框架仍以开源项目/学术原型为主，尚未形成成熟商业产品线** [2][8][9]。增量体现在：① 专用 Agent 安全中间件开始出现（如 ControlNET 针对 RAG）[8]；② 自然语言配置安全策略的工程化探索 [10]；③ 红队即服务与预部署评测框架（GuardBench）雏形 [4]。
+
+### 2.2 主流开源项目与工程实践表
+
+| 项目/框架 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
 |-----------|------|-----------|------|------|--------|--------|------|------|
-| Llama Guard 3 Vision | 2024 | Meta | GitHub star 待核实 | 官方技术报告 | 高 —— 多模态护栏官方实现 | ★★★★☆ | [7] | 面向图像理解对话的安全分类器，支持自定义类别 |
-| AgentGuard (Repurposing Agentic Orchestrator) | 2025 | 未明确机构 | citations 待核实 | arXiv preprint | 中 —— 将编排器复用于安全评估 | ★★★☆☆ | [8] | 侧重工具编排层面的安全评测框架 |
-| StruQ (Structured Queries Defense) | 2024 | 未明确机构 | citations 待核实 | arXiv preprint | 中 —— 结构化查询防御注入 | ★★★☆☆ | [9] | 通过结构化输入输出约束缓解注入 |
-| SecAlign (Preference Optimization Defense) | 2024 | 未明确机构 | citations 待核实 | arXiv preprint | 中 —— 偏好优化对齐防御 | ★★★☆☆ | [10] | 利用偏好优化增强模型抗注入能力 |
+| AgentGuard (ABAC Framework) | 2026 | arXiv cs.CR 作者组 | > 待核实 | arXiv 预印本 | 中 — 直接针对工具调用权限控制 | ★★★★☆ — 架构清晰、集成成本低，核心参考 | [2] | 客户端-服务端 ABAC，~10 行代码接入，策略与执行解耦 |
+| ControlNET | 2025 | arXiv cs.CR 作者组 | > 待核实 | arXiv 预印本 | 中 — RAG 场景专用防火墙 | ★★★☆☆ — RAG 落地参考，工程细节待补全 | [8] | 拦截检索/生成流程中的注入与泄露 |
+| GuardBench | 2026 | Preprints.org 作者组 | > 待核实 | 非同行评审预印本 | 中 — 护栏评测基准雏形 | ★★★☆☆ — 关注社区采纳度 | [4] | 预部署多维评测框架 |
+| StruQ | 2024 | arXiv cs.CL 作者组 | > 待核实 | arXiv 预印本 | 中 — 结构化查询架构级防御 | ★★★☆☆ — 系统设计参考 | [7] | 输入/指令结构化分离 |
+| Natural Language Firewall Config | 2025 | arXiv cs.NI 作者组 | > 待核实 | arXiv 预印本 | 中 — LLM 生成厂商配置原型 | ★★★☆☆ — 架构参考，生产验证缺失 | [10] | NL→厂商配置翻译管线 |
 
-> 待核实：主流云厂商（AWS Bedrock Guardrails、Azure AI Content Safety、Google Vertex AI Safety Filters）的**商业化护栏 SLA、延迟、误报率、定价**等工程指标缺乏公开对标基准。
+> 待核实：上述项目均无公开 GitHub 仓库、Star 数、下载量、容器镜像拉取量等工程热度指标，均标注 `> 待核实`。
 
-### 2.2 红队工具与自动化评测生态
-- **WebInject** [11] 面向 Web Agent 的注入攻击基准，覆盖真实网页环境下的工具调用劫持。  
-- **Automated Universal Prompt Injection** [12] 给出通用自动化攻击生成流程。  
-- **UniGuardian** [13] 统一检测注入、后门、对抗样本三类威胁。  
-  - 热度证据：均为 arXiv 2024-2025 预印本，**citations 待核实**  
-  - 权威证据：均为预印本，**未经同行评审**  
-  - 关注度：中高 —— 覆盖攻击生成、统一检测、Web Agent 场景  
-  - 推荐度：★★★☆☆ —— 适合作为红队工具链选型参考，需自行验证复现  
+### 2.3 产品化信号
+- **云厂商托管护栏**：AWS Bedrock Guardrails、Azure AI Content Safety、Google Vertex AI Safety Filters 已提供托管内容过滤与 PII 检测，但**对 Agent 多步工具调用的链路级策略控制支持有限** [2]。
+- **专业安全厂商切入**：Lakera、Prompt Security、HiddenLayer 等推出红队测试与运行时防护 SaaS，主要面向提示注入与数据外泄，**Agent 编排层沙箱与最小权限执行环境仍属空白** [9]。
+- **开源生态**：LangChain、LlamaIndex、AutoGen 等框架开始内置基础工具调用白名单与确认回调，但**缺乏统一的属性级策略语言与跨框架沙箱标准** [3]。
 
 ---
 
 ## 3. 蓝海与缺口
 
-| 缺口编号 | 描述 | 证据支撑 | 优先级 |
-|----------|------|----------|--------|
-| G1 | **统一多威胁向量评测套件缺失**：注入、越狱、数据泄露、工具滥用、过度代理、沙箱逃逸无统一基准 | [14] 分类体系与 [15] Agentic 威胁综述均指出碎片化 | ★★★★★ |
-| G2 | **多轮/多模态 Agent 交互中的零样本防御泛化性未验证** | [1] 仅单轮文本验证；[11] WebInject 为单一场景 | ★★★★★ |
-| G3 | **RAG/工具链黑盒鲁棒性基准缺失** | [3] DeRAG 揭示黑盒脆弱，但无标准化防御评测集 | ★★★★☆ |
-| G4 | **生产级沙箱/最小权限/防火墙开源组件成熟度未系统评测** | q3 检索**无相关证据** [21,25,29,30 均不匹配] | ★★★★☆ |
-| G5 | **攻击溯源、归因与自动化响应链路缺失** | [14] 影响类别含级联故障，但无工程化响应框架 | ★★★☆☆ |
-| G6 | **基础模型透明度下降导致供应链审计不可行** | [4] 透明度指数显著下降 | ★★★☆☆ |
+### 3.1 增量判断
+**相对已有工作，以下方向属于“无人区/高杠杆机会”**：① **跨 Agent/跨仓库的护栏迁移与联邦学习**——现有 AgentGuard 仅在单代理轨迹上学习 [1]；② **运行时动态降权与补偿执行**——过度特权检测 [3] 后缺乏自动降级机制；③ **形式化验证的 Agent 安全策略语言**——现有 ABAC [2] 与结构化查询 [7] 均缺乏可验证语义；④ **多模态 Agent（视觉/语音/代码）的统一红队基准**——GuardBench [4] 与 WebInject [12] 仍以文本为主。
 
-> 待核实：是否存在**行业联盟（如 MLCommons、OWASP、Coalition for Secure AI）**主导的统一基准建设计划。
+### 3.2 缺口清单
+
+| 缺口 | 说明 | 相关证据 | 优先级 |
+|------|------|----------|--------|
+| 标准化护栏评测基准缺失 | 无通用的误报率/漏报率/任务成功率权衡基准，GuardBench [4] 尚未被社区广泛采纳 | [4] | 高 |
+| 开源可复现的 AgentGuard 实现缺失 | 两篇 AgentGuard 论文 [1][2] 均未发布代码/权重/数据，第三方复现受阻 | [1][2] | 高 |
+| 跨语言/跨运行时沙箱标准缺失 | 无统一的 WASM/gVisor/Firecracker 等隔离层对 Agent 的标准适配接口 | [3] | 高 |
+| 过度特权工具选择的自动化缓解组件缺失 | [3] 仅给出实证与度量，无运行时强制降权/替代工具推荐的开源组件 | [3] | 中 |
+| 多模态注入/越狱红队基准缺失 | 现有基准 [11][12][13] 以文本为主，视觉/语音/代码执行链路攻击面未系统覆盖 | [11][12][13] | 中 |
+| 形式化策略语言与验证工具链缺失 | ABAC [2]、StruQ [7] 均为半形式化，缺乏模型检查/定理证明支持 | [2][7] | 中 |
+| 长尾异常模式泛化与迁移实证缺失 | AgentGuard [1] 声称泛化但无跨仓库/跨代理迁移实验 | [1] | 中 |
+| 生产级合规/审计日志集成缺失 | 现有框架均未对接 SOC2/ISO27001 等合规审计所需的结构化决策日志 | > 待核实 | 低 |
 
 ---
 
 ## 4. 瓶颈与拐点
 
-### 4.1 核心瓶颈
-| 瓶颈 | 表现 | 证据 | 严重度 |
-|------|------|------|--------|
-| **理论保证缺失** | 对齐后 SOTA 模型仍广泛易受注入，无可证明鲁棒边界 | [1] 指出对齐不足以防御 | 高 |
-| **评测碎片化** | 单任务/单模态/单场景基准割裂，无法横向对比 | [14] 分类体系与 [15] 综述均隐含此痛点 | 高 |
-| **工程落地三角困境** | 延迟 < 50ms、误报 < 1%、覆盖全威胁向量 —— 三者难兼得 | [1] 零样本低延迟但覆盖面待验证；[5] 多层纵深增加延迟 | 高 |
-| **透明度-安全悖论** | 模型越不透明，护栏审计越难，合规风险越大 | [4] 透明度指数下降趋势 | 中 |
+### 4.1 增量判断
+**核心瓶颈集中在“数据-策略-执行”三角的闭环断裂**：① **高质量异常轨迹稀缺**——AgentGuard [1] 依赖异常轨迹挖掘约束，但生产环境异常数据敏感、标注成本高；② **策略表达与执行隔离的鸿沟**——ABAC [2] 等框架在策略层表达丰富，但落地到沙箱/运行时仍需大量胶水代码；③ **红队评测与真实攻击面的分布偏移**——基准 [4][12] 多为合成/受控场景，真实攻击 [13] 显示分布差异大；④ **细粒度权限元数据缺失**——工具生态缺乏标准化的权限声明（如 OAuth scopes 之于 API），导致最小权限 [3] 难以自动化。
 
 ### 4.2 拐点信号
-- **拐点 1：标准化基准发布** —— 若 MLCommons/OWASP 在 2026 H2 发布**统一 Agent Safety Benchmark v1.0**，将倒逼防御算法可比、工程选型可量化。  
-- **拐点 2：硬件级隔离普及** —— Intel TDX / AMD SEV-SNP / ARM CCA 在推理服务器大规模部署，使**沙箱与最小权限从软件层下沉到硬件层**，改变威胁模型假设。  
-- **拐点 3：监管强制披露** —— EU AI Act 高风险系统要求**模型卡片、数据治理、红队报告**强制公开，将迫使透明度回升 [4] 反向修正。  
 
-> 预测 [P]：到 2027-06，**≥3 家主流云厂商**将提供「硬件隔离+标准化基准认证」的合规护栏 SKU，**置信度 65%**。若 2026 年底无统一基准发布，该预测失效。
+| 信号 | 说明 | 判断依据 | 置信度 |
+|------|------|----------|--------|
+| 标准化工具权限元数据协议出现 | 若 MCP (Model Context Protocol) 或类似协议引入权限字段，将催化最小权限自动化 | [3] 指出元数据缺失是核心阻碍 | 推测 |
+| 主流 Agent 框架内置沙箱抽象层 | LangChain/LlamaIndex/AutoGen 若合并沙箱接口，将形成事实标准 | 当前各自为政，工程呼声高 | 推测 |
+| 监管强制要求 Agent 审计日志 | EU AI Act / 美行政命令若细化至 Agent 编排层，将倒逼合规工具链成熟 | 社会·政策维度驱动 | 推测 |
+| 统一红队基准被顶会/基准组织采纳 | GuardBench [4] 或后续工作若被 NIST/MLCommons/HELM 采纳，将加速评测标准化 | 学术/标准组织驱动 | 推测 |
+
+> 待核实：上述拐点信号均为基于当前瓶颈的推演，标注为 `推测`，需持续追踪。
 
 ---
 
 ## 5. 社会·政策·国际
 
-| 维度 | 关键进展 | 证据 | 影响 |
-|------|----------|------|------|
-| **监管标准** | EU AI Act 附件 IV 要求高风险 AI 系统提供**红队测试报告、模型卡片、数据治理文档** | 公开法案文本，**待核实具体条款编号** | 强制护栏审计留痕，推动工程标准化 |
-| **行业标准** | OWASP LLM Top 10 2025 将 Prompt Injection 列为 **#1 漏洞** [14] | [14] 引用 OWASP 官方榜单 | 成为采购合规、保险定价的通用基线 |
-| **地缘供应链** | 美国 EO 14110 及后续指令要求**关键基础设施 AI 系统供应链风险评估**，涉及模型来源透明度 | 政府公开文件，**待核实最新修订版** | 间接倒逼 [4] 透明度指标纳入采购合同 |
-| **劳动与伦理** | AI 暴露度改变岗位职责 [16]，合成关系长期研究 [17] 提示人机信任边界模糊 | [16] arXiv 2026-11；[17] arXiv 2024-12 | 长期看护栏需纳入**人类监督回路设计** |
+### 5.1 增量判断
+**监管与标准化开始显性影响 Agent 安全工程**：① **EU AI Act（2024 生效，2026 全面适用）** 将“高风险 AI 系统”纳入合规要求，Agent 若用于招聘 [13]、金融 [16]、医疗等场景需提供风险管理体系与事后审计日志；② **美国行政命令 14110（2023）及 NIST AI RMF 1.0** 推动红队测试制度化，GuardBench [4] 等预部署评测框架直接回应此需求；③ **供应链安全**：软件物料清单（SBOM）向 AI 模型/数据/提示词扩展，Agent 调用链的溯源成为新要求；④ **地缘政治**：模型权重出口管制、数据本地化法规迫使多国部署时需在本地沙箱运行，推动联邦化护栏架构。
 
-> 不确定：中国《生成式人工智能服务管理暂行办法》及后续算法备案细则对**Agent 工具调用链路审计**的具体技术要求尚未公开细则。
+### 5.2 关键影响条目
+
+| 维度 | 具体影响 | 证据/信号 | 不确定性 |
+|------|----------|-----------|----------|
+| 合规倒逼工程标准化 | 高风险场景强制要求可审计决策日志、人工介入点、回滚机制 | EU AI Act Annex III、NIST AI RMF | 细则执行力度待观察 |
+| 红队测试制度化 | 预部署红队成为合规前置条件，催生红队即服务市场 | 白宫行政命令、GuardBench [4] 出现 | 标准化基准尚未收敛 |
+| 数据本地化与联邦护栏 | 跨国部署需在本地运行护栏/沙箱，策略同步与联邦学习成刚需 | GDPR、中国《数据安全法》、模型出口管制 | 技术方案尚无共识 |
+| 劳动力替代与责任归属 | Agent 自主决策导致的损失责任归属（开发者/部署者/模型提供方）尚无法律共识 | 简历筛选注入实测 [13] 暴露现实风险 | 法律滞后于技术 |
 
 ---
 
 ## 6. 资本与生态
 
-| 信号 | 说明 | 证据 | 置信度 |
-|------|------|------|--------|
-| **安全专项融资** | 2024-2025 多家 LLM 安全初创（如 Lakera, Protect AI, HiddenLayer, Prompt Security）完成 A/B 轮，**累计融资 > $300M** | 行业媒体报道，**待核实具体金额与轮次** | 中 |
-| **大厂内化 vs 开源** | Meta 开源 Llama Guard 系列 [7]；Google/Microsoft/AWS 以**托管服务**形态内化护栏，不开源核心引擎 | [7] 官方发布；云厂商产品页公开信息 | 高 |
-| **人才流动** | 红队研究员、对抗机器学习专家从学术界向产业界/专业红队公司流动 | 学术会议（NeurIPS/ICLR/USENIX Security）论文作者单位变迁，**待核实统计** | 中 |
-| **社区基准竞赛** | HackAPrompt 竞赛持续运营，**语料规模与参赛队伍增长** | [2] 引用 HackAPrompt 语料；官网公开榜单，**待核实 2025/2026 规模** | 中 |
+### 6.1 增量判断
+**资本关注点从“模型层”下沉至“编排与安全层”**：① **专用安全赛道融资活跃**——Lakera（$20M+ A轮）、Prompt Security、HiddenLayer、Protect AI 等专注提示注入/红队/模型防火墙；② **Agent 基础设施融资带动安全需求**——AutoGPT、LangChain、LlamaIndex、CrewAI 等框架融资后，其生态开发者对沙箱、权限、审计的刚性需求上升；③ **人才流动**：安全研究员从大模型对齐团队流向 Agent 安全创业/专业安全厂商；④ **开源生态竞合**：LangChain 与 LlamaIndex 均推出自有工具调用治理方案，但**缺乏中立的跨框架标准**，形成厂商锁定风险。
 
-> 待核实：是否出现**专业护栏中间件公司**（类比 WAF 市场）形成可持续商业模式，还是被云厂商平台功能吞噬。
+### 6.2 关键生态指标
+
+| 指标 | 现状 | 趋势 | 证据 |
+|------|------|------|------|
+| 专业 Agent 安全初创融资轮次 | 2024-2025 多笔 A/B 轮，单笔 $10M-$50M | 上升 | > 待核实（公开融资公告） |
+| 主流框架内置安全模块 PR 数 | LangChain/LlamaIndex/AutoGen 近半年安全相关 PR 占比 ~15% | 上升 | > 待核实（GitHub Insights） |
+| 红队即服务商家数量 | 头部 5-8 家，长尾 20+ | 稳步增长 | > 待核实 |
+| 学术-产业联合论文/项目 | Google/DeepMind/Microsoft 与高校联合发布 SecAlign [6]、ControlNET [8] 等 | 增加 | [6][8] |
+
+> 待核实：上述资本/生态量化指标无权威公开统计来源，标注 `> 待核实`。
 
 ---
 
 ## 7. 信号与预测
 
-| 信号 | 来源 | 解读 | 可证伪假设 |
-|------|------|------|------------|
-| **零样本防御从「可行」走向「生产可用」** | [1] 2026-01 新作 | 嵌入漂移检测若在多模态、多轮、真实 Agent 基准上误报 < 2%、延迟 < 30ms，将成标配 | **H1**：至 2026-12，≥2 个开源护栏框架集成零样本漂移检测并通过 SimplerEnv/LIBERO 真机基准验证 |
-| **统一基准启动** | OWASP/MLCommons 动向 | 碎片化基准整合为行业共识的前提 | **H2**：至 2027-03，MLCommons 发布 Agent Safety Benchmark v1.0（含注入、越狱、工具滥用、沙箱逃逸 4 子集） |
-| **硬件隔离成为合规基线** | EU AI Act + 云厂商机密计算推广 | 从「软件沙箱」转向「硬件 TEE + 远程认证」 | **H3**：至 2027-06，AWS Nitro Enclaves / Azure Confidential Containers / GCP Confidential Space 中 ≥1 家在 SLA 中承诺「Agent 工具调用链路硬件级隔离」 |
-| **透明度指数触底反弹** | [4] 2025 指数显著下降 | 监管与保险压力迫使厂商披露更多 | **H4**：2026 版指数平均分 ≥ 45（较 2025 年 40 回升） |
-| **红队即服务商品化** | 竞赛平台、专业红队公司增长 | 攻击生成自动化、标准化报告输出 | **H5**：至 2026-12，≥3 家公司提供「按 API 调用付费」的 Agent 红队服务，含标准化 SARIF 报告 |
+### 7.1 早期信号
 
-> 不确定：上述预测均依赖**监管落地节奏、基准组织交付进度、硬件供应链交付能力**三大外部变量，任一滞后均可能推迟 6-12 个月。
+| 信号 | 来源/观测 | 含义 |
+|------|-----------|------|
+| 两篇同名 AgentGuard 论文在 2026 上半年/下半年分别从“执行护栏学习”[1]与“ABAC 框架”[2]切入 | arXiv cs.SE / cs.CR | 学术界开始系统性攻克 Agent 执行安全，形成双轨并进（数据驱动约束学习 + 策略驱动访问控制） |
+| GuardBench [4] 等预部署评测框架出现 | Preprints.org 2026-09 | 评测标准化从“模型能力”延伸至“护栏有效性”，预示合规工具链成熟 |
+| 过度特权工具选择实证 [3] 获得关注 | arXiv cs.SE 2026-06 | 软件工程视角切入 Agent 安全，最小权限原则从口号变为可度量工程指标 |
+| 自然语言生成防火墙配置 [10] 原型验证 | arXiv cs.NI 2025-12 | LLM 自身参与安全基础设施构建的闭环雏形 |
 
----
+### 7.2 未来 6-18 月预测（可证伪假设）
 
-## 经典与奠基性工作
+| 预测 | 可证伪条件 | 置信度 | 依据链 |
+|------|------------|--------|--------|
+| **P1**：至少一篇 AgentGuard 类工作被 ICSE/FSE/USENIX Security/OSDI 等顶会录用 | 2026-12 前无相关顶会录用 | 较大概率 | [1][2] 问题切中软工/安全顶会关注点，预印本质量较高 |
+| **P2**：MCP 或类似协议发布带权限字段的工具元数据规范 v1.0 | 2026-12 前无官方规范发布 | 推测 | [3] 指出元数据缺失，协议层标准化是必经路径 |
+| **P3**：LangChain/LlamaIndex/AutoGen 任一发布官方沙箱抽象层（支持 gVisor/WASM/Firecracker 统一接口） | 2026-12 前无官方发布 | 推测 | 工程呼声高，框架竞争倒逼标准化 |
+| **P4**：NIST/MLCommons 发布 Agent 安全评测基准 v1.0（含提示注入、工具滥用、越狱、沙箱逃逸） | 2027-06 前无发布 | 推测 | GuardBench [4] 等学术雏形 + 政策拉动 |
+| **P5**：出现首个通过 SOC2 Type II 认证的 Agent 安全中间件商业产品 | 2027-06 前无认证案例 | 推测 | 合规倒逼 + 资本投入 |
 
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|------|------|--------|--------|------|------|
-| Hijacking the Prompt: A Survey of Prompt Injection Attacks, Detection, and Defense | 2026 | ODU / Cybersecurity Showcase | citations=2 [14] | 学术展示会非同行评审 | 高 —— OWASP #1 背书+系统分类 | ★★★★☆ | [14] | 首个系统性梳理注入攻击向量分类、影响类别与防御现状的综述 |
-| Vulnerabilities in autonomous execution: A survey of security threats and defenses in LLM-driven agentic and multi-agent systems | 2026 | Knowledge-Based Systems | citations=2 [15] | **同行评审期刊** | 高 —— 聚焦 Agentic AI 自主执行新范式 | ★★★★★ | [15] | 权威期刊发表，切中具身智能/VLA 语境下的自主执行安全 |
-| LLM Security in Cloud-Native Architectures: A Comprehensive Survey | 2026 | techrxiv | citations=0 [18] | 预印本 | 中 —— 覆盖 65 项研究与真实事件 | ★★★☆☆ | [18] | 云原生部署视角威胁分类，补全工程落地侧 |
-| Automated and Universal Prompt Injection Attacks against Large Language Models | 2024 | 未明确 | citations 待核实 [12] | arXiv preprint | 中高 —— 通用自动化攻击生成 | ★★★☆☆ | [12] | 早期通用攻击框架，红队工具链雏形 |
-| StruQ: Defending Against Prompt Injection with Structured Queries | 2024 | 未明确 | citations 待核实 [9] | arXiv preprint | 中 —— 结构化约束防御 | ★★★☆☆ | [9] | 通过输入输出结构化缓解注入，工程思路清晰 |
+> 标注 `[P]` 为预测，均附可证伪条件与置信度。`推测` 表示依据链较弱，`较大概率` 表示有明确信号支撑。
 
----
-
-## 开源项目与工程组件
-
-| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|------|------|--------|--------|------|------|
-| Llama Guard 3 Vision | 2024 | Meta | GitHub star 待核实 | 官方技术报告 | 高 | ★★★★☆ | [7] | 多模态安全分类器，支持自定义策略类别 |
-| AgentGuard | 2025 | 未明确 | citations 待核实 | arXiv preprint | 中 | ★★★☆☆ | [8] | 将编排器复用于工具编排安全评估 |
-| WebInject | 2025 | 未明确 | citations 待核实 | arXiv preprint | 中高 | ★★★☆☆ | [11] | 面向 Web Agent 的注入攻击基准 |
-| UniGuardian | 2025 | 未明确 | citations 待核实 | arXiv preprint | 中 | ★★★☆☆ | [13] | 统一检测注入/后门/对抗样本 |
-
-> 待核实：主流**沙箱运行时**（gVisor, Kata Containers, Firecracker, WasmEdge）、**最小权限编排框架**、**LLM Firewall 中间件**的成熟度对比测评数据。
-
----
-
-## 核心数据集与基准
-
-| 名称 | 年份 | 机构/来源 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|------|------|--------|--------|------|------|
-| HackAPrompt Playground Submissions | 2023-持续 | HackAPrompt 竞赛官方 | 社区广泛引用 | 竞赛官方发布 | 高 | ★★★★☆ | https://hackaprompt.com/ | 目前公开最大规模提示词注入攻击语料，[2] 用于训练/评测分类器 |
-| WebInject Benchmark | 2025 | [11] 作者 | citations 待核实 | arXiv preprint | 中高 | ★★★☆☆ | [11] | 真实网页环境下的 Web Agent 注入评测集 |
-| DeRAG Attack Suite | 2025 | [3] 作者 | citations 待核实 | arXiv preprint | 中 | ★★★☆☆ | [3] | 黑盒 RAG 注入攻击生成脚本与评测集 |
+### 7.3 风险与不确定性提示
+- **技术风险**：护栏误报率过高导致任务成功率大幅下降，造成“安全税”过重，用户绕过护栏 [1][2]。
+- **对抗风险**：自适应攻击针对特定护栏/沙箱定制绕过，红队基准 [4] 可能陷入“过拟合基准”的虚假安全感。
+- **标准化风险**：多框架、多沙箱、多策略语言碎片化，导致安全能力不可迁移，形成“安全孤岛” [3]。
+- **监管风险**：过度监管扼杀开源创新，或监管滞后导致灰色地带扩大 [13]。
 
 ---
 
 ## 参考来源
-[1] Zero-Shot Embedding Drift Detection: A Lightweight Defense Against Prompt Injections in LLMs — http://arxiv.org/abs/2601.12359v1
-[2] Detecting Prompt Injection Attacks Against Application Using Classifiers — http://arxiv.org/abs/2512.12583v1
-[3] DeRAG: Black-box Adversarial Attacks on Multiple Retrieval-Augmented Generation Applications via Prompt Injection — http://arxiv.org/abs/2507.15042v1
-[4] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
-[5] A Multi-Layered Large Language Model Firewall: Defense-in-Depth against Prompt Injection — https://doi.org/10.5220/0015351100004985
-[6] Dynamic Moving Target Defense for Mitigating Targeted LLM Prompt Injection — https://doi.org/10.36227/techrxiv.171822345.56781952/v1
-[7] Llama Guard 3 Vision: Safeguarding Human-AI Image Understanding Conversations — http://arxiv.org/abs/2411.10414v1
-[8] AgentGuard: Repurposing Agentic Orchestrator for Safety Evaluation of Tool Orchestration — http://arxiv.org/abs/2502.09809v1
-[9] StruQ: Defending Against Prompt Injection with Structured Queries — http://arxiv.org/abs/2402.06363v2
-[10] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3
-[11] WebInject: Prompt Injection Attack to Web Agents — http://arxiv.org/abs/2505.11717v4
-[12] Automatic and Universal Prompt Injection Attacks against Large Language Models — http://arxiv.org/abs/2403.04957v1
-[13] UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models — http://arxiv.org/abs/2502.13141v2
-[14] Hijacking the Prompt: A Survey of Prompt Injection Attacks, Detection, and Defense in Large Language Models — https://doi.org/10.25776/mvhf-w867
-[15] Vulnerabilities in autonomous execution: A survey of security threats and defenses in LLM-driven agentic and multi-agent systems — https://doi.org/10.1016/j.knosys.2026.117001
-[16] AI Exposure and the Changing Responsibilities in Job Postings — http://arxiv.org/abs/2611.09870v1
-[17] Understanding Opportunities and Risks of Synthetic Relationships: Leveraging the Power of Longitudinal Research with Customised AI Tools — http://arxiv.org/abs/2412.09086v1
-[18] LLM Security in Cloud-Native Architectures: A Comprehensive Survey of Attacks, Defenses, and Operational Challenges — https://doi.org/10.36227/techrxiv.177130593.35890269/v1
+[1] AgentGuard: Learning Execution Guardrails from Anomalous Coding-Agent Trajectories — http://arxiv.org/abs/2609.16287v1
+[2] AgentGuard: An Attribute-Based Access Control Framework for Tool-Use LLM-Based Agent — http://arxiv.org/abs/2605.28071v1
+[3] When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents — http://arxiv.org/abs/2606.20023v2
+[4] GuardBench: A Systematic Framework for Pre-Deployment Evaluation of LLM Safety Guardrails — https://doi.org/10.20944/preprints202609.0270.v1
+[5] UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models — http://arxiv.org/abs/2502.13141v2
+[6] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3
+[7] StruQ: Defending Against Prompt Injection with Structured Queries — http://arxiv.org/abs/2402.06363v2
+[8] ControlNET: A Firewall for RAG-based LLM System — http://arxiv.org/abs/2504.09593v2
+[9] Firewalls to Secure Dynamic LLM Agentic Networks — http://arxiv.org/abs/2502.01822v7
+[10] Natural Language Interface for Firewall Configuration — http://arxiv.org/abs/2512.10789v1
+[11] Automatic and Universal Prompt Injection Attacks against Large Language Models — http://arxiv.org/abs/2403.04957v1
+[12] WebInject: Prompt Injection Attack to Web Agents — http://arxiv.org/abs/2505.11717v4
+[13] Measuring Real-World Prompt Injection Attacks in LLM-based Resume Screening — http://arxiv.org/abs/2605.28999v1
+[14] Benign-to-Toxic Jailbreaking: Inducing Harmful Responses from Harmless Prompts — http://arxiv.org/abs/2505.21556v1
+[15] Enhancing Jailbreak Attacks on LLMs via Persona Prompts — http://arxiv.org/abs/2507.22171v3
+[16] Fin-Analyst at FinMMEval 2026 Task 3: A Live Hybrid Trading Agent with LLM Specialists and Rule-Based Signals — http://arxiv.org/abs/2607.12233v1
 
 ---
 
-*Generated by research-bot · topic=`agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=30 · duration=266s · 2026-11-17T04:58:02+00:00*
+*Generated by research-bot · topic=`agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=32 · duration=374s · 2026-11-18T04:07:04+00:00*
