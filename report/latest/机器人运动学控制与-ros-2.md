@@ -1,133 +1,122 @@
-# 机器人运动学、控制与 ROS 2 生态：前沿进展增量追踪报告（2024-2026）
+# 机器人运动学、控制与 ROS 2 前沿增量快照报告
 
-**日期**：2026-11-19（UTC）  
-**领域**：具身智能 / 机器人运动学 / 控制算法 / ROS 2 生态  
-**检索源数量**：29 条候选证据（编号 [1]-[2]），其中仅 3 条直接相关（[3], [4], [5]），其余 26 条与主题不匹配  
-**方法论**：deep-research / frontier-tracking / paper-survey / evidence-grading / frontier-watch  
+**日期**：2026-11-20 | **领域**：具身智能 / 机器人运动学 / 控制算法 / ROS 2 生态 | **检索源数量**：36（其中高度相关 8 条：[1][2][3][4][5][6][7][8]）
 
 ---
 
-## 1. 进展与热点（Progress & Hotspots）
+## 1. 进展与热点
 
-### 1.1 经典奠基性工作（基线，非增量）
+### 1.1 最新进展（近 1-2 年）
+
+| 进展 | 时间 | 机构/来源 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 说明 |
+|------|------|-----------|----------|----------|--------|--------|------|
+| ROS 1 与 ROS 2 在自适应巡航控制（ACC）任务上的实时性能对比实证 | 2025-03 | SIU 2025 (IEEE) [2] | citations=0（会议刚发表） | 同行评审会议论文，IEEE Xplore DOI: 10.1109/siu66497.2025.11112074 [2] | 中——稀缺的应用级实时评估实证 | ★★★★☆ 直接面向控制回路的实测对比，工程选型参考价值高 | 首次在具体机器人控制任务（ACC）上量化 ROS 2 与 ROS 1 的端到端延迟、抖动与确定性 [2] |
+| 弱硬实时控制理论新进展：基于窗口约束的失效序列建模与 ℓ2 性能分析 | 2023-05 | arXiv (eess.SY) [1] | 预印本，引用数未公开 | arXiv 预印本，未见会议/期刊录用 [1] | 低——理论工具尚未见工程落地 | ★★★☆☆ 为 ROS 2 DDS 调度提供潜在分析框架，但距落地有距离 | 适用于反馈通道偶发丢包的控制系统，可映射 ROS 2 QoS 与执行器语义 [1] |
+| Nav2 引入自然语言策略接口：本地 LLM 将英文指令转 JSON 策略投影到 costmap | 2026-10 | arXiv (cs.RO) [7] | 预印本，150 条指令测试，4 模型正确接受 107-142 条 | arXiv 预印本 [7] | 中——Nav2 与 LLM 融合的前沿工程实践 | ★★★★☆ 展示 Nav2 可扩展性与真机落地潜力 | 无需修改 planner/controller，经确定性检查后由三个 costmap adapter 投影 [7] |
+| Nav2 面向农业户外环境的实时局部 costmap 更新增强鲁棒性 | 2024-07 | arXiv (cs.RO) [8] | 预印本，针对高草/树冠等非结构化障碍 | arXiv 预印本 [8] | 中——细分真机落地场景改进 | ★★★☆☆ 为户外非结构化环境导航提供参考 | 解决室内导航栈在果园/葡萄园等场景失效问题 [8] |
+
+> **增量判断**：近 1-2 年研究重心从“中间件基准测试”转向“应用级控制回路实时实证”[2]；Nav2 生态开始吸纳 LLM 作为策略生成前端 [7] 并针对非结构化户外场景强化局部感知 [8]；弱硬实时理论 [1] 为 ROS 2 确定性调度提供潜在数学工具，但**工程落地映射仍属空白**。
+
+### 1.2 经典与奠基性工作
 
 | 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
 |------|------|-----------|----------|----------|--------|--------|------|------|
-| Robot Kinematics: Forward and Inverse Kinematics | 2006 | 书籍章节 *Industrial Robotics: Theory, Modelling and Control* | citations=156 [4] | 同行评审书籍章节 | 中（长期被引教材基线） | ★★★★☆ 运动学建模必读基石 | [4] | 系统阐述正/逆运动学，工业机器人运动学建模基础框架 |
-| Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics | 2014 | arXiv preprint (eess.SY) | 引用数未公开 [3] | arXiv 预印本，非期刊同行评审 | 中（理论贡献明确但年份较早） | ★★★☆☆ 双重不确定自适应控制理论参考 | [3] | 提出运动学与动力学均不确定下的任务空间自适应控制器，具备分离性质 |
-
-> **增量判断**：上述两项均为 **基线工作**（2006/2014），**非近 1-2 年增量**。候选证据中**完全缺失** 2024-2026 年运动学/控制算法 SOTA 进展（几何感知控制、扩散策略、VLA 融合运动学约束、全身全向控制等）[4][3]。
-
-### 1.2 近 1-2 年疑似热点（基于领域常识，证据待补）
-
-> 待核实：2024-2026 年 CoRL/RSS/ICRA/IROS 主会是否出现以下增量：  
-> - **几何感知/李群运动学**融合学习型控制（如 SE(3) Diffusion Policy、Equivariant VLA）  
-> - **大规模具身数据集**（Open X-Embodiment、DROID、BridgeData v2）上的运动学一致性基准  
-> - **Sim-to-Real 运动学标定/动力学辨识**新范式（如 [6] 提及视觉编码器预训练迁移，但未直接给出运动学层面证据）  
-> - **全身全向控制**（移动操作、人形机器人）在真机上的闭环频率与鲁棒性突破  
-
-> 待核实：核心基准测试现状——SimplerEnv、LIBERO、RoboArena、Open X-Embodiment 基准在**运动学/控制维度**（轨迹跟踪误差、关节限位满足率、力控稳定性）的最新榜单排名与复现报告。
+| Control primitives for robot systems | 1990 | IEEE ICRA [6] | citations=4 | 同行评审顶级机器人会议 [6] | 中——早期控制原语源头文献 | ★★★★☆ ICRA 顶会，奠基模块化控制架构 | [6](https://doi.org/10.1109/robot.1990.126280) | 提出机器人控制原语概念，影响后续行为树与技能架构 |
+| Robot Dynamics and Control (Ch.4, *A Mathematical Introduction to Robotic Manipulation*) | 1994 | Murray/Li/Sastry, CRC Press [3] | citations=2（教材章节引用数非完整反映影响力） | 权威教材，作者为 Caltech/HKUST/Berkeley 领军学者 [3] | 高——长期作为研究生核心教材 | ★★★★★ 机器人动力学与控制数学基础权威参考 | [3](https://doi.org/10.1201/9781315136370-4) | 系统推导开链操作器运动方程，利用动力学结构构造渐近跟踪控制律，显式使用 twist 表达运动学 |
+| Manipulator Kinematics (Ch.3, 同书) | 1994 | Murray/Li/Sastry [4] | 教材核心章节 | 同 [3] | 高 | ★★★★★ 运动学几何与代数基础权威来源 | [4](https://doi.org/10.1201/9781315136370-3) | 刚体运动、指数坐标、运动学链推导 |
+| Multifingered Hand Kinematics (Ch.5, 同书) | 1994 | Murray/Li/Sastry [5] | 教材核心章节 | 同 [3] | 中高 | ★★★★☆ 灵巧手运动学与抓取分析基础 | [5](https://doi.org/10.1201/9781315136370-5) | 接触运动学、抓取力闭合、手部雅可比 |
 
 ---
 
-## 2. 工业界与产品（Industry & Product）
+## 2. 工业界与产品
 
-### 2.1 ROS 2 核心控制栈成熟度（证据缺口）
+| 项目/产品 | 最新版本/时间 | 核心特性/真机案例 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 说明 |
+|-----------|---------------|-------------------|----------|----------|--------|--------|------|
+| Nav2 (Navigation 2) | 2026-10 预印本 [7] | 自然语言策略接口；农业户外实时 costmap 更新 [8] | arXiv 预印本，150 指令测试 [7] | arXiv 预印本 [7][8] | 中——ROS 2 导航栈事实标准 | ★★★★☆ 生态最完整、落地案例最多的 ROS 2 导航栈 | LLM 前端与确定性 costmap 解耦，降低非专家使用门槛 [7] |
+| ros2_control | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 高——实时控制核心框架 | > 待核实 | **证据缺口**：当前检索源无版本号、控制器接口、硬件接口层（SystemInterface）成熟度、真机部署记录 [9][7][8] |
+| MoveIt 2 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 高——运动规划标准栈 | > 待核实 | **证据缺口**：无最新版本特性（Servo、任务构造器、混合规划）、真机案例、与 ros2_control 集成状态 [9][7][8] |
+| Isaac ROS | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 中高——NVIDIA 加速生态 | > 待核实 | **证据缺口**：无 GEMs 版本、CUDA 加速节点、Isaac Sim 仿真实联动基准 [9][7][8] |
+| micro-ROS | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 中——微控制器实时部署 | > 待核实 | **证据缺口**：无最新支持 MCU/RTOS、内存占用、DDS-XRCE 吞吐实测 [9][7][8] |
 
-| 项目/产品 | 版本/发布时间 | 维护机构 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 真机部署案例 |
-|-----------|---------------|----------|----------|----------|--------|--------|------|--------------|
-| MoveIt 2 | 待核实 | MoveIt Studio / PickNik | > 待核实 | 官方文档/网站 | 高（行业标配规划栈） | > 待核实 | 官网 | > 待核实 |
-| ros2_control | 待核实 | ROS 2 Control WG / ros-controls | > 待核实 | 官方 REP/文档 | 高（实时控制标准接口） | > 待核实 | GitHub | > 待核实 |
-| Pinocchio | 待核实 | INRIA / Stack-of-Tasks | > 待核实 | 论文/官方文档 | 高（高性能刚体动力学） | > 待核实 | GitHub | > 待核实 |
-| Drake | 待核实 | MIT / Toyota Research Institute | > 待核实 | 官方文档/论文 | 高（优化/验证工具链） | > 待核实 | GitHub | > 待核实 |
-
-> **增量判断**：候选证据 **零覆盖** MoveIt 2、ros2_control、Pinocchio、Drake 的工程成熟度、真机部署案例、商业化落地情况 [1][7][8][9][10][11] 均不相关。必须补充检索官方文档、GitHub 提交记录、ROSCon 2024/2025 专题演讲、厂商技术博客（如 PickNik、Intrinsic、NVIDIA Isaac ROS、Agility Robotics、Figure、1X 等）[10][11]。
-
-### 2.2 仅有的相关工程类证据
-
-- [10] *Autonomous Mobile Robot for Industrial Material Handling: A ROS2-Based Implementation with Real-Time Navigation* — 预印本，展示 ROS 2 移动机器人导航实现，**未涉及运动学/控制栈深度集成** [10]。
-- [11] *An Adaptive ROS2 Node Deployment Framework in Mobile Edge-Robot Systems* — IROS 2025，关注边缘部署调度，**非运动学/控制链路** [11]。
-
-> 待核实：NVIDIA Isaac ROS、Intrinsic Flowstate、Amazon Robotics、Boston Dynamics、Figure AI、1X Technologies、Apptronik 等在 ROS 2 控制栈上的**商业化产品化进展**（是否基于 ros2_control、MoveIt 2、自研实时内核、硬件加速）。
+> **增量判断**：Nav2 仍是唯一有近期公开工程进展证据的核心栈 [7][8]；**ros2_control、MoveIt 2、Isaac ROS、micro-ROS 等关键项目的版本特性、生态成熟度与真机落地案例在当前证据集中完全缺失**，需补充官方 Release Notes、GitHub Pulse 与案例研究 [9][7][8]。
 
 ---
 
-## 3. 蓝海与缺口（Blue Ocean & Gaps）
+## 3. 蓝海与缺口
 
-| 蓝海/缺口方向 | 现状描述 | 证据支撑 | 增量机会 | 风险/不确定 |
-|---------------|----------|----------|----------|-------------|
-| **运动学/控制/ROS 2 三位一体统一接口** | 现有栈分层松散：URDF/SRDF→MoveIt 2→ros2_control→硬件驱动，缺乏**端到端类型安全、实时确定性、可形式化验证**的统一中间表征 | 无直接证据 [1][7][8][9][10][11][3][4][5] | 开发基于 **Rust/类型系统** 的运动学/动力学/控制统一 DSL，编译期保证实时性与单位一致性 | 需要厂商联盟推标准，迁移成本高 |
-| **跨本体泛化的运动学/动力学表征** | 当前多本体适配靠手写 URDF+参数标定，**缺乏可泛化的几何/拓扑表征**（如统一的关节/链路图神经网络、几何代数表征） | 无直接证据 | 结合 **几何深度学习**（Equivariant GNN, Lie Group Transformer）学习跨本体运动学先验，配合 Open X-Embodiment 规模数据 | 数据异构性大，仿真实差放大泛化误差 |
-| **世界模型与运动学约束融合** | VLA/世界模型多在像素/潜在空间预测，**显式运动学约束（关节限位、奇异性、碰撞、动力学可行性）缺乏可微分融合机制** | [6] 仅涉及视觉编码器预训练，未覆盖运动学约束 [6] | 将 **可微分物理引擎**（如 DiffTaichi, Warp, Brax）或 **运动学约束层** 嵌入世界模型训练/推理，实现“物理一致的想象” | 实时推理延迟、可微分引擎精度与速度权衡 |
-| **大规模具身数据集的运动学质量基准** | Open X-Embodiment/DROID/BridgeData v2 主关注任务成功率，**缺乏轨迹平滑度、关节加加速度、力控一致性、运动学可行性**的系统性基准 | 无直接证据 | 建立 **Kinematic Quality Benchmark (KQB)**：轨迹曲率、关节限位违规率、零力矩点偏移、接触力连续性等指标 | 数据标注成本高，需自动化质检管线 |
-| **实时 Linux / PREEMPT_RT 在 ROS 2 控制链路的量产就绪度** | 理论上支持，但**缺乏跨硬件平台（x86/ARM/RISC-V）、跨内核版本、跨中断负载**的系统性延迟/抖动基准报告 | [5] 仅为弱硬实时理论分析，非工程测量 [5] | 推动 **ROS 2 Real-Time Working Group** 发布标准化基准套件（cyclictest + 真机闭环），纳入 CI/CD | 硬件碎片化、供应链闭源固件干扰 |
+| 缺口 | 来源/依据 | 影响面 | 优先级 | 说明 |
+|------|-----------|--------|--------|------|
+| 缺乏跨本体（机械臂/灵巧手/人形/移动底盘）× 多任务（运动学求解/全身控制/力控/轨迹跟踪）的 ROS 2 实时性能公开基准 | q1 open_problems [2] | 选型、调优、学术对比 | ★★★★★ | 现有仅有 ACC 单任务单本体实证 [2] |
+| ROS 2 DDS QoS、执行器、内存锁定、CPU 亲和性与弱硬实时理论的工程落地映射无成熟最佳实践 | q1 open_problems [1][2] | 确定性控制回路部署 | ★★★★★ | 理论 [1] 与中间件配置 [2] 之间缺乏工程化桥梁 |
+| Pinocchio、RBDL、MoveIt 2 等求解器在 ROS 2 实时执行器下的确定性延迟分布缺乏公开量化数据 | q1 open_problems [2] | 全身控制、模型预测控制 (MPC) 落地 | ★★★★☆ | 仿真与真机延迟分布差异大，无公开数据集 |
+| 核心栈（ros2_control/MoveIt 2/Isaac ROS/micro-ROS）版本特性、采用度、真机案例的系统性调研缺失 | q3 findings [9][7][8] | 生态成熟度评估、技术选型 | ★★★★★ | 当前证据仅覆盖 Nav2 扩展 [7][8] |
+| 重型建筑机器人社交感知导航多模态数据集 [10] 与主流导航栈（Nav2/Isaac ROS）的基准对接未见报告 | [10] | 户外非结构化导航算法验证 | ★★★☆☆ | 数据集存在但基准缺失 [10] |
 
----
-
-## 4. 瓶颈与拐点（Bottleneck & Inflection）
-
-| 瓶颈维度 | 具体表现 | 证据/信号 | 拐点信号（若出现则判断拐点到来） | 不确定性 |
-|----------|----------|-----------|----------------------------------|----------|
-| **实时性与确定性** | ROS 2 DDS 中间件 + 用户态控制回路 → **抖动 1-5 ms**，难满足 1-2 kHz 伺服/力控闭环；硬实时需 PREEMPT_RT + 专用硬件 | [5] 提供弱硬实时理论框架，但无工程测量 [5] | **可证伪假设 [P]**：若 2026 年底前，≥3 家主流机器人公司（如 Figure, Agility, 1X, Apptronik）在**量产机型**上公开披露 **< 200 μs 端到端抖动（含感知-决策-控制）** 的 ROS 2 实时链路测试报告，则判断实时性瓶颈实质性缓解 | 依赖芯片厂商（NXP, TI, AMD/Xilinx, RISC-V 厂商）提供确定性计算平台与 BSP 支持 |
-| **仿真实差** | 运动学标定误差、动力学参数辨识偏差、接触模型不准 → 策略迁移成功率骤降 | [6] 视觉编码器预训练缓解视觉域差距，但**未解决运动学/动力学域差距** [6] | **可证伪假设 [P]**：若 2027 年上半年出现**零样本仿真训练真机部署**在 **≥10 个多样化操作任务**（含接触丰富、柔性物体）上达到 **≥80% 成功率**，且**无需真机微调**，则判断仿真实差拐点到来 | 需要大规模真机数据闭环（自动化采集、标注、重训练）基建成熟 |
-| **统一接口/中间表征碎片化** | URDF/SRDF/ROS 2 Control URDF/Behavior Trees/Planning Scene/Capability Interfaces 并存，**无单一事实来源** | 无直接证据 | **可证伪假设 [P]**：若 **ROS 2 Jazzy/Kilted LTS** 发布时内置**标准化运动学/动力学/控制接口元模型**（如基于 ROS 2 Interface Definition + 形式化契约），且 MoveIt 2/ros2_control/Pinocchio/Drake 官方同步适配，则判断接口碎片化拐点到来 | 需 OSRF/ROS 2 TSC/工业联盟强力推动，向后兼容负担重 |
-| **数据规模与质量** | 具身数据集规模仍小（Open X-Embodiment ~1M 轨迹，远小于 LLM 语料），且**运动学/动力学标注质量参差不齐** | 无直接证据 | **可证伪假设 [P]**：若出现 **≥10M 高质量（含精准关节力矩、接触力、6D 姿态）真机轨迹**的开放数据集，且在该数据集上训练的 VLA 在**未见本体/任务**上显著优于小数据集基线，则判断数据瓶颈拐点到来 | 采集成本极高，隐私/安全合规、标注自动化是关键 |
-| **人才与工程复用** | 运动学/控制/ROS 2 复合型工程师稀缺，**重复造轮子**现象严重（每家自研运动学求解器、轨迹优化器、标定工具） | 无直接证据 | **可证伪假设 [P]**：若出现**广泛采用的开源“运动学/控制/ROS 2 标准库”**（如 C++20/Concepts + 代数几何 + 实时安全），GitHub 星标 >5k、≥5 家头部公司生产环境依赖，则判断工程复用拐点到来 | 需商业利益对齐，避免“标准之战” |
+> **增量判断**：上述缺口均为**相对 2024-2025 年已有实证工作 [2][7][8] 的增量空白**，且直接阻碍工程落地与学术可比性。
 
 ---
 
-## 5. 社会·政策·国际（Society, Policy & Geopolitics）
+## 4. 瓶颈与拐点
 
-| 维度 | 现状/信号 | 证据 | 结构性影响 | 不确定性 |
-|------|-----------|------|------------|----------|
-| **机器人安全认证标准** | ISO 10218-1/2、ISO/TS 15066（协作机器人）、ISO 13482（服务机器人）、**ISO 22166-1 模块化认证**推进中；中国 GB/T 重点跟进 | 无直接证据 [12] 仅为 arXiv 政策新闻，非机器人标准 [12] | **合规成本成为量产门槛**：要求控制链路**功能安全（PL d / SIL 2）**、**实时确定性**、**形式化验证**证据链；推动 ros2_control + PREEMPT_RT + 安全认证中间件（如 eProsima Fast DDS Safety）融合 | 标准演进滞后于技术，跨国互认复杂 |
-| **实时 Linux / PREEMPT_RT 入主线** | PREEMPT_RT 于 2024 年末正式合入 Linux 主线（v6.12+），长期支持分支由 Canonical/Red Hat/SUSE 维护 | 无直接证据 | **降低实时 OS 门槛**：嵌入式控制器可直接用主线内核+标准发行版，无需维护补丁树；加速 ROS 2 实时部署标准化 | 硬件厂商 BSP 适配滞后、专有加速器驱动闭源 |
-| **出口管制与供应链** | 高性能实时 MCU（TI C2000, NXP i.MX RT, AMD Versal）、力矩传感器、谐波减速器、高精度编码器受**实体清单/两用物项管制**影响 | 无直接证据 | **国产替代倒逼运动学/控制算法适配国产硬件**：国产实时 MCU（国民技术、芯海、华大九天）、国产力控传感器、国产减速器需重写驱动/标定/控制管线 | 国产硬件生态成熟度、工具链完备性、生态锁定风险 |
-| **数据合规与隐私** | 具身数据采集涉及**视频/音频/环境地图/人体生物特征**，需符合《数据安全法》《个保法》《网安法》及行业规范 | 无直接证据 | **数据脱敏/合成/联邦学习**成为数据集构建刚需；推动**合规数据空间**建设 | 合规成本高，可能抑制开放数据集规模增长 |
-| **国际标准竞争** | IEEE 1872.2（机器人任务表示）、IEEE 2751（机器人仿真互操作）、**OPC UA Robotics Companion Spec**、ROS 2 DDS-I RTPS 实时互操作 | 无直接证据 | **话语权争夺**：主导中间表征标准者掌握生态入口；中国需在 ROS 2 TSC、OPC UA、IEEE 工作组加大投入 | 标准制定周期长，商业利益博弈激烈 |
+| 维度 | 瓶颈 | 拐点信号 | 证据来源 | 置信度 |
+|------|------|----------|----------|--------|
+| **实时确定性** | ROS 2 DDS 配置参数空间大、调优依赖经验，缺乏理论指导的自动化调优工具 | 弱硬实时理论 [1] 开始被引入控制回路分析，可能催生“QoS-控制协同设计”工具链 | [1][2] | 中——理论与工程仍有鸿沟 |
+| **运动学/动力学求解器实时性** | C++ 求解器在 ROS 2 实时执行器下的抖动分布未量化，难以用于高频力控/MPC | Pinocchio/RBDL 社区开始关注实时认证，但无 ROS 2 集成基准 | q1 open_problems [2] | 中高——高频控制刚需 |
+| **导航栈泛化** | Nav2 在非结构化户外（高草、树冠、动态障碍）鲁棒性不足 | 实时局部 costmap 更新 [8] 与 LLM 语义策略 [7] 双轨并进，推动“语义+几何”融合导航 | [7][8] | 高——已有原型验证 |
+| **生态碎片化** | ros2_control/MoveIt 2/Isaac ROS/micro-ROS 版本对齐、API 稳定性、文档滞后 | ROS 2 Jazzy/Jazzy+ LTS 周期推动核心栈同步发布，但当前证据不足以验证 | > 待核实 | 不确定——缺乏版本对齐数据 |
 
----
-
-## 6. 资本与生态（Capital & Ecosystem）
-
-| 维度 | 观测信号 | 证据 | 趋势判断 | 不确定性 |
-|------|----------|------|----------|----------|
-| **融资与并购** | 2024-2026 具身智能独角兽轮融资频发（Figure, 1X, Apptronik, Agility, Physical Intelligence, Skild AI 等），**战略投资方多为芯片/云/整机厂**（NVIDIA, Microsoft, Amazon, OpenAI, 车企） | 无直接证据 | **资本聚焦“端到端 VLA + 真机数据闭环”**，运动学/控制/ROS 2 基础设施层属于**赋能层**，估值溢价低于应用层，但**护城河深、留存率高** | 宏观流动性收缩可能压缩早期项目估值 |
-| **开源生态活跃度** | ros2_control、MoveIt 2、Pinocchio、Drake、Isaac ROS、Nav2 均保持**高频提交**（月均 >50 PR），但**核心维护者集中在少数机构**（PickNik, INRIA, MIT/TRI, NVIDIA, Open Robotics） | 无直接证据 | **“核心维护者瓶颈”**：关键模块（实时执行器、碰撞检测、轨迹优化）依赖极少数人，巴士因子低；需建立**多厂商共治基金会模式**（如 ROS 2 TSC + 工作组） | 企业贡献代码常滞后于内部版本，开源版本可能非生产就绪 |
-| **人才流动** | 学术界（Stanford, MIT, Berkeley, CMU, ETH, TUM, 北大、清华、上交、浙大）→ 产业界（头部独角兽、大厂实验室）单向流动显著，**复合型“运动学+控制+ROS 2+ML”人才极度稀缺** | 无直接证据 | **薪资倒挂与培养断层**：高校课程滞后（仍以经典控制/ROS 1 为主），企业需自建培养体系；推动**产学联合实验室/微专业/开源实习** | 教学资源更新滞后，实验条件（真机、GPU 集群）不足 |
-| **社区与会议** | ROSCon 2024/2025、ICRA/IROS/CoRL/RSS 专题 Workshop 激增，**Real-Time Control、Sim2Real、VLA Deployment** 成热门；**中国 ROS 社区（ROS 2 China SIG、各地用户组）活跃度上升** | 无直接证据 | **本土化生态形成**：中文文档、教程、适配国产硬件驱动、国内镜像源完善；但**核心贡献仍以消费为主**，上游贡献占比低 | 语言/时区/治理文化差异，上游合并周期长 |
+> **风险提示**：若弱硬实时理论 [1] 无法在 1-2 年内产出 ROS 2 专用调度分析工具，实时控制回路将继续依赖“试错调优”，限制安全关键场景落地。
 
 ---
 
-## 7. 信号与预测（Signals & Forecast）
+## 5. 社会·政策·国际
 
-| 信号类别 | 早期信号（2024-2026 观测到） | 依据链 | 可证伪预测假设（6-18 个月） | 置信度 | 不确定性标注 |
-|----------|-------------------------------|--------|------------------------------|--------|--------------|
-| **技术范式** | **扩散策略/流匹配 + 运动学约束层** 论文激增（CoRL 2024/2025、RSS 2025） | 论文检索趋势（待补全） | **[P] 假设**：至 2026 年底，**≥3 篇顶会论文**展示**端到端可微分运动学约束融合扩散策略**在**真机双臂/灵巧手/移动操作**任务上**零样本泛化**优于纯数据驱动基线 | 中 | 依赖可微分物理引擎实时性突破 |
-| **工程标准** | **ros2_control 实时执行器** 引入 **硬实时调度器接口**（支持 PREEMPT_RT / Xenomai / Zephyr），MoveIt 2 发布 **Motion Planning Interface (MPI) 标准化服务定义** | GitHub 提交记录、ROSCon 议程（待补全） | **[P] 假设**：ROS 2 **Kilted (2027.05 LTS)** 发布时，**ros2_control + MoveIt 2 + Pinocchio/Drake** 形成**官方认证的“实时运动学/控制参考栈”**，文档含端到端延迟基准测试报告 | 中高 | 需 OSRF 协调多方优先级对齐 |
-| **数据基建** | **Open X-Embodiment v2 / DROID v2** 发布，**新增关节力矩、六维力、高频本体感知（>1kHz）**、统一时间戳同步协议 | 数据集官网更新日志（待补全） | **[P] 假设**：至 2026 年 Q4，出现**首个“运动学/动力学质量基准”榜单**（KQB），在 Open X-Embodiment/DROID 上评测 **≥10 种主流策略架构**（ACT, Diffusion Policy, VLA, RDT 等）的**轨迹物理一致性指标** | 中 | 需社区共识指标体系，标注自动化工具成熟 |
-| **硬件/供应链** | **RISC-V 实时 MCU**（如 ESP32-P4, 星五、楠竹、慧智微新品）量产，**支持 PREEMPT_RT / Zephyr 双内核**，单价 < $5；**国产力矩传感器/编码器**批量供货 | 厂商发布会、供应链报告（待补全） | **[P] 假设**：至 2027 年上半年，**≥2 家国产人形/灵巧手公司**公开演示**全栈国产化（RISC-V 控制器+国产传感器+ROS 2 实时栈+自研运动学/控制算法）**闭环，端到端延迟 < 1ms | 中低 | 国产工具链（编译器、调试器、静态分析）成熟度是关键 |
-| **政策/标准** | **中国《机器人产业标准体系建设指南（2024-2027）》**发布，**重点立项“机器人实时控制接口”“运动学/动力学数据交换格式”“功能安全认证测评规范”** | 工信部/标委会公告（待补全） | **[P] 假设**：至 2026 年底，**≥1 项机器人实时控制接口国家标准（GB/T）** 发布征求意见稿，**引用 ROS 2 DDS-I / ros2_control 接口语义** 作为参考实现 | 中 | 标准制定周期不确定，国际互认需时 |
-| **资本/生态** | **NVIDIA Isaac ROS 2.0 / 3.0** 发布，**深度集成 cuMotion、cuOpt、Isaac Sim、Jetson Orin/Thor**，推出**“运动学/控制/感知一体化参考工作流”** | GTC/ROSCon 发布会（待补全） | **[P] 假设**：至 2026 年底，**≥5 家头部具身公司**在生产机型上采用 **Isaac ROS 参考工作流** 作为基线，**自研比例下降至 <30%**（运动学/控制栈） | 中高 | 供应商锁定风险、开源社区分化风险 |
-
-> **风险提示**：以上预测均基于**公开早期信号推演**，标注 **[P]** 表示预测，**置信度为主观判断**，**不构成投资建议**。关键不确定性包括：宏观经济、地缘政治突变、核心硬件供应中断、基础模型范式突变（如世界模型取代 VLA）、安全事故触发监管收紧。
+> 待核实：当前证据集 [1-36] 中**无直接涉及机器人运动学/控制/ROS 2 的监管标准、出口管制、供应链安全、伦理劳动影响、国际标准化（ISO/TC 299）进展**的条目。需补充：
+> - ISO 22166-1 (模块化机器人性能标准) 进展
+> - 中美欧机器人软件栈出口管制/实体清单影响
+> - ROS 2 安全认证（ISO 13849 / IEC 61508）工具链成熟度
+> - 开源基金会（Open Robotics / Linux Foundation）治理变更对生态的影响
 
 ---
 
-## 参考来源（引用编号对应表）
-[1] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1
-[2] ICPR 2024 Competition on Domain Adaptation and GEneralization for Character Classification (DAGECC) — http://arxiv.org/abs/2412.17984v1
-[3] Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics — http://arxiv.org/abs/1403.5204v3
-[4] Robot Kinematics: Forward and Inverse Kinematics — https://doi.org/10.5772/5015
-[5] On $\ell_2$-performance of weakly-hard real-time control systems — http://arxiv.org/abs/2305.07875v3
-[6] Bridging the Sim2Real Gap: Vision Encoder Pre-Training for Visuomotor Policy Transfer — http://arxiv.org/abs/2501.16389v2
-[7] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
-[8] JENGA: Exploiting Counter-Based RowHammer Countermeasures to Break Real-Time Predictability — http://arxiv.org/abs/2609.01077v1
-[9] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1
-[10] Autonomous Mobile Robot for Industrial Material  Handling: A ROS2-Based Implementation with Real-Time  Navigation — https://doi.org/10.21203/rs.3.rs-7938184/v1
-[11] An Adaptive ROS2 Node Deployment Framework in Mobile Edge-Robot Systems — https://doi.org/10.1109/iros60139.2025.11247728
-[12] Preprint site arXiv is banning computer-science reviews: here’s why — https://doi.org/10.1038/d41586-025-03664-7
+## 6. 资本与生态
+
+| 信号 | 时间 | 来源 | 热度证据 | 权威证据 | 关注度 | 说明 |
+|------|------|------|----------|----------|--------|------|
+| 基础模型透明度指数 2025 发布，关注模型开放度与部署合规 | 2025-12 | arXiv [9] | 预印本 | 学术透明度评估框架 [9] | 低——与 ROS 2 控制栈无直接关联 | 反映大模型生态合规趋势，间接影响 VLA/导航大模型部署合规成本 |
+| Nav2 LLM 接口论文 [7] 与农业导航论文 [8] 发布 | 2024-2026 | arXiv [7][8] | 预印本下载/讨论未公开 | 学术预印本 [7][8] | 中——显示学术/创业团队持续投入 Nav2 二次开发 | 说明导航栈商业化定制需求旺盛 |
+| ros2_control / MoveIt 2 / Isaac ROS / micro-ROS 官方发布说明、GitHub Release、采用度数据 | > 待核实 | > 待核实 | > 待核实 | > 待核实 | 高——核心生态健康度核心指标 | **证据缺口**：当前源无任何融资、并购、人才流动、星标趋势数据 [9][7][8] |
+
+> **增量判断**：资本侧无直接证据；生态侧仅见 Nav2 学术扩展活跃 [7][8]，核心控制/规划栈生态指标**完全缺失**，需引入 GitHub Insights、ROS 2 Distro 采用率统计、商业发行商（Canonical, Red Hat, PickNik 等）路线图。
 
 ---
 
-*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=29 · duration=416s · 2026-11-19T03:06:02+00:00*
+## 7. 信号与预测
+
+| 早期信号 | 来源 | 预测（可证伪假设） | 置信度 | 依据链 |
+|----------|------|---------------------|--------|--------|
+| 应用级实时评估论文出现 [2] | [2] | **假设**：至 2027 年底，将出现覆盖 ≥3 种本体、≥5 种控制任务的 ROS 2 实时性能开放基准（类似 MLPerf），并被 ≥2 家商业发行商引用。 | 中 | 从单任务 ACC [2] 到基准化是自然演进；需社区主导 |
+| 弱硬实时理论与 ROS 2 调度参数映射探索 [1] | [1] | **假设**：至 2026 年底，ros2_control 官方文档或主要实时执行器（rclcpp::executors::StaticSingleThreadedExecutor 等）给出基于窗口约束的 QoS 配置推荐表。 | 低 | 理论 [1] 到工程文档需工程化投入，当前无团队公开承诺 |
+| Nav2 LLM 策略接口 [7] 与语义 costmap 融合 | [7] | **假设**：至 2027 年中，Nav2 主线合并 `nav2_llm_planner` 或同类插件，支持自然语言→Behavior Tree→Costmap 标准流程。 | 中高 | [7] 已验证接口可行性；社区 PR 活跃度可观测 |
+| 农业/建筑等非结构化场景专用 costmap 更新 [8][10] | [8][10] | **假设**：至 2026 年底，Nav2 官方提供 `Nav2Costmap3D` 或 `VoxelLayer` 非结构化环境预设参数包，并纳入 CI 回归测试。 | 中 | [8] 针对性修补；[10] 提供数据集支撑 |
+| 核心栈版本对齐与 LTS 同步发布 | > 待核实 | **假设**：ROS 2 Koi (2027 LTS) 发布时，ros2_control/MoveIt 2/Isaac ROS/micro-ROS 同步发布兼容版本，且提供统一迁移指南。 | 不确定 | 依赖 Open Robotics 与各维护方协调，当前无公开路线图证据 |
+
+> **不确定性标注**：上述预测均标注 `[P]`，依据链基于当前弱信号推演，**需以 2026-2027 年会议（ICRA/RSS/ROSCon）、GitHub Release、官方博客为证伪观测点**。
+
+---
+
+## 参考来源
+[1] On $\ell_2$-performance of weakly-hard real-time control systems — http://arxiv.org/abs/2305.07875v3
+[2] Real-Time Performance Evaluation of ROS and ROS 2 for Adaptive Cruise Control — https://doi.org/10.1109/siu66497.2025.11112074
+[3] Robot Dynamics and Control — https://doi.org/10.1201/9781315136370-4
+[4] Manipulator Kinematics — https://doi.org/10.1201/9781315136370-3
+[5] Multifingered Hand Kinematics — https://doi.org/10.1201/9781315136370-5
+[6] Control primitives for robot systems — https://doi.org/10.1109/robot.1990.126280
+[7] Natural-Language to Nav2: Operational Policies for Costmap-Based Navigation — http://arxiv.org/abs/2610.32633v1
+[8] Improving the ROS 2 Navigation Stack with Real-Time Local Costmap Updates for Agricultural Applications — http://arxiv.org/abs/2407.18535v1
+[9] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
+[10] A multimodal dataset for socially aware navigation of heavy-duty construction robots — https://doi.org/10.3389/frobt.2026.1873168
+
+---
+
+*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=36 · duration=323s · 2026-11-20T02:58:15+00:00*
