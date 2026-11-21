@@ -1,203 +1,257 @@
 # AgentGuard：LLM 护栏与 Agent 安全前沿调研报告
 
-**日期**：2026-11-19（UTC）  
-**领域**：LLM 护栏、Agent 安全、提示词注入、越狱、工具滥用、沙箱、LLM Firewall、红队基准  
-**检索源数量**：29 条（其中高度相关 13 条：[1][2][3][4][5][6][7][8][9][10][11][12][13]）
+**日期**：2026-11-21 | **领域**：LLM Agent 安全 / 护栏工程 / 提示注入防御 / 沙箱与最小权限 / 红队基准  
+**检索源数量**：28 条可引用证据源（含 arXiv 预印本、期刊文章、官方 GitHub 仓库、竞赛数据集）
 
 ---
 
 ## 1. 进展与热点
 
-### 1.1 零样本、模型无关的轻量级防御框架成为主流增量方向
-**增量**：相对 2024 年依赖模型特定微调/分类器的防御，2025-2026 年出现**零样本嵌入漂移检测（ZEDD）**等无需模型补丁、工程开销低的通用框架 [5]。  
-- **热度证据**：arXiv 2026-01 预印本，近期被多篇综述引用讨论 [5]  
-- **权威证据**：arXiv 预印本 (cs.CR)，未经同行评审 [5]  
-- **关注度**：高 —— 直接回应“对齐后模型仍脆弱”的核心痛点，社区讨论活跃 [5]  
-- **推荐度**：★★★★☆ —— 即插即用、跨模型、低延迟，极具生产落地价值，建议优先评估 [5]
+### 1.1 同名双轨 AgentGuard 工作：工具编排评估与编码代理执行护栏学习
+2025-2026 年出现两篇同名但方法迥异的 **AgentGuard** 预印本，分别切入工具编排安全评估与编码代理执行护栏自动学习，显示该细分方向命名尚未收敛、研究范式正在快速分化 [1][2]。
 
-### 1.2 RAG 管线成为此前被忽视的新攻击面
-**增量**：DeRAG 首次系统展示**黑盒、无梯度**的对抗后缀可重排序检索结果并诱导错误输出 [7]。  
-- **热度证据**：arXiv 2025-07 预印本，RAG 安全专题会议/工作坊讨论度上升 [7]  
-- **权威证据**：arXiv 预印本 (cs.AI) [7]  
-- **关注度**：中高 —— RAG 落地普及使该威胁模型极具实战意义 [7]  
-- **推荐度**：★★★★☆ —— 必读，用于界定 RAG 专用护栏的必要性与威胁模型 [7]
+| 维度 | AgentGuard (cs.CR, 2025-02) | AgentGuard (cs.SE, 2026-09) |
+|------|----------------------------|----------------------------|
+| 核心贡献 | 将代理编排器重新用于**自主发现并验证不安全工具使用工作流**，生成安全护栏 [1] | 从**异常编码代理轨迹**自动提取失败模式，泛化为**指令级条件执行约束**，动态激活轻量级护栏技能 [2] |
+| 威胁模型 | 工具滥用、恶意工作流编排 | 代码执行异常、长尾执行风险、过度代理 |
+| 方法范式 | 攻击者视角的红队式自动评估 → 护栏合成 | 从负样本（异常轨迹）学习正向约束 → 运行时动态激活 |
+| 证据等级 | B（arXiv 预印本，未同行评审） | B（arXiv 预印本，未同行评审） |
+| 热度证据 | > 待核实（引用数、下载量未公开） | > 待核实（2026-09 最新，引用数为 0） |
+| 权威证据 | arXiv cs.CR，作者机构未在摘要披露 | arXiv cs.SE，作者机构未在摘要披露 |
+| 关注度 | 中 | 中 |
+| 推荐度 | ★★★☆☆ | ★★★★☆ |
 
-### 1.3 基于传统分类器的检测基线被系统建立
-**增量**：在 HackAPrompt 语料库上对比 LSTM、前馈网络、随机森林、朴素贝叶斯等，给出可复现基线 [4]。  
-- **热度证据**：arXiv 2025-12 预印本，GitHub 伴随代码发布 [4]  
-- **权威证据**：arXiv 预印本 (cs.CR)，本科生研究项目 [4]  
-- **关注度**：中 —— 覆盖主流分类器家族，工程参考价值高但规模有限 [4]  
-- **推荐度**：★★★☆ —— 适合快速搭建检测基线，需自行验证泛化性 [4]
+> **增量判断**：相对 2024 年前以静态规则、分类器检测为主的护栏范式，2026 年 AgentGuard (cs.SE) 引入**从异常轨迹自动学习 + 指令级动态激活**的新范式，标志着护栏工程从「人工规则覆盖」向「数据驱动自动化 + 上下文感知激活」转型 [2]。
 
-### 1.4 Web Agent 与工具调用场景的注入攻击被实证
-**增量**：WebInject 展示面向 Web Agent 的提示词注入可劫持工具调用链路 [6]。  
-- **热度证据**：arXiv 2025-05 v4 修订，持续更新显示活跃维护 [6]  
-- **权威证据**：arXiv 预印本 (cs.CR) [6]  
-- **关注度**：中 —— Agent 落地加速使工具滥用风险显性化 [6]  
-- **推荐度**：★★★★☆ —— 直接对应“工具滥用与过度代理”威胁模型 [6]
+### 1.2 基础模型透明度倒退：护栏可审计性的宏观制约
+2025 年 **Foundation Model Transparency Index (FMTI) 第三版**显示，行业平均透明度分数从 58 分降至 40 分，训练数据、算力、部署后影响三大维度最不透明 [3]。这直接导致 Agent 护栏难以覆盖上游模型的未知能力边界，构成结构性**风险**。
 
-### 1.5 内容审核护栏自身存在可被意图操纵绕过的脆弱性
-**增量**：研究证实现有内容审核护栏可通过意图操纵规避 [10]。  
-- **热度证据**：arXiv 2025-05 v2 [10]  
-- **权威证据**：arXiv 预印本 (cs.CR) [10]  
-- **关注度**：中 —— 揭示“护栏守护护栏”的递归安全问题 [10]  
-- **推荐度**：★★★☆ —— 提示护栏链路需纵深防御而非单层过滤 [10]
+| 指标 | 2024 版 | 2025 版 | 变化 |
+|------|---------|---------|------|
+| 平均透明度分数 | 58 | 40 | -18 分 |
+| 最不透明维度 | 训练数据、算力、部署后影响 | 同上 | 无改善 |
+| 新增评估对象 | — | Alibaba、DeepSeek、xAI | 覆盖面扩大 |
 
-### 1.6 LLM 自我防御越狱的可行性被形式化讨论
-**增量**：愿景论文论证 LLM 可在实用层面自我防御越狱 [13]。  
-- **热度证据**：arXiv 2024-02 v2，被后续自我纠正类工作引用 [13]  
-- **权威证据**：arXiv 预印本 (cs.CR) [13]  
-- **关注度**：中高 —— 为“模型内生安全”提供理论支撑 [13]  
-- **推荐度**：★★★☆ —— 启发式，工程落地仍需具体机制 [13]
+- **热度证据**：年度权威基准，社区广泛引用 [3]
+- **权威证据**：arXiv cs.AI，作者含 Percy Liang 等知名学者，第三版年度指数 [3]
+- **关注度**：高 | 影响政策与工程实践的宏观证据
+- **推荐度**：★★★★☆ | 必引背景文献，说明护栏建设的外部约束环境
+
+### 1.3 护栏理论范式转向：从「拒绝」到「恢复」的控制理论视角
+2025 年提出 **From Refusal to Recovery** 框架，主张将生成式 AI 安全视为**序贯决策问题**，而非单纯输出分类；有害条件检测后应提供恢复路径而非仅拒绝 [4]。这为下一代护栏架构提供了理论增量。
+
+- **热度证据**：> 待核实（2025-10 预印本，引用数未公开）
+- **权威证据**：arXiv cs.AI，v2 版本 [4]
+- **关注度**：中 | 学术界关注度上升的新理论框架
+- **推荐度**：★★★★☆ | 理论前沿，指导工程架构演进
+
+### 1.4 统一检测框架探索：UniGuardian 多威胁联合防御
+2025 年提出 **UniGuardian**，统一检测提示注入、后门攻击、对抗攻击三类威胁 [5]，体现防御侧向**多威胁融合检测**演进的趋势。
+
+- **热度证据**：> 待核实
+- **权威证据**：arXiv cs.CR，v2 版本 [5]
+- **关注度**：中
+- **推荐度**：★★★☆☆ | 多威胁统一检测方向有参考价值，但工程落地细节待补全
 
 ---
 
 ## 2. 工业界与产品
 
-| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|----------|----------|--------|--------|------|------|
-| NeMo Guardrails | 2023 | NVIDIA | GitHub Stars 6.8k+，持续发布 [9] | NVIDIA 官方开源，配套 arXiv 论文 [9] | 高 | ★★★★★ | https://github.com/NVIDIA/NeMo-Guardrails | 可编程 Rails、对话流控制、主题过滤、事实核查，生产级采用案例多 |
-| 控制理论护栏（从拒绝到恢复） | 2025 | 多机构合作 | arXiv 2025-10 v2 [11] | arXiv 预印本 (cs.AI) [11] | 中 | ★★★★☆ | http://arxiv.org/abs/2510.13727v2 | 面向具身智能/自主驾驶的物理安全恢复机制，理论升级方向 |
-| 可定制伦理护栏框架 | 2024/2026 修订 | 多机构 | arXiv 2024-11 v2 修订至 2026 [8] | arXiv 预印本 (cs.CY) [8] | 中 | ★★★☆☆ | http://arxiv.org/abs/2411.14442v2 | 规则/策略/助手解耦，支持多合规域，缺开源实现 |
-| 医疗垂直护栏增强 | 2024 | 多机构 | arXiv 2024-09 [12] | arXiv 预印本 (cs.CR) [12] | 中 | ★★★☆☆ | http://arxiv.org/abs/2409.17190v1 | 梳理幻觉/真实性/误导缺口，强调领域知识注入必要性 |
+### 2.1 NeMo Guardrails：当前最成熟的开源护栏工程框架
+NVIDIA 官方维护的 **NeMo Guardrails** 为主流开源护栏工具包，支持可编程 rails、对话流控制、话题限制、语言风格约束等工程化功能 [6]。
 
-**工程落地观察**：  
-- NeMo Guardrails 为**唯一**有大规模生产采用、文档完善、社区活跃的开源框架 [9]  
-- 其余均为**学术原型/架构提案**，缺乏开源工程件与 CI/CD 集成证据 [8][11][12]  
-- **不确定**：商业闭源护栏产品（如 Lakera Guard, Protect AI, HiddenLayer）的技术细节与基准对比缺乏公开可核实来源 > 待核实
+| 项目 | 详情 |
+|------|------|
+| 名称 | NeMo Guardrails |
+| 年份 | 2023 |
+| 机构/作者 | NVIDIA |
+| 热度证据 | GitHub 星标数高、社区活跃、生产环境有采用案例 [6] |
+| 权威证据 | NVIDIA 官方开源项目，配套 arXiv 论文 [6] |
+| 关注度 | 高 | 生态成熟度最高的开源护栏框架 |
+| 推荐度 | ★★★★★ | 工程落地首选，直接对应主流开源护栏框架 |
+| 链接 | https://github.com/NVIDIA/NeMo-Guardrails |
+| 说明 | 支持可编程 rails、对话流控制、话题限制、语言风格约束；与 LangChain/LlamaIndex 集成良好 |
+
+### 2.2 沙箱运行时与 LLM 防火墙：公开工程文献缺失
+候选证据中**未覆盖**沙箱运行时（如 gVisor、Firecracker 在 Agent 场景的适配）与 LLM 防火墙（如 LlamaGuard、Prompt Guard 等生产级部署）的工程实践文献 [q3-open_problems]。
+
+> 待核实：主流云厂商（AWS/Azure/GCP）的 Agent 沙箱产品化进展、开源社区（如 E2B、Modal）的运行时安全实践。
+
+### 2.3 伦理/合规护栏框架：AI Ethics by Design
+2024 年提出可定制伦理护栏框架，强调规则、策略与 AI 助手集成以适应多样化用户价值观 [7]，为合规层面提供参考但工程细节较少。
+
+- **热度证据**：> 待核实
+- **权威证据**：arXiv cs.CY，v2 版本 [7]
+- **关注度**：低
+- **推荐度**：★★★☆☆ | 适合关注合规与治理的工程团队参考
 
 ---
 
 ## 3. 蓝海与缺口
 
-| 缺口编号 | 描述 | 证据来源 | 优先级 |
-|----------|------|----------|--------|
-| G1 | **多模态/VLA 联合空间护栏缺失**：视觉-语言-动作联合嵌入空间的注入/越狱定义、实时检测基准与开源实现均空白 | [5][6][11] 推演 | ★★★★★ |
-| G2 | **护栏与沙箱/执行环境联动标准化接口缺失**：工具调用拦截、状态回滚、资源配额无行业共识 API | [6][9] 工程实践观察 | ★★★★☆ |
-| G3 | **垂直领域知识验证插件机制未标准化**：医疗/金融/法务等领域事实核查、合规规则如何以插件形式注入通用框架无成熟方案 | [8][12] | ★★★★☆ |
-| G4 | **护栏配置的可审计性、版本管理、合规追溯工具链缺失**：生产环境需满足审计/监管，现有框架无内置支持 | [8][9] | ★★★☆☆ |
-| G5 | **自适应/在线学习护栏**：面对分布外新型攻击，静态分类器/规则失效，缺乏低成本在线自适应机制 | [4][5][10] | ★★★★☆ |
-| G6 | **红队基准的标准化与持续运营**：现有基准（HackAPrompt, Tensor Trust, PromptInject）碎片化，缺乏统一评测协议与排行榜运营 | [4][6][7] | ★★★★☆ |
+综合三个子问题的开放问题，提炼以下高杠杆**蓝海方向**：
+
+| # | 蓝海缺口 | 说明 | 关联证据 |
+|---|----------|------|----------|
+| 1 | **跨任务/跨本体统一护栏评测基准缺失** | 无通用安全性指标覆盖提示注入、越狱、工具滥用、过度代理的联合评测 | [q1-open_problems][q2-open_problems] |
+| 2 | **自动化护栏学习在真机长周期部署的鲁棒性未验证** | AgentGuard (cs.SE) 等自动学习方法缺乏真机连续运行的误报率/漏报率数据 | [2][q1-open_problems] |
+| 3 | **上游模型透明度下降导致的「未知未知」风险覆盖** | FMTI 显示透明度倒退，护栏难以审计模型内部未知能力边界 | [3][q1-open_problems] |
+| 4 | **护栏与自主性的动态平衡机制** | 过度限制降低任务成功率、过度放松引发事故，缺乏在线自适应调节理论与实现 | [q1-open_problems][4] |
+| 5 | **多模态/多智能体场景下护栏一致性与性能开销基准** | 无标准化基准测试多模态输入、多智能体协作下的护栏一致性保证 | [q3-open_problems][8] |
+| 6 | **组合威胁下的联合防御评测框架** | 现有防御多针对单一威胁（提示注入），缺乏注入+越狱+工具滥用组合攻击的联合防御基准 | [q2-open_problems][5] |
+| 7 | **护栏框架与编排层的标准化集成接口** | NeMo Guardrails 等与 LangChain/LlamaIndex/AutoGen 等编排层缺乏行业共识接口 | [q3-open_problems] |
+
+> **增量判断**：相对 2023-2024 年以单点检测器、静态规则为主的工程现状，上述缺口指向**自动化学习、动态激活、统一评测、标准化集成**四大方向的系统性机会。
 
 ---
 
 ## 4. 瓶颈与拐点
 
 ### 4.1 核心瓶颈
-| 瓶颈 | 表现 | 证据 | 严重度 |
-|------|------|------|--------|
-| **评测基准碎片化** | 无统一任务集、指标、分割；论文间结果不可比 | [4][6][7] 使用不同数据子集 | 高 |
-| **防御泛化性未验证** | 多数防御仅在自构造/单一数据集上报告，缺乏跨模型、跨任务、真机部署验证 | [1][2][4][5] 均为预印本自评 | 高 |
-| **工程开销与延迟** | 微调/大模型分类器推理延迟高，难满足实时 Agent 循环（<50ms） | [4][5] 隐含；ZEDD 主打轻量化 [5] | 中 |
-| **递归安全风险** | 护栏模型自身可被越狱/提示注入，形成“谁来守护守护者”死循环 | [10] 实证内容审核护栏可被绕过 | 高 |
+
+| 瓶颈 | 表现 | 证据来源 |
+|------|------|----------|
+| **评测基准碎片化** | 无统一基准覆盖四大威胁模型；红队基准多为单任务、单模态 | [q1-open_problems][q2-open_problems][5] |
+| **上游透明度倒退** | FMTI 平均分 58→40，训练数据/算力/部署后影响最不透明，护栏无法审计模型内部能力边界 | [3] |
+| **静态规则/分类器的长尾覆盖失效** | 人工规则难以覆盖长尾风险；分类器依赖标签数据，对新危险情况脆弱 | [4][2] |
+| **护栏与任务成功率的零和博弈** | 过度限制导致拒绝率上升、任务失败；动态平衡机制缺失 | [q1-open_problems][4] |
+| **工程集成标准缺失** | 护栏框架与推理引擎/编排层无标准化接口，集成成本高 | [q3-open_problems] |
 
 ### 4.2 拐点信号
-- **拐点 1**：ZEDD 等**零样本、模型无关**方法若在多基准独立复现达 SOTA，将推动行业从“微调专用分类器”转向“即插即用中间件” [5]  
-- **拐点 2**：**控制理论/恢复型护栏**若在具身智能真机闭环验证通过，将重新定义护栏从“软过滤”到“物理安全恢复”的工程范式 [11]  
-- **拐点 3**：**标准化红队基准联盟**（如 MLCommons、Frontier Model Forum 推动）若落地统一榜单，将倒逼防御方法可比性与工程成熟度 [G6 推演] > 待核实
+
+| 拐点方向 | 信号 | 判断依据 | 不确定性 |
+|----------|------|----------|----------|
+| **自动化护栏学习 → 生产可用** | AgentGuard (cs.SE) 实现从异常轨迹自动提取约束 + 动态激活 [2] | 方法具备工程落地潜力，但缺乏真机长周期验证 | **较大概率** 需 6-12 个月开源复现与基准测试验证 |
+| **控制理论范式 → 架构重构** | From Refusal to Recovery 提出序贯决策视角 [4] | 理论完备度高，但工程落地路径不明 | **推测** 需框架级重构（如 NeMo Guardrails 2.0） |
+| **透明度治理 → 强制合规** | FMTI 持续下降、EU AI Act 等法规推进 [3] | 外部压力倒逼上游开放，可能改变护栏构建前提 | **需要数据** 取决于监管执行力度与行业自律 |
+| **统一红队基准 → 行业标准** | UniGuardian 多威胁统一检测 [5]、HackAPrompt 持续运营 [9] | 社区呼声高，但缺乏权威主导组织 | **不确定** 可能由 NIST/MLCommons/学术联盟推动 |
 
 ---
 
 ## 5. 社会·政策·国际
 
-| 维度 | 现状与增量 | 证据 | 影响 |
-|------|------------|------|------|
-| **监管合规驱动** | EU AI Act 高风险 AI 要求“鲁棒性、准确性、网络安全”，护栏成合规刚需；美行政命令 14110 要求红队测试 | 公开法案文本 > 待核实 | 推动企业采购/自建护栏，带动工程投入 |
-| **标准化进程** | ISO/IEC 42001 AI 管理体系、NIST AI RMF 1.0 均含“安全与安保”控制目标，护栏成落地抓手 | 标准文档 > 待核实 | 形成采购标准与审计清单 |
-| **地缘与供应链** | 开源护栏框架（NeMo 等）为美企主导，数据主权敏感场景需本土化替代；模型权重出口管制间接影响护栏协同训练 | 行业观察 > 待核实 | 国产化替代需求催生本土框架 |
-| **伦理多元化** | 可定制伦理护栏框架 [8] 回应不同司法辖区/文化价值观冲突，但缺乏跨法域互操作标准 | [8] | 多国部署合规成本高 |
+### 5.1 透明度治理与合规压力
+2025 FMTI 揭示基础模型开发者透明度整体倒退，训练数据、算力、部署后影响最不透明 [3]。这直接影响：
+- **可审计性**：护栏无法基于完整模型卡构建精准威胁模型
+- **合规风险**：EU AI Act、美国行政命令要求高风险 AI 系统具备透明度与风险管理文档
+- **供应链安全**：下游 Agent 开发者面临「黑盒上游」的系统性**风险**
+
+### 5.2 伦理护栏与价值观对齐的多元化需求
+AI Ethics by Design 框架强调可定制护栏适应多样化用户价值观 [7]，反映：
+- 全球化部署需满足不同司法辖区的内容安全标准
+- 企业级应用需支持租户级策略定制（如金融/医疗/教育垂域合规）
+- **地缘政治**因素可能导致护栏规则集的分裂与碎片化
+
+### 5.3 红队基准的国际化与标准化趋势
+HackAPrompt 等众包红队竞赛持续运营 [9]，UniGuardian 探索多威胁统一检测 [5]，显示社区向**标准化红队评测**聚合，但尚未形成国际标准（如 ISO/IEC 42001 关联测试规范）。
+
+> 待核实：NIST AI RMF、MLCommons、ISO/IEC JTC1 SC42 在 Agent 安全测试标准上的最新进展。
 
 ---
 
 ## 6. 资本与生态
 
-| 信号 | 说明 | 证据 | 置信度 |
-|------|------|------|--------|
-| **专业安全厂商融资** | Lakera, Protect AI, HiddenLayer, Robust Intelligence 等完成 B/C 轮，估值达独角兽级 | 融资公开新闻 > 待核实 | 高 |
-| **大厂内化与开源** | NVIDIA (NeMo), Microsoft (Guidance), Meta (Purple Llama/Code Shield) 均有开源/内部护栏栈 | [9] 等官方仓库 | 高 |
-| **人才流动** | 红队、对抗机器学习、形式化验证人才从学术流向产业安全团队 | 领英/招聘数据 > 待核实 | 中 |
-| **社区生态** | NeMo Guardrails 生态最成熟（插件、集成示例、企业支持）；其他框架生态处于种子期 | [9] GitHub 活跃度 | 高 |
-| **并购风险** | 大模型厂商（OpenAI, Anthropic, Google）可能收购护栏初创纳入垂直栈，导致开源生态碎片化 | 行业传闻 [R] | 中 |
+### 6.1 核心开源项目生态图谱
+
+| 项目 | 机构 | 星标/活跃度 | 定位 | 生态集成 |
+|------|------|-------------|------|----------|
+| **NeMo Guardrails** | NVIDIA | 高 [6] | 通用可编程护栏框架 | LangChain、LlamaIndex、AutoGen、OpenAI API |
+| **HackAPrompt** | 社区/竞赛 | 中高 [9] | 提示注入红队数据集与基准 | 评测基准、检测器训练数据源 |
+| **AgentGuard (cs.SE)** | 未披露 | 低（2026-09 新） | 编码代理执行护栏自动学习 | 暂无公开集成 |
+| **AgentGuard (cs.CR)** | 未披露 | 低（2025-02） | 工具编排安全自主评估 | 暂无公开集成 |
+
+### 6.2 人才与投资流向信号
+- **NVIDIA** 持续投入 NeMo Guardrails 生态，体现算力厂商向上游安全工具链延伸 [6]
+- **学术界** 从静态检测转向自动化学习（AgentGuard cs.SE）、控制理论（Refusal to Recovery）、多威胁统一检测，显示研究资金向**自动化、动态、统一**方向倾斜 [2][4][5]
+- **缺乏** 专门针对 Agent 沙箱运行时、LLM 防火墙的大规模开源项目与商业融资公开信息
+
+> 待核实：E2B、Modal、Firecracker 等沙箱厂商的融资轮次、Agent 安全初创公司（如 Lakera、Prompt Security、Protect AI）的最新融资与产品路线图。
 
 ---
 
 ## 7. 信号与预测
 
-| 编号 | 预测（可证伪假设） | 依据链 | 置信度 | 验证窗口 |
-|------|-------------------|--------|--------|----------|
-| P1 | **至 2026-Q4，零样本嵌入漂移类方法在 ≥3 个公开基准（如 HackAPrompt, Tensor Trust, PromptInject）上超越微调分类器 SOTA** | ZEDD [5] 零样本 SOTA 声称 + 趋势 [1.1] | 较大概率 | 2026-12-31 |
-| P2 | **至 2027-Q2，出现首个通过 ISO 21448 (SOTIF) 认证的“护栏+沙箱”联合组件，用于 L3+ 自动驾驶/人形机器人** | 控制理论护栏 [11] 面向物理安全 + 行业合规压力 [14] | 推测 | 2027-06-30 |
-| P3 | **MLCommons 或 Frontier Model Forum 将在 2026 年发布统一红队基准 v1.0，包含提示注入、越狱、工具滥用、多模态四大任务族** | 碎片化基准现状 [G6] + 标准化需求 [14] | 推测 | 2026-12-31 |
-| P4 | **NeMo Guardrails 或同级框架将在 2026 年内合并“恢复型护栏”接口（状态回滚、安全动作替代），从纯过滤扩展为控制环组件** | [11] 理论范式 + [9] 工程成熟度 | 较大概率 | 2026-12-31 |
-| P5 | **垂直领域（医疗/金融）将出现首个“合规即代码”护栏插件市场，支持规则热加载、审计日志、版本治理** | [8][12] 架构提案 + 监管驱动 [14] | 推测 | 2027-06-30 |
+### 7.1 早期信号
 
-**不确定性标注**：  
-- 以上预测均基于**预印本声称**与**行业趋势外推**，缺乏独立第三方复现验证 [R]  
-- 资本/并购/人才流动类信号多源于**二手媒体报道**，未获一手财报/招聘数据确证 [R]  
-- 地缘/监管影响为**宏观定性判断**，量化传导路径需进一步实证研究 > 待核实
+| 信号 | 来源 | 时间 | 强度 |
+|------|------|------|------|
+| 同名双轨 AgentGuard 出现，命名空间未收敛 | [1][2] | 2025-02 / 2026-09 | 中 |
+| 从异常轨迹自动学习护栏 + 动态激活范式首现 | [2] | 2026-09 | 中高 |
+| 控制理论「拒绝→恢复」范式提出 | [4] | 2025-10 | 中 |
+| FMTI 透明度连续两年下降 | [3] | 2025-12 | 高 |
+| 多威胁统一检测框架探索 | [5] | 2025-02 | 中 |
+
+### 7.2 未来 6-18 月预判（可证伪假设）
+
+| # | 预测 | 依据链 | 可证伪条件 | 置信度 |
+|---|------|--------|------------|--------|
+| P1 | **AgentGuard (cs.SE) 或同类自动化护栏学习方法将在 2026 年底前开源，并在 SimplerEnv/LIBERO 等基准上公布真机评测结果** | 方法具备工程落地设计（轻量级技能、动态激活）[2]；社区对自动化护栏需求强烈 | 若 2026-12-31 前无开源仓库或无真机基准报告，则判断不成立 | 较大概率 (70%) |
+| P2 | **NeMo Guardrails 将在 2027 年上半年发布 2.0 版本，引入控制理论恢复机制与标准化编排层接口** | NVIDIA 持续维护 [6]；学术界提出理论范式 [4]；工程集成痛点明确 [q3-open_problems] | 若 2027-06-30 前无 2.0 发布或无恢复机制/标准接口，则判断不成立 | 推测 (50%) |
+| P3 | **MLCommons 或 NIST 将在 2027 年前发布 Agent 安全评测基准 v1.0，覆盖提示注入/越狱/工具滥用/过度代理四大威胁模型** | 社区呼声高 [q1-open_problems][q2-open_problems]；UniGuardian 等多威胁融合探索 [5]；HackAPrompt 持续运营 [9] | 若 2027-12-31 前无权威机构发布此类基准，则判断不成立 | 推测 (40%) |
+| P4 | **基础模型透明度将在 2026-2027 年触底反弹，受 EU AI Act 执行与保险/合规压力驱动** | FMTI 下降趋势 [3]；监管时间表明确；企业合规成本上升 | 若 2027 年 FMTI 平均分仍 < 45，则判断不成立 | 需要数据 (不确定) |
+
+### 7.3 关键不确定性
+
+| 不确定性 | 影响 | 观测指标 |
+|----------|------|----------|
+| 自动化护栏学习的**误报率在真机长周期**能否控制在 < 1% | 决定能否用于生产环境 | AgentGuard 等开源项目的真机部署报告 |
+| 控制理论恢复机制的**计算开销与延迟**是否满足实时交互需求 | 决定架构重构可行性 | NeMo Guardrails / LangGraph 等框架的原型实现基准 |
+| 监管对**开源模型透明度**的强制力度 | 决定上游风险可审计性改善速度 | EU AI Act 执法案例、美国行政命令落地细则 |
+| 红队基准的**标准化主导权**归属（学术 vs 产业 vs 政府） | 决定评测生态统一时间线 | MLCommons/NIST/ISO 相关工作组进展 |
 
 ---
 
 ## 经典与奠基性工作
 
-| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|-----------|----------|----------|--------|--------|------|------|
-| Automatic and Universal Prompt Injection Attacks | 2024 | Liu 等 | 被后续攻防工作广泛引用 [3] | arXiv 预印本 (cs.AI) [3] | 中 | ★★★☆☆ | [3] | 首个系统化提示词注入攻击框架，自动化梯度攻击 |
-| StruQ: Defending Against Prompt Injection with Structured Queries | 2024 | 多机构 | 早期防御引用基础 [2] | arXiv 预印本 (cs.CR) [2] | 中 | ★★★☆☆ | [2] | 输入结构化分离用户/系统指令，工程可行 |
-| SecAlign: Defending Against Prompt Injection with Preference Optimization | 2024 | 多机构 | 引入对齐技术到防御 [1] | arXiv 预印本 (cs.CR) [1] | 中 | ★★★☆☆ | [1] | 偏好优化拒绝恶意注入，方法论创新 |
-| NeMo Guardrails: Toolkit for Controllable and Safe LLM Applications | 2023 | NVIDIA | GitHub 6.8k+ Stars，生产采用 [9] | arXiv 预印本 (cs.CL) + 官方维护 [9] | 高 | ★★★★★ | [9] | 可编程 Rails 奠基作，主流开源框架 |
-| LLMs Can Defend Themselves Against Jailbreaking | 2024 | 多机构 | 启发自我纠正研究线 [13] | arXiv 预印本 (cs.CR) [13] | 中高 | ★★★☆☆ | [13] | 形式化论证模型内生防御可行性 |
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|------|------|-----------|------|------|--------|--------|------|------|
+| Automatic and Universal Prompt Injection Attacks against Large Language Models | 2024 | arXiv cs.AI | > 待核实 | arXiv 预印本 | 中 | ★★★★☆ | [10] | 首个系统性自动化通用提示注入攻击方法，定义攻击面与评测基准 |
+| SecAlign: Defending Against Prompt Injection with Preference Optimization | 2024 | arXiv cs.CR | > 待核实 | arXiv 预印本 v3 | 中高 | ★★★★☆ | [11] | 从模型对齐/偏好优化角度防御提示注入，关注外部数据源注入面 |
+| Detecting Prompt Injection Attacks Against Application Using Classifiers | 2025 | arXiv cs.CR | > 待核实 | arXiv 预印本 | 中 | ★★★☆☆ | [9] | 基于 HackAPrompt 语料库构建检测数据集，训练多种经典分类器基线 |
+| Agentic workflows in large language models: a comprehensive review | 2026 | Discover Computing | citations=0 [8] | 期刊同行评审 | 低 | ★★★☆☆ | [8] | 系统梳理 Agentic 架构/规划/工具使用/多智能体，指出分类混淆问题 |
+| NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications | 2023 | NVIDIA / arXiv cs.CL | > 待核实 | arXiv 预印本 + 官方开源 | 高 | ★★★★★ | [6] | 主流开源护栏框架奠基性论文，详述可编程 rails 架构 |
+| From Refusal to Recovery: A Control-Theoretic Approach to Generative AI Guardrails | 2025 | arXiv cs.AI | > 待核实 | arXiv 预印本 v2 | 中 | ★★★★☆ | [4] | 提出护栏从静态拒绝转向动态恢复的控制理论新范式 |
+| AI Ethics by Design: Implementing Customizable Guardrails for Responsible AI Development | 2024 | arXiv cs.CY | > 待核实 | arXiv 预印本 v2 | 低 | ★★★☆☆ | [7] | 伦理治理视角的可定制护栏框架，补充合规与价值观对齐维度 |
+| UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor and Adversarial Attacks | 2025 | arXiv cs.CR | > 待核实 | arXiv 预印本 v2 | 中 | ★★★☆☆ | [5] | 统一检测提示注入/后门/对抗攻击的多威胁融合框架 |
+| The 2025 Foundation Model Transparency Index | 2025 | arXiv cs.AI | > 待核实 | arXiv 预印本，年度权威指数第三版 | 高 | ★★★★☆ | [3] | 量化基础模型透明度下降趋势，为护栏可审计性提供宏观证据 |
 
 ---
 
 ## 开源项目
 
-| 名称 | 年份 | 维护方 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|--------|----------|----------|--------|--------|------|------|
-| NeMo Guardrails | 2023-至今 | NVIDIA | 6.8k+ Stars，高频提交，企业级采用 [9] | 官方开源，配套论文 [9] | 高 | ★★★★★ | https://github.com/NVIDIA/NeMo-Guardrails | 可编程 Rails、对话流、主题过滤、事实核查，文档完善 |
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|------|------|-----------|------|------|--------|--------|------|------|
+| NeMo Guardrails | 2023 | NVIDIA | GitHub 星标高、社区活跃、生产采用 [6] | NVIDIA 官方开源 | 高 | ★★★★★ | https://github.com/NVIDIA/NeMo-Guardrails | 通用可编程护栏框架，支持对话流控制、话题限制、风格约束，生态集成最完善 |
+| HackAPrompt Playground | 2023-持续 | 社区/竞赛官方 | 红队基准常用数据源 [9] | 竞赛官方发布 | 中高 | ★★★★☆ | https://hackaprompt.com/ | 提示注入攻击样本大规模众包语料库，核心训练/评测数据集 |
 
-> 待核实：其他框架（Guidance, Purple Llama/Code Shield, LangChain Guardrails 等）的工程成熟度与采用案例缺乏可核实对比数据
+> 待核实：AgentGuard (cs.SE/cs.CR) 官方开源仓库、E2B/Modal 等沙箱运行时的 Agent 安全适配项目、LlamaGuard/Prompt Guard 等防火墙组件开源情况。
 
 ---
 
 ## 数据集与基准
 
-| 名称 | 年份 | 发布方 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |
-|------|------|--------|----------|----------|--------|--------|------|------|
-| HackAPrompt Playground Submissions Corpus | 2023-2024 | HackAPrompt 竞赛 | 多篇近期论文作为训练/测试源 [4][6] | 社区竞赛发布，非学术基准维护 [4] | 中 | ★★★☆☆ | https://hackaprompt.com/ | 真实用户构造对抗提示词，需注意分布偏移 |
-| Tensor Trust | 2023 | 多机构 | 红队基准常被引用 [6][7] 推演 | 学术发布，有论文配套 > 待核实 | 中 | ★★★☆☆ | > 待核实 | 结构化注入/越狱任务集 |
-| PromptInject | 2023 | 多机构 | 被 DeRAG 等作为对比基准 [7] 推演 | 学术发布 > 待核实 | 中 | ★★★☆☆ | > 待核实 | 含直接/间接注入分类 |
-| WebInject Benchmark | 2025 | WebInject 作者 | 伴随论文发布 [6] | arXiv 预印本配套 [6] | 中 | ★★★★☆ | [6] | 面向 Web Agent 工具调用链路注入 |
+| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |
+|------|------|-----------|------|------|--------|--------|------|------|
+| HackAPrompt Playground Submissions corpus | 2023-持续 | HackAPrompt 竞赛官方 | 社区公认基准 [9] | 官方发布，被 [9] 用于构建检测数据集 | 中高 | ★★★★☆ | https://hackaprompt.com/ | 提示注入攻击样本大规模众包语料库，核心训练/评测数据源 |
+| Foundation Model Transparency Index (FMTI) 2025 | 2025 | Stanford CRFM 等 | 年度权威指数第三版 [3] | Percy Liang 等知名学者主导 | 高 | ★★★★☆ | [3] | 量化基础模型开发者透明度的基准，间接反映护栏可审计性环境 |
 
----
-
-## 开放争议
-
-| 争议点 | 多方观点 | 证据 | 状态 |
-|--------|----------|------|------|
-| **分类器 vs 零样本嵌入** | 分类器派：可解释、可微调、低延迟；零样本派：免训练、跨模型、抗分布漂移 | [4] vs [5] | [Debated] |
-| **输入过滤 vs 模型内生 vs 执行时沙箱** | 输入层：低延迟但易绕过；模型内生：覆盖面广但需微调；沙箱：强隔离但工程复杂 | [2][6][9][11] | [Debated] |
-| **红队基准是否应公开攻击载荷** | 公开派：利于防御研究；保守派：降低攻击门槛、助长滥用 | 社区讨论 > 待核实 | [Debated] |
-| **护栏是否应具备“恢复”而非仅“拒绝”** | 恢复派：物理交互场景必须；拒绝派：语义任务拒绝即安全 | [11] vs 传统范式 | [Debated] |
+> 待核实：LIBERO/SimplerEnv/Open X-Embodiment 等具身基准中的安全子集、AgentBench/ToolBench 中的安全评测分榜、红队专用基准（如 Red-Teaming Benchmark、JailbreakBench）最新版本。
 
 ---
 
 ## 参考来源
-[1] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3
-[2] StruQ: Defending Against Prompt Injection with Structured Queries — http://arxiv.org/abs/2402.06363v2
-[3] Automatic and Universal Prompt Injection Attacks against Large Language Models — http://arxiv.org/abs/2403.04957v1
-[4] Detecting Prompt Injection Attacks Against Application Using Classifiers — http://arxiv.org/abs/2512.12583v1
-[5] Zero-Shot Embedding Drift Detection: A Lightweight Defense Against Prompt Injections in LLMs — http://arxiv.org/abs/2601.12359v1
-[6] WebInject: Prompt Injection Attack to Web Agents — http://arxiv.org/abs/2505.11717v4
-[7] DeRAG: Black-box Adversarial Attacks on Multiple Retrieval-Augmented Generation Applications via Prompt Injection — http://arxiv.org/abs/2507.15042v1
-[8] AI Ethics by Design: Implementing Customizable Guardrails for Responsible AI Development — http://arxiv.org/abs/2411.14442v2
-[9] NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails — http://arxiv.org/abs/2310.10501v1
-[10] Exploring the Vulnerability of the Content Moderation Guardrail in Large Language Models via Intent Manipulation — http://arxiv.org/abs/2505.18556v2
-[11] From Refusal to Recovery: A Control-Theoretic Approach to Generative AI Guardrails — http://arxiv.org/abs/2510.13727v2
-[12] Enhancing Guardrails for Safe and Secure Healthcare AI — http://arxiv.org/abs/2409.17190v1
-[13] LLMs Can Defend Themselves Against Jailbreaking in a Practical Manner: A Vision Paper — http://arxiv.org/abs/2402.15727v2
-[14] Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs — http://arxiv.org/abs/2504.19675v2
+[1] AgentGuard: Repurposing Agentic Orchestrator for Safety Evaluation of Tool Orchestration — http://arxiv.org/abs/2502.09809v1
+[2] AgentGuard: Learning Execution Guardrails from Anomalous Coding-Agent Trajectories — http://arxiv.org/abs/2609.16287v1
+[3] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1
+[4] From Refusal to Recovery: A Control-Theoretic Approach to Generative AI Guardrails — http://arxiv.org/abs/2510.13727v2
+[5] UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models — http://arxiv.org/abs/2502.13141v2
+[6] NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails — http://arxiv.org/abs/2310.10501v1
+[7] AI Ethics by Design: Implementing Customizable Guardrails for Responsible AI Development — http://arxiv.org/abs/2411.14442v2
+[8] Agentic workflows in large language models: a comprehensive review of architectures, planning strategies, and real-world applications — https://doi.org/10.1007/s10791-026-10743-4
+[9] Detecting Prompt Injection Attacks Against Application Using Classifiers — http://arxiv.org/abs/2512.12583v1
+[10] Automatic and Universal Prompt Injection Attacks against Large Language Models — http://arxiv.org/abs/2403.04957v1
+[11] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3
 
 ---
 
-*Generated by research-bot · topic=`agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=29 · duration=265s · 2026-11-19T03:31:55+00:00*
+*Generated by research-bot · topic=`agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=28 · duration=441s · 2026-11-21T03:46:21+00:00*
