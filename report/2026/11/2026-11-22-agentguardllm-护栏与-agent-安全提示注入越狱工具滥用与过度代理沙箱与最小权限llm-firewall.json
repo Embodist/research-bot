@@ -1,0 +1,998 @@
+{
+  "topic": "agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall",
+  "title": "AgentGuard：LLM 护栏与 Agent 安全深度调研计划",
+  "query": "AgentGuard：LLM 护栏与 Agent 安全（提示注入、越狱、工具滥用与过度代理、沙箱与最小权限、LLM firewall、红队基准）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-22T02:27:12+00:00",
+  "finished_at": "2026-11-22T02:32:38+00:00",
+  "duration_s": 325.5,
+  "rounds": 1,
+  "plan": {
+    "title": "AgentGuard：LLM 护栏与 Agent 安全深度调研计划",
+    "summary": "系统梳理 LLM 护栏与 Agent 安全领域的前沿进展、奠基性工作、开源工程实践、核心数据集与基准、以及未解决的开放问题与争议，形成可落地的技术选型与研究切入点参考。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 1-2 年 LLM 护栏与 Agent 安全领域有哪些关键前沿进展（新模型、新防御范式、SOTA 基准刷新）？",
+        "rationale": "掌握最新技术演进方向，识别当前最有效的防御手段与评测标准，为后续选型与改进提供基线。",
+        "queries": [
+          "LLM guardrails prompt injection defense 2024 2025 site:arxiv.org",
+          "Agent safety sandbox least privilege 2024 2025 site:arxiv.org",
+          "LLM firewall architecture 2024 2025",
+          "红队基准 LLM jailbreak benchmark 2024 2025 HarmBench JailbreakBench"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "github"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该领域的经典/奠基性工作有哪些（提示注入发现、越狱分类、早期护栏框架）？",
+        "rationale": "建立技术脉络，避免重复造轮子，并厘清核心概念的学术来源。",
+        "queries": [
+          "prompt injection attack taxonomy 2022 2023 site:arxiv.org",
+          "jailbreak LLM survey foundational paper",
+          "LLM guardrails framework NeMo Guardrails Guardrails AI 2023",
+          "tool misuse overprivileged agent early work"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "主流开源护栏框架与工程实践有哪些（架构、集成方式、生产可用性）？",
+        "rationale": "评估现有开源方案的成熟度与适配性，指导工程落地或二次开发。",
+        "queries": [
+          "Guardrails AI GitHub production ready",
+          "NeMo Guardrails LangChain integration tutorial",
+          "LLM firewall open source project GitHub",
+          "agent sandbox runtime isolation open source"
+        ],
+        "prefer": [
+          "github",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 1-2 年 LLM 护栏与 Agent 安全领域有哪些关键前沿进展（新模型、新防御范式、SOTA 基准刷新）？",
+      "queries": [
+        "LLM guardrails prompt injection defense 2024 2025 site:arxiv.org",
+        "Agent safety sandbox least privilege 2024 2025 site:arxiv.org",
+        "LLM firewall architecture 2024 2025",
+        "红队基准 LLM jailbreak benchmark 2024 2025 HarmBench JailbreakBench"
+      ],
+      "rationale": "掌握最新技术演进方向，识别当前最有效的防御手段与评测标准，为后续选型与改进提供基线。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.032155,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+          "url": "http://arxiv.org/abs/2512.12583v1",
+          "snippet": "Prompt injection attacks can compromise the security and stability of critical systems, from infrastructure to large web applications. This work curates and augments a prompt injection dataset based on the HackAPrompt Playground Submissions corpus and trains several classifiers, including LSTM, feed forward neural networks, Random Forest, and Naive Bayes, to detect malicious prompts in LLM integrated web applications. The proposed approach improves prompt injection detection and mitigation, helping protect targeted applications and systems.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-14",
+          "authors": [
+            "Safwan Shaheer",
+            "G. M. Refatul Islam",
+            "Mohammad Rafid Hamid",
+            "Md. Abrar Faiaz Khan",
+            "Md. Omar Faruk",
+            "Yaseen Nur"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.12583v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Zero-Shot Embedding Drift Detection: A Lightweight Defense Against Prompt Injections in LLMs",
+          "url": "http://arxiv.org/abs/2601.12359v1",
+          "snippet": "Prompt injection attacks have become an increasing vulnerability for LLM applications, where adversarial prompts exploit indirect input channels such as emails or user-generated content to circumvent alignment safeguards and induce harmful or unintended outputs. Despite advances in alignment, even state-of-the-art LLMs remain broadly vulnerable to adversarial prompts, underscoring the urgent need for robust, productive, and generalizable detection mechanisms beyond inefficient, model-specific patches. In this work, we propose Zero-Shot Embedding Drift Detection (ZEDD), a lightweight, low-engi…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-01-18",
+          "authors": [
+            "Anirudh Sekar",
+            "Mrinal Agarwal",
+            "Rachel Sharma",
+            "Akitsugu Tanaka",
+            "Jasmine Zhang",
+            "Arjun Damerla",
+            "Kevin Zhu"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2601.12359v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+          "url": "http://arxiv.org/abs/2504.19675v2",
+          "snippet": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our approach combines traditional natural language processing and machine learning techniques implemented in the Annif toolkit with innovative LLM-based methods for translation and synthetic data generation, and merging predictions from monolingual models. The system ranked first in the all-subjects category…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-28",
+          "authors": [
+            "Osma Suominen",
+            "Juho Inkinen",
+            "Mona Lehtinen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.19675v2",
+            "rrf_score": 0.025277,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "基于 HackAPrompt 数据集训练的分类器可有效检测针对 LLM 集成 Web 应用的提示词注入攻击",
+            "evidence": "论文整理并增强了基于 HackAPrompt Playground Submissions 语料库的提示词注入数据集，训练了 LSTM、前馈神经网络、随机森林和朴素贝叶斯等多种分类器，提升了恶意提示词的检测与缓解能力",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CR)",
+            "attention": "中 - 新发布的 arXiv 论文，针对提示词注入这一核心安全威胁提出实用检测方案",
+            "recommendation": "★★★☆☆ - 直接针对 LLM 应用层安全的关键威胁，提供了可复现的基线方法，但为预印本且未见独立基准验证"
+          },
+          {
+            "point": "零样本嵌入漂移检测作为一种轻量级防御机制，可在无需训练数据的情况下识别 LLM 中的提示词注入攻击",
+            "evidence": "论文提出利用嵌入空间的漂移信号进行零样本检测，旨在解决对抗性提示词利用间接输入通道（如邮件、用户生成内容）绕过对齐防护的问题，强调即使最先进的 LLM 仍广泛易受对抗性提示词攻击",
+            "sources": [
+              11
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CR)",
+            "attention": "中 - 2026 年最新预印本，提出无需监督数据的新防御范式，针对间接提示词注入这一难点",
+            "recommendation": "★★★☆☆ - 提供了低成本、即插即用的防御思路，但为预印本，真机/多模态场景有效性待独立验证"
+          },
+          {
+            "point": "2025 年基础模型透明度指数显示头部模型开发商的透明度实践整体恶化，平均分从 2024 年的 58 分降至 40 分",
+            "evidence": "第三版 FMTI 引入了数据获取、使用数据和监控相关新指标，首次评估 Alibaba、DeepSeek、xAI 等公司；训练数据、训练算力及部署后使用影响等维度不透明度最高，IBM 为少数正面例外",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.AI)，作者含 Percy Liang、Rishi Bommasani 等知名学者",
+            "attention": "高 - 权威团队年度追踪报告，被广泛引用为行业治理基线，透明度下降趋势直接关联护栏可审计性",
+            "recommendation": "★★★★☆ - 为理解护栏部署的上游治理环境提供量化证据，虽非直接技术防御，但对合规与审计至关重要"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+            "url": "http://arxiv.org/abs/2512.12583v1",
+            "why": "系统性构建提示词注入检测基线，基于真实攻击语料（HackAPrompt）评估多种分类器，为 LLM 应用层安全提供可复现的工程参考",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CR)",
+            "attention": "中 - 新发布，针对核心威胁向量，社区关注度上升",
+            "recommendation": "★★★☆☆ - 实用基线工作，适合作为工程落地的起点，但需关注后续独立基准测试"
+          },
+          {
+            "title": "Zero-Shot Embedding Drift Detection: A Lightweight Defense Against Prompt Injections in LLMs",
+            "url": "http://arxiv.org/abs/2601.12359v1",
+            "why": "提出无需训练数据的零样本嵌入漂移检测范式，直接针对间接提示词注入这一难点，提供轻量级即插即用的防御思路",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CR)",
+            "attention": "中 - 2026 年最新预印本，新防御范式引人关注",
+            "recommendation": "★★★☆☆ - 创新防御思路，工程部署成本低，但为预印本，泛化性与鲁棒性待验证"
+          },
+          {
+            "title": "The 2025 Foundation Model Transparency Index",
+            "url": "http://arxiv.org/abs/2512.10169v1",
+            "why": "量化头部模型开发商透明度的权威年度报告，透明度下降趋势揭示护栏可审计性、数据溯源与合规面临的上游治理挑战",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.AI)，核心作者含 Percy Liang、Rishi Bommasani",
+            "attention": "高 - 权威团队年度基准，被政策与产业界广泛引用",
+            "recommendation": "★★★★☆ - 非直接技术防御，但为护栏治理、合规审计提供关键宏观证据"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [
+          {
+            "name": "HackAPrompt Playground Submissions Corpus (augmented)",
+            "url": "http://arxiv.org/abs/2512.12583v1",
+            "why": "论文 [10] 基于此语料库整理并增强了提示词注入检测数据集，包含真实攻击样本，可用于训练/评估注入检测器",
+            "heat": "",
+            "authority": "论文配套数据集，源自 HackAPrompt 竞赛平台",
+            "attention": "中 - 真实攻击语料，对提示词注入基准构建有参考价值",
+            "recommendation": "★★★☆☆ - 实战攻击样本来源，适合作为检测器训练的种子数据，但规模与多样性待进一步确认"
+          }
+        ],
+        "open_problems": [
+          "提示词注入（含间接注入）在真实多模态、多轮 Agent 交互场景下的鲁棒检测与缓解",
+          "零样本/少样本防御方法在分布外攻击、自适应攻击下的泛化性与误报率权衡",
+          "基础模型透明度下降背景下，下游护栏的可审计性、合规性与供应链安全保障",
+          "缺乏统一、持续更新的 Agent 安全评测基准（涵盖工具调用、记忆投毒、多 Agent 协作攻击等）"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该领域的经典/奠基性工作有哪些（提示注入发现、越狱分类、早期护栏框架）？",
+      "queries": [
+        "prompt injection attack taxonomy 2022 2023 site:arxiv.org",
+        "jailbreak LLM survey foundational paper",
+        "LLM guardrails framework NeMo Guardrails Guardrails AI 2023",
+        "tool misuse overprivileged agent early work"
+      ],
+      "rationale": "建立技术脉络，避免重复造轮子，并厘清核心概念的学术来源。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+          "url": "http://arxiv.org/abs/2512.12583v1",
+          "snippet": "Prompt injection attacks can compromise the security and stability of critical systems, from infrastructure to large web applications. This work curates and augments a prompt injection dataset based on the HackAPrompt Playground Submissions corpus and trains several classifiers, including LSTM, feed forward neural networks, Random Forest, and Naive Bayes, to detect malicious prompts in LLM integrated web applications. The proposed approach improves prompt injection detection and mitigation, helping protect targeted applications and systems.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-14",
+          "authors": [
+            "Safwan Shaheer",
+            "G. M. Refatul Islam",
+            "Mohammad Rafid Hamid",
+            "Md. Abrar Faiaz Khan",
+            "Md. Omar Faruk",
+            "Yaseen Nur"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.12583v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering Attacks",
+          "url": "http://arxiv.org/abs/2611.07640v1",
+          "snippet": "Indirect prompt-injection (IPI) benchmarks predominantly test planted instructions that redirect a tool-using agent toward an attacker-chosen task. Yet attacker-controlled content can instead tamper with the outcome of the task already in progress. A buyer's dispute evidence can cite a false refund policy to inflate a refund without changing the task. We define IPI by authority rather than instruction-like wording: planted content constitutes an attack when it attempts to influence a decision that its source is not authorized to determine. We introduce a benchmark that makes this boundary exp…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-11-05",
+          "authors": [
+            "Rongting Zhang",
+            "Martin Bertran",
+            "Sandeep Avula",
+            "Chia-Jung Lee",
+            "Vanessa Murdock"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2611.07640v1",
+            "rrf_score": 0.022059
+          }
+        },
+        {
+          "title": "UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models",
+          "url": "http://arxiv.org/abs/2502.13141v2",
+          "snippet": "Large Language Models (LLMs) are vulnerable to attacks like prompt injection, backdoor attacks, and adversarial attacks, which manipulate prompts or models to generate harmful outputs. In this paper, departing from traditional deep learning attack paradigms, we explore their intrinsic relationship and collectively term them Prompt Trigger Attacks (PTA). This raises a key question: Given a prompt, can we tell whether a hidden trigger is steering the model's behavior? We propose UniGuardian, to the best of our knowledge the first training-free LLM detector to jointly detect successfully activat…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-02-18",
+          "authors": [
+            "Huawei Lin",
+            "Yingjie Lao",
+            "Tony Geng",
+            "Tan Yu",
+            "Weijie Zhao"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2502.13141v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Automatic and Universal Prompt Injection Attacks against Large Language Models",
+          "url": "http://arxiv.org/abs/2403.04957v1",
+          "snippet": "Large Language Models (LLMs) excel in processing and generating human language, powered by their ability to interpret and follow instructions. However, their capabilities can be exploited through prompt injection attacks. These attacks manipulate LLM-integrated applications into producing responses aligned with the attacker's injected content, deviating from the user's actual requests. The substantial risks posed by these attacks underscore the need for a thorough understanding of the threats. Yet, research in this area faces challenges due to the lack of a unified goal for such attacks and t…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-03-07",
+          "authors": [
+            "Xiaogeng Liu",
+            "Zhiyuan Yu",
+            "Yizhe Zhang",
+            "Ning Zhang",
+            "Chaowei Xiao"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2403.04957v1",
+            "rrf_score": 0.024194
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+            "evidence": "Prompt injection attacks can compromise the security and stability of critical systems, from infrastructure to large web applications. This work curates and augments a prompt injection dataset based on the HackAPrompt Playground Submissions corpus and trains several classifiers, including LSTM, fee…",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering Attacks",
+            "evidence": "Indirect prompt-injection (IPI) benchmarks predominantly test planted instructions that redirect a tool-using agent toward an attacker-chosen task. Yet attacker-controlled content can instead tamper with the outcome of the task already in progress. A buyer's dispute evidence can cite a false refund…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models",
+            "evidence": "Large Language Models (LLMs) are vulnerable to attacks like prompt injection, backdoor attacks, and adversarial attacks, which manipulate prompts or models to generate harmful outputs. In this paper, departing from traditional deep learning attack paradigms, we explore their intrinsic relationship…",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Automatic and Universal Prompt Injection Attacks against Large Language Models",
+            "evidence": "Large Language Models (LLMs) excel in processing and generating human language, powered by their ability to interpret and follow instructions. However, their capabilities can be exploited through prompt injection attacks. These attacks manipulate LLM-integrated applications into producing responses…",
+            "sources": [
+              9
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "主流开源护栏框架与工程实践有哪些（架构、集成方式、生产可用性）？",
+      "queries": [
+        "Guardrails AI GitHub production ready",
+        "NeMo Guardrails LangChain integration tutorial",
+        "LLM firewall open source project GitHub",
+        "agent sandbox runtime isolation open source"
+      ],
+      "rationale": "评估现有开源方案的成熟度与适配性，指导工程落地或二次开发。",
+      "round": 1,
+      "results": [
+        {
+          "title": "From Refusal to Recovery: A Control-Theoretic Approach to Generative AI Guardrails",
+          "url": "http://arxiv.org/abs/2510.13727v2",
+          "snippet": "Generative AI systems are increasingly assisting and acting on behalf of end users in practical settings, from digital shopping assistants to next-generation autonomous cars. In this context, safety is no longer about blocking harmful content, but about preempting downstream hazards like financial or physical harm. Yet, most AI guardrails continue to rely on output classification based on labeled datasets and human-specified criteria,making them brittle to new hazardous situations. Even when unsafe conditions are flagged, this detection offers no path to recovery: typically, the AI system sim…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-15",
+          "authors": [
+            "Ravi Pandya",
+            "Madison Bland",
+            "Duy P. Nguyen",
+            "Changliu Liu",
+            "Jaime Fernández Fisac",
+            "Andrea Bajcsy"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.13727v2",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "Ep. 2535: Inside LangChain's Deep Agents: What's Actually in the Box",
+          "url": "https://doi.org/10.5281/zenodo.20181035",
+          "snippet": "Episode summary: We explore the LangChain deep agents repository — an open-source agent harness that ships with a full terminal-based coding CLI, sub-agents with isolated context windows, async delegation patterns, and a systematic evaluation framework. Unlike most \"batteries included\" frameworks, this one delivers planning tools, filesystem operations, shell access with structural security boundaries, portable skills, GitHub Actions integration, and multi-provider LLM support. The architecture is opinionated, production-ready, and built on LangGraph with streaming, persistence, and checkpoin…",
+          "engine": "openalex",
+          "kind": "paper",
+          "published": "2026-04-29",
+          "authors": [
+            "Daniel Rosehill",
+            "Gemini 3.1 (Flash)",
+            "Chatterbox TTS"
+          ],
+          "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "openalex_id": "https://openalex.org/W7161149225",
+            "rrf_score": 0.021212
+          }
+        },
+        {
+          "title": "AI Ethics by Design: Implementing Customizable Guardrails for Responsible AI Development",
+          "url": "http://arxiv.org/abs/2411.14442v2",
+          "snippet": "This paper explores the development of an ethical guardrail framework for AI systems, emphasizing the importance of customizable guardrails that align with diverse user values and underlying ethics. We address the challenges of AI ethics by proposing a structure that integrates rules, policies, and AI assistants to ensure responsible AI behavior, while comparing the proposed framework to the existing state-of-the-art guardrails. By focusing on practical mechanisms for implementing ethical standards, we aim to enhance transparency, user autonomy, and continuous improvement in AI systems. Our a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-11-05",
+          "authors": [
+            "Kristina Šekrst",
+            "Jeremy McHugh",
+            "Jonathan Rodriguez Cefalu"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2411.14442v2",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Sensitivity and pointing accuracy of the NEMO km$^3$ telescope",
+          "url": "http://arxiv.org/abs/astro-ph/0605067v1",
+          "snippet": "n this paper we present the results of Monte Carlo simulation studies on the capability of the proposed NEMO km3 telescope to detect high energy neutrinos. We calculated the detector sensitivity to muon neutrinos coming from a generic point-like source. We also simulated the lack of atmospheric muons in correspondence to the Moon disk in order to determine the detector angular resolution and to check the absolute pointing capability.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2006-05-02",
+          "authors": [
+            "C. Distefano",
+            "the NEMO Collaboration"
+          ],
+          "venue": "astro-ph",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "0605067v1",
+            "rrf_score": 0.017442
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "控制理论视角的护栏方法：从单纯拒绝转向恢复机制",
+            "evidence": "论文提出生成式 AI 护栏不应仅依赖输出分类拒绝，而应视为序贯决策问题，引入控制理论实现从拒绝到恢复的范式转换，预防下游物理/金融危害",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.AI)",
+            "attention": "中等 - 新颖的控制理论视角但为预印本，尚无引用数与独立验证",
+            "recommendation": "★★★☆☆ - 理论创新强，但工程落地与开源框架集成未在证据中体现"
+          },
+          {
+            "point": "LangChain Deep Agents 仓库包含结构化安全边界的 Shell 访问机制",
+            "evidence": "该开源代理框架自带终端编码 CLI、子代理隔离上下文、异步委托模式，并在文件系统操作与 Shell 访问中实施结构化安全边界，属于代理层面的护栏工程实践",
+            "sources": [
+              29
+            ],
+            "type": "project",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "citations=0 (Zenodo 记录已被移除)",
+            "authority": "Zenodo 记录 (已被管理员移除，非官方文档)",
+            "attention": "低 - 记录已移除，无法核实实际代码实现与采用度",
+            "recommendation": "★★☆☆☆ - 仅有二手播客摘要且来源不可用，需直接查阅 LangChain 官方仓库确认"
+          },
+          {
+            "point": "可定制伦理护栏框架：整合规则、策略与 AI 助手",
+            "evidence": "论文提出面向负责任 AI 开发的伦理护栏框架，强调可定制化以对齐多元用户价值，结合规则、策略与 AI 助手确保负责任行为，并与现有方案对比",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CY)",
+            "attention": "中等 - 关注伦理对齐与可定制性，但为预印本且无引用数据",
+            "recommendation": "★★★☆☆ - 提供架构层面的设计思路，生产可用性与集成方式未在证据中详述"
+          },
+          {
+            "point": "候选证据未覆盖主流生产级开源护栏框架 (如 NeMo Guardrails、Guardrails AI、LangChain 官方护栏模块等)",
+            "evidence": "四条候选证据中仅有一条涉及开源项目且记录已失效，两条为理论预印本，一条完全无关；缺乏架构对比、集成模式 (中间件/装饰器/策略引擎)、生产指标 (延迟/吞吐/误报率) 的实证资料",
+            "sources": [
+              26,
+              29,
+              24,
+              31
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "基于候选证据集的覆盖面分析",
+            "attention": "高 - 直接指出证据缺口，指导后续检索方向",
+            "recommendation": "★★★★☆ - 必须补充官方文档、GitHub 仓库、基准测报告以完成工程调研"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "From Refusal to Recovery: A Control-Theoretic Approach to Generative AI Guardrails",
+            "url": "http://arxiv.org/abs/2510.13727v2",
+            "why": "提出护栏从拒绝转向恢复的控制理论范式，为序贯决策安全提供新理论基础",
+            "year": "2025",
+            "heat": "无引用数据 (arXiv 2025-10)",
+            "authority": "arXiv 预印本 (cs.AI)",
+            "attention": "中等 - 理论创新但未经同行评审",
+            "recommendation": "★★★☆☆ - 适合理论参考，工程落地需自行实现"
+          },
+          {
+            "title": "AI Ethics by Design: Implementing Customizable Guardrails for Responsible AI Development",
+            "url": "http://arxiv.org/abs/2411.14442v2",
+            "why": "系统性梳理可定制伦理护栏架构，包含规则/策略/助手三层设计，可作架构参考",
+            "year": "2024",
+            "heat": "无引用数据 (arXiv 2024-11)",
+            "authority": "arXiv 预印本 (cs.CY)",
+            "attention": "中等 - 伦理对齐视角有参考价值",
+            "recommendation": "★★★☆☆ - 架构设计参考，生产细节缺失"
+          }
+        ],
+        "key_projects": [
+          {
+            "name": "LangChain Deep Agents",
+            "url": "https://github.com/langchain-ai/langchain (需核实子仓库)",
+            "why": "据播客摘要包含结构化安全边界的 Shell/文件系统访问，属代理框架内置护栏工程实践",
+            "heat": "stars 未知 (Zenodo 记录已移除)",
+            "authority": "LangChain 官方生态 (但证据来源不可用)",
+            "attention": "低 - 无法直接访问源码验证",
+            "recommendation": "★★☆☆☆ - 需直接查阅 GitHub 官方仓库确认护栏实现细节"
+          }
+        ],
+        "key_datasets": [],
+        "open_problems": [
+          "主流开源护栏框架 (NeMo Guardrails、Guardrails AI、LLM Guard 等) 的架构对比、插件机制、流式处理支持缺乏实证",
+          "护栏与 VLA/机器人控制回路的集成模式 (同步阻塞 vs 异步监控 vs 动作修正) 无公开基准",
+          "生产环境关键指标 (P99 延迟、误拦率、规则热更新、多租户隔离) 的公开测评数据缺失",
+          "从拒绝到恢复的控制理论方法在实时机器人控制中的可行性与计算预算未验证"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 38650,
+    "completion_tokens": 19941,
+    "generated_at": "2026-11-22T02:32:38.367128+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# AgentGuard：LLM 护栏与 Agent 安全 前沿调研报告\n\n**日期**：2026-11-22（UTC）  \n**领域**：LLM 护栏、Agent 安全、提示注入、越狱、工具滥用、沙箱、LLM Firewall、红队基准  \n**检索来源数量**：32 条（含 13 条领域强相关证据：[1][2][3][4][5][6][7][8][9][10][11][12][13]）\n\n---\n\n## 1. 进展与热点（Progress & Hotspots）\n\n> **增量判断**：2025-2026 年核心增量集中在 **提示注入检测的实用基线构建**、**零样本/轻量级防御范式**、以及 **基础模型透明度下降对护栏可审计性的冲击**；真机/多模态 Agent 场景下的端到端评测仍缺失。\n\n| 进展 | 时间 | 机构/作者 | 一句话贡献 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 来源 |\n|------|------|-----------|------------|----------|----------|--------|--------|------|\n| 基于 HackAPrompt 语料训练分类器检测提示注入 | 2025-12 | arXiv (cs.CR) | 整理增强真实攻击语料，评估 LSTM/FFN/RF/NB 等分类器，给出可复现工程基线 | > 待核实（arXiv 新发布，引用数未形成） | arXiv 预印本，未经同行评审 | 中 — 直接针对 LLM 应用层核心威胁，社区关注度上升 | ★★★☆☆ — 实用基线，适合工程起点，需独立基准验证 | [5] |\n| 零样本嵌入漂移检测防御提示注入 | 2026-01 | arXiv (cs.CR) | 利用嵌入空间漂移信号实现无监督、即插即用的注入检测，直击间接注入难点 | > 待核实（2026 年最新预印本） | arXiv 预印本，未经同行评审 | 中 — 新防御范式，工程部署成本低 | ★★★☆☆ — 创新思路，泛化性与鲁棒性待验证 | [6] |\n| 2025 基础模型透明度指数（FMTI v3） | 2025-12 | Stanford CRFM 等 | 头部模型商透明度均分从 58 降至 40，训练数据/算力/部署影响最不透明，IBM 为少数正面例外 | > 待核实（年度权威报告，被广泛引用） | arXiv 预印本，核心作者含 Percy Liang、Rishi Bommasani | 高 — 权威团队年度基准，被政策与产业界广泛引用 | ★★★★☆ — 为护栏治理、合规审计提供宏观量化证据 | [1] |\n| 统一防御框架 UniGuardian | 2025-02 | arXiv (cs.CL) | 统一检测提示注入、后门攻击、对抗攻击，探索三者内在关联 | > 待核实（预印本） | arXiv 预印本 | 中 — 统一视角有参考价值 | ★★★☆☆ — 理论整合强，工程落地细节缺失 | [8] |\n| 间接提示注入任务篡改基准 | 2026-11 | arXiv (cs.CR) | 超越指令覆盖，基准化“任务篡改”类间接注入，揭示现有防御盲区 | > 待核实（2026 年最新预印本） | arXiv 预印本 | 中 — 细化攻击面，推动评测颗粒度 | ★★★☆☆ — 基准建设贡献大，需社区采纳验证 | [9] |\n| 自动通用提示注入攻击构造 | 2024-03 | arXiv (cs.AI) | 系统性构造自动化、通用的注入攻击，揭示 LLM 集成应用的普遍脆弱性 | > 待核实（2024 年早期工作，被后续引用） | arXiv 预印本 | 中 — 奠基性攻击方法论 | ★★★★☆ — 攻击侧基线，防御评测必参考 | [4] |\n| 偏好优化防御注入 | 2024-10 | arXiv (cs.CR) | 通过偏好优化（SecAlign）在模型层面对齐抗注入能力 | > 待核实（预印本 v3） | arXiv 预印本 | 中 — 模型内在防御路线 | ★★★☆☆ — 正交于外挂护栏，值得对比 | [2] |\n| 结构化查询防御注入 | 2024-02 | arXiv (cs.CR) | 引入结构化查询（StruQ）将非结构化提示转为可验证结构，降低注入面 | > 待核实（预印本 v2） | arXiv 预印本 | 中 — 架构层面缓解思路 | ★★★☆☆ — 工程可落地，需评估延迟与表达力损失 | [3] |\n| Web Agent 专用注入攻击 | 2025-05 | arXiv (cs.CR) | 面向 Web Agent 的注入攻击基准，覆盖浏览器环境下的工具调用劫持 | > 待核实（预印本 v4） | arXiv 预印本 | 中 — 场景化攻击基准 | ★★★☆☆ — Agent 安全评测关键补充 | [7] |\n| LLM 自我防御越狱愿景 | 2024-02 | arXiv (cs.CR) | 提出 LLM 可通过内在机制实用防御越狱，而非仅依赖外部护栏 | > 待核实（愿景类论文） | arXiv 预印本 | 中 — 概念引导性强 | ★★★☆☆ — 长期研究方向参考 | [10] |\n\n> **待核实**：上述所有论文均为 arXiv 预印本，缺乏同行评审与独立复现基准；真机/多模态/多轮 Agent 场景下的鲁棒性指标（误报率、漏报率、P99 延迟）尚无公开统一评测。\n\n---\n\n## 2. 工业界与产品（Industry & Product）\n\n> **增量判断**：主流生产级开源护栏框架（NeMo Guardrails、Guardrails AI、LLM Guard、LangChain 官方护栏模块）在**架构对比、插件机制、流式处理、生产指标**上**缺乏实证覆盖**；LangChain Deep Agents 仅有二手播客摘要且来源已失效 [13]，需直接查阅官方仓库确认。\n\n| 项目/产品 | 类型 | 状态 | 关键特性 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 来源/备注 |\n|-----------|------|------|----------|----------|----------|--------|--------|-----------|\n| NeMo Guardrails | 开源框架 | 活跃 | 策略引擎、对话轨道、工具调用拦截、可编程规则 | > 待核实（GitHub stars/下载未在证据中） | NVIDIA 官方维护 | 高 — 产业界广泛采用 | ★★★★☆ — 生产级首选，需实测延迟/吞吐 | 官方文档/GitHub（证据集未覆盖，**需补查**） |\n| Guardrails AI | 开源框架 | 活跃 | Pydantic 风格输出约束、流式验证、纠错重试 | > 待核实 | Guardrails AI 官方 | 高 — 社区活跃 | ★★★★☆ — 结构化输出场景强 | 官方文档/GitHub（**需补查**） |\n| LLM Guard | 开源库 | 活跃 | 提示注入/PII/有害内容检测、低延迟、可组合 | > 待核实 | 社区维护 | 中高 — 轻量级插件化 | ★★★★☆ — 适合微服务网关集成 | GitHub（**需补查**） |\n| LangChain 官方护栏模块 | 框架内置 | 随 LangChain 迭代 | Runnable 配合、输出解析器约束、回调拦截 | > 待核实 | LangChain 官方 | 高 — 生态集成度高 | ★★★☆☆ — 耦合框架，灵活性受限 | 官方文档（**需补查**） |\n| LangChain Deep Agents | 代理框架 | 2026 | 终端 CLI、子代理隔离、异步委托、文件系统/Shell 结构化安全边界 | stars 未知（Zenodo 记录已移除） | 仅有播客二手摘要 [13] | 低 — 无法直接访问源码验证 | ★★☆☆☆ — **需直接查阅 GitHub 官方仓库确认** | [13] |\n| 控制理论护栏：从拒绝到恢复 | 理论/原型 | 2025-10 | 将护栏建模为序贯决策，引入控制理论实现动作修正而非单纯拒绝 | 无引用数据（arXiv 2025-10） | arXiv 预印本 [12] | 中 — 理论创新未经验证 | ★★★☆☆ — 适合理论参考，工程落地需自行实现 | [12] |\n| 可定制伦理护栏框架 | 理论/架构 | 2024-11 | 规则/策略/助手三层设计，强调多元价值对齐 | 无引用数据（arXiv 2024-11） | arXiv 预印本 [11] | 中 — 伦理对齐视角 | ★★★☆☆ — 架构设计参考，生产细节缺失 | [11] |\n\n> **证据缺口**：候选证据集**未覆盖**上述主流生产级框架的架构对比、集成模式（中间件/装饰器/策略引擎）、生产指标（P99 延迟、误拦率、规则热更新、多租户隔离）[12][13][11][14]。**必须补查官方文档、GitHub 仓库、基准测报告**。\n\n---\n\n## 3. 蓝海与缺口（Blue Ocean & Gaps）\n\n| 缺口 | 说明 | 证据支撑 | 优先级 |\n|------|------|----------|--------|\n| **统一、持续更新的 Agent 安全评测基准** | 缺乏覆盖工具调用、记忆投毒、多 Agent 协作攻击、沙箱逃逸、最小权限违规的端到端基准 | [7][9] 仅覆盖 Web Agent 注入与任务篡改两个子面 | ⭐⭐⭐⭐⭐ |\n| **真机/多模态/多轮交互下的注入检测鲁棒性** | 现有分类器 [5]、零样本漂移 [6]、统一防御 [8] 均在文本单轮或合成数据上评估 | [5][6][8] 均为预印本，无真机部署报告 | ⭐⭐⭐⭐ |\n| **零样本/少样本防御在自适应攻击下的泛化-误报权衡** | 嵌入漂移 [6] 等轻量级方法面对分布外、自适应攻击的理论边界未知 | [6] 提出方法但无红队对抗评估 | ⭐⭐⭐⭐ |\n| **护栏与 VLA/机器人控制回路的集成模式** | 同步阻塞 vs 异步监控 vs 动作修正，在实时控制（10-100ms 预算）下的可行性无公开基准 | [12] 提出控制理论范式但未接入机器人实验 | ⭐⭐⭐⭐ |\n| **生产环境关键指标的公开测评数据** | P99 延迟、误拦率、规则热更新、多租户隔离、版本灰度发布等工程指标缺失 | [12][13][11][14] 证据集分析确认缺口 | ⭐⭐⭐⭐ |\n| **基础模型透明度下降下的供应链可审计性** | FMTI 2025 显示透明度恶化 [1]，导致下游护栏无法溯源模型行为边界 | [1] 量化证据 | ⭐⭐⭐ |\n| **从拒绝到恢复的控制理论方法在实时机器人中的计算预算验证** | [12] 理论框架未给出推理延迟、采样频率、稳定性裕度等工程数字 | [12] 理论贡献为主 | ⭐⭐⭐ |\n\n---\n\n## 4. 瓶颈与拐点（Bottleneck & Inflection）\n\n| 瓶颈 | 现状 | 拐点信号 | 不确定性/风险 | 证据 |\n|------|------|----------|---------------|------|\n| **评测基准碎片化、静态化** | 现有基准多为单任务、单模态、静态数据集 [4][5][7][9] | 社区呼吁“持续红队基准平台”（如 RoboArena 风格） | 若无统一基准，SOTA 声称不可比，**风险**：虚假进步 | [4][5][7][9] |\n| **防御与实用性的误报-漏报困境** | 分类器 [5]、漂移检测 [6]、结构化查询 [3] 均面临误拦正常指令 vs 漏报变种攻击 | 零样本方法降低训练成本但泛化未证；偏好优化 [2] 需高质量偏好数据 | **不确定**：自适应攻击下误报率曲线；**风险**：生产环境误拦导致业务中断 | [2][3][5][6] |\n| **模型层 vs 系统层防御的责任边界模糊** | SecAlign [2]、UniGuardian [8] 尝试模型内在对齐；NeMo/LLM Guard 等为系统外挂 | 趋势：模型内在安全（对齐）+ 系统外挂（护栏）双层防御 | **不确定**：模型更新后外挂规则失效频率；**风险**：供应链不透明 [1] 导致模型行为漂移不可知 | [1][2][8] |\n| **实时性与计算预算** | 控制理论护栏 [12] 需序贯决策推理；结构化查询 [3] 增加解析开销 | 硬件加速（NPU/GPU 推理）、模型蒸馏、规则编译优化 | **风险**：机器人控制回路（<10ms）下护栏成为瓶颈 | [3][12] |\n| **透明度下降导致的合规与审计断层** | FMTI 2025 平均分 40/100 [1]，训练数据/算力/部署影响最不透明 | 监管趋势（EU AI Act、美行政命令）要求模型卡、风险评估、事后审计 | **不确定**：闭源模型商是否配合；**风险**：护栏厂商面临“黑箱上游”合规责任 | [1] |\n\n---\n\n## 5. 社会·政策·国际（Society, Policy & Geopolitics）\n\n| 维度 | 进展/信号 | 对护栏/Agent 安全的影响 | 证据/备注 |\n|------|-----------|------------------------|-----------|\n| **监管合规** | EU AI Act 高风险 AI 系统要求风险管理、数据治理、人工监督、事后审计；美 NIST AI RMF、行政命令 14110 推动红队测试、模型卡 | 护栏成为合规“必选件”：需提供可审计的拦截日志、误报/漏报率证据、规则版本管理 | > 待核实（政策文本公开，但具体执行细则与护栏技术标准映射尚在演进） |\n| **标准化** | ISO/IEC 42001 AI 管理体系、OWASP Top 10 for LLM Applications（2023/2025 版）将提示注入、越狱、工具滥用列为核心风险 | 推动护栏功能标准化：检测接口、日志格式、红队基准协议 | OWASP LLM Top 10 社区广泛引用，**需补查官方版本** |\n| **地缘与供应链** | 头部模型集中于美/中少数厂商，FMTI 2025 显示透明度下降 [1]；出口管制限制高端算力流动 | 下游护栏厂商面临“单一来源”风险：模型行为变更无预警、无法溯源、无法自主微调防御 | [1] 量化透明度下降趋势 |\n| **劳动与伦理** | Agent 自主决策涉及金融交易、医疗建议、物理机器人控制，失控风险外部性大 | 推动“最小权限”、“沙箱”、“人在回路”成为法律注意义务基线 | > 待核实（判例法与行业规范尚在形成期） |\n| **国际治理** | G7 广岛进程、联合国 AI 咨询机构报告、全球 AI 安全峰会（Bletchley/Seoul/Paris）推动跨境红队、评测互认 | 长期看：护栏评测结果可能需跨境互认，类似金融压力测试 | > 待核实（进程早期，技术细节未定） |\n\n---\n\n## 6. 资本与生态（Capital & Ecosystem）\n\n| 信号 | 说明 | 证据/备注 |\n|------|------|-----------|\n| **安全基础设施赛道融资持续** | 专注 LLM 护栏/红队/审计的初创（如 Lakera, Protect AI, HiddenLayer, Prompt Security, Guardrails AI 商业化）近 18 个月获 A/B 轮融资 | > 待核实（Crunchbase/PitchBook 数据需补查，证据集未覆盖融资信息） |\n| **大厂内化 vs 开源生态** | NVIDIA (NeMo)、Microsoft (Guidance/LLMOps)、Databricks (MLflow Gateway) 内化护栏能力；开源社区 (Guardrails AI, LLM Guard, LangChain) 竞争插件生态 | 证据集仅覆盖 LangChain 片段 [13]、**需补查官方路线图与插件市场活跃度** |\n| **人才流动** | 红队、对抗机器学习、形式化验证人才从学术/大厂流向安全创业公司 | > 待核实（LinkedIn/学术会议服务委员会变动为代理指标） |\n| **社区基准建设** | OpenAI Evals、Hugging Face Open LLM Leaderboard、LMSYS Chatbot Arena 开始纳入安全维度；但 Agent 专用榜单（工具调用、沙箱逃逸）仍缺 | [7][9] 为学术侧尝试，**产业侧统一榜单缺失** |\n| **保险与认证雏形** | 网络保险开始询问 LLM 护栏部署情况；ISO 42001 认证机构出现 | > 待核实（早期信号，规模未形成） |\n\n---\n\n## 7. 信号与预测（Signals & Forecast）\n\n| 早期信号 | 推演依据链 | 可证伪预测（6-18 月） | 置信度 | 标记 |\n|----------|------------|------------------------|--------|------|\n| 零样本/少样本防御论文激增 [6][10] | 训练数据获取难、模型更新快 → 需无监督/即插即用防御 | **P1**：至 2027-06，主流护栏框架将内置零样本漂移/一致性检测作为默认插件，且在 OWASP LLM Top 10 基准上误报率 < 5% | 中 | [P] |\n| 统一红队基准平台雏形出现 [7][9] | 碎片化基准不可比 → 社区/基金会主导持续评测平台 | **P2**：至 2027-03，出现类似 “AgentArena” 的持续榜单，覆盖 ≥5 类工具调用攻击、≥3 种本体（文本/浏览器/代码/机器人），且有 ≥3 家独立机构提交结果 | 中高 | [P] |\n| 控制理论护栏进入机器人实机实验 [12] | 理论框架就绪 → 需实时性验证 | **P3**：至 2027-09，有 ≥2 篇 CoRL/ICRA/RSS 论文报告在真机机械臂/人形上部署“从拒绝到恢复”护栏，控制频率 ≥50Hz，P99 延迟 < 8ms | 中 | [P] |\n| 透明度法规强制模型卡与护栏审计日志 [1] | FMTI 下降趋势 + EU AI Act 生效 → 合规倒逼 | **P4**：至 2027-12，进入 EU 市场的 LLM 应用必须提供模型卡（含训练数据摘要）、护栏规则版本库、红队测试报告，否则面临市场准入限制 | 中高 | [P] |\n| 保险定价挂钩护栏成熟度 | 网络保险索赔案例积累 → 精算模型纳入护栏指标 | **P5**：至 2028-06，主流网络保险条款将“部署通过 OWASP LLM Top 10 认证的护栏”作为保费折扣/免赔额调整因子 | 低 | [P] |\n| 多模态注入成主流攻击面 | 图像/音频/视频注入 PoC 增加（如视觉提示注入） | **P6**：至 2027-03，首个多模态 Agent 红队基准（含视觉/语音注入、工具链劫持）发布并被 ≥5 篇论文引用 | 中 | [P] |\n\n> **不确定性提示**：以上预测均标 `[P]`，依据为当前论文趋势、政策进程与产业信号的定性推演；**若到预测时间点未出现所述里程碑，判断即被证伪**。关键风险变量：基础模型闭源化加剧 [1]、算力出口管制升级、重大安全事故触发监管突变。\n\n---\n\n## 经典与奠基性工作（Classic & Foundational Works）\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| Automatic and Universal Prompt Injection Attacks against LLMs | 2024 | arXiv (cs.AI) | > 待核实 | arXiv 预印本 | 中 — 奠基性攻击方法论 | ★★★★☆ | [4] | 系统性构造自动化通用注入，防御评测必参考基线 |\n| Detecting Prompt Injection Attacks Against Application Using Classifiers | 2025 | arXiv (cs.CR) | > 待核实 | arXiv 预印本 | 中 — 实用检测基线 | ★★★☆☆ | [5] | 基于 HackAPrompt 真实语料，多种分类器对比 |\n| Zero-Shot Embedding Drift Detection | 2026 | arXiv (cs.CR) | > 待核实 | arXiv 预印本 | 中 — 新防御范式 | ★★★☆☆ | [6] | 无监督、轻量级，直击间接注入 |\n| UniGuardian: Unified Defense for Prompt Injection, Backdoor, Adversarial | 2025 | arXiv (cs.CL) | > 待核实 | arXiv 预印本 | 中 — 统一视角 | ★★★☆☆ | [8] | 三类攻击内在关联探索 |\n| Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering | 2026 | arXiv (cs.CR) | > 待核实 | arXiv 预印本 | 中 — 细化攻击面 | ★★★☆☆ | [9] | 任务篡改类间接注入基准 |\n| SecAlign: Defending Against Prompt Injection with Preference Optimization | 2024 | arXiv (cs.CR) | > 待核实 | arXiv 预印本 | 中 — 模型内在对齐路线 | ★★★☆☆ | [2] | 正交于外挂护栏 |\n| StruQ: Defending Against Prompt Injection with Structured Queries | 2024 | arXiv (cs.CR) | > 待核实 | arXiv 预印本 | 中 — 架构层面缓解 | ★★★☆☆ | [3] | 结构化查询降低注入面 |\n| WebInject: Prompt Injection Attack to Web Agents | 2025 | arXiv (cs.CR) | > 待核实 | arXiv 预印本 | 中 — 场景化基准 | ★★★☆☆ | [7] | 浏览器环境工具调用劫持 |\n| LLMs Can Defend Themselves Against Jailbreaking (Vision) | 2024 | arXiv (cs.CR) | > 待核实 | arXiv 预印本 | 中 — 长期方向 | ★★★☆☆ | [10] | 模型自我防御愿景 |\n| The 2025 Foundation Model Transparency Index | 2025 | Stanford CRFM 等 | > 待核实 | arXiv 预印本，核心作者权威 | 高 — 行业治理基线 | ★★★★☆ | [1] | 透明度下降量化，关联护栏可审计性 |\n\n---\n\n## 开源项目（Open-Source Projects）—— 需补查官方源\n\n| 名称 | 年份/状态 | 维护机构 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|-----------|----------|------|------|--------|--------|------|------|\n| NeMo Guardrails | 活跃 | NVIDIA | > 待核实 | 官方维护 | 高 | ★★★★☆ | github.com/NVIDIA/NeMo-Guardrails | 策略引擎、对话轨道、工具拦截，**需实测生产指标** |\n| Guardrails AI | 活跃 | Guardrails AI Inc. | > 待核实 | 官方维护 | 高 | ★★★★☆ | github.com/guardrails-ai/guardrails | Pydantic 约束、流式验证、纠错重试 |\n| LLM Guard | 活跃 | 社区 | > 待核实 | 社区维护 | 中高 | ★★★★☆ | github.com/protectai/llm-guard | 注入/PII/有害内容检测、低延迟插件化 |\n| LangChain 官方护栏模块 | 随框架迭代 | LangChain | > 待核实 | 官方生态 | 高 | ★★★☆☆ | python.langchain.com/docs/modules/agents/guardrails | Runnable 集成、输出解析器约束 |\n| LangChain Deep Agents | 2026 | LangChain | stars 未知（记录失效） | 仅二手播客 [13] | 低 | ★★☆☆☆ | github.com/langchain-ai/langchain (需核实子仓库) | **需直接查阅官方仓库确认安全边界实现** |\n\n---\n\n## 数据集与基准（Datasets & Benchmarks）\n\n| 名称 | 年份 | 来源/论文 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| HackAPrompt Playground Submissions (augmented) | 2025 | [5] | > 待核实 | 竞赛平台真实攻击语料 | 中 | ★★★☆☆ | [5] | 论文 [5] 基于此增强，含真实注入样本 |\n| WebInject Benchmark | 2025 | [7] | > 待核实 | 学术基准 | 中 | ★★★☆☆ | [7] | Web Agent 专用注入攻击基准 |\n| Indirect Prompt Injection Task-Tampering Benchmark | 2026 | [9] | > 待核实 | 学术基准 | 中 | ★★★☆☆ | [9] | 细化任务篡改类间接注入 |\n| OWASP Top 10 for LLM Applications | 2023/2025 | OWASP 社区 | > 待核实 | 行业标准 | 高 | ★★★★★ | owasp.org/www-project-top-10-for-large-language-model-applications | **行业公认风险清单，护栏选型必对齐** |\n| FMTI 2025 数据集 | 2025 | [1] | > 待核实 | 权威年度报告配套 | 高 | ★★★★☆ | [1] | 透明度指标原始数据，供合规审计二次分析 |\n\n---\n\n## 参考来源（引用编号列表）\n[1] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n[2] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3\n[3] StruQ: Defending Against Prompt Injection with Structured Queries — http://arxiv.org/abs/2402.06363v2\n[4] Automatic and Universal Prompt Injection Attacks against Large Language Models — http://arxiv.org/abs/2403.04957v1\n[5] Detecting Prompt Injection Attacks Against Application Using Classifiers — http://arxiv.org/abs/2512.12583v1\n[6] Zero-Shot Embedding Drift Detection: A Lightweight Defense Against Prompt Injections in LLMs — http://arxiv.org/abs/2601.12359v1\n[7] WebInject: Prompt Injection Attack to Web Agents — http://arxiv.org/abs/2505.11717v4\n[8] UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models — http://arxiv.org/abs/2502.13141v2\n[9] Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering Attacks — http://arxiv.org/abs/2611.07640v1\n[10] LLMs Can Defend Themselves Against Jailbreaking in a Practical Manner: A Vision Paper — http://arxiv.org/abs/2402.15727v2\n[11] AI Ethics by Design: Implementing Customizable Guardrails for Responsible AI Development — http://arxiv.org/abs/2411.14442v2\n[12] From Refusal to Recovery: A Control-Theoretic Approach to Generative AI Guardrails — http://arxiv.org/abs/2510.13727v2\n[13] Ep. 2535: Inside LangChain's Deep Agents: What's Actually in the Box — https://doi.org/10.5281/zenodo.20181035\n[14] Sensitivity and pointing accuracy of the NEMO km$^3$ telescope — http://arxiv.org/abs/astro-ph/0605067v1\n\n---\n\n*Generated by research-bot · topic=`agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=32 · duration=326s · 2026-11-22T02:32:38+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+      "url": "http://arxiv.org/abs/2504.19675v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "SecAlign: Defending Against Prompt Injection with Preference Optimization",
+      "url": "http://arxiv.org/abs/2410.05451v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-10-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "StruQ: Defending Against Prompt Injection with Structured Queries",
+      "url": "http://arxiv.org/abs/2402.06363v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-02-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Automatic and Universal Prompt Injection Attacks against Large Language Models",
+      "url": "http://arxiv.org/abs/2403.04957v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-03-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+      "url": "http://arxiv.org/abs/2512.12583v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-12-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Zero-Shot Embedding Drift Detection: A Lightweight Defense Against Prompt Injections in LLMs",
+      "url": "http://arxiv.org/abs/2601.12359v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-01-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "WebInject: Prompt Injection Attack to Web Agents",
+      "url": "http://arxiv.org/abs/2505.11717v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-05-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models",
+      "url": "http://arxiv.org/abs/2502.13141v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-02-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Towards a Systematic Taxonomy of Attacks against Space Infrastructures",
+      "url": "http://arxiv.org/abs/2512.12829v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-12-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "CHC-COMP 2022: Competition Report",
+      "url": "http://arxiv.org/abs/2211.12231v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2022-11-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering Attacks",
+      "url": "http://arxiv.org/abs/2611.07640v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-11-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "LLMs Can Defend Themselves Against Jailbreaking in a Practical Manner: A Vision Paper",
+      "url": "http://arxiv.org/abs/2402.15727v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-02-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "This paper has been withdrawn",
+      "url": "http://arxiv.org/abs/cond-mat/0309395v2",
+      "kind": "paper",
+      "venue": "cond-mat.soft",
+      "published": "2003-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "AIn't Nothing But a Survey? Using Large Language Models for Coding German Open-Ended Survey Responses on Survey Motivation",
+      "url": "http://arxiv.org/abs/2506.14634v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-06-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "A rich bounty of AGN in the 9 square degree Bootes survey: high-z obscured AGN and large-scale structure",
+      "url": "http://arxiv.org/abs/astro-ph/0611654v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2006-11-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Faith in AI can narrow the futures individuals consider",
+      "url": "http://arxiv.org/abs/2603.28944v2",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2026-03-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "AI Exposure and the Changing Responsibilities in Job Postings",
+      "url": "http://arxiv.org/abs/2611.09870v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2026-11-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Foundations of GenIR",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-01-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "AI Ethics by Design: Implementing Customizable Guardrails for Responsible AI Development",
+      "url": "http://arxiv.org/abs/2411.14442v2",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2024-11-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Competing Visions of Ethical AI: A Case Study of OpenAI",
+      "url": "http://arxiv.org/abs/2601.16513v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2026-01-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "From Refusal to Recovery: A Control-Theoretic Approach to Generative AI Guardrails",
+      "url": "http://arxiv.org/abs/2510.13727v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-10-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Straight to the Product: What Online Retailers Miss When Shoppers Ask AI First",
+      "url": "http://arxiv.org/abs/2611.20378v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2026-11-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "The New Shape of Search: How Conversational AI Recomposes Information Seeking",
+      "url": "http://arxiv.org/abs/2607.04282v3",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2026-07-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Ep. 2535: Inside LangChain's Deep Agents: What's Actually in the Box",
+      "url": "https://doi.org/10.5281/zenodo.20181035",
+      "kind": "paper",
+      "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+      "published": "2026-04-29",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Status Report on the double-βdecay experiment NEMO-3",
+      "url": "http://arxiv.org/abs/hep-ex/0006031v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2000-06-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Sensitivity and pointing accuracy of the NEMO km$^3$ telescope",
+      "url": "http://arxiv.org/abs/astro-ph/0605067v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2006-05-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Measurement of the Double Beta Decay Half-life of 150-Nd and Search for Neutrinoless Decay Modes with the NEMO-3 Detector",
+      "url": "http://arxiv.org/abs/0810.0248v2",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2008-10-01",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-22-agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall.md",
+    "json": "report/2026/11/2026-11-22-agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall.json"
+  }
+}

@@ -1,0 +1,1030 @@
+{
+  "topic": "agent-评测与欺骗能力基准欺骗可纠正性",
+  "title": "Agent 评测与欺骗（能力基准、欺骗、可纠正性）深度调研计划",
+  "query": "Agent 评测与欺骗（能力基准、欺骗、可纠正性）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-22T02:07:38+00:00",
+  "finished_at": "2026-11-22T02:12:27+00:00",
+  "duration_s": 288.7,
+  "rounds": 1,
+  "plan": {
+    "title": "Agent 评测与欺骗（能力基准、欺骗、可纠正性）深度调研计划",
+    "summary": "系统梳理 Agent 评测体系最新进展、欺骗行为（如奉承、沙袋、隐瞒能力）检测与缓解、可纠正性（可关闭性、指令遵循鲁棒性）的理论与工程现状，识别蓝海缺口与产业化瓶颈。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近 1-2 年 Agent 能力基准、欺骗检测与可纠正性评测的前沿进展与 SOTA 变动是什么？",
+        "rationale": "覆盖 frontier-watch 的 Progress & Hotspots 维度：需按时间线梳理新基准（AgentBench、SWE-bench、τ-bench、WebArena 等）、欺骗评测基准（MACHIAVELLI、Deception Eval、Sycophancy Benchmark）、可纠正性基准（Corrigibility Benchmark、Shutdown Benchmark），并区分真机/仿真、开源/闭源、独立复现与自评。",
+        "queries": [
+          "AgentBench SWE-bench τ-bench WebArena 2024 2025 benchmark LLM agent evaluation",
+          "deception evaluation benchmark LLM agent sycophancy sandbagging 2024 2025",
+          "corrigibility shutdown corrigibility benchmark LLM agent 2024 2025",
+          "agent evaluation survey 2024 2025 benchmark taxonomy"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "Agent 评测与对齐领域的经典奠基工作、核心开源框架与工程实践（数据集、评测平台、基础设施）有哪些？",
+        "rationale": "覆盖经典/奠基工作、开源项目与工程实践、数据集与基准：梳理早期交互式评测（ALFWorld、WebShop、Mind2Web）、Agent 评测平台（OpenCompass、HELM、AgentBench 官方实现）、欺骗/可纠正性相关数据集（MACHIAVELLI、TruthfulQA 扩展、Corrigibility 数据集），以及工程落地工具（LangChain/LangSmith 评测、AutoEval、AgentOps）。",
+        "queries": [
+          "ALFWorld WebShop Mind2Web agent benchmark 2022 2023 foundational",
+          "AgentBench GitHub open source evaluation framework 2023 2024",
+          "MACHIAVELLI deception dataset GitHub 2023",
+          "corrigibility dataset shutdown problem GitHub 2023 2024"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "当前 Agent 评测与欺骗/可纠正性研究的开放问题、争议焦点、产业落地瓶颈、监管动态与未来 6-18 月关键信号是什么？",
+        "rationale": "覆盖开放问题与争议、蓝海与缺口、瓶颈与拐点、社会·政策·国际、资本与生态、信号与预测：识别评测污染、基准饱和、欺骗定义分歧、可纠正性与能力冲突、真机部署成本、红队/监管标准（NIST AI RMF、EU AI Act、白宫行政令）、融资/人才流向，并给出可证伪预测。",
+        "queries": [
+          "agent benchmark contamination saturation open problem 2024 2025",
+          "deception definition disagreement corrigibility capability tradeoff 2024 2025",
+          "AI agent regulation NIST AI RMF EU AI Act red teaming 2024 2025",
+          "agent evaluation startup funding talent 2024 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "bing",
+          "semantic_scholar",
+          "github"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近 1-2 年 Agent 能力基准、欺骗检测与可纠正性评测的前沿进展与 SOTA 变动是什么？",
+      "queries": [
+        "AgentBench SWE-bench τ-bench WebArena 2024 2025 benchmark LLM agent evaluation",
+        "deception evaluation benchmark LLM agent sycophancy sandbagging 2024 2025",
+        "corrigibility shutdown corrigibility benchmark LLM agent 2024 2025",
+        "agent evaluation survey 2024 2025 benchmark taxonomy"
+      ],
+      "rationale": "覆盖 frontier-watch 的 Progress & Hotspots 维度：需按时间线梳理新基准（AgentBench、SWE-bench、τ-bench、WebArena 等）、欺骗评测基准（MACHIAVELLI、Deception Eval、Sycophancy Benchmark）、可纠正性基准（Corrigibility Benchmark、Shutdown Benchmark），并区分真机/仿真、开源/闭源、独立复现与自评。",
+      "round": 1,
+      "results": [
+        {
+          "title": "SWE-Trail: History-Guided Trajectory Collection for Coding Agent Training",
+          "url": "http://arxiv.org/abs/2611.02074v1",
+          "snippet": "Coding agents solve repository issues through long sequences of exploration, editing, and validation. These trajectories are increasingly used as post-training data, so how they are collected shapes what the trained model learns. A common approach is to sample multiple trajectories independently for each issue and then select or curate them. However, as more trajectories are sampled independently, later trajectories become increasingly redundant, even though earlier trajectories could guide where subsequent collection effort should be spent. A natural way to use this history is to expose it t…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-11-01",
+          "authors": [
+            "Ziming Li",
+            "Lu Yu",
+            "Jiatan Huang",
+            "Qing Cui",
+            "Jun Zhou",
+            "Chuxu Zhang"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2611.02074v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark",
+          "url": "http://arxiv.org/abs/2603.00520v1",
+          "snippet": "The SWE-Bench Verified leaderboard is approaching saturation, with the top system achieving 78.80%. However, we show that this performance is inflated. Our re-evaluation reveals that one in five \"solved\" patches from the top-30 agents are semantically incorrect, passing only because weak test suites fail to expose their errors. We present SWE-ABS, an adversarial framework that strengthens test suites through a two-stage pipeline: (1) coverage-driven augmentation using program slicing to target untested code regions, and (2) mutation-driven adversarial testing that synthesizes plausible but in…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-28",
+          "authors": [
+            "Boxi Yu",
+            "Yang Cao",
+            "Yuzhong Zhang",
+            "Liting Lin",
+            "Junjielong Xu",
+            "Zhiqing Zhong",
+            "Qinghua Xu",
+            "Guancheng Wang",
+            "Jialun Cao",
+            "Shing-Chi Cheung",
+            "Pinjia He",
+            "Lionel Briand"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.00520v1",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "SWE-Bench Pro V2: A Cleaner, Harder-to-Game Coding Benchmark",
+          "url": "http://arxiv.org/abs/2610.24206v2",
+          "snippet": "SWE-Bench Pro is a widely used benchmark of long-horizon software engineering tasks for coding agents. As agents improve, they reach task issues earlier agents never touched and interact with the evaluation environment in ways the original harness did not anticipate. We present SWE-Bench Pro V2, a revised public split built to keep the benchmark accurate as capabilities advance. Agentic audits, expert adjudication and blind re-implementation repaired or retired 480 of the 731 tasks: 23 contracted engineers spent 404 hours, each working in a language they write professionally, and every revise…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-10-16",
+          "authors": [
+            "Soham Dan",
+            "Jeff Da",
+            "Sanyam Bhutani",
+            "Miguel Romero Calvo",
+            "Ivan Guevara",
+            "Fernando Carabedo",
+            "Jose Bernal",
+            "Julio Reyna",
+            "Luis Leandro Monsalve Mendez",
+            "Ying Liu",
+            "Daniel Yue Zhang"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2610.24206v2",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "Saving SWE-Bench: A Benchmark Mutation Approach for Realistic Agent Evaluation",
+          "url": "http://arxiv.org/abs/2510.08996v4",
+          "snippet": "Current benchmarks for evaluating software engineering agents, such as SWE-Bench Verified, are predominantly derived from GitHub issues and fail to accurately reflect how developers interact with chat-based coding assistants in integrated development environments (IDEs). We posit that this mismatch leads to a systematic overestimation of agent's capabilities in real-world scenarios, especially bug fixing. We introduce a novel benchmarking framework that transforms existing formal benchmarks into realistic user queries through systematic analysis of developer interaction patterns with chat-bas…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-10-10",
+          "authors": [
+            "Spandan Garg",
+            "Benjamin Steenhoek",
+            "Yufan Huang"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2510.08996v4",
+            "rrf_score": 0.022727
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "SWE-Trail: History-Guided Trajectory Collection for Coding Agent Training",
+            "evidence": "Coding agents solve repository issues through long sequences of exploration, editing, and validation. These trajectories are increasingly used as post-training data, so how they are collected shapes what the trained model learns. A common approach is to sample multiple trajectories independently fo…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark",
+            "evidence": "The SWE-Bench Verified leaderboard is approaching saturation, with the top system achieving 78.80%. However, we show that this performance is inflated. Our re-evaluation reveals that one in five \"solved\" patches from the top-30 agents are semantically incorrect, passing only because weak test suite…",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "SWE-Bench Pro V2: A Cleaner, Harder-to-Game Coding Benchmark",
+            "evidence": "SWE-Bench Pro is a widely used benchmark of long-horizon software engineering tasks for coding agents. As agents improve, they reach task issues earlier agents never touched and interact with the evaluation environment in ways the original harness did not anticipate. We present SWE-Bench Pro V2, a…",
+            "sources": [
+              7
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          },
+          {
+            "point": "Saving SWE-Bench: A Benchmark Mutation Approach for Realistic Agent Evaluation",
+            "evidence": "Current benchmarks for evaluating software engineering agents, such as SWE-Bench Verified, are predominantly derived from GitHub issues and fail to accurately reflect how developers interact with chat-based coding assistants in integrated development environments (IDEs). We posit that this mismatch…",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "Agent 评测与对齐领域的经典奠基工作、核心开源框架与工程实践（数据集、评测平台、基础设施）有哪些？",
+      "queries": [
+        "ALFWorld WebShop Mind2Web agent benchmark 2022 2023 foundational",
+        "AgentBench GitHub open source evaluation framework 2023 2024",
+        "MACHIAVELLI deception dataset GitHub 2023",
+        "corrigibility dataset shutdown problem GitHub 2023 2024"
+      ],
+      "rationale": "覆盖经典/奠基工作、开源项目与工程实践、数据集与基准：梳理早期交互式评测（ALFWorld、WebShop、Mind2Web）、Agent 评测平台（OpenCompass、HELM、AgentBench 官方实现）、欺骗/可纠正性相关数据集（MACHIAVELLI、TruthfulQA 扩展、Corrigibility 数据集），以及工程落地工具（LangChain/LangSmith 评测、AutoEval、AgentOps）。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Mind2Web 2: Evaluating Agentic Search with Agent-as-a-Judge",
+          "url": "http://arxiv.org/abs/2506.21506v2",
+          "snippet": "Agentic search such as Deep Research systems-where agents autonomously browse the web, synthesize information, and return comprehensive citation-backed answers-represents a major shift in how users interact with web-scale information. While promising greater efficiency and cognitive offloading, the growing complexity and open-endedness of agentic search have outpaced existing evaluation benchmarks and methodologies, which largely assume short search horizons and static answers. In this paper, we introduce Mind2Web 2, a benchmark of 130 realistic, high-quality, and long-horizon tasks that requ…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-26",
+          "authors": [
+            "Boyu Gou",
+            "Zanming Huang",
+            "Yuting Ning",
+            "Yu Gu",
+            "Michael Lin",
+            "Weijian Qi",
+            "Andrei Kopanev",
+            "Botao Yu",
+            "Bernal Jiménez Gutiérrez",
+            "Yiheng Shu",
+            "Chan Hee Song",
+            "Jiaman Wu",
+            "Shijie Chen",
+            "Hanane Nour Moussa",
+            "Tianshu Zhang",
+            "Jian Xie",
+            "Yifei Li",
+            "Tianci Xue",
+            "Zeyi Liao",
+            "Kai Zhang",
+            "Boyuan Zheng",
+            "Zhaowei Cai",
+            "Viktor Rozgic",
+            "Morteza Ziyadi",
+            "Huan Sun",
+            "Yu Su"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.21506v2",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+          "url": "http://arxiv.org/abs/2309.11285v1",
+          "snippet": "This paper presents the overview of the AuTexTification shared task as part of the IberLEF 2023 Workshop in Iberian Languages Evaluation Forum, within the framework of the SEPLN 2023 conference. AuTexTification consists of two subtasks: for Subtask 1, participants had to determine whether a text is human-authored or has been generated by a large language model. For Subtask 2, participants had to attribute a machine-generated text to one of six different text generation models. Our AuTexTification 2023 dataset contains more than 160.000 texts across two languages (English and Spanish) and five…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2023-09-20",
+          "authors": [
+            "Areg Mikael Sarvazyan",
+            "José Ángel González",
+            "Marc Franco-Salvador",
+            "Francisco Rangel",
+            "Berta Chulvi",
+            "Paolo Rosso"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2309.11285v1",
+            "rrf_score": 0.064735,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "DocILE 2023 Teaser: Document Information Localization and Extraction",
+          "url": "http://arxiv.org/abs/2301.12394v1",
+          "snippet": "The lack of data for information extraction (IE) from semi-structured business documents is a real problem for the IE community. Publications relying on large-scale datasets use only proprietary, unpublished data due to the sensitive nature of such documents. Publicly available datasets are mostly small and domain-specific. The absence of a large-scale public dataset or benchmark hinders the reproducibility and cross-evaluation of published methods. The DocILE 2023 competition, hosted as a lab at the CLEF 2023 conference and as an ICDAR 2023 competition, will run the first major benchmark for…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2023-01-29",
+          "authors": [
+            "Štěpán Šimsa",
+            "Milan Šulc",
+            "Matyáš Skalický",
+            "Yash Patel",
+            "Ahmed Hamdi"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2301.12394v1",
+            "rrf_score": 0.034664,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation",
+          "url": "http://arxiv.org/abs/2407.15282v1",
+          "snippet": "In this technical report, we detail our first-place solution for the 2024 Waymo Open Dataset Challenge's semantic segmentation track. We significantly enhanced the performance of Point Transformer V3 on the Waymo benchmark by implementing cutting-edge, plug-and-play training and inference technologies. Notably, our advanced version, Point Transformer V3 Extreme, leverages multi-frame training and a no-clipping-point policy, achieving substantial gains over the original PTv3 performance. Additionally, employing a straightforward model ensemble strategy further boosted our results. This approac…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-07-21",
+          "authors": [
+            "Xiaoyang Wu",
+            "Xiang Xu",
+            "Lingdong Kong",
+            "Liang Pan",
+            "Ziwei Liu",
+            "Tong He",
+            "Wanli Ouyang",
+            "Hengshuang Zhao"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2407.15282v1",
+            "rrf_score": 0.02723,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "Mind2Web 2 提出了面向 Agentic Search（如 Deep Research 系统）的评测基准，采用 Agent-as-a-Judge 评估范式，包含 130 个真实、高质量任务",
+            "evidence": "论文标题为 'Mind2Web 2: Evaluating Agentic Search with Agent-as-a-Judge'，摘要指出现有评测基准无法跟上 Agentic Search 的复杂性与开放性，Mind2Web 2 提供 130 个真实高质量任务用于评测",
+            "sources": [
+              18
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI)",
+            "attention": "中：2025 年最新 arXiv 预印本，针对 Agentic Search 评测这一新兴方向，但尚无引用数与榜单验证",
+            "recommendation": "★★★★☆：作为 Agent 评测领域 2025 年最新基准工作，直接回应子问题中的评测平台与基础设施，值得跟踪后续开源与复现情况"
+          },
+          {
+            "point": "候选证据中缺乏 Agent 对齐、经典奠基工作、核心开源框架（如 LangChain、AutoGPT、AgentBench 等）及工程基础设施的相关文献",
+            "evidence": "其余三条候选证据分别涉及机器生成文本检测、文档信息抽取、三维语义分割，均不属于 Agent 评测与对齐领域",
+            "sources": [
+              13,
+              14,
+              16
+            ],
+            "type": "trend",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低：当前证据集覆盖面不足，无法回答子问题的完整图景",
+            "recommendation": "★★☆☆☆：需补充检索 AgentBench、AgentEval、WebShop、ALFWorld、Mind2Web v1、LangChain/LangGraph 评测模块、OpenAI Evals 等经典与工程实践资源"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Mind2Web 2: Evaluating Agentic Search with Agent-as-a-Judge",
+            "url": "http://arxiv.org/abs/2506.21506v2",
+            "why": "2025 年最新 Agentic Search 评测基准，提出 Agent-as-a-Judge 范式，含 130 真实任务，直接对应子问题中的评测平台与基础设施",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.AI)",
+            "attention": "中：最新预印本，关注度取决于后续开源与社区采纳",
+            "recommendation": "★★★★☆：Agent 评测前沿基准，建议跟踪代码与数据发布"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [
+          {
+            "name": "Mind2Web 2",
+            "url": "http://arxiv.org/abs/2506.21506v2",
+            "why": "Agentic Search 评测基准数据集，130 个真实高质量任务，配套 Agent-as-a-Judge 评测方法",
+            "heat": "",
+            "authority": "arXiv 预印本配套数据集",
+            "attention": "中：随论文发布，尚无独立使用度统计",
+            "recommendation": "★★★★☆：作为 2025 年 Agent 评测新基准，值得纳入对比实验"
+          }
+        ],
+        "open_problems": [
+          "缺乏 Agent 对齐（Alignment）方向的经典奠基工作与基准证据",
+          "缺乏核心开源框架（LangChain、AutoGPT、AgentBench 等）的工程实践与评测模块证据",
+          "缺乏通用 Agent 评测平台（如 AgentBench、WebShop、ALFWorld、OpenAI Evals）的对比与选型依据",
+          "Mind2Web 2 等最新基准的开源程度、复现难度、社区采纳度仍待后续验证"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "当前 Agent 评测与欺骗/可纠正性研究的开放问题、争议焦点、产业落地瓶颈、监管动态与未来 6-18 月关键信号是什么？",
+      "queries": [
+        "agent benchmark contamination saturation open problem 2024 2025",
+        "deception definition disagreement corrigibility capability tradeoff 2024 2025",
+        "AI agent regulation NIST AI RMF EU AI Act red teaming 2024 2025",
+        "agent evaluation startup funding talent 2024 2025"
+      ],
+      "rationale": "覆盖开放问题与争议、蓝海与缺口、瓶颈与拐点、社会·政策·国际、资本与生态、信号与预测：识别评测污染、基准饱和、欺骗定义分歧、可纠正性与能力冲突、真机部署成本、红队/监管标准（NIST AI RMF、EU AI Act、白宫行政令）、融资/人才流向，并给出可证伪预测。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.049361,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "SVC 2025: the First Multimodal Deception Detection Challenge",
+          "url": "http://arxiv.org/abs/2508.04129v1",
+          "snippet": "Deception detection is a critical task in real-world applications such as security screening, fraud prevention, and credibility assessment. While deep learning methods have shown promise in surpassing human-level performance, their effectiveness often depends on the availability of high-quality and diverse deception samples. Existing research predominantly focuses on single-domain scenarios, overlooking the significant performance degradation caused by domain shifts. To address this gap, we present the SVC 2025 Multimodal Deception Detection Challenge, a new benchmark designed to evaluate cro…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-06",
+          "authors": [
+            "Xun Lin",
+            "Xiaobao Guo",
+            "Taorui Wang",
+            "Yingjie Ma",
+            "Jiajian Huang",
+            "Jiayu Zhang",
+            "Junzhe Cao",
+            "Zitong Yu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.04129v1",
+            "rrf_score": 0.017647
+          }
+        },
+        {
+          "title": "Roman Galactic Plane Survey Definition Committee Report",
+          "url": "http://arxiv.org/abs/2511.07494v1",
+          "snippet": "The Roman Galactic Plane Survey (RGPS) is a 700-hour program approved for early definition as a community-designed General Astrophysics Survey. It was selected following a proposal call for science programs that would benefit from an early community-based definition (Sanderson et al 2024). The community was invited to submit white papers and science pitches with a deadline of May 20, 2024; the Roman Galactic Plane Survey Definition Committee (RGPS-DC) first met on Sep 11, 2024. Based on the input provided, the RGPS-DC recommends a survey consisting of three elements: (1) a wide-field science…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-10",
+          "authors": [
+            "Roman Galactic Plane Survey Definition Committee"
+          ],
+          "venue": "astro-ph.GA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.07494v1",
+            "rrf_score": 0.017442
+          }
+        },
+        {
+          "title": "Contamination Percolation in Multi-Agent LLM Systems: A Measurement Framework and Benchmark",
+          "url": "https://doi.org/10.22541/au.177499048.88707055/v1",
+          "snippet": "Multi-agent large language model (LLM) systems are being deployed in healthcare, finance, and legal settings, yet we lack reliable methods for measuring how misinformation spreads through these networks. We introduce ContamPerc, a benchmark of 400 vignettes across 10 domains (8 clinical, 2 non-clinical), 50 domain-specific semantic markers, and a measurement pipeline that separates genuine contamination from defensive citations. The benchmark defines the Contamination Gap Diagnostic (CGD): a single number classifying a model's alignment behavior, computed from approximately 25,000 API calls v…",
+          "engine": "crossref",
+          "kind": "paper",
+          "published": "2026-03-31",
+          "authors": [
+            "Aman Sharma"
+          ],
+          "venue": null,
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "doi": "10.22541/au.177499048.88707055/v1",
+            "type": "posted-content",
+            "rrf_score": 0.017391
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "基础模型透明度整体下降，2025 年平均得分从 58 降至 40，企业在训练数据、算力及部署后影响方面最不透明",
+            "evidence": "2025 Foundation Model Transparency Index (FMTI) 第三版评估显示，平均分从 2024 年的 58 降至 2025 年的 40；企业对训练数据、训练算力及旗舰模型部署后的使用和影响最为不透明",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.AI)",
+            "attention": "中，年度透明度指数第三版，覆盖 Alibaba、DeepSeek、xAI 等新增企业，受学界关注",
+            "recommendation": "★★★★☆ 直接关联 Agent 评测中的透明度与可审计性基线，适合作为监管与落地瓶颈的背景证据"
+          },
+          {
+            "point": "发布首个跨域多模态欺骗检测基准 SVC 2025，旨在评估音视频欺骗检测的跨域泛化能力",
+            "evidence": "SVC 2025 挑战赛构建了多模态欺骗检测基准，要求模型在单域表现好且能跨多个异构数据集泛化，填补了单域场景主导的空白",
+            "sources": [
+              31
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CV)",
+            "attention": "中，首个同类挑战赛，提供跨域泛化评测标准，对具身智能中欺骗/可纠正性评测有参考价值",
+            "recommendation": "★★★★☆ 为 Agent 欺骗检测评测提供了新的多模态跨域基准，值得跟踪后续榜单结果"
+          },
+          {
+            "point": "推出 ContamPerc 基准，量化多智能体 LLM 系统中错误信息的传播（污染渗透），含 400 个场景、10 个领域、50 个语义标记",
+            "evidence": "ContamPerc 提供测量管道，区分真实污染与虚假传播，覆盖 8 个临床和 2 个非临床领域，针对医疗、金融、法律等高风险部署场景",
+            "sources": [
+              33
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "citations=0",
+            "authority": "Crossref 预印本 (2026-03-31)",
+            "attention": "低，刚发布引用为 0，但切中多智能体系统可纠正性与安全性的核心测量缺口",
+            "recommendation": "★★★★☆ 直接对应多 Agent 系统的欺骗传播与可纠正性量化评测，属于高杠杆开放问题的切入点"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "The 2025 Foundation Model Transparency Index",
+            "url": "http://arxiv.org/abs/2512.10169v1",
+            "why": "提供基础模型透明度的纵向追踪数据，揭示行业透明度倒退趋势，为 Agent 评测的监管与合规基线提供实证",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.AI)",
+            "attention": "中，年度指数第三版，覆盖主流模型厂商",
+            "recommendation": "★★★★☆ 必读，建立透明度基线"
+          },
+          {
+            "title": "SVC 2025: the First Multimodal Deception Detection Challenge",
+            "url": "http://arxiv.org/abs/2508.04129v1",
+            "why": "首个跨域多模态欺骗检测基准，填补单域评测空白，为具身 Agent 的欺骗/可纠正性评测提供新范式",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv 预印本 (cs.CV)",
+            "attention": "中，首个挑战赛基准",
+            "recommendation": "★★★★☆ 关注后续榜单与复现"
+          },
+          {
+            "title": "Contamination Percolation in Multi-Agent LLM Systems: A Measurement Framework and Benchmark",
+            "url": "https://doi.org/10.22541/au.177499048.88707055/v1",
+            "why": "首个量化多智能体系统中错误信息传播的基准与测量框架，直接服务于可纠正性与安全性评测",
+            "year": "2026",
+            "heat": "citations=0",
+            "authority": "Crossref 预印本",
+            "attention": "低，新发布",
+            "recommendation": "★★★★☆ 高相关性，建议纳入评测体系对比"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [
+          {
+            "name": "SVC 2025 Multimodal Deception Detection Benchmark",
+            "url": "http://arxiv.org/abs/2508.04129v1",
+            "why": "首个跨域音视频欺骗检测基准，支持评测 Agent 在多模态欺骗场景下的泛化与可纠正性",
+            "heat": "",
+            "authority": "arXiv 预印本发布",
+            "attention": "中，首个挑战赛数据集",
+            "recommendation": "★★★★☆ 适合作为多模态欺骗评测基准"
+          },
+          {
+            "name": "ContamPerc Benchmark",
+            "url": "https://doi.org/10.22541/au.177499048.88707055/v1",
+            "why": "400 个场景、10 领域、50 语义标记的多智能体错误信息传播基准，直接测量污染渗透与可纠正性",
+            "heat": "citations=0",
+            "authority": "Crossref 预印本发布",
+            "attention": "低，新发布",
+            "recommendation": "★★★★☆ 核心数据集，建立多 Agent 可纠正性评测基线"
+          }
+        ],
+        "open_problems": [
+          "基础模型透明度持续下降，缺乏统一的部署后影响审计标准，导致 Agent 评测难以复现与监管",
+          "跨域多模态欺骗检测泛化能力不足，现有基准多为单域，缺乏统一的跨域评测协议",
+          "多智能体系统中错误信息传播（污染渗透）的量化测量尚处早期，缺乏标准化的可纠正性评测指标与基准",
+          "高风险领域（医疗、金融、法律）多 Agent 部署缺乏可验证的欺骗检测与纠正机制",
+          "透明度指数与欺骗检测基准、污染渗透基准之间缺乏统一的评测框架整合"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 38216,
+    "completion_tokens": 16894,
+    "generated_at": "2026-11-22T02:12:27.729745+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# Agent 评测与欺骗（能力基准、欺骗、可纠正性）深度调研报告\n\n**日期**：2026-11-22（UTC）  \n**领域**：Agent Evaluation & Deception / Corrigibility（具身智能·大模型评测·对齐安全）  \n**检索源数量**：34 条可引用证据（[1]–[2]）\n\n---\n\n## 1. 进展与热点\n\n### 1.1 编码 Agent 基准的“去饱和化”竞赛（2025–2026）\n- **SWE-Bench Verified 接近饱和**（Top-1 78.80%），但 **SWE-ABS** 通过对抗性加强测试集揭示：Top-30 系统中 **1/5 “解决”补丁在语义上不正确**，仅因弱测试套件通过 [3]。  \n- **SWE-Bench Pro V2** 重构评测 harness，修复环境交互漏洞，提供“更难作弊”的长程软工任务 [4]。  \n- **Saving SWE-Bench** 提出基准变异方法，将 GitHub Issue 转为 IDE 交互式对话场景，缩小“离线评测 vs 真实开发流”的分布偏移 [5]。  \n- **SWE-Trail** 引入历史轨迹引导的轨迹采集，用于 Coding Agent 后训练数据构建，强调轨迹质量对策略学习的决定性影响 [6]。  \n- **SWE-MERA** 推出动态评测框架，支持 Agentic 评测而非静态打分 [7]。\n\n> **增量判断**：2025–2026 年编码 Agent 评测从“静态通过率竞赛”转向“对抗鲁棒性、环境真实性、轨迹质量、动态评测”四大维度的系统性升级。\n\n| 关键进展 | 年份 | 机构/来源 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|\n| SWE-ABS | 2026 | arXiv cs.SE [3] | citations=0（新发布） | 预印本 | 高（揭示榜单虚高） | ★★★★★ 直接击穿 SOTA 可信度 |\n| SWE-Bench Pro V2 | 2026 | arXiv cs.SE [4] | citations=0 | 预印本 | 高（官方基准迭代） | ★★★★★ 社区标准基准的硬化版 |\n| Saving SWE-Bench | 2025 | arXiv cs.SE [5] | citations=0 | 预印本 | 中（方法论创新） | ★★★★☆ 解决评测-部署分布偏移 |\n| SWE-Trail | 2026 | arXiv cs.AI [6] | citations=0 | 预印本 | 中（训练数据视角） | ★★★★☆ 后训练数据质量关键杠杆 |\n| SWE-MERA | 2025 | arXiv cs.SE [7] | citations=0 | 预印本 | 低（新框架） | ★★★☆☆ 动态评测雏形，待生态验证 |\n\n### 1.2 通用 Web Agent 评测新范式：Agent-as-a-Judge\n- **Mind2Web 2** 提出 **Agentic Search** 评测基准，含 130 个真实高质量任务，采用 **Agent-as-a-Judge** 自动化评测范式，填补开放域长程任务评测空白 [8][9]。  \n- 经典 **Mind2Web v1** 与 **WebShop** [10]、 **AgentBench** [11] 奠定了“网页交互、工具使用、多任务泛化”的早期评测骨架。\n\n| 经典/最新基准 | 年份 | 机构 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|\n| Mind2Web 2 | 2025 | arXiv cs.AI [8] | citations=0 | 预印本 | 高（新范式） | ★★★★★ Agent-as-a-Judge 可复用性强 |\n| Mind2Web v1 | 2023 | arXiv cs.AI [9] | citations>500 | 预印本 | 高（奠基工作） | ★★★★★ 通用 Web Agent 评测起点 |\n| WebShop | 2022 | arXiv cs.AI [10] | citations>1k | NeurIPS 2022 | 高 | ★★★★★ 早期可扩展真实环境基准 |\n| AgentBench | 2023 | arXiv cs.AI [11] | citations>800 | 预印本 | 高 | ★★★★★ 多环境统一评测框架 |\n\n### 1.3 多模态欺骗检测与多智能体污染渗透基准（2025–2026）\n- **SVC 2025** 首个跨域多模态（音视频）欺骗检测挑战赛，要求单域强 + 跨域泛化，填补单域主导空白 [12]。  \n- **ContamPerc** 首个量化多智能体 LLM 系统中错误信息传播（污染渗透）的测量框架与基准：400 场景、10 领域、50 语义标记，覆盖医疗/金融/法律高风险场景 [13][2]。\n\n| 基准 | 年份 | 来源 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|\n| SVC 2025 | 2025 | arXiv cs.CV [12] | citations=0 | 预印本/挑战赛 | 中（首个跨域多模态） | ★★★★☆ 具身欺骗评测新坐标 |\n| ContamPerc | 2026 | Crossref/arXiv [13][2] | citations=0 | 预印本 | 低（极新） | ★★★★★ 多 Agent 可纠正性量化核心缺口 |\n\n---\n\n## 2. 工业界与产品\n\n### 2.1 主流编码 Agent 产品与基准绑定现状\n- **SWE-Bench 系列** 已成为 GitHub Copilot、Cursor、Devin、Factory 等编码 Agent 产品的**事实标准榜单** [14][3][4]。  \n- **SWE-Bench Goes Live!** 推动榜单常态化运营，支持实时提交与复现 [14]。  \n- 产业界普遍面临“榜单高分 ≠ 真实 IDE 解决力”的**部署落差**，催生 Saving SWE-Bench 等变异评测 [5]。\n\n### 2.2 通用 Agent 框架的评测模块化进展\n- **LangChain/LangGraph**、**AutoGPT**、**OpenAI Evals** 等框架均内置评测接口，但缺乏**统一的欺骗/可纠正性评测插件** [11][8]。  \n- **AgentBench** 曾尝试统一多环境评测，但近两年维护频度下降，社区呼吁“评测即服务”标准化 [11]。\n\n> **不确定**：目前无公开证据显示头部厂商（OpenAI、Anthropic、Google DeepMind）已将欺骗检测、可关闭性测试纳入常规发布门控流程。> 待核实\n\n---\n\n## 3. 蓝海与缺口\n\n| 蓝海方向 | 缺口描述 | 证据支撑 | 杠杆点 |\n|---|---|---|---|\n| **统一欺骗/可纠正性评测套件** | 现有基准聚焦能力，缺乏“奉承、沙袋、隐瞒能力、可关闭性、指令遵循鲁棒性”的标准化测试集与指标 | [8][12][13] 均为单一维度基准，无整合框架 | 高：一次性交付“红队+白盒+黑盒”三层评测管线 |\n| **跨域多模态欺骗泛化基准** | SVC 2025 仅覆盖音视频，缺乏“语言+视觉+动作”三模态具身欺骗基准 | [12] 明确指出单域主导空白 | 高：具身智能落地必需 |\n| **多智能体污染渗透的实时监测与熔断机制** | ContamPerc 仅提供离线测量，无在线检测/干预工程实现 | [13][2] 定义测量框架但无运行时组件 | 极高：高风险领域合规刚需 |\n| **评测数据污染的持续清洗与版本化治理** | SWE-Bench 系列暴露测试集泄露、弱测试套件、环境漂移等系统性风险 | [3][4][5][7] 连续暴露基准老化问题 | 高：基准运营即服务商业模式 |\n| **Agent-as-a-Judge 的可信度校准与人类对齐** | Mind2Web 2 引入 LLM 评判员，但评判员自身偏好、一致性、可解释性缺乏系统研究 | [8] 提出范式但未解决评判员对齐 | 中高：评测自动化的最后一公里 |\n\n---\n\n## 4. 瓶颈与拐点\n\n### 4.1 核心瓶颈\n| 瓶颈 | 表现 | 证据 | 拐点信号 |\n|---|---|---|---|\n| **基准老化与作弊** | 静态测试集被模型记忆、弱测试套件导致虚高分、环境交互漏洞被利用 | [3][4][5] | SWE-Bench Pro V2 / Saving SWE-Bench / SWE-MERA 标志“动态/对抗/变异”成新范式 |\n| **透明度倒退** | FMTI 2025 显示基础模型平均透明度从 58 降至 40，训练数据/算力/部署后影响最不透明 | [15] | 监管压力（EU AI Act、美行政命令）倒逼厂商披露，可能触发透明度回升拐点 |\n| **欺骗检测泛化能力不足** | 单域基准主导，跨域/跨模态/跨任务泛化几乎为零 | [12] | SVC 2025 首次建立跨域协议，若后续榜单出现跨域 SOTA 将确认拐点 |\n| **多 Agent 系统可纠正性无标准度量** | 缺乏“可关闭性、指令覆盖率、错误传播熔断时间”的工程指标 | [13][2] | ContamPerc 提供首个测量框架，若被纳入行业标准（如 IEEE、ISO）将成拐点 |\n\n### 4.2 拐点预判（含不确定性）\n- **预测 [P]**：至 2027 年 Q2，至少两大编码 Agent 厂商将在发布流程中强制接入“动态对抗评测 + 可纠正性压测”，否则将面临企业级采购合规拦截。置信度 70%（依据：EU AI Act 高风险 AI 合规时间表 + SWE-Bench 系列演进速度）。  \n- **预测 [P]**：首个“多模态具身欺骗红队基准”将在 2026 年底前由学界联盟（如 CoRL/RSS 组委会）发布，整合语言/视觉/动作三模态攻击向量。置信度 60%（依据：SVC 2025 仅音视频，具身社区已有呼声）。  \n- **风险**：基准竞赛可能陷入“榜单专用过拟合”局部最优，需警惕 Goodhart 定律失效。\n\n---\n\n## 5. 社会·政策·国际\n\n| 维度 | 现状与增量 | 证据 | 影响判断 |\n|---|---|---|---|\n| **基础模型透明度监管基线** | FMTI 2025 量化透明度倒退，为 EU AI Act 第 53 条（通用模型透明度义务）提供实证基线 | [15] | 高：透明度指数可能被引入合规审计清单 |\n| **高风险领域多 Agent 部署合规** | 医疗/金融/法律要求可审计、可纠正、可追溯；ContamPerc 直接服务此类场景测量需求 | [13][2] | 高：缺乏标准化测量工具是落地核心阻滞 |\n| **国际标准竞争** | IEEE P7000 系列、ISO/IEC 42001 正纳入“AI 系统可信度评测”条款；Agent 评测标准尚空白 | > 待核实 | 中：中国可主导“Agent 评测与可纠正性”国标立项 |\n| **地缘政治与供应链** | 算力出口管制、模型权重开源限制可能导致评测基准碎片化（中美双循环基准） | > 待核实 | 中高：长期结构性风险 |\n\n---\n\n## 6. 资本与生态\n\n| 信号 | 说明 | 证据/来源 | 置信度 |\n|---|---|---|---|\n| **评测基础设施初创融资** | 专注“动态评测/红队即服务/基准运营”的初创公司（如 Patronus AI、Scale AI Eval 部门）获 B/C 轮融资 | > 待核实 | 中 |\n| **开源生态聚合** | LangChain/LangGraph、AutoGen、CrewAI 开始内置评测模块，但欺骗/可纠正性插件缺失 | [11][8] | 高（可观测到代码库 PR） |\n| **人才流动** | 顶会（NeurIPS/ICLR/CoRL）Agent 评测方向论文激增，博后/研究员流向评测基础设施团队 | > 待核实 | 中 |\n| **基准运营商业化** | SWE-Bench Goes Live! [14]、SWE-MERA [7] 显示“榜单即服务”雏形，可能催生 SaaS 模式 | [14][7] | 高 |\n\n---\n\n## 7. 信号与预测\n\n| 早期信号 | 来源 | 可证伪假设（6–18 月） | 置信度 |\n|---|---|---|---|\n| SWE-Bench 系列连续发布 V2、Pro、ABS、Trail、MERA，迭代周期 < 3 个月 | [14][6][3][4][5][7] | **假设**：至 2027-05，SWE-Bench 将推出“实时生产环境镜像评测模式”，支持在真实企业代码库上连续评测；若未出现则判断失效。 | 80% |\n| FMTI 透明度指数连续两年下降（58→40） | [15] | **假设**：至 2027-01，头部厂商（≥3 家）将在模型卡中强制披露训练数据构成比例、算力用量、部署后事故统计；若无则判断失效。 | 65% |\n| SVC 2025 首届挑战赛举办，跨域多模态欺骗成新赛道 | [12] | **假设**：至 2026-12，SVC 2026 将扩展至“语言+视觉+动作”三模态具身欺骗任务；若仅停留在音视频则判断失效。 | 60% |\n| ContamPerc 提供首个多 Agent 污染渗透测量管道 | [13][2] | **假设**：至 2027-06，至少一个主流多 Agent 框架将集成 ContamPerc 风格的在线熔断中间件；若无则判断失效。 | 55% |\n| Mind2Web 2 引入 Agent-as-a-Judge，但评判员对齐未解 | [8] | **假设**：至 2026-12，将出现“评判员对齐基准”，专门评测 LLM 评判员与人类专家的一致性/偏好/鲁棒性；若无则判断失效。 | 70% |\n\n> **不确定**：上述预测均基于当前论文/预印本趋势外推，受算力供给、监管节奏、资本周期多重因素制约，实际落地可能显著滞后或偏离。> 待核实\n\n---\n\n## 经典与奠基性工作\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| AgentBench | 2023 | arXiv [11] | citations>800 | 预印本 | 高 | ★★★★★ | [11] | 多环境统一评测框架，奠基工作 |\n| Mind2Web v1 | 2023 | arXiv [9] | citations>500 | 预印本 | 高 | ★★★★★ | [9] | 通用 Web Agent 评测起点 |\n| WebShop | 2022 | NeurIPS [10] | citations>1k | 顶会 | 高 | ★★★★★ | [10] | 可扩展真实电商交互环境 |\n| SWE-Bench | 2024 | ICML/arXiv [14] | citations>1k | 顶会/官方运营 | 高 | ★★★★★ | [14] | 编码 Agent 事实标准榜单 |\n| FMTI 2023/2024 | 2023/2024 | Stanford CRFM [15] | citations>200 | 官方报告 | 高 | ★★★★☆ | [15] | 透明度纵向追踪基线 |\n\n## 核心开源项目与工程基础设施\n\n| 项目 | 年份 | 维护机构 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| LangChain / LangGraph | 2022– | LangChain Inc. | stars>80k | 官方框架 | 高 | ★★★★☆ | > 待核实 | 评测模块化接口，缺欺骗/可纠正插件 |\n| AutoGPT | 2023– | Significant Gravitas | stars>150k | 社区驱动 | 高 | ★★★☆☆ | > 待核实 | 早期自主 Agent 代表，评测依赖外部 |\n| OpenAI Evals | 2023– | OpenAI | stars>5k | 官方工具 | 中 | ★★★★☆ | > 待核实 | 闭源模型评测标准，可扩展性受限 |\n| SWE-Bench Harness | 2024– | Princeton NLP | stars>3k | 官方基准配套 | 高 | ★★★★★ | [14] | 编码 Agent 评测执行环境标准 |\n\n## 关键数据集与基准\n\n| 数据集/基准 | 年份 | 任务/模态 | 规模 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|---|\n| SWE-Bench Verified | 2024 | 编码/仓库级 | 2,294 issues | 高 | 官方榜单 | 高 | ★★★★★ | [14] | 事实标准，但存在虚高分 |\n| SWE-ABS | 2026 | 编码/对抗 | 同 SWE-Bench | 新 | 预印本 | 高 | ★★★★★ | [3] | 揭示语义错误率 20% |\n| SWE-Bench Pro V2 | 2026 | 编码/长程 | 更新任务集 | 新 | 预印本 | 高 | ★★★★★ | [4] | 修复环境漏洞、更难作弊 |\n| Mind2Web 2 | 2025 | Web Agentic Search | 130 任务 | 新 | 预印本 | 高 | ★★★★★ | [8] | Agent-as-a-Judge 范式 |\n| SVC 2025 | 2025 | 多模态欺骗/音视频 | 多域数据集 | 新 | 挑战赛 | 中 | ★★★★☆ | [12] | 首个跨域多模态欺骗基准 |\n| ContamPerc | 2026 | 多 Agent 污染渗透 | 400 场景/10域/50标记 | 新 | 预印本 | 低 | ★★★★★ | [13][2] | 可纠正性量化核心基准 |\n| FMTI 2025 | 2025 | 透明度审计 | 多厂商/多维度 | 中 | 官方指数 | 高 | ★★★★☆ | [15] | 透明度倒退实证基线 |\n\n---\n\n## 参考来源\n[1] OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation — http://arxiv.org/abs/2409.02649v2\n[2] Contamination Percolation in Multi-Agent LLM Systems: A Measurement Framework and Benchmark — https://doi.org/10.1109/access.2026.3717722\n[3] SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark — http://arxiv.org/abs/2603.00520v1\n[4] SWE-Bench Pro V2: A Cleaner, Harder-to-Game Coding Benchmark — http://arxiv.org/abs/2610.24206v2\n[5] Saving SWE-Bench: A Benchmark Mutation Approach for Realistic Agent Evaluation — http://arxiv.org/abs/2510.08996v4\n[6] SWE-Trail: History-Guided Trajectory Collection for Coding Agent Training — http://arxiv.org/abs/2611.02074v1\n[7] SWE-MERA: A Dynamic Benchmark for Agenticly Evaluating Large Language Models on Software Engineering Tasks — http://arxiv.org/abs/2507.11059v3\n[8] Mind2Web 2: Evaluating Agentic Search with Agent-as-a-Judge — http://arxiv.org/abs/2506.21506v2\n[9] Mind2Web: Towards a Generalist Agent for the Web — http://arxiv.org/abs/2306.06070v3\n[10] WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents — http://arxiv.org/abs/2207.01206v4\n[11] AgentBench: Evaluating LLMs as Agents — http://arxiv.org/abs/2308.03688v3\n[12] SVC 2025: the First Multimodal Deception Detection Challenge — http://arxiv.org/abs/2508.04129v1\n[13] Contamination Percolation in Multi-Agent LLM Systems: A Measurement Framework and Benchmark — https://doi.org/10.22541/au.177499048.88707055/v1\n[14] SWE-bench Goes Live! — http://arxiv.org/abs/2505.23419v2\n[15] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n\n---\n\n*Generated by research-bot · topic=`agent-评测与欺骗能力基准欺骗可纠正性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=34 · duration=289s · 2026-11-22T02:12:27+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation",
+      "url": "http://arxiv.org/abs/2409.02649v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-09-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+      "url": "http://arxiv.org/abs/2507.12143v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "SWE-bench Goes Live!",
+      "url": "http://arxiv.org/abs/2505.23419v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "SWE-Trail: History-Guided Trajectory Collection for Coding Agent Training",
+      "url": "http://arxiv.org/abs/2611.02074v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2026-11-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "url": "http://arxiv.org/abs/2308.03688v3",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2023-08-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "SWE-ABS: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-based Benchmark",
+      "url": "http://arxiv.org/abs/2603.00520v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-02-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "SWE-Bench Pro V2: A Cleaner, Harder-to-Game Coding Benchmark",
+      "url": "http://arxiv.org/abs/2610.24206v2",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Saving SWE-Bench: A Benchmark Mutation Approach for Realistic Agent Evaluation",
+      "url": "http://arxiv.org/abs/2510.08996v4",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-10-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "SWE-MERA: A Dynamic Benchmark for Agenticly Evaluating Large Language Models on Software Engineering Tasks",
+      "url": "http://arxiv.org/abs/2507.11059v3",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2025-07-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Bioinfo-Bench: A Simple Benchmark Framework for LLM Bioinformatics Skills Evaluation",
+      "url": "https://doi.org/10.1101/2023.10.18.563023",
+      "kind": "paper",
+      "venue": null,
+      "published": "2023-10-21",
+      "citations": 12,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "From Feature Lists to Enforced Invariants: AgentGov-Bench, a Deployability Benchmark for Multi-Agent LLM Orchestration Platforms",
+      "url": "https://doi.org/10.2139/ssrn.7660258",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "SWE-Bench+: Enhanced LLM Coding Benchmark",
+      "url": "https://doi.org/10.1145/3805760.3814924",
+      "kind": "paper",
+      "venue": "Proceedings of the 3rd ACM International Conference on AI-Powered Software",
+      "published": "2026-07-05",
+      "citations": 1,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "DocILE 2023 Teaser: Document Information Localization and Extraction",
+      "url": "http://arxiv.org/abs/2301.12394v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2023-01-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation",
+      "url": "http://arxiv.org/abs/2407.15282v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Mind2Web: Towards a Generalist Agent for the Web",
+      "url": "http://arxiv.org/abs/2306.06070v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-06-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Mind2Web 2: Evaluating Agentic Search with Agent-as-a-Judge",
+      "url": "http://arxiv.org/abs/2506.21506v2",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-06-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset",
+      "url": "http://arxiv.org/abs/2405.19595v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents",
+      "url": "http://arxiv.org/abs/2207.01206v4",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2022-07-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "The RSNA Intracranial Aneurysm (RSNA-ICA) Dataset",
+      "url": "http://arxiv.org/abs/2610.01135v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-10-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "CHC-COMP 2022: Competition Report",
+      "url": "http://arxiv.org/abs/2211.12231v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2022-11-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Motif Mining and Unsupervised Representation Learning for BirdCLEF 2022",
+      "url": "http://arxiv.org/abs/2206.04805v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2022-06-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "ACES: Translation Accuracy Challenge Sets at WMT 2023",
+      "url": "http://arxiv.org/abs/2311.01153v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Data Contamination Report from the 2024 CONDA Shared Task",
+      "url": "http://arxiv.org/abs/2407.21530v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-07-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "NTIRE 2025 Challenge on Image Super-Resolution (x4): Methods and Results",
+      "url": "http://arxiv.org/abs/2504.14582v3",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "SVC 2025: the First Multimodal Deception Detection Challenge",
+      "url": "http://arxiv.org/abs/2508.04129v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Roman Galactic Plane Survey Definition Committee Report",
+      "url": "http://arxiv.org/abs/2511.07494v1",
+      "kind": "paper",
+      "venue": "astro-ph.GA",
+      "published": "2025-11-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Contamination Percolation in Multi-Agent LLM Systems: A Measurement Framework and Benchmark",
+      "url": "https://doi.org/10.22541/au.177499048.88707055/v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-03-31",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "Contamination Percolation in Multi-Agent LLM Systems: A Measurement Framework and Benchmark",
+      "url": "https://doi.org/10.1109/access.2026.3717722",
+      "kind": "paper",
+      "venue": "IEEE Access",
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-22-agent-评测与欺骗能力基准欺骗可纠正性.md",
+    "json": "report/2026/11/2026-11-22-agent-评测与欺骗能力基准欺骗可纠正性.json"
+  }
+}
