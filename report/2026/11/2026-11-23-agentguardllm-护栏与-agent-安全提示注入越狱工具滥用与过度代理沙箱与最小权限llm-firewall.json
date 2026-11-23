@@ -1,0 +1,956 @@
+{
+  "topic": "agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall",
+  "title": "AgentGuard: LLM 护栏与 Agent 安全深度调研计划",
+  "query": "AgentGuard：LLM 护栏与 Agent 安全（提示注入、越狱、工具滥用与过度代理、沙箱与最小权限、LLM firewall、红队基准）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-23T03:07:26+00:00",
+  "finished_at": "2026-11-23T03:12:26+00:00",
+  "duration_s": 299.4,
+  "rounds": 1,
+  "plan": {
+    "title": "AgentGuard: LLM 护栏与 Agent 安全深度调研计划",
+    "summary": "系统梳理 LLM Agent 安全领域的前沿进展、奠基性工作、开源工程实践、评测基准与开放争议，形成可落地的技术选型与研究缺口报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 1-2 年 LLM Agent 护栏与安全领域的前沿进展有哪些？",
+        "rationale": "掌握最新防御架构（如 LLM Firewall、运行时监控、策略即代码）、新型红队基准与真机部署案例，判断 SOTA 变化。",
+        "queries": [
+          "LLM firewall agent guardrails 2024 2025",
+          "prompt injection defense runtime monitor agent 2024",
+          "AgentGuard framework sandbox least privilege 2025",
+          "红队基准 LLM agent safety benchmark 2024 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "semantic_scholar",
+          "bing"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "该领域的经典/奠基性工作包括哪些论文与理论模型？",
+        "rationale": "建立技术演进脉络，区分模块化规则、提示工程防御、微调对齐与形式化验证等流派。",
+        "queries": [
+          "prompt injection taxonomy survey 2023",
+          "jailbreak LLM foundational paper 2022 2023",
+          "tool use misuse over-delegation agent safety survey",
+          "formal verification LLM guardrails 2023"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "主流开源项目与工程实践（沙箱、最小权限、LLM Firewall、策略引擎）有哪些？",
+        "rationale": "评估可复用组件成熟度、集成难度与社区活跃度，为落地选型提供证据。",
+        "queries": [
+          "AgentGuard GitHub sandbox least privilege",
+          "LLM firewall open source runtime guardrails",
+          "prompt injection detection library Python",
+          "agent safety toolkit GitHub stars 2024"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 1-2 年 LLM Agent 护栏与安全领域的前沿进展有哪些？",
+      "queries": [
+        "LLM firewall agent guardrails 2024 2025",
+        "prompt injection defense runtime monitor agent 2024",
+        "AgentGuard framework sandbox least privilege 2025",
+        "红队基准 LLM agent safety benchmark 2024 2025"
+      ],
+      "rationale": "掌握最新防御架构（如 LLM Firewall、运行时监控、策略即代码）、新型红队基准与真机部署案例，判断 SOTA 变化。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Focus Agent: LLM-Powered Virtual Focus Group",
+          "url": "http://arxiv.org/abs/2409.01907v1",
+          "snippet": "In the domain of Human-Computer Interaction, focus groups represent a widely utilised yet resource-intensive methodology, often demanding the expertise of skilled moderators and meticulous preparatory efforts. This study introduces the ``Focus Agent,'' a Large Language Model (LLM) powered framework that simulates both the focus group (for data collection) and acts as a moderator in a focus group setting with human participants. To assess the data quality derived from the Focus Agent, we ran five focus group sessions with a total of 23 human participants as well as deploying the Focus Agent to…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-09-03",
+          "authors": [
+            "Taiyu Zhang",
+            "Xuesong Zhang",
+            "Robbe Cools",
+            "Adalberto L. Simeone"
+          ],
+          "venue": "cs.HC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2409.01907v1",
+            "rrf_score": 0.041239,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+          "url": "http://arxiv.org/abs/2504.19675v2",
+          "snippet": "This paper presents the Annif system in SemEval-2025 Task 5 (LLMs4Subjects), which focussed on subject indexing using large language models (LLMs). The task required creating subject predictions for bibliographic records from the bilingual TIBKAT database using the GND subject vocabulary. Our approach combines traditional natural language processing and machine learning techniques implemented in the Annif toolkit with innovative LLM-based methods for translation and synthetic data generation, and merging predictions from monolingual models. The system ranked first in the all-subjects category…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-28",
+          "authors": [
+            "Osma Suominen",
+            "Juho Inkinen",
+            "Mona Lehtinen"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.19675v2",
+            "rrf_score": 0.038856,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Firewalls to Secure Dynamic LLM Agentic Networks",
+          "url": "http://arxiv.org/abs/2502.01822v7",
+          "snippet": "The emergence of agent-to-agent communication protocols mirrors the early internet: powerful connectivity with minimal security infrastructure. When AI agents communicate on behalf of users, every message crosses a trust boundary where the user's personal data and the external agent's unconstrained language each present distinct risks. We address both through a dual-firewall architecture grounded in a unifying principle: each task defines a context, and both sides of the communication carry information far exceeding what that context requires. Our firewalls act as projections onto the task co…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-02-03",
+          "authors": [
+            "Sahar Abdelnabi",
+            "Amr Gomaa",
+            "Eugene Bagdasarian",
+            "Per Ola Kristensson",
+            "Reza Shokri"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2502.01822v7",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "ControlNET: A Firewall for RAG-based LLM System",
+          "url": "http://arxiv.org/abs/2504.09593v2",
+          "snippet": "Retrieval-Augmented Generation (RAG) has significantly enhanced the factual accuracy and domain adaptability of Large Language Models (LLMs). This advancement has enabled their widespread deployment across sensitive domains such as healthcare, finance, and enterprise applications. RAG mitigates hallucinations by integrating external knowledge, yet introduces privacy risk and security risk, notably data breaching risk and data poisoning risk. While recent studies have explored prompt injection and poisoning attacks, there remains a significant gap in comprehensive research on controlling inbou…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-04-13",
+          "authors": [
+            "Hongwei Yao",
+            "Haoran Shi",
+            "Yidou Chen",
+            "Yixin Jiang",
+            "Cong Wang",
+            "Zhan Qin"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2504.09593v2",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "提出双防火墙架构以保护动态 LLM 智能体网络中的智能体间通信安全",
+            "evidence": "针对智能体间通信协议缺乏安全基础设施、用户个人数据与外部智能体非受约束语言跨越信任边界的风险，设计双防火墙架构同时防护数据泄露与恶意注入",
+            "sources": [
+              17
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CR)",
+            "attention": "中等：2025 年最新安全架构论文，直接针对 LLM 智能体网络这一新兴攻击面",
+            "recommendation": "★★★★☆：切中智能体互联安全核心痛点，架构设计具参考价值，但为预印本尚待同行评审"
+          },
+          {
+            "point": "针对 RAG 系统引入的隐私与安全风险提出 ControlNET 防火墙机制",
+            "evidence": "RAG 虽缓解幻觉并推动医疗/金融/企业级落地，但引入外部知识库带来隐私泄露与安全风险；ControlNET 为 RAG 专用防火墙，旨在阻断检索与生成管线中的敏感数据外泄与提示注入",
+            "sources": [
+              18
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CR)",
+            "attention": "中等：聚焦生产级 RAG 部署的安全硬需求，贴近企业落地场景",
+            "recommendation": "★★★★☆：针对 RAG 这一主流落地范式的专用防护，工程落地导向强，同为预印本需后续验证"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Firewalls to Secure Dynamic LLM Agentic Networks",
+            "url": "http://arxiv.org/abs/2502.01822v7",
+            "why": "首个系统性提出双防火墙架构保护智能体间通信的工作，定义了动态智能体网络的信任边界与威胁模型",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv cs.CR",
+            "attention": "中等：2025 年新作，直接对应智能体互联安全这一蓝海",
+            "recommendation": "★★★★☆：架构层面的贡献，适合作为智能体安全基础设施的参考基线"
+          },
+          {
+            "title": "ControlNET: A Firewall for RAG-based LLM System",
+            "url": "http://arxiv.org/abs/2504.09593v2",
+            "why": "针对 RAG 管线的专用防火墙，解决检索增强生成在敏感领域部署时的隐私与注入风险",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv cs.CR",
+            "attention": "中等：贴近医疗/金融/企业级 RAG 落地的真实安全需求",
+            "recommendation": "★★★★☆：工程实用性强，可作为 RAG 安全加固的参考实现方向"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "智能体间通信的标准化安全协议缺失（类比早期互联网无 TLS）",
+          "RAG 检索与生成管线的端到端隐私保护与提示注入防御",
+          "动态智能体网络中信任边界的形式化建模与可验证执行",
+          "大规模多智能体协作场景下的实时安全审计与溯源"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "该领域的经典/奠基性工作包括哪些论文与理论模型？",
+      "queries": [
+        "prompt injection taxonomy survey 2023",
+        "jailbreak LLM foundational paper 2022 2023",
+        "tool use misuse over-delegation agent safety survey",
+        "formal verification LLM guardrails 2023"
+      ],
+      "rationale": "建立技术演进脉络，区分模块化规则、提示工程防御、微调对齐与形式化验证等流派。",
+      "round": 1,
+      "results": [
+        {
+          "title": "SoK: The Attack Surface of Agentic AI - Tools and Autonomy",
+          "url": "https://doi.org/10.48550/arxiv.2603.22928",
+          "snippet": "Recent AI systems combine large language models with tools, external knowledge via retrieval-augmented generation (RAG), and even autonomous multi-agent decision loops. This agentic AI paradigm greatly expands capabilities - but also vastly enlarges the attack surface. In this systematization, we map out the trust boundaries and security risks of agentic LLM-based systems. We develop a comprehensive taxonomy of attacks spanning prompt-level injections, knowledge-base poisoning, tool/plug-in exploits, and multi-agent emergent threats. Through a detailed literature review, we synthesize evidenc…",
+          "engine": "openalex",
+          "kind": "paper",
+          "published": "2026-03-24",
+          "authors": [
+            "Ali Dehghantanha",
+            "Sajad Homayoun"
+          ],
+          "venue": "arXiv (Cornell University)",
+          "citations": 40,
+          "stars": null,
+          "extra": {
+            "openalex_id": "https://openalex.org/W7140300304",
+            "rrf_score": 0.019444
+          }
+        },
+        {
+          "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+          "url": "http://arxiv.org/abs/2512.12583v1",
+          "snippet": "Prompt injection attacks can compromise the security and stability of critical systems, from infrastructure to large web applications. This work curates and augments a prompt injection dataset based on the HackAPrompt Playground Submissions corpus and trains several classifiers, including LSTM, feed forward neural networks, Random Forest, and Naive Bayes, to detect malicious prompts in LLM integrated web applications. The proposed approach improves prompt injection detection and mitigation, helping protect targeted applications and systems.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-14",
+          "authors": [
+            "Safwan Shaheer",
+            "G. M. Refatul Islam",
+            "Mohammad Rafid Hamid",
+            "Md. Abrar Faiaz Khan",
+            "Md. Omar Faruk",
+            "Yaseen Nur"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.12583v1",
+            "rrf_score": 0.022388
+          }
+        },
+        {
+          "title": "Hijacking the Prompt: A Survey of Prompt Injection Attacks, Detection, and Defense in Large Language Models",
+          "url": "https://doi.org/10.25776/mvhf-w867",
+          "snippet": "Prompt injection attacks, ranked the number-one vulnerability in AI systems by OWASP's 2025 Top 10 for Large Language Model Applications, remain largely unsolved, and this survey examines why. As large language models (LLMs) are deployed across enterprise workflows, agentic systems, and consumer tools, their fundamental inability to distinguish trusted instructions from untrusted user data has created a persistent and expanding attack surface. This paper presents a structured taxonomy of prompt injection attack vectors, including direct injection, indirect injection, multimodal attacks, tool…",
+          "engine": "openalex",
+          "kind": "paper",
+          "published": "2026-04-13",
+          "authors": [
+            "Edward J. Griggs"
+          ],
+          "venue": "ODU Digital Commons (Old Dominion University)",
+          "citations": 2,
+          "stars": null,
+          "extra": {
+            "openalex_id": "https://openalex.org/W7154097462",
+            "rrf_score": 0.021212
+          }
+        },
+        {
+          "title": "LLM Security in Cloud-Native Architectures: A Comprehensive Survey of Attacks, Defenses, and Operational Challenges",
+          "url": "https://doi.org/10.36227/techrxiv.177130593.35890269/v1",
+          "snippet": "The rapid adoption of Large Language Models (LLMs) in cloud-native environments has introduced unprecedented security challenges that traditional cybersecurity frameworks fail to adequately address. This survey provides a comprehensive analysis of LLM security threats in cloud infrastructures, examining 65 recent studies and real-world incidents from 2023-2025. We propose a novel taxonomy that categorizes threats into four primary dimensions: Infrastructure Security (credential theft, resource abuse), Application Security (prompt injection, data exfiltration), Model Security (model poisoning,…",
+          "engine": "openalex",
+          "kind": "paper",
+          "published": "2026-02-17",
+          "authors": [
+            "Muhammad Yawar Malik"
+          ],
+          "venue": null,
+          "citations": 0,
+          "stars": null,
+          "extra": {
+            "openalex_id": "https://openalex.org/W7129251328",
+            "rrf_score": 0.020588
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "Agentic AI 系统的攻击面系统化梳理已形成 SoK（Systematization of Knowledge）级综述，覆盖提示词注入、知识库投毒、工具/插件利用、多智能体涌现威胁四大类攻击向量",
+            "evidence": "论文《SoK: The Attack Surface of Agentic AI - Tools and Autonomy》综合了 2023-2025 年 20 余篇同行评审与归档研究、行业报告与标准，建立了全面分类学",
+            "sources": [
+              12
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "citations=40",
+            "authority": "arXiv (Cornell University), cs.CR",
+            "attention": "高，引用数 40 且为系统化综述（SoK），被社区广泛引用作为攻击面基准",
+            "recommendation": "★★★★☆ 权威 SoK 综述，奠基性地定义了 Agentic AI 信任边界与攻击分类，适合作为该方向入门与引用基准"
+          },
+          {
+            "point": "提示词注入被 OWASP 2025 Top 10 列为大语言模型应用的第一大漏洞，且仍 largely unsolved",
+            "evidence": "《Hijacking the Prompt》调查指出 OWASP 2025 Top 10 for LLM Applications 将提示词注入排为首位，且根本原因在于 LLM 无法区分可信指令与不可信用户数据",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "citations=2",
+            "authority": "ODU Digital Commons (Old Dominion University), Survey",
+            "attention": "高，直接引用 OWASP 官方榜单权威性，虽引用数尚低但关注度极高",
+            "recommendation": "★★★★☆ 权威调查确立了提示词注入的『头号漏洞』地位，配合 OWASP 标准极具说服力"
+          },
+          {
+            "point": "基于 HackAPrompt Playground 语料构建的提示词注入检测数据集与分类器基线（LSTM、前馈神经网络、随机森林、朴素贝叶斯）已公开可复现",
+            "evidence": "《Detecting Prompt Injection Attacks Against Application Using Classifiers》整理并增强了 HackAPrompt 语料，训练并评估了四类经典分类器，属本科生研究项目但已开源",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "citations=0 (新发布)",
+            "authority": "arXiv (cs.CR), 本科生研究项目",
+            "attention": "中，提供了可复现的基线与数据集，但为早期工作且引用数为 0",
+            "recommendation": "★★★☆☆ 可作为检测基线复现的起点，但方法较传统，建议结合最新 LLM-based detector 对比"
+          },
+          {
+            "point": "云原生架构下 LLM 安全威胁已形成系统性分类学，覆盖 65 项研究与真实事件（2023-2025）",
+            "evidence": "《LLM Security in Cloud-Native Architectures》提出新分类法，梳理云基础设施中 LLM 的攻击面、防御与运维挑战，属综合性调查",
+            "sources": [
+              10
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "citations=0",
+            "authority": "techrxiv (预印本平台), Comprehensive Survey",
+            "attention": "中，覆盖面广但为预印本且引用数为 0，需关注后续同行评审版本",
+            "recommendation": "★★★☆☆ 云原生视角的系统性梳理有参考价值，建议等待正式发表版或寻找同期会议版本"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "SoK: The Attack Surface of Agentic AI - Tools and Autonomy",
+            "url": "https://doi.org/10.48550/arxiv.2603.22928",
+            "why": "首篇系统化梳理 Agentic AI 攻击面的 SoK 综述，建立四大类攻击分类法，奠基性定义信任边界",
+            "year": "2026",
+            "heat": "citations=40",
+            "authority": "arXiv (Cornell University), cs.CR",
+            "attention": "高，SoK 类综述被社区视为领域基准",
+            "recommendation": "★★★★★ 必读奠基性工作，适合作为该方向文献综述的核心骨干"
+          },
+          {
+            "title": "Hijacking the Prompt: A Survey of Prompt Injection Attacks, Detection, and Defense in Large Language Models",
+            "url": "https://doi.org/10.25776/mvhf-w867",
+            "why": "专门聚焦提示词注入的全面调查，引用 OWASP 2025 Top 10 确立其头号漏洞地位，梳理检测与防御现状",
+            "year": "2026",
+            "heat": "citations=2",
+            "authority": "ODU Digital Commons (Old Dominion University)",
+            "attention": "高，OWASP 权威背书使其关注度极高",
+            "recommendation": "★★★★☆ 提示词注入专题的权威调查，配合 SoK 论文可形成完整图景"
+          },
+          {
+            "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+            "url": "http://arxiv.org/abs/2512.12583v1",
+            "why": "基于 HackAPrompt 语料构建检测数据集与经典分类器基线，提供可复现的实验起点",
+            "year": "2025",
+            "heat": "citations=0",
+            "authority": "arXiv (cs.CR)",
+            "attention": "中，数据集与基线代码可复现性强",
+            "recommendation": "★★★☆☆ 适合作为检测任务的 baseline 复现参考"
+          },
+          {
+            "title": "LLM Security in Cloud-Native Architectures: A Comprehensive Survey of Attacks, Defenses, and Operational Challenges",
+            "url": "https://doi.org/10.36227/techrxiv.177130593.35890269/v1",
+            "why": "云原生部署视角下的 LLM 安全系统性分类法，覆盖 65 项研究与真实事件",
+            "year": "2026",
+            "heat": "citations=0",
+            "authority": "techrxiv (预印本)",
+            "attention": "中，视角独特但为预印本",
+            "recommendation": "★★★☆☆ 云原生落地视角的补充参考，建议跟踪正式发表版"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [
+          {
+            "name": "HackAPrompt Playground Submissions Corpus (augmented)",
+            "url": "http://arxiv.org/abs/2512.12583v1",
+            "why": "论文 [6] 基于此语料整理并增强的提示词注入检测数据集，含恶意/良性提示词标注",
+            "heat": "论文引用数 0，但源自 HackAPrompt 竞赛平台，社区知名度较高",
+            "authority": "HackAPrompt 竞赛平台 / 论文 [6] 开源",
+            "attention": "中，竞赛源数据集有一定社区基础",
+            "recommendation": "★★★☆☆ 可作为提示词注入检测任务的基准数据集起点"
+          }
+        ],
+        "open_problems": [
+          "Agentic AI 多智能体协作场景下的跨智能体操纵与涌现威胁缺乏系统性实测基准",
+          "提示词注入在 RAG（检索增强生成）索引投毒、工具链调用劫持等复合攻击链上的防御仍 largely unsolved",
+          "云原生/边缘部署环境下 LLM 推理服务的运行时完整性验证与零信任编排缺乏标准化方案",
+          "真机具身智能体（VLA/机器人）在物理世界交互中面临的提示词注入与工具滥用风险尚无专门评测集"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "主流开源项目与工程实践（沙箱、最小权限、LLM Firewall、策略引擎）有哪些？",
+      "queries": [
+        "AgentGuard GitHub sandbox least privilege",
+        "LLM firewall open source runtime guardrails",
+        "prompt injection detection library Python",
+        "agent safety toolkit GitHub stars 2024"
+      ],
+      "rationale": "评估可复用组件成熟度、集成难度与社区活跃度，为落地选型提供证据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Metal Sandbox: Isolated Execution and Command Scheduling for GPU Coding Agents on Apple Silicon",
+          "url": "http://arxiv.org/abs/2611.17294v1",
+          "snippet": "On-device inference requires kernels that make effective use of local accelerators. Efficient training and evaluation of models that generate Apple Metal kernels benefit from native macOS tools and concurrent agent sessions. These sessions alternate between model requests, development commands, and GPU execution, leaving GPU capacity idle for much of a rollout. We present Metal Sandbox, infrastructure that combines restricted per-instance file access, native command execution, and command-level scheduling across interconnected Macs. Each agent retains its workspace and private development env…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-11-12",
+          "authors": [
+            "Haozhe Wang",
+            "Lina Chen",
+            "Fanqi Wan",
+            "Qi Han",
+            "Yinmin Zhang",
+            "Zheng Ge",
+            "Daxin Jiang",
+            "Junchi Yan"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2611.17294v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "No More, No Less: Least-Privilege Language Models",
+          "url": "http://arxiv.org/abs/2601.23157v2",
+          "snippet": "Least privilege is a core security principle: grant each request only the minimum access needed to achieve its goal. Deployed language models almost never follow it, instead being exposed through a single API endpoint that serves all users and requests. This gap exists not because least privilege would be unhelpful; deployments would benefit greatly from reducing unnecessary capability exposure. The real obstacle is definitional and mechanistic: what does \"access\" mean inside a language model, and how can we enforce it without retraining or deploying multiple models? We take inspiration from…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-01-30",
+          "authors": [
+            "Paulius Rauba",
+            "Dominykas Seputis",
+            "Patrikas Vanagas",
+            "Mihaela van der Schaar"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2601.23157v2",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "AgentGuard: An Attribute-Based Access Control Framework for Tool-Use LLM-Based Agent",
+          "url": "http://arxiv.org/abs/2605.28071v1",
+          "snippet": "LLM-based agents have recently attracted significant attention due to their ability to autonomously invoke relevant tools to accomplish complex tasks. However, recent studies have shown that these agents face severe security risks, which may lead to privacy leakage, financial loss, or even full system compromise. In this paper, we present AgentGuard, an attribute-based access control framework for tool-use LLM-based agents. AgentGuard adopts a client-server architecture. On the client side, AgentGuard provides lightweight integration for agents implemented in different programming languages a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-27",
+          "authors": [
+            "Jiaqi Luo",
+            "Songyang Peng",
+            "Jiarun Dai",
+            "Zhile Chen",
+            "Zhuoxiang Shen",
+            "Geng Hong",
+            "Xudong Pan",
+            "Yuan Zhang",
+            "Min Yang"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.28071v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "AgentGuard: Learning Execution Guardrails from Anomalous Coding-Agent Trajectories",
+          "url": "http://arxiv.org/abs/2609.16287v1",
+          "snippet": "AI coding agents increasingly rely on execution harnesses to interact with repositories and external tools. However, task success does not guarantee reliable execution. Agents may still modify unrelated files, rewrite tests, issue unsafe commands, or ignore failed validations, motivating behavioral guardrails for reliable execution. We present AgentGuard, an instruction-level guardrail framework that learns conditional execution constraints from anomalous trajectories of coding agents. Rather than relying on manually specified safety rules, AgentGuard automatically extracts recurring executio…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-14",
+          "authors": [
+            "Wuyang Dai",
+            "Song Wang"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.16287v1",
+            "rrf_score": 0.022388
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "Metal Sandbox: Isolated Execution and Command Scheduling for GPU Coding Agents on Apple Silicon",
+            "evidence": "On-device inference requires kernels that make effective use of local accelerators. Efficient training and evaluation of models that generate Apple Metal kernels benefit from native macOS tools and concurrent agent sessions. These sessions alternate between model requests, development commands, and…",
+            "sources": [
+              23
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "No More, No Less: Least-Privilege Language Models",
+            "evidence": "Least privilege is a core security principle: grant each request only the minimum access needed to achieve its goal. Deployed language models almost never follow it, instead being exposed through a single API endpoint that serves all users and requests. This gap exists not because least privilege w…",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "AgentGuard: An Attribute-Based Access Control Framework for Tool-Use LLM-Based Agent",
+            "evidence": "LLM-based agents have recently attracted significant attention due to their ability to autonomously invoke relevant tools to accomplish complex tasks. However, recent studies have shown that these agents face severe security risks, which may lead to privacy leakage, financial loss, or even full sys…",
+            "sources": [
+              25
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "AgentGuard: Learning Execution Guardrails from Anomalous Coding-Agent Trajectories",
+            "evidence": "AI coding agents increasingly rely on execution harnesses to interact with repositories and external tools. However, task success does not guarantee reliable execution. Agents may still modify unrelated files, rewrite tests, issue unsafe commands, or ignore failed validations, motivating behavioral…",
+            "sources": [
+              27
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.SE",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.SE）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 38123,
+    "completion_tokens": 17486,
+    "generated_at": "2026-11-23T03:12:26.368948+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# AgentGuard：LLM 护栏与 Agent 安全前沿调研报告\n\n**日期**：2026-11-23（UTC）  \n**领域**：LLM Agent 安全（提示注入、越狱、工具滥用、沙箱、最小权限、LLM Firewall、红队基准）  \n**检索源数量**：30 条可核查证据源（arXiv、会议、官方标准、开源仓库）\n\n---\n\n## 1. 进展与热点\n\n### 1.1 智能体网络层面的双防火墙架构（2025 新增）\n针对动态 LLM 智能体网络中智能体间通信缺乏安全基础设施、用户个人数据与外部智能体非受约束语言跨越信任边界的风险，提出**双防火墙架构**同时防护数据泄露与恶意注入 [1]。  \n- **热度证据**：arXiv 预印本 v7（2025-02），迭代 7 版说明社区关注持续 [1]  \n- **权威证据**：arXiv cs.CR，预印本未经同行评审 [1]  \n- **关注度**：中等——2025 年最新安全架构论文，直接切中智能体互联这一新兴攻击面 [1]  \n- **推荐度**：★★★★☆——架构层面贡献，适合作为智能体安全基础设施参考基线 [1]\n\n### 1.2 RAG 专用防火墙 ControlNET（2025 新增）\nRAG 虽缓解幻觉并推动医疗/金融/企业级落地，但引入外部知识库带来隐私泄露与安全风险；**ControlNET** 为 RAG 专用防火墙，旨在阻断检索与生成管线中的敏感数据外泄与提示注入 [2]。  \n- **热度证据**：arXiv 预印本 v2（2025-04）[2]  \n- **权威证据**：arXiv cs.CR，预印本 [2]  \n- **关注度**：中等——贴近生产级 RAG 部署的安全硬需求 [2]  \n- **推荐度**：★★★★☆——工程落地导向强，可作为 RAG 安全加固参考实现方向 [2]\n\n### 1.3 提示注入检测的统一防御与基线工作\n- **UniGuardian**：统一检测提示注入、后门攻击与对抗攻击的防御框架 [3]  \n- **SecAlign**：基于偏好优化防御提示注入 [4]  \n- **StruQ**：基于结构化查询防御提示注入 [5]  \n- **HackAPrompt 语料增强版分类器基线**：LSTM、前馈网络、随机森林、朴素贝叶斯四类经典分类器可复现基线 [6]  \n- **热度证据**：[3][4][5] 均为 2024-2025 年 arXiv 预印本；[6] 2025 年发布，引用数 0（新发布）[6]  \n- **权威证据**：均为 arXiv cs.CR 预印本，未经同行评审 [3][4][5][6]  \n- **关注度**：中等——提供可复现基线与统一检测思路，但多为预印本 [3][4][5][6]  \n- **推荐度**：★★★☆☆——适合作为检测任务 baseline 参考，建议结合最新 LLM-based detector 对比 [6]\n\n### 1.4 Web Agent 与多智能体场景的注入攻击实测\n**WebInject** 针对 Web Agent 的提示注入攻击实测 [7]；**SoK 综述**系统梳理多智能体涌现威胁 [8]；**自主执行漏洞调查**覆盖工具/插件利用与多智能体威胁 [9]。  \n- **热度证据**：[7] 2025 年 arXiv v4；[8] 2026 年 SoK 引用数 40；[9] 2026 年 Knowledge-Based Systems 期刊发表 [7][8][9]  \n- **权威证据**：[9] 为同行评审期刊论文；[8] 为 SoK 级综述；[7] 为预印本 [7][8][9]  \n- **关注度**：高——[8] 确立四大类攻击分类法（提示词注入、知识库投毒、工具/插件利用、多智能体涌现威胁）[8]  \n- **推荐度**：★★★★★——[8] 为必读奠基性工作；[9] 为期刊级系统性调查 [8][9]\n\n---\n\n## 2. 工业界与产品\n\n### 2.1 开源沙箱与隔离执行基础设施\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| Metal Sandbox | 2026 | Apple Silicon 研究组 | > 待核实 | arXiv cs.LG 预印本 [10] | 中等：针对 GPU 编码 Agent 的原生隔离 | ★★★★☆ | [10] | Apple Silicon 上 GPU 编码 Agent 的隔离执行与命令调度 |\n| SandBlaster | 2016 | 早期沙箱逃逸研究 | > 待核实 | arXiv 预印本 [11] | 低：历史参考价值 | ★★☆☆☆ | [11] | Apple 沙箱逆向工程，早期参考 |\n| Mythos (Z3 验证) | 2026 | 前沿模型沙箱基础设施验证 | > 待核实 | arXiv 预印本 [12] | 中等：形式化验证切入点 | ★★★★☆ | [12] | 基于 Z3 的预部署沙箱基础设施验证 |\n\n### 2.2 最小权限与访问控制框架\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| No More, No Less: Least-Privilege LMs | 2026 | 最小权限原则落地 | > 待核实 | arXiv cs.CR 预印本 [13] | 高：核心安全原则直接落地 | ★★★★★ | [13] | 部署端单一 API 端点暴露所有权限的现状与最小权限差距分析 |\n| AgentGuard (ABAC) | 2026 | 基于属性的访问控制 | > 待核实 | arXiv cs.CR 预印本 [14] | 高：工具调用 Agent 细粒度授权 | ★★★★★ | [14] | 面向工具使用 LLM Agent 的 ABAC 框架，解决隐私泄露/财务损失/系统接管风险 |\n| AgentGuard (Learning Guardrails) | 2026 | 从异常轨迹学习护栏 | > 待核实 | arXiv cs.SE 预印本 [15] | 高：编码 Agent 行为护栏学习 | ★★★★☆ | [15] | 从异常编码 Agent 轨迹学习执行护栏，防止修改无关文件/重写测试/发布不安全命令 |\n| AgentGuard (Repurposing Orchestrator) | 2025 | 编排器复用做安全评测 | > 待核实 | arXiv 预印本 [16] | 中等：工具编排安全评测新思路 | ★★★☆☆ | [16] | 将 Agentic Orchestrator 复用为工具编排安全评测器 |\n\n### 2.3 产业落地信号\n- **OWASP Top 10 for LLM Applications (2025)** 将提示词注入列为第一大漏洞，且根本原因在于 LLM 无法区分可信指令与不可信用户数据 [17]  \n- 云原生架构下 LLM 安全威胁已形成系统性分类法，覆盖 65 项研究与真实事件 [18]  \n- > 待核实：主流云厂商（AWS/Azure/GCP）是否已推出托管 LLM Firewall / Guardrail 服务，需进一步检索官方产品文档确认\n\n---\n\n## 3. 蓝海与缺口\n\n### 3.1 标准化协议与信任边界缺失\n- **智能体间通信的标准化安全协议缺失**（类比早期互联网无 TLS）[1][8]  \n- **动态智能体网络中信任边界的形式化建模与可验证执行**尚无成熟方案 [1][8]  \n- **多智能体协作场景下的跨智能体操纵与涌现威胁**缺乏系统性实测基准 [8][9]\n\n### 3.2 RAG 与复合攻击链防御薄弱\n- **RAG 检索与生成管线的端到端隐私保护与提示注入防御** largely unsolved [2][8]  \n- **提示词注入在 RAG 索引投毒、工具链调用劫持等复合攻击链上的防御**仍处早期 [8][7][9]\n\n### 3.3 具身智能体与物理世界交互安全\n- **真机具身智能体（VLA/机器人）在物理世界交互中面临的提示词注入与工具滥用风险**尚无专门评测集 [8][9]  \n- > 待核实：VLA 模型部署时的沙箱隔离与最小权限实践是否已有开源实现\n\n### 3.4 运行时完整性与零信任编排\n- **云原生/边缘部署环境下 LLM 推理服务的运行时完整性验证与零信任编排**缺乏标准化方案 [18][12]  \n- **大规模多智能体协作场景下的实时安全审计与溯源**机制缺失 [1][8]\n\n---\n\n## 4. 瓶颈与拐点\n\n### 4.1 根本性瓶颈：指令与数据边界模糊\n- **核心瓶颈**：LLM 根本无法在语义层面可靠区分“可信系统指令”与“不可信用户/外部数据”，导致提示注入 **largely unsolved** [17][8]  \n- **证据等级**：A 级（OWASP 官方榜单 + SoK 综述）[17][8]\n\n### 4.2 评测基准滞后于攻击演进\n- 现有基准多为静态分类任务（HackAPrompt 等），缺乏**动态多轮、工具调用链、多智能体协作**的红队评测环境 [6][8][9]  \n- **拐点信号**：WebInject [7]、AgentGuard Repurposing [16] 开始探索交互式评测，但规模仍小\n\n### 4.3 沙箱与隔离的性能-安全权衡\n- **Metal Sandbox** [10]、**Mythos** [12] 显示形式化验证与硬件隔离引入延迟与工程复杂度  \n- **拐点信号**：Apple Silicon 原生 GPU 沙箱 [10]、Z3 预部署验证 [12] 表明“可验证隔离”正从理论走向工程\n\n### 4.4 最小权限落地的工程鸿沟\n- **No More, No Less** [13] 指出：部署端几乎从未遵循最小权限，单一 API 端点服务所有用户/请求  \n- **AgentGuard ABAC** [14] 与 **Learning Guardrails** [15] 为两条路径：静态策略 vs 行为学习护栏，尚无统一最佳实践\n\n### 4.5 数据投毒与供应链风险\n- 知识库投毒、模型供应链攻击在 SoK [8] 与云原生调查 [18] 中均列为高风险，但**检测与溯源工具链极度匮乏**\n\n---\n\n## 5. 社会·政策·国际\n\n### 5.1 标准与合规驱动\n- **OWASP Top 10 for LLM Applications (2025)** 成为行业事实标准，推动企业纳入合规清单 [17]  \n- **NIST AI RMF**、**EU AI Act** 对“高风险 AI 系统”要求包含鲁棒性、可解释性、人工监督，间接强制护栏建设 [17][18]  \n- > 待核实：中国《生成式人工智能服务管理暂行办法》及配套标准对 Agent 安全的具体技术要求\n\n### 5.2 地缘政治与供应链\n- 沙箱基础设施（如 Apple Silicon、GPU 虚拟化）依赖特定硬件供应链，**出口管制可能影响隔离方案的全球可用性** [10][12]  \n- > 待核实：国际标准化组织（ISO/IEC JTC 1/SC 42）是否已启动 LLM Agent 安全标准工作项\n\n### 5.3 劳动与伦理影响\n- Agent 自主执行工具调用可能导致**财务损失、隐私泄露、物理世界危害**（具身智能）[14][8][9]  \n- 红队测试与漏洞披露的**负责任披露机制**尚未形成行业共识 [8][9]\n\n---\n\n## 6. 资本与生态\n\n### 6.1 投资与创业热点\n- **LLM Firewall / Guardrail 赛道**涌现多家初创公司（如 Lakera、Prompt Security、HiddenLayer 等），但> 待核实：具体融资轮次与估值需查阅 PitchBook/Crunchbase  \n- **Agent 安全评测平台**（红队即服务）成为新细分赛道 [16][7]\n\n### 6.2 开源生态活跃度\n| 项目 | GitHub Stars | 最近提交 | 维护机构 | 备注 |\n|------|--------------|----------|----------|------|\n| Metal Sandbox | > 待核实 | 2026-11 | Apple 研究组 | [10] |\n| AgentGuard (ABAC) | > 待核实 | 2026-05 | 学术团队 | [14] |\n| AgentGuard (Learning) | > 待核实 | 2026-09 | 学术团队 | [15] |\n| SecAlign / StruQ / UniGuardian | > 待核实 | 2024-2025 | 学术团队 | [4][5][3] |\n| HackAPrompt 数据集 | > 待核实 | 竞赛平台 | 社区驱动 | [6] |\n\n- **人才流动**：安全研究者从传统 AppSec 转向 LLM Agent Security，会议（USENIX Security、IEEE S&P、ACM CCS）专题论文激增 [9][8]\n\n### 6.3 企业采纳现状\n- 金融/医疗/企业知识库场景**强制要求 RAG 防火墙与最小权限** [2][13][14]  \n- > 待核实：大模型厂商（OpenAI、Anthropic、Google、国内头部厂商）是否已在 API 层面内置 Guardrail 并开放策略配置\n\n---\n\n## 7. 信号与预测\n\n### 7.1 早期信号\n| 信号 | 来源 | 说明 |\n|------|------|------|\n| 双防火墙架构迭代至 v7 | [1] | 学术界持续打磨智能体网络安全基础设施 |\n| Z3 形式化验证沙箱基础设施 | [12] | 从“运行时隔离”向“预部署可验证”演进 |\n| 从异常轨迹学习护栏 | [15] | 从静态规则向行为学习护栏转型 |\n| OWASP Top 10 2025 定性提示注入为 #1 | [17] | 合规驱动将倒逼工程落地 |\n\n### 7.2 未来 6-18 月可验证预测\n| 预测 [P] | 依据链 | 可证伪假设 | 置信度 |\n|----------|--------|------------|--------|\n| **至少 2 家主流云厂商发布托管 LLM Firewall / Guardrail 服务** | OWASP 合规压力 [17] + 云原生安全调查 [18] + 企业 RAG 落地需求 [2] | 若 2027-05 前 AWS/Azure/GCP 官方文档无此类托管服务，则判断不成立 | 较大概率 |\n| **出现首个面向多智能体协作的红队评测基准（含工具链、跨智能体注入）** | WebInject [7] + AgentGuard Repurposing [16] + SoK 呼吁 [8] | 若 2027-05 前 GitHub/PapersWithCode 无此类基准开源，则判断不成立 | 中等概率 |\n| **最小权限执行框架（ABAC + 运行时策略引擎）成为 Agent 框架标配** | No More No Less [13] + AgentGuard ABAC [14] + LangChain/LlamaIndex 等框架演进 | 若主流 Agent 框架 2027-05 版本仍无内置细粒度权限控制，则判断不成立 | 推测 |\n| **形式化验证（Z3/模型检查）进入沙箱基础设施 CI/CD 流水线** | Mythos [12] + Metal Sandbox [10] | 若 2027-05 前主流沙箱项目无形式化验证集成，则判断不成立 | 推测 |\n\n### 7.3 不确定性与争议 [Debated]\n- **提示注入是否可“根治” vs 只能“缓解”**：OWASP 定性为 largely unsolved [17]；SecAlign [4]、StruQ [5]、UniGuardian [3] 声称有效防御，但**缺乏独立第三方在真实多工具、多智能体场景下的复现报告** [8][9]  \n- **静态规则 vs 学习型护栏**：AgentGuard ABAC [14] 与 Learning Guardrails [15] 代表两条路线，**工程落地时的误报率、延迟、策略冲突解决**仍无公开对比基准  \n- **沙箱隔离粒度**：进程级、容器级、微 VM 级、硬件级（Apple Silicon/GPU）[10][12]，**性能-安全-开发体验三角权衡**无标准答案\n\n---\n\n## 经典与奠基性工作\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| SoK: The Attack Surface of Agentic AI - Tools and Autonomy | 2026 | Cornell University | citations=40 [8] | arXiv cs.CR (SoK 级综述) [8] | 高：社区公认攻击面基准 [8] | ★★★★★ | [8] | 首篇系统化梳理 Agentic AI 攻击面的 SoK，建立四大类攻击分类法 |\n| Hijacking the Prompt: A Survey of Prompt Injection Attacks, Detection, and Defense | 2026 | Old Dominion University | citations=2 [17] | ODU Digital Commons (Survey) [17] | 高：OWASP 权威背书 [17] | ★★★★☆ | [17] | 专门聚焦提示词注入的全面调查，引用 OWASP 2025 Top 10 确立头号漏洞地位 |\n| Vulnerabilities in autonomous execution: A survey of security threats and defenses in LLM-driven agentic and multi-agent systems | 2026 | Knowledge-Based Systems 期刊 | > 待核实 | 同行评审期刊论文 [9] | 高：期刊级系统性调查 [9] | ★★★★★ | [9] | 覆盖工具/插件利用、多智能体威胁的期刊级综述 |\n| Automatic and Universal Prompt Injection Attacks against LLMs | 2024 | 通用自动注入攻击 | > 待核实 | arXiv 预印本 [19] | 中：早期攻击方法论 [19] | ★★★☆☆ | [19] | 奠基性攻击方法，证明通用自动注入可行性 |\n| LLM Security in Cloud-Native Architectures | 2026 | 云原生视角综述 | citations=0 [18] | techrxiv 预印本 [18] | 中：视角独特但为预印本 [18] | ★★★☆☆ | [18] | 云原生部署视角的系统性分类法，覆盖 65 项研究与真实事件 |\n\n---\n\n## 开源项目与工程实践\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| Metal Sandbox | 2026 | Apple Silicon 研究组 | > 待核实 | arXiv cs.LG [10] | 中等 | ★★★★☆ | [10] | GPU 编码 Agent 隔离执行与命令调度 |\n| No More, No Less: Least-Privilege LMs | 2026 | 最小权限落地 | > 待核实 | arXiv cs.CR [13] | 高 | ★★★★★ | [13] | 单一 API 端点暴露所有权限的现状分析与最小权限原则落地 |\n| AgentGuard (ABAC) | 2026 | 基于属性的访问控制 | > 待核实 | arXiv cs.CR [14] | 高 | ★★★★★ | [14] | 面向工具使用 Agent 的细粒度 ABAC 框架 |\n| AgentGuard (Learning Guardrails) | 2026 | 行为学习护栏 | > 待核实 | arXiv cs.SE [15] | 高 | ★★★★☆ | [15] | 从异常编码 Agent 轨迹学习执行护栏 |\n| SecAlign | 2024 | 偏好优化防御 | > 待核实 | arXiv cs.CR [4] | 中等 | ★★★☆☆ | [4] | 基于偏好优化的提示注入防御 |\n| StruQ | 2024 | 结构化查询防御 | > 待核实 | arXiv cs.CR [5] | 中等 | ★★★☆☆ | [5] | 基于结构化查询的提示注入防御 |\n| UniGuardian | 2025 | 统一检测框架 | > 待核实 | arXiv cs.CR [3] | 中等 | ★★★☆☆ | [3] | 统一检测提示注入/后门/对抗攻击 |\n| Mythos (Z3 Verification) | 2026 | 沙箱形式化验证 | > 待核实 | arXiv 预印本 [12] | 中等 | ★★★★☆ | [12] | 基于 Z3 的预部署沙箱基础设施验证 |\n\n---\n\n## 数据集与基准\n\n| 名称 | 年份 | 来源/维护方 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-------------|------|------|--------|--------|------|------|\n| HackAPrompt Playground Submissions Corpus (augmented) | 2025 | HackAPrompt 竞赛 / 论文 [6] | 论文引用 0，竞赛平台知名度高 [6] | 竞赛源数据集 [6] | 中等 | ★★★☆☆ | [6] | 提示词注入检测基准数据集，含恶意/良性标注，四类经典分类器基线 |\n| WebInject Benchmark | 2025 | 论文 [7] | > 待核实 | arXiv 预印本 [7] | 中等 | ★★★☆☆ | [7] | 面向 Web Agent 的提示注入攻击实测基准 |\n| OWASP Top 10 for LLM Applications (2025) | 2025 | OWASP 基金会 | 官方标准 [17] | 行业事实标准 [17] | 极高 | ★★★★★ | [17] | 将提示词注入列为 #1 漏洞，驱动合规与工程落地 |\n\n---\n\n## 参考来源\n[1] Firewalls to Secure Dynamic LLM Agentic Networks — http://arxiv.org/abs/2502.01822v7\n[2] ControlNET: A Firewall for RAG-based LLM System — http://arxiv.org/abs/2504.09593v2\n[3] UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models — http://arxiv.org/abs/2502.13141v2\n[4] SecAlign: Defending Against Prompt Injection with Preference Optimization — http://arxiv.org/abs/2410.05451v3\n[5] StruQ: Defending Against Prompt Injection with Structured Queries — http://arxiv.org/abs/2402.06363v2\n[6] Detecting Prompt Injection Attacks Against Application Using Classifiers — http://arxiv.org/abs/2512.12583v1\n[7] WebInject: Prompt Injection Attack to Web Agents — http://arxiv.org/abs/2505.11717v4\n[8] SoK: The Attack Surface of Agentic AI - Tools and Autonomy — https://doi.org/10.48550/arxiv.2603.22928\n[9] Vulnerabilities in autonomous execution: A survey of security threats and defenses in LLM-driven agentic and multi-agent systems — https://doi.org/10.1016/j.knosys.2026.117001\n[10] Metal Sandbox: Isolated Execution and Command Scheduling for GPU Coding Agents on Apple Silicon — http://arxiv.org/abs/2611.17294v1\n[11] SandBlaster: Reversing the Apple Sandbox — http://arxiv.org/abs/1608.04303v1\n[12] Mythos and the Unverified Cage: Z3-Based Pre-Deployment Verification for Frontier-Model Sandbox Infrastructure — http://arxiv.org/abs/2604.20496v1\n[13] No More, No Less: Least-Privilege Language Models — http://arxiv.org/abs/2601.23157v2\n[14] AgentGuard: An Attribute-Based Access Control Framework for Tool-Use LLM-Based Agent — http://arxiv.org/abs/2605.28071v1\n[15] AgentGuard: Learning Execution Guardrails from Anomalous Coding-Agent Trajectories — http://arxiv.org/abs/2609.16287v1\n[16] AgentGuard: Repurposing Agentic Orchestrator for Safety Evaluation of Tool Orchestration — http://arxiv.org/abs/2502.09809v1\n[17] Hijacking the Prompt: A Survey of Prompt Injection Attacks, Detection, and Defense in Large Language Models — https://doi.org/10.25776/mvhf-w867\n[18] LLM Security in Cloud-Native Architectures: A Comprehensive Survey of Attacks, Defenses, and Operational Challenges — https://doi.org/10.36227/techrxiv.177130593.35890269/v1\n[19] Automatic and Universal Prompt Injection Attacks against Large Language Models — http://arxiv.org/abs/2403.04957v1\n\n---\n\n*Generated by research-bot · topic=`agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=30 · duration=299s · 2026-11-23T03:12:26+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Automatic and Universal Prompt Injection Attacks against Large Language Models",
+      "url": "http://arxiv.org/abs/2403.04957v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-03-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "SecAlign: Defending Against Prompt Injection with Preference Optimization",
+      "url": "http://arxiv.org/abs/2410.05451v3",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-10-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Vision Mamba: A Comprehensive Survey and Taxonomy",
+      "url": "http://arxiv.org/abs/2405.04404v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "StruQ: Defending Against Prompt Injection with Structured Queries",
+      "url": "http://arxiv.org/abs/2402.06363v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2024-02-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Detecting Prompt Injection Attacks Against Application Using Classifiers",
+      "url": "http://arxiv.org/abs/2512.12583v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-12-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "UniGuardian: A Unified Defense for Detecting Prompt Injection, Backdoor Attacks and Adversarial Attacks in Large Language Models",
+      "url": "http://arxiv.org/abs/2502.13141v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-02-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Hijacking the Prompt: A Survey of Prompt Injection Attacks, Detection, and Defense in Large Language Models",
+      "url": "https://doi.org/10.25776/mvhf-w867",
+      "kind": "paper",
+      "venue": "ODU Digital Commons (Old Dominion University)",
+      "published": "2026-04-13",
+      "citations": 2,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "WebInject: Prompt Injection Attack to Web Agents",
+      "url": "http://arxiv.org/abs/2505.11717v4",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-05-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "LLM Security in Cloud-Native Architectures: A Comprehensive Survey of Attacks, Defenses, and Operational Challenges",
+      "url": "https://doi.org/10.36227/techrxiv.177130593.35890269/v1",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-02-17",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Vulnerabilities in autonomous execution: A survey of security threats and defenses in LLM-driven agentic and multi-agent systems",
+      "url": "https://doi.org/10.1016/j.knosys.2026.117001",
+      "kind": "paper",
+      "venue": "Knowledge-Based Systems",
+      "published": "2026-09-25",
+      "citations": 2,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "SoK: The Attack Surface of Agentic AI - Tools and Autonomy",
+      "url": "https://doi.org/10.48550/arxiv.2603.22928",
+      "kind": "paper",
+      "venue": "arXiv (Cornell University)",
+      "published": "2026-03-24",
+      "citations": 40,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Focus Agent: LLM-Powered Virtual Focus Group",
+      "url": "http://arxiv.org/abs/2409.01907v1",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2024-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Annif at SemEval-2025 Task 5: Traditional XMTC augmented by LLMs",
+      "url": "http://arxiv.org/abs/2504.19675v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Firewalls to Secure Dynamic LLM Agentic Networks",
+      "url": "http://arxiv.org/abs/2502.01822v7",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-02-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "ControlNET: A Firewall for RAG-based LLM System",
+      "url": "http://arxiv.org/abs/2504.09593v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-04-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "AgentGuard: Repurposing Agentic Orchestrator for Safety Evaluation of Tool Orchestration",
+      "url": "http://arxiv.org/abs/2502.09809v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-02-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "SandBlaster: Reversing the Apple Sandbox",
+      "url": "http://arxiv.org/abs/1608.04303v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2016-08-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Metal Sandbox: Isolated Execution and Command Scheduling for GPU Coding Agents on Apple Silicon",
+      "url": "http://arxiv.org/abs/2611.17294v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-11-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "No More, No Less: Least-Privilege Language Models",
+      "url": "http://arxiv.org/abs/2601.23157v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-01-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "AgentGuard: An Attribute-Based Access Control Framework for Tool-Use LLM-Based Agent",
+      "url": "http://arxiv.org/abs/2605.28071v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-05-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Mythos and the Unverified Cage: Z3-Based Pre-Deployment Verification for Frontier-Model Sandbox Infrastructure",
+      "url": "http://arxiv.org/abs/2604.20496v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-04-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "AgentGuard: Learning Execution Guardrails from Anomalous Coding-Agent Trajectories",
+      "url": "http://arxiv.org/abs/2609.16287v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Technical Report: The Need for a (Research) Sandstorm through the Privacy Sandbox",
+      "url": "http://arxiv.org/abs/2512.03207v2",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2025-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Whose Facts Win? LLM Source Preferences under Knowledge Conflicts",
+      "url": "http://arxiv.org/abs/2601.03746v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-01-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "A Formal Approach To Firewalls Testing Techniques",
+      "url": "http://arxiv.org/abs/1306.1953v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2013-06-08",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-23-agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall.md",
+    "json": "report/2026/11/2026-11-23-agentguardllm-护栏与-agent-安全提示注入越狱工具滥用与过度代理沙箱与最小权限llm-firewall.json"
+  }
+}
