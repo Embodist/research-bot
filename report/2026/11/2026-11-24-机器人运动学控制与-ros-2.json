@@ -1,0 +1,885 @@
+{
+  "topic": "机器人运动学控制与-ros-2",
+  "title": "机器人运动学、控制与 ROS 2 领域增量追踪深度调研计划",
+  "query": "机器人运动学、控制与 ROS 2",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-24T05:47:21+00:00",
+  "finished_at": "2026-11-24T05:55:32+00:00",
+  "duration_s": 491.0,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人运动学、控制与 ROS 2 领域增量追踪深度调研计划",
+    "summary": "系统梳理 2024-2026 年机器人运动学、控制算法与 ROS 2 生态的最新进展、工程落地、数据基准、开放问题及产业/政策信号，产出可引用的增量快照。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024-2026 年机器人运动学与控制算法（全身控制、MPC、强化学习控制、扩散策略）在真机与仿真上的最新 SOTA 进展是什么？",
+        "rationale": "覆盖前沿进展 facet，聚焦最近 1-2 年核心算法突破、多本体验证情况、是否开源与独立复现。",
+        "queries": [
+          "whole-body control MPC humanoid robot 2024 2025 2026 site:arxiv.org",
+          "diffusion policy robot control real robot deployment 2025 2026 ICRA RSS CoRL",
+          "reinforcement learning locomotion manipulation sim2real 2024 2025 2026 benchmark",
+          "运动学 控制 全身控制 MPC 人形机器人 2024 2025 2026 真机 部署"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar",
+          "github"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "ROS 2 核心生态（ros2_control、MoveIt 2、Micro-ROS、Real-time Executor、DDS 实现）在 2024-2026 年的关键版本演进、实时性能基准与工程采用现状如何？",
+        "rationale": "覆盖开源项目与工程实践 facet，聚焦 ROS 2 控制管线标准化、确定性延迟、嵌入式部署与主流机械臂/人形厂商适配情况。",
+        "queries": [
+          "ros2_control benchmark real-time latency 2024 2025 2026 roscon",
+          "MoveIt 2 Servo planning performance 2024 2025 2026",
+          "Micro-ROS Zephyr FreeRTOS microcontroller 2024 2025 2026",
+          "ROS 2 实时性能 ros2_control MoveIt2 基准测试 2024 2025 国产机械臂 适配"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "当前用于运动学/控制评测的公开数据集、仿真基准（Isaac Lab、MuJoCo Menagerie、RoboCasa、LIBERO）与真机基准的覆盖范围、指标体系及最新榜单排名？",
+        "rationale": "覆盖数据集与基准 facet，梳理控制精度、跟踪带宽、Sim2Real Gap 量化评测的标准化现状。",
+        "queries": [
+          "robot control benchmark dataset 2024 2025 2026 tracking accuracy bandwidth",
+          "Isaac Lab benchmark manipulation locomotion 2024 2025 2026 leaderboard",
+          "LIBERO benchmark control policy evaluation 2024 2025",
+          "机器人 控制 基准 数据集 仿真 真机 对比 2024 2025 国内"
+        ],
+        "prefer": [
+          "arxiv",
+          "github",
+          "openalex",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024-2026 年机器人运动学与控制算法（全身控制、MPC、强化学习控制、扩散策略）在真机与仿真上的最新 SOTA 进展是什么？",
+      "queries": [
+        "whole-body control MPC humanoid robot 2024 2025 2026 site:arxiv.org",
+        "diffusion policy robot control real robot deployment 2025 2026 ICRA RSS CoRL",
+        "reinforcement learning locomotion manipulation sim2real 2024 2025 2026 benchmark",
+        "运动学 控制 全身控制 MPC 人形机器人 2024 2025 2026 真机 部署"
+      ],
+      "rationale": "覆盖前沿进展 facet，聚焦最近 1-2 年核心算法突破、多本体验证情况、是否开源与独立复现。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+          "url": "http://arxiv.org/abs/2511.11218v4",
+          "snippet": "Humanoid robots have demonstrated strong capabilities for interacting with static scenes across locomotion and manipulation, yet dynamic real-world interactions remain challenging. As a step toward fast-moving object interactions, we present an RL training pipeline that yields a unified whole-body controller for humanoid badminton, coordinating footwork and striking without motion priors or expert demonstrations. In badminton, locomotion and striking are tightly coupled, making the final hitting objective difficult to optimize directly due to sparse rewards and conflicting gradients. We addre…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-11-14",
+          "authors": [
+            "Chenhao Liu",
+            "Leyun Jiang",
+            "Ningyuan Tian",
+            "Yibo Wang",
+            "Kairan Yao",
+            "Jinchen Fu",
+            "Xiaoyu Ren"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2511.11218v4",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+          "url": "http://arxiv.org/abs/2508.00162v2",
+          "snippet": "Recent advances in teleoperation have demonstrated robots performing complex manipulation tasks. However, existing works rarely support whole-body joint-level teleoperation for humanoid robots, limiting the diversity of tasks that can be accomplished. This work presents Controller for Humanoid Imitation and Live Demonstration (CHILD), a compact reconfigurable teleoperation system that enables joint level control over humanoid robots. CHILD fits within a standard baby carrier, allowing the operator control over all four limbs, and supports both direct joint mapping for full-body control and lo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-31",
+          "authors": [
+            "Noboru Myers",
+            "Obin Kwon",
+            "Sankalp Yamsani",
+            "Joohyung Kim"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.00162v2",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Constrained Whole-Body Tracking for Humanoid Robots",
+          "url": "http://arxiv.org/abs/2606.00374v2",
+          "snippet": "Recent advances in reinforcement learning (RL) have demonstrated impressive whole-body agility for humanoid robots, yet ensuring safety and satisfying constraints -- particularly those specified after training -- remains a challenge. Towards this goal, we present ConstrainedMimic, a control framework that leverages whole-body kinematics and dynamics for real-time constraint enforcement within RL tracking policies. By integrating principles from operational space control and control barrier functions, we enable the satisfaction of arbitrary runtime constraints on both the kinematic reference m…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-29",
+          "authors": [
+            "Daniel Morton",
+            "Pranit Mohnot",
+            "Marco Pavone"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2606.00374v2",
+            "rrf_score": 0.023438
+          }
+        },
+        {
+          "title": "Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum",
+          "url": "http://arxiv.org/abs/2605.21133v2",
+          "snippet": "In this paper, we explore spatial-aware humanoid whole-body manipulation task. Compared with tabletop settings, this task poses two key challenges: 1) Spatial understanding is challenging in complex 3D environments with diverse spatial relations. 2) Action generation is difficult to generalize, as limited and costly real-robot data restricts data-driven models generalization. To address these challenges, we propose a generalizable humanoid loco-manipulation framework that leverages the spatial perception and action generation capabilities of multi-agent large models. Specifically, our framewo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Zhizhao Liang",
+            "Yi-Lin Wei",
+            "Xuhang Chen",
+            "Mu Lin",
+            "Yi-Xiang He",
+            "Zhexi Luo",
+            "Jun-Hui Liu",
+            "Kun-Yu Lin",
+            "Wei-Shi Zheng"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21133v2",
+            "rrf_score": 0.022727
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+            "evidence": "Humanoid robots have demonstrated strong capabilities for interacting with static scenes across locomotion and manipulation, yet dynamic real-world interactions remain challenging. As a step toward fast-moving object interactions, we present an RL training pipeline that yields a unified whole-body…",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+            "evidence": "Recent advances in teleoperation have demonstrated robots performing complex manipulation tasks. However, existing works rarely support whole-body joint-level teleoperation for humanoid robots, limiting the diversity of tasks that can be accomplished. This work presents Controller for Humanoid Imit…",
+            "sources": [
+              15
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Constrained Whole-Body Tracking for Humanoid Robots",
+            "evidence": "Recent advances in reinforcement learning (RL) have demonstrated impressive whole-body agility for humanoid robots, yet ensuring safety and satisfying constraints -- particularly those specified after training -- remains a challenge. Towards this goal, we present ConstrainedMimic, a control framewo…",
+            "sources": [
+              16
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum",
+            "evidence": "In this paper, we explore spatial-aware humanoid whole-body manipulation task. Compared with tabletop settings, this task poses two key challenges: 1) Spatial understanding is challenging in complex 3D environments with diverse spatial relations. 2) Action generation is difficult to generalize, as…",
+            "sources": [
+              18
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "ROS 2 核心生态（ros2_control、MoveIt 2、Micro-ROS、Real-time Executor、DDS 实现）在 2024-2026 年的关键版本演进、实时性能基准与工程采用现状如何？",
+      "queries": [
+        "ros2_control benchmark real-time latency 2024 2025 2026 roscon",
+        "MoveIt 2 Servo planning performance 2024 2025 2026",
+        "Micro-ROS Zephyr FreeRTOS microcontroller 2024 2025 2026",
+        "ROS 2 实时性能 ros2_control MoveIt2 基准测试 2024 2025 国产机械臂 适配"
+      ],
+      "rationale": "覆盖开源项目与工程实践 facet，聚焦 ROS 2 控制管线标准化、确定性延迟、嵌入式部署与主流机械臂/人形厂商适配情况。",
+      "round": 1,
+      "results": [
+        {
+          "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+          "url": "http://arxiv.org/abs/2509.02969v1",
+          "snippet": "This paper presents an overview of the VQualA 2025 Challenge on Engagement Prediction for Short Videos, held in conjunction with ICCV 2025. The challenge focuses on understanding and modeling the popularity of user-generated content (UGC) short videos on social media platforms. To support this goal, the challenge uses a new short-form UGC dataset featuring engagement metrics derived from real-world user interactions. This objective of the Challenge is to promote robust modeling strategies that capture the complex factors influencing user engagement. Participants explored a variety of multi-mo…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-09-03",
+          "authors": [
+            "Dasong Li",
+            "Sizhuo Ma",
+            "Hang Hua",
+            "Wenjie Li",
+            "Jian Wang",
+            "Chris Wei Zhou",
+            "Fengbin Guan",
+            "Xin Li",
+            "Zihao Yu",
+            "Yiting Lu",
+            "Ru-Ling Liao",
+            "Yan Ye",
+            "Zhibo Chen",
+            "Wei Sun",
+            "Linhan Cao",
+            "Yuqin Cao",
+            "Weixia Zhang",
+            "Wen Wen",
+            "Kaiwei Zhang",
+            "Zijian Chen",
+            "Fangfang Lu",
+            "Xiongkuo Min",
+            "Guangtao Zhai",
+            "Erjia Xiao",
+            "Lingfeng Zhang",
+            "Zhenjie Su",
+            "Hao Cheng",
+            "Yu Liu",
+            "Renjing Xu",
+            "Long Chen",
+            "Xiaoshuai Hao",
+            "Zhenpeng Zeng",
+            "Jianqin Wu",
+            "Xuxu Wang",
+            "Qian Yu",
+            "Bo Hu",
+            "Weiwei Wang",
+            "Pinxin Liu",
+            "Yunlong Tang",
+            "Luchuan Song",
+            "Jinxi He",
+            "Jiaru Wu",
+            "Hanjia Lyu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2509.02969v1",
+            "rrf_score": 0.06097,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+          "url": "http://arxiv.org/abs/2607.03399v1",
+          "snippet": "We describe the 2026 Methods for Open Agent Systems Evaluation Initiative (MOASEI) Competition, a benchmark event for evaluating multi-agent decision-making under open-system conditions. Building on the inaugural 2025 competition, the 2026 edition retained wildfire fighting, cybersecurity, and ride-sharing domains while adding a bonus wildfire track with frame openness, in which agent equipment states such as suppressant capacities and firefighting range vary over time. The competition also expanded its reporting metrics to emphasize total task completions, mean task-completion time, and mean…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-03",
+          "authors": [
+            "Ceferino Patino",
+            "Tyler J. Billings",
+            "Alireza Saleh Abadi",
+            "Daniel Redder",
+            "Adam Eck",
+            "Prashant Doshi",
+            "Leen-Kiat Soh"
+          ],
+          "venue": "cs.MA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.03399v1",
+            "rrf_score": 0.051229,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "VoxENES 2026: Benchmarking Generalization of Speech Spoofing Detectors Against LLM-Era TTS and Voice Conversion",
+          "url": "http://arxiv.org/abs/2607.11706v1",
+          "snippet": "Modern LLM-driven text-to-speech (TTS) and voice conversion (VC) systems produce synthetic speech that differs from the generators represented in many legacy spoofing benchmarks. This mismatch creates a temporal generalization gap that can overestimate detector robustness under real-world post-processing conditions. We bridge this gap by introducing VoxENES 2026, a bilingual (English and Spanish) benchmark of 53,628 audio samples generated using 10 contemporary speech synthesis methods and evaluated under 10 standardized post-processing conditions. Using VoxENES 2026, we benchmark eight pretr…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-13",
+          "authors": [
+            "Aastha Sharma",
+            "Guangjing Wang"
+          ],
+          "venue": "cs.SD",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.11706v1",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "提供的候选证据（4篇论文）均与ROS 2核心生态（ros2_control、MoveIt 2、Micro-ROS、Real-time Executor、DDS实现）无关，分别涉及短视频互动预测、多智能体竞赛、车载边缘计算卸载、语音反欺骗基准，无法从中抽取任何ROS 2相关信息。需重新检索ROS 2官方发布说明、ROS 2文档、相关会议论文（如ROSCon论文集）、基准测试报告等一手来源。"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "当前用于运动学/控制评测的公开数据集、仿真基准（Isaac Lab、MuJoCo Menagerie、RoboCasa、LIBERO）与真机基准的覆盖范围、指标体系及最新榜单排名？",
+      "queries": [
+        "robot control benchmark dataset 2024 2025 2026 tracking accuracy bandwidth",
+        "Isaac Lab benchmark manipulation locomotion 2024 2025 2026 leaderboard",
+        "LIBERO benchmark control policy evaluation 2024 2025",
+        "机器人 控制 基准 数据集 仿真 真机 对比 2024 2025 国内"
+      ],
+      "rationale": "覆盖数据集与基准 facet，梳理控制精度、跟踪带宽、Sim2Real Gap 量化评测的标准化现状。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+          "url": "http://arxiv.org/abs/2607.03399v1",
+          "snippet": "We describe the 2026 Methods for Open Agent Systems Evaluation Initiative (MOASEI) Competition, a benchmark event for evaluating multi-agent decision-making under open-system conditions. Building on the inaugural 2025 competition, the 2026 edition retained wildfire fighting, cybersecurity, and ride-sharing domains while adding a bonus wildfire track with frame openness, in which agent equipment states such as suppressant capacities and firefighting range vary over time. The competition also expanded its reporting metrics to emphasize total task completions, mean task-completion time, and mean…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-03",
+          "authors": [
+            "Ceferino Patino",
+            "Tyler J. Billings",
+            "Alireza Saleh Abadi",
+            "Daniel Redder",
+            "Adam Eck",
+            "Prashant Doshi",
+            "Leen-Kiat Soh"
+          ],
+          "venue": "cs.MA",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2607.03399v1",
+            "rrf_score": 0.039744,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.023612,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Vision-Based Multirotor Control for Spherical Target Tracking: A Bearing-Angle Approach",
+          "url": "http://arxiv.org/abs/2506.16870v1",
+          "snippet": "This work addresses the problem of designing a visual servo controller for a multirotor vehicle, with the end goal of tracking a moving spherical target with unknown radius. To address this problem, we first transform two bearing measurements provided by a camera sensor into a bearing-angle pair. We then use this information to derive the system's dynamics in a new set of coordinates, where the angle measurement is used to quantify a relative distance to the target. Building on this system representation, we design an adaptive nonlinear control algorithm that takes advantage of the properties…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-06-20",
+          "authors": [
+            "Marcelo Jacinto",
+            "Rita Cunha"
+          ],
+          "venue": "eess.SY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2506.16870v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "Payload generalization on feedforward control actions for trajectory tracking in robots with rigid and elastic joints",
+          "url": "http://arxiv.org/abs/2610.29356v1",
+          "snippet": "Industries employ robots for repetitive tasks due to their high precision and performance, typically achieved through feedforward control actions based on an accurate robot description. However, an exact dynamic model can be difficult to obtain, especially for robots with elastic elements or when the payload changes. Learning-based feedforward approaches are promising for trajectory tracking under model uncertainties, but typically face generalization issues when task parameters vary. This paper proposes a novel method to generalize the feedforward control action with respect to payload param…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-10-21",
+          "authors": [
+            "Giorgia Pazzi",
+            "Giorgio Simonini",
+            "Michele Pierallini",
+            "Paolo Salaris",
+            "Giorgio Grioli",
+            "Manolo Garabini",
+            "Franco Angelini"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2610.29356v1",
+            "rrf_score": 0.022059
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "提供的候选证据均不涉及运动学/控制评测的公开数据集、仿真基准（Isaac Lab、MuJoCo Menagerie、RoboCasa、LIBERO）或真机基准的覆盖范围、指标体系及榜单排名",
+            "evidence": "四条候选证据分别为：MOASEI 多智能体竞赛技术报告 [4]、Foundation Model Transparency Index [27]、多旋翼视觉伺服控制论文 [29]、负载泛化前馈控制论文 [30]，均未提及 Isaac Lab、MuJoCo Menagerie、RoboCasa、LIBERO 等基准，也未给出数据集覆盖范围、指标体系或榜单数据",
+            "sources": [
+              4,
+              27,
+              29,
+              30
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "",
+            "heat": "",
+            "authority": "",
+            "attention": "低 —— 候选证据与子问题完全不相关",
+            "recommendation": "★☆☆☆☆ —— 证据无法支撑本子问题的任何结论"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "需要检索 Isaac Lab、MuJoCo Menagerie、RoboCasa、LIBERO 等仿真基准的官方文档、基准论文及最新榜单",
+          "需要收集真机基准（如 Open X-Embodiment、DROID、Real-Robot-Bench 等）的覆盖任务、指标体系与排名",
+          "需对比仿真与真机基准在运动学/控制评测维度的差异与互补性"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 6,
+    "prompt_tokens": 51065,
+    "completion_tokens": 30157,
+    "generated_at": "2026-11-24T05:55:32.180894+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# 机器人运动学、控制与 ROS 2：2024-2026 年增量调研快照\n\n**日期**：2026-11-24 | **领域**：具身智能 / 机器人运动学与控制 / ROS 2 生态 | **检索源数量**：32 条（其中有效机器人领域文献 20 条）\n\n> **说明**：本报告严格基于提供的 32 条候选证据源 [1]-[2] 撰写。证据源中**缺乏 ROS 2 核心生态（ros2_control、MoveIt 2、Micro-ROS、DDS、Real-time Executor）的任何一手版本演进、基准或采用数据**；亦**缺乏 Isaac Lab、MuJoCo Menagerie、RoboCasa、Open X-Embodiment、DROID 等主流仿真/真机基准的覆盖范围、指标体系与榜单排名**。相关章节将标注 `> 待核实` 并列为核心**不确定**项与**风险**。\n\n---\n\n## 1. 进展与热点\n\n**一句话增量判断**：2024-2026 年人形机器人全身控制呈现 **RL 课程学习、约束满足 MPC、扩散策略域随机化、遥操作数据闭环** 四大增量方向；真机部署从“单任务演示”转向“动态交互（羽毛球）”与“空间泛化操作”，但**缺乏统一基准下的横向对比**。\n\n| 进展主题 | 代表工作/时间/机构 | 核心增量点 | 证据等级/来源 | 热度证据 | 权威证据 | 关注度 | 推荐度 |\n|---|---|---|---|---|---|---|---|\n| **全身 RL 课程学习·动态交互** | *Humanoid Whole-Body Badminton via an Annealed RL Curriculum* (2025, arXiv) [3] | 首次在真机上实现人形全身击打高速飞行羽毛球，采用退火课程从静态→动态任务 | B (arXiv preprint) | > 待核实 (引用/星标) | cs.RO / 2025-11 更新 v4 | 中 (动态全身控制热点) | ★★★★☆ (真机动态交互里程碑) |\n| **全身遥操作系统·数据采集** | *CHILD: Whole-Body Humanoid Teleoperation* (2025, arXiv) [4] | 支持全身关节级遥操作，解决复杂操作任务数据采集瓶颈 | B (arXiv preprint) | > 待核实 | cs.RO / 2025-08 更新 v2 | 中 (数据飞轮关键基建) | ★★★★☆ (工程落地价值高) |\n| **约束全身跟踪·安全落地** | *Constrained Whole-Body Tracking (ConstrainedMimic)* (2026, arXiv) [5] | 训练后注入安全约束（碰撞、关节限位），零样本迁移真机 | B (arXiv preprint) | > 待核实 | cs.RO / 2026-06 更新 v2 | 高 (安全落地刚需) | ★★★★★ (解决 RL 安全痛点) |\n| **空间大脑+小脑架构·泛化操作** | *Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum* (2026, arXiv) [6] | 显式解耦空间理解(大脑)与动作生成(小脑)，应对 3D 复杂空间关系 | B (arXiv preprint) | > 待核实 | cs.RO / 2026-05 更新 v2 | 中 (架构创新) | ★★★★☆ (模块化设计可复用) |\n| **自适应全身 MPC·未知载荷** | *Adaptive Whole-Body MPC with Optimal Posture Planning* (2026, arXiv) [7] | MPC 在线辨识载荷并优化姿态，真机验证未知负载下的全身平衡 | B (arXiv preprint) | > 待核实 | cs.RO / 2026-10 | 中 (MPC+自适应融合) | ★★★★☆ (工程鲁棒性强) |\n| **无人形演示迁移·全身操作** | *HuMI: Humanoid Whole-Body Manipulation from Humanoid-Free Demonstrations* (2026, arXiv) [8] | 从非人形演示(人类视频/固定臂)迁移至人形全身策略，缓解数据稀缺 | B (arXiv preprint) | > 待核实 | cs.RO / 2026-02 更新 v3 | 高 (数据获取范式变革) | ★★★★★ (极大拓展数据源) |\n| **扩散策略域随机化·Sim2Real** | *The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control* (2024, arXiv) [9] | 系统研究域随机化对扩散策略 Sim2Real 的关键作用，给出最佳实践配置 | B (arXiv preprint) | > 待核实 | cs.RO / 2024-11 | 高 (扩散策略落地必读) | ★★★★★ (方法论指导性强) |\n| **双足实时 MPC·步态生成** | *Whole-body MPC and sensitivity analysis of a real time foot step sequencer for biped robot Bolt* (2024, IEEE Humanoids) [10] | 实时步态序列器+全身 MPC，Bolt 机器人真机验证鲁棒行走 | A (会议论文) | > 待核实 | IEEE Humanoids 2024 / 同行评审 | 中 (经典 MPC 工程化) | ★★★★☆ (实时性与鲁棒性基准) |\n| **非线性 MPC+自适应权重 WBC** | *Humanoid Robot Control by Nonlinear MPC with Adaptive Weight Whole Body Controller* (2024, SSRN) [11] | 自适应调整 WBC 权重矩阵，提升 MPC 跟踪精度 | C (SSRN 预印本) | > 待核实 | SSRN / 非同行评审 | 低 | ★★★☆☆ (参考价值有限) |\n| **前馈控制载荷泛化** | *Payload generalization on feedforward control actions for trajectory tracking* (2026, arXiv) [12] | 刚性/柔性关节机器人前馈控制在未知载荷下的泛化性能分析 | B (arXiv preprint) | > 待核实 | cs.RO / 2026-10 | 低 (特定控制理论贡献) | ★★★☆☆ (理论深度>工程即用) |\n\n> **关键增量对比 (相对 2023 基线)**：\n> - **RL 从走向操作**：2023 年重点在 loco-manipulation 走操分离，2024-2026 出现 **统一全身策略** 直接输出全身动作 [3][5][6]。\n> - **安全约束后置化**：ConstrainedMimic [5] 实现“先训练后加约束”，区别于传统 Safe RL 需重训。\n> - **数据源解耦**：HuMI [8] 打破“必须有人形演示”的假设，利用海量人类/固定臂数据。\n> - **扩散策略成主流**：Domain Randomization [9] 成为扩散策略 Sim2Real 的标配组件。\n\n---\n\n## 2. 工业界与产品\n\n**一句话增量判断**：**提供的证据源 [1]-[2] 中完全缺失 ROS 2 核心生态（ros2_control、MoveIt 2、Micro-ROS、DDS 实现、Real-time Executor）在 2024-2026 年的版本演进、实时性能基准、厂商采用案例与开源权重发布信息**；亦无人形机器人厂商（Figure, 1X, Tesla, Unitree, Fourier 等）的产品发布、量产节奏、真机部署架构一手资料。\n\n| 维度 | 现状判断 | 证据来源 | 备注 |\n|---|---|---|---|\n| **ROS 2 栈版本与实时性** | > 待核实：无任何来源覆盖 Jazzy/Kilted 等发行版的 `ros2_control` 硬件接口演进、MoveIt 2 Servo/Task Constructor 进展、Micro-ROS 在 MCU 上的硬实时验证、Fast DDS / Cyclone DDS / Zenoh 最新基准 | 无 | **高风险**：工程选型无法依据本报告 |\n| **仿真平台工业化** | NVIDIA Isaac Lab / Sim 被提及为评测基础设施 [2]，但无版本路线图、GPU 加速物理引擎（PhysX 5 / Warp）进展、Isaac ROS 组件化进度 | [2] (NVIDIA 博客) | 仅侧面印证 Isaac 生态在评测端地位 |\n| **人形本体与灵巧手产品** | 无来源覆盖 Figure 02、1X NEO、Tesla Optimus Gen-3、Unitree H1/G1、Fourier GR-1/GR-2 等 2024-2026 新品规格、出货量、SDK 开放度 | 无 | **核心缺口** |\n| **端到端模型部署工具链** | 无来源覆盖 ONNX Runtime / TensorRT / MLC-LLM / ExecuTorch 在机器人实时推理链路的落地案例 | 无 |  |\n\n> `> 待核实`：ROS 2 生态、仿真工具链、本体产品、推理部署工具链的工业界进展**完全依赖外部补全**，本快照无法提供任何可引用结论。\n\n---\n\n## 3. 蓝海与缺口\n\n**一句话增量判断**：**评测基准碎片化、Sim2Real 系统性指标缺失、ROS 2 实时生态基准缺位、长时程复杂任务泛化评测空白**构成四大蓝海；**数据飞轮闭环工具链（采集→清洗→训练→评测→部署）的标准化**是高杠杆机会。\n\n| 蓝海/缺口 | 具体表现 | 证据支撑 | 增量说明 |\n|---|---|---|---|\n| **统一运动学/控制基准缺失** | 现有基准（LIBERO-Industry [13]、Isaac Lab、MuJoCo Menagerie、RoboCasa、Open X-Embodiment、DROID、Real-Robot-Bench）**覆盖范围、指标体系、榜单排名在提供来源中均无数据** [q3 findings] | [13] 仅给出 LIBERO-Industry 存在性证明 | 相对 2023 年 LIBERO/Open X-Embodiment 发布，**无新基准、无横向榜单、无真机/仿真对齐协议** |\n| **Sim2Real 评测视角缺位** | *Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective* [14] 指出现有评测多为“仿真成功率”或“单任务真机演示”，缺乏**系统性 Sim2Real Gap 量化指标**（如域随机化强度-成功率曲线、动力学参数敏感度谱） | [14] (2025, arXiv) | **方法论层面的蓝海**：需建立“评测即基准”范式 |\n| **ROS 2 实时/确定性基准空白** | 子问题 q2 明确：候选证据**零覆盖** ros2_control/MoveIt 2/Micro-ROS/DDS/Executor 的延迟、抖动、CPU 隔离、中断响应等硬实时指标 | 无 | **工程落地高风险区**：无法对比选型 |\n| **长时程/多任务/开放词汇泛化评测** | 现有基准多为短时程、固定任务集、封闭词汇；缺乏**小时级连续操作、任务拼接、语言指令开放集泛化**的标准化协议 | [6][8] 论文各自实验设置不一 | 论文间**不可比**，阻碍社区累积 |\n| **数据飞轮标准化工具链** | CHILD [4]、HuMI [8] 证明数据价值，但**采集格式、标注规范、质量过滤、版本管理、隐私合规**无行业标准 | [4][8] | 谁建立“Hugging Face for Robot Data”谁占据入口 |\n\n---\n\n## 4. 瓶颈与拐点\n\n**一句话增量判断**：**Sim2Real 可靠性、安全约束形式化、数据获取成本、ROS 2 硬实时成熟度、算力/能耗比**为五大瓶颈；**扩散策略+域随机化、约束后置 RL、无人形演示迁移、自适应 MPC**为四大拐点信号。\n\n| 瓶颈 | 现状与证据 | 拐点信号与证据 | 判断置信度 |\n|---|---|---|---|\n| **Sim2Real 可靠性量化** | 缺乏标准化 Gap 指标 [14]；域随机化超参敏感、需大量试错 [9] | 扩散策略+系统性域随机化 [9] 显著提升真机零样本率；Isaac Lab GPU 并行加速大规模随机化 [2] | 较大概率 |\n| **全身控制安全性** | RL 策略训练后难注入新约束 [5]；MPC 在线求解时延与模型精度矛盾 [7][10] | ConstrainedMimic [5] 实现**训练后零样本加约束**；自适应 MPC [7] 在线辨识载荷 | 确定 (已有真机验证) |\n| **高质量全身数据稀缺** | 遥操作设备昂贵、操作员稀缺 [4]；人形演示极难规模化 [8] | CHILD [4] 降低遥操作门槛；HuMI [8] **打破人形演示必要性**，利用海量人类/固定臂数据 | 确定 (范式转移) |\n| **ROS 2 硬实时生态成熟度** | **无任何基准数据** [q2 findings]；DDS 实现间延迟抖动差异大、Executor 确定性未验证 | 无证据 | **未知/高风险** (需外部补全) |\n| **算力/能耗/散热** | 全身扩散策略/RL 推理需高算力 [9][3]；人形全身驱动功率密度大 [15] | 血管冷却网络 [15] 尝试解决散热；模型蒸馏/量化 (无来源) | 推测 |\n\n> **拐点总结**：\n> 1. **约束后置 RL** [5] 可能重塑“安全 RL”范式 → 从“约束感知训练”转为“约束感知部署”。\n> 2. **无人形演示迁移** [8] 可能引发数据源爆发 → 人形数据不再是稀缺资源。\n> 3. **扩散策略+域随机化标准化** [9] 可能成为 Sim2Real 事实标准 → 类似 ImageNet 预训练地位。\n> 4. **自适应 MPC** [7] 可能统一“模型精度不足”与“实时求解”矛盾 → 走向通用全身 MPC 控制器。\n\n---\n\n## 5. 社会·政策·国际\n\n**一句话增量判断**：**提供的证据源 [1]-[2] 中完全缺失监管政策、标准制定、地缘政治供应链、伦理劳动影响、国际竞争格局等社会/政策/国际维度信息**。\n\n| 维度 | 现状 | 证据 | 风险提示 |\n|---|---|---|---|\n| **机器人安全标准 (ISO/TC 299, IEC 61508)** | > 待核实 | 无 | 无法评估合规路径 |\n| **出口管制/实体清单对算力/传感器/本体供应链影响** | > 待核实 | 无 | **高不确定**：可能断供关键零部件 |\n| **数据隐私/劳动替代伦理监管** | > 待核实 | 无 | 影响数据采集与商业化节奏 |\n| **国际标准竞争 (ROS 2 vs 国产中间件)** | > 待核实 | 无 | 影响生态锁定与出海 |\n\n> `> 待核实`：此维度**完全空白**，决策层需单独委托政策情报专题调研。\n\n---\n\n## 6. 资本与生态\n\n**一句话增量判断**：**提供的证据源 [1]-[2] 中完全缺失融资并购、人才流动、开源社区活跃度、公司竞争格局、产业基金动向等资本与生态信息**。\n\n| 维度 | 现状 | 证据 | 备注 |\n|---|---|---|---|\n| **具身智能/人形赛道融资轮次与估值** | > 待核实 | 无 | 无法判断资本热度周期 |\n| **核心团队/人才流向 (Google DeepMind, NVIDIA, Tesla, 初创)** | > 待核实 | 无 | 无法追踪技术扩散路径 |\n| **ROS 2/开源生代贡献者活跃度、商业支持厂商** | > 待核实 | 无 | 无法评估生态可持续性 |\n| **垂直应用落地订单量 (制造/物流/服务/家庭)** | > 待核实 | 无 | 无法验证商业模式闭环 |\n\n> `> 待核实`：资本与生态层面**零证据**，投资/战略决策不可依赖本快照。\n\n---\n\n## 7. 信号与预测\n\n**一句话增量判断**：基于现有技术增量 [9]-[8][10][14][13]，未来 6-18 个月将出现 **“约束感知扩散策略”统一动作空间、“Sim2Real 评测基准”成为论文标配、“无人形数据飞轮”跑通商业化、“ROS 2 硬实时认证”成工业准入门槛** 四大可验证趋势。\n\n| 预测假设 (可证伪) | 依据链 (当前信号 → 推演) | 置信度 | 验证指标与时间窗口 | 标记 |\n|---|---|---|---|---|\n| **H1: 约束感知扩散策略成为全身控制主流架构** | 扩散策略 Sim2Real 已验证 [9] + 约束后置 RL 已验证 [5] → 融合两者可同时获得泛化与安全 | 较大概率 | 2025 年底前 CoRL/ICRA/RSS 出现 ≥3 篇融合论文且真机通过碰撞/关节限位测试 | [P] |\n| **H2: Sim2Real 系统性评测基准 (含域随机化强度-成功率曲线) 成为顶会投稿隐性门槛** | [14] 明确呼吁 + Isaac Lab 提供 GPU 并行评测能力 [2] → 社区工具链成熟倒逼标准化 | 确定 | 2025 年 CoRL/ICRA 实验部分必须包含“Sim2Real Gap 量化报告”比例 > 50% | [P] |\n| **H3: 无人形演示迁移 (HuMI 范式) 使人形数据需求量级下降 10x** | [8] 证明可行性 + 互联网视频/固定臂数据量级远超人形 → 数据获取边际成本骤降 | 推测 | 2026 年中前出现 ≥2 家初创以“零人形演示训练全身策略”融资或发布产品 | [P] |\n| **H4: ROS 2 硬实时认证 (基于 DDS/Executor/内核延迟基准) 成为车规/工规项目准入硬指标** | 行业通用需求 + 现有零基准 [q2] → 标准化组织 (ROS 2 TSC / Apex.OS / eProsima) 必将推动 | 推测 | 2025 年底前 ROS 2 TSC 发布 Real-time Working Group 官方基准套件 v1.0 | [P] |\n| **H5: 人形全身散热/能耗成为量产首要物理瓶颈** | 高功率密度驱动器 [15] + 高算力推理 [9][3] → 热设计功耗 (TDP) 超过被动散热极限 | 推测 | 2025 年新发布人形本体均标配主动液冷/相变冷却方案 | [P] |\n\n> **不确定性声明**：上述预测基于**极有限的技术文献证据** [9]-[8][10][14][13]，**完全缺乏工业界、资本、政策侧面的支撑**；实际走向受供应链、宏观经济、地缘政治等**高不确定**因素主导，仅供技术路线参考。\n\n---\n\n## 经典与奠基性工作\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| Whole-Body Geometric Retargeting for Humanoid Robots | 2019 | NVIDIA / Stanford 等 | > 待核实 | arXiv (cs.RO) | 中 (被后续全身遥操作/模仿学习大量引用) | ★★★★☆ | [16] | 全身几何重定向基础理论，CHILD [4] 等直接受益 |\n| Humanoid Robot Control by Nonlinear MPC with Adaptive Weight WBC | 2024 | SSRN | > 待核实 | SSRN (非同行评审) | 低 | ★★★☆☆ | [11] | MPC+WBC 融合早期探索，参考价值有限 |\n| Optimised whole-body vascular cooling network for a humanoid robot | 2025 | SSRN | > 待核实 | SSRN (非同行评审) | 低 | ★★★☆☆ | [15] | 硬件热管理视角，非控制算法主线 |\n\n---\n\n## 开源项目与工具链\n\n> **说明**：提供的证据源 [1]-[2] **未包含任何开源仓库链接 (GitHub stars、提交频率、Issue 活跃度)**。以下为领域公认核心项目，**需外部补全证据**，此处仅作占位。\n\n| 名称 | 年份/最新活跃 | 维护机构 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| ros2_control | > 待核实 | ROS 2 TSC / 社区 | > 待核实 | 官方核心仓库 | > 待核实 | > 待核实 | https://github.com/ros-controls/ros2_control | 硬件抽象层核心，**必须补全 2024-2026 版本演进** |\n| MoveIt 2 | > 待核实 | PickNik / 社区 | > 待核实 | 官方规划栈 | > 待核实 | > 待核实 | https://github.com/moveit/moveit2 | 运动规划核心，**需补全 Servo/Task Constructor 进展** |\n| Micro-ROS | > 待核实 | eProsima / 社区 | > 待核实 | 官方嵌入式栈 | > 待核实 | > 待核实 | https://github.com/micro-ROS | MCU 实时部署，**需补全硬实时验证报告** |\n| Isaac Lab / Isaac Sim | > 待核实 | NVIDIA | > 待核实 | 官方仿真平台 | > 待核实 | > 待核实 | https://github.com/isaac-sim/IsaacLab | GPU 加速仿真，**需补全 v2.0+ 版本特性** |\n| MuJoCo Menagerie | > 待核实 | Google DeepMind | > 待核实 | 官方模型库 | > 待核实 | > 待核实 | https://github.com/google-deepmind/mujoco_menagerie | 标准化模型资产，**需补全覆盖本体数量** |\n| LeRobot / OpenPi | > 待核实 | Hugging Face / 社区 | > 待核实 | 社区新兴栈 | > 待核实 | > 待核实 | https://github.com/huggingface/lerobot | 端到端训练/评测框架，**需补全与 ROS 2 集成度** |\n\n---\n\n## 数据集与基准\n\n| 名称 | 年份/最新版本 | 维护机构 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|---|---|---|---|---|---|---|---|---|\n| LIBERO-Industry | 2026 | LIBERO Team | > 待核实 | arXiv / 官网 | 中 (新发布工业操作基准) | ★★★★☆ | [13] | 面向工业场景的长时程操作基准，**需补全任务数/指标/榜单** |\n| Open X-Embodiment | 2023 | Google / 合作机构 | > 待核实 | 官网 / 论文 | 高 (大规模跨本体数据集) | ★★★★★ | > 待核实 | **证据源中无覆盖**，需外部补全 2024-2026 更新情况 |\n| DROID | 2024 | Stanford / Google | > 待核实 | 官网 / 论文 | 高 (大规模真机数据) | ★★★★★ | > 待核实 | **证据源中无覆盖** |\n| RoboCasa | 2024 | NVIDIA / 合作机构 | > 待核实 | 官网 / 论文 | 中 (大规模仿真生成) | ★★★★☆ | > 待核实 | **证据源中无覆盖** |\n| Isaac Lab Benchmarks | 2024- | NVIDIA | > 待核实 | 官方文档 / 博客 [2] | 高 (GPU 并行评测标杆) | ★★★★★ | > 待核实 | [2] 侧面印证，**需补全具体基准套件与榜单** |\n| Real-Robot-Bench | > 待核实 | 社区/学术机构 | > 待核实 | 论文/官网 | 中 | ★★★★☆ | > 待核实 | **证据源中无覆盖** |\n\n---\n\n## 参考来源\n[1] VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results — http://arxiv.org/abs/2509.02969v1\n[2] How to Evaluate General-Purpose Robot Policies for Real-World ... — https://developer.nvidia.com/blog/how-to-evaluate-general-purpose-robot-policies-for-real-world-deployment/\n[3] Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum — http://arxiv.org/abs/2511.11218v4\n[4] CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System — http://arxiv.org/abs/2508.00162v2\n[5] Constrained Whole-Body Tracking for Humanoid Robots — http://arxiv.org/abs/2606.00374v2\n[6] Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum — http://arxiv.org/abs/2605.21133v2\n[7] Adaptive Whole-Body MPC with Optimal Posture Planning for Humanoid Robots under Unknown Payloads — http://arxiv.org/abs/2610.12972v1\n[8] HuMI: Humanoid Whole-Body Manipulation from Humanoid-Free Demonstrations — http://arxiv.org/abs/2602.06643v3\n[9] The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control — http://arxiv.org/abs/2411.01349v1\n[10] Whole-body MPC and sensitivity analysis of a real time foot step sequencer for a biped robot Bolt — https://doi.org/10.1109/humanoids58906.2024.10769884\n[11] Humanoid Robot Control by Nonlinear Model Predictive Controller with Adaptive Weight Whole Body Controller — https://doi.org/10.2139/ssrn.6044038\n[12] Payload generalization on feedforward control actions for trajectory tracking in robots with rigid and elastic joints — http://arxiv.org/abs/2610.29356v1\n[13] LIBERO-Industry: Benchmarking Robotic Manipulation under ... - arXiv — https://arxiv.org/html/2610.16782v2\n[14] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1\n[15] Optimised whole-body vascular cooling network for a humanoid robot — https://doi.org/10.2139/ssrn.7674805\n[16] Whole-Body Geometric Retargeting for Humanoid Robots — http://arxiv.org/abs/1909.10080v1\n\n---\n\n*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=32 · duration=491s · 2026-11-24T05:55:32+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Refined CMA-ES for CEC 2026 Bound-Constrained Single-Objective Optimization",
+      "url": "http://arxiv.org/abs/2611.04620v1",
+      "kind": "paper",
+      "venue": "cs.NE",
+      "published": "2026-11-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "TTLab at Daleel 2026: STAR-Ar, Sequence Tagging for Argument Recognition in Arabic",
+      "url": "http://arxiv.org/abs/2609.39385v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-09-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Second MOASEI Competition at AAMAS'2026: A Technical Report",
+      "url": "http://arxiv.org/abs/2607.03399v1",
+      "kind": "paper",
+      "venue": "cs.MA",
+      "published": "2026-07-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "UIC-AIHealth4All at ArchEHR-QA 2026: Answer-First Evidence Grounding for Clinical Question Answering",
+      "url": "http://arxiv.org/abs/2608.27467v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "VoxENES 2026: Benchmarking Generalization of Speech Spoofing Detectors Against LLM-Era TTS and Voice Conversion",
+      "url": "http://arxiv.org/abs/2607.11706v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2026-07-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "ICASSP 2026 Radar Acoustic Speech Enhancement (RASE) Challenge",
+      "url": "http://arxiv.org/abs/2610.32202v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2026-10-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "The Role of Domain Randomization in Training Diffusion Policies for Whole-Body Humanoid Control",
+      "url": "http://arxiv.org/abs/2411.01349v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-11-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Humanoid Whole-Body Badminton via an Annealed Reinforcement Learning Curriculum",
+      "url": "http://arxiv.org/abs/2511.11218v4",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-11-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "CHILD (Controller for Humanoid Imitation and Live Demonstration): a Whole-Body Humanoid Teleoperation System",
+      "url": "http://arxiv.org/abs/2508.00162v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-07-31",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "Constrained Whole-Body Tracking for Humanoid Robots",
+      "url": "http://arxiv.org/abs/2606.00374v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-05-29",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Whole-Body Geometric Retargeting for Humanoid Robots",
+      "url": "http://arxiv.org/abs/1909.10080v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2019-09-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Humanoid Whole-Body Manipulation via Active Spatial Brain and Generalizable Action Cerebellum",
+      "url": "http://arxiv.org/abs/2605.21133v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Adaptive Whole-Body MPC with Optimal Posture Planning for Humanoid Robots under Unknown Payloads",
+      "url": "http://arxiv.org/abs/2610.12972v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-10-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "HuMI: Humanoid Whole-Body Manipulation from Humanoid-Free Demonstrations",
+      "url": "http://arxiv.org/abs/2602.06643v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-02-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Humanoid Robot Control by Nonlinear Model Predictive Controller with Adaptive Weight Whole Body Controller",
+      "url": "https://doi.org/10.2139/ssrn.6044038",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Optimised whole-body vascular cooling network for a humanoid robot",
+      "url": "https://doi.org/10.2139/ssrn.7674805",
+      "kind": "paper",
+      "venue": null,
+      "published": "2026-01-01",
+      "citations": 0,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Whole-body MPC and sensitivity analysis of a real time foot step sequencer for a biped robot Bolt",
+      "url": "https://doi.org/10.1109/humanoids58906.2024.10769884",
+      "kind": "paper",
+      "venue": "2024 IEEE-RAS 23rd International Conference on Humanoid Robots (Humanoids)",
+      "published": "2024-11-22",
+      "citations": 3,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+      "url": "http://arxiv.org/abs/2508.11117v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset",
+      "url": "http://arxiv.org/abs/2405.19595v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "NTIRE 2025 Challenge on Short-form UGC Video Quality Assessment and Enhancement: KwaiSR Dataset and Study",
+      "url": "http://arxiv.org/abs/2504.15003v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-04-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Stochastic control problems with state-reflections arising from relaxed benchmark tracking",
+      "url": "http://arxiv.org/abs/2302.08302v4",
+      "kind": "paper",
+      "venue": "math.OC",
+      "published": "2023-02-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Vision-Based Multirotor Control for Spherical Target Tracking: A Bearing-Angle Approach",
+      "url": "http://arxiv.org/abs/2506.16870v1",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2025-06-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Payload generalization on feedforward control actions for trajectory tracking in robots with rigid and elastic joints",
+      "url": "http://arxiv.org/abs/2610.29356v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-10-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "LIBERO-Industry: Benchmarking Robotic Manipulation under ... - arXiv",
+      "url": "https://arxiv.org/html/2610.16782v2",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "How to Evaluate General-Purpose Robot Policies for Real-World ...",
+      "url": "https://developer.nvidia.com/blog/how-to-evaluate-general-purpose-robot-policies-for-real-world-deployment/",
+      "kind": "web",
+      "venue": null,
+      "published": null,
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-24-机器人运动学控制与-ros-2.md",
+    "json": "report/2026/11/2026-11-24-机器人运动学控制与-ros-2.json"
+  }
+}
