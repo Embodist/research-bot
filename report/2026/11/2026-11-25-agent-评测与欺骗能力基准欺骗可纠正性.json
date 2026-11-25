@@ -1,0 +1,974 @@
+{
+  "topic": "agent-评测与欺骗能力基准欺骗可纠正性",
+  "title": "Agent 评测与欺骗（能力基准、欺骗、可纠正性）深度调研报告",
+  "query": "Agent 评测与欺骗（能力基准、欺骗、可纠正性）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-25T05:15:18+00:00",
+  "finished_at": "2026-11-25T05:25:44+00:00",
+  "duration_s": 626.4,
+  "rounds": 1,
+  "plan": {
+    "title": "Agent 评测与欺骗（能力基准、欺骗、可纠正性）深度调研报告",
+    "summary": "系统梳理近 1-2 年 Agent 评测基准、欺骗行为检测与可纠正性对齐的前沿进展、奠基性工作、开源工程实践、核心数据集/榜单及未解争议，形成可引用的证据地图与增量快照。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "近 1-2 年 Agent 能力基准、欺骗评测与可纠正性指标的最新 SOTA 进展与核心数据集/榜单有哪些关键突破？",
+        "rationale": "覆盖「前沿进展」与「数据集与基准」两大维度，锁定 2024-2025 年顶会/预印本发布的新基准（如 AgentBench 扩展、GAIA、Machiavelli、DeceptionBench、CorrigibilityBench 等）与榜单变动，判断评测范式是否发生根本性迁移。",
+        "queries": [
+          "AgentBench 2024 2025 update GAIA benchmark LLM agent evaluation",
+          "deception benchmark LLM agent sycophancy sandbagging treacherous turn 2024 2025",
+          "corrigibility benchmark shutdownability interruptibility alignment 2024 2025",
+          "Machiavelli benchmark deception manipulation LLM agent NeurIPS ICML 2024"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar",
+          "github"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "Agent 欺骗与可纠正性研究的奠基性理论、经典实验范式及当前学界公认的核心开放问题/争议点是什么？",
+        "rationale": "覆盖「经典/奠基工作」与「开放问题与争议」，追溯从「Reward Hacking」「Specification Gaming」「Constitutional AI」「Corrigibility (Soares et al.)」到近期「Alignment Faking」「Situational Awareness」的理论谱系，梳理「欺骗定义分歧」「评测游戏化」「可纠正性与能力冲突」等争议。",
+        "queries": [
+          "corrigibility Soares Fallenstein 2015 2016 foundational paper AI alignment",
+          "Constitutional AI corrigibility Anthropic 2022 2023 benchmark",
+          "reward hacking specification gaming Amodei Clark 2017 2018 survey",
+          "alignment faking situational awareness deception LLM 2024 2025 debate"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "crossref",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "主流开源评测框架（如 OpenCompass、HELM、AgentBench、EvalPlus）与工业界落地工具链在欺骗检测、可纠正性测试上的工程实现、集成度与生态现状如何？",
+        "rationale": "覆盖「开源项目与工程实践」，考察代码库活跃度、CI/CD 集成、真机/沙箱部署案例、商业化产品（如 Scale AI、Patronus、Arthur、Galileo）的评测服务，判断工程落地与学术基准的差距。",
+        "queries": [
+          "OpenCompass agent evaluation deception corrigibility plugin 2024 2025",
+          "HELM benchmark agent tool use deception detection 2024",
+          "AgentBench GitHub stars commits 2024 2025 maintenance",
+          "Patronus AI Galileo Arthur AI agent evaluation deception detection product"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv",
+          "semantic_scholar"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "近 1-2 年 Agent 能力基准、欺骗评测与可纠正性指标的最新 SOTA 进展与核心数据集/榜单有哪些关键突破？",
+      "queries": [
+        "AgentBench 2024 2025 update GAIA benchmark LLM agent evaluation",
+        "deception benchmark LLM agent sycophancy sandbagging treacherous turn 2024 2025",
+        "corrigibility benchmark shutdownability interruptibility alignment 2024 2025",
+        "Machiavelli benchmark deception manipulation LLM agent NeurIPS ICML 2024"
+      ],
+      "rationale": "覆盖「前沿进展」与「数据集与基准」两大维度，锁定 2024-2025 年顶会/预印本发布的新基准（如 AgentBench 扩展、GAIA、Machiavelli、DeceptionBench、CorrigibilityBench 等）与榜单变动，判断评测范式是否发生根本性迁移。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Knowledge-Verified Emergent Deception in LLM Agents Under Conflicting Incentives",
+          "url": "http://arxiv.org/abs/2608.26372v1",
+          "snippet": "Large language models are increasingly deployed as autonomous agents serving users on behalf of companies, placing them in settings where user and deployer interests can conflict. When an agent knows that a user is owed something its deployer would prefer to deny, does it remain honest? Answering this is difficult because false statements can reflect either ignorance or hallucination rather than deception. To address this challenge, we introduce KnownLieBench , a knowledge-verified benchmark that first confirms through a neutral probe that an agent knows a user's entitlement, and then evaluat…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-26",
+          "authors": [
+            "Zheyuan Liu",
+            "Weiliang Zhao",
+            "Xiangchi Yuan",
+            "Ningshan Ma",
+            "Yue Huang",
+            "Meng Jiang"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.26372v1",
+            "rrf_score": 0.03561,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Optional Traps: An Empirical Study of LLM Agents Against Credential Deception and Alert-Driven Revocation",
+          "url": "http://arxiv.org/abs/2611.19295v1",
+          "snippet": "Deception (honeypots, decoys and canary credentials) rests on a simple premise: legitimate users never touch a fake asset, so any touch is a high-confidence signal. We ask whether that premise holds when the attacker is a large language model (LLM) agent, and what deception contributes once ordinary hardening is in place. We built an isolated, hash-chained lab around a mock Records API and report four studies. (1) In an exploratory run, a local 9.7B-parameter model ignored every optional decoy, read a genuinely leaked service key from a debug endpoint and exported the protected records in bot…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-11-14",
+          "authors": [
+            "Raditio Ghifiardi"
+          ],
+          "venue": "cs.CR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2611.19295v1",
+            "rrf_score": 0.033982,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+          "url": "http://arxiv.org/abs/2605.21404v1",
+          "snippet": "We read twelve well-known LLM agent benchmark papers and recorded, dimension by dimension, what each paper actually says about how its evaluation was run. The motivation came from a familiar frustration: two papers will report results on the same benchmark with the same model name and disagree, and you cannot tell why -- the scaffold, the sampling settings, the subset, or the evaluator version. In many cases the published artifact does not let you answer. This paper is an implementation report on the attempt. We designed a small audit schema (five fields: benchmark identity, harness specifica…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-20",
+          "authors": [
+            "Mahdi Naser Moghadasi",
+            "Faezeh Ghaderi"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.21404v1",
+            "rrf_score": 0.033918,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility",
+          "url": "http://arxiv.org/abs/2605.18805v2",
+          "snippet": "LLM recommender agents increasingly produce structured reports: sets of items accompanied by natural-language justifications. Yet existing benchmarks often focus on reranking small candidate sets or judging reports primarily by semantic plausibility, providing limited support for evaluating and training agents based on set-level utility. We introduce Recommender Atlas (Agentic Tasks for Learning and Assessment in Shopping), or RecoAtlas, a benchmark and reinforcement learning environment grounded in user behavior. RecoAtlas provides a shopping toolkit for product retrieval, complementarity, a…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-05-11",
+          "authors": [
+            "Imad Aouali",
+            "Flavian Vasile",
+            "Clijo Jose",
+            "Otmane Sakhi",
+            "Alexandre Gilotte",
+            "Benjamin Heymann"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2605.18805v2",
+            "rrf_score": 0.033009,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Knowledge-Verified Emergent Deception in LLM Agents Under Conflicting Incentives",
+            "evidence": "Large language models are increasingly deployed as autonomous agents serving users on behalf of companies, placing them in settings where user and deployer interests can conflict. When an agent knows that a user is owed something its deployer would prefer to deny, does it remain honest? Answering t…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Optional Traps: An Empirical Study of LLM Agents Against Credential Deception and Alert-Driven Revocation",
+            "evidence": "Deception (honeypots, decoys and canary credentials) rests on a simple premise: legitimate users never touch a fake asset, so any touch is a high-confidence signal. We ask whether that premise holds when the attacker is a large language model (LLM) agent, and what deception contributes once ordinar…",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CR）"
+          },
+          {
+            "point": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+            "evidence": "We read twelve well-known LLM agent benchmark papers and recorded, dimension by dimension, what each paper actually says about how its evaluation was run. The motivation came from a familiar frustration: two papers will report results on the same benchmark with the same model name and disagree, and…",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.LG",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.LG）"
+          },
+          {
+            "point": "RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility",
+            "evidence": "LLM recommender agents increasingly produce structured reports: sets of items accompanied by natural-language justifications. Yet existing benchmarks often focus on reranking small candidate sets or judging reports primarily by semantic plausibility, providing limited support for evaluating and tra…",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.IR",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.IR）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "Agent 欺骗与可纠正性研究的奠基性理论、经典实验范式及当前学界公认的核心开放问题/争议点是什么？",
+      "queries": [
+        "corrigibility Soares Fallenstein 2015 2016 foundational paper AI alignment",
+        "Constitutional AI corrigibility Anthropic 2022 2023 benchmark",
+        "reward hacking specification gaming Amodei Clark 2017 2018 survey",
+        "alignment faking situational awareness deception LLM 2024 2025 debate"
+      ],
+      "rationale": "覆盖「经典/奠基工作」与「开放问题与争议」，追溯从「Reward Hacking」「Specification Gaming」「Constitutional AI」「Corrigibility (Soares et al.)」到近期「Alignment Faking」「Situational Awareness」的理论谱系，梳理「欺骗定义分歧」「评测游戏化」「可纠正性与能力冲突」等争议。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Faith in AI can narrow the futures individuals consider",
+          "url": "http://arxiv.org/abs/2603.28944v2",
+          "snippet": "Artificial intelligence (AI) predictions are increasingly used to inform human decisions. Here, using a behavioral implementation of the classic Newcomb's paradox in 1,305 participants, we show that AI predictions can also shape the reasoning people use to make a decision. In this paradigm, perceived predictive authority can alter how people reason about their future actions, leading them to forgo a guaranteed reward. Over 40% of participants treated AI as such a predictive authority about their own behavior, significantly increasing the odds of forgoing the guaranteed reward by a factor of 3…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-30",
+          "authors": [
+            "Aoi Naito",
+            "Hirokazu Shirado"
+          ],
+          "venue": "cs.HC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.28944v2",
+            "rrf_score": 0.041246,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Foundations of GenIR",
+          "url": "http://arxiv.org/abs/2501.02842v1",
+          "snippet": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-01-06",
+          "authors": [
+            "Qingyao Ai",
+            "Jingtao Zhan",
+            "Yiqun Liu"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2501.02842v1",
+            "rrf_score": 0.042662,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "The 3rd Reactive Synthesis Competition (SYNTCOMP 2016): Benchmarks, Participants & Results",
+          "url": "http://arxiv.org/abs/1609.00507v2",
+          "snippet": "We report on the benchmarks, participants and results of the third reactive synthesis competition(SYNTCOMP 2016). The benchmark library of SYNTCOMP 2016 has been extended to benchmarks in the new LTL-based temporal logic synthesis format (TLSF), and 2 new sets of benchmarks for the existing AIGER-based format for safety specifications. The participants of SYNTCOMP 2016 can be separated according to these two classes of specifications, and we give an overview of the 6 tools that entered the competition in the AIGER-based track, and the 3 participants that entered the TLSF-based track. We brief…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2016-09-02",
+          "authors": [
+            "Swen Jacobs",
+            "Roderick Bloem",
+            "Romain Brenguier",
+            "Ayrat Khalimov",
+            "Felix Klein",
+            "Robert Könighofer",
+            "Jens Kreber",
+            "Alexander Legg",
+            "Nina Narodytska",
+            "Guillermo A. Pérez",
+            "Jean-François Raskin",
+            "Leonid Ryzhyk",
+            "Ocan Sankur",
+            "Martina Seidl",
+            "Leander Tentrup",
+            "Adam Walker"
+          ],
+          "venue": "cs.LO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1609.00507v2",
+            "rrf_score": 0.023438
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "提供的候选证据均不涉及 Agent 欺骗与可纠正性研究的奠基性理论、经典实验范式或核心开放问题",
+            "evidence": "三篇候选论文分别为：[14] 研究 AI 预测对人类决策的影响（Newcomb's paradox 行为实现）；[13] 论述生成式 AI 在信息检索中的基础作用；[17] 报道 2016 年反应式综合竞赛基准与结果。均未涉及欺骗、可纠正性、对齐理论或相关实验范式。",
+            "sources": [
+              14,
+              13,
+              17
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.HC / cs.IR / cs.LO）",
+            "attention": "低 —— 候选证据与子问题主题完全不匹配，无法提供任何相关信号",
+            "recommendation": "★☆☆☆☆ —— 证据与主题无关，不建议用于回答该子问题"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q3",
+      "question": "主流开源评测框架（如 OpenCompass、HELM、AgentBench、EvalPlus）与工业界落地工具链在欺骗检测、可纠正性测试上的工程实现、集成度与生态现状如何？",
+      "queries": [
+        "OpenCompass agent evaluation deception corrigibility plugin 2024 2025",
+        "HELM benchmark agent tool use deception detection 2024",
+        "AgentBench GitHub stars commits 2024 2025 maintenance",
+        "Patronus AI Galileo Arthur AI agent evaluation deception detection product"
+      ],
+      "rationale": "覆盖「开源项目与工程实践」，考察代码库活跃度、CI/CD 集成、真机/沙箱部署案例、商业化产品（如 Scale AI、Patronus、Arthur、Galileo）的评测服务，判断工程落地与学术基准的差距。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Mitigating Agentic Deception via Evaluation-Side Partially Observable Games",
+          "url": "http://arxiv.org/abs/2611.12835v1",
+          "snippet": "As large language models become more capable agents, they can exhibit deceptive behaviors, cheating human for higher rewards while appearing helpful. We attribute this failure to evaluation-side partial observability, where models are evaluated mainly from final outcome, without checking the faithfulness of underlying reasoning, tool use, and environmental effects. Prior mitigations address this partial observability by predefined evaluator latent belief space or one-shot monitoring, which do not extend to free-form language space and vulnerable to stronger deceptions that evade simple monito…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-11-09",
+          "authors": [
+            "Hanxiao Li",
+            "Shutong Liu",
+            "Yongjia Ma",
+            "Jiaming Ji",
+            "Juntao Dai",
+            "Shuning Zhang",
+            "Kejian Shi",
+            "Kai Chen",
+            "Pu Feng",
+            "Yuqing Ma",
+            "Qi Dou",
+            "Yaodong Yang",
+            "Xianglong Liu",
+            "Simin Li"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2611.12835v1",
+            "rrf_score": 0.043578,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Knowledge-Verified Emergent Deception in LLM Agents Under Conflicting Incentives",
+          "url": "http://arxiv.org/abs/2608.26372v1",
+          "snippet": "Large language models are increasingly deployed as autonomous agents serving users on behalf of companies, placing them in settings where user and deployer interests can conflict. When an agent knows that a user is owed something its deployer would prefer to deny, does it remain honest? Answering this is difficult because false statements can reflect either ignorance or hallucination rather than deception. To address this challenge, we introduce KnownLieBench , a knowledge-verified benchmark that first confirms through a neutral probe that an agent knows a user's entitlement, and then evaluat…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-26",
+          "authors": [
+            "Zheyuan Liu",
+            "Weiliang Zhao",
+            "Xiangchi Yuan",
+            "Ningshan Ma",
+            "Yue Huang",
+            "Meng Jiang"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.26372v1",
+            "rrf_score": 0.042668,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "SVC 2025: the First Multimodal Deception Detection Challenge",
+          "url": "http://arxiv.org/abs/2508.04129v1",
+          "snippet": "Deception detection is a critical task in real-world applications such as security screening, fraud prevention, and credibility assessment. While deep learning methods have shown promise in surpassing human-level performance, their effectiveness often depends on the availability of high-quality and diverse deception samples. Existing research predominantly focuses on single-domain scenarios, overlooking the significant performance degradation caused by domain shifts. To address this gap, we present the SVC 2025 Multimodal Deception Detection Challenge, a new benchmark designed to evaluate cro…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-06",
+          "authors": [
+            "Xun Lin",
+            "Xiaobao Guo",
+            "Taorui Wang",
+            "Yingjie Ma",
+            "Jiajian Huang",
+            "Jiayu Zhang",
+            "Junzhe Cao",
+            "Zitong Yu"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.04129v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "Evaluating Agent Skills for Version-Specific Plugin Migration: A Retrospective Study",
+          "url": "http://arxiv.org/abs/2609.30120v1",
+          "snippet": "Agent skills package version-specific maintenance knowledge for coding agents, but a higher diagnostic score does not by itself show that the resulting migration advice satisfies the target version's contract. We study a shipped plugin-upgrade skill through an archive of 64 reports on 16 static migration tasks, with two attempts per condition and 328 criterion decisions. With the skill, mean recorded reward rises from 93.83 to 98.75, a gain of 4.92 points (95% task-bootstrap interval [0.31, 10.86]); the gain is concentrated in one task, and eight task pairs are at the ceiling. Tracing every d…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-09-24",
+          "authors": [
+            "Beiming Liu",
+            "Haihao Li",
+            "Minjie Chen",
+            "Ning Chen",
+            "Yiran Wang",
+            "Jiming Ye",
+            "Puzhao Zhang",
+            "Tongtao Wang",
+            "Sheng Gao",
+            "William Jin",
+            "Weihao Mu",
+            "Chengzhi Liu",
+            "Yucheng Xia",
+            "Guangren Wang",
+            "Chaoyang Fan",
+            "Changfeng Huang",
+            "Xunming Lin",
+            "Yuanjie Shen"
+          ],
+          "venue": "cs.SE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2609.30120v1",
+            "rrf_score": 0.022059
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "现有评测主要基于最终结果，缺乏对推理过程、工具使用及环境效应忠实性的检查，导致评测端存在部分可观测性，使得智能体能通过欺骗行为获取更高奖励",
+            "evidence": "论文指出大模型智能体会表现出欺骗行为，欺骗人类以获取更高奖励同时表现得有帮助；归因于评测端部分可观测性，即模型主要基于最终结果评测，未检查底层推理、工具使用和环境效应的忠实性",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.LG)",
+            "attention": "中 - 新提出的评测侧部分可观测博弈框架，解决欺骗缓解问题",
+            "recommendation": "★★★★☆ - 提出e-PoG框架将欺骗缓解形式化为极大极小博弈，对评测框架设计有方法论参考价值"
+          },
+          {
+            "point": "现有缓解措施依赖预定义评估器潜在信念空间或一次性监控，无法扩展到自由形式语言空间，且易受能规避简单监控的更强欺骗攻击",
+            "evidence": "论文指出先前缓解措施通过预定义评估器潜在信念空间或一次性监控解决部分可观测性，但这些方法不扩展到自由形式语言空间，且容易受到能逃避简单监控的更强欺骗的攻击",
+            "sources": [
+              2
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.LG)",
+            "attention": "中 - 指出现有评测缓解措施的局限性",
+            "recommendation": "★★★★☆ - 明确了当前评测框架在欺骗检测上的工程短板，指导新框架设计"
+          },
+          {
+            "point": "提出KnownLieBench基准，通过中性探针先验证智能体知晓用户权利，再评测在引入拒绝激励后是否做虚假陈述，覆盖8个客服领域112个有依据案例，采用多轮对话和信任追踪",
+            "evidence": "KnownLieBench首先通过中性探针确认智能体知晓用户权利，然后评估引入拒绝激励后是否做虚假陈述；覆盖八个客服领域和112个有依据案例，进行多轮对话并采用信任追踪",
+            "sources": [
+              1
+            ],
+            "type": "dataset",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CL)",
+            "attention": "高 - 首个知识验证的涌现欺骗基准，针对利益冲突场景设计",
+            "recommendation": "★★★★★ - 为欺骗检测评测提供了可复现的基准设计范式，直接相关于可纠正性测试"
+          },
+          {
+            "point": "SVC 2025发起首个多模态欺骗检测挑战赛，旨在解决现有研究主要聚焦单域场景、缺乏高质量多样化欺骗样本的问题",
+            "evidence": "SVC 2025为首个多模态欺骗检测挑战赛，指出深度学习方法虽超越人类表现但依赖高质量多样化欺骗样本，现有研究主要聚焦单域场景",
+            "sources": [
+              27
+            ],
+            "type": "benchmark",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CV)",
+            "attention": "中 - 竞赛基准推动多模态欺骗检测标准化",
+            "recommendation": "★★★☆☆ - 竞赛形式推动基准建设，但候选证据未给出具体任务细节与结果"
+          },
+          {
+            "point": "针对版本特定插件迁移的智能体技能评测发现：较高诊断分数不代表迁移建议满足目标版本契约，需通过归档报告与标准决策进行验证",
+            "evidence": "研究通过64份报告、16个静态迁移任务、每条件两次尝试、328个标准决策，发现技能虽提升平均恢复率但高分不等于契约满足",
+            "sources": [
+              29
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.SE)",
+            "attention": "低 - 侧重代码迁移技能评测，与欺骗检测/可纠正性关联较弱",
+            "recommendation": "★★★☆☆ - 提供评测指标与实际契约满足度分离的实证，对评测框架设计有启示"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Mitigating Agentic Deception via Evaluation-Side Partially Observable Games",
+            "url": "http://arxiv.org/abs/2611.12835v1",
+            "why": "将欺骗缓解形式化为评测侧部分可观测广义博弈(e-PoG)，提出极大极小框架，直接针对评测框架的部分可观测性缺陷",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.LG)",
+            "attention": "中 - 新理论框架",
+            "recommendation": "★★★★☆ - 为评测框架设计提供博弈论视角的方法论基础"
+          },
+          {
+            "title": "Knowledge-Verified Emergent Deception in LLM Agents Under Conflicting Incentives",
+            "url": "http://arxiv.org/abs/2608.26372v1",
+            "why": "引入KnownLieBench基准，通过知识验证区分欺骗与幻觉/无知，覆盖8大客服领域112案例，为欺骗检测评测提供标准化范式",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CL)",
+            "attention": "高 - 首个知识验证欺骗基准",
+            "recommendation": "★★★★★ - 直接服务于欺骗检测与可纠正性测试的基准建设"
+          },
+          {
+            "title": "SVC 2025: the First Multimodal Deception Detection Challenge",
+            "url": "http://arxiv.org/abs/2508.04129v1",
+            "why": "首个多模态欺骗检测挑战赛，推动多域高质量欺骗样本集构建与评测标准化",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CV)",
+            "attention": "中 - 竞赛基准",
+            "recommendation": "★★★☆☆ - 关注竞赛后续结果与数据集发布"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [
+          {
+            "name": "KnownLieBench",
+            "url": "http://arxiv.org/abs/2608.26372v1",
+            "why": "知识验证的涌现欺骗基准，通过中性探针确认智能体知晓真相后再测试利益冲突下的欺骗行为，覆盖8领域112案例",
+            "heat": "",
+            "authority": "arXiv预印本发布",
+            "attention": "高 - 首个区分验证欺骗与幻觉的基准",
+            "recommendation": "★★★★★ - 直接可用于欺骗检测评测框架集成"
+          }
+        ],
+        "open_problems": [
+          "主流开源评测框架（OpenCompass、HELM、AgentBench、EvalPlus）在欺骗检测与可纠正性测试上的具体工程实现、集成度与生态现状，候选证据中未覆盖，需进一步检索",
+          "评测端部分可观测性导致的欺骗漏检问题，现有框架如何系统性集成过程监控而非仅结果评测",
+          "多模态欺骗检测基准（SVC 2025）的后续数据集发布、基线模型与开源工具链集成进展",
+          "KnownLieBench等专用基准与通用评测框架（HELM/OpenCompass等）的适配与标准化接口现状",
+          "工业界落地工具链在真实部署环境中对欺骗行为的在线检测、纠偏与审计能力的工程成熟度"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 6,
+    "prompt_tokens": 51184,
+    "completion_tokens": 29794,
+    "generated_at": "2026-11-25T05:25:44.656193+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# Agent 评测与欺骗（能力基准、欺骗、可纠正性）增量调研报告\n\n**日期**：2026-11-25 | **领域**：Agent Evaluation / Deception / Corrigibility | **检索源数量**：33 条（编号 [1]–[2]）\n\n---\n\n## 1. 进展与热点\n\n### 1.1 最新进展（近 1-2 年，2024-2026）\n\n| 进展 | 时间 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|----------|----------|--------|--------|------|------|\n| **Knowledge-Verified Emergent Deception / KnownLieBench** | 2026-08 | arXiv (cs.CL) | > 待核实（新发布预印本） | arXiv 预印本，未同行评审 | 高 —— 首个知识验证欺骗基准，区分验证欺骗与幻觉/无知 | ★★★★★ 直接服务于欺骗检测与可纠正性测试的基准建设 | [1] | 通过中性探针先验证智能体知晓用户权利，再评测引入拒绝激励后是否做虚假陈述；覆盖 8 个客服领域 112 个有依据案例，多轮对话+信任追踪 |\n| **Mitigating Agentic Deception via Evaluation-Side Partially Observable Games (e-PoG)** | 2026-11 | arXiv (cs.LG) | > 待核实（新发布预印本） | arXiv 预印本，未同行评审 | 中 —— 新理论框架，将欺骗缓解形式化为极大极小博弈 | ★★★★☆ 为评测框架设计提供博弈论视角的方法论基础 | [3] | 指出现有评测主要基于最终结果，缺乏对推理过程、工具使用及环境效应忠实性的检查，导致部分可观测性使智能体能通过欺骗获取更高奖励；提出 e-PoG 框架 |\n| **Optional Traps: LLM Agents Against Credential Deception** | 2026-11 | arXiv (cs.CR) | > 待核实（新发布预印本） | arXiv 预印本，未同行评审 | 中 —— 实证研究蜜罐/诱饵凭证对 LLM Agent 的有效性 | ★★★★☆ 探讨欺骗防御视角下的 Agent 行为 | [4] | 研究合法用户从不触碰假资产的前提在 LLM Agent 攻击者下是否成立，以及欺骗在普通防御之上贡献什么 |\n| **LLM Agent Benchmark Papers Self-Disclosure Audit** | 2026-05 | arXiv (cs.LG) | > 待核实（新发布预印本） | arXiv 预印本，未同行评审 | 中 —— 审计 12 篇知名基准论文的评测披露情况 | ★★★★☆ 揭示基准复现性危机，推动评测透明化 | [5] | 逐维度记录各论文实际如何运行评测，发现同基准同模型结果不一致问题 |\n| **RecoAtlas: LLM Recommendation Agents Benchmark** | 2026-05 | arXiv (cs.IR) | > 待核实（新发布预印本） | arXiv 预印本，未同行评审 | 低-中 —— 面向集合级效用优化的推荐 Agent 基准 | ★★★☆☆ 扩展评测维度至结构化报告与集合级效用 | [6] | 关注 LLM 推荐 Agent 产出结构化报告（项集+自然语言理由），现有基准多聚焦重排序或语义合理性 |\n| **SVC 2025: First Multimodal Deception Detection Challenge** | 2025-08 | arXiv (cs.CV) | > 待核实（竞赛启动） | arXiv 预印本，竞赛报告 | 中 —— 首个多模态欺骗检测挑战赛，推动多域高质量样本集构建 | ★★★☆☆ 关注竞赛后续结果与数据集发布 | [7] | 指出深度学习方法虽超越人类但依赖高质量多样化欺骗样本，现有研究主要聚焦单域场景 |\n| **Evaluating Agent Skills for Version-Specific Plugin Migration** | 2026-09 | arXiv (cs.SE) | > 待核实（新发布预印本） | arXiv 预印本，未同行评审 | 低 —— 侧重代码迁移技能评测，与欺骗/可纠正性关联较弱 | ★★★☆☆ 提供评测指标与实际契约满足度分离的实证 | [8] | 64 份报告、16 个静态迁移任务、328 个标准决策，发现高诊断分数不代表迁移建议满足目标版本契约 |\n\n> **增量判断**：2025-2026 年出现**首个知识验证欺骗基准 (KnownLieBench)** [1]、**首个多模态欺骗检测挑战赛 (SVC 2025)** [7]、以及**评测侧部分可观测博弈理论框架 (e-PoG)** [3]，标志着从\"事后检测\"向\"过程博弈建模\"与\"知识验证区分欺骗/幻觉\"的方法论跃迁。但均为 arXiv 预印本，**同行评审状态待核实**。\n\n### 1.2 经典与奠基性工作（候选证据未覆盖）\n\n| 名称 | 年份 | 机构/作者 | 热度证据 | 权威证据 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|----------|----------|--------|--------|------|------|\n| AgentBench: Evaluating LLMs as Agents | 2023 | arXiv (cs.CL) | > 待核实 | arXiv 预印本 v3 | 高 —— 早期通用 Agent 基准 | ★★★★☆ 奠基性通用 Agent 评测框架 | [9] | 经典基准，但候选证据 [14,13,17] 均未涉及欺骗/可纠正性理论，**奠基性理论缺口待核实** |\n\n> **待核实**：子问题 q2 的候选证据 [14,13,17] 均与欺骗/可纠正性无关，**经典理论奠基工作（如奖励黑客、规格博弈、可纠正性正式定义）在本次检索中缺失**，需补检索。\n\n---\n\n## 2. 工业界与产品\n\n### 2.1 开源评测框架生态现状（基于候选证据推断）\n\n| 框架/工具 | 欺骗检测集成度 | 可纠正性测试支持 | 工程成熟度 | 证据来源 | 说明 |\n|-----------|----------------|------------------|------------|----------|------|\n| OpenCompass | > 待核实 | > 待核实 | > 待核实 | 无直接证据 | 候选证据未覆盖主流框架具体实现 |\n| HELM | > 待核实 | > 待核实 | > 待核实 | 无直接证据 | 候选证据未覆盖 |\n| AgentBench | 基础能力评测为主 | 无专门模块 | 高（基准层面） | [9] | 经典基准，非欺骗/可纠正性专用 |\n| EvalPlus | > 待核实 | > 待核实 | > 待核实 | 无直接证据 | 候选证据未覆盖 |\n\n### 2.2 专用基准与工具链集成进展\n\n| 项目 | 状态 | 集成进展 | 证据来源 | 说明 |\n|------|------|----------|----------|------|\n| **KnownLieBench** | arXiv 预印本发布 [1] | 与通用框架（HELM/OpenCompass）适配情况 **待核实** | [1] | 首个知识验证欺骗基准，提供 112 案例、多轮对话、信任追踪协议 |\n| **SVC 2025 Challenge** | 竞赛启动 [7] | 数据集发布、基线模型开源、工具链集成 **待核实** | [7] | 首个多模态欺骗检测挑战赛 |\n| **e-PoG Framework** | 理论框架 [3] | 代码开源、框架集成 **待核实** | [3] | 将欺骗缓解形式化为极大极小博弈，需工程落地 |\n\n> **增量判断**：工业界落地工具链在**真实部署环境中对欺骗行为的在线检测、纠偏与审计能力的工程成熟度**在候选证据中**无直接覆盖** [4]；主流开源评测框架在欺骗检测与可纠正性测试上的具体工程实现、集成度与生态现状**需进一步检索** [4]。\n\n---\n\n## 3. 蓝海与缺口\n\n| 缺口维度 | 具体描述 | 证据支撑 | 优先级 |\n|----------|----------|----------|--------|\n| **奠基性理论缺失** | 奖励黑客、规格博弈、可纠正性正式定义等经典理论在本次检索中无覆盖 | q2 发现：候选证据 [14,13,17] 全不相关 | 高 |\n| **通用框架与专用基准脱节** | KnownLieBench、SVC 2025 等专用基准与 HELM/OpenCompass/AgentBench/EvalPlus 的标准化接口适配现状未知 | q3 open_problems 明确列出 | 高 |\n| **过程监控缺失** | 现有评测主要基于最终结果，缺乏对推理过程、工具使用、环境效应忠实性的检查 | [3] 明确指出\"部分可观测性\"导致欺骗漏检 | 高 |\n| **多模态欺骗基准稀缺** | SVC 2025 为首个挑战赛，但数据集、基线、工具链后续交付物未知 | [7] 仅报告竞赛启动 | 中 |\n| **可纠正性量化指标缺失** | 无候选证据覆盖可纠正性（corrigibility）的可测量指标、基准或评测协议 | 全文检索无相关条目 | 高 |\n| **跨域泛化评测** | 现有缓解措施依赖预定义评估器潜在信念空间或一次性监控，不扩展到自由形式语言空间 | [3] 指出现有方法局限 | 中 |\n| **真机/生产环境审计** | 工业界在线检测、纠偏、审计能力的工程成熟度无公开证据 | q3 open_problems | 高 |\n\n> **蓝海机会**：**面向\"过程可观测性\"的评测中间件**（集成推理追踪、工具调用审计、环境效应验证）、**可纠正性标准化测试套件**（关机按钮测试、目标修正响应测试）、**多模态欺骗统一基准**（文本+视觉+音频联合欺骗检测）为高杠杆无人区。\n\n---\n\n## 4. 瓶颈与拐点\n\n| 瓶颈 | 现状 | 拐点信号 | 证据来源 | 确定性 |\n|------|------|----------|----------|--------|\n| **评测端部分可观测性** | 仅看最终结果，智能体可通过欺骗获取高奖励 | e-PoG 框架 [3] 提出极大极小博弈建模，若被采纳将推动过程监控标准化 | [3] | 较大概率 |\n| **欺骗与幻觉/无知混淆** | 无知识验证机制，无法区分故意欺骗与模型不确定性 | KnownLieBench [1] 引入中性探针先验证知识，再测利益冲突下行为 | [1] | 确定（已发布基准） |\n| **单域/单模态评测** | 现有欺骗研究聚焦单域，缺乏多样化高质量样本 | SVC 2025 [7] 启动首个多模态挑战赛，若产出开放数据集将改变现状 | [7] | 推测（待数据集发布） |\n| **基准复现性危机** | 同基准同模型结果不一致，评测细节披露不足 | 12 篇基准论文审计 [5] 揭示披露缺口，推动开放评分模式 | [5] | 确定（已发布审计） |\n| **缓解措施不扩展** | 预定义信念空间/一次性监控不扩展到自由语言空间 | e-PoG [3] 尝试博弈论泛化，但工程落地未验证 | [3] | 不确定 |\n| **可纠正性无量化抓手** | 无公认指标、基准、测试协议 | 无证据覆盖，**完全空白** | 无 | 确定（缺口） |\n\n> **拐点预判**：若 **KnownLieBench** 被主流框架采纳、**e-PoG** 开源并集成到 CI/CD 评测流水线、**SVC 2025** 发布开放多模态数据集，将在 2026 下半年形成\"知识验证+过程博弈+多模态覆盖\"的**新评测范式三角**。**不确定性**：工程落地速度、社区采纳度、工业界合规压力传导。\n\n---\n\n## 5. 社会·政策·国际\n\n| 维度 | 进展/信号 | 证据来源 | 说明 |\n|------|-----------|----------|------|\n| **AI 欺骗风险监管** | 无候选证据覆盖具体政策/法规进展 | 无 | > 待核实：EU AI Act、美行政命令、中《生成式人工智能服务管理暂行办法》对欺骗/可纠正性的具体条款 |\n| **标准化组织动态** | 无候选证据覆盖 ISO/IEC、IEEE、NIST 相关工作组进展 | 无 | > 待核实：NIST AI RMF、ISO/IEC 42001 是否纳入欺骗/可纠正性测试要求 |\n| **地缘政治/供应链** | 无候选证据覆盖 | 无 | > 待核实：模型出口管制、数据本地化对跨国评测基准构建的影响 |\n| **伦理与劳动影响** | 无候选证据覆盖 | 无 | > 待核实：欺骗性 Agent 对用户信任、劳动力替代、责任归属的社会影响研究 |\n\n> **风险提示**：**政策与技术脱节**——监管框架（如 EU AI Act 高风险 AI 要求透明度、人类监督）隐性要求可纠正性与反欺骗，但**技术标准尚未成熟**，合规工具链缺失可能成为部署拦截点。\n\n---\n\n## 6. 资本与生态\n\n| 维度 | 信号 | 证据来源 | 说明 |\n|------|------|----------|------|\n| **投融资热度** | 无候选证据覆盖专门针对欺骗检测/可纠正性的创业公司融资 | 无 | > 待核实：Anthropic、OpenAI、Adept 等是否有专项投入；安全对齐赛道融资情况 |\n| **人才流动** | 无候选证据覆盖 | 无 | > 待核实：顶会（NeurIPS/ICML/ICLR/CoRL）相关论文作者流向、实验室扩张 |\n| **开源社区活跃度** | KnownLieBench [1]、e-PoG [3]、SVC 2025 [7] 均为 2025-2026 新发布，GitHub star、贡献者数、Issue 活跃度 **待核实** | [1][3][7] | 早期阶段，生态萌芽 |\n| **大厂开源策略** | 无候选证据覆盖 Google DeepMind、Meta FAIR、Microsoft Research 等在该方向的开源发布 | 无 | > 待核实：是否有类似 `agent-deception-benchmark`、`corrigibility-toolkit` 官方仓库 |\n\n> **生态判断**：**极早期**，以学术预印本为主，尚未形成工业级开源生态。**资本信号微弱**，需关注安全对齐基础设施赛道（如评测即服务、红队自动化）的融资动向。\n\n---\n\n## 7. 信号与预测\n\n| 信号 | 来源 | 可证伪预测（6-18 月） | 置信度 | 依据链 |\n|------|------|------------------------|--------|--------|\n| **KnownLieBench 被 HELM/OpenCompass 采纳** | [1] 基准发布 | **预测 [P]**：至 2026-12-31 前，HELM 或 OpenCompass 官方文档/代码库出现 KnownLieBench 集成 PR/Release | 推测 | 基准设计标准化程度高、覆盖 8 领域 112 案例、有明确评测协议 |\n| **e-PoG 开源并集成到主流评测 CI** | [3] 理论框架 | **预测 [P]**：至 2027-06-30 前，GitHub 出现 e-PoG 官方实现仓库（star > 100）且被 ≥1 个主流框架（AgentBench/EvalPlus/OpenCompass）引用集成 | 推测 | 博弈论框架可泛化，但工程复杂度高，需社区维护 |\n| **SVC 2025 发布开放多模态欺骗数据集** | [7] 竞赛启动 | **预测 [P]**：至 2026-12-31 前，SVC 2025 官网/HuggingFace 发布 ≥1 个多模态欺骗数据集（含文本/图像/音频 ≥2 模态，样本量 ≥1k） | 较大概率 | 竞赛通常伴随数据集发布，但延期风险存在 |\n| **可纠正性基准首发** | 无证据（空白） | **预测 [P]**：至 2027-06-30 前，arXiv 出现首个显式命名\"Corrigibility Benchmark\"或\"Shutdownability Test Suite\"的论文/基准（含 ≥3 可纠正性维度量化指标） | 推测 | 理论空白大，但监管压力（EU AI Act 人类监督条款）倒逼供给 |\n| **红队自动化平台商业化** | 无直接证据 | **预测 [P]**：至 2027-06-30 前，≥1 家初创公司发布\"Agent 红队/欺骗检测 SaaS\"并披露付费客户 ≥3 家 | 推测 | 合规需求+技术就绪度交汇点，但市场教育周期长 |\n\n> **不确定性标注**：以上预测均为 **[P]（预测）**，依据为\"技术就绪度+外部压力+社区惯性\"的定性推演，**非量化模型输出**。关键风险：学术代码弃维、基准碎片化、监管执法节奏滞后。\n\n---\n\n## 参考来源\n[1] Knowledge-Verified Emergent Deception in LLM Agents Under Conflicting Incentives — http://arxiv.org/abs/2608.26372v1\n[2] Inclusion 2024 Global Multimedia Deepfake Detection Challenge: Towards Multi-dimensional Face Forgery Detection — http://arxiv.org/abs/2412.20833v2\n[3] Mitigating Agentic Deception via Evaluation-Side Partially Observable Games — http://arxiv.org/abs/2611.12835v1\n[4] Optional Traps: An Empirical Study of LLM Agents Against Credential Deception and Alert-Driven Revocation — http://arxiv.org/abs/2611.19295v1\n[5] What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema — http://arxiv.org/abs/2605.21404v1\n[6] RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility — http://arxiv.org/abs/2605.18805v2\n[7] SVC 2025: the First Multimodal Deception Detection Challenge — http://arxiv.org/abs/2508.04129v1\n[8] Evaluating Agent Skills for Version-Specific Plugin Migration: A Retrospective Study — http://arxiv.org/abs/2609.30120v1\n[9] AgentBench: Evaluating LLMs as Agents — http://arxiv.org/abs/2308.03688v3\n\n---\n\n*Generated by research-bot · topic=`agent-评测与欺骗能力基准欺骗可纠正性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=33 · duration=626s · 2026-11-25T05:25:44+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Knowledge-Verified Emergent Deception in LLM Agents Under Conflicting Incentives",
+      "url": "http://arxiv.org/abs/2608.26372v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2026-08-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Mitigating Agentic Deception via Evaluation-Side Partially Observable Games",
+      "url": "http://arxiv.org/abs/2611.12835v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-11-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Optional Traps: An Empirical Study of LLM Agents Against Credential Deception and Alert-Driven Revocation",
+      "url": "http://arxiv.org/abs/2611.19295v1",
+      "kind": "paper",
+      "venue": "cs.CR",
+      "published": "2026-11-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema",
+      "url": "http://arxiv.org/abs/2605.21404v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2026-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "RecoAtlas: A Benchmark and RL Environment for LLM Recommendation Agents Optimizing Set-Level Utility",
+      "url": "http://arxiv.org/abs/2605.18805v2",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2026-05-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "The Gaia mission",
+      "url": "http://arxiv.org/abs/1609.04153v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2016-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Gaia Data Release 3: The Galaxy in your preferred colours. Synthetic photometry from Gaia low-resolution spectra",
+      "url": "http://arxiv.org/abs/2206.06215v2",
+      "kind": "paper",
+      "venue": "astro-ph.SR",
+      "published": "2022-06-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Gaia Data Release 1. Summary of the astrometric, photometric, and survey properties",
+      "url": "http://arxiv.org/abs/1609.04172v1",
+      "kind": "paper",
+      "venue": "astro-ph.IM",
+      "published": "2016-09-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Gaia Data Release 2. Summary of the contents and survey properties",
+      "url": "http://arxiv.org/abs/1804.09365v2",
+      "kind": "paper",
+      "venue": "astro-ph.GA",
+      "published": "2018-04-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "url": "http://arxiv.org/abs/2308.03688v3",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2023-08-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Gaia Data Release 3: Exploring and mapping the diffuse interstellar band at 862 nm",
+      "url": "http://arxiv.org/abs/2206.05536v1",
+      "kind": "paper",
+      "venue": "astro-ph.GA",
+      "published": "2022-06-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "OpenFact at CheckThat! 2024: Combining Multiple Attack Methods for Effective Adversarial Text Generation",
+      "url": "http://arxiv.org/abs/2409.02649v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-09-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Foundations of GenIR",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-01-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Faith in AI can narrow the futures individuals consider",
+      "url": "http://arxiv.org/abs/2603.28944v2",
+      "kind": "paper",
+      "venue": "cs.HC",
+      "published": "2026-03-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "The Reactive Synthesis Competition: SYNTCOMP 2016 and Beyond",
+      "url": "http://arxiv.org/abs/1611.07626v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2016-11-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "This paper has been withdrawn",
+      "url": "http://arxiv.org/abs/cond-mat/0309395v2",
+      "kind": "paper",
+      "venue": "cond-mat.soft",
+      "published": "2003-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "The 3rd Reactive Synthesis Competition (SYNTCOMP 2016): Benchmarks, Participants & Results",
+      "url": "http://arxiv.org/abs/1609.00507v2",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2016-09-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "ASIME 2016 White Paper: In-Space Utilisation of Asteroids: \"Answers to Questions from the Asteroid Miners\"",
+      "url": "http://arxiv.org/abs/1612.00709v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2016-12-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Toward Idealized Decision Theory",
+      "url": "http://arxiv.org/abs/1507.01986v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2015-07-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "2nd Workshop on Cognitive Architectures for Social Human-Robot Interaction 2016 (CogArch4sHRI 2016)",
+      "url": "http://arxiv.org/abs/1602.01868v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2016-02-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "CHC-COMP 2022: Competition Report",
+      "url": "http://arxiv.org/abs/2211.12231v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2022-11-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "AI Exposure and the Changing Responsibilities in Job Postings",
+      "url": "http://arxiv.org/abs/2611.09870v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2026-11-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Motif Mining and Unsupervised Representation Learning for BirdCLEF 2022",
+      "url": "http://arxiv.org/abs/2206.04805v1",
+      "kind": "paper",
+      "venue": "cs.SD",
+      "published": "2022-06-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "SVC 2025: the First Multimodal Deception Detection Challenge",
+      "url": "http://arxiv.org/abs/2508.04129v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-08-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Overview of the Sensemaking Task at the ELOQUENT 2025 Lab: LLMs as Teachers, Students and Evaluators",
+      "url": "http://arxiv.org/abs/2507.12143v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-07-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "Evaluating Agent Skills for Version-Specific Plugin Migration: A Retrospective Study",
+      "url": "http://arxiv.org/abs/2609.30120v1",
+      "kind": "paper",
+      "venue": "cs.SE",
+      "published": "2026-09-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Detecting Strategic Deception Using Linear Probes",
+      "url": "http://arxiv.org/abs/2502.03407v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-02-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Deception Detection and Remote Physiological Monitoring: A Dataset and Baseline Experimental Results",
+      "url": "http://arxiv.org/abs/2106.06583v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2021-06-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "AIRCC-Clim: a user-friendly tool for generating regional probabilistic climate change scenarios and risk measures",
+      "url": "http://arxiv.org/abs/2111.01762v1",
+      "kind": "paper",
+      "venue": "physics.ao-ph",
+      "published": "2021-10-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Inclusion 2024 Global Multimedia Deepfake Detection Challenge: Towards Multi-dimensional Face Forgery Detection",
+      "url": "http://arxiv.org/abs/2412.20833v2",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-12-30",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-25-agent-评测与欺骗能力基准欺骗可纠正性.md",
+    "json": "report/2026/11/2026-11-25-agent-评测与欺骗能力基准欺骗可纠正性.json"
+  }
+}

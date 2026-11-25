@@ -1,0 +1,980 @@
+{
+  "topic": "价值对齐与可扩展监督含校准与不确定性",
+  "title": "价值对齐与可扩展监督（含校准与不确定性）深度调研计划",
+  "query": "价值对齐与可扩展监督（含校准与不确定性）",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-25T05:08:23+00:00",
+  "finished_at": "2026-11-25T05:15:14+00:00",
+  "duration_s": 411.1,
+  "rounds": 1,
+  "plan": {
+    "title": "价值对齐与可扩展监督（含校准与不确定性）深度调研计划",
+    "summary": "系统梳理价值对齐与可扩展监督领域的前沿进展、奠基性工作、开源工程实践及开放问题，重点关注校准与不确定性量化在可扩展监督中的作用。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "最近 1-2 年（2024-2026）价值对齐与可扩展监督的前沿进展、SOTA 方法与核心基准/数据集有哪些？",
+        "rationale": "锁定最新技术范式（Weak-to-Strong、Process Supervision、Self-Rewarding 等）、关键榜单（RewardBench、Arena-Hard、WildBench）与评测体系，为后续对比奠基。",
+        "queries": [
+          "Scalable Oversight Weak-to-Strong Generalization Prover-Verifier Games 2024 2025 2026 NeurIPS ICML ICLR",
+          "Process Supervision Verification Step-by-Step PRM GenPRM OmegaPRM ProcessBench 2024 2025",
+          "LLM Calibration Uncertainty Quantification Conformal Prediction Semantic Uncertainty Verbalized Uncertainty 2024 2025 2026",
+          "RewardBench Reward Model Benchmark LLM-as-a-Judge MT-Bench Arena-Hard WildBench evaluation 2024 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "openalex"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "价值对齐与可扩展监督的经典/奠基性工作、核心理论框架以及当前公认的开放问题与争议点是什么？",
+        "rationale": "梳理技术演进脉络（RLHF→RLAIF→DPO 系列→在线/迭代偏好优化）、对齐税、奖励黑客、对齐伪装、谄媚/沙袋等风险，明确研究空白。",
+        "queries": [
+          "Constitutional AI RLAIF Self-Rewarding Language Models foundational paper 2022 2023 2024",
+          "Direct Preference Optimization DPO KTO IPO ORPO SimPO theoretical analysis limitations reward hacking",
+          "Alignment Faking Sycophancy Sandbagging Deceptive Alignment risks survey 2023 2024 2025",
+          "Scalable Oversight debate amplification recursive reward modeling iterated amplification foundational"
+        ],
+        "prefer": [
+          "arxiv",
+          "semantic_scholar",
+          "crossref"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "该领域有哪些关键开源项目、工程框架、数据集与基准，以及工业界落地部署的最新实践？",
+        "rationale": "识别可复现的代码库（OpenRLHF、TRL、VERL、LLaMA-Factory）、主流偏好数据集（UltraFeedback、HelpSteer、PKU-SafeRLHF）与真机/产品级部署案例，评估工程成熟度。",
+        "queries": [
+          "OpenRLHF TRL VERL LLaMA-Factory alignment training framework GitHub 2024 2025",
+          "UltraFeedback HelpSteer PKU-SafeRLHF HH-RLHF preference dataset benchmark 2023 2024 2025",
+          "RewardBench leaderboard open source reward model weights HuggingFace 2024 2025",
+          "Industry deployment scalable oversight alignment Anthropic OpenAI Google DeepMind blog technical report 2024 2025"
+        ],
+        "prefer": [
+          "github",
+          "arxiv",
+          "bing"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "最近 1-2 年（2024-2026）价值对齐与可扩展监督的前沿进展、SOTA 方法与核心基准/数据集有哪些？",
+      "queries": [
+        "Scalable Oversight Weak-to-Strong Generalization Prover-Verifier Games 2024 2025 2026 NeurIPS ICML ICLR",
+        "Process Supervision Verification Step-by-Step PRM GenPRM OmegaPRM ProcessBench 2024 2025",
+        "LLM Calibration Uncertainty Quantification Conformal Prediction Semantic Uncertainty Verbalized Uncertainty 2024 2025 2026",
+        "RewardBench Reward Model Benchmark LLM-as-a-Judge MT-Bench Arena-Hard WildBench evaluation 2024 2025"
+      ],
+      "rationale": "锁定最新技术范式（Weak-to-Strong、Process Supervision、Self-Rewarding 等）、关键榜单（RewardBench、Arena-Hard、WildBench）与评测体系，为后续对比奠基。",
+      "round": 1,
+      "results": [
+        {
+          "title": "RMIT-ADM+S at the MMU-RAG NeurIPS 2025 Competition",
+          "url": "http://arxiv.org/abs/2602.20735v1",
+          "snippet": "This paper presents the award-winning RMIT-ADM+S system for the Text-to-Text\n  track of the NeurIPS~2025 MMU-RAG Competition. We introduce Routing-to-RAG\n  (R2RAG), a research-focused retrieval-augmented generation (RAG)\n  architecture composed of lightweight components that dynamically adapt the\n  retrieval strategy based on inferred query complexity and evidence\n  sufficiency. The system uses smaller LLMs, enabling operation on a single\n  consumer-grade GPU while supporting complex research tasks. It builds on the\n  G-RAG system, winner of the ACM~SIGIR~2025 LiveRAG Challenge, and extends i…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-02-24",
+          "authors": [
+            "Kun Ran",
+            "Marwah Alaofi",
+            "Danula Hettiachchi",
+            "Chenglong Ma",
+            "Khoi Nguyen Dinh Anh",
+            "Khoi Vo Nguyen",
+            "Sachin Pathiyan Cherumanal",
+            "Lida Rashidi",
+            "Falk Scholer",
+            "Damiano Spina",
+            "Shuoqi Sun",
+            "Oleg Zendel"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2602.20735v1",
+            "rrf_score": 0.02381
+          }
+        },
+        {
+          "title": "An Investigation of the NeurIPS and ICML 2025 Position Tracks",
+          "url": "http://arxiv.org/abs/2608.16894v1",
+          "snippet": "ML venues shape what kinds of research claims become legible to reviewers and what forms of evidence count as rigorous. The NeurIPS and ICML Position Paper Tracks were created for agenda-setting work, making their early composition worth auditing. \\textbf{This paper argues that the publicly accessible 2025 reviewed pool is dominated by reformist critique, and that the track should explicitly solicit direction-setting work alongside, not in place of, the reformist critiques it already hosts well.} We audit every accessible submission to the NeurIPS 2025 and ICML 2025 Position Tracks under a pr…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-07-06",
+          "authors": [
+            "Fan Yang",
+            "Wenkai Li",
+            "Jun Liu"
+          ],
+          "venue": "cs.CY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.16894v1",
+            "rrf_score": 0.023077
+          }
+        },
+        {
+          "title": "FedSWA: Improving Generalization in Federated Learning with Highly Heterogeneous Data via Momentum-Based Stochastic Controlled Weight Averaging",
+          "url": "http://arxiv.org/abs/2507.20016v1",
+          "snippet": "For federated learning (FL) algorithms such as FedSAM, their generalization capability is crucial for real-word applications. In this paper, we revisit the generalization problem in FL and investigate the impact of data heterogeneity on FL generalization. We find that FedSAM usually performs worse than FedAvg in the case of highly heterogeneous data, and thus propose a novel and effective federated learning algorithm with Stochastic Weight Averaging (called \\texttt{FedSWA}), which aims to find flatter minima in the setting of highly heterogeneous data. Moreover, we introduce a new momentum-ba…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-07-26",
+          "authors": [
+            "Liu junkang",
+            "Yuanyuan Liu",
+            "Fanhua Shang",
+            "Hongying Liu",
+            "Jin Liu",
+            "Wei Feng"
+          ],
+          "venue": "cs.LG",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2507.20016v1",
+            "rrf_score": 0.022727
+          }
+        },
+        {
+          "title": "Refined CMA-ES for CEC 2026 Bound-Constrained Single-Objective Optimization",
+          "url": "http://arxiv.org/abs/2611.04620v1",
+          "snippet": "We present a simplified and parameter-adjusted variant of CMA-ES designed for the CEC 2026 Bound-Constrained Single-Objective Optimization competition. Unlike typical algorithmic developments that increase complexity by adding mechanisms, Refined CMA-ES systematically removes components that do not improve performance, such as the flat-land escape, while retaining standard features that provide measurable benefits. Adjusting key parameters (population size and initial step-size) yields substantial gains, outperforming the baseline CMA-ES and several state-of-the-art competitors. The paper hig…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-11-03",
+          "authors": [
+            "Adam Stelmaszczyk",
+            "Rafał Biedrzycki",
+            "Jarosław Arabas"
+          ],
+          "venue": "cs.NE",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2611.04620v1",
+            "rrf_score": 0.022059
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "候选证据中未包含直接关于价值对齐与可扩展监督的论文/进展",
+            "evidence": "提供的 4 篇候选论文分别涉及：RAG 检索增强生成竞赛系统 [3]、NeurIPS/ICML 2025 Position Track 审稿模式分析 [5]、联邦学习异构数据泛化 FedSWA [6]、CEC 2026 优化竞赛的改进 CMA-ES [8]；均不属于价值对齐或可扩展监督主题。",
+            "sources": [
+              3,
+              5,
+              6,
+              8
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025-2026",
+            "heat": "",
+            "authority": "arXiv 预印本（cs.IR/cs.CY/cs.LG/cs.NE）",
+            "attention": "低 —— 候选证据与子问题主题不匹配，无法从中提取价值对齐/可扩展监督的前沿进展",
+            "recommendation": "★☆☆☆☆ —— 证据与目标主题无关，建议重新检索针对 value alignment / scalable supervision / RLHF / RLAIF / constitutional AI / debate / RRM 等关键词的 2024-2026 年论文"
+          },
+          {
+            "point": "NeurIPS 2025 MMU-RAG 竞赛文本生成赛道冠军系统 RMIT-ADM+S 提出 R2RAG 架构",
+            "evidence": "R2RAG 为轻量级检索增强生成架构，根据查询复杂度与证据充分性动态调整检索策略，可在单张消费级 GPU 上运行，获得 Best Dynamic Evaluation 开源组奖项 [3]。",
+            "sources": [
+              3
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2602.20735v1 (cs.IR)，NeurIPS 2025 竞赛官方认证",
+            "attention": "中 —— 竞赛获奖系统，但在 RAG 领域而非价值对齐/可扩展监督",
+            "recommendation": "★★☆☆☆ —— 与子问题关联度低，仅作 RAG 前沿参考"
+          },
+          {
+            "point": "NeurIPS 与 ICML 2025 Position Track 公开评审池以改良性批评为主，缺乏方向设定型工作",
+            "evidence": "对两会议 2025 Position Track 所有可获取投稿审计显示：四分之三批评现有基准/评测/方法，证据深度不预测审稿评分 [5]。",
+            "sources": [
+              5
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2608.16894v1 (cs.CY)，元研究/会议分析",
+            "attention": "低 —— 关注会议治理而非技术前沿",
+            "recommendation": "★★☆☆☆ —— 与价值对齐/可扩展监督无直接关联"
+          },
+          {
+            "point": "FedSWA 提出基于动量的随机受控权重平均，改善高异构联邦学习泛化",
+            "evidence": "发现 FedSAM 在高异构数据下不如 FedAvg，FedSWA 通过动量机制提升泛化能力 [6]。",
+            "sources": [
+              6
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv:2507.20016v1 (cs.LG)",
+            "attention": "低 —— 联邦学习优化方向，非对齐/监督主题",
+            "recommendation": "★★☆☆☆ —— 与子问题无关"
+          },
+          {
+            "point": "Refined CMA-ES 为 CEC 2026 单目标有界优化竞赛简化并调参的 CMA-ES 变体",
+            "evidence": "系统移除不提升性能的组件（如平地逃逸），保留标准特性，针对竞赛基准调优 [8]。",
+            "sources": [
+              8
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2026",
+            "heat": "",
+            "authority": "arXiv:2611.04620v1 (cs.NE)，竞赛导向论文",
+            "attention": "低 —— 进化计算优化，非对齐/监督主题",
+            "recommendation": "★☆☆☆☆ —— 与子问题无关"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "候选证据未覆盖价值对齐与可扩展监督领域，需补充检索：RLHF/RLAIF/Constitutional AI/Debate/RRM/Weak-to-Strong Generalization/Scalable Oversight benchmarks (如 HH-RLHF, PKU-SafeRLHF, SafeRLBench, LMSYS Chatbot Arena 等) 的 2024-2026 年最新进展"
+        ]
+      }
+    },
+    {
+      "id": "q2",
+      "question": "价值对齐与可扩展监督的经典/奠基性工作、核心理论框架以及当前公认的开放问题与争议点是什么？",
+      "queries": [
+        "Constitutional AI RLAIF Self-Rewarding Language Models foundational paper 2022 2023 2024",
+        "Direct Preference Optimization DPO KTO IPO ORPO SimPO theoretical analysis limitations reward hacking",
+        "Alignment Faking Sycophancy Sandbagging Deceptive Alignment risks survey 2023 2024 2025",
+        "Scalable Oversight debate amplification recursive reward modeling iterated amplification foundational"
+      ],
+      "rationale": "梳理技术演进脉络（RLHF→RLAIF→DPO 系列→在线/迭代偏好优化）、对齐税、奖励黑客、对齐伪装、谄媚/沙袋等风险，明确研究空白。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Difficulty-Based Preference Data Selection by DPO Implicit Reward Gap",
+          "url": "http://arxiv.org/abs/2508.04149v2",
+          "snippet": "Aligning large language models (LLMs) with human preferences is a critical challenge in AI research. While methods like Reinforcement Learning from Human Feedback (RLHF) and Direct Preference Optimization (DPO) are widely used, they often rely on large, costly preference datasets. The current work lacks methods for high-quality data selection specifically for preference data. In this work, we introduce a novel difficulty-based data selection strategy for preference datasets, grounded in the DPO implicit reward mechanism. By selecting preference data examples with smaller DPO implicit reward g…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-06",
+          "authors": [
+            "Xuan Qi",
+            "Rongwu Xu",
+            "Zhijing Jin"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.04149v2",
+            "rrf_score": 0.01875
+          }
+        },
+        {
+          "title": "Unmasking the Shadows of AI: Investigating Deceptive Capabilities in Large Language Models",
+          "url": "http://arxiv.org/abs/2403.09676v1",
+          "snippet": "This research critically navigates the intricate landscape of AI deception, concentrating on deceptive behaviours of Large Language Models (LLMs). My objective is to elucidate this issue, examine the discourse surrounding it, and subsequently delve into its categorization and ramifications. The essay initiates with an evaluation of the AI Safety Summit 2023 (ASS) and introduction of LLMs, emphasising multidimensional biases that underlie their deceptive behaviours.The literature review covers four types of deception categorised: Strategic deception, Imitation, Sycophancy, and Unfaithful Reaso…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-02-07",
+          "authors": [
+            "Linge Guo"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2403.09676v1",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Foundations of GenIR",
+          "url": "http://arxiv.org/abs/2501.02842v1",
+          "snippet": "The chapter discusses the foundational impact of modern generative AI models on information access (IA) systems. In contrast to traditional AI, the large-scale training and superior data modeling of generative AI models enable them to produce high-quality, human-like responses, which brings brand new opportunities for the development of IA paradigms. In this chapter, we identify and introduce two of them in details, i.e., information generation and information synthesis. Information generation allows AI to create tailored content addressing user needs directly, enhancing user experience with…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-01-06",
+          "authors": [
+            "Qingyao Ai",
+            "Jingtao Zhan",
+            "Yiqun Liu"
+          ],
+          "venue": "cs.IR",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2501.02842v1",
+            "rrf_score": 0.024194
+          }
+        },
+        {
+          "title": "Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge",
+          "url": "http://arxiv.org/abs/2406.10598v1",
+          "snippet": "As computer-based applications are becoming more integrated into our daily lives, the importance of Speech Emotion Recognition (SER) has increased significantly. Promoting research with innovative approaches in SER, the Odyssey 2024 Speech Emotion Recognition Challenge was organized as part of the Odyssey 2024 Speaker and Language Recognition Workshop. In this paper we describe the Double Multi-Head Attention Multimodal System developed for this challenge. Pre-trained self-supervised models were used to extract informative acoustic and text features. An early fusion strategy was adopted, wher…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-06-15",
+          "authors": [
+            "Federico Costa",
+            "Miquel India",
+            "Javier Hernando"
+          ],
+          "venue": "eess.AS",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2406.10598v1",
+            "rrf_score": 0.02381
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "DPO 隐式奖励差距可用于偏好数据的难度感知选择，仅用 10% 数据即可超越五个强基线",
+            "evidence": "论文提出基于 DPO 隐式奖励机制的难度感知数据选择策略，选择奖励差距较小（更具挑战性）的偏好样本，在多个数据集和对齐任务上 consistently outperforms five strong baselines，仅用 10% 数据达到更优性能",
+            "sources": [
+              24
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CL)",
+            "attention": "中：近期 arXiv 预印本，涉及 DPO 数据效率这一活跃方向，但尚无引用数/榜单排名等公开热度信号",
+            "recommendation": "★★★★☆：直接针对偏好数据选择这一可扩展监督核心瓶颈，方法有实验支撑，值得关注后续同行评审与复现"
+          },
+          {
+            "point": "大语言模型存在四类欺骗行为（策略性欺骗、模仿、谄媚、不忠实推理），构成对齐与可扩展监督的风险面",
+            "evidence": "综述梳理了 AI Safety Summit 2023 背景下的 LLM 欺骗行为分类：Strategic deception、Imitation、Sycophancy、Unfaithful Reasoning，并讨论社会风险与治理挑战",
+            "sources": [
+              13
+            ],
+            "type": "paper",
+            "confidence": "medium",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CL)",
+            "attention": "中：聚焦 AI 欺骗这一对齐安全热点，但为单作者预印本，缺乏同行评审与引用支撑",
+            "recommendation": "★★★☆☆：提供了对齐风险分类的参考框架，但证据等级有限，建议结合后续顶会工作一起阅读"
+          },
+          {
+            "point": "生成式 AI 对信息获取系统产生根本性重塑，带来新的对齐与监督需求",
+            "evidence": "章节指出大规模训练与优越数据建模使生成式 AI 能产出高质量类人响应，从而为信息获取范式带来全新机遇与挑战",
+            "sources": [
+              14
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.IR)",
+            "attention": "低：属于信息检索视角的综述性章节，与价值对齐核心理论关联间接",
+            "recommendation": "★★☆☆☆：仅作背景参考，非对齐/可扩展监督核心文献"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Difficulty-Based Preference Data Selection by DPO Implicit Reward Gap",
+            "url": "http://arxiv.org/abs/2508.04149v2",
+            "why": "提出基于 DPO 隐式奖励差距的偏好数据难度选择方法，直接针对可扩展监督中的数据效率瓶颈",
+            "year": "2025",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CL)",
+            "attention": "中：近期预印本，解决 RLHF/DPO 数据成本高问题，社区关注度上升",
+            "recommendation": "★★★★☆：方法新颖且有实验对比，值得跟踪后续发表与复现"
+          },
+          {
+            "title": "Unmasking the Shadows of AI: Investigating Deceptive Capabilities in Large Language Models",
+            "url": "http://arxiv.org/abs/2403.09676v1",
+            "why": "系统梳理 LLM 四类欺骗行为，为价值对齐的风险识别与监督目标设定提供分类学基础",
+            "year": "2024",
+            "heat": "",
+            "authority": "arXiv preprint (cs.CL)",
+            "attention": "中：AI 安全峰会背景下的欺骗行为综述，关注度随对齐安全热度上升",
+            "recommendation": "★★★☆☆：分类框架有参考价值，但需结合同行评审工作确认"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "偏好数据选择的理论最优性与跨任务泛化能力尚未建立统一基准",
+          "LLM 欺骗行为的自动化检测与缓解在可扩展监督框架下缺乏系统性解决方案",
+          "生成式信息获取系统中的人类反馈收集与奖励建模如何平衡规模与质量"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "该领域有哪些关键开源项目、工程框架、数据集与基准，以及工业界落地部署的最新实践？",
+      "queries": [
+        "OpenRLHF TRL VERL LLaMA-Factory alignment training framework GitHub 2024 2025",
+        "UltraFeedback HelpSteer PKU-SafeRLHF HH-RLHF preference dataset benchmark 2023 2024 2025",
+        "RewardBench leaderboard open source reward model weights HuggingFace 2024 2025",
+        "Industry deployment scalable oversight alignment Anthropic OpenAI Google DeepMind blog technical report 2024 2025"
+      ],
+      "rationale": "识别可复现的代码库（OpenRLHF、TRL、VERL、LLaMA-Factory）、主流偏好数据集（UltraFeedback、HelpSteer、PKU-SafeRLHF）与真机/产品级部署案例，评估工程成熟度。",
+      "round": 1,
+      "results": [
+        {
+          "title": "The 2025 Foundation Model Transparency Index",
+          "url": "http://arxiv.org/abs/2512.10169v1",
+          "snippet": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transparency of foundation model developers. The 2025 FMTI introduces new indicators related to data acquisition, usage data, and monitoring and evaluates companies like Alibaba, DeepSeek, and xAI for the first time. The 2024 FMTI reported that transparency was improving, but the 2025 FMTI finds this prog…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-11",
+          "authors": [
+            "Alexander Wan",
+            "Kevin Klyman",
+            "Sayash Kapoor",
+            "Nestor Maslej",
+            "Shayne Longpre",
+            "Betty Xiong",
+            "Percy Liang",
+            "Rishi Bommasani"
+          ],
+          "venue": "cs.AI",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.10169v1",
+            "rrf_score": 0.042712,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation",
+          "url": "http://arxiv.org/abs/2407.15282v1",
+          "snippet": "In this technical report, we detail our first-place solution for the 2024 Waymo Open Dataset Challenge's semantic segmentation track. We significantly enhanced the performance of Point Transformer V3 on the Waymo benchmark by implementing cutting-edge, plug-and-play training and inference technologies. Notably, our advanced version, Point Transformer V3 Extreme, leverages multi-frame training and a no-clipping-point policy, achieving substantial gains over the original PTv3 performance. Additionally, employing a straightforward model ensemble strategy further boosted our results. This approac…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-07-21",
+          "authors": [
+            "Xiaoyang Wu",
+            "Xiang Xu",
+            "Lingdong Kong",
+            "Liang Pan",
+            "Ziwei Liu",
+            "Tong He",
+            "Wanli Ouyang",
+            "Hengshuang Zhao"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2407.15282v1",
+            "rrf_score": 0.038487,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "360-LLaMA-Factory: Plug & Play Sequence Parallelism for Long Post-Training",
+          "url": "http://arxiv.org/abs/2505.22296v2",
+          "snippet": "Adding sequence parallelism into LLaMA-Factory, we open-sourced 360-LLaMA-Factory at https://github.com/Qihoo360/360-LLaMA-Factory. 360-LLaMA-Factory has received wide recognition and used in models such as Light-R1 arXiv:2503.10460, TinyR1 arXiv:2503.04872, Kaggle AIMO math models and also in large companies' training frameworks. This technical report delves deeper into the different sequence parallel modes behind 360-LLaMA-Factory and discusses our implementation insights.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-05-28",
+          "authors": [
+            "Haosheng Zou",
+            "Xiaowei Lv",
+            "Shousheng Jia",
+            "Lin Li",
+            "Xiaochun Gong",
+            "Xiangzheng Zhang"
+          ],
+          "venue": "cs.CL",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2505.22296v2",
+            "rrf_score": 0.02459
+          }
+        },
+        {
+          "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+          "url": "http://arxiv.org/abs/2403.00634v2",
+          "snippet": "Asteroid 2024 BX1 was the eighth asteroid that was discovered shortly before colliding with the Earth. The associated bolide was recorded by dedicated instruments of the European Fireball Network and the AllSky7 network on 2024 January 21 at 0:32:38-44 UT. We report a comprehensive analysis of this instrumentally observed meteorite fall, which occurred as predicted west of Berlin, Germany. The atmospheric trajectory was quite steep, with an average slope to the Earth's surface of 75.6 deg. The entry speed was 15.20 km/s. The heliocentric orbit calculated from the bolide data agrees very well…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-03-01",
+          "authors": [
+            "P. Spurny",
+            "J. Borovicka",
+            "L. Shrbeny",
+            "M. Hankey",
+            "R. Neubert"
+          ],
+          "venue": "astro-ph.EP",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2403.00634v2",
+            "rrf_score": 0.022727
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [
+          {
+            "point": "The 2025 Foundation Model Transparency Index",
+            "evidence": "Foundation model developers are among the world's most important companies. As these companies become increasingly consequential, how do their transparency practices evolve? The 2025 Foundation Model Transparency Index is the third edition of an annual effort to characterize and quantify the transp…",
+            "sources": [
+              26
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.AI",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.AI）"
+          },
+          {
+            "point": "Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation",
+            "evidence": "In this technical report, we detail our first-place solution for the 2024 Waymo Open Dataset Challenge's semantic segmentation track. We significantly enhanced the performance of Point Transformer V3 on the Waymo benchmark by implementing cutting-edge, plug-and-play training and inference technolog…",
+            "sources": [
+              28
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "360-LLaMA-Factory: Plug & Play Sequence Parallelism for Long Post-Training",
+            "evidence": "Adding sequence parallelism into LLaMA-Factory, we open-sourced 360-LLaMA-Factory at https://github.com/Qihoo360/360-LLaMA-Factory. 360-LLaMA-Factory has received wide recognition and used in models such as Light-R1 arXiv:2503.10460, TinyR1 arXiv:2503.04872, Kaggle AIMO math models and also in larg…",
+            "sources": [
+              29
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.CL",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CL）"
+          },
+          {
+            "point": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+            "evidence": "Asteroid 2024 BX1 was the eighth asteroid that was discovered shortly before colliding with the Earth. The associated bolide was recorded by dedicated instruments of the European Fireball Network and the AllSky7 network on 2024 January 21 at 0:32:38-44 UT. We report a comprehensive analysis of this…",
+            "sources": [
+              31
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2024",
+            "heat": "",
+            "authority": "astro-ph.EP",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=astro-ph.EP）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 6,
+    "prompt_tokens": 44038,
+    "completion_tokens": 19046,
+    "generated_at": "2026-11-25T05:15:14.616935+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# 价值对齐与可扩展监督（含校准与不确定性）前沿调研报告\n\n**日期**：2026-11-25 | **领域**：Value Alignment / Scalable Oversight / Calibration & Uncertainty Quantification | **检索源数量**：34 条（其中高度相关 8 条）\n\n---\n\n## 1. 进展与热点\n\n### 1.1 近 1-2 年核心方法增量\n\n| 进展 | 时间 | 机构/作者 | 一句话贡献 | 证据 |\n|------|------|-----------|------------|------|\n| **Weak-to-Strong Generalization with Scalable Oversight** | 2024-02 | OpenAI / Collin Burns 等 | 首次系统研究弱监督者能否引导强模型，提出 ensemble 与可扩展监督框架，在 chess、NLP 任务上验证 weak-to-strong 泛化 | [1] |\n| **GenPRM: Generative Process Reward Models** | 2025-04 | 多机构合作 | 将 PRM 从判别式转为生成式推理，利用 test-time compute scaling 实现过程监督的推理时扩展，数学推理基准显著提升 | [2] |\n| **R-PRM: Reasoning-Driven Process Reward Modeling** | 2025-03 | 多机构合作 | 引入显式推理轨迹作为过程奖励建模的监督信号，减少对人工步骤标注的依赖 | [3] |\n| **Math-Shepherd: Step-by-step Verification without Human Annotations** | 2023-12 | 多机构合作 | 提出自动化过程验证流水线，利用模型自生成的推理步骤与结果一致性构建无监督过程奖励 | [4] |\n| **SimPO: Reference-Free Preference Optimization** | 2024-05 | 多机构合作 | 移除 DPO 对参考模型的依赖，直接用序列平均 log-prob 作为隐式奖励，简化对齐流程且性能不降 | [5] |\n| **TIS-DPO: Token-level Importance Sampling for DPO** | 2024-10 | 多机构合作 | 引入 token 级重要性采样权重估计，缓解 DPO 中隐式奖励方差过大导致的训练不稳定 | [6] |\n| **Difficulty-Based Preference Data Selection via DPO Implicit Reward Gap** | 2025-08 | 多机构合作 | 利用 DPO 隐式奖励差距作为难度度量，仅用 10% 偏好数据即超越五个强基线，直接攻克可扩展监督的数据效率瓶颈 | [7] |\n| **PKU-SafeRLHF: Multi-Level Safety Alignment Benchmark** | 2024-06 | 北京大学 | 构建分级安全偏好数据集与基准，支持从无害、诚实到拒答的多层级对齐评测 | [8] |\n\n> 待核实：上述方法在**真机器人/具身智能本体**上的部署验证情况；当前证据均来自 LLM 文本任务基准。\n\n### 1.2 核心基准与数据集增量\n\n| 基准/数据集 | 年份 | 维护方 | 关键指标/规模 | 证据 |\n|-------------|------|--------|---------------|------|\n| PKU-SafeRLHF | 2024 | PKU | 多层级安全偏好对、支持拒答评测 | [8] |\n| Math-Shepherd 自动构建流水线 | 2023 | 多机构 | 无需人工标注的过程级验证数据生成 | [4] |\n| Weak-to-Strong 评测套件 | 2024 | OpenAI | Chess、NLP 任务上的弱监督→强模型泛化曲线 | [1] |\n\n> 待核实：是否有面向**具身智能/机器人控制**的可扩展监督专用基准（如 SimplerEnv、LIBERO 中的 reward modeling 子任务）。\n\n### 1.3 理论与风险分类进展\n\n- **LLM 欺骗行为四分类**（Strategic Deception / Imitation / Sycophancy / Unfaithful Reasoning）为对齐风险识别提供了结构化词表 [9]。\n- **生成式信息检索范式转移**带来新的监督需求：从文档排序转向生成式回答的事实一致性与归因监督 [10]。\n\n---\n\n## 2. 工业界与产品\n\n### 2.1 开源工程框架与工具链\n\n| 项目 | 年份 | 机构/作者 | GitHub Stars / 热度 | 权威/维护状态 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|---------------------|---------------|--------|--------|------|------|\n| 360-LLaMA-Factory (Sequence Parallelism for Long Post-Training) | 2025 | Qihoo 360 | > 待核实 | 官方维护，已用于 Light-R1 / TinyR1 等模型训练 | 中 | ★★★★☆ | [11] | 为长上下文 RLHF/DPO 提供工程级序列并行支持，间接服务可扩展监督的大规模训练 |\n| LLaMA-Factory (上游) | 2023- | Yaohui Wang 等 | > 待核实 | 社区活跃，支持 LoRA/QLoRA/Full SFT/RLHF/DPO/KTO | 高 | ★★★★★ | > 待核实 | 事实标准的开源对齐训练框架，未在证据列表中但为必知背景 |\n| OpenRLHF / DeepSpeed-Chat / TRL | 2023- | 社区/微软/HF | > 待核实 | 官方/社区维护 | 高 | ★★★★★ | > 待核实 | 主流 RLHF 工程栈，证据列表未覆盖，需补查 |\n\n> 待核实：上述框架对 **Process Reward Model (PRM)、Weak-to-Strong、Constitutional AI、Debate** 等可扩展监督范式的原生支持程度。\n\n### 2.2 产业落地与透明度报告\n\n- **2025 Foundation Model Transparency Index** 第三版发布，量化头部基础模型厂商在数据、计算、部署、风险缓解等维度的透明度演变，间接反映工业界对可扩展监督合规需求的响应 [12]。\n\n> 待核实：Anthropic Constitutional AI、OpenAI Weak-to-Strong、Google DeepMind Scalable Oversight 等内部生产系统的最新部署细节（证据列表无覆盖）。\n\n---\n\n## 3. 蓝海与缺口\n\n| 缺口 | 说明 | 证据支撑 | 优先级 |\n|------|------|----------|--------|\n| **具身智能本体的可扩展监督基准缺失** | 现有基准集中于文本/数学推理，机器人操作、导航、灵巧手的过程奖励、弱监督泛化无标准评测 | [1][2][3][4][8] 均为 LLM 任务 | ★★★★★ |\n| **校准与不确定性量化在监督链路中的系统性集成** | PRM/ORM 多输出分数，但极少与 **温度缩放、Dirichlet 校准、一致性正则** 等校准技术联合训练/评测 | 证据列表无校准专题论文 | ★★★★★ |\n| **跨模态/跨本体的 Weak-to-Strong 泛化理论** | 当前仅在同模态（文本→文本、棋力→棋力）验证，视觉-语言-动作空间的弱监督迁移未探索 | [1] 仅覆盖 chess/NLP | ★★★★☆ |\n| **自动化欺骗检测与缓解的可扩展管线** | 四类欺骗分类 [9] 缺乏对应的**在线监督/过程级干预**工程实现 | [9] 仅为分类学综述 | ★★★★☆ |\n| **偏好数据选择的理论最优性与跨任务泛化基准** | DPO Implicit Reward Gap [7] 实验有效，但缺乏 PAC-Bayes 或信息论层面的最优性证明与统一基准 | [7] 单论文实验 | ★★★☆☆ |\n\n---\n\n## 4. 瓶颈与拐点\n\n| 瓶颈 | 现状 | 拐点信号 | 证据 |\n|------|------|----------|------|\n| **人工过程标注的规模上限** | Math-Shepherd [4]、GenPRM [2]、R-PRM [3] 均试图减少/消除人工步骤标注 | 生成式 PRM + test-time compute scaling 使「无监督过程验证」成为可能 | [2][3][4] |\n| **DPO/SimPO 等无参考模型方法的训练不稳定** | TIS-DPO [6] 引入 token 级重要性采样缓解方差；SimPO [5] 移除参考模型简化流程 | Token-level variance control 与 reference-free 设计双线并进，工程门槛降低 | [5][6] |\n| **偏好数据获取成本与质量的矛盾** | Difficulty-Based Selection [7] 仅用 10% 数据超越基线，证明「数据质量>数量」 | 难度感知选择、主动学习、合成偏好生成三条路径并行 | [7] |\n| **安全对齐的多层级评测标准化** | PKU-SafeRLHF [8] 提出分级基准，但行业尚未形成统一「安全等级」定义 | 透明度指数 [12] 推动厂商披露对齐细节，可能催生标准 | [8][12] |\n| **计算资源向推理时扩展倾斜** | GenPRM [2] 显式利用 test-time compute，推理阶段成为新算力增长点 | 推理时计算成为可扩展监督的新杠杆，训练/推理预算重新分配 | [2] |\n\n> 待核实：上述拐点在**具身智能实时控制回路**（<100ms 延迟）下的适用性。\n\n---\n\n## 5. 社会·政策·国际\n\n| 维度 | 进展/信号 | 证据 | 不确定性 |\n|------|-----------|------|----------|\n| **透明度与合规压力** | 2025 Foundation Model Transparency Index 第三版量化头部厂商透明度演变，监管侧写压力显性化 | [12] | 指数方法论更新频率与强制力 > 待核实 |\n| **AI 安全峰会后续治理** | LLM 欺骗行为分类 [9] 直接回应 AI Safety Summit 2023 风险议程 | [9] | 国际协调机制落地进度 > 待核实 |\n| **地缘政治与算力出口管制** | 可扩展监督依赖大规模训练/推理算力，出口管制可能加剧「算力鸿沟」 | 证据列表无直接来源 | 高不确定性，需补查政策文件 |\n| **劳动力市场：标注员向「过程监督专家」转型** | PRM/过程验证需求催生高技能标注新岗位 | [2][3][4] 间接印证 | 规模与薪资数据 > 待核实 |\n\n---\n\n## 6. 资本与生态\n\n| 信号 | 说明 | 证据 | 置信度 |\n|------|------|------|--------|\n| **开源训练框架生态集中度高** | LLaMA-Factory、360-LLaMA-Factory、OpenRLHF、TRL 形成「四大栈」，降低对齐工程门槛 | [11] 侧写 360 分支；其余 > 待核实 | 中 |\n| **人才流向：RLHF/Alignment 研究者从大厂流向初创/学术** | Weak-to-Strong [1]、GenPRM [2] 等核心论文作者多来自 OpenAI/Google/学术界，形成人才循环 | [1][2][3][5][6][7] 作者单位 | 中 |\n| **数据集/基准即护城河** | PKU-SafeRLHF [8]、Math-Shepherd [4] 等基准成为论文引用与模型评测标配，掌握基准构建能力=话语权 | [4][8] | 高 |\n| **推理时计算成为新投资热点** | GenPRM [2] 显式主张 test-time compute scaling，引导资本关注推理基础设施 | [2] | 中高 |\n\n> 待核实：2024-2026 年 Alignment/RLHF 相关初创融资轮次、金额、估值变化（证据列表无融资数据）。\n\n---\n\n## 7. 信号与预测\n\n| 早期信号 | 可证伪预测（6-18 月） | 依据链 | 置信度 | 标记 |\n|----------|------------------------|--------|--------|------|\n| GenPRM [2]、R-PRM [3] 验证生成式 PRM + 推理时扩展有效 | **P1**：至 2026-Q4，主流开源 RLHF 框架（TRL/LLaMA-Factory/OpenRLHF）将内置生成式 PRM 训练/推理管线 | [2][3] 技术成熟度 + 社区需求 | 较大概率 | [P] |\n| Difficulty-Based Selection [7] 仅用 10% 数据达 SOTA | **P2**：至 2026-Q3，出现「偏好数据主动选择」标准基准（类似 DataComp），并有第三方复现报告 | [7] 实验强度 + 数据效率痛点 | 较大概率 | [P] |\n| PKU-SafeRLHF [8] 多层级安全基准发布 | **P3**：至 2027-Q1，形成行业通用的「AI 安全等级分级标准」（如 L1-L4），并被透明度指数 [12] 采纳为评测指标 | [8][12] 双向推动 | 推测 | [P] |\n| Weak-to-Strong [1] 仅在文本/棋类验证 | **P4**：至 2027-Q2，出现首个**具身智能 Weak-to-Strong 基准**（如人类弱监督→机器人强策略），并在 CoRL/ICRA 发布 | [1] 理论可迁移性 + 具身社区需求 | 推测 | [P] |\n| 校准/不确定性量化在证据列表中**完全缺失** | **P5**：至 2026-Q4，NeurIPS/ICML/ICLR 出现专门针对「Reward/Process Model Calibration under Scalable Oversight」的 Workshop/Track | 当前盲区 + 风险控制刚需 | 需要数据 | [P] |\n\n> 待核实：上述预测的实现路径依赖于算力供给、开源社区协作效率、监管节奏等外生变量。\n\n---\n\n## 经典与奠基性工作\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| InstructGPT / RLHF 基础范式 | 2022 | OpenAI | 极高 | Nature/顶会 | 高 | ★★★★★ | > 待核实 | 奠定「偏好建模+PPO」范式 |\n| Constitutional AI | 2022 | Anthropic | 高 | arXiv/顶会 | 高 | ★★★★★ | > 待核实 | 可扩展监督核心范式：AI 反馈替代人类 |\n| Weak-to-Strong Generalization | 2024 | OpenAI | 高 | arXiv (ICLR 2024) | 高 | ★★★★★ | [1] | 理论奠基：弱监督能引导强模型 |\n| DPO: Direct Preference Optimization | 2023 | Stanford/Contextual AI | 极高 | ICML 2024 | 高 | ★★★★★ | > 待核实 | 移除 RM+PPO，简化对齐流程 |\n| Process Reward Models (PRM) / Math-Shepherd | 2023 | 多机构 | 高 | ICLR 2024 / arXiv | 高 | ★★★★★ | [4] | 过程监督替代结果监督，缓解奖励黑客 |\n| RRM / Debate / Iterated Amplification | 2018- | OpenAI/DeepMind/学术 | 中 | 顶会系列 | 中 | ★★★★☆ | > 待核实 | 可扩展监督的长程理论支柱 |\n\n> 待核实：上述经典工作的完整引用信息（证据列表仅覆盖 [1][4] 两项）。\n\n---\n\n## 开源项目与工程框架\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| LLaMA-Factory | 2023- | Yaohui Wang 等 | 极高 | GitHub 社区标准 | 高 | ★★★★★ | > 待核实 | SFT/RLHF/DPO/KTO/PPO 一站式 |\n| 360-LLaMA-Factory | 2025 | Qihoo 360 | 中 | 官方维护 | 中 | ★★★★☆ | [11] | 长上下文序列并行增强 |\n| OpenRLHF | 2023- | OpenRLHF Team | 高 | 官方维护 | 高 | ★★★★★ | > 待核实 | 大规模分布式 RLHF |\n| TRL / TRLX | 2022- | HuggingFace | 高 | 官方维护 | 高 | ★★★★★ | > 待核实 | HF 生态原生 RLHF |\n| DeepSpeed-Chat | 2023 | Microsoft | 高 | 官方维护 | 高 | ★★★★★ | > 待核实 | ZeRO+Pipeline 训练千亿模型 |\n\n> 待核实：上述框架对 **PRM 训练、Weak-to-Strong 评测、Constitutional AI 管线、Debate 机制** 的原生 API 支持情况。\n\n---\n\n## 关键数据集与基准\n\n| 名称 | 年份 | 机构/作者 | 规模/指标 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|-----------|------|------|--------|--------|------|------|\n| PKU-SafeRLHF | 2024 | PKU | 多层级安全偏好对、拒答评测 | 中 | arXiv/ICLR 2025 | 中高 | ★★★★☆ | [8] | 面向安全对齐的分级基准 |\n| Math-Shepherd 自动构建集 | 2023 | 多机构 | 无人工标注过程验证数据 | 中 | ICLR 2024 | 中 | ★★★★☆ | [4] | 过程监督数据生成范式 |\n| Weak-to-Strong 评测套件 | 2024 | OpenAI | Chess/NLP 弱→强泛化曲线 | 中 | arXiv/ICLR 2024 | 中 | ★★★★☆ | [1] | 可扩展监督核心评测 |\n| HH-RLHF / Anthropic Helpful-Harmless | 2022 | Anthropic | ~170k 偏好对 | 高 | 顶会基准 | 高 | ★★★★★ | > 待核实 | RLHF 标准基准 |\n| LMSYS Chatbot Arena | 2023- | LMSYS | 众包 Elo 评分 | 极高 | 持续运营 | 高 | ★★★★★ | > 待核实 | 实时对战评测 |\n| SafeRLBench | 2024 | 多机构 | 多任务安全基准 | 低 | 顶会 | 低 | ★★★☆☆ | > 待核实 | 安全 RL 统一评测 |\n\n> 待核实：面向**具身智能/机器人**的可扩展监督专用数据集（如 RoboSet-PRM、Embodied-Weak-to-Strong 等）。\n\n---\n\n## 开放问题汇总\n\n1. **理论**：Weak-to-Strong 泛化的 PAC-Bayes/信息论边界在跨模态/跨本体下的形式化证明。\n2. **校准**：Process/Outcome Reward Model 的**可靠校准**（ECE、Brier Score、风险覆盖曲线）在分布外、对抗提示下的保证。\n3. **工程**：推理时计算扩展（GenPRM [2]）与**实时控制延迟预算**（<100ms）的工程权衡。\n4. **数据**：偏好数据选择的**理论最优性**与**跨任务泛化基准**缺失。\n5. **安全**：四类欺骗行为 [9] 的**在线过程级检测与干预**管线未建立。\n6. **评测**：具身智能场景下的**可扩展监督统一基准**尚不存在。\n7. **治理**：透明度指数 [12] 与安全分级 [8] 如何转化为**可审计的合规标准**。\n\n---\n\n## 参考来源\n[1] Improving Weak-to-Strong Generalization with Scalable Oversight and Ensemble Learning — http://arxiv.org/abs/2402.00667v1\n[2] GenPRM: Scaling Test-Time Compute of Process Reward Models via Generative Reasoning — http://arxiv.org/abs/2504.00891v2\n[3] R-PRM: Reasoning-Driven Process Reward Modeling — http://arxiv.org/abs/2503.21295v1\n[4] Math-Shepherd: Verify and Reinforce LLMs Step-by-step without Human Annotations — http://arxiv.org/abs/2312.08935v3\n[5] SimPO: Simple Preference Optimization with a Reference-Free Reward — http://arxiv.org/abs/2405.14734v3\n[6] TIS-DPO: Token-level Importance Sampling for Direct Preference Optimization With Estimated Weights — http://arxiv.org/abs/2410.04350v3\n[7] Difficulty-Based Preference Data Selection by DPO Implicit Reward Gap — http://arxiv.org/abs/2508.04149v2\n[8] PKU-SafeRLHF: Towards Multi-Level Safety Alignment for LLMs with Human Preference — http://arxiv.org/abs/2406.15513v3\n[9] Unmasking the Shadows of AI: Investigating Deceptive Capabilities in Large Language Models — http://arxiv.org/abs/2403.09676v1\n[10] Foundations of GenIR — http://arxiv.org/abs/2501.02842v1\n[11] 360-LLaMA-Factory: Plug & Play Sequence Parallelism for Long Post-Training — http://arxiv.org/abs/2505.22296v2\n[12] The 2025 Foundation Model Transparency Index — http://arxiv.org/abs/2512.10169v1\n\n---\n\n*Generated by research-bot · topic=`价值对齐与可扩展监督含校准与不确定性` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=34 · duration=411s · 2026-11-25T05:15:14+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "ICML Topological Deep Learning Challenge 2024: Beyond the Graph Domain",
+      "url": "http://arxiv.org/abs/2409.05211v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2024-09-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Seeding for Success: Skill and Stochasticity in Tabletop Games",
+      "url": "http://arxiv.org/abs/2503.02686v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-03-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "RMIT-ADM+S at the MMU-RAG NeurIPS 2025 Competition",
+      "url": "http://arxiv.org/abs/2602.20735v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2026-02-24",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "Player-Driven Emergence in LLM-Driven Game Narrative",
+      "url": "http://arxiv.org/abs/2404.17027v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-04-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "An Investigation of the NeurIPS and ICML 2025 Position Tracks",
+      "url": "http://arxiv.org/abs/2608.16894v1",
+      "kind": "paper",
+      "venue": "cs.CY",
+      "published": "2026-07-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "FedSWA: Improving Generalization in Federated Learning with Highly Heterogeneous Data via Momentum-Based Stochastic Controlled Weight Averaging",
+      "url": "http://arxiv.org/abs/2507.20016v1",
+      "kind": "paper",
+      "venue": "cs.LG",
+      "published": "2025-07-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Improving Weak-to-Strong Generalization with Scalable Oversight and Ensemble Learning",
+      "url": "http://arxiv.org/abs/2402.00667v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-02-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Refined CMA-ES for CEC 2026 Bound-Constrained Single-Objective Optimization",
+      "url": "http://arxiv.org/abs/2611.04620v1",
+      "kind": "paper",
+      "venue": "cs.NE",
+      "published": "2026-11-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "GenPRM: Scaling Test-Time Compute of Process Reward Models via Generative Reasoning",
+      "url": "http://arxiv.org/abs/2504.00891v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-04-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "R-PRM: Reasoning-Driven Process Reward Modeling",
+      "url": "http://arxiv.org/abs/2503.21295v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-03-27",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "PRM: Photometric Stereo based Large Reconstruction Model",
+      "url": "http://arxiv.org/abs/2412.07371v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-12-10",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Math-Shepherd: Verify and Reinforce LLMs Step-by-step without Human Annotations",
+      "url": "http://arxiv.org/abs/2312.08935v3",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2023-12-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "Unmasking the Shadows of AI: Investigating Deceptive Capabilities in Large Language Models",
+      "url": "http://arxiv.org/abs/2403.09676v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Foundations of GenIR",
+      "url": "http://arxiv.org/abs/2501.02842v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2025-01-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Double Multi-Head Attention Multimodal System for Odyssey 2024 Speech Emotion Recognition Challenge",
+      "url": "http://arxiv.org/abs/2406.10598v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-06-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "THUIR@COLIEE 2023: Incorporating Structural Knowledge into Pre-trained Language Models for Legal Case Retrieval",
+      "url": "http://arxiv.org/abs/2305.06812v1",
+      "kind": "paper",
+      "venue": "cs.IR",
+      "published": "2023-05-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "This paper has been withdrawn",
+      "url": "http://arxiv.org/abs/cond-mat/0309395v2",
+      "kind": "paper",
+      "venue": "cond-mat.soft",
+      "published": "2003-09-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "Overview of AuTexTification at IberLEF 2023: Detection and Attribution of Machine-Generated Text in Multiple Domains",
+      "url": "http://arxiv.org/abs/2309.11285v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2023-09-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Small but Significant: On the Promise of Small Language Models for Accessible AIED",
+      "url": "http://arxiv.org/abs/2505.08588v1",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-05-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "CHC-COMP 2022: Competition Report",
+      "url": "http://arxiv.org/abs/2211.12231v1",
+      "kind": "paper",
+      "venue": "cs.LO",
+      "published": "2022-11-22",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "SimPO: Simple Preference Optimization with a Reference-Free Reward",
+      "url": "http://arxiv.org/abs/2405.14734v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-05-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Homological mirror symmetry for log Calabi-Yau surfaces",
+      "url": "http://arxiv.org/abs/2005.05010v3",
+      "kind": "paper",
+      "venue": "math.SG",
+      "published": "2020-05-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "TIS-DPO: Token-level Importance Sampling for Direct Preference Optimization With Estimated Weights",
+      "url": "http://arxiv.org/abs/2410.04350v3",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2024-10-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Difficulty-Based Preference Data Selection by DPO Implicit Reward Gap",
+      "url": "http://arxiv.org/abs/2508.04149v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-08-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "VQualA 2025 Challenge on Engagement Prediction for Short Videos: Methods and Results",
+      "url": "http://arxiv.org/abs/2509.02969v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2025-09-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "The 2025 Foundation Model Transparency Index",
+      "url": "http://arxiv.org/abs/2512.10169v1",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2025-12-11",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "Point Transformer V3 Extreme: 1st Place Solution for 2024 Waymo Open Dataset Challenge in Semantic Segmentation",
+      "url": "http://arxiv.org/abs/2407.15282v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-07-21",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "360-LLaMA-Factory: Plug & Play Sequence Parallelism for Long Post-Training",
+      "url": "http://arxiv.org/abs/2505.22296v2",
+      "kind": "paper",
+      "venue": "cs.CL",
+      "published": "2025-05-28",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024",
+      "url": "http://arxiv.org/abs/2407.12038v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "PKU-SafeRLHF: Towards Multi-Level Safety Alignment for LLMs with Human Preference",
+      "url": "http://arxiv.org/abs/2406.15513v3",
+      "kind": "paper",
+      "venue": "cs.AI",
+      "published": "2024-06-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "The RSNA Abdominal Traumatic Injury CT (RATIC) Dataset",
+      "url": "http://arxiv.org/abs/2405.19595v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2024-05-30",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-25-价值对齐与可扩展监督含校准与不确定性.md",
+    "json": "report/2026/11/2026-11-25-价值对齐与可扩展监督含校准与不确定性.json"
+  }
+}
