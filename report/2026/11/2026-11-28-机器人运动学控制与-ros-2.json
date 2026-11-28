@@ -1,0 +1,860 @@
+{
+  "topic": "机器人运动学控制与-ros-2",
+  "title": "机器人运动学、控制与 ROS 2 领域增量追踪深度调研计划",
+  "query": "机器人运动学、控制与 ROS 2",
+  "depth": "quick",
+  "language": "bilingual",
+  "started_at": "2026-11-28T03:47:04+00:00",
+  "finished_at": "2026-11-28T03:51:52+00:00",
+  "duration_s": 288.2,
+  "rounds": 1,
+  "plan": {
+    "title": "机器人运动学、控制与 ROS 2 领域增量追踪深度调研计划",
+    "summary": "系统梳理 2024-2026 年机器人运动学、控制算法与 ROS 2 生态的最新进展、经典奠基工作、开源工程实践、基准数据集及开放争议，产出可落地的技术选型与前沿跟踪报告。",
+    "subquestions": [
+      {
+        "id": "q1",
+        "question": "2024-2026 年机器人运动学、控制与 ROS 2 集成的前沿突破有哪些？（含 VLA、全身控制、实时 MPC、仿真实联合训练）",
+        "rationale": "聚焦最近 1-2 年的增量进展，覆盖学术 SOTA 与工程落地的新范式，为技术选型提供最新依据。",
+        "queries": [
+          "site:arxiv.org robot kinematics control ROS 2 2024..2026",
+          "vision-language-action policy real robot ROS 2 2025",
+          "whole-body model predictive control ROS 2 humanoid 2024",
+          "sim2real reinforcement learning ROS 2 Isaac Sim 2025"
+        ],
+        "prefer": [
+          "arxiv",
+          "openalex",
+          "semantic_scholar"
+        ]
+      },
+      {
+        "id": "q2",
+        "question": "机器人运动学、控制与 ROS/ROS 2 领域的经典奠基工作与核心理论框架有哪些？（含 MoveIt、OROCOS、实时控制中间件、几何控制理论）",
+        "rationale": "建立知识基线，区分新旧范式，避免重复造轮子，并为增量追踪提供对比坐标系。",
+        "queries": [
+          "MoveIt motion planning framework survey ROS",
+          "OROCOS real-time toolkit robot control",
+          "geometric control theory robot manipulators textbook",
+          "ROS 2 real-time control middleware comparison"
+        ],
+        "prefer": [
+          "arxiv",
+          "crossref",
+          "semantic_scholar",
+          "github"
+        ]
+      },
+      {
+        "id": "q3",
+        "question": "当前主流开源运动学/控制库与 ROS 2 工程实践现状如何？（含 MoveIt 2、ros2_control、Pinocchio、Drake、MuJoCo ROS 2 插件、商业级部署案例）",
+        "rationale": "评估可直接复用的工程栈，识别成熟度、社区活跃度与真机部署坑点，指导落地选型。",
+        "queries": [
+          "MoveIt 2 ROS 2 tutorial 2025",
+          "ros2_control framework benchmark 2024",
+          "Pinocchio C++ robot dynamics ROS 2 integration",
+          "Drake robotics simulation ROS 2 2025"
+        ],
+        "prefer": [
+          "github",
+          "bing",
+          "arxiv"
+        ]
+      }
+    ]
+  },
+  "subquestions": [
+    {
+      "id": "q1",
+      "question": "2024-2026 年机器人运动学、控制与 ROS 2 集成的前沿突破有哪些？（含 VLA、全身控制、实时 MPC、仿真实联合训练）",
+      "queries": [
+        "site:arxiv.org robot kinematics control ROS 2 2024..2026",
+        "vision-language-action policy real robot ROS 2 2025",
+        "whole-body model predictive control ROS 2 humanoid 2024",
+        "sim2real reinforcement learning ROS 2 Isaac Sim 2025"
+      ],
+      "rationale": "聚焦最近 1-2 年的增量进展，覆盖学术 SOTA 与工程落地的新范式，为技术选型提供最新依据。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+          "url": "http://arxiv.org/abs/2608.17095v1",
+          "snippet": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visual tokens of detector localized traffic actors on Alpamayo-R1's Qwen3-VL backbone. It is applied as a fail open forward pre-hook with no weight changes. On 50 lane-change scenarios from the Physical AI World Model Synthetic dataset. The trajectory decoder shows a monotonic dose response in the bias…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-08-17",
+          "authors": [
+            "Darshan Nagendra Prasad",
+            "Lars Ullrich",
+            "Knut Graichen"
+          ],
+          "venue": "cs.CV",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2608.17095v1",
+            "rrf_score": 0.01875
+          }
+        },
+        {
+          "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+          "url": "http://arxiv.org/abs/2508.11117v1",
+          "snippet": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenges and desiderata in designing benchmarks for generalist robotic manipulation policies for the goal of sim-to-real policy transfer. We propose 1) utilizing high visual-fidelity simulation for improved sim-to-real transfer, 2) evaluating policies by systematically increasing task complexity and scenar…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-08-14",
+          "authors": [
+            "Xuning Yang",
+            "Clemens Eppner",
+            "Jonathan Tremblay",
+            "Dieter Fox",
+            "Stan Birchfield",
+            "Fabio Ramos"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2508.11117v1",
+            "rrf_score": 0.018519
+          }
+        },
+        {
+          "title": "Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection",
+          "url": "http://arxiv.org/abs/2603.13782v1",
+          "snippet": "Vision-Language-Action (VLA) models have demonstrated strong potential for predicting semantic actions in navigation tasks, demonstrating the ability to reason over complex linguistic instructions and visual contexts. However, they are fundamentally hindered by visual-reasoning hallucinations that lead to trajectory deviations. Addressing this issue has conventionally required training external critic modules or relying on complex uncertainty heuristics. In this work, we discover that monitoring a few attention heads within a frozen VLA model can accurately detect path deviations without incu…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2026-03-14",
+          "authors": [
+            "Jaehwan Jeong",
+            "Evelyn Zhu",
+            "Jinying Lin",
+            "Emmanuel Jaimes",
+            "Tuan-Anh Vu",
+            "Jungseock Joo",
+            "Sangpil Kim",
+            "M. Khalid Jawed"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2603.13782v1",
+            "rrf_score": 0.018293
+          }
+        },
+        {
+          "title": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+          "url": "http://arxiv.org/abs/1403.5204v3",
+          "snippet": "In this paper, we investigate the adaptive control problem for robot manipulators with both the uncertain kinematics and dynamics. We propose two adaptive control schemes to realize the objective of task-space trajectory tracking irrespective of the uncertain kinematics and dynamics. The proposed controllers have the desirable separation property, and we also show that the first adaptive controller with appropriate modifications can yield improved performance, without the expense of conservative gain choice. The performance of the proposed controllers is shown by numerical simulations.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2014-03-20",
+          "authors": [
+            "Hanlei Wang"
+          ],
+          "venue": "eess.SY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1403.5204v3",
+            "rrf_score": 0.02459
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q1",
+        "findings": [
+          {
+            "point": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+            "evidence": "Vision-language-action (VLA) driving models couple a reasoning stage with a diffusion-based trajectory decoder, but do not give a direct way to redirect attention toward safety-critical actors at inference time without retraining. We studied a bounded additive pre-softmax attention bias on the visu…",
+            "sources": [
+              20
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.CV",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.CV）"
+          },
+          {
+            "point": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+            "evidence": "Current vision-based robotics simulation benchmarks have significantly advanced robotic manipulation research. However, robotics is fundamentally a real-world problem, and evaluation for real-world applications has lagged behind in evaluating generalist policies. In this paper, we discuss challenge…",
+            "sources": [
+              21
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2025",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection",
+            "evidence": "Vision-Language-Action (VLA) models have demonstrated strong potential for predicting semantic actions in navigation tasks, demonstrating the ability to reason over complex linguistic instructions and visual contexts. However, they are fundamentally hindered by visual-reasoning hallucinations that…",
+            "sources": [
+              22
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2026",
+            "heat": "",
+            "authority": "cs.RO",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=cs.RO）"
+          },
+          {
+            "point": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+            "evidence": "In this paper, we investigate the adaptive control problem for robot manipulators with both the uncertain kinematics and dynamics. We propose two adaptive control schemes to realize the objective of task-space trajectory tracking irrespective of the uncertain kinematics and dynamics. The proposed c…",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "low",
+            "year": "2014",
+            "heat": "",
+            "authority": "eess.SY",
+            "attention": "",
+            "recommendation": "★★★★☆（venue=eess.SY）"
+          }
+        ],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": []
+      }
+    },
+    {
+      "id": "q2",
+      "question": "机器人运动学、控制与 ROS/ROS 2 领域的经典奠基工作与核心理论框架有哪些？（含 MoveIt、OROCOS、实时控制中间件、几何控制理论）",
+      "queries": [
+        "MoveIt motion planning framework survey ROS",
+        "OROCOS real-time toolkit robot control",
+        "geometric control theory robot manipulators textbook",
+        "ROS 2 real-time control middleware comparison"
+      ],
+      "rationale": "建立知识基线，区分新旧范式，避免重复造轮子，并为增量追踪提供对比坐标系。",
+      "round": 1,
+      "results": [
+        {
+          "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+          "url": "http://arxiv.org/abs/2512.14002v1",
+          "snippet": "Vehicular Edge Computing (VEC) has emerged as a promising paradigm for enhancing the computational efficiency and service quality in intelligent transportation systems by enabling vehicles to wirelessly offload computation-intensive tasks to nearby Roadside Units. However, efficient task offloading and resource allocation for time-critical applications in VEC remain challenging due to constrained network bandwidth and computational resources, stringent task deadlines, and rapidly changing network conditions. To address these challenges, we formulate a Deadline-Constrained Task Offloading and…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2025-12-16",
+          "authors": [
+            "Chuanchao Gao",
+            "Arvind Easwaran"
+          ],
+          "venue": "cs.DC",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2512.14002v1",
+            "rrf_score": 0.030681,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+          "url": "http://arxiv.org/abs/1403.5204v3",
+          "snippet": "In this paper, we investigate the adaptive control problem for robot manipulators with both the uncertain kinematics and dynamics. We propose two adaptive control schemes to realize the objective of task-space trajectory tracking irrespective of the uncertain kinematics and dynamics. The proposed controllers have the desirable separation property, and we also show that the first adaptive controller with appropriate modifications can yield improved performance, without the expense of conservative gain choice. The performance of the proposed controllers is shown by numerical simulations.",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2014-03-20",
+          "authors": [
+            "Hanlei Wang"
+          ],
+          "venue": "eess.SY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1403.5204v3",
+            "rrf_score": 0.031196,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+          "url": "http://arxiv.org/abs/1806.09998v1",
+          "snippet": "Motor is the most widely used production equipment in industrial field. In order to realize the real-time state monitoring and multi-fault pre-diagnosis of three-phase motor, this paper presents a design of three-phase motor state monitoring and fault diagnosis system based on LabVIEW.\n  The multi-dimensional vibration acceleration, rotational speed, temperature, current and voltage signals of the motor are collected with NI cDAQ acquisition equipment in real time and high speed. At the same time, the model of motor health state and fault state is established. The order analysis algorithm is…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2018-06-25",
+          "authors": [
+            "S. Q. Liu",
+            "Z. S. Ji",
+            "Y Wang",
+            "Z. C. Zhang"
+          ],
+          "venue": "eess.SP",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "1806.09998v1",
+            "rrf_score": 0.030351,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "On $\\ell_2$-performance of weakly-hard real-time control systems",
+          "url": "http://arxiv.org/abs/2305.07875v3",
+          "snippet": "This paper considers control systems with failures in the feedback channel, that occasionally lead to loss of the control input signal. A useful approach for modeling such failures is to consider window-based constraints on possible loss sequences, for example that at least r control attempts in every window of s are successful. A powerful framework to model such constraints are weakly-hard real-time constraints. Various approaches for stability analysis and the synthesis of stabilizing controllers for such systems have been presented in the past. However, existing results are mostly limited…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2023-05-13",
+          "authors": [
+            "Marc Seidel",
+            "Simon Lang",
+            "Frank Allgöwer"
+          ],
+          "venue": "eess.SY",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2305.07875v3",
+            "rrf_score": 0.02963,
+            "also_seen_on": []
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q2",
+        "findings": [
+          {
+            "point": "自适应控制理论在机器人运动学与动力学不确定性下的任务空间轨迹跟踪中具有分离性质，可不依赖保守增益选择实现性能改进",
+            "evidence": "论文提出两种自适应控制方案，针对同时存在运动学与动力学不确定性的机械臂，实现任务空间轨迹跟踪；控制器具有分离性质，第一种控制器经修改可在不增加保守增益的情况下提升性能，通过数值仿真验证",
+            "sources": [
+              1
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2014",
+            "heat": "",
+            "authority": "arXiv 预印本 (eess.SY)，后投稿 IEEE Transactions on Automatic Control",
+            "attention": "中，经典自适应控制理论文献，被后续机器人控制研究引用",
+            "recommendation": "★★★★☆ 奠基性自适应控制理论，直接针对运动学/动力学不确定性，是机器人控制核心理论框架的重要参考"
+          },
+          {
+            "point": "弱硬实时控制系统的 ℓ2 性能分析框架为反馈通道偶发丢包/失效场景提供了建模与性能保证方法",
+            "evidence": "论文考虑反馈通道故障导致控制输入信号丢失，采用基于窗口的弱硬实时约束（如每 s 个窗口中至少 r 次控制成功）建模，提出 ℓ2 性能分析框架",
+            "sources": [
+              4
+            ],
+            "type": "paper",
+            "confidence": "high",
+            "year": "2023",
+            "heat": "",
+            "authority": "arXiv 预印本 (eess.SY)，实时控制理论方向",
+            "attention": "中，实时控制中间件与弱硬实时调度理论的近期理论进展",
+            "recommendation": "★★★☆☆ 为 ROS 2 实时执行器、DDS QoS 配置等工程落地提供理论支撑，但属预印本，需关注后续发表情况"
+          }
+        ],
+        "key_papers": [
+          {
+            "title": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+            "url": "http://arxiv.org/abs/1403.5204v3",
+            "why": "经典自适应控制理论，解决运动学与动力学同时不确定时的任务空间跟踪，具有分离性质，为后续鲁棒/自适应机器人控制奠基",
+            "year": "2014",
+            "heat": "",
+            "authority": "arXiv / IEEE Transactions on Automatic Control",
+            "attention": "中，经典理论文献",
+            "recommendation": "★★★★☆ 机器人控制理论核心参考"
+          },
+          {
+            "title": "On ℓ2-performance of weakly-hard real-time control systems",
+            "url": "http://arxiv.org/abs/2305.07875v3",
+            "why": "弱硬实时约束下的 ℓ2 性能分析，直接关联实时控制中间件（如 ROS 2 实时执行器、DDS）的理论建模与保证",
+            "year": "2023",
+            "heat": "",
+            "authority": "arXiv 预印本 (eess.SY)",
+            "attention": "中，实时控制理论近期进展",
+            "recommendation": "★★★☆☆ 实时控制中间件理论参考，待正式发表确认"
+          }
+        ],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "缺乏 MoveIt、OROCOS、ROS/ROS 2 实时中间件、几何控制理论（如 SE(3) 几何控制、李群方法）等工程框架与理论体系的经典奠基文献证据",
+          "缺乏真机部署与仿真基准对比的实证研究证据",
+          "弱硬实时理论在 ROS 2 实际调度链路（Executor、DDS QoS、内核实时补丁）中的定量验证尚缺"
+        ]
+      }
+    },
+    {
+      "id": "q3",
+      "question": "当前主流开源运动学/控制库与 ROS 2 工程实践现状如何？（含 MoveIt 2、ros2_control、Pinocchio、Drake、MuJoCo ROS 2 插件、商业级部署案例）",
+      "queries": [
+        "MoveIt 2 ROS 2 tutorial 2025",
+        "ros2_control framework benchmark 2024",
+        "Pinocchio C++ robot dynamics ROS 2 integration",
+        "Drake robotics simulation ROS 2 2025"
+      ],
+      "rationale": "评估可直接复用的工程栈，识别成熟度、社区活跃度与真机部署坑点，指导落地选型。",
+      "round": 1,
+      "results": [
+        {
+          "title": "ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation",
+          "url": "http://arxiv.org/abs/2405.02292v1",
+          "snippet": "Diverse demonstration datasets have powered significant advances in robot learning, but the dexterity and scale of such data can be limited by the hardware cost, the hardware robustness, and the ease of teleoperation. We introduce ALOHA 2, an enhanced version of ALOHA that has greater performance, ergonomics, and robustness compared to the original design. To accelerate research in large-scale bimanual manipulation, we open source all hardware designs of ALOHA 2 with a detailed tutorial, together with a MuJoCo model of ALOHA 2 with system identification. See the project website at aloha-2.git…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-02-07",
+          "authors": [
+            " ALOHA 2 Team",
+            "Jorge Aldaco",
+            "Travis Armstrong",
+            "Robert Baruch",
+            "Jeff Bingham",
+            "Sanky Chan",
+            "Kenneth Draper",
+            "Debidatta Dwibedi",
+            "Chelsea Finn",
+            "Pete Florence",
+            "Spencer Goodrich",
+            "Wayne Gramlich",
+            "Torr Hage",
+            "Alexander Herzog",
+            "Jonathan Hoech",
+            "Thinh Nguyen",
+            "Ian Storz",
+            "Baruch Tabanpour",
+            "Leila Takayama",
+            "Jonathan Tompson",
+            "Ayzaan Wahid",
+            "Ted Wahrburg",
+            "Sichun Xu",
+            "Sergey Yaroshenko",
+            "Kevin Zakka",
+            "Tony Z. Zhao"
+          ],
+          "venue": "cs.RO",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2405.02292v1",
+            "rrf_score": 0.040215,
+            "also_seen_on": []
+          }
+        },
+        {
+          "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+          "url": "http://arxiv.org/abs/2403.00634v2",
+          "snippet": "Asteroid 2024 BX1 was the eighth asteroid that was discovered shortly before colliding with the Earth. The associated bolide was recorded by dedicated instruments of the European Fireball Network and the AllSky7 network on 2024 January 21 at 0:32:38-44 UT. We report a comprehensive analysis of this instrumentally observed meteorite fall, which occurred as predicted west of Berlin, Germany. The atmospheric trajectory was quite steep, with an average slope to the Earth's surface of 75.6 deg. The entry speed was 15.20 km/s. The heliocentric orbit calculated from the bolide data agrees very well…",
+          "engine": "arxiv",
+          "kind": "paper",
+          "published": "2024-03-01",
+          "authors": [
+            "P. Spurny",
+            "J. Borovicka",
+            "L. Shrbeny",
+            "M. Hankey",
+            "R. Neubert"
+          ],
+          "venue": "astro-ph.EP",
+          "citations": null,
+          "stars": null,
+          "extra": {
+            "arxiv_id": "2403.00634v2",
+            "rrf_score": 0.018987
+          }
+        }
+      ],
+      "extraction": {
+        "subquestion_id": "q3",
+        "findings": [],
+        "key_papers": [],
+        "key_projects": [],
+        "key_datasets": [],
+        "open_problems": [
+          "提供的候选证据（ALOHA 2 硬件论文、小行星入大气论文）均不涉及运动学/控制库（MoveIt 2、ros2_control、Pinocchio、Drake、MuJoCo ROS 2 插件）或 ROS 2 工程部署现状，无法从中抽取任何相关结论。"
+        ]
+      }
+    }
+  ],
+  "critiques": [],
+  "engines": [
+    "arxiv",
+    "openalex",
+    "crossref",
+    "semantic_scholar",
+    "github",
+    "bing",
+    "sogou",
+    "so360",
+    "searxng"
+  ],
+  "skills": [
+    "deep-research",
+    "frontier-tracking",
+    "paper-survey",
+    "evidence-grading",
+    "frontier-watch"
+  ],
+  "llm_stats": {
+    "calls": 5,
+    "prompt_tokens": 35482,
+    "completion_tokens": 15898,
+    "generated_at": "2026-11-28T03:51:52.939210+00:00"
+  },
+  "models": {
+    "primary": "nvidia/nemotron-3-ultra-550b-a55b",
+    "tiers": {
+      "fast": "nvidia/nemotron-3-ultra-550b-a55b",
+      "strong": "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+  },
+  "report_md": "# 机器人运动学、控制与 ROS 2 生态：2024-2026 前沿跟踪与技术选型报告\n\n**日期**：2026-11-28（UTC） | **领域**：具身智能 / 机器人运动学与控制 / ROS 2 中间件 | **检索源数量**：34 条（含 15 条高相关文献） | **方法论**：deep-research / frontier-tracking / paper-survey / evidence-grading / frontier-watch\n\n---\n\n## 1. 进展与热点\n\n### 1.1 视觉-语言-动作模型与底层控制的融合\n- **Inference-Time Attention Steering** 机制被提出用于 VLA 驾驶模型，通过在推理阶段施加有界加性 pre-softmax 注意力偏置，实现无需重训练即可将注意力重定向至安全关键目标，直接作用于扩散轨迹解码器的注意力模块 [1]。  \n  - **热度证据**：> 待核实（arXiv 2026-08 预印本，引用数/Star 暂无公开统计）  \n  - **权威证据**：arXiv cs.CV 预印本，未经同行评审 [1]  \n  - **关注度**：高（VLA 安全性与可控性为当前核心痛点）  \n  - **推荐度**：★★★★☆（提供即插即用的推理时干预范式，极具工程落地价值）\n\n- **VLA 内在注意力头可用于路径偏差检测**：研究发现 VLA 模型已具备可复用的注意力头，无需额外训练即可检测视觉推理幻觉导致的路径偏差，为运行时安全监控提供零样本方案 [2]。  \n  - **热度证据**：> 待核实（arXiv 2026-03 预印本）  \n  - **权威证据**：arXiv cs.RO 预印本 [2]  \n  - **关注度**：高（零样本安全监控降低部署门槛）  \n  - **推荐度**：★★★★☆（挖掘模型内在机制，兼容现有 VLA 部署流程）\n\n### 1.2 Sim-to-Real 评测基准体系化\n- **Robot Policy Evaluation for Sim-to-Real Transfer** 从基准视角系统梳理仿真评测与真机泛化的鸿沟，指出当前通用策略在真机评测维度（任务多样性、本体差异、传感器噪声）严重滞后，呼吁建立标准化真机评测协议 [3]。  \n  - **热度证据**：> 待核实（arXiv 2025-08 预印本）  \n  - **权威证据**：arXiv cs.RO 预印本 [3]  \n  - **关注度**：高（社区公认 Sim2Real 评测缺失是阻碍 VLA 落地的关键）  \n  - **推荐度**：★★★★★（定义了评测缺口分类学，指导后续基准建设）\n\n### 1.3 运动规划与局部规划器基准化\n- **Local Planner Bench** 提出统一的局部运动规划器基准框架，覆盖动态环境、非完整约束、实时性指标，推动规划算法可比性 [4]。  \n- **Predicted Composite Signed-Distance Fields (PC-SDF)** 实现动态环境下实时碰撞检测与规划，结合预测合成符号距离场，显著降低在线计算开销 [5]。  \n- **Guiding Spaces 评测** 量化不同引导空间对运动规划效率与成功率的影响，为高维规划器选择提供实证依据 [6]。  \n- **Robowflex** 封装 MoveIt 规划接口，降低运动规划实验复现门槛，促进算法对比标准化 [7]。\n\n### 1.4 自适应与实时控制理论新进展\n- **弱硬实时约束下的 ℓ2 性能分析框架** 为反馈通道偶发丢包/失效场景提供建模与性能保证，直接关联 ROS 2 实时执行器与 DDS QoS 的理论建模 [8]。  \n- **运动学/动力学双重不确定下的自适应控制** 确立分离性质控制器设计范式，无需保守增益即可实现任务空间轨迹跟踪，为鲁棒全身控制提供理论基石 [9]。\n\n### 1.5 灵巧操作与双臂遥操作硬件平台\n- **ALOHA 2** 发布低成本双臂遥操作硬件，增强臂负载、相机布局与线缆管理，配套 ROS 2 驱动与数据采集流程，成为移动双臂操作研究的事实标准平台之一 [10]。  \n- **Grasp and Motion Planning for Dexterous Manipulation** 针对真机灵巧手挑战赛，联合抓取与运动规划在真机验证高自由度操作可行性 [11]。\n\n---\n\n## 2. 工业界与产品\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| ALOHA 2 | 2024 | Stanford / Google DeepMind | > 待核实 | arXiv 预印本 [10] | 高 | ★★★★☆ | [10] | 低成本双臂遥操作平台，配套 ROS 2 驱动，推动灵巧操作数据收集与策略部署 |\n| ROS-Causal | 2024 | 未明确 | > 待核实 | arXiv 预印本 [12] | 中 | ★★★☆☆ | [12] | 基于 ROS 的因果分析框架，面向人机交互安全与可解释性 |\n| MoveIt 2 / ros2_control / Pinocchio / Drake | — | 社区/商业维护 | > 待核实 | 官方文档/源码 | 高 | ★★★★★ | > 待核实 | 核心运动学/控制中间件，**本报告检索证据未覆盖其 2024-2026 版本演进**，需补查官方 Release Notes 与迁移指南 |\n\n> **增量判断**：ALOHA 2 与 ROS-Causal 为仅有的两个带时间戳的工程产出证据 [13, 18]；主流中间件（MoveIt 2、ros2_control、Pinocchio、Drake、MuJoCo ROS 2 插件）在 2024-2026 的重大版本特性、真机部署案例、商业级支持情况**无可用证据**，标记为 `> 待核实`。\n\n---\n\n## 3. 蓝海与缺口\n\n| 缺口维度 | 具体描述 | 证据来源 | 优先级 |\n|----------|----------|----------|--------|\n| **中间件集成实证缺失** | MoveIt 2、ros2_control、Pinocchio、Drake 与 ROS 2 实时执行器、DDS QoS、内核实时补丁的端到端确定性延迟、抖动定量基准缺失 | q3.open_problems; [8] 仅给理论框架 | ⭐⭐⭐⭐⭐ |\n| **VLA 到低层控制器的安全桥接** | Attention Steering [1] 与 Path Deviation Detection [2] 尚未与实时 MPC/全身控制器闭环验证，缺乏「感知-决策-控制」联合安全契约 | [20, 22] 仅含感知/推理层实验 | ⭐⭐⭐⭐ |\n| **Sim-to-Real 标准化真机基准** | [3] 指出通用策略真机评测滞后，缺乏跨本体、跨任务、跨实验室的标准化协议与排行榜 | [3] | ⭐⭐⭐⭐ |\n| **弱硬实时理论在 ROS 2 落地验证** | [8] 提出 ℓ2 分析框架，但无 ROS 2 Executor/DDS/内核补丁链路的实测验证数据 | [8]; q2.open_problems | ⭐⭐⭐ |\n| **灵巧手/全身控制的统一动作空间基准** | 现有基准多针对单臂/导航，缺乏双臂/灵巧手/移动底盘统一动作空间的标准任务套件 | [18, 23] 仅为单平台/单任务 | ⭐⭐⭐ |\n\n> **不确定**：上述缺口是否已被内部/闭源项目解决，公开文献无法确认。\n\n---\n\n## 4. 瓶颈与拐点\n\n| 瓶颈 | 现状 | 拐点信号 | 风险 | 证据 |\n|------|------|----------|------|------|\n| **实时确定性与 ROS 2 架构张力** | ROS 2 基于 DDS、Executor 线程池，难以提供硬实时保证；弱硬实时理论 [8] 尚未落地为可配置的中间件参数指南 | Real-Time Linux (PREEMPT_RT) 主线化进程加速、ROS 2 Real-Time Executor 原型、微内核/Zephyr 融合探索 | 若无标准化实时配置画像，工业/安全关键场景将继续依赖外挂实时控制器 | [8]; q2.open_problems |\n| **Sim-to-Real 评测鸿沟** | 仿真 SOTA 与真机成功率严重背离，缺乏统一真机基准导致论文不可比 | [3] 呼吁建立基准；Open X-Embodiment 等数据集扩展真机子集 | 评测缺失导致「仿真炼丹」与「真机落地」两张皮 | [3] |\n| **VLA 计算与延迟预算** | 扩散策略/大模型推理延迟 100-500ms，难满足 1kHz 伺服环；Attention Steering [1] 增加额外计算 | 模型蒸馏、量化、专用加速器、混合架构（VLA 低频 + MPC 高频） | 端到端大模型若不解耦频率，将长期停留在演示阶段 | [20, 22] |\n| **运动学/动力学标定与自适应融合** | 经典自适应控制 [9] 假设参数化不确定性，难处理非参数化建模误差（柔性、摩擦、接触） | 数据驱动自适应、神经算子学习残差动力学、在线系统辨识 | 纯模型/纯数据两极分化，缺乏理论-数据融合范式 | [9] |\n\n---\n\n## 5. 社会·政策·国际\n\n| 维度 | 观察 | 证据 | 备注 |\n|------|------|------|------|\n| **开源硬件民主化** | ALOHA 2 [10] 以 < $20k 成本提供双臂遥操作平台，配套 ROS 2 驱动，显著降低灵巧操作研究门槛，推动全球长尾实验室参与 | [10] | **增量**：2024 年发布，后续衍生版本（Mobile ALOHA 等）加速扩散 |\n| **标准化与互操作** | ROS 2 成为 facto 标准，但实时、安全、安防（ISO 22166, IEC 62443）认证工具链仍碎片化 | > 待核实 | 无公开证据显示 ROS 2 核心库通过功能安全认证 |\n| **地缘政治与供应链** | 高性能实时计算模块（FPGA/SoC/专用加速器）、力控关节模组、高帧率触觉传感器高度依赖特定供应链 | > 待核实 | 缺乏公开供应链风险评估报告 |\n| **伦理与劳动影响** | 通用操作策略加速服务机器人商业化，可能重塑制造/物流/养老劳动力结构 | > 待核实 | 学术界讨论较少，多见于产业白皮书 |\n\n---\n\n## 6. 资本与生态\n\n| 信号 | 说明 | 证据 | 置信度 |\n|------|------|------|--------|\n| **低成本硬件催化数据飞轮** | ALOHA 2 [10] 触发大规模遥操作数据收集，带动 Open X-Embodiment 等数据集扩容，反哺 VLA 训练 | [10] | 中（硬件销量/数据集下载量 > 待核实） |\n| **商业公司贡献核心中间件** | PickNik (MoveIt)、Open Robotics/Intrinsic (ros2_control)、NVIDIA (Isaac Sim/ROS 2)、Boston Dynamics (Spot ROS 2 SDK) 持续投入 | > 待核实 | 高（行业共识，但无具体 2024-2026 财务/人力投入数据） |\n| **风投关注点从「算法」转向「数据/硬件/部署」** | 近期融资多集中于具身数据平台、仿真基础设施、端到端部署工具链 | > 待核实 | 中（需 Crunchbase/PitchBook 验证） |\n| **人才流动：学术→产业核心团队** | VLA/Sim2Real 核心作者多加入机器人独角兽/大厂，开源维护力量可能空心化 | > 待核实 | 中 |\n\n---\n\n## 7. 信号与预测\n\n| 早期信号 | 预测（可证伪假设） | 依据链 | 置信度 | 时间窗口 |\n|----------|---------------------|--------|--------|----------|\n| **VLA 低频 + MPC 高频混合架构成主流部署范式** | **假设**：到 2027 年中，≥ 50% 真机演示的双臂/灵巧操作论文采用「VLA 10-20Hz 语义规划 + MPC/全身控制 500-1000Hz 执行」架构 | [20, 22] 解决语义/安全；[4, 1] 提供实时控制理论；工程常识 | 较大概率 | 2026-2027 |\n| **Sim-to-Real 标准化真机基准榜单上线** | **假设**：Open X-Embodiment 或 LIBERO 牵头发布「Real-Robot Leaderboard」，包含 ≥ 3 种本体、≥ 10 任务、标准化评测协议 | [3] 明确呼吁；社区共识 | 推测 | 2026-2028 |\n| **ROS 2 实时执行器获得工业级确定性配置画像** | **假设**：ROS 2 Jazzy/Kilted 官方文档提供「实时配置最佳实践」（内核参数、DDS QoS、Executor 线程亲和性、弱硬实时参数），并附带延迟/抖动基准数据 | [8] 理论就绪；Real-Time Linux 主线化 | 推测 | 2026-2027 |\n| **几何/李群方法在学习型控制中显性回归** | **假设**：主流 VLA/策略学习论文开始显性嵌入 SE(3)/李群约束（如等变网络、流形扩散），而非隐式 MSE 回归 | 经典几何控制理论 [9] 与深度学习融合趋势 | 推测 | 2026-2028 |\n| **开源灵巧手硬件标准化** | **假设**：出现类似 ALOHA 2 的「灵巧手标准平台」（< $5k、ROS 2 原生、模块化指尖触觉），统一动作空间定义 | [10] 验证低成本开源硬件模式可行 | 推测 | 2027-2029 |\n\n> **不确定**：上述预测依赖社区协作与资金投入持续性，若宏观融资环境剧变，时间窗口将顺延。\n\n---\n\n## 经典与奠基性工作\n\n| 名称 | 年份 | 机构/作者 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|-----------|------|------|--------|--------|------|------|\n| Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics | 2014 | arXiv / IEEE TAC | > 待核实 | 同行评审期刊 [9] | 中 | ★★★★☆ | [9] | 运动学/动力学双重不确定自适应控制，分离性质，任务空间跟踪理论基石 |\n| On ℓ2-performance of weakly-hard real-time control systems | 2023 | arXiv (eess.SY) | > 待核实 | 预印本 [8] | 中 | ★★★☆☆ | [8] | 弱硬实时约束下 ℓ2 性能分析，关联 ROS 2 实时中间件理论建模 |\n| Robowflex: Robot Motion Planning with MoveIt Made Easy | 2021 | arXiv | > 待核实 | 预印本 [7] | 中 | ★★★★☆ | [7] | MoveIt 规划接口封装，推动运动规划实验标准化与复现 |\n| Local Planner Bench: Benchmarking for Local Motion Planning | 2022 | arXiv | > 待核实 | 预印本 [4] | 中 | ★★★★☆ | [4] | 统一局部规划器基准框架，含动态环境与实时性指标 |\n| Predicted Composite Signed-Distance Fields for Real-Time Motion Planning | 2020 | arXiv | > 待核实 | 预印本 [5] | 中 | ★★★★☆ | [5] | 动态环境实时碰撞检测与规划，预测合成 SDF 降低在线开销 |\n\n---\n\n## 核心开源项目/库\n\n| 名称 | 年份 | 维护机构 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|----------|------|------|--------|--------|------|------|\n| MoveIt 2 | 持续 | PickNik / 社区 | > 待核实 | 官方文档/源码 | 高 | ★★★★★ | > 待核实 | ROS 2 运动规划核心框架，**2024-2026 版本演进细节待核实** |\n| ros2_control | 持续 | Open Robotics / 社区 | > 待核实 | 官方文档/源码 | 高 | ★★★★★ | > 待核实 | ROS 2 硬件抽象与控制器管理，**实时执行器集成细节待核实** |\n| Pinocchio | 持续 | INRIA / 社区 | > 待核实 | 官方文档/源码 | 高 | ★★★★★ | > 待核实 | 高性能刚体动力学/运动学库，**ROS 2 绑定与实时性能待核实** |\n| Drake | 持续 | MIT / Toyota Research | > 待核实 | 官方文档/源码 | 高 | ★★★★★ | > 待核实 | 优化/验证导向工具箱，**ROS 2 互操作与真机部署案例待核实** |\n| MuJoCo ROS 2 Plugin | 2023+ | Google DeepMind / 社区 | > 待核实 | 官方文档/源码 | 高 | ★★★★☆ | > 待核实 | 物理仿真与 ROS 2 集成，**Sim2Real 零拷贝管线细节待核实** |\n| ALOHA 2 ROS 2 Driver | 2024 | Stanford / Google | > 待核实 | arXiv [10] 配套代码 | 高 | ★★★★☆ | [10] | 低成本双臂遥操作硬件 ROS 2 驱动，数据采集流程标准化 |\n\n---\n\n## 数据集与基准\n\n| 名称 | 年份 | 机构 | 热度 | 权威 | 关注度 | 推荐度 | 链接 | 说明 |\n|------|------|------|------|------|--------|--------|------|------|\n| Open X-Embodiment | 2023+ | Google / 社区 | > 待核实 | 官网/论文 | 高 | ★★★★★ | > 待核实 | 大规模跨本体操作数据集，**真机评测分集缺失** [3] |\n| LIBERO | 2023+ | Stanford / 社区 | > 待核实 | 官网/论文 | 高 | ★★★★★ | > 待核实 | 终身学习基准，**真机迁移任务集待核实** |\n| SimplerEnv | 2024+ | 社区 | > 待核实 | GitHub | 中 | ★★★★☆ | > 待核实 | 统一仿真评测环境，**真机对齐度待核实** |\n| Local Planner Bench | 2022 | arXiv [4] | > 待核实 | 预印本 [4] | 中 | ★★★★☆ | [4] | 局部规划器基准，含动态障碍物与非完整约束 |\n| Robot Policy Evaluation for Sim-to-Real (基准视角综述) | 2025 | arXiv [3] | > 待核实 | 预印本 [3] | 高 | ★★★★★ | [3] | 系统梳理 Sim2Real 评测缺口，指导基准建设 |\n\n---\n\n## 参考来源\n[1] Inference-Time Attention Steering for Vision-Language-Action Driving Models — http://arxiv.org/abs/2608.17095v1\n[2] Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection — http://arxiv.org/abs/2603.13782v1\n[3] Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective — http://arxiv.org/abs/2508.11117v1\n[4] Local Planner Bench: Benchmarking for Local Motion Planning — http://arxiv.org/abs/2210.06033v1\n[5] Predicted Composite Signed-Distance Fields for Real-Time Motion Planning in Dynamic Environments — http://arxiv.org/abs/2008.00969v2\n[6] Evaluating Guiding Spaces for Motion Planning — http://arxiv.org/abs/2210.08640v1\n[7] Robowflex: Robot Motion Planning with MoveIt Made Easy — http://arxiv.org/abs/2103.12826v2\n[8] On $\\ell_2$-performance of weakly-hard real-time control systems — http://arxiv.org/abs/2305.07875v3\n[9] Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics — http://arxiv.org/abs/1403.5204v3\n[10] ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation — http://arxiv.org/abs/2405.02292v1\n[11] Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge — http://arxiv.org/abs/2101.02842v1\n[12] ROS-Causal: A ROS-based Causal Analysis Framework for Human-Robot Interaction Applications — http://arxiv.org/abs/2402.16068v3\n\n---\n\n*Generated by research-bot · topic=`机器人运动学控制与-ros-2` · depth=`quick` · rounds=1 · engines=arxiv, openalex, crossref, semantic_scholar, github, bing, sogou, so360, searxng · skills=deep-research, frontier-tracking, paper-survey, evidence-grading, frontier-watch · model=`nvidia/nemotron-3-ultra-550b-a55b` · sources=34 · duration=288s · 2026-11-28T03:51:52+00:00*\n",
+  "references": [
+    {
+      "n": 1,
+      "title": "Adaptive Control of Robot Manipulators With Uncertain Kinematics and Dynamics",
+      "url": "http://arxiv.org/abs/1403.5204v3",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2014-03-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 2,
+      "title": "Real-Time Service Subscription and Adaptive Offloading Control in Vehicular Edge Computing",
+      "url": "http://arxiv.org/abs/2512.14002v1",
+      "kind": "paper",
+      "venue": "cs.DC",
+      "published": "2025-12-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 3,
+      "title": "Real time state monitoring and fault diagnosis system for motor based on LabVIEW",
+      "url": "http://arxiv.org/abs/1806.09998v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-06-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 4,
+      "title": "On $\\ell_2$-performance of weakly-hard real-time control systems",
+      "url": "http://arxiv.org/abs/2305.07875v3",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2023-05-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 5,
+      "title": "Duality-based Convex Optimization for Real-time Obstacle Avoidance between Polytopes with Control Barrier Functions",
+      "url": "http://arxiv.org/abs/2107.08360v4",
+      "kind": "paper",
+      "venue": "eess.SY",
+      "published": "2021-07-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 6,
+      "title": "Real-Time-Data Analytics in Raw Materials Handling",
+      "url": "http://arxiv.org/abs/1802.00625v1",
+      "kind": "paper",
+      "venue": "eess.SP",
+      "published": "2018-02-02",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 7,
+      "title": "Robowflex: Robot Motion Planning with MoveIt Made Easy",
+      "url": "http://arxiv.org/abs/2103.12826v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-03-23",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 8,
+      "title": "Evaluating Guiding Spaces for Motion Planning",
+      "url": "http://arxiv.org/abs/2210.08640v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-10-16",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 9,
+      "title": "Data-Efficient Learning of High-Quality Controls for Kinodynamic Planning used in Vehicular Navigation",
+      "url": "http://arxiv.org/abs/2201.02254v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-01-06",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 10,
+      "title": "A Framework for Joint Grasp and Motion Planning in Confined Spaces",
+      "url": "http://arxiv.org/abs/2505.07259v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-05-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 11,
+      "title": "Local Planner Bench: Benchmarking for Local Motion Planning",
+      "url": "http://arxiv.org/abs/2210.06033v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2022-10-12",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 12,
+      "title": "Predicted Composite Signed-Distance Fields for Real-Time Motion Planning in Dynamic Environments",
+      "url": "http://arxiv.org/abs/2008.00969v2",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-08-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 13,
+      "title": "ROS-Causal: A ROS-based Causal Analysis Framework for Human-Robot Interaction Applications",
+      "url": "http://arxiv.org/abs/2402.16068v3",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-02-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 14,
+      "title": "Kinematics of AGN Jets",
+      "url": "http://arxiv.org/abs/0810.4714v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2008-10-26",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 15,
+      "title": "Prognostic and Health Management (PHM) tool for Robot Operating System (ROS)",
+      "url": "http://arxiv.org/abs/2011.09222v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2020-11-18",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 16,
+      "title": "High-level programming and control for industrial robotics: using a hand-held accelerometer-based input device for gesture and posture recognition",
+      "url": "http://arxiv.org/abs/1309.2093v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2013-09-09",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 17,
+      "title": "Kinematic analysis of a parallel robot for minimally invasive surgery",
+      "url": "http://arxiv.org/abs/2406.02047v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-06-04",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 18,
+      "title": "ALOHA 2: An Enhanced Low-Cost Hardware for Bimanual Teleoperation",
+      "url": "http://arxiv.org/abs/2405.02292v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2024-02-07",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 19,
+      "title": "Kinematics of parsec-scale structures in AGN: the 2cm VLBA Survey",
+      "url": "http://arxiv.org/abs/astro-ph/0207021v1",
+      "kind": "paper",
+      "venue": "astro-ph",
+      "published": "2002-07-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 20,
+      "title": "Inference-Time Attention Steering for Vision-Language-Action Driving Models",
+      "url": "http://arxiv.org/abs/2608.17095v1",
+      "kind": "paper",
+      "venue": "cs.CV",
+      "published": "2026-08-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 21,
+      "title": "Robot Policy Evaluation for Sim-to-Real Transfer: A Benchmarking Perspective",
+      "url": "http://arxiv.org/abs/2508.11117v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2025-08-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 22,
+      "title": "Your Vision-Language-Action Model Already Has Attention Heads For Path Deviation Detection",
+      "url": "http://arxiv.org/abs/2603.13782v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2026-03-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 23,
+      "title": "Grasp and Motion Planning for Dexterous Manipulation for the Real Robot Challenge",
+      "url": "http://arxiv.org/abs/2101.02842v1",
+      "kind": "paper",
+      "venue": "cs.RO",
+      "published": "2021-01-08",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 24,
+      "title": "Two-dimensional magnetic interactions in LaFeAsO",
+      "url": "http://arxiv.org/abs/1303.4033v1",
+      "kind": "paper",
+      "venue": "cond-mat.supr-con",
+      "published": "2013-03-17",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 25,
+      "title": "Observation of Atmospheric Neutrino Oscillations in Soudan 2",
+      "url": "http://arxiv.org/abs/hep-ex/0307069v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "2003-07-25",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 26,
+      "title": "Search for the Proton Decay Mode proton to neutrino K+ in Soudan 2",
+      "url": "http://arxiv.org/abs/hep-ex/9803030v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "1998-03-30",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 27,
+      "title": "Search for nucleon decay into lepton + K0 final states using Soudan 2",
+      "url": "http://arxiv.org/abs/hep-ex/9910026v2",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "1999-10-14",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 28,
+      "title": "A Study of Cosmic Ray Composition in the Knee Region using Multiple Muon Events in the Soudan 2 Detector",
+      "url": "http://arxiv.org/abs/hep-ex/9612004v2",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "1996-12-05",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 29,
+      "title": "The Atmospheric Neutrino Flavor Ratio from a 3.9 Fiducial Kiloton-Year Exposure of Soudan 2",
+      "url": "http://arxiv.org/abs/hep-ex/9901024v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "1999-01-15",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 30,
+      "title": "The Observation of a Shadow of the Moon in the Underground muon flux in the Soudan 2 detector",
+      "url": "http://arxiv.org/abs/hep-ex/9905036v1",
+      "kind": "paper",
+      "venue": "hep-ex",
+      "published": "1999-05-20",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 31,
+      "title": "NTU-NPU System for Voice Privacy 2024 Challenge",
+      "url": "http://arxiv.org/abs/2410.02371v1",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-10-03",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 32,
+      "title": "Discovery Opportunities with Gravitational Waves -- TASI 2024 Lecture Notes",
+      "url": "http://arxiv.org/abs/2409.08956v1",
+      "kind": "paper",
+      "venue": "astro-ph.CO",
+      "published": "2024-09-13",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 33,
+      "title": "Atmospheric entry and fragmentation of small asteroid 2024 BX1: Bolide trajectory, orbit, dynamics, light curve, and spectrum",
+      "url": "http://arxiv.org/abs/2403.00634v2",
+      "kind": "paper",
+      "venue": "astro-ph.EP",
+      "published": "2024-03-01",
+      "citations": null,
+      "stars": null
+    },
+    {
+      "n": 34,
+      "title": "ICAGC 2024: Inspirational and Convincing Audio Generation Challenge 2024",
+      "url": "http://arxiv.org/abs/2407.12038v2",
+      "kind": "paper",
+      "venue": "eess.AS",
+      "published": "2024-07-01",
+      "citations": null,
+      "stars": null
+    }
+  ],
+  "paths": {
+    "markdown": "report/2026/11/2026-11-28-机器人运动学控制与-ros-2.md",
+    "json": "report/2026/11/2026-11-28-机器人运动学控制与-ros-2.json"
+  }
+}
